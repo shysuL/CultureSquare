@@ -11,7 +11,8 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 <h1>soo and hong Test</h1>
-<h2>HIHI HONG CHEOL</h2>
+<h2>testest</h2>
 <h3>HongCheol TESTa</h3>
+
 </body>
 </html>
