@@ -10,18 +10,56 @@
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
+	<!--  어노테이션으로 스프링 빈을 등록하는 걸 허용하는 태그 -->
 	<annotation-driven />
+	
+	<!-- 인터셉터 설정 --> <!--  인터셉터 사용시  -->
+<!-- 	<interceptors> -->
+<!-- 		<interceptor> -->
+<!-- 			<mapping path="/interceptor/admin/**"/> -->
+<!-- 			<exclude-mapping path="/interceptor/admin/fail"/> -->
+<!-- 			<beans:bean class="interceptor.interceptor.AdminInterceptor"/> -->
+<!-- 		</interceptor> -->
+<!-- 	</interceptors> -->
+
+<!-- 	<interceptors> -->
+<!-- 		<interceptor> -->
+<!-- 			<mapping path="/board/write"/> -->
+<!-- 			<exclude-mapping path="/board/noLogin"/> -->
+<!-- 			<beans:bean class="interceptor.interceptor.BoardInterceptor"/> -->
+<!-- 		</interceptor> -->
+<!-- 	</interceptors> -->
+	
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- 스프링 프로젝트의 정적인 자원들에 대한 URL 매핑 -->
 	<resources mapping="/resources/**" location="/resources/" />
+<!-- 	<resources mapping="/img/**" location="/resources/img/" /> -->
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/" />
-		<beans:property name="suffix" value=".jsp" />
-	</beans:bean>
+
+	<!--  JSP 기반의 ViewResolver -->
+	<beans:bean class = "org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/"></beans:property>
+		<beans:property name="suffix" value=".jsp"></beans:property>
+		<beans:property name="order" value = "1"/>
+	</beans:bean>	
 	
-		<!-- MultipartResolver -->
+	<!-- 스프링  빈 기반의 ViewResolver -->
+	<beans:bean class = "org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="0"></beans:property>
+	</beans:bean>
+	<!--  DownloavView 클래스를 down이라는 이름의 스프링 빈으로 등록하기 -->  <!-- File이 사용되는 경로 지정하기 -->
+<!-- 	<beans:bean id = "down" class = "file.view.DownloadView" /> -->
+
+	<!-- JSON응답용 jsonView 스프링 빈 등록하기 -->
+	<beans:bean id = "jsonView"
+	class = "org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+		<beans:property name="contentType"
+		value = "application/json;charset=utf-8"/>	
+	</beans:bean>
+
+
+	<!-- MultipartResolver -->
 	<beans:bean id = "multipartResolver"
 	class = "org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- 메모리에서 파일 처리하는 사이즈 제한 : 1MB -->
@@ -31,8 +69,12 @@
 		<!-- 파일 당 최대 사이즈 제한 : 5MB-->
 		<beans:property name="maxUploadSizePerFile" value = "5242880"/>
 	</beans:bean>
-	<context:component-scan base-package="com.culturesquare.www" />
 	
+	
+	<!-- 컴포넌트를 스캔해볼 패키지를 지정하는 태그 -->
+	<context:component-scan base-package="com.shysui.www, web.controller, login.controller, login.service, selectKey.controller, interceptor.controller, file.controller, file.service , ajax.controller" />
+	
+
 	
 	
 </beans:beans>
