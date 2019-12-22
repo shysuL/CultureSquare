@@ -6,7 +6,7 @@
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />     
 <style type="text/css">
 #carouselExampleFade img {
-	width: 500px;
+	width: 800px;
 	height: 400px;
 }
 </style>
@@ -14,6 +14,7 @@
 
 <div class="container">
 
+<!-- 캐러셀영역 -->
 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -38,6 +39,12 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+<!-- 캐러셀영역 END -->
+
+<!-- 크롤링 영역 -->
+
+
+<!-- 크롤링 영역 END -->
 </div>
 
 
