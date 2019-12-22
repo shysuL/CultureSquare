@@ -72,7 +72,7 @@
 	
 	
 	<!-- 컴포넌트를 스캔해볼 패키지를 지정하는 태그 -->
-	<context:component-scan base-package="com.shysui.www, web.controller, login.controller, login.service, selectKey.controller, interceptor.controller, file.controller, file.service , ajax.controller" />
+	<context:component-scan base-package="com.shysui.www, web.controller, login.controller, login.service, selectKey.controller, interceptor.controller, file.controller, file.service , ajax.controller, main.controller" />
 	
 
 	
