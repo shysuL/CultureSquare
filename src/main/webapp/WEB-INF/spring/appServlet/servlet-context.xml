@@ -72,9 +72,10 @@
 	
 	
 	<!-- 컴포넌트를 스캔해볼 패키지를 지정하는 태그 -->
-	<context:component-scan base-package="com.shysui.www, web.controller, login.controller, login.service, selectKey.controller, interceptor.controller, file.controller, file.service , ajax.controller, main.controller" />
+	<context:component-scan base-package="com.shysui.www, web.controller, user.controller, login.service, selectKey.controller, interceptor.controller, file.controller, file.service , ajax.controller, main.controller" />
 	
-
+	<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
+	<beans:bean id="naverLoginBO" class="user.bo.NaverLoginBO" />
 	
 	
 </beans:beans>

@@ -74,34 +74,55 @@
 	<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		<span class="fas fa-user" ></span>
 	</button>
-	
     <!-- 로그인  드롭다운-->
-	<div class="dropdown-menu ">
-	  <form class="px-4 py-3">
-	    <div class="form-group">
-	      <label for="exampleDropdownFormEmail1">Email address</label>
-	      <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
-	    </div>
-	    <div class="form-group">
-	      <label for="exampleDropdownFormPassword1">Password</label>
-	      <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
-	    </div>
-	    <div class="form-group">
-	      <div class="form-check">
-	        <input type="checkbox" class="form-check-input" id="dropdownCheck">
-	        <label class="form-check-label" for="dropdownCheck">
-	          Remember me
-	        </label>
-	      </div>
-	    </div>
-	    <button type="submit" class="btn btn-primary">로그인</button>
-	  </form>
-	  <div class="dropdown-divider"></div>
-	  <a class="dropdown-item" href="#">페이스북</a>
-	  <a class="dropdown-item" href="#">구글</a>
-	  <a class="dropdown-item" href="#">네이버</a>
-	  <a class="dropdown-item" href="#">카카오톡</a>
-	 </div>
+    	<!-- 로그인 상태 -->
+		<c:if test="${login}">
+			<div class="dropdown-menu ">
+			  <div class="dropdown-divider"></div>
+			 	<h3>로그인 된 상태</h3>
+			 	<button id="logout" class="btn btn-danger" onclick="location.href='/logout'">로그아웃</button>
+			 </div>
+		</c:if>
+		<!-- 로그아웃 상태 -->
+		<c:if test="${not login}">
+			<div class="dropdown-menu ">
+				<form class="px-4 py-3">
+					<div class="form-group">
+						<label for="exampleDropdownFormEmail1">Email address</label> <input
+							type="email" class="form-control"
+							id="exampleDropdownFormEmail1" placeholder="email@example.com">
+					</div>
+					<div class="form-group">
+						<label for="exampleDropdownFormPassword1">Password</label> <input
+							type="password" class="form-control"
+							id="exampleDropdownFormPassword1" placeholder="Password">
+					</div>
+					<div class="form-group">
+						<div class="form-check">
+							<input type="checkbox" class="form-check-input"
+								id="dropdownCheck"> <label class="form-check-label"
+								for="dropdownCheck"> Remember me </label>
+						</div>
+					</div>
+					<button type="submit" id="login" class="btn btn-primary">로그인</button>
+					<div class="find">
+						<a href="#" id="findInfo">아이디/비밀번호 찾기</a>
+					</div>
+					<div class="join">
+						<a href="#" id="join">회원가입</a>
+					</div>
+				</form>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="#">페이스북</a> <a
+					class="dropdown-item" href="#">구글</a>
+				<!-- 네이버 로그인 창으로 이동 -->
+				<div id="naver_id_login" style="text-align: center">
+					<a href="${url}"> <img width="223"
+						src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png" /></a>
+				</div>
+				<a class="dropdown-item" href="#">카카오톡</a>
+			</div>
+		</c:if>
 	</div>
 </nav>
 
