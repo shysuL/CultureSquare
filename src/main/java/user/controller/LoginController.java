@@ -23,11 +23,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import user.bo.NaverLoginBO;
+import user.service.face.UserService;
 
 @Controller
 public class LoginController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+	@Autowired private UserService userService;
 
 	/* NaverLoginBO */
 	private NaverLoginBO naverLoginBO;
@@ -59,27 +61,9 @@ public class LoginController {
 
 		logger.info("api 결과 값 : " + apiResult.toString());
 
-		//2. String형식인 apiResult를 json형태로 바꿈
-		JSONParser parser = new JSONParser();
-		Object obj = parser.parse(apiResult);
-		JSONObject jsonObj = (JSONObject) obj;
-
-		//3. 데이터 파싱 
-		//Top레벨 단계 _response 파싱
-		JSONObject response_obj = (JSONObject)jsonObj.get("response");
-		//response의 nickname값 파싱
-		String nickname = (String)response_obj.get("nickname");
-		String socialId = (String)response_obj.get("email");
-
-		logger.info("닉네임 : " + nickname);
-		logger.info("소셜아이디(이메일) : " + socialId);
-
-		//4.파싱 닉네임 세션으로 저장
-		session.setAttribute("nickname",nickname); 	// 세션 생성
-		session.setAttribute("login", true); 		// 로그인 상태 true
-		session.setAttribute("socialId", socialId);	// 소셜 ID(이메일)
-
-
+		//2. 데이퍼 파싱 위한 서비스 호출
+		userService.setApiResult(apiResult, session);
+		
 		model.addAttribute("result", apiResult);
 
 		return "redirect:/main/main";
