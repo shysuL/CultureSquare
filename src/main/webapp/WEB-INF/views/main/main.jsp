@@ -16,7 +16,7 @@
 
 <c:choose>
 	<c:when test="${not login}">
-		<h1>로그아웃 상태</h1>
+			<h1>로그아웃 상태</h1>
 	</c:when>
 	<c:when test="${login }">
 		<h1>로그인 상태</h1>

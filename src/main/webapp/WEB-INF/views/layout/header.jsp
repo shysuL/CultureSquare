@@ -80,7 +80,18 @@
 			<div class="dropdown-menu ">
 			  <div class="dropdown-divider"></div>
 			 	<h3>로그인 된 상태</h3>
-			 	<button id="logout" class="btn btn-danger" onclick="location.href='/logout'">로그아웃</button>
+			 	<!-- 로그인 방식에 따른 로그아웃 구분 -->
+			 	<!-- 동작이 다름 -->
+			 	<!-- 소셜타입 = 'kakao'면 카카오 전용 로그아웃으로 -->
+			 	<!-- 그게 아니라면(일반, 네이버 로그인인 경우)는 일반 로그아웃으로 -->
+				<c:choose>
+					<c:when test="${socialType eq 'kakao'}">
+						<button id="logout" class="btn btn-danger" onclick="location.href='/kakaoLogout'">로그아웃</button>
+					</c:when>
+					<c:otherwise>
+						 <button id="logout" class="btn btn-danger" onclick="location.href='/logout'">로그아웃</button>
+					</c:otherwise>
+				</c:choose>
 			 </div>
 		</c:if>
 		<!-- 로그아웃 상태 -->
@@ -117,10 +128,14 @@
 					class="dropdown-item" href="#">구글</a>
 				<!-- 네이버 로그인 창으로 이동 -->
 				<div id="naver_id_login" style="text-align: center">
-					<a href="${url}"> <img width="223"
+					<a href="${naver_url}"> <img width="223"
 						src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png" /></a>
 				</div>
-				<a class="dropdown-item" href="#">카카오톡</a>
+				<!-- 카카오 로그인 창으로 이동 -->
+				<div id="kakao_id_login" style="text-align: center">
+					<a href="${kakao_url}"><img width="223"
+						src="/resources/img/kakao.png" /></a>
+				</div>
 			</div>
 		</c:if>
 	</div>

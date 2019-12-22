@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import user.bo.NaverLoginBO;
+import user.controller.KakaoController;
 import user.controller.LoginController;
 
 @Controller
@@ -30,15 +31,21 @@ public class MainController {
 	public void main(Model model, HttpSession session) {
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-		
 		//https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
 		//redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
-		logger.info("메인(네이버 URL 전달) : " + naverAuthUrl);
+		
+		//카카오 인증 URL 생성
+		String kakaoUrl = KakaoController.getAuthorizationUrl(session);
+		
+		logger.info("네이버 URL : " + naverAuthUrl);
+		logger.info("카카오 URL: " + kakaoUrl);
 		
 		//네이버 
-		model.addAttribute("url", naverAuthUrl);
+		model.addAttribute("naver_url", naverAuthUrl);
+		
+		//카카오
+		model.addAttribute("kakao_url", kakaoUrl);
 		
 	}
-	
 	
 }
