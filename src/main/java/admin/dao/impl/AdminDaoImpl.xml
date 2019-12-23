@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 마이바티스3 Mapper DOCTYPE -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="admin.dao.face.AdminDao">
+	<select id="selectCnt" parameterType="admin.dto.Admin" resultType="int">
+		SELECT COUNT(*)
+		FROM admin
+		WHERE 1=1
+		AND adminid = #{adminid }
+		AND adminpw = #{adminpw }
+	</select>
+
+</mapper>

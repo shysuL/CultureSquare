@@ -30,6 +30,16 @@
 		<level value="info" />
 	</logger>
 	
+	<!-- admin Loggers -->
+	<logger name="admin">
+		<level value="info" />
+	</logger>
+	
+	<!-- mypage Loggers -->
+	<logger name="mypage">
+		<level value="info" />
+	</logger>
+	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />
