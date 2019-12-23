@@ -26,11 +26,12 @@ public class test {
 		System.out.println("============================================================");
 
 		//Iterator을 사용하여 하나씩 값 가져오기
+		Iterator<Element> ie3 = element.select("div.box-image").iterator();
 		Iterator<Element> ie1 = element.select("strong.rank").iterator();
 		Iterator<Element> ie2 = element.select("strong.title").iterator();
 		        
-		while (ie1.hasNext()) {
-			System.out.println(ie1.next().text()+"\t"+ie2.next().text());
+		while (ie3.hasNext()) {
+			System.out.println(ie3.next()+"\t"+ie1.next().text()+"\t"+ie2.next().text());
 		}
 		
 		System.out.println("============================================================");
