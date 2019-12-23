@@ -9,5 +9,38 @@
          <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
          <property name="username" value="soo"/>
          <property name="password" value="0000"/>
-    </bean>		
+    </bean>	
+    
+  	<!-- JDBC Logger -->
+      <!-- 마이바티스 쿼리 프록시(Proxy) -->
+      <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<!-- 프록시 대상 DB 설정 -->
+      	<constructor-arg ref = "dataSourceSpied"/>
+      	<!-- 로그 포맷(양식) 설정 -->
+      	<property name="logFormatter">
+      		<bean class = "net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE"/>
+				<property name="sqlPrefix" value="SQL:::"/>
+      		</bean>
+      	</property>
+      </bean>
+      
+            
+      <!--  마이바티스 수행 객체 설정(SqlSession) -->
+      <bean id="SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+         <!-- 설정된 DB정보 입력 -->
+         <property name="dataSource" ref="dataSource"/>
+         
+         <!-- Mapper 파일 위치 설정 -->
+         <property name="mapperLocations">
+            <array>
+               <value>classpath:/artboard/dao/impl/**/*DaoImpl.xml</value>
+            </array>
+         </property>
+      </bean>
+      
+      <!--  마이바티스 DAO 인터페이스 설정 -->
+      <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+         <property name="basePackage" value="artboard.dao.face"/>      
+      </bean>	
 </beans>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 마이바티스 3 Configuration DOCTYPE -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="artboard.dao.face.PFBoardDao">
+
+	<select id="selectAll" parameterType="util.Paging"
+		resultType="artboard.dto.PFBoard">
+		SELECT * FROM (SELECT rownum rnum, B.* FROM (
+		SELECT
+		boardno, title, writtendate, contents, views, userno, postno FROM
+		board
+		ORDER BY boardno DESC ) B
+		ORDER BY rnum ) BOARD
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+
+	<select id="selectCntAll"  resultType="int">
+		SELECT count(*) FROM board
+	</select>
+
+</mapper>

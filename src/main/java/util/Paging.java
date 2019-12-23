@@ -20,6 +20,8 @@ public class Paging {
 	private String searchcategory; // 검색 조건
 	private String searchtarget; // 검색어
 
+	// Paging 기본 생성자
+	public Paging() {}
 // 총 게시글 수만 입력하는 생성자
 	public Paging(int totalCount) {
 		this.setTotalCount(totalCount);
