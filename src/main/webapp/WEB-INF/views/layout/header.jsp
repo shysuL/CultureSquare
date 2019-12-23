@@ -117,13 +117,13 @@
 				<!-- 구글 로그인 화면에서 ID, PW를 올바르게 입력하면 oauth2callback 메소드 실행 요청-->
 				<div id="google_id_login" style="text-align:center">
 					<a href="${google_url}">
-						<img width="230" src="/resources/img/google.png"/>
+						<img width="220" src="/resources/img/google.png"/>
 					</a>
 				</div>
 				<!-- 네이버 로그인 창으로 이동 -->
 				<div id="naver_id_login" style="text-align: center">
 					<a href="${naver_url}"> <img width="223"
-						src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png" /></a>
+						src="/resources/img/naver.png" /></a>
 				</div>
 				<!-- 카카오 로그인 창으로 이동 -->
 				<div id="kakao_id_login" style="text-align: center">
