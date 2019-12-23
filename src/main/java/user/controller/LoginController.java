@@ -183,6 +183,7 @@ public class LoginController {
 		session.setAttribute("login", true); 		// 로그인 상태 true
 		session.setAttribute("name", result.get("name"));			// 이름
 
+		
 		return "redirect:/main/main";
 	}
 
