@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.JsonNode;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,13 +21,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import user.bo.NaverLoginBO;
-import user.service.face.UserService;
+import user.service.face.NaverService;
 
 @Controller
 public class LoginController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-	@Autowired private UserService userService;
+	@Autowired private NaverService naverService;
 
 	/* NaverLoginBO */
 	private NaverLoginBO naverLoginBO;
@@ -62,7 +60,7 @@ public class LoginController {
 		logger.info("api 결과 값 : " + apiResult.toString());
 
 		//2. 데이퍼 파싱 위한 서비스 호출
-		userService.setApiResult(apiResult, session);
+		naverService.setApiResult(apiResult, session);
 		
 		model.addAttribute("result", apiResult);
 
