@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import user.bo.NaverLoginBO;
+import user.service.face.KakaoService;
 import user.service.face.NaverService;
 
 @Controller
@@ -28,6 +29,7 @@ public class LoginController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	@Autowired private NaverService naverService;
+	@Autowired private KakaoService kakaoService;
 
 	/* NaverLoginBO */
 	private NaverLoginBO naverLoginBO;
@@ -83,14 +85,14 @@ public class LoginController {
 		logger.info("여기는 카카오 콜백!");
 
 		//결과값을 node에 담음
-		JsonNode node = KakaoController.getAccessToken(code);
+		JsonNode node = kakaoService.getAccessToken(code);
 		//accessToken에 로그인한 사용자의 정보 저장
 		JsonNode accessToken = node.get("access_token");
 
 		logger.info("카카오 정보 : " + accessToken);
 
 		//사용자의 정보
-		JsonNode userInfo = KakaoController.getKakaoUserInfo(accessToken);
+		JsonNode userInfo = kakaoService.getKakaoUserInfo(accessToken);
 
 		//유저 정보를 카카오 API에서 가져오기
 		JsonNode properties = userInfo.path("properties");
@@ -132,10 +134,8 @@ public class LoginController {
 	public String Logout(HttpSession session) {
 		logger.info("카카오 로그아웃 되나연!");
 		
-		//kakao restapi 객체 선언
-		KakaoController kr = new KakaoController();
 		//노드에 로그아웃한 결과값음 담아줌 매개변수는 세션에 잇는 token을 가져와 문자열로 변환
-		JsonNode node = kr.Logout(session.getAttribute("token").toString());
+		JsonNode node = kakaoService.Logout(session.getAttribute("token").toString());
 
 		session.removeAttribute("token");	//토큰 제거
 		session.removeAttribute("kemail");	//이메일 제거

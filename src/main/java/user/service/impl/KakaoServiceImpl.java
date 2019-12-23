@@ -1,11 +1,7 @@
-package user.controller;
+package user.service.impl;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,24 +17,26 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
-@Controller
-public class KakaoController {
+import user.service.face.KakaoService;
+
+@Service
+public class KakaoServiceImpl implements KakaoService {
 
 	private final static String K_CLIENT_ID = "62e55c348f43d63611b245284e730db3";
 	private final static String K_REDIRECT_URI = "https://localhost:8443/kakaocallback";
 
-	public static String getAuthorizationUrl(HttpSession session) {
-
+	@Override
+	public String getAuthorizationUrl(HttpSession session) {
 		String kakaoUrl = "https://kauth.kakao.com/oauth/authorize?"
 				+ "client_id=" + K_CLIENT_ID + "&redirect_uri="
 				+ K_REDIRECT_URI + "&response_type=code";
 		return kakaoUrl;
 	}
 
-	public static JsonNode getAccessToken(String autorize_code) {
-
+	@Override
+	public JsonNode getAccessToken(String autorize_code) {
 		final String RequestUrl = "https://kauth.kakao.com/oauth/token";
 		final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
 		postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
@@ -79,8 +77,8 @@ public class KakaoController {
 		return returnNode;
 	}
 
-	public static JsonNode getKakaoUserInfo(JsonNode accessToken) {
-
+	@Override
+	public JsonNode getKakaoUserInfo(JsonNode accessToken) {
 		final String RequestUrl = "https://kapi.kakao.com/v1/user/me";
 		//String CLIENT_ID = K_CLIENT_ID; // REST API KEY
 		//String REDIRECT_URI = K_REDIRECT_URI; // 리다이렉트 URI
@@ -115,6 +113,8 @@ public class KakaoController {
 		}
 		return returnNode;
 	}
+
+	@Override
 	public JsonNode Logout(String autorize_code) {
 		final String RequestUrl = "https://kapi.kakao.com/v1/user/logout";
 
@@ -152,4 +152,6 @@ public class KakaoController {
 
 		return returnNode;
 	}
+
+
 }

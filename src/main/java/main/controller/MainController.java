@@ -10,8 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import user.bo.NaverLoginBO;
-import user.controller.KakaoController;
 import user.controller.LoginController;
+import user.service.face.KakaoService;
 
 @Controller
 public class MainController {
@@ -20,7 +20,8 @@ public class MainController {
 	
 	/* NaverLoginBO */
 	private NaverLoginBO naverLoginBO;
-	private String apiResult = null;
+	
+	@Autowired private KakaoService kakaoService;
 	
 	@Autowired
 	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
@@ -35,7 +36,7 @@ public class MainController {
 		//redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
 		
 		//카카오 인증 URL 생성
-		String kakaoUrl = KakaoController.getAuthorizationUrl(session);
+		String kakaoUrl = kakaoService.getAuthorizationUrl(session);
 		
 		logger.info("네이버 URL : " + naverAuthUrl);
 		logger.info("카카오 URL: " + kakaoUrl);
