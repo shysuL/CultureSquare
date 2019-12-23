@@ -1,23 +1,36 @@
 package user.controller;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.Base64;
 import org.codehaus.jackson.JsonNode;
 import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import user.bo.NaverLoginBO;
@@ -34,6 +47,11 @@ public class LoginController {
 	/* NaverLoginBO */
 	private NaverLoginBO naverLoginBO;
 	private String apiResult = null;
+
+	@Autowired
+	private GoogleConnectionFactory googleConnectionFactory;
+	@Autowired
+	private OAuth2Parameters googleOAuth2Parameters;
 
 
 	@Autowired
@@ -63,7 +81,7 @@ public class LoginController {
 
 		//2. 데이퍼 파싱 위한 서비스 호출
 		naverService.setApiResult(apiResult, session);
-		
+
 		model.addAttribute("result", apiResult);
 
 		return "redirect:/main/main";
@@ -104,9 +122,10 @@ public class LoginController {
 		kbirthday = kakao_account.path("birthday").asText();
 		kage = kakao_account.path("age_range").asText();
 
-		//4.파싱 닉네임 세션으로 저장
+		//파싱 닉네임 세션으로 저장
 		session.setAttribute("kemail",kemail); 	
-		session.setAttribute("nickname",kname); 	
+		session.setAttribute("name",kname); 		//이름 	 동일
+		session.setAttribute("nickname",kname); 	//닉네임 동일
 		session.setAttribute("kimage",kimage); 	
 		session.setAttribute("kgender",kgender); 	
 		session.setAttribute("kbirthday",kbirthday); 	
@@ -114,32 +133,65 @@ public class LoginController {
 		session.setAttribute("login", true); 		// 로그인 상태 true
 		session.setAttribute("socialType", "kakao");
 		session.setAttribute("token", accessToken);
-		
+
 		mav.setViewName("/main/main");
 		return mav;
 	}
 
-	//일반, 네이버 로그아웃
+	//구글 로그인 성공시 callback호출 메소드
+	@RequestMapping(value = "/googlecallback", method = { RequestMethod.GET, RequestMethod.POST })
+	public String googleCallback(Model model, HttpSession session, HttpServletRequest request) throws IOException {
+		logger.info("여기는 googleCallback");
+
+		String code = request.getParameter("code");
+
+		//RestTemplate을 사용하여 Access Token 및 profile을 요청한다.
+		RestTemplate restTemplate = new RestTemplate();
+		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		parameters.add("code", code);
+		parameters.add("client_id", "455988852585-f3r7dkn0se2ao5jjomake0usgfoccj1v.apps.googleusercontent.com");
+		parameters.add("client_secret", "FmIfUs1Yfw3dKiHCemsSCHiT");
+		parameters.add("redirect_uri", googleOAuth2Parameters.getRedirectUri());
+		parameters.add("grant_type", "authorization_code");
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+		HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(parameters, headers);
+		ResponseEntity<Map> responseEntity = restTemplate.exchange("https://www.googleapis.com/oauth2/v4/token", HttpMethod.POST, requestEntity, Map.class);
+		Map<String, Object> responseMap = responseEntity.getBody();
+
+		// id_token 라는 키에 사용자가 정보가 존재한다.
+		// 받아온 결과는 JWT (Json Web Token) 형식으로 받아온다. 콤마 단위로 끊어서 첫 번째는 현 토큰에 대한 메타 정보, 두 번째는 우리가 필요한 내용이 존재한다.
+		// 세번째 부분에는 위변조를 방지하기 위한 특정 알고리즘으로 암호화되어 사이닝에 사용한다.
+		//Base 64로 인코딩 되어 있으므로 디코딩한다.
+
+		String[] tokens = ((String)responseMap.get("id_token")).split("\\.");
+		Base64 base64 = new Base64(true);
+		String body = new String(base64.decode(tokens[1]));
+
+		String tokenInfo = new String(Base64.decodeBase64(tokens[1]), "utf-8");
+
+		//Jackson을 사용한 JSON을 자바 Map 형식으로 변환
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, String> result = mapper.readValue(body, Map.class);
+
+		logger.info("이름 : " + result.get("name"));
+		logger.info("닉넴 : " + result.get("given_name"));
+
+		// 파싱 데이터로 세션 저장
+		session.setAttribute("nickname",result.get("given_name")); 	// 닉네임
+		session.setAttribute("login", true); 		// 로그인 상태 true
+		session.setAttribute("name", result.get("name"));			// 이름
+
+		return "redirect:/main/main";
+	}
+
+	//로그아웃
 	@RequestMapping(value = "/logout", method = { RequestMethod.GET, RequestMethod.POST })
 	public String logout(HttpSession session)throws IOException {
-		logger.info("여기는 일반,네이버 로그아웃!");
+		logger.info("로그아웃!");
 		session.invalidate();
 
 		return "redirect:/main/main";
 	}
-	
-	
-	//카카오 로그아웃
-	@RequestMapping(value = "/kakaoLogout", produces = "application/json")
-	public String Logout(HttpSession session) {
-		logger.info("카카오 로그아웃 되나연!");
-		
-		//노드에 로그아웃한 결과값음 담아줌 매개변수는 세션에 잇는 token을 가져와 문자열로 변환
-		JsonNode node = kakaoService.Logout(session.getAttribute("token").toString());
-
-		session.removeAttribute("token");	//토큰 제거
-		session.removeAttribute("kemail");	//이메일 제거
-		session.invalidate();				//세션 제거
-		return "redirect:/main/main";
-	}    
 }

@@ -5,12 +5,15 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import user.bo.NaverLoginBO;
-import user.controller.LoginController;
 import user.service.face.KakaoService;
 
 @Controller
@@ -28,6 +31,12 @@ public class MainController {
 		this.naverLoginBO = naverLoginBO;
 	}
 	
+	/* GoogleLogin */
+	@Autowired
+	private GoogleConnectionFactory googleConnectionFactory;
+	@Autowired
+	private OAuth2Parameters googleOAuth2Parameters;
+	
 	@RequestMapping(value="/main/main")
 	public void main(Model model, HttpSession session) {
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
@@ -38,14 +47,22 @@ public class MainController {
 		//카카오 인증 URL 생성
 		String kakaoUrl = kakaoService.getAuthorizationUrl(session);
 		
+		/* 구글code 발행 */
+		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+		String googleUrl = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+		
 		logger.info("네이버 URL : " + naverAuthUrl);
 		logger.info("카카오 URL: " + kakaoUrl);
+		logger.info("구글 URL: " + googleUrl);
 		
 		//네이버 
 		model.addAttribute("naver_url", naverAuthUrl);
 		
 		//카카오
 		model.addAttribute("kakao_url", kakaoUrl);
+		
+		//구글
+		model.addAttribute("google_url", googleUrl);
 		
 	}
 	

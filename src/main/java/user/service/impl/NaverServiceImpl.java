@@ -31,11 +31,14 @@ public class NaverServiceImpl implements NaverService{
 		//response의 nickname값 파싱
 		String nickname = (String)response_obj.get("nickname");
 		String socialId = (String)response_obj.get("email");
+		String name = (String)response_obj.get("name");
 
 		//3.파싱 닉네임 세션으로 저장
 		session.setAttribute("nickname",nickname); 	// 세션 생성
 		session.setAttribute("login", true); 		// 로그인 상태 true
 		session.setAttribute("socialId", socialId);	// 소셜 ID(이메일)
+		session.setAttribute("name", name);			// 이름
+
 		return apiResult;
 	}
 }

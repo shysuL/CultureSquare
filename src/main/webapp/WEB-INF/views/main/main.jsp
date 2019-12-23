@@ -20,7 +20,7 @@
 	</c:when>
 	<c:when test="${login }">
 		<h1>로그인 상태</h1>
-		<h3>'${nickname}' 님 환영합니다!</h3>
+		<h3>${nickname} 님 환영합니다!</h3>
 	</c:when>
 </c:choose>
 
