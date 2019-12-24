@@ -136,10 +136,6 @@
   <!-- /.row -->
 
 </div>
-<div class="col-3">
-
-
-
 
 
   <!-- Pagination -->
