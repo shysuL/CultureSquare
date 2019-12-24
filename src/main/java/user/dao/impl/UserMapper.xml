@@ -10,8 +10,8 @@
 	 parameterType="user.dto.User_table" resultType="int">
 		SELECT COUNT(*) FROM user_table
 		WHERE 1=1
-			AND userid = #{userid }
 			AND usernick = #{usernick }
+			AND sociallogin = 1
 	</select>
 	
 	<insert id="insertNaverLoginInfo"
@@ -19,6 +19,13 @@
 		INSERT into user_table
 		VALUES(user_table_seq.nextval, #{userid}, 'naver', #{username}, #{usernick}, 'naver', 
 		#{usergender}, 0, 'naver', 5, 0, 0, null, null, 0, 0, 1)
+	</insert>
+	
+	<insert id="insertKakaoLoginInfo"
+	 parameterType="user.dto.User_table">
+		INSERT into user_table
+		VALUES(user_table_seq.nextval, 'kakao', 'kakao', #{username}, #{usernick}, 'kakao', 
+		'kakao', 0, 'kakao', 5, 0, 0, null, null, 0, 0, 1)
 	</insert>
 	
 </mapper>

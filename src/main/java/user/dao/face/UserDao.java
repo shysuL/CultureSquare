@@ -19,9 +19,19 @@ public interface UserDao {
 	 * 2019-12-24
 	 * 조홍철
 	 * 
-	 * 소셜로그인 시도시, User테이블에 정보가 없으면 데이터 삽입(회원가입과 유사)
+	 * 네이버 소셜로그인 시도시, User테이블에 정보가 없으면 데이터 삽입(회원가입과 유사)
 	 * 
 	 * @param user - 소셜로그인 정보가 담긴 객체
 	 */
 	public void insertNaverLoginInfo(User_table user);
+	
+	/**
+	 * 2019-12-24
+	 * 조홍철
+	 * 
+	 * 카카오 소셜로그인 시도시, User테이블에 정보가 없으면 데이터 삽입(회원가입과 유사)
+	 * 
+	 * @param user - 소셜로그인 정보가 담긴 객체
+	 */
+	public void insertKakaoLoginInfo(User_table user);
 }

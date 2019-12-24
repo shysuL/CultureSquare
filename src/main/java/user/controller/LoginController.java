@@ -34,6 +34,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import user.bo.NaverLoginBO;
+import user.dto.User_table;
 import user.service.face.KakaoService;
 import user.service.face.NaverService;
 
@@ -115,24 +116,29 @@ public class LoginController {
 		//유저 정보를 카카오 API에서 가져오기
 		JsonNode properties = userInfo.path("properties");
 		JsonNode kakao_account = userInfo.path("kakao_account");
-		kemail = kakao_account.path("email").asText();
 		kname = properties.path("nickname").asText();
-		kimage = properties.path("profile_image").asText();
-		kgender = kakao_account.path("gender").asText();
-		kbirthday = kakao_account.path("birthday").asText();
-		kage = kakao_account.path("age_range").asText();
 
+		
 		//파싱 닉네임 세션으로 저장
-		session.setAttribute("kemail",kemail); 	
 		session.setAttribute("name",kname); 		//이름 	 동일
 		session.setAttribute("nickname",kname); 	//닉네임 동일
-		session.setAttribute("kimage",kimage); 	
-		session.setAttribute("kgender",kgender); 	
-		session.setAttribute("kbirthday",kbirthday); 	
-		session.setAttribute("kage",kage); 	
 		session.setAttribute("login", true); 		// 로그인 상태 true
 		session.setAttribute("socialType", "kakao");
 		session.setAttribute("token", accessToken);
+		
+		//유저 DTO에 소셜 로그인 정보 저장
+		User_table user = new User_table();
+		user.setUsernick(kname);
+		user.setUsername(kname);
+		
+		//소셜 로그인 정보 존재 유무 검사
+		int socialCnt = kakaoService.getSocialAccountCnt(user);
+		
+		
+		//소셜로그인 정보가 회원정보에 담겨 있지 않으면 UserTable에 소셜로그인 데이터 삽입
+		if(socialCnt == 0) {
+			kakaoService.insertKakaoInfo(user);
+		}
 
 		mav.setViewName("/main/main");
 		return mav;
