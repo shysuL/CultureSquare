@@ -34,7 +34,7 @@
 		<!-- Mapper 파일 위치 설정 -->
 		<property name="mapperLocations">
 			<array>
-				<value>classpath:/admin/dao/impl/**/*DaoImpl.xml</value>
+				<value>classpath:/admin/dao/impl/**/*Mapper.xml</value>
 				<value>classpath:/artboard/dao/impl/**/*DaoImpl.xml</value>
 				<value>classpath:/user/dao/impl/**/*Mapper.xml</value>
 			</array>
