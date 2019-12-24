@@ -6,8 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import admin.dto.Admin;
 import admin.service.face.AdminService;
@@ -25,7 +27,7 @@ public class AdminLoginController {
 	}
 	
 	@RequestMapping(value="/admin/login", method=RequestMethod.POST)
-	public String loginProc(Admin admin, HttpSession session) {
+	public ModelAndView loginProc(Admin admin, HttpSession session, Model model, ModelAndView mav) {
 		
 		logger.info("관리자 페이지 로그인");
 		logger.info(admin.toString());
@@ -35,9 +37,18 @@ public class AdminLoginController {
 		if(adminIsLogin) {
 			session.setAttribute("adminLogin", adminIsLogin);
 			session.setAttribute("adminid", admin.getAdminid());
+			
 		}
 		
-		return "redirect:/admin/main";
+		
+		logger.info("로그인실패  : " + adminIsLogin);
+		
+		mav.addObject("adminIsLogin", adminIsLogin);
+		
+		//viewName지정하기
+		mav.setViewName("jsonView");
+		
+		return mav;
 		
 	}
 	
