@@ -4,6 +4,13 @@
 <!-- Header -->
 <jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 
+<style type="text/css">
+
+.container{
+	margin-top: 5%;
+}
+
+</style>
 
 <div class="container">
    
@@ -58,12 +65,47 @@
              <div class="invalid-feedback">Please fill out this field.</div>
            </div>
            
-              <div class="custom-control custom-radio">
-               <input type="radio" class="custom-control-input" id="customradio" name="usergender" value="남자">
-                  <label class="custom-control-label" for="customradio">남자</label>
-            </div>
            
+           <div class="form-group">
+           		성별
+	            <div class="custom-control custom-radio">
+	               <input type="radio" class="custom-control-input" id="customradiom" name="usergender" value="남자">
+	               <label class="custom-control-label" for="customradiom">남자</label>
+	            </div>
+	            <div class="custom-control custom-radio">
+	               <input type="radio" class="custom-control-input" id="customradiow" name="usergender" value="여자">
+	               <label class="custom-control-label" for="customradiow">여자</label>
+	            </div>
+           </div> 
            
+           <div class="form-group">
+           		관심분야
+           		<div class="custom-control custom-check">
+	               <input type="checkbox" class="custom-control-input" id="busking" name="interest" value="버스킹">
+	               <label class="custom-control-label" for="busking">버스킹</label>
+	            </div>
+	            <div class="custom-control custom-check">
+	               <input type="checkbox" class="custom-control-input" id="perform" name="interest" value="공연/예술">
+	               <label class="custom-control-label" for="perform">공연/예술</label>
+	            </div>
+	            <div class="custom-control custom-check">
+	               <input type="checkbox" class="custom-control-input" id="etc" name="interest" value="기타">
+	               <label class="custom-control-label" for="etc">기타</label>
+	            </div>           		
+           </div>
+           
+           <div class="form-group">
+           		회원구분
+	            <div class="custom-control custom-radio">
+	               <input type="radio" class="custom-control-input" id="usualuser" name="usertype" value="0">
+	               <label class="custom-control-label" for="usualuser">일반 사용자</label>
+	            </div>
+	            <div class="custom-control custom-radio">
+	               <input type="radio" class="custom-control-input" id="perfomencer" name="usertype" value="1">
+	               <label class="custom-control-label" for="perfomencer">예술인</label>
+	            </div>
+           </div> 
+                           
            <div class="form-group form-check">
              <label class="form-check-label">
                <input class="form-check-input" type="checkbox" name="remember" required> 이용약관 및 개인정보처리방침에 동의
