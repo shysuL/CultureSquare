@@ -3,8 +3,11 @@ package user.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import mypage.dto.User_table;
 
 @Controller
 public class JoinController {
@@ -16,10 +19,10 @@ public class JoinController {
 		logger.info("회원가입폼 접속 ! ");
 	}
 	
-	@RequestMapping(value="/user/joinForm", method=RequestMethod.POST)
-	public String joinProc() {
+	@RequestMapping(value="/user/joinProc", method=RequestMethod.POST)
+	public String joinProc(User_table user, Model model) {
 		
-		
+		logger.info(user.toString());
 		
 		return "redirect:/main/main";
 		
