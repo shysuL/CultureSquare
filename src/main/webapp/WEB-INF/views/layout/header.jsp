@@ -109,7 +109,7 @@
 						<a href="#" id="findInfo">아이디/비밀번호 찾기</a>
 					</div>
 					<div class="join">
-						<a href="#" id="join">회원가입</a>
+						<a href="/user/joinForm" id="join">회원가입</a>
 					</div>
 				</form>
 				<div class="dropdown-divider"></div>
@@ -137,7 +137,7 @@
 
 <!-- 메인이미지 -->
 <nav class="navbar navbar-dark bg-dark center">
-	<a href="/main"><img class="culture" src="/resources/logo/mainlogo.png" ></a> 
+	<a href="/main/main"><img class="culture" src="/resources/logo/mainlogo.png" ></a> 
 </nav>
 
 <!-- 목록 -->
@@ -151,7 +151,7 @@
 			<li class="nav-item"><a href="#" class="nav-link">공지사항</a></li>
 			<li class="nav-item"><a href="#" class="nav-link">자유게시판</a></li> 
 			<li class="nav-item"><a href="#" class="nav-link">CALENDAL</a></li> 
-			<li class="nav-item"><a href="#" class="nav-link">PR</a></li> 
+			<li class="nav-item"><a href="/prboard/prlist" class="nav-link">PR</a></li> 
 			<li class="nav-item"><a href="#" class="nav-link">FAQ</a></li> 
 		</ul> 
 	</div> 

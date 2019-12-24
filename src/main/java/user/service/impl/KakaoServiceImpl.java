@@ -17,13 +17,18 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import user.dao.face.UserDao;
+import user.dto.User_table;
 import user.service.face.KakaoService;
 
 @Service
 public class KakaoServiceImpl implements KakaoService {
 
+	@Autowired private UserDao userDao;
+	
 	private final static String K_CLIENT_ID = "62e55c348f43d63611b245284e730db3";
 	private final static String K_REDIRECT_URI = "https://localhost:8443/kakaocallback";
 
@@ -153,5 +158,15 @@ public class KakaoServiceImpl implements KakaoService {
 		return returnNode;
 	}
 
+	@Override
+	public int getSocialAccountCnt(User_table user) {
+		
+		return userDao.selectSocialCnt(user);
+	}
 
+	@Override
+	public void insertKakaoInfo(User_table user) {
+
+		userDao.insertKakaoLoginInfo(user);
+	}
 }

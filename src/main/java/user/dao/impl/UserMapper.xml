@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user.dao.face.UserDao">
+	
+	<select id="selectSocialCnt"
+	 parameterType="user.dto.User_table" resultType="int">
+		SELECT COUNT(*) FROM user_table
+		WHERE 1=1
+			AND usernick = #{usernick }
+			AND sociallogin = 1
+	</select>
+	
+	<insert id="insertNaverLoginInfo"
+	 parameterType="user.dto.User_table">
+		INSERT into user_table
+		VALUES(user_table_seq.nextval, #{userid}, 'naver', #{username}, #{usernick}, 'naver', 
+		#{usergender}, 0, 'naver', 5, 0, 0, null, null, 0, 0, 1)
+	</insert>
+	
+	<insert id="insertKakaoLoginInfo"
+	 parameterType="user.dto.User_table">
+		INSERT into user_table
+		VALUES(user_table_seq.nextval, 'kakao', 'kakao', #{username}, #{usernick}, 'kakao', 
+		'kakao', 0, 'kakao', 5, 0, 0, null, null, 0, 0, 1)
+	</insert>
+	
+	<insert id="insertGoogleLoginInfo"
+	 parameterType="user.dto.User_table">
+		INSERT into user_table
+		VALUES(user_table_seq.nextval, 'google', 'google', #{username}, #{usernick}, 'google', 
+		'google', 0, 'google', 5, 0, 0, null, null, 0, 0, 1)
+	</insert>
+	
+</mapper>
