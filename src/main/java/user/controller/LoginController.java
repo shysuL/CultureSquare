@@ -93,119 +93,29 @@ public class LoginController {
 
 	//카카오 로그인 성공시 callback호출 메소드
 	@RequestMapping(value = "kakaocallback", produces="application/json", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView kakaoCallback(@RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response, 
-			HttpSession session) throws IOException, ParseException {
-		ModelAndView mav = new ModelAndView();
-		String kemail = null;
-		String kname = null;
-		String kgender = null;
-		String kbirthday = null;
-		String kage = null;
-		String kimage = null;
+	public String kakaoCallback(@RequestParam("code") String code, 
+			HttpSession session){
 
-		logger.info("여기는 카카오 콜백!");
-
-		//결과값을 node에 담음
-		JsonNode node = kakaoService.getAccessToken(code);
-		//accessToken에 로그인한 사용자의 정보 저장
-		JsonNode accessToken = node.get("access_token");
-
-		logger.info("카카오 정보 : " + accessToken);
-
-		//사용자의 정보
-		JsonNode userInfo = kakaoService.getKakaoUserInfo(accessToken);
-
-		//유저 정보를 카카오 API에서 가져오기
-		JsonNode properties = userInfo.path("properties");
-		JsonNode kakao_account = userInfo.path("kakao_account");
-		kname = properties.path("nickname").asText();
-
+		logger.info("여기는 카카오톡 콜백!");
 		
-		//파싱 닉네임 세션으로 저장
-		session.setAttribute("name",kname); 		//이름 	 동일
-		session.setAttribute("nickname",kname); 	//닉네임 동일
-		session.setAttribute("login", true); 		// 로그인 상태 true
-		session.setAttribute("socialType", "kakao");
-		session.setAttribute("token", accessToken);
-		
-		//유저 DTO에 소셜 로그인 정보 저장
-		User_table user = new User_table();
-		user.setUsernick(kname);
-		user.setUsername(kname);
-		
-		//소셜 로그인 정보 존재 유무 검사
-		int socialCnt = kakaoService.getSocialAccountCnt(user);
-		
-		
-		//소셜로그인 정보가 회원정보에 담겨 있지 않으면 UserTable에 소셜로그인 데이터 삽입
-		if(socialCnt == 0) {
-			kakaoService.insertKakaoInfo(user);
-		}
+		//카카오 로그인 데이터 파싱 및 설정 위한 서비스 호출
+		kakaoService.setKakaoLogin(code, session);
 
-		mav.setViewName("/main/main");
-		return mav;
+		return "redirect:/main/main";
 	}
 
 	//구글 로그인 성공시 callback호출 메소드
 	@RequestMapping(value = "/googlecallback", method = { RequestMethod.GET, RequestMethod.POST })
-	public String googleCallback(Model model, HttpSession session, HttpServletRequest request) throws IOException {
-		logger.info("여기는 googleCallback");
+	public String googleCallback(String code, HttpSession session) {
+		logger.info("여기는여기는 googleCallback");
 
-		String code = request.getParameter("code");
-
-		//RestTemplate을 사용하여 Access Token 및 profile을 요청한다.
-		RestTemplate restTemplate = new RestTemplate();
-		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
-		parameters.add("code", code);
-		parameters.add("client_id", "455988852585-f3r7dkn0se2ao5jjomake0usgfoccj1v.apps.googleusercontent.com");
-		parameters.add("client_secret", "FmIfUs1Yfw3dKiHCemsSCHiT");
-		parameters.add("redirect_uri", googleOAuth2Parameters.getRedirectUri());
-		parameters.add("grant_type", "authorization_code");
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-		HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(parameters, headers);
-		ResponseEntity<Map> responseEntity = restTemplate.exchange("https://www.googleapis.com/oauth2/v4/token", HttpMethod.POST, requestEntity, Map.class);
-		Map<String, Object> responseMap = responseEntity.getBody();
-
-		// id_token 라는 키에 사용자가 정보가 존재한다.
-		// 받아온 결과는 JWT (Json Web Token) 형식으로 받아온다. 콤마 단위로 끊어서 첫 번째는 현 토큰에 대한 메타 정보, 두 번째는 우리가 필요한 내용이 존재한다.
-		// 세번째 부분에는 위변조를 방지하기 위한 특정 알고리즘으로 암호화되어 사이닝에 사용한다.
-		//Base 64로 인코딩 되어 있으므로 디코딩한다.
-
-		String[] tokens = ((String)responseMap.get("id_token")).split("\\.");
-		Base64 base64 = new Base64(true);
-		String body = new String(base64.decode(tokens[1]));
-
-		String tokenInfo = new String(Base64.decodeBase64(tokens[1]), "utf-8");
-
-		//Jackson을 사용한 JSON을 자바 Map 형식으로 변환
-		ObjectMapper mapper = new ObjectMapper();
-		Map<String, String> result = mapper.readValue(body, Map.class);
-
-		logger.info("이름 : " + result.get("name"));
-		logger.info("닉넴 : " + result.get("given_name"));
-		
-		
-		//유저 DTO에 소셜 로그인 정보 저장
-		User_table user = new User_table();
-		user.setUsername(result.get("name"));
-		user.setUsernick(result.get("given_name"));
-		
-		//소셜 로그인 정보 존재 유무 검사
-		int socialCnt = googleService.getSocialAccountCnt(user);
-		
-		//소셜로그인 정보가 회원정보에 담겨 있지 않으면 UserTable에 소셜로그인 데이터 삽입
-		if(socialCnt == 0) {
-			googleService.insertGoogleInfo(user);
+		try {
+			//구글 로그인 데이터 파싱 및 설정 위한 서비스 호출
+			googleService.setGoogleLogin(code, session, googleOAuth2Parameters);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		
-		// 파싱 데이터로 세션 저장
-		session.setAttribute("nickname",result.get("given_name")); 	// 닉네임
-		session.setAttribute("login", true); 		// 로그인 상태 true
-		session.setAttribute("name", result.get("name"));			// 이름
-
 		
 		return "redirect:/main/main";
 	}

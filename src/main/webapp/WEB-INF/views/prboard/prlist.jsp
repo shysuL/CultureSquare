@@ -19,6 +19,30 @@
     <small>Secondary Text</small>
   </h1>
 
+<!-- <form action="/manager/counselormanage" method="get"> -->
+<div style="margin: 1%">
+<select name="searchType">
+	<option value="albumPR">앨범 홍보</option>
+	<option value="showPR">공연 홍보</option>
+	<option value="exhibitionPR">전시회 홍보</option>
+</select>
+<input type="text" id="search" name="search">
+<button>검색</button>
+</div>
+<!-- </form> -->
+
+<div style="margin-top:20px; margin-bottom: 20px;">
+<span >
+		<a href="#"> <img src="/resources/img/time.png" /></a>
+		<a href="#"> <img src="/resources/img/view.png" style="padding-left: 10px;"/></a>
+		<a href="#"> <img src="/resources/img/like.png" style="padding-left: 10px;"/></a>
+</span>
+<span>
+		<a href="#"><button class="btn btn-md b-btn" style="float: right; background-color: #494b4d; color: white;">글작성</button></a>
+</span>
+</div>
+
+
   <div class="row">
     <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
       <div class="card h-100">
@@ -111,6 +135,13 @@
   </div>
   <!-- /.row -->
 
+</div>
+<div class="col-3">
+
+
+
+
+
   <!-- Pagination -->
   <ul class="pagination justify-content-center">
     <li class="page-item">
@@ -135,9 +166,6 @@
           </a>
     </li>
   </ul>
-
-</div>
-
-
+</div> <!-- 컨테이너 end -->
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
 
