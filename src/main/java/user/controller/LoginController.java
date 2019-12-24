@@ -108,7 +108,7 @@ public class LoginController {
 	@RequestMapping(value = "/googlecallback", method = { RequestMethod.GET, RequestMethod.POST })
 	public String googleCallback(String code, HttpSession session) {
 		logger.info("여기는여기는 googleCallback");
-		
+
 		try {
 			//구글 로그인 데이터 파싱 및 설정 위한 서비스 호출
 			googleService.setGoogleLogin(code, session, googleOAuth2Parameters);
