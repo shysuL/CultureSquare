@@ -10,8 +10,9 @@
 		resultType="artboard.dto.Board">
 		SELECT * FROM (SELECT rownum rnum, B.* FROM (
 		SELECT
-		boardno, title, writtendate, contents, views, userno, postno FROM
-		board
+		b.boardno, b.title, b.writtendate, b.contents, b.views, b.userno, b.postno, p.performno, p.performname, p.performdate FROM
+		board b, perform_add p
+		WHERE b.boardno = p.boardno
 		ORDER BY boardno DESC ) B
 		ORDER BY rnum ) BOARD
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}

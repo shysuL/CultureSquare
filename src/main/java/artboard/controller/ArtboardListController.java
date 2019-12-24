@@ -24,16 +24,16 @@ public class ArtboardListController {
 	@RequestMapping(value = "/artboard/list", method = RequestMethod.GET)
 	public void pfList(Model model, Paging paging) {
 		
-		logger.info("아트보드");
+//		logger.info("아트보드");
 		
 		paging = pfboardService.getPaging(paging);
 		
 		model.addAttribute("paging",paging);
 		
-		logger.info(paging.toString()); 
+//		logger.info(paging.toString()); 
 		
 		List<Board> list = pfboardService.getList(paging);
-		    
+		    		
 		model.addAttribute("list", list);
 		
 		logger.info(list.toString()); 

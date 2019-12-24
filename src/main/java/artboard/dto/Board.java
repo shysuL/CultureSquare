@@ -1,5 +1,6 @@
 package artboard.dto;
 
+
 public class Board {
 	private int boardno;
 	private String title;
@@ -10,16 +11,72 @@ public class Board {
 	private int postno;
 	
 	
+	private int performno;
+	private String performname;
+	private String performdate;
+	private int writepermit;
+	private int updatepermit;
+	private int deletepermit;
 	
-	
-	
-	
-	
+
 	
 	@Override
 	public String toString() {
-		return "PFBoard [boardno=" + boardno + ", title=" + title + ", writtendate=" + writtendate + ", contents="
-				+ contents + ", views=" + views + ", userno=" + userno + ", postno=" + postno + "]";
+		return "Board [boardno=" + boardno + ", title=" + title + ", writtendate=" + writtendate + ", contents="
+				+ contents + ", views=" + views + ", userno=" + userno + ", postno=" + postno + ", performno="
+				+ performno + ", performname=" + performname + ", performdate=" + performdate + ", writepermit="
+				+ writepermit + ", updatepermit=" + updatepermit + ", deletepermit=" + deletepermit + "]";
+	}
+
+	
+	public int getPerformno() {
+		return performno;
+	}
+
+	public void setPerformno(int performno) {
+		this.performno = performno;
+	}
+
+	public String getPerformname() {
+		return performname;
+	}
+
+	public void setPerformname(String performname) {
+		this.performname = performname;
+	}
+
+	
+	public int getWritepermit() {
+		return writepermit;
+	}
+
+	public String getPerformdate() {
+		return performdate;
+	}
+
+
+	public void setPerformdate(String performdate) {
+		this.performdate = performdate;
+	}
+
+	public void setWritepermit(int writepermit) {
+		this.writepermit = writepermit;
+	}
+
+	public int getUpdatepermit() {
+		return updatepermit;
+	}
+
+	public void setUpdatepermit(int updatepermit) {
+		this.updatepermit = updatepermit;
+	}
+
+	public int getDeletepermit() {
+		return deletepermit;
+	}
+
+	public void setDeletepermit(int deletepermit) {
+		this.deletepermit = deletepermit;
 	}
 
 	public int getBoardno() {
@@ -77,9 +134,5 @@ public class Board {
 	public void setPostno(int postno) {
 		this.postno = postno;
 	}
-	
-	
-	
-	
 
 }
