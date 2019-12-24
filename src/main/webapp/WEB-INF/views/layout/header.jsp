@@ -109,7 +109,7 @@
 						<a href="#" id="findInfo">아이디/비밀번호 찾기</a>
 					</div>
 					<div class="join">
-						<a href="#" id="join">회원가입</a>
+						<a href="/user/joinForm" id="join">회원가입</a>
 					</div>
 				</form>
 				<div class="dropdown-divider"></div>
