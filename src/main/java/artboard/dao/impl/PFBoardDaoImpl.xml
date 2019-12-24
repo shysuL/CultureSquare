@@ -7,7 +7,7 @@
 <mapper namespace="artboard.dao.face.PFBoardDao">
 
 	<select id="selectAll" parameterType="util.Paging"
-		resultType="artboard.dto.PFBoard">
+		resultType="artboard.dto.Board">
 		SELECT * FROM (SELECT rownum rnum, B.* FROM (
 		SELECT
 		boardno, title, writtendate, contents, views, userno, postno FROM
@@ -18,7 +18,7 @@
 	</select>
 
 	<select id="selectCntAll"  resultType="int">
-		SELECT count(*) FROM board
+		SELECT count(*) FROM board ORDER BY boardno
 	</select>
 
 </mapper>

@@ -1,6 +1,6 @@
 package artboard.dto;
 
-public class PFBoard {
+public class Board {
 	private int boardno;
 	private String title;
 	private String writtendate;
