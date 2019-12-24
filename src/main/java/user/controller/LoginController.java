@@ -35,6 +35,7 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import user.bo.NaverLoginBO;
 import user.dto.User_table;
+import user.service.face.GoogleService;
 import user.service.face.KakaoService;
 import user.service.face.NaverService;
 
@@ -44,7 +45,8 @@ public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	@Autowired private NaverService naverService;
 	@Autowired private KakaoService kakaoService;
-
+	@Autowired private GoogleService googleService;
+		
 	/* NaverLoginBO */
 	private NaverLoginBO naverLoginBO;
 	private String apiResult = null;
@@ -183,7 +185,22 @@ public class LoginController {
 
 		logger.info("이름 : " + result.get("name"));
 		logger.info("닉넴 : " + result.get("given_name"));
-
+		
+		
+		//유저 DTO에 소셜 로그인 정보 저장
+		User_table user = new User_table();
+		user.setUsername(result.get("name"));
+		user.setUsernick(result.get("given_name"));
+		
+		//소셜 로그인 정보 존재 유무 검사
+		int socialCnt = googleService.getSocialAccountCnt(user);
+		
+		//소셜로그인 정보가 회원정보에 담겨 있지 않으면 UserTable에 소셜로그인 데이터 삽입
+		if(socialCnt == 0) {
+			googleService.insertGoogleInfo(user);
+		}
+		
+		
 		// 파싱 데이터로 세션 저장
 		session.setAttribute("nickname",result.get("given_name")); 	// 닉네임
 		session.setAttribute("login", true); 		// 로그인 상태 true

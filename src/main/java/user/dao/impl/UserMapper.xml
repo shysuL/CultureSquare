@@ -28,4 +28,11 @@
 		'kakao', 0, 'kakao', 5, 0, 0, null, null, 0, 0, 1)
 	</insert>
 	
+	<insert id="insertGoogleLoginInfo"
+	 parameterType="user.dto.User_table">
+		INSERT into user_table
+		VALUES(user_table_seq.nextval, 'google', 'google', #{username}, #{usernick}, 'google', 
+		'google', 0, 'google', 5, 0, 0, null, null, 0, 0, 1)
+	</insert>
+	
 </mapper>
