@@ -9,8 +9,6 @@
 <head>
 <meta charset="UTF-8">
 <title>CultureSquare</title>
-<!-- resources css파일 -->
-<link rel="stylesheet" href="/resources/css.css" />
 <!-- 부트스트랩 -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -19,6 +17,8 @@
 <!-- 아이콘 -->
 <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
+<!-- resources css파일 -->
+<link rel="stylesheet" href="/resources/css/css.css" />
 
 <style type="text/css">
 .culture { 
@@ -109,7 +109,7 @@
 						<a href="#" id="findInfo">아이디/비밀번호 찾기</a>
 					</div>
 					<div class="join">
-						<a href="#" id="join">회원가입</a>
+						<a href="/user/joinForm" id="join">회원가입</a>
 					</div>
 				</form>
 				<div class="dropdown-divider"></div>
@@ -137,7 +137,7 @@
 
 <!-- 메인이미지 -->
 <nav class="navbar navbar-dark bg-dark center">
-	<a href="/main"><img class="culture" src="/resources/logo/mainlogo.png" ></a> 
+	<a href="/main/main"><img class="culture" src="/resources/logo/mainlogo.png" ></a> 
 </nav>
 
 <!-- 목록 -->
@@ -151,7 +151,7 @@
 			<li class="nav-item"><a href="#" class="nav-link">공지사항</a></li>
 			<li class="nav-item"><a href="#" class="nav-link">자유게시판</a></li> 
 			<li class="nav-item"><a href="#" class="nav-link">CALENDAL</a></li> 
-			<li class="nav-item"><a href="#" class="nav-link">PR</a></li> 
+			<li class="nav-item"><a href="/prboard/prlist" class="nav-link">PR</a></li> 
 			<li class="nav-item"><a href="#" class="nav-link">FAQ</a></li> 
 		</ul> 
 	</div> 

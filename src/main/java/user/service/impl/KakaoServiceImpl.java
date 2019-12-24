@@ -17,13 +17,18 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import user.dao.face.UserDao;
+import user.dto.User_table;
 import user.service.face.KakaoService;
 
 @Service
 public class KakaoServiceImpl implements KakaoService {
 
+	@Autowired private UserDao userDao;
+	
 	private final static String K_CLIENT_ID = "62e55c348f43d63611b245284e730db3";
 	private final static String K_REDIRECT_URI = "https://localhost:8443/kakaocallback";
 
@@ -153,5 +158,58 @@ public class KakaoServiceImpl implements KakaoService {
 		return returnNode;
 	}
 
+	@Override
+	public int getSocialAccountCnt(User_table user) {
+		
+		return userDao.selectSocialCnt(user);
+	}
 
+	@Override
+	public void insertKakaoInfo(User_table user) {
+
+		userDao.insertKakaoLoginInfo(user);
+	}
+
+	@Override
+	public void setKakaoLogin(String code, HttpSession session) {
+
+		String kname = null;
+		
+		//결과값을 node에 담음
+		JsonNode node = getAccessToken(code);
+		//accessToken에 로그인한 사용자의 정보 저장
+		JsonNode accessToken = node.get("access_token");
+
+
+		//사용자의 정보
+		JsonNode userInfo = getKakaoUserInfo(accessToken);
+
+		//유저 정보를 카카오 API에서 가져오기
+		JsonNode properties = userInfo.path("properties");
+		JsonNode kakao_account = userInfo.path("kakao_account");
+		kname = properties.path("nickname").asText();
+
+		
+		//파싱 닉네임 세션으로 저장
+		session.setAttribute("name",kname); 		//이름 	 동일
+		session.setAttribute("nickname",kname); 	//닉네임 동일
+		session.setAttribute("login", true); 		// 로그인 상태 true
+		session.setAttribute("socialType", "kakao");
+		session.setAttribute("token", accessToken);
+		
+		//유저 DTO에 소셜 로그인 정보 저장
+		User_table user = new User_table();
+		user.setUsernick(kname);
+		user.setUsername(kname);
+		
+		//소셜 로그인 정보 존재 유무 검사
+		int socialCnt = getSocialAccountCnt(user);
+		
+		
+		//소셜로그인 정보가 회원정보에 담겨 있지 않으면 UserTable에 소셜로그인 데이터 삽입
+		if(socialCnt == 0) {
+			insertKakaoInfo(user);
+		}
+
+	}
 }

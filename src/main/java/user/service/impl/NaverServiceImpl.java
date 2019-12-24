@@ -5,12 +5,18 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import user.dao.face.UserDao;
+import user.dto.User_table;
 import user.service.face.NaverService;
 
 @Service
 public class NaverServiceImpl implements NaverService{
+	
+	@Autowired private UserDao userDao;
+	
 	@Override
 	public String setApiResult(String apiResult, HttpSession session) {
 
@@ -32,7 +38,24 @@ public class NaverServiceImpl implements NaverService{
 		String nickname = (String)response_obj.get("nickname");
 		String socialId = (String)response_obj.get("email");
 		String name = (String)response_obj.get("name");
-
+		String gender = (String)response_obj.get("gender");
+		
+		//유저 DTO에 소셜 로그인 정보 저장
+		User_table user = new User_table();
+		user.setUsernick(nickname);
+		user.setUserid(socialId);
+		user.setUsername(name);
+		user.setUsergender(gender);
+		
+		
+		//소셜 로그인 정보 존재 유무 검사
+		int socialCnt = getSocialAccountCnt(user);
+		
+		//소셜로그인 정보가 회원정보에 담겨 있지 않으면 UserTable에 소셜로그인 데이터 삽입
+		if(socialCnt == 0) {
+			insertSocialInfo(user);
+		}
+		
 		//3.파싱 닉네임 세션으로 저장
 		session.setAttribute("nickname",nickname); 	// 세션 생성
 		session.setAttribute("login", true); 		// 로그인 상태 true
@@ -40,5 +63,16 @@ public class NaverServiceImpl implements NaverService{
 		session.setAttribute("name", name);			// 이름
 
 		return apiResult;
+	}
+
+	@Override
+	public int getSocialAccountCnt(User_table user) {
+			
+		return userDao.selectSocialCnt(user);
+	}
+
+	@Override
+	public void insertSocialInfo(User_table user) {
+		userDao.insertNaverLoginInfo(user);
 	}
 }
