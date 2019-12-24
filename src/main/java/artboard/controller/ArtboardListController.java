@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import artboard.dto.PFBoard;
+import artboard.dto.Board;
 import artboard.service.face.PFBoardService;
 import util.Paging;
 
@@ -21,21 +21,23 @@ public class ArtboardListController {
 	private static final Logger logger = LoggerFactory.getLogger(ArtboardListController.class);
 	@Autowired PFBoardService pfboardService;
 	
-//	@RequestMapping(value = "/artboard/list", method = RequestMethod.GET)
-//	public void pfList(Model model, Paging paging) {
-//		
+	@RequestMapping(value = "/artboard/list", method = RequestMethod.GET)
+	public void pfList(Model model, Paging paging) {
+		
 //		logger.info("아트보드");
-//		
-//		paging.setTotalCount(pfboardService.getTotalPage());
-//		
+		
+		paging = pfboardService.getPaging(paging);
+		
+		model.addAttribute("paging",paging);
+		
 //		logger.info(paging.toString()); 
-//		
-//		List<PFBoard> list = pfboardService.getList(paging);
-//		    
-//		model.addAttribute("list", list);
-//		
-//		logger.info(list.toString()); 
-//		
-//	}
+		
+		List<Board> list = pfboardService.getList(paging);
+		    		
+		model.addAttribute("list", list);
+		
+		logger.info(list.toString()); 
+		
+	}
 
 }
