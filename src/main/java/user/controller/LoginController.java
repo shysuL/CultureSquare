@@ -77,9 +77,9 @@ public class LoginController {
 		 "response":{"id":"33666449","nickname":"shinn****","age":"20-29","gender":"M","email":"sh@naver.com","name":"\uc2e0\ubc94\ud638"}}
 		 **/
 
-		logger.info("api 결과 값 : " + apiResult.toString());
+		logger.info("api 결과 값은? : " + apiResult.toString());
 
-		//2. 데이퍼 파싱 위한 서비스 호출
+		//2. 데이터 파싱 위한 서비스 호출
 		naverService.setApiResult(apiResult, session);
 
 		model.addAttribute("result", apiResult);
