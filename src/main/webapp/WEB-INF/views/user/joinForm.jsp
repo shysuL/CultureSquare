@@ -36,6 +36,13 @@
              <div class="valid-feedback">Valid.</div>
              <div class="invalid-feedback">Please fill out this field.</div>
            </div>
+
+           <div class="form-group">
+             <label for="userpw">비밀번호</label>
+             <input type="password" class="form-control" id="userpw2" placeholder="비밀번호 재입력" name="userpw2" required>
+             <div class="valid-feedback">Valid.</div>
+             <div class="invalid-feedback">Please fill out this field.</div>
+           </div>
            
            <div class="form-group">
              <label for="username">이름</label>

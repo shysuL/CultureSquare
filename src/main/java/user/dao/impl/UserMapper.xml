@@ -35,4 +35,11 @@
 		'google', 0, 'google', 5, 0, 0, null, null, 0, 0, 1)
 	</insert>
 	
+	<!-- 회원가입 -->
+	<insert id="insertJoin"
+	 parameterType="user.dto.User_table">
+		INSERT into user_table (userno, userid, userpw, username, usernick, userphone, usergender, userbirth, interest, usertype, sociallogin)
+		VALUES(user_table_seq.nextval, #{userid}, #{userpw}, #{username}, #{usernick}, #{userphone}, #{usergender}, #{userbirth}, #{interest}, #{usertype}, 0)
+	 </insert>
+	
 </mapper>
