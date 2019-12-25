@@ -29,6 +29,9 @@ tr td:not(:first-child), tr th:not(:first-child) {
 	text-align: center;
 }
 
+.far{
+    line-height: 3;	
+}
 </style>
 
 <script type="text/javascript">
@@ -51,22 +54,28 @@ $(document).ready(function(){
 
 </script>
 
-<%-- <c:forEach items="${boardlist }" var="list"> --%>
-<%-- ${list.board_no } ${list.title } ${list.content } ${list.writer_id } ${list.writer_nick } --%>
-<%-- ${list.hit } ${list.write_date }<br> --%>
-<%-- </c:forEach> --%>
-<div class="container">
-<div style="background-color: #252525;">
-         <h2 style="color: #FFFFFF;">자유게시판</h2>
-      </div>
+<div class="container" style="
+    padding-left: 200px;
+    padding-right: 200px;
+">
+<!-- 	<div style="background-color: #252525;"> -->
+         <h2>자유게시판</h2>
+<!--     </div> -->
+<div style="background-color: #252525;height: 50px;">
+<i class="fas fa-list" style= "color: #ffff;margin-left: 10px;"></i>
+<i class="far fa-user" style= "color: #ffff;margin-left: 485px;"></i>
+<i class="fas fa-eye" style= "color: #ffff;margin-left: 50px;"></i>
+<i class="far fa-clock" style= "color: #ffff;margin-left: 70px;"></i>
+</div>
+
 <form action="/list/delete" method="get">
-<table class="table table-border table-hover table-condesed table-stripe">
+<table class="table table-border table-hover table-condesed table-stripe" style="color: #252525;">
 <tr style="color: #1a3a5a" class= "info">
 	<th><input type="checkbox" id="checkAll" /></th>
 	<th style="width: 10%">글번호</th>
 	<th style="width: 50%">제목</th>
 <!-- 	<th style="width: 15%">아이디</th> -->
-	<th style="width: 15%">닉네임</th>
+	<th style="width: 10%">닉네임</th>
 	<th style="width: 10%">조회수</th>
 	<th style="width: 15%">작성일</th>
 </tr>
