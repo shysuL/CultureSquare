@@ -1,7 +1,6 @@
 package admin.service.face;
 
 import admin.dto.Admin;
-import mypage.dto.User_table;
 
 public interface AdminService {
 

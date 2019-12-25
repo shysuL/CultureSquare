@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import admin.dao.face.AdminDao;
 import admin.dto.Admin;
 import admin.service.face.AdminService;
-import mypage.dto.User_table;
 
 @Service
 public class AdminServiceImpl implements AdminService {
