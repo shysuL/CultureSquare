@@ -26,16 +26,16 @@ public class FreeListController {
 	public void boardlist(Model model, @RequestParam(defaultValue = "1") int curPage) {
 		
 //		int listCnt = boardService.getListCnt();
-		
-		Paging paging = new Paging(freeboardService.getListCnt(), curPage);
-				
-		model.addAttribute("paging", paging);
-
-		List<FreeBoard> list = freeboardService.getList(paging);
-		
+//		
+//		Paging paging = new Paging(freeboardService.getListCnt(), curPage);
+//				
+//		model.addAttribute("paging", paging);
+//
+//		List<FreeBoard> list = freeboardService.getList(paging);
+//		
 //		logger.info(list.toString());
-		
-		model.addAttribute("boardlist", list);
+//		
+//		model.addAttribute("boardlist", list);
 		
 	}
 
