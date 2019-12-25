@@ -56,6 +56,9 @@ $(document).ready(function(){
 <%-- ${list.hit } ${list.write_date }<br> --%>
 <%-- </c:forEach> --%>
 <div class="container">
+<div style="background-color: #252525;">
+         <h2 style="color: #FFFFFF;">자유게시판</h2>
+      </div>
 <form action="/list/delete" method="get">
 <table class="table table-border table-hover table-condesed table-stripe">
 <tr style="color: #1a3a5a" class= "info">
