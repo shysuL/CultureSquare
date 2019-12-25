@@ -73,7 +73,8 @@
 	
 	<!-- 컴포넌트를 스캔해볼 패키지를 지정하는 태그 -->
 
-	<context:component-scan base-package="artboard.controller, artboard.service, user.controller, user.service, login.service, 
+	<context:component-scan base-package="artboard.controller, artboard.service, user.controller, user.service, prboard.controller,
+											prboard.service, login.service, 
 											mypage.controller, mypage.service, admin.controller, admin.service, 
 											interceptor.controller, file.controller, file.service, ajax.controller, 
 											main.controller, board.controller, board.service" />
