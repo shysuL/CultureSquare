@@ -74,9 +74,9 @@ $(document).ready(function(){
 		<td style="color: #1a3a5a">${list.boardno }</td>
 		<td style="color: #1a3a5a"><a href="/board/view?board_no=${list.boardno }">${list.title }</a></td>
 <%-- 		<td style="color: #1a3a5a">${list.content }</td> --%>
-		<td style="color: #1a3a5a">${list.userid }</td>
-<%-- 		<td style="color: #1a3a5a">${list.usernick }</td> --%>
-<%-- 		<td style="color: #1a3a5a">${list.views }</td> --%>
+<%-- 		<td style="color: #1a3a5a">${list.userid }</td> --%>
+		<td style="color: #1a3a5a">${list.usernick }</td>
+		<td style="color: #1a3a5a">${list.views }</td>
 		<td style="color: #1a3a5a">${list.writtendate }</td>
 	</tr>
 </c:forEach>
