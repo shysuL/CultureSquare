@@ -41,5 +41,12 @@
 		INSERT into user_table (userno, userid, userpw, username, usernick, userphone, usergender, userbirth, interest, usertype, sociallogin)
 		VALUES(user_table_seq.nextval, #{userid}, #{userpw}, #{username}, #{usernick}, #{userphone}, #{usergender}, #{userbirth}, #{interest}, #{usertype}, 0)
 	 </insert>
+	 
+	 <!-- 아이디 중복체크 -->
+	 <select id="selectCheckId"
+	  parameterType="String" resultType="int">
+	  	SELECT count(*) from user_table where userid = #{userid}
+	 </select>
+	 
 	
 </mapper>

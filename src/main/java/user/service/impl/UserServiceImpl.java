@@ -31,5 +31,13 @@ public class UserServiceImpl implements UserService{
 		return resultCnt;
 	}
 
+	
+	@Override
+	public int userIdCheck(String userid) {
+		
+		return userDao.selectCheckId(userid);
+		
+	}
+
 
 }
