@@ -65,9 +65,21 @@ public interface UserDao {
 	 * 
 	 * @param userid - 입력받은 아이디
 	 * 
-	 * @return - int ( 1 = 중복, 0 = 사용가능 )
+	 * @return - int (0 : 사용가능, 1 : 중복닉네임 )
 	 */
 	public int selectCheckId(String userid);
+
+	/**
+	 * 2019-12-26
+	 * 이빈
+	 * 
+	 * 닉네임 중복체크 검사 ( AJAX ) 
+	 * 
+	 * @param usernick - 입력받은 닉네임
+	 * 
+	 * @return - int (0 : 사용가능, 1 : 중복닉네임 )
+	 */
+	public int selectCheckNick(String usernick);
 
 
 }

@@ -19,8 +19,17 @@ public interface UserService {
 	 * 이빈
 	 * 아이디 중복체크 하기(AJAX)
 	 * @param userid - 입력한 아이디
-	 * @return - int
+	 * @return - int (0 : 사용가능, 1 : 중복닉네임 )
 	 */
 	public int userIdCheck(String userid);
+
+	/**
+	 * 2019-12-26
+	 * 이빈
+	 * 닉네임 중복체크 하기(AJAX)
+	 * @param usernick - 입력한 닉네임
+	 * @return - int (0 : 사용가능, 1 : 중복닉네임 )
+	 */
+	public int userNickCheck(String usernick);
 
 }

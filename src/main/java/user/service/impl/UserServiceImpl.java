@@ -36,4 +36,16 @@ public class UserServiceImpl implements UserService{
 		return userDao.selectCheckId(userid);
 		
 	}
+
+
+
+	@Override
+	public int userNickCheck(String usernick) {
+
+		return userDao.selectCheckNick(usernick);
+		
+	}
+
+
+
 }
