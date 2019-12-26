@@ -29,7 +29,7 @@ public class KakaoServiceImpl implements KakaoService {
 
 	@Autowired private UserDao userDao;
 	
-	private final static String K_CLIENT_ID = "62e55c348f43d63611b245284e730db3";
+	private final static String K_CLIENT_ID = "1706cb5961fc63d24361912b1ff7e489";
 	private final static String K_REDIRECT_URI = "https://localhost:8443/kakaocallback";
 
 	@Override
@@ -45,8 +45,8 @@ public class KakaoServiceImpl implements KakaoService {
 		final String RequestUrl = "https://kauth.kakao.com/oauth/token";
 		final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
 		postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
-		postParams.add(new BasicNameValuePair("client_id", "62e55c348f43d63611b245284e730db3")); // REST API KEY
-		postParams.add(new BasicNameValuePair("redirect_uri", "https://localhost:8443/kakaocallback")); // 리다이렉트 URI
+		postParams.add(new BasicNameValuePair("client_id", K_CLIENT_ID)); // REST API KEY
+		postParams.add(new BasicNameValuePair("redirect_uri", K_REDIRECT_URI)); // 리다이렉트 URI
 		postParams.add(new BasicNameValuePair("code", autorize_code)); // 로그인 과정 중 얻은 code 값
 
 		final HttpClient client = HttpClientBuilder.create().build();
@@ -188,7 +188,7 @@ public class KakaoServiceImpl implements KakaoService {
 		JsonNode properties = userInfo.path("properties");
 		JsonNode kakao_account = userInfo.path("kakao_account");
 		kname = properties.path("nickname").asText();
-
+		
 		
 		//파싱 닉네임 세션으로 저장
 		session.setAttribute("name",kname); 		//이름 	 동일
@@ -202,7 +202,7 @@ public class KakaoServiceImpl implements KakaoService {
 		user.setUsernick(kname);
 		user.setUsername(kname);
 		
-		//소셜 로그인 정보 존재 유무 검사
+//		소셜 로그인 정보 존재 유무 검사
 		int socialCnt = getSocialAccountCnt(user);
 		
 		
