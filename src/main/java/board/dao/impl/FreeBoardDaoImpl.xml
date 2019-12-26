@@ -9,8 +9,8 @@
 	<select id="selectAll" parameterType="util.Paging" resultType="board.dto.FreeBoard">
 		SELECT * FROM (
 		SELECT rownum rnum, B.*FROM (
-		SELECT * FROM board
-		ORDER BY board_no DESC
+		SELECT fb.boardno, fb.title, fb.writtendate, fb.contents, fb.views, ut.usernick FROM board fb, user_table ut
+		ORDER BY boardno DESC
 		) B
 		ORDER BY rnum
 		) BOARD
@@ -21,8 +21,8 @@
 		SELECT count(*) FROM board
 	</select>
 	
-	<select id="selectDetail" parameterType="int" resultType="board.dto.FreeBoard">
-		SELECT * FROM board
+	<select id="selectFreeDetail" parameterType="int" resultType="board.dto.FreeBoard">
+		SELECT fb.boardno, fb.title, fb.writtendate, fb.contents, fb.views, ut.usernick FROM board fb, user_table ut
 		WHERE boardno = #{boardno }
 	</select>
 </mapper>

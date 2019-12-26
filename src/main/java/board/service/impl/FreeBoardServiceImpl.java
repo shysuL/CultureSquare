@@ -29,8 +29,11 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 
 	@Override
-	public FreeBoard getView(int boardno) {
-		return freeboardDao.selectDetail(boardno);
+	public FreeBoard freeDetail(int boardno) {
+		
+		return freeboardDao.selectFreeDetail(boardno);
 	}
+
+
 
 	}

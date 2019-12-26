@@ -20,6 +20,17 @@ public interface FreeBoardDao {
 
 	public int selectCnt();
 
-	public FreeBoard selectDetail(int boardno);
+	
+	/**
+	 * 2019-12-26
+	 * 고인호
+	 * 
+	 * 자유게시판 게시글 상세보기
+	 * 
+	 * @param boardno - 요청 게시글 정보
+	 * @return - 
+	 */
+	public FreeBoard selectFreeDetail(int boardno);
+
 
 }
