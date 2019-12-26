@@ -31,6 +31,31 @@ public interface PFBoardService {
 	 * @return paging - 페이징 정보
 	 */
 	public Paging getPaging(Paging paging);
+
+	
+	/**
+	 * 
+	 * 이수현
+	 * 2019 - 12 - 26
+	 * 
+	 * boardno를 파라미터로 받아 해당정보를 불러온다
+	 * 
+	 * @param bno - 게시글 번호 파라미터
+	 * @return board - 게시글 전체 정보
+	 */
+	public Board view(Board bno);
+
+	
+	/**
+	 * 이수현
+	 * 2019 - 12 - 26
+	 * 
+	 * 게시글의 작성자의 userno로 회원 정보 조회
+	 * 
+	 * @param userno - 게시글 작성자의 회원번호
+	 * @return board - 게시글 작성자의 회원 정보
+	 */
+	public Board getWriter(Board userno);
 	
 	
 

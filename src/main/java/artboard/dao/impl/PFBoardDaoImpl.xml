@@ -21,5 +21,21 @@
 	<select id="selectCntAll"  resultType="int">
 		SELECT count(*) FROM board ORDER BY boardno
 	</select>
+	
+	<select id="view" parameterType="artboard.dto.Board"
+		resultType="artboard.dto.Board">
+		SELECT b.boardno, b.title, b.writtendate, b.contents, b.views, b.userno, b.postno, p.performno, p.performname, p.performdate FROM
+		board b, perform_add p
+		WHERE b.boardno = p.boardno
+		AND b.boardno = #{boardno}
+	
+	</select>
+	
+	<select id="selectWriter" parameterType="artboard.dto.Board"
+		resultType="artboard.dto.Board">
+		SELECT * FROM user_table
+		WHERE userno = #{userno}
+	</select>
+	
 
 </mapper>

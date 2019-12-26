@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import artboard.dao.face.PFBoardDao;
+import artboard.dto.Board;
 import artboard.service.face.PFBoardService;
 import util.Paging;
 
@@ -26,6 +27,16 @@ public class PFBoardServiceImpl implements PFBoardService{
 		int totalCount = pfboardDao.selectCntAll();
 		
 		return new Paging(totalCount, paging.getCurPage() );
+	}
+
+	@Override
+	public Board view(Board bno) {
+		return pfboardDao.view(bno);
+	}
+
+	@Override
+	public Board getWriter(Board userno) {
+		return pfboardDao.selectWriter(userno);
 	}
 	
 	

@@ -151,7 +151,7 @@
       <ul class="navbar-nav"> 
          <li class="nav-item"><a href="#" class="nav-link">공지사항</a></li>
          <li class="nav-item"><a href="#" class="nav-link">자유게시판</a></li> 
-         <li class="nav-item"><a href="#" class="nav-link">CALENDAL</a></li> 
+         <li class="nav-item"><a href="/artboard/list" class="nav-link">CALENDAL</a></li> 
          <li class="nav-item"><a href="/prboard/prlist" class="nav-link">PR</a></li> 
          <li class="nav-item"><a href="#" class="nav-link">FAQ</a></li> 
       </ul> 

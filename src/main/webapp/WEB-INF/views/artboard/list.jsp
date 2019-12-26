@@ -6,7 +6,7 @@
 
 <style type="text/css">
 .cal_header_div{
-	background-color: black;
+	background-color: #343a40;
     height: 50px;
 }
 
@@ -37,7 +37,7 @@
 
 
 
-<h1> 예술 게시판 </h1>
+<h1> CALLENDAR </h1>
 <hr>
 
 <div class="container list-container">
@@ -81,9 +81,10 @@
       <img class="media-object" src="..." alt="...">
     </a>
   </div>
-  <div class="media-body">
+  <div class="media-body"><a href="/artboard/view?boardno=${i.boardno}">
     <h4 class="media-heading">${i.title }</h4>
     ${i.performname}
+  </a>
   </div>
 </div>
 </div>
