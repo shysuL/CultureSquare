@@ -17,6 +17,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
 <style type="text/css">
+
 #adminlogindiv {
 	width: 350px;
 	margin-top: 40px;
@@ -47,10 +48,22 @@ a {
     border-color: #dee2e6 #dee2e6 #fff;
 }
 
+/* 웹폰트 적용 */
+@font-face { 
+	font-family: 'KHNPHU'; 
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/KHNPHU.woff') format('woff'); 
+	font-weight: normal; 
+	font-style: normal; 
+}
+
+.adminbody {
+	font-family:'KHNPHU';
+}
+
 </style>
 
 </head>
-<body>
+<body class="adminbody">
 
 <!-- 메인이미지 -->
 <nav class="navbar navbar-dark bg-dark center">
