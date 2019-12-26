@@ -8,11 +8,13 @@ public class FreeBoard {
 	private String views;
 	private int userno;
 	private int postno;
+	private String usernick;
 	
 	@Override
 	public String toString() {
-		return "PFBoard [boardno=" + boardno + ", title=" + title + ", writtendate=" + writtendate + ", contents="
-				+ contents + ", views=" + views + ", userno=" + userno + ", postno=" + postno + "]";
+		return "FreeBoard [boardno=" + boardno + ", title=" + title + ", writtendate=" + writtendate + ", contents="
+				+ contents + ", views=" + views + ", userno=" + userno + ", postno=" + postno + ", usernick=" + usernick
+				+ "]";
 	}
 
 	public int getBoardno() {
@@ -70,9 +72,13 @@ public class FreeBoard {
 	public void setPostno(int postno) {
 		this.postno = postno;
 	}
-	
-	
-	
-	
+
+	public String getUsernick() {
+		return usernick;
+	}
+
+	public void setUsernick(String usernick) {
+		this.usernick = usernick;
+	}
 
 }
