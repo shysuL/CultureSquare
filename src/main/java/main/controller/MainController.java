@@ -70,6 +70,7 @@ public class MainController {
 		//구글
 		model.addAttribute("google_url", googleUrl);
 		
+		
 		// Jsoup를 이용해서 http://www.cgv.co.kr/movies/ 크롤링
 		String url = "https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=%EA%B3%B5%EC%97%B0"; //크롤링할 url지정
 		Document doc = null;        //Document에는 페이지의 전체 소스가 저장된다
