@@ -48,9 +48,12 @@
 .right{
 	place-content: flex-end;
 }
-.logindrop{
-	padding-left: 100px;
-	padding-right: 20px;
+.rpadding {
+    padding-right: 50px;
+}
+
+.center {
+	text-align: center;
 }
 .navbar-expand-md {
 	padding-left: 40px;
@@ -63,7 +66,6 @@
 <!-- header --> 
 <div class="wrap">
 
-
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <a class="navbar-brand" href="/main/main">CultureSquare</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,10 +75,10 @@
 	<div class="collapse navbar-collapse" id="navbarCollapse">
 	    <ul class="navbar-nav mr-auto">
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">공지사항<span class="sr-only">(current)</span></a>
+	        <a class="nav-link" href="/board/noticelist">공지사항<span class="sr-only">(current)</span></a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/freeboard/list">자유 게시판</a>
+	        <a class="nav-link" href="/board/freelist">자유 게시판</a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="/artboard/list">CALENDAL</a>
@@ -85,12 +87,11 @@
 	        <a class="nav-link" href="/prboard/prlist">PR</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">FAQ</a>
+	        <a class="nav-link" href="/board/faqlist">FAQ</a>
 	      </li>
 	    </ul>
-
 	<!-- 우측 상단 아이콘 -->
-	<div class="btn-group logindrop">
+	<div class="btn-group rpadding">
 		<!-- 상단 날씨 아이콘 -->  
 		<a href="#">
 		   <button type="button" class="btn btn-secondary " >
@@ -110,12 +111,12 @@
 		<!-- 로그인  드롭다운-->
 		<!-- 로그인 상태 -->
 	    <c:if test="${login}">
+	       <div class="dropdown-menu center">
+	         <h5>로그인 된 상태</h5>
 	         <div class="dropdown-divider"></div>
-	        <ul class="dropdown-menu ">
-	           
-	          <li><a href="/mypage/main">마이페이지</a></li>
-	          <li><a href="/logout">로그아웃</a></li>
-	        </ul>
+	          <input id="mypage" class="btn btn" onclick="location.href='/mypage/main'" value="마이페이지">
+	          <input id="logout" class="btn btn-danger" onclick="location.href='/logout'" value="로그아웃">
+	        </div>
 	    </c:if>
 	    <!-- 로그아웃 상태 -->
 	    <c:if test="${not login}">
