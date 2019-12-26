@@ -46,7 +46,25 @@ $(document).ready(function(){
 				
 		})
 	})
-})	
+	
+	//아이디 입력 후 엔터 키 눌렀을 떄 로그인 버튼과 같은 동작하게 하기
+	$('#adminid').keypress(function(event){
+		if(event.which==13){
+			$('#adminloginbtn').click();
+			return false;
+		}
+	})
+	
+	//비밀번호 입력 후 엔터 키 눌렀을 떄 로그인 버튼과 같은 동작하게 하기
+	$('#adminpw').keypress(function(event){
+		if(event.which==13){
+			$('#adminloginbtn').click();
+			return false;
+		}
+	})
+	
+})
+
 
 // 	$("#inputPwCheckBtn").click(function(){
 // 		console.log("두번째 모달")
@@ -78,7 +96,6 @@ $(document).ready(function(){
 		관리자를 제외한 다른 사용자는 접속할 수 없습니다.</small><br>
 	</div>
 </div>
-
 
 <!-- 로그인 실패시 모달창 -->
 <div class="modal fade" id="pwAuthenticationModal">
