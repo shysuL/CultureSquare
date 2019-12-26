@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+    <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />  
 
 <style type="text/css">
@@ -13,15 +14,18 @@
 	width: 800px;
 	height: 100px;
 	margin: 5px auto;
-	padding: 20px;
+
+	padding: 8px;
 	border: 1px solid #bcbcbc;
 }
 
 .perdate{
-	width : 20%;
-	height : auto;
+	width: 90px;
+    height: 85px;
 	float: left;
+	text-align: center;
 	border: 1px solid #bcbcbc;
+	padding: unset;
 }
 .media{
 	width : 70%;
@@ -38,6 +42,11 @@
 
 <div class="container list-container">
 
+<div id = top_banner style="width: 800px;">
+	<div id = "banner" style="border : 1px solid #bcbcbc; width: 70%; height: 60px;  margin-bottom: 15px;" >배너</div>
+	
+	<div style="float: right; width: 30%;"><button >글작성</button></div>
+</div>
 <div id="list_table" class="width_660 box_shadow_3 text-center">
 
 		<div class="list_cal_row_title theme_box2 relative">
@@ -56,8 +65,12 @@
 <div class = "list">
 
 <div class="perdate cal_col0 relative float_left center theme_key2" data-hasqtip="31" oldtitle="아직 출시 전인 제품입니다." title="" aria-describedby="qtip-31">
-		<div class="cal_date eng bold help">${i.performdate }</div>
-		<div class="cal_yoil help han ">O<span class="mobile_hide">요일</span></div>
+		<c:set var = "string1" value = "${i.performdate }"/>
+   	 	<c:set var = "length" value = "${fn:length(string1)}"/>
+    	<c:set var = "pdate" value = "${fn:substring(string1, length -2, length)}" />
+		
+		<div class="cal_date eng bold help" style="font-size: 25px">${pdate }</div>
+		<div class="cal_yoil help han " style=" margin-top: 5px;">O<span class="mobile_hide">요일</span></div>
 </div>
 		
 		
