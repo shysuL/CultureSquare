@@ -134,9 +134,7 @@
     </div>
   </div>
   <!-- /.row -->
-
 </div>
-<div class="col-3">
   <!-- Pagination -->
   <ul class="pagination justify-content-center">
     <li class="page-item">

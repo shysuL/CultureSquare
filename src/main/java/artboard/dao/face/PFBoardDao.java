@@ -2,7 +2,6 @@ package artboard.dao.face;
 
 import java.util.List;
 
-import artboard.dto.PFBoard;
 import util.Paging;
 
 public interface PFBoardDao {
@@ -17,7 +16,7 @@ public interface PFBoardDao {
 	 * @param paging - paging 객체
 	 * @return list - 예술 게시판 리스트
 	 */
-	public List<PFBoard> selectAll(Paging paging);
+	public List selectAll(Paging paging);
 
 	
 	/**

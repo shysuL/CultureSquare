@@ -2,7 +2,7 @@ package artboard.service.face;
 
 import java.util.List;
 
-import artboard.dto.PFBoard;
+import artboard.dto.Board;
 import util.Paging;
 
 public interface PFBoardService {
@@ -17,18 +17,20 @@ public interface PFBoardService {
 	 * @param paging - 게시판 리스트 paging 객체
 	 * @return list - 게시판 리스트 반환
 	 */
-	public List<PFBoard> getList(Paging paging);
+	public List getList(Paging paging);
 
 	/**
 	 * 
 	 * 이수현
 	 * 2019 - 12 - 23
 	 * 
-	 * paging 객체의 totalPage를 얻는 메소드
+	 * 요청 파라미터 curPage를 파싱한다
+	 * board TB와 curPage값을 이용한  Paging객체를 생성하고 반환
 	 * 
-	 * @return int - totalPage 개수
+	 * @param paging - 요청정보객체
+	 * @return paging - 페이징 정보
 	 */
-	public int getTotalPage();
+	public Paging getPaging(Paging paging);
 	
 	
 
