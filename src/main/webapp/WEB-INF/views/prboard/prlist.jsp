@@ -3,7 +3,19 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<jsp:include page="/WEB-INF/views/layout/header.jsp" />     
+<jsp:include page="/WEB-INF/views/layout/header.jsp" />
+
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	//글쓰기 버튼 누르면 이동
+	$("#btnWrite").click(function() {
+		location.href="/prboard/write";
+	});
+	
+});
+</script>
+
 <style type="text/css">
 #carouselExampleFade img {
 	width: 800px;
@@ -38,7 +50,7 @@
 		<a href="#"> <img src="/resources/img/like.png" style="padding-left: 10px;"/></a>
 </span>
 <span>
-		<a href="#"><button class="btn btn-md b-btn" style="float: right; background-color: #494b4d; color: white;">글작성</button></a>
+		<button id="btnWrite" class="btn btn-md b-btn" style="float: right; background-color: #494b4d; color: white;">글작성</button>
 </span>
 </div>
 
@@ -134,7 +146,6 @@
     </div>
   </div>
   <!-- /.row -->
-</div>
   <!-- Pagination -->
   <ul class="pagination justify-content-center">
     <li class="page-item">
