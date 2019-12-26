@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>CultureSquare</title>
 <!-- 부트스트랩 -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -23,32 +23,37 @@
 <link href="carousel.css" rel="stylesheet">
 
 <style type="text/css">
+
 .culture { 
-   width: 250px;
-   height:230px;
+   width: 300px;
+   height:250px;
 }
 /* 로고위치 */
 .center {
-   place-content: center;
-   padding-top: 0px;
-   padding-bottom: 0px;
+    place-content: center;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 /* 목록들 사이 패딩 */
 .nav-item {
-   padding-left: 20px;
+	padding-left: 20px;
     padding-right: 20px;
 }
 /* 상단 아이콘 패딩 */
 .iconpadding {
-   padding-left:200px;
+	padding-left:200px;
     padding-right: 200px;
 }
 /* 상단 아이콘 위치 */
 .right{
-   place-content: flex-end;
+	place-content: flex-end;
 }
 .logindrop{
-   padding-left: 100px;
+	padding-left: 100px;
+	padding-right: 20px;
+}
+.navbar-expand-md {
+	padding-left: 40px;
 }
 </style>
 
@@ -60,7 +65,7 @@
 
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <a class="navbar-brand" href="#">CultureSquare</a>
+  <a class="navbar-brand" href="/main/main">CultureSquare</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
