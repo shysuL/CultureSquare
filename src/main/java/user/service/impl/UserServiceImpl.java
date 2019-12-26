@@ -33,7 +33,16 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public int userIdCheck(String userid) {
 		
-		return userDao.selectCheckId(userid);
-		
+		return userDao.selectCheckId(userid);		
 	}
+
+
+	@Override
+	public int userNickCheck(String usernick) {
+
+		return userDao.selectCheckNick(usernick);
+	}
+
+
+
 }

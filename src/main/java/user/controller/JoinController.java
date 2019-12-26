@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import user.dto.User_table;
 import user.service.face.UserService;
@@ -41,12 +41,24 @@ public class JoinController {
 	}
 	
 	
-	// id 중복체크
-	@RequestMapping(value="/user/idCheck", method=RequestMethod.GET)
-	@ResponseBody
-	public int idCheck(@RequestParam("userid") String userid) {
+	// 아이디(이메일) 중복체크
+	@RequestMapping(value="/user/idCheck", method=RequestMethod.POST)
+	public ModelAndView idCheck(@RequestParam("userid") String userid, ModelAndView mav) {
 		
-		return userService.userIdCheck(userid);
+		mav.addObject("idCheck",userService.userIdCheck(userid));
+		mav.setViewName("jsonView");
+		logger.info("idCheck(0-사용가능, 1-중복id) : " + mav.toString());
+		return mav;
+	}
+	
+	// 닉네임 중복체크
+	@RequestMapping(value="/user/nickCheck", method=RequestMethod.POST)
+	public ModelAndView nickCheck(@RequestParam("usernick") String usernick, ModelAndView mav) {
+		
+		mav.addObject("nickCheck", userService.userNickCheck(usernick));
+		mav.setViewName("jsonView");
+		logger.info("nickCheck(0-사용가능, 1-중복nick) : " + mav.toString());
+		return mav;
 		
 	}
 	

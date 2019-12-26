@@ -25,4 +25,20 @@
 		SELECT fb.boardno, fb.title, fb.writtendate, fb.contents, fb.views, ut.usernick FROM board fb, user_table ut
 		WHERE boardno = #{boardno }
 	</select>
+	
+	<insert id="insertFreeBoard" parameterType="board.dto.FreeBoard">
+		
+		<selectKey order="BEFORE" resultType="int" keyProperty="boardno">
+		SELECT board_seq.nextval FROM dual
+		</selectKey>
+	
+		INSERT INTO board ( boardno, title, writtendate, contents, views, userno, postno )
+		VALUES ( #{boardno }, #{title }, #{writtendate } , #{contents }, 0, 11, 3 )
+	</insert>
+	
+	<update id="updateViews" parameterType="int">
+		UPDATE board SET views = views + 1 WHERE boardno = #{boardno } 
+	</update>
+	
+	
 </mapper>

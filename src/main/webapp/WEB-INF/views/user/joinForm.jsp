@@ -10,51 +10,321 @@
 	margin-top: 5%;
 }
 
+.btn-primary {
+    color: rgba(255,255,255,.75);
+    background-color: #343a40!important;
+    border-color: #343a40!important;
+}
+
+.btn-primary:hover {
+    color: rgba(255,255,255,.75);
+    background-color: #5a6268;
+    border-color: #5a6268;
+}
+
+
+.btn-info {
+    color: rgba(255,255,255,.75);
+    background-color: #212529;
+    border-color: #212529;
+}
+
+.btn-info:hover {
+    color: rgba(255,255,255,.75);
+    background-color: #5a6268;
+    border-color: #5a6268;
+}
+
+.btn-info:not(:disabled):not(.disabled).active, .btn-info:not(:disabled):not(.disabled):active, .show>.btn-info.dropdown-toggle {
+    color: rgba(255,255,255,.75);
+    background-color: #5a6268;
+    border-color: #5a6268;
+
+}
+
 </style>
 
 <script type="text/javascript">
 
-//아이디 유효성 검사(1 = 중복 / 0 != 중복)
-$("#userid").blur(function() {
-	// id = "id_reg" / name = "userId"
-	var user_id = $('#userid').val();
-	$.ajax({
-		url : '/user/idCheck?userid='+ userid,
-		type : 'get',
-		success : function(data) {
-			console.log("1 = 중복o / 0 = 중복x : "+ data);							
+// 정규식
+	// 아이디(이메일) 검사 정규식
+	var idJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	// 비밀번호 정규식
+	var pwJ = /^[A-Za-z0-9]{4,12}$/;
+	// 이름 정규식
+	var nameJ = /^[가-힣]{2,6}$/;
+	//닉네임 정규식
+	var nickJ = /^[0-9a-zA-Z가-힣]{2,12}$/;
+	// 휴대폰 번호 정규식
+	var phoneJ = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
+	// 생년월일 정규식
+	var birthJ = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/
+	//모든 공백 체크 정규식
+	var blankJ = /\s/g;
+
+$(document).ready(function(){
+	
+// 	변수 11개 생성하세요
+	var id_Check = true;
+	var pw_Check = true;
+	var pw_Check2 = true;
+	var name_Check = true;
+	var phone_Check = true;
+	var nick_Check = true;
+	var birth_Check = true;
+	
+	$("#joinBtn").click(function(){
+		
+// 		정규식 만족 안했을때 or 입력값이 null일때 or 입력값 없을 때
+//		1. 아이디 검사
+		if(!id_Check || $('#userid').val() == ""){
+			$(".content").text('아이디를 확인해주세요.');
+			$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
+		} 
+		
+//		2. 패스워드 검사	
+		else if(!pw_Check || $('#userpw').val() == ""){
+			$(".content").text('비밀번호를 확인해주세요.');
+			$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
+		}
+		
+// 		3. 패스워드 확인 검사
+		else if(!pw_Check2 || $('#userpw2').val() == "" || $('#userpw').val() != $('#userpw2').val()) {
+				$(".content").text('비밀번호2를 확인해주세요.');
+				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
+		}
+		
+// 		4. 이름 검사
+		else if(!name_Check || $('#username').val() == "") {
+			$(".content").text('이름을 확인해주세요.');
+			$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
+		}
+
+// 		5. 닉네임 검사
+		else if(!nick_Check || $('#usernick').val() == ""){
+				$(".content").text('닉네임을 확인해주세요.');
+				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
+		}
+		
+// 		6. 핸드폰 검사
+		else if(!phone_Check ||  $('#usernick').val() == ""){
+				$(".content").text('핸드폰 번호를 확인해주세요.');
+				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
+		} 		
+
+//		7. 생년월일 검사
+		else if(!birth_Check || $('#userbirth').val() == ""){
+			$(".content").text('생년월일을 확인해주세요.');
+			$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
+			$("#userbirth").focus();
+
+		}
+		
+// 		8. 성별 체크 검사
+		else if($("input:radio[name='usergender']").is(":checked") == false){
+				var a = $("input:radio[name='usergender']").is(":checked");
+				console.log("엘스 이 프 : " + a);
+				$(".content").text('성별을 선택 해주세요');
+				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
+				$("#usergender").focus();
+		}
+		
+// 		9. 관심분야 검사
+		else if($("input:checkbox[name='interest']").is(":checked") == false){
+				$(".content").text('관심분야를 한개 이상 선택 해주세요');
+				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
+				$("#interest").focus();	
+		}
+		
+// 		10. 회원구분
+		else if($("input:radio[name='usertype']").is(":checked") == false){
+				$(".content").text('회원구분을  선택 해주세요');
+				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
+				$("#usertype").focus();	
+		}
+
+//		11. 이용약관
+		else if($("input:checkbox[name='agree']").is(":checked") == false){			
+				$(".content").text('이용약관에 동의 해주세요');
+				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
+				$("#agree").focus();	
+		}
+
+		else { 	
+			$(this).parents("form").submit();			
+		}
+		
+    	
+    	return false;
+	})
+	
+	// 아이디 ( 이메일 ) 중복검사
+	$("#userid").blur(function(){	
+		var userid= $('#userid').val();
+		$.ajax({
 			
-			if (data == 1) {
+			type:"post",
+			url:"/user/idCheck",
+			data: {"userid" : userid},
+			datatype:"json",
+			success : function(res){
+				// idCheck는 ModelAndView에서 지정해준 이름			
+				console.log("res")
+				console.log(res)
+				console.log("res.idCheck")
+				console.log(res.idCheck)
+				
+				if(res.idCheck==1){
 					// 1 : 아이디가 중복되는 문구
 					$("#id_check").text("사용중인 이메일입니다");
 					$("#id_check").css("color", "red");
 					$("#reg_submit").attr("disabled", true);
+					
+					id_Check = false;
+					
+				
 				} else {
 					
-					if(idJ.test(user_id)){
-						// 0 : 아이디 길이 / 문자열 검사
-						$("#id_check").text("");
+					if(idJ.test(userid)){
+						// 0 : 아이디길이 / 문자열 검사
+						$("#id_check").text("사용 가능한 이메일입니다");
+						$("#id_check").css("color", "green");
 						$("#reg_submit").attr("disabled", false);
-			
-					} else if(user_id == ""){
-						
+						id_Check = true;
+					} else if (userid == ""){
 						$('#id_check').text('아이디를 입력해주세요');
 						$('#id_check').css('color', 'red');
-						$("#reg_submit").attr("disabled", true);				
-						
+						$("#reg_submit").attr("disabled", true);
+						id_Check = false;
 					} else {
-						
 						$('#id_check').text("아이디는 이메일 주소로만 가능합니다");
 						$('#id_check').css('color', 'red');
 						$("#reg_submit").attr("disabled", true);
+						id_Check = false;
 					}
-					
+						
 				}
-			}, error : function() {
+			}, error : function(error){
 					console.log("실패");
-			}
-		});
+				}					
+		})	
+	})
+	
+	// 비밀번호 유효성 검사
+	// 1-1 정규식 체크
+	$("#userpw").blur(function(){
+		if (pwJ.test($('#userpw').val())){
+			console.log('true');
+			$('#pw_check').text('사용가능한 비밀번호입니다');
+			$('#pw_check').css('color', 'green')
+			pw_Check = true;
+		} else {
+			console.log('false');
+			$('#pw_check').text('비밀번호는 숫자 or 문자로만 4~12자리 입력해주세요');
+			$('#pw_check').css('color', 'red');
+			pw_Check = false;
+		}		
 	});
+	
+	// 1-2 비밀번호 확인
+	$("#userpw2").blur(function(){
+		if (!pwJ.test($('#userpw2').val())){
+			$('#pw_check2').text('비밀번호는 숫자 or 문자로만 4~12자리 입력해주세요');
+			$('#pw_check2').css('color', 'red')
+			pw_Check2 = false;
+		} else if($('#userpw').val() != $(this).val()) {
+			$('#pw_check2').text('비밀번호가 일치하지 않습니다 다시 확인해 주세요')
+			$('#pw_check2').css('color', 'red')
+			pw_Check2 = false;
+		} else {
+			$('#pw_check2').text('비밀번호가 일치합니다')
+			$('#pw_check2').css('color', 'green')
+			pw_Check2 = true;
+		}
+	});
+	
+
+	
+	
+	// 이름 유효성 검사( 특수문자 들어가지 않도록 )
+	$('#username').blur(function(){
+	
+		if(nameJ.test($(this).val())){
+			console.log(nameJ.test($(this).val()))
+			$("#name_check").text('');
+			name_Check = true;
+		} else {
+			$('#name_check').text('이름을 확인해 주세요')
+			$('#name_check').css('color', 'red')
+			name_Check = false;
+		}
+	})
+	
+	// 닉네임 중복 검사 ( AJAX )
+	$('#usernick').blur(function(){
+	
+		var usernick = $('#usernick').val();
+		$.ajax({
+			url : "/user/nickCheck",
+			type : 'post',
+			data: {"usernick" : usernick},
+			datatype:"json",
+			success : function(res){
+				console.log(res.nickCheck);
+				if(res.nickCheck == 1){
+					$('#nick_check').text('중복된 닉네임입니다')
+					$('#nick_check').css('color', 'red')
+					nick_Check = false;
+				} else {
+					if(nickJ.test(usernick)){
+						$('#nick_check').text('사용가능한 닉네임입니다')
+						$('#nick_check').css('color','green')
+						nick_Check = true;
+					} else if ($('#usernick').val() == ''){
+						$('#nick_check').text('닉네임을 입력해주세요')
+						$('#nick_check').css('color','red')
+						nick_Check = false;
+					}else {
+						$('#nick_check').text('올바른 닉네임 형식이 아닙니다')
+						$('#nick_check').css('color', 'red')
+						nick_Check = false;
+					}
+				}
+			}
+			
+		})
+		
+	})
+	
+	$('#userphone').blur(function(){
+		
+		if(phoneJ.test($(this).val())){
+			console.log(phoneJ.test($(this).val()));
+			$('#phone_check').text('');
+			phone_Check = true;
+		} else {
+			$('#phone_check').text('휴대폰번호를 확인해주세요("-"없이 번호만 입력해주세요)')
+			$('#phone_check').css('color', 'red')
+			phone_Check = false;
+		}
+		
+	})
+	
+	// 생년월일 유효성 검사
+	$('#userbirth').blur(function(){
+		if(birthJ.test($(this).val())){
+			console.log("생년월일 유효성 검사")
+			console.log(birthJ.test($(this).val()))
+			$('#birth_check').text('');
+			birth_Check = true;
+		} else {
+			$('#birth_check').text('생년월일을 올바르게 입력해주세요')
+			$('#birth_check').css('color', 'red')
+			birth_Check = false;
+		}
+	})
+
+})// document ready
 
 </script>
 
@@ -62,8 +332,8 @@ $("#userid").blur(function() {
    
    <div class="innercon1" style="width: 40%;">
    
-      <div style="background-color: #252525;">
-         <h2 style="color: #FFFFFF;">회원가입</h2>
+      <div style="background-color: #343a40!important;">
+         <h2 style="color: rgba(255,255,255,.75);">회원가입</h2>
       </div>
       
       <div>
@@ -169,17 +439,40 @@ $("#userid").blur(function() {
                            
            <div class="form-group form-check">
              <label class="form-check-label">
-               <input class="form-check-input" type="checkbox" name="remember" required> 이용약관 및 개인정보처리방침에 동의
-               <div class="valid-feedback">동의하셨습니다.</div>
-               <div class="invalid-feedback">동의하시면 체크버튼을 눌러주세요</div>
+               <input class="form-check-input" type="checkbox" name="agree" required> 이용약관 및 개인정보처리방침에 동의
              </label>
            </div>
            
-           <button type="submit" class="btn btn-primary">가입</button>
+           <button id = "joinBtn" type="submit" class="btn btn-primary">가입</button>
          </form>
       </div>
-
    </div> <!-- innercon1 -->
+   
+   
+<!-- 유효성 검사 실패시  모달창 -->
+<div class="modal fade" id="joinAuthenticationModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">회원가입 오류</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="inputjoinCheckBtn"class="btn btn-info" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+   
 </div> <!-- container -->
 
 
