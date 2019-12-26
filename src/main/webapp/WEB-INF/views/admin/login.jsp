@@ -74,7 +74,7 @@ $(document).ready(function(){
 	<button type="submit" class="btn btn-secondary" id="adminloginbtn">LOGIN</button>
 	<br><br>
 	<div style="text-align: center;">
-		<small>이곳은 Culture Square의 관리자 사이트입니다.<br>
+		<small>이곳은 "Culture Square"의 관리자 사이트입니다.<br>
 		관리자를 제외한 다른 사용자는 접속할 수 없습니다.</small><br>
 	</div>
 </div>
