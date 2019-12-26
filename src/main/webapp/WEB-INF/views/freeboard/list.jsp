@@ -15,6 +15,23 @@ tr td:nth-child(2){
 	
 }
 
+#freeIntroduceTitle{
+	width: 340px;
+    padding-top: 400px;
+    padding-bottom: 50px;
+}
+
+#freeIntroduceContent{
+	background-color:#343a40; 
+	color:white;
+}
+
+#side{
+	position:absolute;
+	top: 0;
+	right: 50px;
+}
+
 /* tr td:not(:nth-child(2)){ */
 /* 	text-color:#1a3a5a; */
 	
@@ -63,7 +80,7 @@ tr td:not(:first-child), tr th:not(:first-child) {
 <!-- 	<div style="background-color: #252525;"> -->
          <h2>자유게시판</h2>
 <!--     </div> -->
-<div style="background-color: #252525;height: 50px;">
+<div style="background-color: #343a40;height: 50px;">
 <i class="fas fa-list" style= "color: #ffff;margin-left: 20px;"></i>
 <i class="far fa-user" style= "color: #ffff;margin-left: 435px;"></i>
 <i class="fas fa-eye" style= "color: #ffff;margin-left: 90px;"></i>
@@ -71,7 +88,7 @@ tr td:not(:first-child), tr th:not(:first-child) {
 </div>
 
 <!-- <form action="/list/delete" method="get"> -->
-<table class="table table-border table-hover table-condesed table-stripe" style="color: #252525;">
+<table class="table table-border table-hover table-condesed table-stripe" style="color: #343a40;">
 <!-- <tr style="color: #1a3a5a" class= "info"> -->
 <!-- 	<th><input type="checkbox" id="checkAll" /></th> -->
 <!-- 	<th style="width: 10%">글번호</th> -->
@@ -94,25 +111,36 @@ tr td:not(:first-child), tr th:not(:first-child) {
 		<td style="color: #1a3a5a; width: 15%;">${list.writtendate }</td>
 	</tr>
 </c:forEach>
+
 </table>
+<div id="side">
+	<div class="list-group" id="freeIntroduceTitle">
+  <a class="list-group-item" id="freeIntroduceContent">
+	자유게시판 소개
+  </a>
+  <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+</div>
+</div>
+
 
 <%-- <c:if test="${login }"> --%>
 <div style="text-align: right;">
-<a href="/freeboard/write"><button class="btn btn-default btn-sm" style="float: right; background-color: #494b4d; color: white;">글쓰기</button></a>
+<a href="/freeboard/write"><button class="btn btn-default btn-sm" style="float: right; background-color: #343a40; color: white;">글쓰기</button></a>
 <!-- <button class="btn btn-default btn-sm" style="float: right; background-color: #494b4d; color: white;">삭제</button> -->
 </div>
 <%-- </c:if> --%>
 <!-- </form> -->
+
+
+
+<jsp:include page = "/WEB-INF/views/layout/freepaging.jsp" />
+
 <div class="src">
 	<form action="/freeboard/list" method="get">
 	<input name="search" type="text" placeholder = "검색어 입력">
 	<button>검색</button>
 	</form>
 </div>
-
-
-<jsp:include page = "/WEB-INF/views/layout/freepaging.jsp" />
-
 
 </div><!-- .container -->
  

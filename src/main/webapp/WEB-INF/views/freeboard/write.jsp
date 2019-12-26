@@ -61,11 +61,10 @@ $(document).ready(function() {
 <form action="/freeboard/write" method="post"
 enctype="multipart/form-data">
 <table class="table table-bordered">
-<tr><td class="info">닉네임</td><td>${user.usernick }</td></tr>
 <tr><td class="info" colspan="2">제목</td></tr>
 <tr><td colspan="2"><input type="text" name="title" style="width:100%"/></td></tr>
 <tr><td class="info" colspan="2">내용</td></tr>
-<tr><td colspan="2"><textarea id="content" name="content"></textarea></td></tr>
+<tr><td colspan="2"><textarea id="content" name="contents"></textarea></td></tr>
 <tr><td class="info">첨부파일</td><td><input type="file" name="file" id="file"></td></tr>
 </table>
 

@@ -34,6 +34,20 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		return freeboardDao.selectFreeDetail(boardno);
 	}
 
+	@Override
+	public void writeFree(FreeBoard freeboard) {
+		
+		freeboardDao.insertFreeBoard(freeboard);
+		
+	}
+
+	@Override
+	public void increaseViews(int boardno) {
+		
+		freeboardDao.updateViews(boardno);
+		
+	}
+
 
 
 	}

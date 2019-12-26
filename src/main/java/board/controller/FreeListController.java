@@ -26,9 +26,7 @@ public class FreeListController {
 	
 	@RequestMapping(value = "/freeboard/list", method = RequestMethod.GET)
 	public void freeList(Model model, @RequestParam(defaultValue = "1") int curPage) {
-		
-		int listCnt = freeboardService.getListCnt();
-		
+				
 		Paging paging = new Paging(freeboardService.getListCnt(), curPage);
 				
 		model.addAttribute("paging", paging);
