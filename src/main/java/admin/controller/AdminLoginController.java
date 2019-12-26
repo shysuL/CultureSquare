@@ -41,9 +41,10 @@ public class AdminLoginController {
 		}
 		
 		
-		logger.info("로그인실패  : " + adminIsLogin);
+//		logger.info("로그인상태  : " + adminIsLogin);
 		
 		mav.addObject("adminIsLogin", adminIsLogin);
+//		model.addAttribute("login", adminIsLogin);
 		
 		//viewName지정하기
 		mav.setViewName("jsonView");

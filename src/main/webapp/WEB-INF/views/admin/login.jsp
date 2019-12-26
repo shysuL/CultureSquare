@@ -64,6 +64,9 @@ $(document).ready(function(){
 <!-- 	<button type="submit" id="adminlogin">로그인</button> -->
 <!-- </form> -->
 <div class="container container-center" id="adminlogindiv">
+	<small>이곳은 Culture Square의 관리자 사이트입니다.<br>
+	관리자를 제외한 다른 사용자는 접속할 수 없습니다.</small><br>
+
 <!-- 	<form action="/admin/login" method="post"> -->
 		<div class="form-group">
 		  <label for="adminid">ID</label>
