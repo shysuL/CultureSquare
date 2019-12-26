@@ -23,32 +23,37 @@
 <link href="carousel.css" rel="stylesheet">
 
 <style type="text/css">
+
 .culture { 
-   width: 250px;
-   height:230px;
+   width: 300px;
+   height:250px;
 }
 /* 로고위치 */
 .center {
-   place-content: center;
-   padding-top: 0px;
-   padding-bottom: 0px;
+    place-content: center;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 /* 목록들 사이 패딩 */
 .nav-item {
-   padding-left: 20px;
+	padding-left: 20px;
     padding-right: 20px;
 }
 /* 상단 아이콘 패딩 */
 .iconpadding {
-   padding-left:200px;
+	padding-left:200px;
     padding-right: 200px;
 }
 /* 상단 아이콘 위치 */
 .right{
-   place-content: flex-end;
+	place-content: flex-end;
 }
 .logindrop{
-   padding-left: 100px;
+	padding-left: 100px;
+	padding-right: 20px;
+}
+.navbar-expand-md {
+	padding-left: 40px;
 }
 </style>
 
@@ -60,7 +65,7 @@
 
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <a class="navbar-brand" href="#">CultureSquare</a>
+  <a class="navbar-brand" href="/main/main">CultureSquare</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
