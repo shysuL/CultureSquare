@@ -23,10 +23,13 @@ public class FreeViewController {
 
 	@RequestMapping(value = "/freeboard/view", method = RequestMethod.GET)
 	public void freeView(Model model, @RequestParam("boardno") int boardno, HttpSession session) {
-				
+		
+		//조회수 증가
+		freeboardService.increaseViews(boardno);
+		
 		FreeBoard boardDetail = freeboardService.freeDetail(boardno);
 		
-		System.out.println(boardDetail);
+//		System.out.println(boardDetail);
 		
 		logger.info(boardDetail.toString());
 		

@@ -42,7 +42,7 @@ $(document).ready(function() {
 	
 		<tr>
 <!-- 			<td class="info">제목</td> -->
-			<td style="background-color: #252525; color: #fff;" colspan="4">${board.title }</td>
+			<td style="background-color: #343a40; color: #fff;" colspan="4">${board.title }</td>
 		</tr>
 	
 		<tr>
@@ -70,7 +70,7 @@ $(document).ready(function() {
 
 </table>	
 	<div class="text-center" >
-		<button id="btnList" class="btn btn-default" style="float: left; background-color: #494b4d; color: white;">목록</button>
+		<button id="btnList" class="btn btn-default" style="float: left; background-color: #343a40; color: white;">목록</button>
 <%-- 		<c:if test="${loginid eq board.userid}">  --%>
 <%-- 		<a class="btn btn-default" href="/board/update?boardno=${board.boardno }" role="button">수정</a> --%>
 <%-- 		<a class="btn btn-default" href="/board/delete?boardno=${board.boardno }" role="button">삭제</a> --%>

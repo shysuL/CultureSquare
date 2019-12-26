@@ -34,10 +34,29 @@ public interface FreeBoardService {
 	 * 
 	 * 자유게시판 게시글 상세보기
 	 * 
-	 * @param boardno - 요청 게시글 정보
+	 * @param boardno - 요청 게시글번호 정보 객체
 	 * @return - 
 	 */
 	public FreeBoard freeDetail(int boardno);
+
+	/**
+	 * 2019-12-26
+	 * 고인호
+	 * 
+	 * 자유게시판 게시글 쓰기
+	 * @param freeboard - DB에 저장될 게시글 정보 객체
+	 */
+	public void writeFree(FreeBoard freeboard);
+
+	/**
+	 * 2019-12-26
+	 * 고인호
+	 * 
+	 * 게시글 상세보기 조회수 증가
+	 * 
+	 * @param boardDetail- 상세보기 조회된 게시글 정보 객체
+	 */
+	public void increaseViews(int boardno);
 
 
 }
