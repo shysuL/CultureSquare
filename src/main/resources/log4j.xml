@@ -45,6 +45,11 @@
 		<level value="info" />
 	</logger>
 	
+	<!-- prboard Loggers -->
+	<logger name="board">
+		<level value="info" />
+	</logger>
+	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />

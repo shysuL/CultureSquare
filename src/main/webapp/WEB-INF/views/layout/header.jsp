@@ -66,7 +66,6 @@
 <!-- header --> 
 <div class="wrap">
 
-
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <a class="navbar-brand" href="/main/main">CultureSquare</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,19 +75,19 @@
 	<div class="collapse navbar-collapse" id="navbarCollapse">
 	    <ul class="navbar-nav mr-auto">
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">공지사항<span class="sr-only">(current)</span></a>
+	        <a class="nav-link" href="/board/noticelist">공지사항<span class="sr-only">(current)</span></a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">자유 게시판</a>
+	        <a class="nav-link" href="/board/freelist">자유 게시판</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">CALENDAL</a>
+	        <a class="nav-link" href="/artboard/list">CALENDAL</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">PR</a>
+	        <a class="nav-link" href="/prboard/prlist">PR</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">FAQ</a>
+	        <a class="nav-link" href="/board/faqlist">FAQ</a>
 	      </li>
 	    </ul>
 	<!-- 우측 상단 아이콘 -->

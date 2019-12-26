@@ -10,6 +10,38 @@
 	margin-top: 5%;
 }
 
+.btn-primary {
+    color: rgba(255,255,255,.75);
+    background-color: #343a40!important;
+    border-color: #343a40!important;
+}
+
+.btn-primary:hover {
+    color: rgba(255,255,255,.75);
+    background-color: #5a6268;
+    border-color: #5a6268;
+}
+
+
+.btn-info {
+    color: rgba(255,255,255,.75);
+    background-color: #212529;
+    border-color: #212529;
+}
+
+.btn-info:hover {
+    color: rgba(255,255,255,.75);
+    background-color: #5a6268;
+    border-color: #5a6268;
+}
+
+.btn-info:not(:disabled):not(.disabled).active, .btn-info:not(:disabled):not(.disabled):active, .show>.btn-info.dropdown-toggle {
+    color: rgba(255,255,255,.75);
+    background-color: #5a6268;
+    border-color: #5a6268;
+
+}
+
 </style>
 
 <script type="text/javascript">
@@ -300,8 +332,8 @@ $(document).ready(function(){
    
    <div class="innercon1" style="width: 40%;">
    
-      <div style="background-color: #252525;">
-         <h2 style="color: #FFFFFF;">회원가입</h2>
+      <div style="background-color: #343a40!important;">
+         <h2 style="color: rgba(255,255,255,.75);">회원가입</h2>
       </div>
       
       <div>

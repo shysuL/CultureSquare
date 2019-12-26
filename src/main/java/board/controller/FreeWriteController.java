@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import board.dto.FreeBoard;
 import board.service.face.FreeBoardService;
+import user.dto.User_table;
 import user.service.face.UserService;
 
 
@@ -25,7 +26,7 @@ public class FreeWriteController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(FreeWriteController.class);
 
-	@RequestMapping(value = "/freeboard/write", method = RequestMethod.GET)
+	@RequestMapping(value = "/board/freewrite", method = RequestMethod.GET)
 	public void freeWrite(Model model, HttpSession session) {
 		
 		System.out.println("요청 확인");
@@ -35,16 +36,16 @@ public class FreeWriteController {
 //		model.addAttribute("member", member);
 	}
 	
-	@RequestMapping(value = "/freeboard/write", method = RequestMethod.POST)
+	@RequestMapping(value = "/board/freewrite", method = RequestMethod.POST)
 	public String freeWrite(Model model, FreeBoard freeboard, HttpSession session) {
 		
 		
-		//로그인한 유저 정보 조회
-//		User_table user = userService.getMember(session.getAttribute("loginid"));
-//		
-//		freeboard.setUserid(user.getUserid());
-//		freeboard.setUsernick(user.getUsernick());
-//		freeboard.setUserno(user.getUserno());
+		//로그인한 유저 정보 조회 
+		User_table user = freeboardService.getboardWriter(session.getAttribute("loginid"));
+		
+		freeboard.setUserid(user.getUserid());
+		freeboard.setUsernick(user.getUsernick());
+		freeboard.setUserno(user.getUserno());
 		
 		//게시글 작성 날짜
 		SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd");
@@ -56,7 +57,7 @@ public class FreeWriteController {
 		
 		freeboardService.writeFree(freeboard);
 		
-		return "redirect:/freeboard/list";
+		return "redirect:/board/freelist";
 		
 	}
 

@@ -8,7 +8,7 @@
 $(document).ready(function() {
 	//목록버튼 동작
 	$("#btnList").click(function() {
-		$(location).attr("href", "/freeboard/list");
+		$(location).attr("href", "/board/freelist");
 	});
 	
 // 	//수정버튼 동작

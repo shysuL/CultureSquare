@@ -58,7 +58,7 @@ $(document).ready(function() {
 <h2>자유게시판</h2>
 
 <div>
-<form action="/freeboard/write" method="post"
+<form action="/board/freewrite" method="post"
 enctype="multipart/form-data">
 <table class="table table-bordered">
 <tr><td class="info" colspan="2">제목</td></tr>

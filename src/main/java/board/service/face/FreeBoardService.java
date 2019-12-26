@@ -3,6 +3,7 @@ package board.service.face;
 import java.util.List;
 
 import board.dto.FreeBoard;
+import user.dto.User_table;
 import util.Paging;
 
 public interface FreeBoardService {
@@ -57,6 +58,17 @@ public interface FreeBoardService {
 	 * @param boardDetail- 상세보기 조회된 게시글 정보 객체
 	 */
 	public void increaseViews(int boardno);
+
+	/**
+	 * 2019-12-26
+	 * 고인호
+	 * 
+	 * 게시글 작성을 위한 유저넘버 조회
+	 * 
+	 * @param attribute - 로그인한 유정 정보 객체
+	 * @return 
+	 */
+	public User_table getboardWriter(Object attribute);
 
 
 }
