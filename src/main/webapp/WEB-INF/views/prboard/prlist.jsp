@@ -54,9 +54,8 @@ $(document).ready(function() {
 #side{
 	position:absolute;
 	top: 0;
-	right: -340px;
+	right: -355px;
 }
-
 
 </style>
 <br><br>
