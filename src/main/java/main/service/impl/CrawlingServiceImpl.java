@@ -46,8 +46,8 @@ public class CrawlingServiceImpl implements CrawlingService{
 			List<Culture> list = new ArrayList<Culture>();
 			for(Element el : element.select("li")) {
 				Culture culture1 = new Culture();
-				culture1.setCul(el.toString());
-				System.out.println(culture1);
+				culture1.setCul(el.html());
+//				System.out.println(culture1);
 				list.add(culture1);
 				
 			}
