@@ -72,6 +72,7 @@ $(document).ready(function() {
 	<option value="albumPR">앨범 홍보</option>
 	<option value="showPR">공연 홍보</option>
 	<option value="exhibitionPR">전시회 홍보</option>
+	<option value="etc">기타</option>
 </select>
 <input type="text" id="search" name="search">
 <button>검색</button>

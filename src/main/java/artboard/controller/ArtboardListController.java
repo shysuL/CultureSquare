@@ -22,7 +22,6 @@ import user.bo.NaverLoginBO;
 import user.service.face.KakaoService;
 import util.Paging;
 
-
 @Controller
 public class ArtboardListController {
 	
