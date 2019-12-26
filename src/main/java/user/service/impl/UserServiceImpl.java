@@ -1,5 +1,6 @@
 package user.service.impl;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,6 @@ import org.springframework.stereotype.Service;
 import user.dao.face.UserDao;
 import user.dto.User_table;
 import user.service.face.UserService;
-
-
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -31,7 +30,6 @@ public class UserServiceImpl implements UserService{
 		return resultCnt;
 	}
 
-	
 	@Override
 	public int userIdCheck(String userid) {
 		
@@ -40,12 +38,14 @@ public class UserServiceImpl implements UserService{
 	}
 
 
+
 	@Override
 	public int userNickCheck(String usernick) {
 
 		return userDao.selectCheckNick(usernick);
 		
 	}
+
 
 
 }

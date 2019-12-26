@@ -9,8 +9,8 @@
 	<select id="selectAll" parameterType="util.Paging" resultType="board.dto.FreeBoard">
 		SELECT * FROM (
 		SELECT rownum rnum, B.*FROM (
-		SELECT * FROM board
-		ORDER BY board_no DESC
+		SELECT fb.boardno, fb.title, fb.writtendate, fb.contents, fb.views, ut.usernick FROM board fb, user_table ut
+		ORDER BY boardno DESC
 		) B
 		ORDER BY rnum
 		) BOARD
@@ -21,8 +21,24 @@
 		SELECT count(*) FROM board
 	</select>
 	
-	<select id="selectDetail" parameterType="int" resultType="board.dto.FreeBoard">
-		SELECT * FROM board
+	<select id="selectFreeDetail" parameterType="int" resultType="board.dto.FreeBoard">
+		SELECT fb.boardno, fb.title, fb.writtendate, fb.contents, fb.views, ut.usernick FROM board fb, user_table ut
 		WHERE boardno = #{boardno }
 	</select>
+	
+	<insert id="insertFreeBoard" parameterType="board.dto.FreeBoard">
+		
+		<selectKey order="BEFORE" resultType="int" keyProperty="boardno">
+		SELECT board_seq.nextval FROM dual
+		</selectKey>
+	
+		INSERT INTO board ( boardno, title, writtendate, contents, views, userno, postno )
+		VALUES ( #{boardno }, #{title }, #{writtendate } , #{contents }, 0, 1, 3 )
+	</insert>
+	
+	<update id="updateViews" parameterType="int">
+		UPDATE board SET views = views + 1 WHERE boardno = #{boardno } 
+	</update>
+	
+	
 </mapper>

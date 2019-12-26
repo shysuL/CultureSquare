@@ -2,6 +2,8 @@ package board.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,20 +25,20 @@ public class FreeListController {
 	private static final Logger logger = LoggerFactory.getLogger(FreeListController.class);
 	
 	@RequestMapping(value = "/freeboard/list", method = RequestMethod.GET)
-	public void boardlist(Model model, @RequestParam(defaultValue = "1") int curPage) {
+	public void freeList(Model model, @RequestParam(defaultValue = "1") int curPage) {
+				
+		Paging paging = new Paging(freeboardService.getListCnt(), curPage);
+				
+		model.addAttribute("paging", paging);
+
+		List<FreeBoard> list = freeboardService.getList(paging);
 		
-//		int listCnt = boardService.getListCnt();
-//		
-//		Paging paging = new Paging(freeboardService.getListCnt(), curPage);
-//				
-//		model.addAttribute("paging", paging);
-//
-//		List<FreeBoard> list = freeboardService.getList(paging);
-//		
-//		logger.info(list.toString());
-//		
-//		model.addAttribute("boardlist", list);
+		logger.info(list.toString());
+		
+		model.addAttribute("boardlist", list);
 		
 	}
+	
+	
 
 }
