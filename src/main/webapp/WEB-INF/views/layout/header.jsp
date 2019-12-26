@@ -109,11 +109,12 @@
 		<!-- 로그인  드롭다운-->
 		<!-- 로그인 상태 -->
 	    <c:if test="${login}">
-	       <div class="dropdown-menu ">
 	         <div class="dropdown-divider"></div>
-	           <h3>로그인 된 상태</h3>
-	          <button id="logout" class="btn btn-danger" onclick="location.href='/logout'">로그아웃</button>
-	        </div>
+	        <ul class="dropdown-menu ">
+	           
+	          <li><a href="/mypage/main">마이페이지</a></li>
+	          <li><a href="/logout">로그아웃</a></li>
+	        </ul>
 	    </c:if>
 	    <!-- 로그아웃 상태 -->
 	    <c:if test="${not login}">
