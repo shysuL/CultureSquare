@@ -6,7 +6,7 @@ public class Culture {
 
 	@Override
 	public String toString() {
-		return "Culture [cul=" + cul + "]";
+		return  cul;
 	}
 
 	public String getCul() {

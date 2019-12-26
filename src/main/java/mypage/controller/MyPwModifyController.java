@@ -14,26 +14,26 @@ public class MyPwModifyController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MyPwModifyController.class);
 	
-	@RequestMapping(value="/mypage/updatepw", method=RequestMethod.GET)
-	public void getUserPw(User_table user) {
-		
-	}
-	
-	@RequestMapping(value="/mypage/updatepw", method=RequestMethod.GET)
-	public void getCurrentUserPw(Model model) {
-		
-	}
+//	@RequestMapping(value="/mypage/updatepw", method=RequestMethod.GET)
+//	public void getUserPw(User_table user) {
+//		
+//	}
+//	
+//	@RequestMapping(value="/mypage/updatepw", method=RequestMethod.GET)
+//	public void getCurrentUserPw(Model model) {
+//		
+//	}
 
-	@RequestMapping(value="/mypage/updatepw", method=RequestMethod.GET)
-	public void equalsPw(User_table user) {
-		
-	}
-	
-	
-	@RequestMapping(value="/mypage/updatepw", method=RequestMethod.GET)
-	public void modifyUserPw(User_table user) {
-		
-	}
+//	@RequestMapping(value="/mypage/updatepw", method=RequestMethod.GET)
+//	public void equalsPw(User_table user) {
+//		
+//	}
+//	
+//	
+//	@RequestMapping(value="/mypage/updatepw", method=RequestMethod.GET)
+//	public void modifyUserPw(User_table user) {
+//		
+//	}
 	
 
 }
