@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+<mapper namespace="board.dao.face.FreeBoardDao">
+	<select id="selectAll" parameterType="util.Paging" resultType="board.dto.FreeBoard">
+		SELECT * FROM (
+		SELECT rownum rnum, B.*FROM (
+		SELECT * FROM board
+		ORDER BY board_no DESC
+		) B
+		ORDER BY rnum
+		) BOARD
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+	
+	<select id="selectCnt" resultType="int">
+		SELECT count(*) FROM board
+	</select>
+	
+	<select id="selectDetail" parameterType="int" resultType="board.dto.FreeBoard">
+		SELECT * FROM board
+		WHERE boardno = #{boardno }
+	</select>
+</mapper>

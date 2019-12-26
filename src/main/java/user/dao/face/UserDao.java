@@ -44,4 +44,30 @@ public interface UserDao {
 	 * @param user - 소셜로그인 정보가 담긴 객체
 	 */
 	public void insertGoogleLoginInfo(User_table user);
+
+	
+	/**
+	 * 2019-12-25
+	 * 이빈
+	 * 
+	 * 회원가입 정보 DB에 넣어 주기
+	 * 
+	 * @param user - 요청받은 회원가입 정보가 담긴 객체
+	 * @return - int ( 1 = 회원가입 성공, 0 = 회원가입 실패 )
+	 */
+	public int insertJoin(User_table user);
+
+	/**
+	 * 2019-12-25
+	 * 이빈
+	 * 
+	 * 아이디 중복체크 검사 ( AJAX )
+	 * 
+	 * @param userid - 입력받은 아이디
+	 * 
+	 * @return - int ( 1 = 중복, 0 = 사용가능 )
+	 */
+	public int selectCheckId(String userid);
+
+
 }
