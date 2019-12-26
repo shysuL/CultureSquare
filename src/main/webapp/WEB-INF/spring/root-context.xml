@@ -45,6 +45,6 @@
 	
 	<!-- 마이바티스 DAO 인터페이스 설정 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="admin.dao.face, artboard.dao.face, user.dao.face, prboard.dao.face"/>
+		<property name="basePackage" value="admin.dao.face, artboard.dao.face, user.dao.face, board.dao.face, prboard.dao.face"/>
 	</bean>	
 </beans>
