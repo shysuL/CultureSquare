@@ -34,82 +34,84 @@ tr td:not(:first-child), tr th:not(:first-child) {
 }
 </style>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript"> -->
 
-$(document).ready(function(){
-    //최상단 체크박스 클릭
-    $("#checkAll").click(function(){
-        //클릭되었으면
-//         console.log($("#checkAll").prop("checked"));
-        if($("#checkAll").prop("checked")){
-            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
-            $("input[name=checkRow]").prop("checked",true);
-            //클릭이 안되있으면
-        }else{
-            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
-            $("input[name=checkRow]").prop("checked",false);
-        }
-    });
-});
+<!-- // $(document).ready(function(){ -->
+<!-- //     //최상단 체크박스 클릭 -->
+<!-- //     $("#checkAll").click(function(){ -->
+<!-- //         //클릭되었으면 -->
+<!-- // //         console.log($("#checkAll").prop("checked")); -->
+<!-- //         if($("#checkAll").prop("checked")){ -->
+<!-- //             //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의 -->
+<!-- //             $("input[name=checkRow]").prop("checked",true); -->
+<!-- //             //클릭이 안되있으면 -->
+<!-- //         }else{ -->
+<!-- //             //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의 -->
+<!-- //             $("input[name=checkRow]").prop("checked",false); -->
+<!-- //         } -->
+<!-- //     }); -->
+<!-- // }); -->
 
-</script>
+<!-- </script> -->
 
 <div class="container" style="
     padding-left: 200px;
     padding-right: 200px;
 ">
+<h1></h1>
+<hr>
 <!-- 	<div style="background-color: #252525;"> -->
          <h2>자유게시판</h2>
 <!--     </div> -->
 <div style="background-color: #252525;height: 50px;">
-<i class="fas fa-list" style= "color: #ffff;margin-left: 10px;"></i>
-<i class="far fa-user" style= "color: #ffff;margin-left: 485px;"></i>
-<i class="fas fa-eye" style= "color: #ffff;margin-left: 50px;"></i>
+<i class="fas fa-list" style= "color: #ffff;margin-left: 20px;"></i>
+<i class="far fa-user" style= "color: #ffff;margin-left: 435px;"></i>
+<i class="fas fa-eye" style= "color: #ffff;margin-left: 90px;"></i>
 <i class="far fa-clock" style= "color: #ffff;margin-left: 70px;"></i>
 </div>
 
-<form action="/list/delete" method="get">
+<!-- <form action="/list/delete" method="get"> -->
 <table class="table table-border table-hover table-condesed table-stripe" style="color: #252525;">
-<tr style="color: #1a3a5a" class= "info">
-	<th><input type="checkbox" id="checkAll" /></th>
-	<th style="width: 10%">글번호</th>
-	<th style="width: 50%">제목</th>
+<!-- <tr style="color: #1a3a5a" class= "info"> -->
+<!-- 	<th><input type="checkbox" id="checkAll" /></th> -->
+<!-- 	<th style="width: 10%">글번호</th> -->
+<!-- 	<th style="width: 55%">제목</th> -->
 <!-- 	<th style="width: 15%">아이디</th> -->
-	<th style="width: 10%">닉네임</th>
-	<th style="width: 10%">조회수</th>
-	<th style="width: 15%">작성일</th>
-</tr>
+<!-- 	<th style="width: 10%">닉네임</th> -->
+<!-- 	<th style="width: 10%">조회수</th> -->
+<!-- 	<th style="width: 15%">작성일</th> -->
+<!-- </tr> -->
 
 <c:forEach items = "${boardlist }" var = "list">
 	<tr>
-	<td><input type="checkbox" name="checkRow" value="${list.boardno }"/></td>
-		<td style="color: #1a3a5a">${list.boardno }</td>
-		<td style="color: #1a3a5a"><a href="/board/view?board_no=${list.boardno }">${list.title }</a></td>
+<%-- 	<td><input type="checkbox" name="checkRow" value="${list.boardno }"/></td> --%>
+		<td style="color: #1a3a5a; width: 5%;">${list.boardno }</td>
+		<td style="color: #1a3a5a; width: 50%;"><a href="/freeboard/view?boardno=${list.boardno }">${list.title }</a></td>
 <%-- 		<td style="color: #1a3a5a">${list.content }</td> --%>
 <%-- 		<td style="color: #1a3a5a">${list.userid }</td> --%>
-		<td style="color: #1a3a5a">${list.usernick }</td>
-		<td style="color: #1a3a5a">${list.views }</td>
-		<td style="color: #1a3a5a">${list.writtendate }</td>
+		<td style="color: #1a3a5a; width: 20%;">${list.usernick }</td>
+		<td style="color: #1a3a5a; width: 10%;">${list.views }</td>
+		<td style="color: #1a3a5a; width: 15%;">${list.writtendate }</td>
 	</tr>
 </c:forEach>
 </table>
 
-<c:if test="${login }">
+<%-- <c:if test="${login }"> --%>
 <div style="text-align: right;">
-<a href="/board/write"><button type="button" class="btn btn-primary btn-sm">글쓰기</button></a>
-<button class="btn btn-primary btn-sm">삭제</button>
+<a href="/freeboard/write"><button class="btn btn-default btn-sm" style="float: right; background-color: #494b4d; color: white;">글쓰기</button></a>
+<!-- <button class="btn btn-default btn-sm" style="float: right; background-color: #494b4d; color: white;">삭제</button> -->
 </div>
-</c:if>
-</form>
+<%-- </c:if> --%>
+<!-- </form> -->
 <div class="src">
-	<form action="/board/list" method="get">
+	<form action="/freeboard/list" method="get">
 	<input name="search" type="text" placeholder = "검색어 입력">
 	<button>검색</button>
 	</form>
 </div>
 
 
-<jsp:include page = "/WEB-INF/views/layout/paging.jsp" />
+<jsp:include page = "/WEB-INF/views/layout/freepaging.jsp" />
 
 
 </div><!-- .container -->

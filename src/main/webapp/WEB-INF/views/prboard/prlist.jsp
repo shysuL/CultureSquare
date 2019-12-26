@@ -10,8 +10,7 @@ $(document).ready(function() {
 	
 	//로그인 했을 경우 글쓰기 버튼 누르면 이동
 	$("#LoginWrite").click(function() {
-// 		location.href="/prboard/write";
-		console.log("오건 로그인 했을때");
+		location.href="/prboard/write";
 		return false;
 	});
 	
@@ -30,11 +29,38 @@ $(document).ready(function() {
 	width: 800px;
 	height: 400px;
 }
+
+#prIntroduceTitle{
+	width: 340px;
+    padding-top: 400px;
+    padding-bottom: 50px;
+}
+}
+
+#prRankTitle{
+	width: 340px;
+}
+
+#prIntroduceContent{
+	background-color:#343a40; 
+	color:white;
+}
+
+#prRankContent{
+	background-color:#343a40; 
+	color:white;
+}
+
+#side{
+	position:absolute;
+	top: 0;
+	right: -355px;
+}
+
 </style>
 <br><br>
 
-<div class="container">
-
+<div class="container" style="position: relative">
 <!-- Page Heading -->
   <h1 class="my-4">Page Heading
     <small>Secondary Text</small>
@@ -185,7 +211,7 @@ $(document).ready(function() {
           </a>
     </li>
   </ul>
-  
+
 <!-- 로그인 실패시 모달창 -->
 <div class="modal fade" id="prNotLoginModal">
   <div class="modal-dialog modal-dialog-centered">
@@ -209,8 +235,27 @@ $(document).ready(function() {
     </div>
   </div>
 </div>
-  
-  
+<div id="side">
+	<div class="list-group" id="prIntroduceTitle">
+  <a class="list-group-item" id="prIntroduceContent">
+   PR 소개
+  </a>
+  <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+</div>
+<div class="list-group" id="prRankTitle">
+  <a class="list-group-item" id="prRankContent">
+   PR 순위
+  </a>
+  <a href="#" class="list-group-item">1등</a>
+  <a href="#" class="list-group-item">2등</a>
+  <a href="#" class="list-group-item">3등</a>
+  <a href="#" class="list-group-item">4등</a>
+  <a href="#" class="list-group-item">5등</a>
+<!-- </div> -->
+</div>
+</div>
 </div> <!-- 컨테이너 end -->
+
+
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
 
