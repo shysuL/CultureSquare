@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import board.dao.face.FreeBoardDao;
 import board.dto.FreeBoard;
 import board.service.face.FreeBoardService;
+import user.dto.User_table;
 import util.Paging;
 
 
@@ -46,6 +47,12 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		
 		freeboardDao.updateViews(boardno);
 		
+	}
+
+	@Override
+	public User_table getboardWriter(Object attribute) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
