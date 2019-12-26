@@ -20,7 +20,7 @@ public class AdminLogoutController {
 
 		logger.info("로그아웃 성공");
 		
-		return "redirect:/main";
+		return "redirect:/admin/login";
 	}
 
 }
