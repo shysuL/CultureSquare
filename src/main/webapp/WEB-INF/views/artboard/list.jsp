@@ -4,6 +4,18 @@
     <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />  
 
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	//글쓰기 버튼 누르면 이동
+	$("#btnWrite").click(function() {
+		location.href= "/artboard/write";
+	});
+	
+});
+</script>
+
+
 <style type="text/css">
 .cal_header_div{
 	background-color: #343a40;
@@ -33,6 +45,25 @@
 	float: right;
 	border: 0px solid #bcbcbc;
 }
+
+#side{
+
+	position:absolute;
+    right: 30px;
+    top: 384px;
+}
+#pfIntroduceTitle{
+    background-color: #343a40;
+    color: white;
+
+}
+#pfIntroduceContent{
+    background-color: #343a40;
+    color: white;
+
+}
+
+
 </style>
 
 
@@ -45,7 +76,7 @@
 <div id = top_banner style="width: 800px;">
 	<div id = "banner" style="border : 1px solid #bcbcbc; width: 70%; height: 60px;  margin-bottom: 15px;" >배너</div>
 	
-	<div style="float: right; width: 30%;"><button >글작성</button></div>
+	<div style="float: right; width: 30%;"><button id="btnWrite" class="btn btn-primary" >글작성</button></div>
 </div>
 <div id="list_table" class="width_660 box_shadow_3 text-center">
 
@@ -115,9 +146,20 @@
 		</div>
 	</div>
 
-
+<div id="side">
+	<div class="list-group" id="pfIntroduceTitle">
+  <a class="list-group-item" id="pfIntroduceContent">
+   CALENDAR 소개
+  </a>
+  <a href="#" class="list-group-item" style="font-size: 12px">
+  버스킹, 연극, 공연, 전시 등의<br>
+   일정을 포스팅하는 공간입니다.
+   </a>
 
 </div>
+
+</div>
+</div> <!-- container -->
 
 
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />

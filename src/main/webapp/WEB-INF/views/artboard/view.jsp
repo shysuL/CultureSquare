@@ -63,20 +63,28 @@
 	max-width: 95%;
 	text-align: right;
 }
-
+#writer_title{
+	background-color: #343a40;
+	color : white;
+}
 #writer_photo{
-	max-width: 35%;
-    width: 60%;
+    width: 100px;
     height: 100px;
 	float:left;
 	border: 1px solid black;
 }
 
 #writer_info{
-	max-width: 65%;
-	width: 40%;
+    width: 150px;
+    height: 100px;
 	float:right;
-	border: 1px solid black;
+	padding: 10px;
+	text-align: center;
+}
+#side{
+	position:absolute;
+    right: -30px;
+    top: 384px;
 }
 </style>
 
@@ -86,7 +94,6 @@
 <h2>VIEWVIEW</h2>
 
 <div class="container container-fluid" style="margin-bottom: 600px">
-<div class = "con_left">
 <div id = "view_head" class="col-xs-12 col-sm-6 col-md-8">
 <span style="">${view.title }</span>
 </div>
@@ -120,31 +127,27 @@ ${view.contents }<br>
 
 
 
+<ul id = "side" class="list-group">
+  <li id = "writer_title" class="list-group-item">
+	작성자 프로필
+	</li>
+  <li class="list-group-item">
+  <div id = "writer_photo"> 사진</div>
+  <div id = "writer_info">${writer.usernick } 
+  <br>
+  		<div> <button class="btn btn-default" style="background-color: #343a40 !important; color: white !important; margin-top: 15px;">
+  		팔로우</button></div>
+   </div>
+   </li>
+</ul>
 
 
 
 
 
-</div>
-<div class = "con_right" style="height: auto;">
-
-<div id = "writer_head" class="col-xs-12 col-sm-6 col-md-8">
-<span>작성자프로필</span>
-</div>
-<div class="col-xs-12 col-sm-6 col-md-8" style="width:100%; ">
-	<div id = "writer_photo">
-	사진
-	</div>
-	<div id = "writer_info">
-		<div> ${writer.usernick } </div>
-		<br><br>
-		<div><button type = "button" class="btn btn-default" style="background-color: #343a40 !important; color: white !important;">팔로우</button></div>
-	</div>
-</div>
 
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-</div>
+
 
 
 

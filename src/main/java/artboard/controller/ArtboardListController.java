@@ -23,9 +23,7 @@ public class ArtboardListController {
 	
 	@RequestMapping(value = "/artboard/list", method = RequestMethod.GET)
 	public void pfList(Model model, Paging paging) {
-		
-//		logger.info("아트보드");
-		
+				
 		paging = pfboardService.getPaging(paging);
 		
 		model.addAttribute("paging",paging);
@@ -59,5 +57,8 @@ public class ArtboardListController {
 		model.addAttribute("writer", writer);
 		
 	}
+	
+	@RequestMapping(value = "/artboard/write", method=RequestMethod.GET)
+	public void write() {}
 
 }
