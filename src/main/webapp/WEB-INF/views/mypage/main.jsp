@@ -19,7 +19,7 @@
 
 .inner_con2 {
 	float: right;
-	background: #FFFFFF;
+/* 	background: #FFFFFF; */
 	width: 40%;
 	height: 410px;
 	padding: 16px;
@@ -30,7 +30,7 @@
 
 .inner_con3 {
 	float: right;
-	background: #FFFFFF;
+/* 	background: #FFFFFF; */
 	width: 40%;
 	height: 300px;
 	padding: 16px;
@@ -120,20 +120,20 @@
 					관심분야 : ${interest }
 				</p>
 			</div>
-			<input type="button" class="btn btn-secondary" style="width: 84%; display: block; margin: 0 auto;" value="개인정보 수정"/>
+			<input type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;" value="개인정보 수정"/>
 			<br>
 			<!-- display:none으로 화면상에서 파일 확인 창을 숨겨둔다 -->
 			<input type="file" id="ajaxFile" onChange="ajaxFileChange();" style="display: none;" accept=".jpeg, .jpg, .png" /> 
-			<input class="btn btn-secondary" type="button" onClick="ajaxFileUpload();"
+			<input class="btn btn-outline-dark" type="button" onClick="ajaxFileUpload();"
 				value="프로필사진 변경" style="width: 84%; display: block; margin: 0 auto;" />
 			<br>
 			<!-- <input type="text" id="ajaxFile" onChange="ajaxFileChange();" style="display:none";/> -->
-			<input class="btn btn-secondary" type="button"
+			<input class="btn btn-outline-dark" type="button"
 				onClick="ajaxFileDelete();" value="프로필사진 삭제" style="width: 84%; display: block; margin: 0 auto;" />
 
 			<!-- 비밀번호 수정 모달을 열기 위한 버튼 -->
 			<br>
-			<button type="button" class="btn btn-secondary" data-toggle="modal"
+			<button type="button" class="btn btn-outline-dark" data-toggle="modal"
 				data-target="#testModal" style="width: 84%; display: block; margin: 0 auto;">비밀번호 변경</button>
 			<!-- 모달 영역 -->
 <!-- 			<form action="/mypage/pwmodify" method="post" id="deleteForm"> -->
@@ -177,7 +177,7 @@
 <!-- 				</div> -->
 <!-- 			</form> -->
 			<br>
-			<input type="button" class="btn btn-secondary" style="width: 84%; display: block; margin: 0 auto;" value="회원탈퇴"/>
+			<input type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;" value="회원탈퇴"/>
 		</div>
 
 		<!-- 활동이력 -->
@@ -188,23 +188,16 @@
 				</li>
 			</ul>
 			<hr>
-			<div class="row row-center">
-				<div class="col-md-8">
-					<img src="" style="width: 45x; height: 45px;"> 좋아요한 글
-				</div>
-				<div class="col-md-8">
-					<img src="" style="width: 45x; height: 45px;"> 구독한 예술인
-				</div>
-				<div class="col-md-8">
-					<img src="" style="width: 45x; height: 45px;"> 내가 쓴 글
-				</div>
-				<div class="col-md-8">
-					<img src="" style="width: 45x; height: 45px;"> 내가 쓴 댓글
-				</div>
-				<div class="col-md-8">
-					<img src="" style="width: 45x; height: 45px;"> 내가 후원한 내역
-				</div>
-			</div>
+			<img src="" style="width: 45x; height: 45px;"> 
+			<input type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;" value="좋아요한 글"/>
+			<img src="" style="width: 45x; height: 45px;"> 
+			<input type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;" value="구독한 예술인"/>
+			<img src="" style="width: 45x; height: 45px;">
+			<input type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;" value="내가 쓴 글"/>
+			<img src="" style="width: 45x; height: 45px;">
+			<input type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;" value="내가 쓴 댓글"/>
+			<img src="" style="width: 45x; height: 45px;"> 
+			<input type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;" value="내가 후원한 내역"/>
 		</div>
 		<!-- 예술인 신청 -->
 		<div class="inner_con3">
@@ -215,11 +208,11 @@
 			</ul>
 			<hr>
 			<small style="text-align: center; display: block; font-size: initial;">
-			예술인으로 신청할 수 있는 버튼입니다.<br>
+			<br>예술인으로 신청할 수 있는 버튼입니다.<br>
 			일반 사용자가 예술인으로 변경을 원할 시에만 눌러주세요.<br>
 			공연, 연극, 버스킹등의 예술분야를 홍보할 수 있는<br>
 			CALENDAL게시판 이용이 가능합니다.</small><br><br>
-			<a href="" class="btn btn-secondary" role="button" style="width: 84%; display: block; margin: 0 auto;">예술인 신청하기</a>
+			<a href="" class="btn btn-outline-dark" role="button" style="width: 84%; display: block; margin: 0 auto;">예술인 신청하기</a>
 		</div>
 		<div style="clear: both;"></div>
 	</div>
