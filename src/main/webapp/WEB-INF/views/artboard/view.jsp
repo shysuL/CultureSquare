@@ -71,7 +71,12 @@
     width: 100px;
     height: 100px;
 	float:left;
-	border: 1px solid black;
+}
+#profileImg{
+	width:98px;
+	height:98px;
+	display: block;
+	margin: 0 auto;
 }
 
 #writer_info{
@@ -83,7 +88,7 @@
 }
 #side{
 	position:absolute;
-    right: -30px;
+	right: 20px;
     top: 384px;
 }
 </style>
@@ -132,7 +137,10 @@ ${view.contents }<br>
 	작성자 프로필
 	</li>
   <li class="list-group-item">
-  <div id = "writer_photo"> 사진</div>
+  <div id = "writer_photo">
+	<img id="profileImg" src="/resources/img/userdefaultprofile.png" class="img-responsive img-circle"
+							alt="Responsive image">
+</div>
   <div id = "writer_info">${writer.usernick } 
   <br>
   		<div> <button class="btn btn-default" style="background-color: #343a40 !important; color: white !important; margin-top: 15px;">

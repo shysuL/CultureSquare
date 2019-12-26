@@ -38,27 +38,6 @@ public class ArtboardListController {
 		
 	}
 	
-	@RequestMapping(value = "/artboard/view", method = RequestMethod.GET)
-	public void pfView(Board bno, Model model) {
-		
-		Board viewboard = pfboardService.view(bno);
-		
-		logger.info(viewboard.toString());
-		model.addAttribute("view", viewboard);
-		
-		Board userno = new Board();
-		userno.setUserno(viewboard.getUserno());
-//		System.out.println(userno.getUserno());
-		
-		Board writer = pfboardService.getWriter(userno);
-		
-//		System.out.println("test : " + writer.toString());
-		
-		model.addAttribute("writer", writer);
-		
-	}
 	
-	@RequestMapping(value = "/artboard/write", method=RequestMethod.GET)
-	public void write() {}
 
 }

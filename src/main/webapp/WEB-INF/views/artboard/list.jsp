@@ -47,7 +47,6 @@ $(document).ready(function() {
 }
 
 #side{
-
 	position:absolute;
     right: 30px;
     top: 384px;
@@ -63,6 +62,15 @@ $(document).ready(function() {
 
 }
 
+#category_name{
+    border: 1px solid #e5e5e5;
+    background: #f8f8f8;
+    padding: 4px 7px;
+    border-radius: 15px;
+    font-size: 12px;
+    letter-spacing: -1px;
+}
+
 
 </style>
 
@@ -76,7 +84,7 @@ $(document).ready(function() {
 <div id = top_banner style="width: 800px;">
 	<div id = "banner" style="border : 1px solid #bcbcbc; width: 70%; height: 60px;  margin-bottom: 15px;" >배너</div>
 	
-	<div style="float: right; width: 30%;"><button id="btnWrite" class="btn btn-primary" >글작성</button></div>
+	<button id="btnWrite" class="btn btn-primary" >글작성</button>
 </div>
 <div id="list_table" class="width_660 box_shadow_3 text-center">
 
@@ -112,26 +120,18 @@ $(document).ready(function() {
       <img class="media-object" src="..." alt="...">
     </a>
   </div>
-  <div class="media-body"><a href="/artboard/view?boardno=${i.boardno}">
-    <h4 class="media-heading">${i.title }</h4>
-    ${i.performname}
-  </a>
+  <div class="media-body">
+    <span class="media-heading"><a href="/artboard/view?boardno=${i.boardno}">${i.title }</a></span>
+    <br><br>
+    <span id = "category_name">${i.performname}</span>
+  
   </div>
+  
 </div>
 </div>
 </c:forEach>
 
 
-
-<!-- <table> -->
-<%-- <c:forEach items="${list }" var="i"> --%>
-<!-- <tr> -->
-<%-- 	<td>${i.title }</td> --%>
-<%-- 	<td>${i.views }</td> --%>
-<%-- 	<td>${i.userno }</td> --%>
-<!-- </tr> -->
-<%-- </c:forEach> --%>
-<!-- </table> -->
 
 <div class="list_cal_row_title theme_box2 relative text-center">
 		<div class="cal_header_div eng">
