@@ -24,7 +24,27 @@
 
 #adminloginbtn {
 	padding-left: 135px;
-	padding-right: 135px;
+	padding-right: 138px;
+}
+
+.cropping {
+    max-height: 180px;
+    overflow: hidden;
+    display: block;
+    margin: 0 auto;
+}
+
+a {
+	font: menu;
+    color: #000000;;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.nav-tabs .nav-link.active {
+    color: #949faa;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
 }
 
 </style>
@@ -34,7 +54,9 @@
 
 <!-- 메인이미지 -->
 <nav class="navbar navbar-dark bg-dark center">
-	<a href="/admin/main"><img class="culture" src="/resources/logo/culturesquareLogo.png" style="height:200px;"></a> 
+	<div class="cropping">
+		<img class="culture" src="/resources/logo/culturesquareLogo.png" style="height:200px;">
+	</div>
 </nav>
 
 <div class="wrap">

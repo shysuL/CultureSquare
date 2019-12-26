@@ -9,9 +9,9 @@
 </style>
 
 <footer>
-<br><br>
+<br>
 <nav class="navbar navbar-dark bg-dark fotter" >
-   <div class="fotter">      
+   <div class="fotter"><br>    
          <a href="/service">서비스소개&emsp;|</a>
          <a href="/clause">&emsp;회원약관&emsp;|</a>
          <a href="/personal">&emsp;개인정보처리방침&emsp;|</a>
@@ -20,11 +20,11 @@
       <div class="company_info">&copy;
       <span class="ft_copyright"> 2020 <strong>Culture Square</strong>&emsp;All rights reserved.
       </span>
-      </div>
+      </div><br>
    </div>
 </nav>
 </footer>
-<br><br><br>
+
 
 </div><!-- wrap -->
 
