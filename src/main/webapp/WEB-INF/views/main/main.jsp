@@ -70,7 +70,7 @@
   <div class="container marketing">
     <hr class="featurette-divider">
 
-${el }
+
 	<!-- 크롤링  -->
   <div class="row">
 	<!-- 첫번째줄 -->
