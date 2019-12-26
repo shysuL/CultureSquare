@@ -27,6 +27,13 @@
 	padding-right: 135px;
 }
 
+.cropping {
+    max-height: 180px;
+    overflow: hidden;
+    display: block;
+    margin: 0 auto;
+}
+
 </style>
 
 </head>
@@ -34,7 +41,9 @@
 
 <!-- 메인이미지 -->
 <nav class="navbar navbar-dark bg-dark center">
-	<a href="/admin/main"><img class="culture" src="/resources/logo/culturesquareLogo.png" style="height:200px;"></a> 
+	<div class="cropping">
+		<img class="culture" src="/resources/logo/culturesquareLogo.png" style="height:200px;">
+	</div>
 </nav>
 
 <div class="wrap">
