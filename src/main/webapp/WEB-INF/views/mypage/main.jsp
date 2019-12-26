@@ -21,7 +21,7 @@
 	float: right;
 /* 	background: #FFFFFF; */
 	width: 40%;
-	height: 410px;
+	height: 430px;
 	padding: 16px;
 	margin: 3%;
 	border: 1px solid #ddd;
@@ -32,7 +32,7 @@
 	float: right;
 /* 	background: #FFFFFF; */
 	width: 40%;
-	height: 300px;
+	height: 338px;
 	padding: 16px;
 	margin: 3%;
 	border: 1px solid #ddd;
