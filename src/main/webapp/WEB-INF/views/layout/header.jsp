@@ -73,10 +73,10 @@
 	<div class="collapse navbar-collapse" id="navbarCollapse">
 	    <ul class="navbar-nav mr-auto">
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">공지사항<span class="sr-only">(current)</span></a>
+	        <a class="nav-link" href="/board/noticelist">공지사항<span class="sr-only">(current)</span></a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/freeboard/list">자유 게시판</a>
+	        <a class="nav-link" href="/board/freelist">자유 게시판</a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="/artboard/list">CALENDAL</a>
@@ -85,7 +85,7 @@
 	        <a class="nav-link" href="/prboard/prlist">PR</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">FAQ</a>
+	        <a class="nav-link" href="/board/faqlist">FAQ</a>
 	      </li>
 	    </ul>
 

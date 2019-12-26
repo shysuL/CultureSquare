@@ -24,7 +24,7 @@ public class FreeListController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(FreeListController.class);
 	
-	@RequestMapping(value = "/freeboard/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/board/freelist", method = RequestMethod.GET)
 	public void freeList(Model model, @RequestParam(defaultValue = "1") int curPage) {
 				
 		Paging paging = new Paging(freeboardService.getListCnt(), curPage);

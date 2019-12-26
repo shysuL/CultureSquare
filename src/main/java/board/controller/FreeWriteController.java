@@ -25,7 +25,7 @@ public class FreeWriteController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(FreeWriteController.class);
 
-	@RequestMapping(value = "/freeboard/write", method = RequestMethod.GET)
+	@RequestMapping(value = "/board/freewrite", method = RequestMethod.GET)
 	public void freeWrite(Model model, HttpSession session) {
 		
 		System.out.println("요청 확인");
@@ -35,7 +35,7 @@ public class FreeWriteController {
 //		model.addAttribute("member", member);
 	}
 	
-	@RequestMapping(value = "/freeboard/write", method = RequestMethod.POST)
+	@RequestMapping(value = "/board/freewrite", method = RequestMethod.POST)
 	public String freeWrite(Model model, FreeBoard freeboard, HttpSession session) {
 		
 		
@@ -56,7 +56,7 @@ public class FreeWriteController {
 		
 		freeboardService.writeFree(freeboard);
 		
-		return "redirect:/freeboard/list";
+		return "redirect:/board/freelist";
 		
 	}
 
