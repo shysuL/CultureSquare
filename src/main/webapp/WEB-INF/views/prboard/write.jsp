@@ -4,6 +4,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
+<!-- 스마트 에디터2 라이브러리 -->
+<script type="text/javascript"
+ src="/resources/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+
+<script type="text/javascript">
+// <form>이 submit되면
+// 스마트 에디터 내용을 <textarea>반영해주는 함수
+function submitContents(elClickedObj) {
+	// 에디터의 내용이 textarea에 적용된다.
+	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
+
+	try {
+		elClickedObj.form.submit(); // <form> submit 수행
+	} catch(e) {}
+}
+</script>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -31,105 +47,12 @@ $(document).ready(function() {
 	height: 400px;
 }
 </style>
-<br><br>
-<h3>하이</h3>
-<div class="container">
-
- <!-- 스마트 에디터2 라이브러리 -->
-<script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js" charset="utf-8"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-	
-
-	    // 라디오버튼 클릭시 이벤트 발생
-	    $("input:radio[name=chk]").click(function(){
-	 
-	    	var secretChecked = $("input[name=chk]:checked").val();
-	    	
-// 	    	console.log("라디오 체크 : " + secretChecked);
-	    	
-	    	$.ajax({
-	            type : "get",
-	            url : "/inquiry/secret",
-	            data : {
-	            	secretChecked : secretChecked
-	            },
-	            dataType : "html",
-	            success : function(data) {
-// 	               console.log("성공")
-// 	               console.log(data)
-
-	               $("#showpw").html(data)
-	            },
-	            error : function() {
-// 	               console.log("실패");
-	            }
-	         });
-	    });
-	
-		
-
-});
-
-
-</script>  
-
-<script type="text/javascript">
-function submitContents(elClickedObj) {
-    // 에디터의 내용을 textarea에 적용
-    oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
-
-    try {
-        elClickedObj.form.submit();
-    } catch(e) {}
-}
-
-
-$(document).ready(function(){
-   $("#btnWrite1").click(function(){
-// 	   console.log(13123);
-      submitContents($("#btnWrite1"));
-      $("form").submit();
-   })
-   $("#btnCancel").click(function(){
-      history.go(-1);
-   })
-   
-   
-   //경고 모달 호출 메서드
-	function warningModal(content) {
-	
-	   $(".modal-contents").text(content);
-		$("#defaultModal").modal('show');
-	}
-      
-	
-   
-   
-});
-</script>
- <style type="text/css">
- #content {
- 	width: 95%; 	
- }
- 
-
- .container {
- 	margin-bottom: 30px;
- }
- 
- .modal-backdrop {
-   z-index: 1;
-}
- 
-</style>
 <div class="container">
 
 <div style="margin: 0 auto; margin-top: 70px;">
 <form action="/inquiry/write"  method="post" enctype="multipart/form-data">
 <div style="background: lightgray; border: 1px solid lightgray; padding: 10px; width: 80%; margin: 0 auto; text-align: center;">
-문의사항
+문하
 </div>
 <table class="table" style=" width: 80%; margin: 0 auto; margin-top: 10px; ">
 	<tr style="background-color: lightgray;">
@@ -196,4 +119,16 @@ $(document).ready(function(){
   
 </div> <!-- 컨테이너 end -->
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
+
+<!-- 스마트 에디터 적용 코드 -->
+<!-- <textarea>태그에 스마트 에디터의 스킨을 입히는 코드 -->
+<script type="text/javascript">
+var oEditors = [];
+nhn.husky.EZCreator.createInIFrame({
+	oAppRef: oEditors,
+	elPlaceHolder: "content", // 에디터가 적용되는 <textarea>의 id
+	sSkinURI: "/resources/se2/SmartEditor2Skin.html", // 에디터 스킨
+	fCreator: "createSEditor2"
+});
+</script>
 

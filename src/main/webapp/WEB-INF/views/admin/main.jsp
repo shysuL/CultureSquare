@@ -55,7 +55,7 @@
 		<div class="container" style="margin-top: 50px;">
 			<div class="innercon2">
 				<div class="src" style="text-align: right;">
-					<form action="/mgr/complist" method="get">
+					<form action="" method="get">
 					<input type="text" name="search" id="search"/>
 					<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
 					</form>
@@ -97,7 +97,7 @@
 		<div class="container" style="margin-top: 50px;">
 			<div class="innercon2">
 				<div class="src" style="text-align: right;">
-					<form action="/mgr/complist" method="get">
+					<form action="" method="get">
 					<input type="text" name="search" id="search"/>
 					<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
 					</form>
@@ -139,7 +139,7 @@
 		<div class="container" style="margin-top: 50px;">
 			<div class="innercon2">
 				<div class="src" style="text-align: right;">
-					<form action="/mgr/complist" method="get">
+					<form action="" method="get">
 					<input type="text" name="search" id="search"/>
 					<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
 					</form>
@@ -148,7 +148,7 @@
 				<form action="" method="get">
 					<table class="table table-hover">
 						<thead>
-						<tr class = "info"  >
+						<tr class="info">
 							<th style="width: 5%"><input type="checkbox" id="checkAll"/></th>
 							<th style="width: 10%">글번호</th>
 							<th style="width: 50%">제목</th>					
@@ -181,7 +181,7 @@
 		<div class="container" style="margin-top: 50px;">
 			<div class="innercon2">
 				<div class="src" style="text-align: right;">
-					<form action="/mgr/complist" method="get">
+					<form action="" method="get">
 					<input type="text" name="search" id="search"/>
 					<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
 					</form>
