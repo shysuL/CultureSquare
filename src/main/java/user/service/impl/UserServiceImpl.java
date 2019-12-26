@@ -40,4 +40,12 @@ public class UserServiceImpl implements UserService{
 	}
 
 
+	@Override
+	public int userNickCheck(String usernick) {
+
+		return userDao.selectCheckNick(usernick);
+		
+	}
+
+
 }
