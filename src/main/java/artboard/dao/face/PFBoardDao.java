@@ -54,4 +54,14 @@ public interface PFBoardDao {
 	 */
 	public Board selectWriter(Board userno);
 
+	/**
+	 * 이수현
+	 * 2019 - 12 - 27
+	 * 
+	 * 전달받은 게시글 내용을 입력
+	 * 
+	 * @param board - 전달받은 게시글 내용
+	 */
+	public void insert(Board board);
+
 }

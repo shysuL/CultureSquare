@@ -56,6 +56,16 @@ public interface PFBoardService {
 	 * @return board - 게시글 작성자의 회원 정보
 	 */
 	public Board getWriter(Board userno);
+
+	/**
+	 * 이수현
+	 * 2019 - 12 - 27
+	 * 
+	 * 전달받은 게시글 파라미터값을 저장
+	 * 
+	 * @param board - 게시글 작성 값
+	 */
+	public void write(Board board);
 	
 	
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import artboard.dto.Board;
 import artboard.service.face.PFBoardService;
 
 @Controller
@@ -19,5 +20,10 @@ public class ArtboardWriteController {
 	public void write() {}
 
 	@RequestMapping(value = "/artboard/write", method=RequestMethod.POST)
-	public void writeProc() {}
+	public String writeProc(Board board) {
+		
+		pfboardService.write(board);
+		
+		return "redirect:/artboard/list";
+	}
 }

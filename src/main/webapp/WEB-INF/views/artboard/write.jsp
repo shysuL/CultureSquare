@@ -16,24 +16,24 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	
-	//작성버튼 동작
+
 	$("#btnWrite").click(function() {
+
+// 		console.log(111);
+
 		//스마트에디터의 내용을 <textarea>에 적용
 		submitContents($("#btnWrite"));
-		
-		$("form").submit();
+
+		//form submit
+		$("#write").submit();
 	});
-	
 	//취소버튼 동작
 	$("#btnCancel").click(function() {
 		history.go(-1);
 	});
+
 });
-
-
 </script>
-
 <script>
     var editorConfig = {
         filebrowserUploadUrl : "/ckEditor/imgUpload", //이미지 업로드
@@ -84,7 +84,7 @@ $(document).ready(function() {
 <h1>WRITE</h1>
 <hr>
 
-<form action="/board/write" method="post">
+<form action="/artboard/write" method="post">
 <div id = "write_head" class="col-xs-12 col-sm-6 col-md-8">
 <span style="">필수 입력 사항</span>
 </div><br>
@@ -150,14 +150,14 @@ $(document).ready(function() {
 <br>
 첨부파일 <input type="file" name="file" />
 
-
+<input type="hidden" id = "userno" name = "userno" value = "${userno}"/>
 </form>
-
-
 <div class="text-center">	
 	<button type="button" id="btnWrite" class="btn btn-info">작성</button>
 	<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
 </div>
+
+
 
 
 

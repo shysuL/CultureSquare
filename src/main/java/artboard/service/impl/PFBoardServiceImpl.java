@@ -38,6 +38,11 @@ public class PFBoardServiceImpl implements PFBoardService{
 	public Board getWriter(Board userno) {
 		return pfboardDao.selectWriter(userno);
 	}
+
+	@Override
+	public void write(Board board) {
+		pfboardDao.insert(board);
+	}
 	
 	
 
