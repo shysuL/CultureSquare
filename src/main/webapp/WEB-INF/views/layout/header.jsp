@@ -76,18 +76,19 @@
 	        <a class="nav-link" href="#">공지사항<span class="sr-only">(current)</span></a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">자유 게시판</a>
+	        <a class="nav-link" href="/freeboard/list">자유 게시판</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">CALENDAL</a>
+	        <a class="nav-link" href="/artboard/list">CALENDAL</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">PR</a>
+	        <a class="nav-link" href="/prboard/prlist">PR</a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="#">FAQ</a>
 	      </li>
 	    </ul>
+
 	<!-- 우측 상단 아이콘 -->
 	<div class="btn-group logindrop">
 		<!-- 상단 날씨 아이콘 -->  
