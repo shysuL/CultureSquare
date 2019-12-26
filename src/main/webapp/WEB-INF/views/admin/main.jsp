@@ -44,7 +44,7 @@
 				border: 1px solid #ccc; margin-top: 100px;">
 			<c:if test="${adminLogin }"> 
 				<br><br><h5>관리자 ${adminid }님, 반갑습니다 :-)</h5><br>
-				<button onclick="location.href='/admin/logout';" class="btn btn-info">Logout</button>
+				<button onclick="location.href='/admin/logout';" class="btn btn-secondary">Logout</button>
 				<br>
 			</c:if>
 		</div>
@@ -57,7 +57,7 @@
 				<div class="src" style="text-align: right;">
 					<form action="/mgr/complist" method="get">
 					<input type="text" name="search" id="search"/>
-					<button id="btnSearch" class="btn btn-info" style="text-align: right;">검색</button>
+					<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
 					</form>
 				</div>
 				<br>
@@ -86,7 +86,7 @@
 						</tbody>
 						
 					</table>
-					<button class="btn btn-info">삭제</button>
+					<button class="btn btn-secondary">삭제</button>
 				</form>
 			</div>
 		</div> <!-- container -->
@@ -99,7 +99,7 @@
 				<div class="src" style="text-align: right;">
 					<form action="/mgr/complist" method="get">
 					<input type="text" name="search" id="search"/>
-					<button id="btnSearch" class="btn btn-info" style="text-align: right;">검색</button>
+					<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
 					</form>
 				</div>
 				<br>
@@ -128,7 +128,7 @@
 						</tbody>
 						
 					</table>
-					<button class="btn btn-info">삭제</button>
+					<button class="btn btn-secondary">삭제</button>
 				</form>
 			</div>
 		</div> <!-- container -->
@@ -141,7 +141,7 @@
 				<div class="src" style="text-align: right;">
 					<form action="/mgr/complist" method="get">
 					<input type="text" name="search" id="search"/>
-					<button id="btnSearch" class="btn btn-info" style="text-align: right;">검색</button>
+					<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
 					</form>
 				</div>
 				<br>
@@ -170,7 +170,7 @@
 						</tbody>
 						
 					</table>
-					<button class="btn btn-info">삭제</button>
+					<button class="btn btn-secondary">삭제</button>
 				</form>
 			</div>
 		</div> <!-- container -->
@@ -183,7 +183,7 @@
 				<div class="src" style="text-align: right;">
 					<form action="/mgr/complist" method="get">
 					<input type="text" name="search" id="search"/>
-					<button id="btnSearch" class="btn btn-info" style="text-align: right;">검색</button>
+					<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
 					</form>
 				</div>
 				<br>
@@ -212,7 +212,7 @@
 						</tbody>
 						
 					</table>
-					<button class="btn btn-info">삭제</button>
+					<button class="btn btn-secondary">삭제</button>
 				</form>
 			</div>
 		</div> <!-- container -->
@@ -225,7 +225,7 @@
 				<div class="src" style="text-align: right;">
 					<form action="" method="get">
 					<input type="text" name="search" id="search"/>
-					<button id="btnSearch" class="btn btn-info" style="text-align: right;">검색</button>
+					<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
 					</form>
 				</div>
 				<br>
@@ -254,7 +254,7 @@
 						</tbody>
 						
 					</table>
-					<button class="btn btn-info">삭제</button>
+					<button class="btn btn-secondary">삭제</button>
 				</form>
 			</div>
 		</div> <!-- container -->
@@ -267,7 +267,7 @@
 				<div class="src" style="text-align: right;">
 					<form action="" method="get">
 					<input type="text" name="search" id="search"/>
-					<button id="btnSearch" class="btn btn-info" style="text-align: right;">검색</button>
+					<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
 					</form>
 				</div>
 				<br>
@@ -296,7 +296,7 @@
 						</tbody>
 						
 					</table>
-					<button class="btn btn-info">삭제</button>
+					<button class="btn btn-secondary">삭제</button>
 				</form>
 			</div>
 		</div> <!-- container -->	

@@ -24,7 +24,7 @@
 
 #adminloginbtn {
 	padding-left: 135px;
-	padding-right: 135px;
+	padding-right: 138px;
 }
 
 .cropping {
@@ -32,6 +32,19 @@
     overflow: hidden;
     display: block;
     margin: 0 auto;
+}
+
+a {
+	font: menu;
+    color: #000000;;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.nav-tabs .nav-link.active {
+    color: #949faa;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
 }
 
 </style>

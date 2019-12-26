@@ -55,34 +55,28 @@ $(document).ready(function(){
 
 </script>
 
-
-
-<!-- <form action="/admin/login" method="post"> -->
-<!-- 	아이디 : <input type="text" name="adminid"><br> -->
-<!-- 	비밀번호 : <input type="password" name="adminpw"><br> -->
-	
-<!-- 	<button type="submit" id="adminlogin">로그인</button> -->
-<!-- </form> -->
 <div class="container container-center" id="adminlogindiv">
-	<small>이곳은 Culture Square의 관리자 사이트입니다.<br>
-	관리자를 제외한 다른 사용자는 접속할 수 없습니다.</small><br>
-
-<!-- 	<form action="/admin/login" method="post"> -->
-		<div class="form-group">
-		  <label for="adminid">ID</label>
-		  <input type="text" class="form-control" id="adminid" name="adminid" aria-describedby="emailHelp">
-		</div>
-		
-		<div class="form-group">
-		  <label for="adminpw">PASSWORD</label>
-		  <input type="password" class="form-control" id="adminpw" name="adminpw">
-		</div>
-
-		<button type="submit" class="btn btn-info" id="adminloginbtn">LOGIN</button>
-		
-<!-- 	</form> -->
+	<br>
+	<div style="border: 1px solid #ccc;">
+		<h4 style="text-align:center; margin-top: 10px; margin-bottom: 10px;">관리자 로그인</h4>
+	</div>
+	<br>
+	<div class="form-group">
+	  <label for="adminid">ID</label>
+	  <input type="text" class="form-control" id="adminid" name="adminid" aria-describedby="emailHelp" placeholder="Admin ID">
+	</div>
 	
-	
+	<div class="form-group">
+	  <label for="adminpw">PASSWORD</label>
+	  <input type="password" class="form-control" id="adminpw" name="adminpw" placeholder="Admin PassWord">
+	</div>
+	<br>
+	<button type="submit" class="btn btn-secondary" id="adminloginbtn">LOGIN</button>
+	<br><br>
+	<div style="text-align: center;">
+		<small>이곳은 Culture Square의 관리자 사이트입니다.<br>
+		관리자를 제외한 다른 사용자는 접속할 수 없습니다.</small><br>
+	</div>
 </div>
 
 
