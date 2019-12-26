@@ -100,7 +100,9 @@ public class MainController {
 			System.out.println(el);
 		}
 		
+		System.out.println("테스트 : " + element);
 		model.addAttribute("el", element);
+	
 		
 	}
 	

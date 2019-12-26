@@ -70,7 +70,7 @@
   <div class="container marketing">
     <hr class="featurette-divider">
 
-${el }
+
 	<!-- 크롤링  -->
   <div class="row">
 	<!-- 첫번째줄 -->
@@ -82,7 +82,7 @@ ${el }
             <a href="#">Project One</a>
           </h4>
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
->>>>>>> refs/remotes/origin/develop
+
         </div>
       </div>
     </div>
