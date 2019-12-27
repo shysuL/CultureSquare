@@ -1,6 +1,8 @@
 package user.service.impl;
 
 
+import java.util.Random;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,13 +61,6 @@ public class UserServiceImpl implements UserService{
 	public User_table getUserSession(User_table user) {
 		
 		return userDao.selectUserInfoById(user);
+		
 	}
-
-	
-	
-
-	
-	
-	
-
 }

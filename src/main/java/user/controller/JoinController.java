@@ -42,7 +42,7 @@ public class JoinController {
 		userService.joinProc(user);
 		
 		// 메일 인증 발송
-		joinSendMailService.mailSendWithUserKey(user.getUserid(), user.getUsername(), req);
+		joinSendMailService.mailSendWithEmailKey(user.getUserid(), user.getUsername(), req);
 		
 		
 		return "redirect:/main/main";

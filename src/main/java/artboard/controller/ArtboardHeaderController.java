@@ -27,7 +27,7 @@ public class ArtboardHeaderController {
 				
 		model.addAttribute("nowYear",nowYear);
 		model.addAttribute("nowMonth",nowMonth);
-		
+	
 	}
 
 }
