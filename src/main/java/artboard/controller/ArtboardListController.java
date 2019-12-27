@@ -1,5 +1,6 @@
 package artboard.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -82,8 +83,8 @@ public class ArtboardListController {
 		    		
 		model.addAttribute("list", list);
 		
+		System.out.println(list.toString());
 		
-//		logger.info(list.toString()); 
 		
 	}
 	

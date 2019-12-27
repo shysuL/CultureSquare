@@ -67,9 +67,5 @@ public class MainController {
 		//구글
 		model.addAttribute("google_url", googleUrl);
 		
-		//테스트 리스트 접속했을때 닉넴 값 주기
-		prBoardService.getNickName((String)session.getAttribute("nickname"));
-		
 	}
-	
 }

@@ -88,11 +88,12 @@ $(document).ready(function() {
 			
 			
 			<div class="cal_date eng bold help" style="font-size: 25px">${pdate }</div>
-			<div class="cal_yoil help han " style=" margin-top: 5px;"><span class="mobile_hide">요일</span></div>
+			<div class="cal_yoil help han " style=" margin-top: 5px;">${i.performday }<span class="mobile_hide">요일</span></div>
 		</div>
 		
 		
 		
+
 		<div class="media float_right">
 			<div class="media-left media-middle">
 				<a href="#">
@@ -108,6 +109,7 @@ $(document).ready(function() {
 		</div>
 	</div>
 	</c:forEach>
+
 
 
 	<div id="list_table" class="width_660 box_shadow_3 text-center">

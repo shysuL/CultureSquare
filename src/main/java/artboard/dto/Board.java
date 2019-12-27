@@ -12,6 +12,7 @@ public class Board {
 	private int userno;
 	private int postno;
 	
+	
 	//Perform_add
 	private int performno;
 	private String performname;
@@ -20,6 +21,8 @@ public class Board {
 	private int updatepermit;
 	private int deletepermit;
 	
+	private String performday;
+
 	//User_table
 	private String userid;
 	private String userpw;
@@ -45,17 +48,35 @@ public class Board {
 		return "Board [boardno=" + boardno + ", title=" + title + ", writtendate=" + writtendate + ", contents="
 				+ contents + ", views=" + views + ", userno=" + userno + ", postno=" + postno + ", performno="
 				+ performno + ", performname=" + performname + ", performdate=" + performdate + ", writepermit="
-				+ writepermit + ", updatepermit=" + updatepermit + ", deletepermit=" + deletepermit + ", userid="
-				+ userid + ", userpw=" + userpw + ", username=" + username + ", usernick=" + usernick + ", userphone="
-				+ userphone + ", usergender=" + usergender + ", userbirth=" + userbirth + ", interest=" + interest
-				+ ", usertype=" + usertype + ", permit=" + permit + ", emailcheck=" + emailcheck + ", originname="
-				+ originname + ", storedname=" + storedname + ", follow=" + follow + ", prcnt=" + prcnt
-				+ ", sociallogin=" + sociallogin + "]";
+				+ writepermit + ", updatepermit=" + updatepermit + ", deletepermit=" + deletepermit + ", performday="
+				+ performday + ", userid=" + userid + ", userpw=" + userpw + ", username=" + username + ", usernick="
+				+ usernick + ", userphone=" + userphone + ", usergender=" + usergender + ", userbirth=" + userbirth
+				+ ", interest=" + interest + ", usertype=" + usertype + ", permit=" + permit + ", emailcheck="
+				+ emailcheck + ", originname=" + originname + ", storedname=" + storedname + ", follow=" + follow
+				+ ", prcnt=" + prcnt + ", sociallogin=" + sociallogin + "]";
 	}
 
 	
 	
 	
+
+
+	public String getPerformday() {
+		return performday;
+	}
+
+
+
+
+
+
+	public void setPerformday(String performday) {
+		this.performday = performday;
+	}
+
+
+
+
 
 
 	public String getUserid() {
