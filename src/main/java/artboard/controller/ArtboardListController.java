@@ -1,6 +1,7 @@
 package artboard.controller;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -46,7 +47,7 @@ public class ArtboardListController {
 	@Autowired PFBoardService pfboardService;
 	
 	@RequestMapping(value = "/artboard/list", method = RequestMethod.GET)
-	public void pfList(Model model, Paging paging, HttpSession session) {
+	public void pfList(Model model, Paging paging, HttpSession session, String cal_year, String cal_month) {
 		
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
@@ -79,13 +80,27 @@ public class ArtboardListController {
 		
 //		logger.info(paging.toString()); 
 		
-		List<Board> list = pfboardService.getList(paging);
+		String searchMonth = cal_year+cal_month;
+		logger.info("searchMonth : " + searchMonth);
+		List<Board> list = pfboardService.getList(searchMonth);
+		
+//		List<Board> list = pfboardService.getList(paging);
 		    		
 		model.addAttribute("list", list);
 		
-		System.out.println(list.toString());
+//		System.out.println(list.toString());
 		
-		
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy");
+		SimpleDateFormat format2 = new SimpleDateFormat ( "MM");
+				
+		Date time = new Date();
+				
+		String nowYear = format1.format(time);
+		String nowMonth = format2.format(time);
+				
+		model.addAttribute("nowYear",nowYear);
+		model.addAttribute("nowMonth",nowMonth);
+//		return "artboard/list?bo_table=calendar&cal_year="+time1+"&cal_month="+time2;
 	}
 	
 	

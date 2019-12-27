@@ -6,6 +6,17 @@
 
 <mapper namespace="artboard.dao.face.PFBoardDao">
 
+	<select id="selectAll2" parameterType="String"
+		resultType="artboard.dto.Board">
+		SELECT
+			b.boardno, b.title, b.writtendate, b.contents, b.views, b.userno, b.postno, p.performno, p.performname, p.performdate
+		FROM board b, perform_add p
+		WHERE b.boardno = p.boardno
+		AND substr(p.performdate, 1, 6) = #{searchMonth }
+		ORDER BY boardno DESC 
+	</select>
+
+
 	<select id="selectAll" parameterType="util.Paging"
 		resultType="artboard.dto.Board">
 		SELECT * FROM (SELECT rownum rnum, B.* FROM (

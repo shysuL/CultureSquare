@@ -65,13 +65,13 @@ $(document).ready(function() {
 	<div id="list_table" class="width_660 box_shadow_3 text-center">
 		<div class="list_cal_row_title relative">
 			<div class="cal_header_div eng">
-				<form method="get" action="/g2/bbs/board.php">
+				<form method="get" action="/artboard/list">
 					<input type="hidden" name="bo_table" value="calendar">
-					<a href="/g2/bbs/board.php?bo_table=calendar&amp;cal_year=2019&amp;cal_month=12&amp;cal_year=2019&amp;cal_month=11"><i class="fa fa-chevron-left goto" ></i></a>&nbsp;&nbsp;
-					<input class="cal_header_year inputin" type="text" name="cal_year" value="2019" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp;
-					<input class="cal_header_month inputin" type="text" name="cal_month" value="12" maxlength="2" required="required"  data-hasqtip="24" oldtitle="월" title="">&nbsp;
+					<a href="/artboard/list?bo_table=calendar&cal_year=2019&cal_month=11"><i class="fa fa-chevron-left goto" ></i></a>&nbsp;&nbsp;
+					<input class="cal_header_year inputin" type="text" name="cal_year" value="${nowYear }" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp;
+					<input class="cal_header_month inputin" type="text" name="cal_month" value="${nowMonth }" maxlength="2" required="required"  data-hasqtip="24" oldtitle="월" title="">&nbsp;
 					<input class="btn inputbt" type="submit" value="이동" data-hasqtip="25" oldtitle="이동" title="">&nbsp;&nbsp;
-					<a href="/g2/bbs/board.php?bo_table=calendar&amp;cal_year=2019&amp;cal_month=12&amp;cal_year=2020&amp;cal_month=1"><i class="fa fa-chevron-right goto" ></i></a>
+					<a href="/artboard/list?bo_table=calendar&cal_year=2020&cal_month=01"><i class="fa fa-chevron-right goto" ></i></a>
 				</form>
 			</div>
 		</div>
@@ -115,7 +115,7 @@ $(document).ready(function() {
 	<div id="list_table" class="width_660 box_shadow_3 text-center">
 		<div class="list_cal_row_title relative">
 			<div class="cal_header_div eng">
-				<form method="get" action="/g2/bbs/board.php">
+				<form method="get" action="/artboard/list">
 					<input type="hidden" name="bo_table" value="calendar">
 					<a href="/g2/bbs/board.php?bo_table=calendar&amp;cal_year=2019&amp;cal_month=12&amp;cal_year=2019&amp;cal_month=11"><i class="fa fa-chevron-left goto" ></i></a>&nbsp;&nbsp;
 					<input class="cal_header_year inputin" type="text" name="cal_year" value="2019" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp;
