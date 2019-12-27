@@ -54,12 +54,22 @@ public interface FreeBoardDao {
 	/**
 	 * 2019-12-27
 	 * 
-	 * 게시글 작성을 위한 유저아이디 조회
+	 * 게시글 작성을 위한 유저닉네임 조회
 	 * 
 	 * @param attribute - 로그인한 유정 정보 객체
-	 * @return User_table - 로그인한 유저 정보와 일치하는 아이디
+	 * @return User_table - 로그인한 유저 정보와 일치하는 닉네임
 	 */
-	public User_table selectByUserId(Object attribute);
+	public User_table selectByUserNick(Object attribute);
+
+	/**
+	 * 2019-12-26
+	 * 고인호
+	 * 
+	 * 자유게시판 전체 게시글중 조회수 높은 순으로 조회
+	 * 
+	 * @return List - 조회수 가장 높은 게시글 리스트
+	 */
+	public List<FreeBoard> selectViewsAll();
 
 
 }
