@@ -17,7 +17,7 @@ public interface PFBoardService {
 	 * @param paging - 게시판 리스트 paging 객체
 	 * @return list - 게시판 리스트 반환
 	 */
-	public List getList(Paging paging);
+	public List<Board> getList(Paging paging);
 
 	/**
 	 * 
@@ -77,7 +77,7 @@ public interface PFBoardService {
 	 * @return
 	 * @throws Exception
 	 */
-	public String getDateDay(String date, String dateType) throws Exception;
+	public String getDateDay(String date, String dateType);
 
 
 
