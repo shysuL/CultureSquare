@@ -4,6 +4,25 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <jsp:include page="/WEB-INF/views/layout/header.jsp"/>   
 
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	//로그인 했을 경우 글쓰기 버튼 누르면 이동
+	$("#LoginWrite").click(function() {
+		location.href="/board/freewrite";
+		return false;
+	});
+	
+	//로그인 안했을 경우 글쓰기 버튼 누르면 모달
+	$("#notLoginWrite").click(function() {
+		$(".content").text('로그인 후 게시글 작성이 가능합니다.');
+		$("#prNotLoginModal").modal({backdrop: 'static', keyboard: false});
+		return false;
+	});
+	
+});
+</script>
+
 <style type="text/css">
 
 table, th {
@@ -21,7 +40,18 @@ tr td:nth-child(2){
     padding-bottom: 50px;
 }
 
+#freeRankTitle{
+	width: 340px;
+    padding-top: 400px;
+    padding-bottom: 50px;
+}
+
 #freeIntroduceContent{
+	background-color:#343a40; 
+	color:white;
+}
+
+#freeRankContent{
 	background-color:#343a40; 
 	color:white;
 }
@@ -49,6 +79,10 @@ tr td:not(:first-child), tr th:not(:first-child) {
 .far{
     line-height: 3;	
 }
+
+.tit { 
+color: #343a40;
+}
 </style>
 
 <!-- <script type="text/javascript"> -->
@@ -72,14 +106,16 @@ tr td:not(:first-child), tr th:not(:first-child) {
 <!-- </script> -->
 
 <div class="container" style="
+    position: relative;
     padding-left: 200px;
     padding-right: 200px;
+    right: 150px;
 ">
 <h1></h1>
 <hr>
-<!-- 	<div style="background-color: #252525;"> -->
+
          <h2>자유게시판</h2>
-<!--     </div> -->
+
 <div style="background-color: #343a40;height: 50px;">
 <i class="fas fa-list" style= "color: #ffff;margin-left: 20px;"></i>
 <i class="far fa-user" style= "color: #ffff;margin-left: 435px;"></i>
@@ -89,23 +125,13 @@ tr td:not(:first-child), tr th:not(:first-child) {
 
 <!-- <form action="/list/delete" method="get"> -->
 <table class="table table-border table-hover table-condesed table-stripe" style="color: #343a40;">
-<!-- <tr style="color: #1a3a5a" class= "info"> -->
-<!-- 	<th><input type="checkbox" id="checkAll" /></th> -->
-<!-- 	<th style="width: 10%">글번호</th> -->
-<!-- 	<th style="width: 55%">제목</th> -->
-<!-- 	<th style="width: 15%">아이디</th> -->
-<!-- 	<th style="width: 10%">닉네임</th> -->
-<!-- 	<th style="width: 10%">조회수</th> -->
-<!-- 	<th style="width: 15%">작성일</th> -->
-<!-- </tr> -->
+
 
 <c:forEach items = "${boardlist }" var = "list">
 	<tr>
 <%-- 	<td><input type="checkbox" name="checkRow" value="${list.boardno }"/></td> --%>
 		<td style="color: #1a3a5a; width: 5%;">${list.boardno }</td>
-		<td style="color: #1a3a5a; width: 50%;"><a href="/board/freeview?boardno=${list.boardno }">${list.title }</a></td>
-<%-- 		<td style="color: #1a3a5a">${list.content }</td> --%>
-<%-- 		<td style="color: #1a3a5a">${list.userid }</td> --%>
+		<td style="color: #1a3a5a; width: 50%;"><a class="tit" href="/board/freeview?boardno=${list.boardno }">${list.title }</a></td>
 		<td style="color: #1a3a5a; width: 20%;">${list.usernick }</td>
 		<td style="color: #1a3a5a; width: 10%;">${list.views }</td>
 		<td style="color: #1a3a5a; width: 15%;">${list.writtendate }</td>
@@ -113,25 +139,45 @@ tr td:not(:first-child), tr th:not(:first-child) {
 </c:forEach>
 
 </table>
-<div id="side">
+<div id="side" style="
+    left: 1000px;
+    top: -320px;
+    bottom: 0px;
+    height: 100px;
+">
 	<div class="list-group" id="freeIntroduceTitle">
   <a class="list-group-item" id="freeIntroduceContent">
 	자유게시판 소개
   </a>
   <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
 </div>
+
+<div class="list-group" id="freeRankTitle">
+  <a class="list-group-item" id="freeRankContent">
+	자유게시판 순위
+  </a>
+  <a href="#" class="list-group-item">1등</a>
+  <a href="#" class="list-group-item">2등</a>
+  <a href="#" class="list-group-item">3등</a>
+  <a href="#" class="list-group-item">4등</a>
+  <a href="#" class="list-group-item">5등</a>
+<!-- </div> -->
+</div>
 </div>
 
-
-<%-- <c:if test="${login }"> --%>
-<div style="text-align: right;">
-<a href="/board/freewrite"><button class="btn btn-default btn-sm" style="float: right; background-color: #343a40; color: white;">글쓰기</button></a>
-<!-- <button class="btn btn-default btn-sm" style="float: right; background-color: #494b4d; color: white;">삭제</button> -->
-</div>
-<%-- </c:if> --%>
-<!-- </form> -->
-
-
+<span> 
+	<c:choose>
+		<c:when test="${not login}">
+			<button id="notLoginWrite" class="btn btn-sm b-btn"
+				style="float: right; background-color: #494b4d; color: white;">글작성</button>
+		</c:when>
+		<c:when test="${login}">
+			<a href="/board/freewrite"><button id="LoginWrite"
+					class="btn btn-sm b-btn"
+					style="float: right; background-color: #494b4d; color: white;">글작성</button></a>
+		</c:when>
+	</c:choose>
+</span>
 
 <jsp:include page = "/WEB-INF/views/layout/freepaging.jsp" />
 
@@ -140,6 +186,30 @@ tr td:not(:first-child), tr th:not(:first-child) {
 	<input name="search" type="text" placeholder = "검색어 입력">
 	<button>검색</button>
 	</form>
+</div>
+
+<!-- 로그인 실패시 모달창 -->
+<div class="modal fade" id="prNotLoginModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">로그아웃 상태</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="prLoginCheckBtn"class="btn btn-info" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 </div><!-- .container -->

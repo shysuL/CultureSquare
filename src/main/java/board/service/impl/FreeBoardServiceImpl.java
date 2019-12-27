@@ -51,8 +51,8 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 	@Override
 	public User_table getboardWriter(Object attribute) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return freeboardDao.selectByUserId(attribute);
 	}
 
 
