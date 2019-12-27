@@ -70,5 +70,6 @@ public class PRListController {
 		//구글
 		model.addAttribute("google_url", googleUrl);
 		
+	
 	}
 }
