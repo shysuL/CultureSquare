@@ -51,16 +51,20 @@ public class NaverServiceImpl implements NaverService{
 		//소셜 로그인 정보 존재 유무 검사
 		int socialCnt = getSocialAccountCnt(user);
 		
-		//소셜로그인 정보가 회원정보에 담겨 있지 않으면 UserTable에 소셜로그인 데이터 삽입
 		if(socialCnt == 0) {
-			insertSocialInfo(user);
+			session.setAttribute("socialDouble", false);
+			
 		}
+		else 
+			session.setAttribute("socialDouble", true);
+		
 		
 		//3.파싱 닉네임 세션으로 저장
-		session.setAttribute("nickname",nickname); 	// 세션 생성
+		session.setAttribute("usernick",nickname); 	// 세션 생성
 		session.setAttribute("login", true); 		// 로그인 상태 true
 		session.setAttribute("socialId", socialId);	// 소셜 ID(이메일)
-		session.setAttribute("name", name);			// 이름
+		session.setAttribute("username", name);			// 이름
+		session.setAttribute("socialType", "Naver");
 
 		return apiResult;
 	}

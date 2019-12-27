@@ -38,6 +38,7 @@ public class LoginController {
 	/* NaverLoginBO */
 	private NaverLoginBO naverLoginBO;
 	private String apiResult = null;
+	HttpSession mySession;
 
 	@Autowired
 	private GoogleConnectionFactory googleConnectionFactory;
@@ -103,6 +104,69 @@ public class LoginController {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		
+		mySession = session;
+		
+		return "redirect:/main/main";
+	}
+	
+	//소셜로그인 닉네임 변경후 회원정보 넣어주기
+	@RequestMapping(value = "/socialinsert", method = { RequestMethod.GET, RequestMethod.POST })
+	public String socialInsert(String socialType, String usernick, String username) {
+
+		logger.info("혹시몰라 : " + socialType + usernick + username);
+		
+		//구글
+		if(socialType.equals("Google")) {
+			
+			//유저 DTO에 소셜 로그인 정보 저장
+			User_table user = new User_table();
+			user.setUsername(username);
+			user.setUsernick(usernick);
+			googleService.insertGoogleInfo(user);
+			
+		}
+		
+		//네이버
+		else if(socialType.equals("Naver")) {
+			
+			//유저 DTO에 소셜 로그인 정보 저장
+			User_table user = new User_table();
+			user.setUsername(username);
+			user.setUsernick(usernick);
+			googleService.insertGoogleInfo(user);
+			
+			//소셜 로그인 정보 존재 유무 검사
+			int socialCnt = naverService.getSocialAccountCnt(user);
+			
+			if(socialCnt == 0) {
+				mySession.setAttribute("socialDouble", false);
+				
+			}
+			else 
+				mySession.setAttribute("socialDouble", true);
+		}
+		
+		//카카오
+		else if(socialType.equals("Kakao")) {
+			
+			//유저 DTO에 소셜 로그인 정보 저장
+			User_table user = new User_table();
+			user.setUsername(username);
+			user.setUsernick(usernick);
+			googleService.insertGoogleInfo(user);
+
+			//소셜 로그인 정보 존재 유무 검사
+			int socialCnt = kakaoService.getSocialAccountCnt(user);
+			
+			if(socialCnt == 0) {
+				mySession.setAttribute("socialDouble", false);
+				
+			}
+			else 
+				mySession.setAttribute("socialDouble", true);
+			
 		}
 		
 		return "redirect:/main/main";

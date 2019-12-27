@@ -191,10 +191,10 @@ public class KakaoServiceImpl implements KakaoService {
 		
 		
 		//파싱 닉네임 세션으로 저장
-		session.setAttribute("name",kname); 		//이름 	 동일
-		session.setAttribute("nickname",kname); 	//닉네임 동일
+		session.setAttribute("username",kname); 		//이름 	 동일
+		session.setAttribute("usernick",kname); 	//닉네임 동일
 		session.setAttribute("login", true); 		// 로그인 상태 true
-		session.setAttribute("socialType", "kakao");
+		session.setAttribute("socialType", "Kakao");
 		session.setAttribute("token", accessToken);
 		
 		//유저 DTO에 소셜 로그인 정보 저장
@@ -208,8 +208,11 @@ public class KakaoServiceImpl implements KakaoService {
 		
 		//소셜로그인 정보가 회원정보에 담겨 있지 않으면 UserTable에 소셜로그인 데이터 삽입
 		if(socialCnt == 0) {
-			insertKakaoInfo(user);
+//			insertKakaoInfo(user);
+			session.setAttribute("socialDouble", false);
 		}
+		else
+			session.setAttribute("socialDouble", true);
 
 	}
 }

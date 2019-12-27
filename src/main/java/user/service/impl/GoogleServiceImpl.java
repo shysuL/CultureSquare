@@ -83,16 +83,23 @@ public class GoogleServiceImpl implements GoogleService {
 
 		//소셜 로그인 정보 존재 유무 검사
 		int socialCnt = getSocialAccountCnt(user);
+		
+		System.out.println("로긘 테스트 : " + socialCnt);
 
 		//소셜로그인 정보가 회원정보에 담겨 있지 않으면 UserTable에 소셜로그인 데이터 삽입
 		if(socialCnt == 0) {
-			insertGoogleInfo(user);
+//			insertGoogleInfo(user);
+			session.setAttribute("socialDouble", false);
 		}
+		
+		else
+			session.setAttribute("socialDouble", true);
 
 		// 파싱 데이터로 세션 저장
-		session.setAttribute("nickname",result.get("given_name")); 	// 닉네임
+		session.setAttribute("usernick",result.get("given_name")); 	// 닉네임
 		session.setAttribute("login", true); 		// 로그인 상태 true
-		session.setAttribute("name", result.get("name"));			// 이름
+		session.setAttribute("username", result.get("name"));			// 이름
+		session.setAttribute("socialType", "Google");
 	}
 
 
