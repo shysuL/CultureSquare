@@ -37,10 +37,18 @@
 		WHERE userno = #{userno}
 	</select>
 	
-	<insert id="insert" parameterType="artboard.dto.Board">
+	<insert id="insertBoard" parameterType="artboard.dto.Board">
 		INSERT INTO board (boardno, title, writtendate, contents, views, userno, postno)
-		VALUES (board_seq.nextval, #{title}, sysdate, #{contents}, 0, #{userno}, 1)
+		VALUES (#{boardno}, #{title}, sysdate, #{contents}, 0, #{userno}, 1)
 	</insert>
 	
+		<insert id="insertPerform" parameterType="artboard.dto.Board">
+		INSERT INTO perform_add (performno,performname, performdate,boardno)
+		VALUES (perform_add_seq.nextval,#{performname},#{performdate},#{boardno})
+	</insert>
+	
+	<select id="selectSeqNextval" resultType="int">
+		SELECT board_seq.nextval FROM dual
+	</select>
 
 </mapper>

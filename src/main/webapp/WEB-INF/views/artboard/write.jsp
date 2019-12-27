@@ -5,12 +5,11 @@
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />  
 
 
-<script type="text/javascript"
-   src=https://code.jquery.com/jquery-2.2.4.min.js></script>
+
 <script type="text/javascript" src="/resources/ckeditor/ckeditor.js"></script>
     <script>
     window.onload = function(){
-       ck = CKEDITOR.replace("editor");
+       ck = CKEDITOR.replace("contents");
     };
     </script>
 
@@ -19,13 +18,11 @@ $(document).ready(function() {
 
 	$("#btnWrite").click(function() {
 
-// 		console.log(111);
+		console.log(111);
 
-		//스마트에디터의 내용을 <textarea>에 적용
-		submitContents($("#btnWrite"));
 
 		//form submit
-		$("#write").submit();
+		$("form").submit();
 	});
 	//취소버튼 동작
 	$("#btnCancel").click(function() {
@@ -36,7 +33,7 @@ $(document).ready(function() {
 </script>
 <script>
     var editorConfig = {
-        filebrowserUploadUrl : "/ckEditor/imgUpload", //이미지 업로드
+        filebrowserUploadUrl : "/resources/ckeditor/imgUpload", //이미지 업로드
     };
 
     CKEDITOR.on('dialogDefinition', function( ev ){
@@ -92,44 +89,44 @@ $(document).ready(function() {
 <input id="title" name="title" type="text" size="125" placeholder="제목을 입력하세요."/>
 <br>
 <label for="performdate"> <b>일시 </b></label><br>
-<input id="performdate" name="performdate" type="text" size="125" placeholder="입력 양식 : 2019 - 12 - 25"/>
+<input id="performdate" name="performdate" type="text" size="125" placeholder="입력 양식 : 20201221"/>
 <br>
 <label for="performname"> <b>게시물 카테고리 </b></label><br>
 
 <div id = "performradio">
 <span class="radio">
   <label>
-    <input type="radio" name="optionsRadios" id="performname" value="버스킹" checked>
+    <input type="radio" name="performname"  value="버스킹" checked>
     버스킹
   </label>
 </span>
 <span class="radio">
   <label>
-    <input type="radio" name="optionsRadios" id="performname" value="전시회">
+    <input type="radio" name="performname"  value="전시회">
     전시회
   </label>
 </span>
 <span class="radio">
   <label>
-    <input type="radio" name="optionsRadios" id="performname" value="연극">
+    <input type="radio" name="performname"  value="연극">
     연극
   </label>
 </span>
 <span class="radio">
   <label>
-    <input type="radio" name="optionsRadios" id="performname" value="뮤지컬">
+    <input type="radio" name="performname"  value="뮤지컬">
    뮤지컬
   </label>
 </span>
 <span class="radio">
   <label>
-    <input type="radio" name="optionsRadios" id="performname" value="행사">
+    <input type="radio" name="performname"  value="행사">
     행사
   </label>
 </span>
 <span class="radio">
   <label>
-    <input type="radio" name="optionsRadios" id="performname" value="축제">
+    <input type="radio" name="performname"  value="축제">
     축제
   </label>
 </span>
@@ -141,7 +138,9 @@ $(document).ready(function() {
 <div id = "contentsarea">
 <textarea id="contents" name="contents"></textarea>
 <script type="text/javascript">
- CKEDITOR.replace('contents', {height: 400});
+ CKEDITOR.replace('contents', {height: 400,toolbar: 'Full'})
+ 
+ 
 </script>
 
 </div>
@@ -150,7 +149,7 @@ $(document).ready(function() {
 <br>
 첨부파일 <input type="file" name="file" />
 
-<input type="hidden" id = "userno" name = "userno" value = "${userno}"/>
+<input type="hidden" id = "userno" name = "userno" value = "1"/>
 </form>
 <div class="text-center">	
 	<button type="button" id="btnWrite" class="btn btn-info">작성</button>
