@@ -9,7 +9,9 @@
 	<select id="selectAll" parameterType="util.Paging" resultType="board.dto.FreeBoard">
 		SELECT * FROM (
 		SELECT rownum rnum, B.*FROM (
-		SELECT fb.boardno, fb.title, fb.writtendate, fb.contents, fb.views, ut.usernick FROM board fb, user_table ut
+		SELECT fb.postno, fb.boardno, fb.title, fb.writtendate, fb.contents, fb.views, ut.usernick FROM board fb, user_table ut
+		WHERE fb.userno = ut.userno
+		AND fb.postno = 3
 		ORDER BY boardno DESC
 		) B
 		ORDER BY rnum
@@ -23,7 +25,8 @@
 	
 	<select id="selectFreeDetail" parameterType="int" resultType="board.dto.FreeBoard">
 		SELECT fb.boardno, fb.title, fb.writtendate, fb.contents, fb.views, ut.usernick FROM board fb, user_table ut
-		WHERE boardno = #{boardno }
+		WHERE fb.userno = ut.userno
+		AND boardno = #{boardno }
 	</select>
 	
 	<insert id="insertFreeBoard" parameterType="board.dto.FreeBoard">
@@ -39,6 +42,11 @@
 	<update id="updateViews" parameterType="int">
 		UPDATE board SET views = views + 1 WHERE boardno = #{boardno } 
 	</update>
+	
+	<select id="selectByUserId" parameterType="object" resultType="user.dto.User_table">
+		SELECT * FROM User_table
+		WHERE userno = #{userno }
+	</select>
 	
 	
 </mapper>

@@ -39,7 +39,7 @@ public class FreeWriteController {
 	@RequestMapping(value = "/board/freewrite", method = RequestMethod.POST)
 	public String freeWrite(Model model, FreeBoard freeboard, HttpSession session) {
 		
-		
+		logger.info(session.toString());
 		//로그인한 유저 정보 조회 
 		User_table user = freeboardService.getboardWriter(session.getAttribute("loginid"));
 		

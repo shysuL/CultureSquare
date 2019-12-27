@@ -78,5 +78,6 @@ $(document).ready(function() {
 	</div>	
 </div>
 </div>
-
+<br>
+<br>
 <jsp:include page="/WEB-INF/views/layout/footer.jsp"/> 
