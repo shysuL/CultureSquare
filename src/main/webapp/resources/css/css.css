@@ -38,14 +38,16 @@
     background-color: #343a40;
     color: white;
 }
-#category_name {
-    border: 1px solid #e5e5e5;
-    background: #f8f8f8;
-    padding: 4px 7px;
-    border-radius: 15px;
-    font-size: 12px;
-    letter-spacing: -1px;
+.tit {
+	color: #343a40;
 }
+.list-group-item.active {
+   
+    color: #fff;
+    background-color: #343a40;
+    border-color: #343a40;
+}
+
 #carouselExampleFade img {
 	width: 500px;
 	height: 130px;

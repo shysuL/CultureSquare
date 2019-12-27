@@ -26,7 +26,8 @@ $(document).ready(function() {
 <div class="h2"><h2> CALLENDAR </h2></div>
 <hr>
 <div class="row">
-
+	
+	<!-- 공연 게시판 -->
 	<!-- 캐러셀영역 -->
 	<div class="col-9">
 	<div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
@@ -65,13 +66,13 @@ $(document).ready(function() {
 	<div id="list_table" class="width_660 box_shadow_3 text-center">
 		<div class="list_cal_row_title relative">
 			<div class="cal_header_div eng">
-				<form method="get" action="/g2/bbs/board.php">
+				<form method="get" action="/artboard/list">
 					<input type="hidden" name="bo_table" value="calendar">
-					<a href="/g2/bbs/board.php?bo_table=calendar&amp;cal_year=2019&amp;cal_month=12&amp;cal_year=2019&amp;cal_month=11"><i class="fa fa-chevron-left goto" ></i></a>&nbsp;&nbsp;
-					<input class="cal_header_year inputin" type="text" name="cal_year" value="2019" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp;
-					<input class="cal_header_month inputin" type="text" name="cal_month" value="12" maxlength="2" required="required"  data-hasqtip="24" oldtitle="월" title="">&nbsp;
+					<a href="/artboard/list?bo_table=calendar&cal_year=2019&cal_month=11"><i class="fa fa-chevron-left goto" ></i></a>&nbsp;&nbsp;
+					<input class="cal_header_year inputin" type="text" name="cal_year" value="${nowYear }" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp;
+					<input class="cal_header_month inputin" type="text" name="cal_month" value="${nowMonth }" maxlength="2" required="required"  data-hasqtip="24" oldtitle="월" title="">&nbsp;
 					<input class="btn inputbt" type="submit" value="이동" data-hasqtip="25" oldtitle="이동" title="">&nbsp;&nbsp;
-					<a href="/g2/bbs/board.php?bo_table=calendar&amp;cal_year=2019&amp;cal_month=12&amp;cal_year=2020&amp;cal_month=1"><i class="fa fa-chevron-right goto" ></i></a>
+					<a href="/artboard/list?bo_table=calendar&cal_year=2020&cal_month=01"><i class="fa fa-chevron-right goto" ></i></a>
 				</form>
 			</div>
 		</div>
@@ -115,7 +116,7 @@ $(document).ready(function() {
 	<div id="list_table" class="width_660 box_shadow_3 text-center">
 		<div class="list_cal_row_title relative">
 			<div class="cal_header_div eng">
-				<form method="get" action="/g2/bbs/board.php">
+				<form method="get" action="/artboard/list">
 					<input type="hidden" name="bo_table" value="calendar">
 					<a href="/g2/bbs/board.php?bo_table=calendar&amp;cal_year=2019&amp;cal_month=12&amp;cal_year=2019&amp;cal_month=11"><i class="fa fa-chevron-left goto" ></i></a>&nbsp;&nbsp;
 					<input class="cal_header_year inputin" type="text" name="cal_year" value="2019" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp;
@@ -128,18 +129,42 @@ $(document).ready(function() {
 	</div>
 	</div>
 	
+	<!-- 사이트 게시판 -->
 	<div class="col-3">
-	<div id="side">
-		<div class="list-group" id="pfIntroduceTitle">
-  		<a class="list-group-item" id="pfIntroduceContent">
-  		 CALENDAR 소개
-  		</a>
-  		<a href="#" class="list-group-item" style="font-size: 12px">
- 		 버스킹, 연극, 공연, 전시 등의<br>
- 		  일정을 포스팅하는 공간입니다.
- 		  </a>
+		<div>
+			<div class="list-group" >
+	  		<a class="list-group-item" id="pfIntroduceContent">CALENDAR 소개</a>
+	  		<a class="list-group-item tit" style="font-size: 14px">
+	  			버스킹, 연극, 공연, 전시 등의<br>
+	 		  	일정을 포스팅하는 공간입니다.</a>
+			</div>
 		</div>
-	</div>	
+		<br>
+		<div>
+			<div class="list-group">
+	  		<table>
+	  		<tr>
+	  		<th colspan="4"><a class="list-group-item" id="pfIntroduceContent">카테고리 별 보기</a></th>
+	  		</tr>
+	  		
+	  		<tr>
+	  		<td><a href="#" ><input class="list-group-item active tit" type="button" value="전체" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item tit" type="submit" value="공연" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item tit" type="submit" value="버스킹" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item tit" type="submit" value="연극" /></a></td>
+	  		</tr>
+	  		
+	  		<tr>
+	  		<td>콘서트</td>
+	  		<td>축제</td>
+	  		<td>행사</td>
+	  		<td>기타</td>
+	  		</tr>
+	  		</table>
+
+
+			</div>
+		</div>
 	</div>
 </div>
 	
@@ -147,4 +172,9 @@ $(document).ready(function() {
 
 
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
+
+
+
+
+
 

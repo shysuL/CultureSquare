@@ -118,7 +118,6 @@
 
 
 <div id = view_content class="col-xs-12 col-sm-6 col-md-8">
-상세내용상세내용
 ${view.contents }<br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>

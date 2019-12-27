@@ -84,7 +84,7 @@ h5 {
 	        <a class="nav-link" href="/board/freelist">자유 게시판</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/artboard/list">CALENDAL</a>
+	        <a class="nav-link" href="/artboard/list?bo_table=calendar&cal_year=${nowYear }&cal_month=${nowMonth }">CALENDAL</a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="/prboard/prlist">PR</a>

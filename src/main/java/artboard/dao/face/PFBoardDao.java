@@ -8,6 +8,8 @@ import util.Paging;
 public interface PFBoardDao {
 
 	
+	public List<Board> selectAll2(String searchMonth);
+
 	/**
 	 * 이수현
 	 * 2019 - 12 - 23
