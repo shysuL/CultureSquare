@@ -278,6 +278,7 @@ $(document).ready(function(){
       <!-- Modal footer -->
       <div class="modal-footer">
         <button type="submit" id="inputPwCheckBtn"class="btn btn-info" data-dismiss="modal">확인</button>
+        <button type="cancel" class="btn btn-danger" data-dismiss="modal">취소</button>
       </div>
 
     </div>
