@@ -26,7 +26,8 @@ $(document).ready(function() {
 <div class="h2"><h2> CALLENDAR </h2></div>
 <hr>
 <div class="row">
-
+	
+	<!-- 공연 게시판 -->
 	<!-- 캐러셀영역 -->
 	<div class="col-9">
 	<div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
@@ -128,18 +129,37 @@ $(document).ready(function() {
 	</div>
 	</div>
 	
+	<!-- 사이트 게시판 -->
 	<div class="col-3">
-	<div id="side">
-		<div class="list-group" id="pfIntroduceTitle">
-  		<a class="list-group-item" id="pfIntroduceContent">
-  		 CALENDAR 소개
-  		</a>
-  		<a href="#" class="list-group-item" style="font-size: 12px">
- 		 버스킹, 연극, 공연, 전시 등의<br>
- 		  일정을 포스팅하는 공간입니다.
- 		  </a>
+		<div>
+			<div class="list-group" id="pfIntroduceTitle">
+	  		<a class="list-group-item" id="pfIntroduceContent">CALENDAR 소개</a>
+	  		<a href="#" class="list-group-item" style="font-size: 12px">
+	  			버스킹, 연극, 공연, 전시 등의<br>
+	 		  	일정을 포스팅하는 공간입니다.</a>
+			</div>
 		</div>
-	</div>	
+		<br>
+		<div>
+			<div class="list-group" id="pfIntroduceTitle">
+	  		<a class="list-group-item" id="pfIntroduceContent">카테고리 별 보기</a>
+	  		<table boarder=1>
+	  		<tr>
+	  		<td><a href="#" class="list-group-item" style="font-size: 12px">전체</a></td>
+	  		<td>공연</td>
+	  		<td>버스킹</td>
+	  		<td>연극</td>
+	  		</tr>
+	  		<tr>
+	  		<td></td>
+	  		<td></td>
+	  		<td></td>
+	  		<td></td>
+	  		</tr>
+	  		</table>
+	  	
+			</div>
+		</div>		
 	</div>
 </div>
 	
