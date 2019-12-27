@@ -82,6 +82,7 @@ public class ArtboardListController {
 		    		
 		model.addAttribute("list", list);
 		
+		
 //		logger.info(list.toString()); 
 		
 	}

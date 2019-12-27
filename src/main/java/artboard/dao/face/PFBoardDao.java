@@ -62,6 +62,28 @@ public interface PFBoardDao {
 	 * 
 	 * @param board - 전달받은 게시글 내용
 	 */
-	public void insert(Board board);
+	public void insertBoard(Board board);
+
+
+	/**
+	 * 이수현
+	 * 2019 - 12 - 27
+	 * 
+	 * 전달받은 예술정보 내용을 입력
+	 * 
+	 * @param board - 전달받은 예술정보 내용
+	 */
+	public void insertPerform(Board board);
+	
+	
+	/**
+	 * 이수현
+	 * 2019 - 12 - 27
+	 * 
+	 * 게시판 번호 다음 시퀀스를 반환
+	 * 
+	 * @return int - board_seq.nextval
+	 */
+	public int selectSeqNextval();
 
 }

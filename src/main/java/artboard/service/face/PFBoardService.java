@@ -67,6 +67,18 @@ public interface PFBoardService {
 	 */
 	public void write(Board board);
 	
-	
+	/**
+	 * 이수현
+	 * 2019 - 12 - 27
+	 *
+	 * 특정 날짜에 대하여 요일을 구함(일 ~ 토)
+	 * @param date
+	 * @param dateType
+	 * @return
+	 * @throws Exception
+	 */
+	public String getDateDay(String date, String dateType) throws Exception;
+
+
 
 }
