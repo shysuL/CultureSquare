@@ -1,7 +1,5 @@
 package prboard.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -16,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import prboard.service.face.PRBoardService;
 import user.bo.NaverLoginBO;
 import user.service.face.KakaoService;
 import util.Paging;
@@ -29,6 +28,8 @@ public class PRListController {
 	
 	@Autowired private KakaoService kakaoService;
 	
+	@Autowired private PRBoardService prBoardService;
+	
 	@Autowired
 	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
 		this.naverLoginBO = naverLoginBO;
@@ -39,7 +40,6 @@ public class PRListController {
 	private GoogleConnectionFactory googleConnectionFactory;
 	@Autowired
 	private OAuth2Parameters googleOAuth2Parameters;
-	
 	
 	@RequestMapping(value="/prboard/prlist", method=RequestMethod.GET)
 	public void prList(Model model, Paging paging, HttpSession session) {
@@ -69,5 +69,6 @@ public class PRListController {
 		
 		//구글
 		model.addAttribute("google_url", googleUrl);
+		
 	}
 }
