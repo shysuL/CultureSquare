@@ -58,6 +58,9 @@
 .navbar-expand-md {
 	padding-left: 40px;
 }
+h5 {
+	margin-top: 10px;
+}
 </style>
 
 </head>
@@ -112,11 +115,11 @@
 		<!-- 로그인 상태 -->
 	    <c:if test="${login}">
 	       <div class="dropdown-menu center">
-	         <h5>로그인 된 상태</h5>
-	         <div class="dropdown-divider"></div>
-	          <input id="mypage" class="btn btn" onclick="location.href='/mypage/main'" value="마이페이지">
-	          <input id="logout" class="btn btn-danger" onclick="location.href='/logout'" value="로그아웃">
-	        </div>
+	         <h5>${nickname}님 할라븅~!</h5>
+	    	 <div class="dropdown-divider"></div>
+				<input id="mypage" class="btn btn" onclick="location.href='/mypage/main'" value="마이페이지">
+				<input id="logout" class="btn btn-danger" onclick="location.href='/logout'" value="로그아웃">
+	       </div>
 	    </c:if>
 	    <!-- 로그아웃 상태 -->
 	    <c:if test="${not login}">

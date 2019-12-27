@@ -41,7 +41,6 @@ public class PRListController {
 	@Autowired
 	private OAuth2Parameters googleOAuth2Parameters;
 	
-	
 	@RequestMapping(value="/prboard/prlist", method=RequestMethod.GET)
 	public void prList(Model model, Paging paging, HttpSession session) {
 		logger.info("pr리스트 출력");
@@ -70,9 +69,6 @@ public class PRListController {
 		
 		//구글
 		model.addAttribute("google_url", googleUrl);
-		
-		//테스트 리스트 접속했을때 닉넴 값 주기
-		prBoardService.getNickName((String)session.getAttribute("nickname"));
 		
 	}
 }
