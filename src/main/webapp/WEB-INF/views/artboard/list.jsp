@@ -2,6 +2,12 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+    
+<%@ page import="java.util.Calendar"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.text.DecimalFormat"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />  
 
 <script type="text/javascript">
@@ -40,12 +46,14 @@ $(document).ready(function() {
 	padding: unset;
 }
 .media{
-	width : 70%;
+	width : 80%;
 	height : auto;
 	float: right;
 	border: 0px solid #bcbcbc;
 }
-
+.media-body{
+    margin-left: 15px;
+}
 #side{
 	position:absolute;
     right: 30px;
@@ -108,8 +116,12 @@ $(document).ready(function() {
    	 	<c:set var = "length" value = "${fn:length(string1)}"/>
     	<c:set var = "pdate" value = "${fn:substring(string1, length -2, length)}" />
 		
+		
+		
+		
+		
 		<div class="cal_date eng bold help" style="font-size: 25px">${pdate }</div>
-		<div class="cal_yoil help han " style=" margin-top: 5px;">O<span class="mobile_hide">요일</span></div>
+		<div class="cal_yoil help han " style=" margin-top: 5px;"><span class="mobile_hide">요일</span></div>
 </div>
 		
 		
@@ -117,7 +129,7 @@ $(document).ready(function() {
 <div class="media float_right">
   <div class="media-left media-middle">
     <a href="#">
-      <img class="media-object" src="..." alt="...">
+      <img class="media-object" src="/resources/logo/mainlogo.png" alt="..." style="width: 80px; height: 80px;">
     </a>
   </div>
   <div class="media-body">

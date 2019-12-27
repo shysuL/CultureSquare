@@ -24,6 +24,10 @@ public class ArtboardWriteController {
 		
 		pfboardService.write(board);
 		
+//		logger.info(board.getPerformname());
+//		logger.info(board.getPerformdate());
+		        
+		
 		return "redirect:/artboard/list";
 	}
 }
