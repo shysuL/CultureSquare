@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import prboard.service.face.PRBoardService;
 import user.bo.NaverLoginBO;
 import user.service.face.KakaoService;
 
@@ -30,6 +31,8 @@ public class MainController {
 	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
 		this.naverLoginBO = naverLoginBO;
 	}
+	
+	@Autowired private PRBoardService prBoardService;
 	
 	/* GoogleLogin */
 	@Autowired
@@ -65,5 +68,4 @@ public class MainController {
 		model.addAttribute("google_url", googleUrl);
 		
 	}
-	
 }

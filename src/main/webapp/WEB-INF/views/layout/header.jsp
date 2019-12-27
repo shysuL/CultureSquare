@@ -124,16 +124,16 @@ h5 {
 	    <!-- 로그아웃 상태 -->
 	    <c:if test="${not login}">
 	       <div class="dropdown-menu ">
-	          <form class="px-4 py-3">
+	          <form class="px-4 py-3" action="/login" method=post>
 	             <div class="form-group">
 	                <label for="exampleDropdownFormEmail1">Email address</label> <input
 	                   type="email" class="form-control"
-	                   id="exampleDropdownFormEmail1" placeholder="email@example.com">
+	                   id="exampleDropdownFormEmail1" placeholder="email@example.com" name=userid>
 	             </div>
 	             <div class="form-group">
 	                <label for="exampleDropdownFormPassword1">Password</label> <input
 	                   type="password" class="form-control"
-	                   id="exampleDropdownFormPassword1" placeholder="Password">
+	                   id="exampleDropdownFormPassword1" placeholder="Password" name=userpw>
 	             </div>
 	             <div class="form-group">
 	                <div class="form-check">

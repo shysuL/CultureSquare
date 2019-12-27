@@ -5,14 +5,26 @@
 
 
 
-<c:forEach items="${list }" var="list">
+<style type="text/css">
+.float-container {
+	width: 270px;
+	border: 1px solid #ccc;
+	float: left;
+	text-aligin: center;
+}
+.float-container img{
+	
+	margin: 5px;
+	padding: 5px;
+	width: 250px;
+	height: 350px;
+}
 
-<div>
+</style>
+
+<c:forEach items="${list }" var="list">
+<div class="float-container">
 
 ${list.cul }
-
 </div>
-
-
-
 </c:forEach>

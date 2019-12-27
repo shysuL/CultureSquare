@@ -17,7 +17,7 @@ public interface PFBoardService {
 	 * @param paging - 게시판 리스트 paging 객체
 	 * @return list - 게시판 리스트 반환
 	 */
-	public List getList(Paging paging);
+	public List<Board> getList(Paging paging);
 
 	/**
 	 * 
@@ -67,6 +67,18 @@ public interface PFBoardService {
 	 */
 	public void write(Board board);
 	
-	
+	/**
+	 * 이수현
+	 * 2019 - 12 - 27
+	 *
+	 * 특정 날짜에 대하여 요일을 구함(일 ~ 토)
+	 * @param date
+	 * @param dateType
+	 * @return
+	 * @throws Exception
+	 */
+	public String getDateDay(String date, String dateType);
+
+
 
 }
