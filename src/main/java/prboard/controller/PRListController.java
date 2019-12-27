@@ -1,7 +1,5 @@
 package prboard.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -16,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import prboard.service.face.PRBoardService;
 import user.bo.NaverLoginBO;
 import user.service.face.KakaoService;
 import util.Paging;
@@ -28,6 +27,8 @@ public class PRListController {
 	private NaverLoginBO naverLoginBO;
 	
 	@Autowired private KakaoService kakaoService;
+	
+	@Autowired private PRBoardService prBoardService;
 	
 	@Autowired
 	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
@@ -69,5 +70,9 @@ public class PRListController {
 		
 		//구글
 		model.addAttribute("google_url", googleUrl);
+		
+		//테스트 리스트 접속했을때 닉넴 값 주기
+		prBoardService.getNickName((String)session.getAttribute("nickname"));
+		
 	}
 }

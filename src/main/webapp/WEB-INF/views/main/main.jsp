@@ -27,15 +27,7 @@
 
 
 <div class="container">
-<c:choose>
-	<c:when test="${not login}">
-			<h1>로그아웃 상태</h1>
-	</c:when>
-	<c:when test="${login }">
-		<h1>로그인 상태</h1>
-		<h3>${nickname} 님 환영합니다!</h3>
-	</c:when>
-</c:choose>
+
 
 <!-- 캐러셀영역 -->
 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">

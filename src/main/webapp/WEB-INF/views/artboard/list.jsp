@@ -1,11 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+    <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />  
+
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	//글쓰기 버튼 누르면 이동
+	$("#btnWrite").click(function() {
+		location.href= "/artboard/write";
+	});
+	
+});
+</script>
+
 
 <style type="text/css">
 .cal_header_div{
-	background-color: black;
+	background-color: #343a40;
     height: 50px;
 }
 
@@ -13,15 +26,18 @@
 	width: 800px;
 	height: 100px;
 	margin: 5px auto;
-	padding: 20px;
+
+	padding: 8px;
 	border: 1px solid #bcbcbc;
 }
 
 .perdate{
-	width : 20%;
-	height : auto;
+	width: 90px;
+    height: 85px;
 	float: left;
+	text-align: center;
 	border: 1px solid #bcbcbc;
+	padding: unset;
 }
 .media{
 	width : 70%;
@@ -29,15 +45,47 @@
 	float: right;
 	border: 0px solid #bcbcbc;
 }
+
+#side{
+	position:absolute;
+    right: 30px;
+    top: 384px;
+}
+#pfIntroduceTitle{
+    background-color: #343a40;
+    color: white;
+
+}
+#pfIntroduceContent{
+    background-color: #343a40;
+    color: white;
+
+}
+
+#category_name{
+    border: 1px solid #e5e5e5;
+    background: #f8f8f8;
+    padding: 4px 7px;
+    border-radius: 15px;
+    font-size: 12px;
+    letter-spacing: -1px;
+}
+
+
 </style>
 
 
 
-<h1> 예술 게시판 </h1>
+<h1> CALLENDAR </h1>
 <hr>
 
 <div class="container list-container">
 
+<div id = top_banner style="width: 800px;">
+	<div id = "banner" style="border : 1px solid #bcbcbc; width: 70%; height: 60px;  margin-bottom: 15px;" >배너</div>
+	
+	<button id="btnWrite" class="btn btn-primary" >글작성</button>
+</div>
 <div id="list_table" class="width_660 box_shadow_3 text-center">
 
 		<div class="list_cal_row_title theme_box2 relative">
@@ -56,8 +104,12 @@
 <div class = "list">
 
 <div class="perdate cal_col0 relative float_left center theme_key2" data-hasqtip="31" oldtitle="아직 출시 전인 제품입니다." title="" aria-describedby="qtip-31">
-		<div class="cal_date eng bold help">${i.performdate }</div>
-		<div class="cal_yoil help han ">O<span class="mobile_hide">요일</span></div>
+		<c:set var = "string1" value = "${i.performdate }"/>
+   	 	<c:set var = "length" value = "${fn:length(string1)}"/>
+    	<c:set var = "pdate" value = "${fn:substring(string1, length -2, length)}" />
+		
+		<div class="cal_date eng bold help" style="font-size: 25px">${pdate }</div>
+		<div class="cal_yoil help han " style=" margin-top: 5px;">O<span class="mobile_hide">요일</span></div>
 </div>
 		
 		
@@ -69,24 +121,17 @@
     </a>
   </div>
   <div class="media-body">
-    <h4 class="media-heading">${i.title }</h4>
-    ${i.performname}
+    <span class="media-heading"><a href="/artboard/view?boardno=${i.boardno}">${i.title }</a></span>
+    <br><br>
+    <span id = "category_name">${i.performname}</span>
+  
   </div>
+  
 </div>
 </div>
 </c:forEach>
 
 
-
-<!-- <table> -->
-<%-- <c:forEach items="${list }" var="i"> --%>
-<!-- <tr> -->
-<%-- 	<td>${i.title }</td> --%>
-<%-- 	<td>${i.views }</td> --%>
-<%-- 	<td>${i.userno }</td> --%>
-<!-- </tr> -->
-<%-- </c:forEach> --%>
-<!-- </table> -->
 
 <div class="list_cal_row_title theme_box2 relative text-center">
 		<div class="cal_header_div eng">
@@ -101,9 +146,20 @@
 		</div>
 	</div>
 
-
+<div id="side">
+	<div class="list-group" id="pfIntroduceTitle">
+  <a class="list-group-item" id="pfIntroduceContent">
+   CALENDAR 소개
+  </a>
+  <a href="#" class="list-group-item" style="font-size: 12px">
+  버스킹, 연극, 공연, 전시 등의<br>
+   일정을 포스팅하는 공간입니다.
+   </a>
 
 </div>
+
+</div>
+</div> <!-- container -->
 
 
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />

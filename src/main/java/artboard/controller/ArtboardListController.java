@@ -22,7 +22,6 @@ import user.bo.NaverLoginBO;
 import user.service.face.KakaoService;
 import util.Paging;
 
-
 @Controller
 public class ArtboardListController {
 	
@@ -73,8 +72,6 @@ public class ArtboardListController {
 		//구글
 		model.addAttribute("google_url", googleUrl);
 		
-//		logger.info("아트보드");
-		
 		paging = pfboardService.getPaging(paging);
 		
 		model.addAttribute("paging",paging);
@@ -85,8 +82,10 @@ public class ArtboardListController {
 		    		
 		model.addAttribute("list", list);
 		
-		logger.info(list.toString()); 
+//		logger.info(list.toString()); 
 		
 	}
+	
+	
 
 }
