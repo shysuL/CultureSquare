@@ -26,13 +26,6 @@ public class MypageMainController {
 	@RequestMapping(value="/mypage/main", method=RequestMethod.POST)
 	public void mypageInfo(HttpSession session, Model model, User_table user) {
 		
-		logger.info("마이페이지 뚜둔");
-//		
-//		//세션에서 로그인되어있는 아이디 가져오기
-//		Object obj = session.getAttribute("userid");
-//		
-//		logger.info("과연 : " + obj);
-		
 	}
 
 }

@@ -14,6 +14,11 @@ public class MyInfoModifyController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MyInfoModifyController.class);
 	
+	@RequestMapping(value="/mypage/updateform", method=RequestMethod.GET)
+	public void updateform() {
+		//개인정보 수정 폼을 보여주는 메소드
+	}
+	
 	@RequestMapping(value="/mypage/updatephoto", method=RequestMethod.GET)
 	public void modifyProfilePhoto(Model model) {
 		
