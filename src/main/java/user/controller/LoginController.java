@@ -1,36 +1,22 @@
 package user.controller;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.codec.binary.Base64;
-import org.codehaus.jackson.JsonNode;
 import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.social.google.connect.GoogleConnectionFactory;
 import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import user.bo.NaverLoginBO;
@@ -38,6 +24,7 @@ import user.dto.User_table;
 import user.service.face.GoogleService;
 import user.service.face.KakaoService;
 import user.service.face.NaverService;
+import user.service.face.UserService;
 
 @Controller
 public class LoginController {
@@ -46,7 +33,8 @@ public class LoginController {
 	@Autowired private NaverService naverService;
 	@Autowired private KakaoService kakaoService;
 	@Autowired private GoogleService googleService;
-		
+	@Autowired private UserService userService;
+	
 	/* NaverLoginBO */
 	private NaverLoginBO naverLoginBO;
 	private String apiResult = null;
@@ -128,4 +116,35 @@ public class LoginController {
 
 		return "redirect:/main/main";
 	}
-}
+	
+	@RequestMapping(value="/login", method= RequestMethod.POST)
+	public String loginProc(User_table user, HttpSession session, 
+			HttpServletRequest req, HttpServletRequest resp, 
+			Model model) {
+		
+		// userLogin.jsp에서 아이디기억하기 name값 ( remember ) 가져오기
+//		String userCheck = req.getParameter("UserIdSave");
+			boolean isLogin = userService.loginProc(user); // true 로그인
+			
+			//세션 정보 불러오기
+			User_table userSession = userService.getUserSession(user);
+			
+			// 결과에 따른 세션관리
+			if(isLogin) {
+				//세션에 정보 저장하기
+				session.setAttribute("login", true);
+				session.setAttribute("userid", user.getUserid());
+				session.setAttribute("usernick", userSession.getUsernick());
+				session.setAttribute("username", userSession.getUsername());
+				session.setAttribute("interest", userSession.getInterest());
+				logger.info(userSession.getUsernick().toString());
+				logger.info(userSession.getUsername().toString());
+				logger.info(userSession.getInterest().toString());
+				logger.info("로그인 성공하고 세션 저장");
+				
+			}
+		
+			return "redirect:/main/main";
+		}
+		
+	}

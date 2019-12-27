@@ -43,6 +43,29 @@ public class UserServiceImpl implements UserService{
 		return userDao.selectCheckNick(usernick);
 	}
 
+	
+	@Override
+	public boolean loginProc(User_table user) {
+		logger.info("서비스임플에서 입력받은 로그인 정보 : " + user);
+		if (userDao.selectCnt(user) == 1 ) {
+			return true; // 로그인 성공
+		}
+		
+		return false; // 로그인 실패
+	}
 
+	
+	@Override
+	public User_table getUserSession(User_table user) {
+		
+		return userDao.selectUserInfoById(user);
+	}
+
+	
+	
+
+	
+	
+	
 
 }

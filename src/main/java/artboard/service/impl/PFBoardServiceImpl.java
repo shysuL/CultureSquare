@@ -1,5 +1,6 @@
 package artboard.service.impl;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,8 +21,13 @@ public class PFBoardServiceImpl implements PFBoardService{
 	@Autowired PFBoardDao pfboardDao;
 	
 	@Override
-	public List getList(Paging paging) {
-		return pfboardDao.selectAll(paging);
+	public List<Board> getList(Paging paging) {
+		List<Board> list = pfboardDao.selectAll(paging);
+		for (int i = 0; i < list.size(); i++) {
+			Board board = list.get(i);
+			board.setPerformday(getDateDay(board.getPerformdate(),"yyyyMMdd"));
+		}
+		return list;
 	}
 
 	@Override
@@ -52,11 +58,17 @@ public class PFBoardServiceImpl implements PFBoardService{
 	}
 
 	@Override
-	public String getDateDay(String date, String dateType) throws Exception {
+	public String getDateDay(String date, String dateType){
 		String day = "" ;
 	     
 	    SimpleDateFormat dateFormat = new SimpleDateFormat(dateType) ;
-	    Date nDate = dateFormat.parse(date) ;
+	    Date nDate = null;
+		try {
+			nDate = dateFormat.parse(date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	     
 	    Calendar cal = Calendar.getInstance() ;
 	    cal.setTime(nDate);
