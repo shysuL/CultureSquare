@@ -21,6 +21,13 @@ $(document).ready(function() {
 		return false;
 	});
 	
+	//하루 작성 게시글 초과한 상태에서 글쓰기 버튼 누르면 모달
+	$("#prCntOver").click(function() {
+		$(".content").text('하루에 1개의 게시글만 작성 가능합니다!');
+		$("#prcntOverModal").modal({backdrop: 'static', keyboard: false});
+		return false;
+	});
+	
 });
 </script>
 
@@ -91,7 +98,12 @@ $(document).ready(function() {
 				<button id="notLoginWrite" class="btn btn-md b-btn" style="float: right; background-color: #494b4d; color: white;">글작성</button>
 			</c:when>
 			<c:when test="${login}">
-				<button id="LoginWrite" class="btn btn-md b-btn" style="float: right; background-color: #494b4d; color: white;">글작성</button>
+<%-- 				<c:if test="${prCntCheck eq 0}"> --%>
+					<button id="LoginWrite" class="btn btn-md b-btn" style="float: right; background-color: #494b4d; color: white;">글작성</button>
+<%-- 				</c:if> --%>
+<%-- 				<c:if test="${prCntCheck eq 1}"> --%>
+<!-- 					<button id="prCntOver" class="btn btn-md b-btn" style="float: right; background-color: #494b4d; color: white;">글초과</button> -->
+<%-- 				</c:if> --%>
 			</c:when>
 		</c:choose>
 		
@@ -236,6 +248,31 @@ $(document).ready(function() {
     </div>
   </div>
 </div>
+
+<!-- pr 게시글 횟수 초과 -->
+<div class="modal fade" id="prcntOverModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">PR 게시글 작성 불가!</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="prCntOverCheckBtn"class="btn btn-info" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <div id="side">
 	<div class="list-group" id="prIntroduceTitle">
   <a class="list-group-item" id="prIntroduceContent">
