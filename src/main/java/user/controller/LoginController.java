@@ -137,10 +137,10 @@ public class LoginController {
 				session.setAttribute("usernick", userSession.getUsernick());
 				session.setAttribute("username", userSession.getUsername());
 				session.setAttribute("interest", userSession.getInterest());
-				logger.info(userSession.getUsernick().toString());
-				logger.info(userSession.getUsername().toString());
-				logger.info(userSession.getInterest().toString());
-				logger.info("로그인 성공하고 세션 저장");
+//				logger.info(userSession.getUsernick().toString());
+//				logger.info(userSession.getUsername().toString());
+//				logger.info(userSession.getInterest().toString());
+//				logger.info("로그인 성공하고 세션 저장");
 				
 			}
 		

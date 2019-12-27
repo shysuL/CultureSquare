@@ -104,6 +104,17 @@ public interface UserDao {
 	 * @return - User_table(usernick, username, interest)
 	 */
 	public User_table selectUserInfoById(User_table user);
+	
+	/**
+	 * 2019-12-27
+	 * 이빈
+	 * 
+	 * 회원가입 초기 상태인 난수키(emailCheck)- null을 난수키 생성하여 update해주기
+	 * 
+	 * @param userid - 이메일
+	 * @param key - 난수키
+	 */
+	public void updateEmailKey(String userid, String key);
 
 
 }

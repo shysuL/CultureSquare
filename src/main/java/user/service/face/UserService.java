@@ -49,5 +49,5 @@ public interface UserService {
 	 * @return 
 	 */
 	public User_table getUserSession(User_table user);
-
+	
 }
