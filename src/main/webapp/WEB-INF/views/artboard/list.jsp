@@ -132,34 +132,39 @@ $(document).ready(function() {
 	<!-- 사이트 게시판 -->
 	<div class="col-3">
 		<div>
-			<div class="list-group" id="pfIntroduceTitle">
+			<div class="list-group" >
 	  		<a class="list-group-item" id="pfIntroduceContent">CALENDAR 소개</a>
-	  		<a href="#" class="list-group-item" style="font-size: 12px">
+	  		<a class="list-group-item tit" style="font-size: 14px">
 	  			버스킹, 연극, 공연, 전시 등의<br>
 	 		  	일정을 포스팅하는 공간입니다.</a>
 			</div>
 		</div>
 		<br>
 		<div>
-			<div class="list-group" id="pfIntroduceTitle">
-	  		<a class="list-group-item" id="pfIntroduceContent">카테고리 별 보기</a>
-	  		<table boarder=1>
+			<div class="list-group">
+	  		<table>
 	  		<tr>
-	  		<td><a href="#" class="list-group-item" style="font-size: 12px">전체</a></td>
-	  		<td>공연</td>
-	  		<td>버스킹</td>
-	  		<td>연극</td>
+	  		<th colspan="4"><a class="list-group-item" id="pfIntroduceContent">카테고리 별 보기</a></th>
 	  		</tr>
+	  		
 	  		<tr>
-	  		<td></td>
-	  		<td></td>
-	  		<td></td>
-	  		<td></td>
+	  		<td><a href="#" ><input class="list-group-item active tit" type="button" value="전체" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item tit" type="submit" value="공연" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item tit" type="submit" value="버스킹" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item tit" type="submit" value="연극" /></a></td>
+	  		</tr>
+	  		
+	  		<tr>
+	  		<td>콘서트</td>
+	  		<td>축제</td>
+	  		<td>행사</td>
+	  		<td>기타</td>
 	  		</tr>
 	  		</table>
-	  	
+
+
 			</div>
-		</div>		
+		</div>
 	</div>
 </div>
 	
@@ -167,4 +172,9 @@ $(document).ready(function() {
 
 
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
+
+
+
+
+
 
