@@ -54,6 +54,18 @@ public class UserServiceImpl implements UserService{
 		return false; // 로그인 실패
 	}
 
+	
+	@Override
+	public User_table getUserSession(User_table user) {
+		
+		return userDao.selectUserInfoById(user);
+	}
 
+	
+	
+
+	
+	
+	
 
 }

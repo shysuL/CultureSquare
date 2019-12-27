@@ -41,4 +41,13 @@ public interface UserService {
 	 */
 	public boolean loginProc(User_table user);
 
+	/**
+	 * 2019-12-27
+	 * 이빈
+	 * 세션저장을 위한 아이디로 사용자 정보 얻기
+	 * @param user - id
+	 * @return 
+	 */
+	public User_table getUserSession(User_table user);
+
 }

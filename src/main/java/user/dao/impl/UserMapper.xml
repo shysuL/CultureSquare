@@ -62,5 +62,13 @@
 	   		AND userid = #{userid}
 	   		AND userpw = #{userpw}
 	   </select>
+	   
+	   <!-- 세선정보(usernick, username, interest) -->
+	   <select id="selectUserInfoById"
+	    parameterType="user.dto.User_table" resultType="user.dto.User_table">
+	     SELECT usernick, username, interest,userno FROM user_table
+	     WHERE 1=1
+	     	AND userid = #{userid}
+	    </select>
 	
 </mapper>
