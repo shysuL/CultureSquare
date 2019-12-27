@@ -93,5 +93,17 @@ public interface UserDao {
 	 */
 	public int selectCnt(User_table user);
 
+	
+	/**
+	 * 2019-12-27
+	 * 이빈
+	 * 
+	 * 세션에 저장할 usernick, username, interest 가져오기
+	 * 
+	 * @param user - userid
+	 * @return - User_table(usernick, username, interest)
+	 */
+	public User_table selectUserInfoById(User_table user);
+
 
 }
