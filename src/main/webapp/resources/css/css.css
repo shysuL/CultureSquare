@@ -1,2 +1,94 @@
 @charset "UTF-8";
 
+/* artlist.jap */
+.cal_header_div{
+	background-color: #343a40;
+    height: 60px;
+}
+.list{
+	width: 800px;
+	height: 100px;
+	margin: 5px auto;
+
+	padding: 8px;
+	border: 1px solid #bcbcbc;
+}
+.perdate {
+	width: 90px;
+    height: 85px;
+	float: left;
+	text-align: center;
+	border: 1px solid #bcbcbc;
+	padding: unset;
+}
+.media {
+	width : 80%;
+	height : auto;
+	float: right;
+	border: 0px solid #bcbcbc;
+}
+.media-body {
+    margin-left: 15px;
+}
+#pfIntroduceTitle {
+    background-color: #343a40;
+    color: white;
+}
+#pfIntroduceContent {
+    background-color: #343a40;
+    color: white;
+}
+#category_name {
+    border: 1px solid #e5e5e5;
+    background: #f8f8f8;
+    padding: 4px 7px;
+    border-radius: 15px;
+    font-size: 12px;
+    letter-spacing: -1px;
+}
+#carouselExampleFade img {
+	width: 500px;
+	height: 130px;
+}
+.h2 {
+	margin-top: 15px;
+}
+.inputin {
+    margin: 10px;
+    background: #343a40;
+    width: 100px;
+    height: 40px;
+    font-size: 30px;
+    text-align: center;
+    color: white;
+}
+.inputbt {
+    width: 60px;
+    height: 50px;
+    background: #343a40;
+    color: white;
+    border: #343a40;
+    margin-top: -18px;
+}
+.goto {
+	font-size: 18px;
+	margin-bottom: 1px; 
+	color: white;
+}
+.btnwritee{
+	background: #343a40;
+	color: white;
+	border: #343a40;
+	height: 40px;
+    width: 90px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+.b {
+    text-align: right;
+}
+
+
+
+
