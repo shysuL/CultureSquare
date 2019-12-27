@@ -8,6 +8,9 @@ import util.Paging;
 public interface PFBoardService {
 
 	
+	public List<Board> getList(String searchMonth);
+
+	
 	/**
 	 * 이수현
 	 * 2019 - 12 - 23
