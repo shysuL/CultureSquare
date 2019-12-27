@@ -79,6 +79,10 @@ tr td:not(:first-child), tr th:not(:first-child) {
 .far{
     line-height: 3;	
 }
+
+.tit { 
+color: #343a40;
+}
 </style>
 
 <!-- <script type="text/javascript"> -->
@@ -127,7 +131,7 @@ tr td:not(:first-child), tr th:not(:first-child) {
 	<tr>
 <%-- 	<td><input type="checkbox" name="checkRow" value="${list.boardno }"/></td> --%>
 		<td style="color: #1a3a5a; width: 5%;">${list.boardno }</td>
-		<td style="color: #1a3a5a; width: 50%;"><a href="/board/freeview?boardno=${list.boardno }">${list.title }</a></td>
+		<td style="color: #1a3a5a; width: 50%;"><a class="tit" href="/board/freeview?boardno=${list.boardno }">${list.title }</a></td>
 		<td style="color: #1a3a5a; width: 20%;">${list.usernick }</td>
 		<td style="color: #1a3a5a; width: 10%;">${list.views }</td>
 		<td style="color: #1a3a5a; width: 15%;">${list.writtendate }</td>

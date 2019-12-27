@@ -2,9 +2,26 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!-- 부트스트랩 -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+<style type="text/css">
+.page-link {
+	background: white;
+	color: #343a40;
+}
+.page-item.active .page-link {
+	background-color: #343a40;
+    border-color: #343a40;
+}
+</style>
 
 <div style="text-align: center;">
-	<ul class="pagination justify-content-center">
+	<ul class="pagination justify-content-center ">
 	
    <!-- 처음으로 가기 -->
    <c:if test="${paging.curPage ne 1 }">
@@ -33,10 +50,10 @@
 	var="i">
 		<c:choose>
 			<c:when test="${paging.curPage eq i }">
-				<li class="active"><a class="page-link" href="/board/freelist?curPage=${i }&search=${param.search }">${i }</a></li>
+				<li class="page-item active"><a class="page-link" href="/board/freelist?curPage=${i }&search=${param.search }">${i }</a></li>
 			</c:when>
 			<c:otherwise>
-				<li><a class="page-link" href="/board/freelist?curPage=${i }&search=${param.search }">${i }</a></li>
+				<li class="page-item"><a class="page-link" href="/board/freelist?curPage=${i }&search=${param.search }">${i }</a></li>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>	

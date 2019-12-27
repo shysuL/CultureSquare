@@ -41,11 +41,11 @@ public class FreeWriteController {
 		
 		logger.info(session.toString());
 		//로그인한 유저 정보 조회 
-		User_table user = freeboardService.getboardWriter(session.getAttribute("loginid"));
+//		User_table user = freeboardService.getboardWriter(session.getAttribute("loginid"));
 		
-		freeboard.setUserid(user.getUserid());
-		freeboard.setUsernick(user.getUsernick());
-		freeboard.setUserno(user.getUserno());
+//		freeboard.setUserid(user.getUserid());
+//		freeboard.setUsernick(user.getUsernick());
+//		freeboard.setUserno(user.getUserno());
 		
 		//게시글 작성 날짜
 		SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd");
