@@ -80,6 +80,18 @@ public interface UserDao {
 	 * @return - int (0 : 사용가능, 1 : 중복닉네임 )
 	 */
 	public int selectCheckNick(String usernick);
+	
+	/**
+	 * 2019-12-27
+	 * 이빈
+	 * 
+	 * 로그인 
+	 * 
+	 * @param user - 로그인폼에서 입력받은 정보
+	 * 
+	 * @return - boolean ( true : 로그인, false : 실패 )
+	 */
+	public int selectCnt(User_table user);
 
 
 }

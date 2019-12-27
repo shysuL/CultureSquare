@@ -1,5 +1,7 @@
 package user.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import user.dto.User_table;
+import user.service.face.JoinSendMailService;
 import user.service.face.UserService;
 
 @Controller
@@ -19,7 +22,7 @@ public class JoinController {
 	private static final Logger logger = LoggerFactory.getLogger(JoinController.class);
 	
 	@Autowired UserService userService;
-	
+	@Autowired JoinSendMailService joinSendMailService;
 	
 	// 회원가입 폼만 띄우기
 	@RequestMapping(value="/user/joinForm")
@@ -30,11 +33,17 @@ public class JoinController {
 	
 	// 회원가입 입력한 폼 처리
 	@RequestMapping(value="/user/joinProc", method=RequestMethod.POST)
-	public String joinProc(User_table user, Model model) {
+	public String joinProc(User_table user, Model model, HttpServletRequest req) {
 		
 //		logger.info(user.toString()); // form 입력 값 잘 받아오는지 -완료-
 		
+		
+		// 회원가입처리 
 		userService.joinProc(user);
+		
+		// 메일 인증 발송
+		joinSendMailService.mailSendWithUserKey(user.getUserid(), user.getUsername(), req);
+		
 		
 		return "redirect:/main/main";
 		
