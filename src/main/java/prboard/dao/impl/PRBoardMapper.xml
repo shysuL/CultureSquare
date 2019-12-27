@@ -8,9 +8,16 @@
 	
 	<select id="updatePRCnt"
 	 parameterType="String">
-	UPDATE user_table SET prcnt = 0 
-	WHERE 1=1
-	AND usernick =#{value}
+		UPDATE user_table SET prcnt = 0 
+		WHERE 1=1
+		AND usernick =#{value}
+	</select>
+	
+	<select id="selectprCnt" parameterType="String"
+		resultType="user.dto.User_table">
+		SELECT prcnt FROM user_table
+		WHERE 1=1
+		AND usernick =#{value}
 	</select>
 
 </mapper>

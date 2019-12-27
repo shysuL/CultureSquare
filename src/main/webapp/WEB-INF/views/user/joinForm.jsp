@@ -11,15 +11,15 @@
 }
 
 .btn-primary {
-    color: rgba(255,255,255,.75);
-    background-color: #343a40!important;
+    color: white;
+    background-color: #343a40;
     border-color: #343a40!important;
 }
 
 .btn-primary:hover {
-    color: rgba(255,255,255,.75);
-    background-color: #5a6268;
-    border-color: #5a6268;
+    color: white;
+    background-color: #343a40;
+    border-color: rgba(255,255,255,.75);
 }
 
 
@@ -64,7 +64,7 @@
 
 $(document).ready(function(){
 	
-// 	변수 11개 생성하세요
+// 	정규식 검사 변수
 	var id_Check = true;
 	var pw_Check = true;
 	var pw_Check2 = true;
@@ -80,36 +80,42 @@ $(document).ready(function(){
 		if(!id_Check || $('#userid').val() == ""){
 			$(".content").text('아이디를 확인해주세요.');
 			$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
+			$("#userid").focus();
 		} 
 		
 //		2. 패스워드 검사	
 		else if(!pw_Check || $('#userpw').val() == ""){
 			$(".content").text('비밀번호를 확인해주세요.');
 			$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
+			$("#userpw").focus();
 		}
 		
 // 		3. 패스워드 확인 검사
 		else if(!pw_Check2 || $('#userpw2').val() == "" || $('#userpw').val() != $('#userpw2').val()) {
 				$(".content").text('비밀번호2를 확인해주세요.');
 				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
+				$("#userpw2").focus();
 		}
 		
 // 		4. 이름 검사
 		else if(!name_Check || $('#username').val() == "") {
 			$(".content").text('이름을 확인해주세요.');
 			$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
+			$("#username").focus();
 		}
 
 // 		5. 닉네임 검사
 		else if(!nick_Check || $('#usernick').val() == ""){
 				$(".content").text('닉네임을 확인해주세요.');
 				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
+				$("#usernick").focus();
 		}
 		
 // 		6. 핸드폰 검사
 		else if(!phone_Check ||  $('#usernick').val() == ""){
 				$(".content").text('핸드폰 번호를 확인해주세요.');
 				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
+				$("#userphone").focus();
 		} 		
 
 //		7. 생년월일 검사
@@ -178,7 +184,6 @@ $(document).ready(function(){
 					// 1 : 아이디가 중복되는 문구
 					$("#id_check").text("사용중인 이메일입니다");
 					$("#id_check").css("color", "red");
-					$("#reg_submit").attr("disabled", true);
 					
 					id_Check = false;
 					
@@ -189,17 +194,14 @@ $(document).ready(function(){
 						// 0 : 아이디길이 / 문자열 검사
 						$("#id_check").text("사용 가능한 이메일입니다");
 						$("#id_check").css("color", "green");
-						$("#reg_submit").attr("disabled", false);
 						id_Check = true;
 					} else if (userid == ""){
 						$('#id_check').text('아이디를 입력해주세요');
 						$('#id_check').css('color', 'red');
-						$("#reg_submit").attr("disabled", true);
 						id_Check = false;
 					} else {
 						$('#id_check').text("아이디는 이메일 주소로만 가능합니다");
 						$('#id_check').css('color', 'red');
-						$("#reg_submit").attr("disabled", true);
 						id_Check = false;
 					}
 						
