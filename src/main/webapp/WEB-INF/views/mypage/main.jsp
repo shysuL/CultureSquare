@@ -76,6 +76,12 @@
 	padding-left: 16%;
 	padding-right: 16%;
 }
+
+#mypageicon {
+	height: 20px;
+	width: 20px;
+}
+
 </style>
 
 <div class="container myPageContainer" id="myPageContainer">
@@ -93,7 +99,7 @@
 			<hr>
 			<!-- 프로필 사진 -->
 			<c:choose>
-				<c:when test="${userinfo.photo_storedname eq null }">
+				<c:when test="${storedname eq null }">
 					<p>
 						<img id="profileImg" src="/resources/img/userdefaultprofile.png" class="img-responsive img-circle"
 							alt="Responsive image">
@@ -188,16 +194,31 @@
 				</li>
 			</ul>
 			<hr>
-			<img src="" style="width: 45x; height: 45px;"> 
-			<input type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;" value="좋아요한 글"/>
-			<img src="" style="width: 45x; height: 45px;"> 
-			<input type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;" value="구독한 예술인"/>
-			<img src="" style="width: 45x; height: 45px;">
-			<input type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;" value="내가 쓴 글"/>
-			<img src="" style="width: 45x; height: 45px;">
-			<input type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;" value="내가 쓴 댓글"/>
-			<img src="" style="width: 45x; height: 45px;"> 
-			<input type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;" value="내가 후원한 내역"/>
+			<button type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;" 
+					onclick="location.href='/mypage/likepost';">
+			<img id="mypageicon" src="/resources/img/hand.png"> 
+			좋아요한 글
+			</button><br>
+			<button type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;"
+					onclick="location.href='/mypage/likeartists';">
+			<img id="mypageicon" src="/resources/img/person.png"> 
+			구독한 예술인
+			</button><br>
+			<button type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;"
+					onclick="location.href='/mypage/writelist';">
+			<img id="mypageicon" src="/resources/img/note.png">
+			내가 쓴 글
+			</button><br>
+			<button type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;"
+					onclick="location.href='/mypage/writereplylist';">
+			<img id="mypageicon" src="/resources/img/pencil.png">
+			내가 쓴 댓글
+			</button><br>
+			<button type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;"
+					onclick="location.href='/mypage/permitslist';">
+			<img id="mypageicon" src="/resources/img/handheart.png"> 
+			내가 후원한 내역
+			</button>
 		</div>
 		<!-- 예술인 신청 -->
 		<div class="inner_con3">
