@@ -32,4 +32,13 @@ public interface UserService {
 	 */
 	public int userNickCheck(String usernick);
 
+	/**
+	 * 2019-12-27
+	 * 이빈
+	 * 로그인
+	 * @param user - 입력한 아이디 / 패스워드
+	 * @return true - 로그인 성공
+	 */
+	public boolean loginProc(User_table user);
+
 }
