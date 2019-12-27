@@ -5,6 +5,20 @@
 
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
 
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	//예술인 신청을 눌렀을 때
+	$("#artistsapply").click(function(){
+		$("#pwAuthenticationModal").modal({backdrop: 'static', keyboard: false});
+		
+		$("#inputPwCheckBtn").click(function(){
+			$("#pwAuthenticationModal2").modal({backdrop: 'static', keyboard: false});
+		})
+	})
+});
+</script>
+
 <style type="text/css">
 .inner_con1 {
 	float: left;
@@ -47,16 +61,16 @@
 }
 
 /* 웹폰트 적용 */
-@font-face { 
-	font-family: 'KHNPHU'; 
-	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/KHNPHU.woff') format('woff'); 
-	font-weight: normal; 
-	font-style: normal; 
-}
+/* @font-face {  */
+/* 	font-family: 'KHNPHU';  */
+/* 	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/KHNPHU.woff') format('woff');  */
+/* 	font-weight: normal;  */
+/* 	font-style: normal;  */
+/* } */
 
-#myPageContainer {
-	font-family: 'KHNPHU';
-}
+/* #myPageContainer { */
+/* 	font-family: 'KHNPHU'; */
+/* } */
 
 #mypageheader {
 	margin-bottom: 3%; 
@@ -126,7 +140,10 @@
 					관심분야 : ${interest }
 				</p>
 			</div>
-			<input type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;" value="개인정보 수정"/>
+			<button type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;"
+				onclick="location.href='/mypage/updateform';">
+				 개인정보 수정
+			</button>
 			<br>
 			<!-- display:none으로 화면상에서 파일 확인 창을 숨겨둔다 -->
 			<input type="file" id="ajaxFile" onChange="ajaxFileChange();" style="display: none;" accept=".jpeg, .jpg, .png" /> 
@@ -233,11 +250,60 @@
 			일반 사용자가 예술인으로 변경을 원할 시에만 눌러주세요.<br>
 			공연, 연극, 버스킹등의 예술분야를 홍보할 수 있는<br>
 			CALENDAL게시판 이용이 가능합니다.</small><br><br>
-			<a href="" class="btn btn-outline-dark" role="button" style="width: 84%; display: block; margin: 0 auto;">예술인 신청하기</a>
+			<button type="submit" class="btn btn-outline-dark" id="artistsapply" 
+					style="width: 84%; display: block; margin: 0 auto;">예술인 신청하기</button>
 		</div>
 		<div style="clear: both;"></div>
 	</div>
 </div>
 <!-- container -->
+
+<!-- 모달 -->
+<!-- 예술인으로 신청하기를 눌렀을 떄 모달 -->
+<div class="modal fade" id="pwAuthenticationModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">예술인 신청을 진행하시겠습니까?</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+		일반 사용자가 예술인으로 변경신청을 했을 경우 관리자의 승인이 필요합니다. 진행하시겠습니까?
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="inputPwCheckBtn"class="btn btn-info" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 두번째 모달 -->
+<div class="modal fade" id="pwAuthenticationModal2">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+<!--       Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">신청완료</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+<!--       Modal body -->
+      <div class="modal-body content">
+      	예술인으로 신청이 완료되었습니다.
+      </div>
+<!--       Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="inputPwCheckBtn2"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />

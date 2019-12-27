@@ -17,7 +17,7 @@ public interface PFBoardDao {
 	 * @param paging - paging 객체
 	 * @return list - 예술 게시판 리스트
 	 */
-	public List selectAll(Paging paging);
+	public List<Board> selectAll(Paging paging);
 
 	
 	/**
