@@ -28,6 +28,13 @@ public class ArtboardHeaderController {
 		model.addAttribute("nowYear",nowYear);
 		model.addAttribute("nowMonth",nowMonth);
 		
+		System.out.println("nowYear : " + nowYear);
+		System.out.println("nowMonth : " + nowMonth);
+		logger.info("nowYear : " + nowYear);
+		logger.info("nowMonth : " + nowMonth);
+		
+		
+		
 	}
 
 }

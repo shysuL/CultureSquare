@@ -11,6 +11,31 @@
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />  
 
 <script type="text/javascript">
+$(document).ready(function(){
+	
+// 	$("#leftgo").click(function(){
+// 		var cal_year = $('#cal_year').val();
+// 		var cal_month = $('#cal_month').val();
+		
+// 		$.ajax({
+// 			type:"get",
+// 			url:"/artboard/list",
+// 			data:{"cal_year" : cal_year, "cal_month" : cal_month},
+// 			datatype : "json",
+// 			success: function(res){
+// 				console.log(cal_year)
+// 				console.log(cal_month)
+// // 				location.href="/artboard/list?bo_table=calendar&cal_year=&cal_month="
+// 			}
+// 		})
+		
+// 	})
+	
+})
+</script>
+
+
+<script type="text/javascript">
 $(document).ready(function() {
 	
 	//글쓰기 버튼 누르면 이동
@@ -21,7 +46,27 @@ $(document).ready(function() {
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function() {
+   $(".fa-chevron-left").click(function() {
+      $.ajax({
+         type: "get"
+         , url: "/artboard/list"
+         , data: {yyyy : 2019, MM : 11 }
+         , dataType: "html"
+         , success: function(  ) {
+        	 location.href="/artboard/list?bo_table=calendar&cal_year=${yyyy}&cal_month=${MM}";
+            console.log("성공")
+            console.log( res )
+         }
+         , error: function() {
+            console.log("실패")
+         }
+      });
+   })
+});
 
+</script>
 <div class="container list-container">
 <div class="h2"><h2> CALLENDAR </h2></div>
 <hr>
@@ -67,9 +112,14 @@ $(document).ready(function() {
 			<div class="cal_header_div eng">
 				<form method="get" action="/artboard/list">
 					<input type="hidden" name="bo_table" value="calendar">
-					<a href="/artboard/list?bo_table=calendar&cal_year=2019&cal_month=11"><i class="fa fa-chevron-left goto" ></i></a>&nbsp;&nbsp;
-					<input class="cal_header_year inputin" type="text" name="cal_year" value="${nowYear }" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp;
-					<input class="cal_header_month inputin" type="text" name="cal_month" value="${nowMonth }" maxlength="2" required="required"  data-hasqtip="24" oldtitle="월" title="">&nbsp;
+					<a href="/artboard/list?bo_table=calendar&cal_year=2019&cal_month=11">
+<!-- 					<button id = "leftgo"> -->
+					<i class="fa fa-chevron-left goto" ></i>
+<!-- 					</button> -->
+					</a>
+					&nbsp;&nbsp;
+					<input class="cal_header_year inputin" type="text" name="cal_year" id="cal_year" value="${nowYear }" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp;
+					<input class="cal_header_month inputin" type="text" name="cal_month" id="cal_month" value="${nowMonth }" maxlength="2" required="required"  data-hasqtip="24" oldtitle="월" title="">&nbsp;
 					<input class="btn inputbt" type="submit" value="이동" data-hasqtip="25" oldtitle="이동" title="">&nbsp;&nbsp;
 					<a href="/artboard/list?bo_table=calendar&cal_year=2020&cal_month=01"><i class="fa fa-chevron-right goto" ></i></a>
 				</form>
