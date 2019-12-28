@@ -71,5 +71,15 @@ public interface FreeBoardService {
 	 */
 	public User_table getboardWriter(Object attribute);
 
+	/**
+	 * 2019-12-26
+	 * 고인호
+	 * 
+	 * 자유게시판 전체 게시글중 조회수 높은 순으로 조회
+	 * 
+	 * @return List - 조회수 가장 높은 게시글 리스트
+	 */
+	public List<FreeBoard> getViewsList();
+
 
 }

@@ -52,7 +52,13 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	@Override
 	public User_table getboardWriter(Object attribute) {
 		
-		return freeboardDao.selectByUserId(attribute);
+		return freeboardDao.selectByUserNick(attribute);
+	}
+
+	@Override
+	public List<FreeBoard> getViewsList() {
+		
+		return freeboardDao.selectViewsAll();
 	}
 
 

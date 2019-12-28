@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
-<jsp:include page="/WEB-INF/views/layout/header.jsp"/>   
+
+<jsp:include page="/WEB-INF/views/layout/header.jsp"/> 
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -34,17 +35,7 @@ tr td:nth-child(2){
 	
 }
 
-#freeIntroduceTitle{
-	width: 340px;
-    padding-top: 400px;
-    padding-bottom: 50px;
-}
 
-#freeRankTitle{
-	width: 340px;
-    padding-top: 400px;
-    padding-bottom: 50px;
-}
 
 #freeIntroduceContent{
 	background-color:#343a40; 
@@ -54,19 +45,7 @@ tr td:nth-child(2){
 #freeRankContent{
 	background-color:#343a40; 
 	color:white;
-}
-
-#side{
-	position:absolute;
-	top: 0;
-	right: 50px;
-}
-
-/* tr td:not(:nth-child(2)){ */
-/* 	text-color:#1a3a5a; */
-	
-/* } */
-
+} 
 
 tr td:not(:first-child), tr th:not(:first-child) {
 	border-left: 1px solid white;
@@ -83,6 +62,7 @@ tr td:not(:first-child), tr th:not(:first-child) {
 .tit { 
 color: #343a40;
 }
+
 </style>
 
 <!-- <script type="text/javascript"> -->
@@ -105,25 +85,21 @@ color: #343a40;
 
 <!-- </script> -->
 
-<div class="container" style="
-    position: relative;
-    padding-left: 200px;
-    padding-right: 200px;
-    right: 150px;
-">
-<h1></h1>
+<div class="container" >
 <hr>
+<h2>자유게시판</h2>
 
-         <h2>자유게시판</h2>
+<div class="row">
+<!-- 게시판 리스트 -->
+<div class="col-8">
 
-<div style="background-color: #343a40;height: 50px;">
-<i class="fas fa-list" style= "color: #ffff;margin-left: 20px;"></i>
-<i class="far fa-user" style= "color: #ffff;margin-left: 435px;"></i>
-<i class="fas fa-eye" style= "color: #ffff;margin-left: 90px;"></i>
-<i class="far fa-clock" style= "color: #ffff;margin-left: 70px;"></i>
+<div style="background-color: #343a40; height: 50px;">
+	<i class="fas fa-list" style= "color: #ffff;margin-left: 18px;"></i>
+	<i class="far fa-user" style= "color: #ffff;margin-left: 435px;"></i>
+	<i class="fas fa-eye" style= "color: #ffff;margin-left: 86px;"></i>
+	<i class="far fa-clock" style= "color: #ffff;margin-left: 70px;"></i>
 </div>
 
-<!-- <form action="/list/delete" method="get"> -->
 <table class="table table-border table-hover table-condesed table-stripe" style="color: #343a40;">
 
 
@@ -139,42 +115,17 @@ color: #343a40;
 </c:forEach>
 
 </table>
-<div id="side" style="
-    left: 1000px;
-    top: -320px;
-    bottom: 0px;
-    height: 100px;
-">
-	<div class="list-group" id="freeIntroduceTitle">
-  <a class="list-group-item" id="freeIntroduceContent">
-	자유게시판 소개
-  </a>
-  <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-</div>
-
-<div class="list-group" id="freeRankTitle">
-  <a class="list-group-item" id="freeRankContent">
-	자유게시판 순위
-  </a>
-  <a href="#" class="list-group-item">1등</a>
-  <a href="#" class="list-group-item">2등</a>
-  <a href="#" class="list-group-item">3등</a>
-  <a href="#" class="list-group-item">4등</a>
-  <a href="#" class="list-group-item">5등</a>
-<!-- </div> -->
-</div>
-</div>
 
 <span> 
 	<c:choose>
 		<c:when test="${not login}">
 			<button id="notLoginWrite" class="btn btn-sm b-btn"
-				style="float: right; background-color: #494b4d; color: white;">글작성</button>
+				style="float: right; background-color: #343a40; color: white;">글작성</button>
 		</c:when>
 		<c:when test="${login}">
 			<a href="/board/freewrite"><button id="LoginWrite"
 					class="btn btn-sm b-btn"
-					style="float: right; background-color: #494b4d; color: white;">글작성</button></a>
+					style="float: right; background-color: #343a40; color: white;">글작성</button></a>
 		</c:when>
 	</c:choose>
 </span>
@@ -187,6 +138,31 @@ color: #343a40;
 	<button>검색</button>
 	</form>
 </div>
+
+
+
+</div>
+
+<!-- 사이드 리스트 -->
+<div class="col-4">
+
+	<div class="list-group" id="freeIntroduceTitle">
+	  <a class="list-group-item" id="freeIntroduceContent">자유게시판 소개</a>
+	  <a href="#" class="list-group-item tit">Dapibus ac facilisis in</a>
+	</div>
+	<br><br><br><br><br><br><br><br><br><br>
+	
+	<div class="list-group" id="freeRankTitle">
+	  <a class="list-group-item" id="freeRankContent">자유게시판 순위</a>
+	<c:forEach items = "${viewslist }" var = "views">
+	  <a href="/board/freeview?boardno=${views.boardno }" class="list-group-item tit">${views.title }</a>
+	  </c:forEach>
+	 </div>
+
+</div>
+</div>
+
+
 
 <!-- 로그인 실패시 모달창 -->
 <div class="modal fade" id="prNotLoginModal">
@@ -215,7 +191,3 @@ color: #343a40;
 </div><!-- .container -->
  
 <jsp:include page="/WEB-INF/views/layout/footer.jsp"/>  
-
-
-</body>
-</html>
