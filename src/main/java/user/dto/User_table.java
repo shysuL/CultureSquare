@@ -13,12 +13,13 @@ public class User_table {
 	private String interest;
 	private int usertype;
 	private int permit;
-	private int emailcheck;
+	private String emailcheck;
 	private String originname;
 	private String storedname;
 	private int follow;
 	private int prcnt;
 	private int sociallogin;
+	
 	
 	@Override
 	public String toString() {
@@ -28,6 +29,7 @@ public class User_table {
 				+ ", emailcheck=" + emailcheck + ", originname=" + originname + ", storedname=" + storedname
 				+ ", follow=" + follow + ", prcnt=" + prcnt + ", sociallogin=" + sociallogin + "]";
 	}
+	
 	
 	public int getUserno() {
 		return userno;
@@ -95,10 +97,10 @@ public class User_table {
 	public void setPermit(int permit) {
 		this.permit = permit;
 	}
-	public int getEmailcheck() {
+	public String getEmailcheck() {
 		return emailcheck;
 	}
-	public void setEmailcheck(int emailcheck) {
+	public void setEmailcheck(String emailcheck) {
 		this.emailcheck = emailcheck;
 	}
 	public String getOriginname() {
@@ -131,6 +133,8 @@ public class User_table {
 	public void setSociallogin(int sociallogin) {
 		this.sociallogin = sociallogin;
 	}
+	
+	
 
 	
 	

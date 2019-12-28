@@ -45,10 +45,19 @@ public class JoinController {
 		joinSendMailService.mailSendWithEmailKey(user.getUserid(), user.getUsername(), req);
 		
 		
-		return "redirect:/main/main";
+		return "redirect:/user/emailCheck";
 		
 	}
 	
+	// 이메일 인증 후
+	@RequestMapping(value="/user/emailCheck")
+	public String emailCheckComplete(@RequestParam("userid") String userid, @RequestParam("emailcheck") String key) {
+		
+		joinSendMailService.emailCheckComplete(userid, key);
+		
+		return "redirect:/user/emailCheckSuccess";
+		
+	}
 	
 	// 아이디(이메일) 중복체크
 	@RequestMapping(value="/user/idCheck", method=RequestMethod.POST)
