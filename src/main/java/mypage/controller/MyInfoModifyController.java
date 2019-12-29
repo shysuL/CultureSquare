@@ -25,36 +25,26 @@ public class MyInfoModifyController {
 		//개인정보 수정 폼을 보여주는 메소드
 	}
 	
-	//사용자 닉네임 변경
+	//사용자 개인정보 수정
 	@RequestMapping(value="/mypage/updateform", method=RequestMethod.POST)
-	public void modifyUserNick(User_table user, HttpSession session) {
+	public void modifyUserInfo(User_table user, HttpSession session) {
 		
-		mypageService.modifyUserNick(user);
+		mypageService.getUserInfo(user);
+		
+		logger.info("사용자 현재 개인정보 : " + mypageService.getUserInfo(user));
 		
 		//세션에 저장되어있는 사용자의 닉네임 불러오기
 		Object obj = session.getAttribute("usernick");
 		
+		//변경할 닉네임
 		Object obj1 = user.getUsernick();
 		
 		logger.info("닉네임 : " + obj);
 		logger.info("닉네임1 : " + obj1);
+
+		mypageService.modifyUserNick(user);
 		
 	}
-	
-	@RequestMapping(value="/mypage/updatephoto", method=RequestMethod.GET)
-	public void modifyProfilePhoto(Model model) {
-		
-	}
-	
-	
-	@RequestMapping(value="/mypage/phone", method=RequestMethod.GET)
-	public void modifyUserPhone(User_table user) {
-		
-	}
-	
-	@RequestMapping(value="/mypage/interest", method=RequestMethod.GET)
-	public void modifyInterest() {
-		
-	}
+
 
 }

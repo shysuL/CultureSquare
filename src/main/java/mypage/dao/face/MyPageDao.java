@@ -6,4 +6,6 @@ public interface MyPageDao {
 
 	public void updateUserNick(User_table user);
 
+	public User_table selectUserAll(User_table user);
+
 }
