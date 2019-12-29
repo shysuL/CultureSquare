@@ -16,8 +16,6 @@
 <!-- 크롤링 불러오기 ajax -->
 <script type="text/javascript">
 	$(document).ready(function() {
-		
-		 
 		 
 		//닉넴 중복 검사하는 모달에서 X버튼 눌렀을 때
 		$("#SocialMainX").click(function(){
@@ -242,7 +240,7 @@
 
       <!-- Modal body -->
       <div class="modal-body content">
-      	${socialType } 닉네임 : ${usernick }<br>
+      	${socialType } 닉네임 : ${socialnick }<br>
       	사용할 닉네임 입력 : 
      	 <input type="text" name = "usernick"id="socialInput" value="">
      	 <div class="check_font" id="nick_check"></div>

@@ -39,12 +39,13 @@ public class LoginController {
 	private NaverLoginBO naverLoginBO;
 	private String apiResult = null;
 	HttpSession mySession;
+	
+	int googleCnt = 0;
 
 	@Autowired
 	private GoogleConnectionFactory googleConnectionFactory;
 	@Autowired
 	private OAuth2Parameters googleOAuth2Parameters;
-
 
 	@Autowired
 	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
@@ -101,12 +102,11 @@ public class LoginController {
 		try {
 			//구글 로그인 데이터 파싱 및 설정 위한 서비스 호출
 			googleService.setGoogleLogin(code, session, googleOAuth2Parameters);
+			mySession = session;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		mySession = session;
 		
 		return "redirect:/main/main";
 	}
@@ -124,7 +124,30 @@ public class LoginController {
 			User_table user = new User_table();
 			user.setUsername(username);
 			user.setUsernick(usernick);
+			
+			
+			//유저 테이블에 정보 저장
 			googleService.insertGoogleInfo(user);
+			
+			//유저 테이블 번호 얻어오기
+			int userno = googleService.getUserNo(usernick);
+			
+			System.out.println("유저 번호 테스트 : " + userno);
+			System.out.println("유저 닉넴 테스트 : " + (String) mySession.getAttribute("socialnick"));
+			
+			//유저 DTO에 소셜 로그인 정보 저장
+			User_table socialuser = new User_table();
+			socialuser.setUserno(userno);
+			socialuser.setUsernick((String) mySession.getAttribute("socialnick"));
+			
+			//소셜 테이블에 로그인 정보 저장
+			googleService.insertGoogleSocial(socialuser);
+			
+			//세션 설정
+			// 두번쨰 로그인 여부 true로
+			mySession.setAttribute("socialDouble", true);
+			//유저 닉네임은 변경된 닉네임으로 세션 설정
+			mySession.setAttribute("usernick", usernick);
 			
 		}
 		
@@ -135,7 +158,7 @@ public class LoginController {
 			User_table user = new User_table();
 			user.setUsername(username);
 			user.setUsernick(usernick);
-			googleService.insertGoogleInfo(user);
+			naverService.insertSocialInfo(user);
 			
 			//소셜 로그인 정보 존재 유무 검사
 			int socialCnt = naverService.getSocialAccountCnt(user);
@@ -155,7 +178,7 @@ public class LoginController {
 			User_table user = new User_table();
 			user.setUsername(username);
 			user.setUsernick(usernick);
-			googleService.insertGoogleInfo(user);
+			kakaoService.insertKakaoInfo(user);
 
 			//소셜 로그인 정보 존재 유무 검사
 			int socialCnt = kakaoService.getSocialAccountCnt(user);
@@ -166,9 +189,7 @@ public class LoginController {
 			}
 			else 
 				mySession.setAttribute("socialDouble", true);
-			
 		}
-		
 		return "redirect:/main/main";
 	}
 
@@ -196,6 +217,7 @@ public class LoginController {
 			// 결과에 따른 세션관리
 			if(isLogin) {
 				//세션에 정보 저장하기
+				logger.info(user.toString());
 				session.setAttribute("login", true);
 				session.setAttribute("userid", user.getUserid());
 				session.setAttribute("usernick", userSession.getUsernick());
@@ -205,9 +227,7 @@ public class LoginController {
 //				logger.info(userSession.getUsername().toString());
 //				logger.info(userSession.getInterest().toString());
 //				logger.info("로그인 성공하고 세션 저장");
-				
 			}
-		
 			return "redirect:/main/main";
 		}
 		

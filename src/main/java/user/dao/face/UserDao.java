@@ -19,7 +19,7 @@ public interface UserDao {
 	 * 2019-12-24
 	 * 조홍철
 	 * 
-	 * 네이버 소셜로그인 시도시, User테이블에 정보가 없으면 데이터 삽입(회원가입과 유사)
+	 * 네이버 소셜로그인 시도시, 소셜 테이블에 정보가 없으면 데이터 삽입(회원가입과 유사)
 	 * 
 	 * @param user - 소셜로그인 정보가 담긴 객체
 	 */
@@ -115,6 +115,51 @@ public interface UserDao {
 	 * @param key - 난수키
 	 */
 	public void updateEmailKey(String userid, String key);
-
+	
+	
+	
+	/**
+	 * 2019-12-29
+	 * 조홍철
+	 * 
+	 * 구글 소셜로그인 시도시, 소셜테이블에 데이터 삽입
+	 * 
+	 * @param user - 소셜로그인 닉네임이 담긴 유저 객체
+	 */
+	public void insertGoogleSocial(User_table socialuser);
+	
+	/**
+	 * 2019-12-29
+	 * 조홍철
+	 * 
+	 * 소셜로그인 한 사용자의 유저번호를 가져온다
+	 * 
+	 * @param user - 변경한 닉네임
+	 * @return int - 유저 번호
+	 */
+	public int selectuserNo(String socialnick);
+	
+	
+	/**
+	 * 2019-12-29
+	 * 조홍철
+	 * 
+	 * 소셜로그인 한 사용자의 유저번호를 가져온다
+	 * 
+	 * @param user - 기존 소셜 닉네임
+	 * @return int - 유저 번호
+	 */
+	public int selectSocialuserNo(String socialnick);
+	
+	/**
+	 * 2019-12-29
+	 * 조홍철
+	 * 
+	 * 유저번호를 통해 사용자의 변경된 닉네임을 가져온다.
+	 * 
+	 * @param userno - 유저 번호
+	 * @return String - 변경된 닉네임
+	 */
+	public String selectUserNick(int userno);
 
 }

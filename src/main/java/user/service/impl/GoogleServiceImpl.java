@@ -86,21 +86,37 @@ public class GoogleServiceImpl implements GoogleService {
 		
 		System.out.println("로긘 테스트 : " + socialCnt);
 
-		//소셜로그인 정보가 회원정보에 담겨 있지 않으면 UserTable에 소셜로그인 데이터 삽입
+		//소셜로그인 정보가 회원정보에 담겨 있지않은 경우 처음 로그인
 		if(socialCnt == 0) {
-//			insertGoogleInfo(user);
+		
 			session.setAttribute("socialDouble", false);
+			session.setAttribute("usernick",result.get("given_name")); 	// 닉네임
+			
 		}
 		
-		else
+		//두번 이상 로그인
+		else {
 			session.setAttribute("socialDouble", true);
+			int userno = userDao.selectSocialuserNo(result.get("given_name"));
+			String usernick = userDao.selectUserNick(userno);
+			session.setAttribute("usernick", usernick);
+		}
 
 		// 파싱 데이터로 세션 저장
-		session.setAttribute("usernick",result.get("given_name")); 	// 닉네임
+		session.setAttribute("socialnick", result.get("given_name"));
+		System.out.println("음 ? " + result.get("given_name"));
 		session.setAttribute("login", true); 		// 로그인 상태 true
 		session.setAttribute("username", result.get("name"));			// 이름
 		session.setAttribute("socialType", "Google");
 	}
 
+	@Override
+	public void insertGoogleSocial(User_table socialuser) {
+		userDao.insertGoogleSocial(socialuser);
+	}
 
+	@Override
+	public int getUserNo(String socialnick) {
+		return userDao.selectuserNo(socialnick);
+	}
 }

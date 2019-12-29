@@ -68,31 +68,5 @@ public class MainController {
 		//구글
 		model.addAttribute("google_url", googleUrl);
 		
-//		//로그인일 경우
-//		if(((String) session.getAttribute("login")).equals("true")) {
-//			//구글
-//			if(((String) session.getAttribute("socialType")).equals("Google")) {
-//				
-//				//유저 DTO에 소셜 로그인 정보 저장
-//				User_table user = new User_table();
-//				user.setUsername(username);
-//				user.setUsernick(usernick);
-//				
-//				
-//				//소셜 로그인 정보 존재 유무 검사
-//				int socialCnt = googleService.getSocialAccountCnt(user);
-//				
-//				System.out.println("유저닉 : " + user);
-//				
-//				if(socialCnt == 0) {
-//					session.setAttribute("socialDouble", false);
-//					
-//				}
-//				else 
-//					session.setAttribute("socialDouble", true);
-//			}
-//		
-//		}
-		
 	}
 }
