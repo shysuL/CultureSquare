@@ -25,7 +25,12 @@
 </script>
 
 <script type="text/javascript">
+	var g_count =1;
 	$(document).ready(function() {
+		
+		$(".content").text('로그인 후 게시글 작성이 가능합니다.');
+		$("#prNotLoginModal").modal({backdrop: 'static', keyboard: false});
+		return false;
 
 		//작성버튼 동작
 		$("#btnWrite").click(function() {
@@ -33,6 +38,7 @@
 			// 스마트에디터의 내용을 <textarea>에 적용
 			submitContents($("#btnWrite"));
 
+			
 			// form submit
 			$("form").submit();
 		});
@@ -135,13 +141,22 @@
 				</tr>
 			</table>
 
-		</form>
-	</div>
+		<div id="fileDiv">
+			<p>
+				<input type="file" name="file_0"/>
+				<button type="button" id="delete" name = "delete"class="btn btn-danger">삭제하기</button>
+			</p> 
+		</div>
 
-	<div class="text-center">
+<div class="text-center">
+		<button type="button" id="add" class="btn btn-info">파일 추가하기</button>
 		<button type="button" id="btnWrite" class="btn btn-info">작성</button>
 		<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
 	</div>
+
+
+		</form>
+	</div>	
 </div>
 <!-- 컨테이너 -->
 

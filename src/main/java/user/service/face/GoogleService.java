@@ -45,4 +45,26 @@ public interface GoogleService {
 	 */
 	public void setGoogleLogin(String code, HttpSession session, OAuth2Parameters googleOAuth2Parameters) throws IOException;
 	
+	
+	/**
+	 * 2019-12-29
+	 * 조홍철
+	 * 
+	 * 구글 로그인 시도시, 소셜 테이블에 데이터 삽입
+	 * 
+	 * @param user - 소셜로그인 닉네임이 담긴 유저 객체
+	 */
+	public void insertGoogleSocial(User_table socialuser);
+	
+	/**
+	 * 2019-12-29
+	 * 조홍철
+	 * 
+	 * 소셜로그인 한 사용자의 유저번호를 가져온다
+	 * 
+	 * @param user - 소셜로그인 닉네임
+	 * @return int - 유저 번호
+	 */
+	public int getUserNo(String socialnick);
+	
 }

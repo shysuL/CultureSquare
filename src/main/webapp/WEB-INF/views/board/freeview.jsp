@@ -71,10 +71,10 @@ $(document).ready(function() {
 </table>	
 	<div class="text-center" >
 		<button id="btnList" class="btn btn-default" style="float: left; background-color: #343a40; color: white;">목록</button>
-<%-- 		<c:if test="${loginid eq board.userid}">  --%>
-<%-- 		<a class="btn btn-default" href="/board/update?boardno=${board.boardno }" role="button">수정</a> --%>
-<%-- 		<a class="btn btn-default" href="/board/delete?boardno=${board.boardno }" role="button">삭제</a> --%>
-<%-- 		</c:if> --%>
+		<c:if test="${usernick eq board.usernick}"> 
+		<a class="btn btn-default" style="float: right; background-color: #343a40; color: white;" href="/board/freedelete?boardno=${board.boardno }" role="button">삭제</a>
+		<a class="btn btn-default" style="float: right; background-color: #343a40; color: white; white;margin-right: 1px;" href="/board/freemodifiy?boardno=${board.boardno }" role="button">수정</a>
+		</c:if>
 	</div>	
 </div>
 </div>

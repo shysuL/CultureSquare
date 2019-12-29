@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public boolean loginProc(User_table user) {
-		logger.info("서비스임플에서 입력받은 로그인 정보 : " + user);
+//		logger.info("서비스임플에서 입력받은 로그인 정보 : " + user);
 		if (userDao.selectCnt(user) == 1 ) {
 			return true; // 로그인 성공
 		}

@@ -186,30 +186,50 @@ public class KakaoServiceImpl implements KakaoService {
 
 		//유저 정보를 카카오 API에서 가져오기
 		JsonNode properties = userInfo.path("properties");
-		JsonNode kakao_account = userInfo.path("kakao_account");
+		
+		String email = userInfo.get("kaccount_email").toString();
+
 		kname = properties.path("nickname").asText();
 		
-		
 		//파싱 닉네임 세션으로 저장
-		session.setAttribute("name",kname); 		//이름 	 동일
-		session.setAttribute("nickname",kname); 	//닉네임 동일
+		session.setAttribute("username",kname); 		//이름 	 동일
+		session.setAttribute("socialnick", kname);
 		session.setAttribute("login", true); 		// 로그인 상태 true
-		session.setAttribute("socialType", "kakao");
+		session.setAttribute("socialType", "Kakao");
 		session.setAttribute("token", accessToken);
+		session.setAttribute("userid", email);
 		
 		//유저 DTO에 소셜 로그인 정보 저장
 		User_table user = new User_table();
 		user.setUsernick(kname);
 		user.setUsername(kname);
+		user.setUserid(email);
 		
 //		소셜 로그인 정보 존재 유무 검사
 		int socialCnt = getSocialAccountCnt(user);
 		
 		
-		//소셜로그인 정보가 회원정보에 담겨 있지 않으면 UserTable에 소셜로그인 데이터 삽입
+		//소셜로그인 정보가 회원정보에 담겨 있지 않으면 처음 로그인
 		if(socialCnt == 0) {
-			insertKakaoInfo(user);
+			session.setAttribute("socialDouble", false);
+			session.setAttribute("usernick",kname); 	// 닉네임
+		}
+		else {
+			session.setAttribute("socialDouble", true);
+			int userno = userDao.selectSocialuserNo(kname);
+			String usernick = userDao.selectUserNick(userno);
+			session.setAttribute("usernick", usernick);
 		}
 
+	}
+	
+	@Override
+	public void insertKakaoSocial(User_table socialuser) {
+		userDao.insertSocial(socialuser);
+	}
+
+	@Override
+	public int getUserNo(String socialnick) {
+		return userDao.selectuserNo(socialnick);
 	}
 }

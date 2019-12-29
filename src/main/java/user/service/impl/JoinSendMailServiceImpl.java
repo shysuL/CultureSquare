@@ -78,7 +78,7 @@ public class JoinSendMailServiceImpl implements JoinSendMailService{
 		String htmlStr = "<h2>안녕하세요 CultureSquare 입니다!</h2><br><br>"
 				+ "<h3>" + userid + "님</h3>" + "<p>인증하기 버튼을 누르시면 CultureSquare의 서비스를 이용하실 수 있습니다"
 				+ "<a href='https://localhost:8443" + req.getContextPath() 
-				+ "/user/emailCheck?userid=" + userid + "&emailcheck="+key+"'>인증하기</a></p>";
+				+ "/user/emailCheckComplete?userid=" + userid + "&emailcheck="+key+"'>인증하기</a></p>";
 				
 				try {
 					mail.setSubject("[본인인증] CultureSquare 인증메일입니다", "utf-8");

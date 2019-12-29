@@ -3,6 +3,8 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page import="java.util.*"%>
+<%@ page import="java.text.*"%>
     
 <!DOCTYPE html>
 <html>
@@ -83,8 +85,17 @@ h5 {
 	      <li class="nav-item">
 	        <a class="nav-link" href="/board/freelist">자유 게시판</a>
 	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="/artboard/list?bo_table=calendar&cal_year=${nowYear }&cal_month=${nowMonth }">CALENDAL </a>
+					<%
+						Date date = new Date();
+						SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+						String strdate = simpleDate.format(date);
+					%>
+					<%
+						Calendar cal = Calendar.getInstance();
+					%>
+
+					<li class="nav-item">
+	        <a class="nav-link" href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%= cal.get(Calendar.MONTH)+1%>">CALENDAL </a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="/prboard/prlist">PR</a>
@@ -115,7 +126,7 @@ h5 {
 		<!-- 로그인 상태 -->
 	    <c:if test="${login}">
 	       <div class="dropdown-menu center">
-	         <h5>${nickname}님 할라븅~!</h5>
+	         <h5>${usernick}님 할라븅~!</h5>
 	    	 <div class="dropdown-divider"></div>
 				<input id="mypage" class="btn btn" onclick="location.href='/mypage/main'" value="마이페이지">
 				<input id="logout" class="btn btn-danger" onclick="location.href='/logout'" value="로그아웃">

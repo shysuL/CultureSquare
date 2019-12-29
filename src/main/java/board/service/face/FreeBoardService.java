@@ -81,5 +81,26 @@ public interface FreeBoardService {
 	 */
 	public List<FreeBoard> getViewsList();
 
+	/**
+	 * 2019-12-29
+	 * 고인호
+	 * 
+	 * 자유게시판 게시글 삭제
+	 * 
+	 * @param boardno - 삭제할 게시글 번호
+	 */
+	public void freeDelete(int boardno);
+
+	/**
+	 * 2019-12-29
+	 * 고인호
+	 * 
+	 * 자유게시판 게시글 수정
+	 * 
+	 * @param freeboard - 수정에 반영될 게시글 제목, 내용 정보
+	 * @return 
+	 */
+	public void updateFreeBoard(FreeBoard freeboard);
+
 
 }
