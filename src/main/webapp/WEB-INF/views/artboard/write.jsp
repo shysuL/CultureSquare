@@ -149,7 +149,7 @@ $(document).ready(function() {
 <br>
 첨부파일 <input type="file" name="file" />
 
-<input type="hidden" id = "userno" name = "userno" value = "1"/>
+<input type="hidden" id = "userno" name = "userno" value = "${userno }"/>
 </form>
 <div class="text-center">	
 	<button type="button" id="btnWrite" class="btn btn-info">작성</button>
