@@ -15,19 +15,15 @@
 	
 	<insert id="insertNaverLoginInfo"
 	 parameterType="user.dto.User_table">
-	 
-	 	<selectKey order="BEFORE" resultType="int" keyProperty="userno">
-			SELECT user_table_seq.nextval FROM dual
-		</selectKey>
 		INSERT into user_table
-		VALUES(#{userno}, #{userid}, 'naver', #{username}, #{usernick}, 'naver', 
-		#{usergender}, 0, 'naver', 5, 0, 0, null, null, 0, 0, 1)
+		VALUES(user_table_seq.nextval, 'naver', 'naver', #{username}, #{usernick}, 'naver', 
+		'google', 0, 'naver', 5, 0, 0, null, null, 0, 0, 1) 
 	</insert>
 	
 	<insert id="insertKakaoLoginInfo"
 	 parameterType="user.dto.User_table">
 		INSERT into user_table
-		VALUES(user_table_seq.nextval, #{userid}, 'kakao', #{username}, #{usernick}, 'kakao', 
+		VALUES(user_table_seq.nextval, 'kakao', 'kakao', #{username}, #{usernick}, 'kakao', 
 		'kakao', 0, 'kakao', 5, 0, 0, null, null, 0, 0, 1)
 	</insert>
 	
@@ -86,7 +82,7 @@
 	    
 	   
 	 <!-- 소셜 테이블에 데이터 삽입 -->
-	<insert id="insertGoogleSocial"
+	<insert id="insertSocial"
 	 	parameterType="user.dto.User_table">
 		INSERT into SOCIALINFO
 		VALUES(socialinfo_seq.nextval, #{usernick}, #{userno})
