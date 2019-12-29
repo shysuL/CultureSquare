@@ -13,7 +13,8 @@
 	</select>
 	
 	<update id="updateUserNick" parameterType="user.dto.User_table">
-		UPDATE User_table SET usernick = #{usernick } 
+		UPDATE User_table 
+		SET usernick = #{usernick }, userphone = ${userphone }, interest = ${interest } 
 		WHERE userno = #{userno }
 	</update>
 

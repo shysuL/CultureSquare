@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />    
     
 <style type="text/css">
@@ -28,13 +30,38 @@
 	
 	<form action="/mypage/updateform" method="post">
 		<div class="container container-center" id="updateform2">
-			이름 : ${username }<br>
-			성별 : ${usergender }<br>
-			생년월일 : ${userbirth }<br>
-			아이디 : ${userid }<br>
-			닉네임 : <input type="text" value="${usernick }"/><button>중복확인</button><br>
-			전화번호 : <input type="text" value="${userphone }"/><br>
-			관심분야 : <input type="text" value="${interest }"/><br>
+			<input type="hidden" name = "userno" value="${getUser.userno }"/>
+			이름 : ${getUser.username }<br>
+			성별 : ${getUser.usergender }<br>
+			생년월일 : ${getUser.userbirth }<br>
+			아이디 : ${getUser.userid }<br>
+			닉네임 : <input type="text" id="usernick" name = "usernick" value="${getUser.usernick }"/><button>중복확인</button><br>
+			전화번호 : <input type="text" id="userphone" name = "userphone" value="${getUser.userphone }"/><br>
+<%-- 			관심분야 : <input type="text" id="interest" name = "interest" value="${getUser.interest }"/><br> --%>
+			<div class="form-group">
+           		관심분야
+           		<c:forEach items="${checkList}" >
+	           		<div class="custom-control custom-check">
+	           			<c:if test="${checkList } = 버스킹">
+		                	<input type="checkbox" class="custom-control-input" id="busking" name="interest" value="버스킹" checked="checked">
+		                </c:if>
+		                <label class="custom-control-label" for="busking">버스킹</label>
+		            </div>
+		            <div class="custom-control custom-check">
+           				<c:if test="${checkList } = 공연/예술">
+							<input type="checkbox" class="custom-control-input" id="perform" name="interest" value="공연/예술">
+		                </c:if>
+		                <label class="custom-control-label" for="perform">공연/예술</label>
+		            </div>
+		            <div class="custom-control custom-check">
+           				<c:if test="${checkList } = 기타">
+		                <input type="checkbox" class="custom-control-input" id="etc" name="interest" value="기타">
+		                </c:if>
+		                <label class="custom-control-label" for="etc">기타</label>
+		            </div>   
+				</c:forEach>       		
+			</div>
+           
 			<button id="updatecancel" class="btn btn-danger" >수정 취소</button>
 			<button type="submit" id="updatesuccess" class="btn btn-dark">수정 완료</button>
 		
