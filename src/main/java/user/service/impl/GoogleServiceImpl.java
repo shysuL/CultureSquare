@@ -72,8 +72,6 @@ public class GoogleServiceImpl implements GoogleService {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, String> result = mapper.readValue(body, Map.class);
 
-		System.out.println("이름 : " + result.get("name"));
-		System.out.println("닉넴 : " + result.get("given_name"));
 
 
 		//유저 DTO에 소셜 로그인 정보 저장
@@ -83,17 +81,38 @@ public class GoogleServiceImpl implements GoogleService {
 
 		//소셜 로그인 정보 존재 유무 검사
 		int socialCnt = getSocialAccountCnt(user);
+		
 
-		//소셜로그인 정보가 회원정보에 담겨 있지 않으면 UserTable에 소셜로그인 데이터 삽입
+		//소셜로그인 정보가 회원정보에 담겨 있지않은 경우 처음 로그인
 		if(socialCnt == 0) {
-			insertGoogleInfo(user);
+		
+			session.setAttribute("socialDouble", false);
+			session.setAttribute("usernick",result.get("given_name")); 	// 닉네임
+			
+		}
+		
+		//두번 이상 로그인
+		else {
+			session.setAttribute("socialDouble", true);
+			int userno = userDao.selectSocialuserNo(result.get("given_name"));
+			String usernick = userDao.selectUserNick(userno);
+			session.setAttribute("usernick", usernick);
 		}
 
 		// 파싱 데이터로 세션 저장
-		session.setAttribute("nickname",result.get("given_name")); 	// 닉네임
+		session.setAttribute("socialnick", result.get("given_name"));
 		session.setAttribute("login", true); 		// 로그인 상태 true
-		session.setAttribute("name", result.get("name"));			// 이름
+		session.setAttribute("username", result.get("name"));			// 이름
+		session.setAttribute("socialType", "Google");
 	}
 
+	@Override
+	public void insertGoogleSocial(User_table socialuser) {
+		userDao.insertGoogleSocial(socialuser);
+	}
 
+	@Override
+	public int getUserNo(String socialnick) {
+		return userDao.selectuserNo(socialnick);
+	}
 }

@@ -8,23 +8,26 @@
 	
 	<select id="selectSocialCnt"
 	 parameterType="user.dto.User_table" resultType="int">
-		SELECT COUNT(*) FROM user_table
+		SELECT COUNT(*) FROM socialinfo
 		WHERE 1=1
-			AND usernick = #{usernick }
-			AND sociallogin = 1
+			AND socialnick = #{usernick }
 	</select>
 	
 	<insert id="insertNaverLoginInfo"
 	 parameterType="user.dto.User_table">
+	 
+	 	<selectKey order="BEFORE" resultType="int" keyProperty="userno">
+			SELECT user_table_seq.nextval FROM dual
+		</selectKey>
 		INSERT into user_table
-		VALUES(user_table_seq.nextval, #{userid}, 'naver', #{username}, #{usernick}, 'naver', 
+		VALUES(#{userno}, #{userid}, 'naver', #{username}, #{usernick}, 'naver', 
 		#{usergender}, 0, 'naver', 5, 0, 0, null, null, 0, 0, 1)
 	</insert>
 	
 	<insert id="insertKakaoLoginInfo"
 	 parameterType="user.dto.User_table">
 		INSERT into user_table
-		VALUES(user_table_seq.nextval, 'kakao', 'kakao', #{username}, #{usernick}, 'kakao', 
+		VALUES(user_table_seq.nextval, #{userid}, 'kakao', #{username}, #{usernick}, 'kakao', 
 		'kakao', 0, 'kakao', 5, 0, 0, null, null, 0, 0, 1)
 	</insert>
 	
@@ -80,5 +83,38 @@
 	    <update id="updateEmailKey" parameterType="Map">
 	    	update user_table set emailcheck = 'Y' where userid = #{param1} and emailcheck = #{param2}
 	    </update>
+	    
+	   
+	 <!-- 소셜 테이블에 데이터 삽입 -->
+	<insert id="insertGoogleSocial"
+	 	parameterType="user.dto.User_table">
+		INSERT into SOCIALINFO
+		VALUES(socialinfo_seq.nextval, #{usernick}, #{userno})
+	</insert>
 	
+	
+	<!-- 유저번호 가져오기(변경 닉네임으로) -->
+	<select id="selectuserNo"
+    	parameterType="String" resultType="int">
+	    SELECT userno FROM user_table
+	    WHERE 1=1
+	   	AND usernick = #{usernick}
+	 </select>
+	 
+	 	<!-- 유저번호 가져오기(기존 소셜 닉네임으로) -->
+	<select id="selectSocialuserNo"
+    	parameterType="String" resultType="int">
+	    SELECT userno FROM socialinfo
+	    WHERE 1=1
+	   	AND socialnick = #{value}
+	 </select>
+	
+	
+	<!-- 유저닉네임 가져오기 -->
+	<select id="selectUserNick"
+    	parameterType="int" resultType="String">
+	    SELECT usernick FROM user_table
+	    WHERE 1=1
+	   	AND userno = #{userno}
+	 </select>
 </mapper>

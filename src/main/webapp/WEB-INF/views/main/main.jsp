@@ -16,6 +16,82 @@
 <!-- 크롤링 불러오기 ajax -->
 <script type="text/javascript">
 	$(document).ready(function() {
+		 
+		//닉넴 중복 검사하는 모달에서 X버튼 눌렀을 때
+		$("#SocialMainX").click(function(){
+			$("#notifyModal").modal({backdrop: 'static', keyboard: false});
+		})
+		
+		//닉넴 중복 검사하는 모달에서 확인 버튼 눌렀을 때
+		$("#SocialMainBtn").click(function(){
+			location.href="/socialinsert?socialType=${socialType}&usernick="+$('#socialInput').val()+"&username=${username}";
+		})
+		
+		//중복체크 하지 않을경우 알림 메시지 모달에서 취소버튼 클릭
+		$("#notifyCancelBtn").click(function(){
+			$("#SocialMainModal").modal({backdrop: 'static', keyboard: false});;
+		})
+		
+		//중복체크 하지 않을경우 알림 메시지 모달에서 확인버튼 클릭
+		$("#notifyOkBtn").click(function(){
+			location.href="/logout";
+		})
+		
+		
+		//로그인 상태
+		if('${login}'){
+			
+			console.log('${socialDouble}' + " 트루잖아");
+			// DB에 회원정보 있을 경우
+			if('${socialDouble}'=='true'){
+				console.log("DB에 이미 정보 있지");
+			}
+			// 없을 경우
+			else{
+				$("#SocialMainModal").modal({backdrop: 'static', keyboard: false});
+				
+				//중복 체크 버튼을 눌렀을때 
+				 $("#SocialCheckBtn").click(function(){
+					 
+					 var usernick = $('#socialInput').val();
+					//닉네임 정규식
+					var nickJ = /^[0-9a-zA-Z가-힣]{2,12}$/;
+					
+						$.ajax({
+							url : "/user/nickCheck",
+							type : 'post',
+							data: {"usernick" : usernick},
+							datatype:"json",
+							success : function(res){
+								console.log(res.nickCheck + "수정");
+								if(res.nickCheck == 1){
+									$('#nick_check').text('중복된 닉네임입니다')
+									$('#nick_check').css('color', 'red')
+									$("#SocialMainBtn").attr("disabled", true);
+								} else {
+									if(nickJ.test(usernick)){
+										$('#nick_check').text('사용가능한 닉네임입니다')
+										$('#nick_check').css('color','green')
+										$("#SocialMainBtn").attr("disabled", false);
+									} else if (usernick == ''){
+										$('#nick_check').text('닉네임을 입력해주세요')
+										$('#nick_check').css('color','red')
+										$("#SocialMainBtn").attr("disabled", true);
+									}else {
+										$('#nick_check').text('올바른 닉네임 형식이 아닙니다')
+										$('#nick_check').css('color', 'red')
+										$("#SocialMainBtn").attr("disabled", true);
+									}
+								}
+							}
+						})
+				 })
+			}
+		}
+		else{
+			console.log("로그아웃 상태");
+		}
+		
 		$.ajax({
 			type : "get",
 			url : "/main/culture",
@@ -122,6 +198,63 @@
     
 	</div>
     <!-- /END THE FEATURETTES -->
+    
+<!-- 묻는 모달 -->
+<div class="modal fade" id="notifyModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">알림</h4>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	닉네임 중복 검사를 하지 않으실 경우,<br>
+      	 소셜 로그인 서비스를 이용할 수 없습니다. 
+      	<br>
+      	계속 하시겠습니까?
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="notifyOkBtn"class="btn btn-info" data-dismiss="modal">확인</button>
+        <button type="submit" id="notifyCancelBtn"class="btn btn-danger" data-dismiss="modal">취소</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 모달창 -->
+<div class="modal fade" id="SocialMainModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">닉네임을 중복을 진행해 주세요</h4>
+        <button id="SocialMainX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	${socialType } 닉네임 : ${socialnick }<br>
+      	사용할 닉네임 입력 : 
+     	 <input type="text" name = "usernick"id="socialInput" value="">
+     	 <div class="check_font" id="nick_check"></div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button id="SocialCheckBtn"class="btn btn-info">중복체크</button>
+        <button type="submit" id="SocialMainBtn"class="btn btn-info" data-dismiss="modal" disabled>확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 </div><!-- /.container -->
 
