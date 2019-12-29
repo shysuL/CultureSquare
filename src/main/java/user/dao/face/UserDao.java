@@ -109,13 +109,25 @@ public interface UserDao {
 	 * 2019-12-27
 	 * 이빈
 	 * 
-	 * 회원가입 초기 상태인 난수키(emailCheck)- null을 난수키 생성하여 update해주기
+	 * 회원가입 초기 상태인 emailcheck- null을 생성된 난수값으로 update
 	 * 
 	 * @param userid - 이메일
 	 * @param key - 난수키
+	 * @return 
 	 */
-	public void updateEmailKey(String userid, String key);
+	public int insertEmailKey(String userid, String key);
 	
+	/**
+	 * 2019-12-28
+	 * 이빈
+	 * 
+	 * 이메일에서 인증하기 버튼 누르면 난수값(emailcheck)을 Y값으로 update
+	 * 
+	 * @param userid - 이메일
+	 * @param key - 난수키
+	 * @return int - 성공여부 0: 실패, 1: 성공
+	 */
+	public int updateEmailKey(String userid, String key);
 	
 	
 	/**

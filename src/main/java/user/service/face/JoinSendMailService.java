@@ -28,6 +28,14 @@ public interface JoinSendMailService {
 	 * 난수를 이용한 키 생성
 	 */
 	public String getKey(boolean lowerCheck, int size);
+	
+	/**
+	 * 2019-12-28
+	 * @param userid - 이메일 
+	 * @param key - 키 값
+	 * @return int - 0 : 실패, 1 : 성공
+	 */
+	public int emailCheckComplete(String userid, String key);
 
 	
 }

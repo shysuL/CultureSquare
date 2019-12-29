@@ -13,6 +13,7 @@
 		FROM board b, perform_add p
 		WHERE b.boardno = p.boardno
 		AND substr(p.performdate, 1, 6) = #{searchMonth }
+		AND b.postno = 1
 		ORDER BY boardno DESC 
 	</select>
 
