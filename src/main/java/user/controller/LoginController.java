@@ -143,8 +143,8 @@ public class LoginController {
 				logger.info(userSession.getInterest().toString());
 				logger.info(userSession.getEmailcheck().toString());
 				System.out.println(userSession.getUserno());
-//				logger.info("세션 저장 : " + session.getAttribute("userno").toString());
-//				logger.info("로그인 성공하고 세션 저장");
+				logger.info("세션 userno : " + session.getAttribute("userno").toString());
+				logger.info("로그인 성공하고 세션 저장");
 				
 			}
 		

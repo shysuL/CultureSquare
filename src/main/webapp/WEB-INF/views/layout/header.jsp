@@ -3,6 +3,8 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page import="java.util.*"%>
+<%@ page import="java.text.*"%>
     
 <!DOCTYPE html>
 <html>
@@ -83,8 +85,17 @@ h5 {
 	      <li class="nav-item">
 	        <a class="nav-link" href="/board/freelist">자유 게시판</a>
 	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="/artboard/list?bo_table=calendar&cal_year=${nowYear }&cal_month=${nowMonth }">CALENDAL </a>
+					<%
+						Date date = new Date();
+						SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+						String strdate = simpleDate.format(date);
+					%>
+					<%
+						Calendar cal = Calendar.getInstance();
+					%>
+
+					<li class="nav-item">
+	        <a class="nav-link" href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%= cal.get(Calendar.MONTH)+1%>">CALENDAL </a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="/prboard/prlist">PR</a>

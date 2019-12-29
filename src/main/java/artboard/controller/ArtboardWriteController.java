@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -20,9 +21,12 @@ public class ArtboardWriteController {
 	
 
 	@RequestMapping(value = "/artboard/write", method=RequestMethod.GET)
-	public void write(Board board) {
+	public void write(Board board, Model model) {
+		
 		
 		logger.info(session.getAttribute("userno").toString());
+		board.setUserno((int)session.getAttribute("userno"));
+		model.addAttribute("userno",board);
 		
 //		board.setUserno((int) session.getAttribute("userno"));
 		
@@ -33,8 +37,8 @@ public class ArtboardWriteController {
 	@RequestMapping(value = "/artboard/write", method=RequestMethod.POST)
 	public String writeProc(Board board) {
 		
-		board.setUserno((int) session.getAttribute("userno")); 
-		System.out.println(board.toString());
+//		board.setUserno((int) session.getAttribute("userno")); 
+//		System.out.println(board.toString());
 		pfboardService.write(board);
 		
 //		logger.info(board.getPerformname());
