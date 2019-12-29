@@ -63,12 +63,22 @@
 	   		AND userpw = #{userpw}
 	   </select>
 	   
-	   <!-- 세선정보(usernick, username, interest) -->
+	   <!-- 세선정보(usernick, username, interest, userno) -->
 	   <select id="selectUserInfoById"
 	    parameterType="user.dto.User_table" resultType="user.dto.User_table">
-	     SELECT usernick, username, interest,userno FROM user_table
+	     SELECT usernick, username, interest, userno, emailcheck FROM user_table
 	     WHERE 1=1
 	     	AND userid = #{userid}
 	    </select>
+	    
+	    <!-- 이메일인증 Key 생성하여 넣어주기 null -> 난수값 -->
+	    <update id="insertEmailKey" parameterType="Map">
+	    	update user_table set emailcheck = #{param2} where userid = #{param1}
+	    </update>
+	    
+	    <!-- 이메일인증 메일에서 인증하기 누르면 난수값 -> 'Y'로 바꿔주기 -->
+	    <update id="updateEmailKey" parameterType="Map">
+	    	update user_table set emailcheck = 'Y' where userid = #{param1} and emailcheck = #{param2}
+	    </update>
 	
 </mapper>

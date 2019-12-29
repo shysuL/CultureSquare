@@ -45,6 +45,7 @@ public interface FreeBoardService {
 	 * 고인호
 	 * 
 	 * 자유게시판 게시글 쓰기
+	 * 
 	 * @param freeboard - DB에 저장될 게시글 정보 객체
 	 */
 	public void writeFree(FreeBoard freeboard);
@@ -63,12 +64,22 @@ public interface FreeBoardService {
 	 * 2019-12-26
 	 * 고인호
 	 * 
-	 * 게시글 작성을 위한 유저넘버 조회
+	 * 게시글 작성을 위한 유저아이디 조회
 	 * 
 	 * @param attribute - 로그인한 유정 정보 객체
 	 * @return 
 	 */
 	public User_table getboardWriter(Object attribute);
+
+	/**
+	 * 2019-12-26
+	 * 고인호
+	 * 
+	 * 자유게시판 전체 게시글중 조회수 높은 순으로 조회
+	 * 
+	 * @return List - 조회수 가장 높은 게시글 리스트
+	 */
+	public List<FreeBoard> getViewsList();
 
 
 }
