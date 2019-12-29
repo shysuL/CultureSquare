@@ -84,7 +84,7 @@ h5 {
 	        <a class="nav-link" href="/board/freelist">자유 게시판</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/artboard/list?bo_table=calendar&cal_year=${nowYear }&cal_month=${nowMonth }">CALENDAL</a>
+	        <a class="nav-link" href="/artboard/list?bo_table=calendar&cal_year=${nowYear }&cal_month=${nowMonth }">CALENDAL </a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="/prboard/prlist">PR</a>
@@ -115,7 +115,7 @@ h5 {
 		<!-- 로그인 상태 -->
 	    <c:if test="${login}">
 	       <div class="dropdown-menu center">
-	         <h5>${nickname}님 할라븅~!</h5>
+	         <h5>${usernick}님 할라븅~!</h5>
 	    	 <div class="dropdown-divider"></div>
 				<input id="mypage" class="btn btn" onclick="location.href='/mypage/main'" value="마이페이지">
 				<input id="logout" class="btn btn-danger" onclick="location.href='/logout'" value="로그아웃">

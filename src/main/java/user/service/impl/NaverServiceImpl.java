@@ -17,9 +17,11 @@ public class NaverServiceImpl implements NaverService{
 	
 	@Autowired private UserDao userDao;
 	
+	int naverCnt = 0;
+	
 	@Override
 	public String setApiResult(String apiResult, HttpSession session) {
-
+		
 		//1. String형식인 apiResult를 json형태로 바꿈
 		JSONParser parser = new JSONParser();
 		Object obj ="";
@@ -35,10 +37,14 @@ public class NaverServiceImpl implements NaverService{
 		//Top레벨 단계 _response 파싱
 		JSONObject response_obj = (JSONObject)jsonObj.get("response");
 		//response의 nickname값 파싱
+		
 		String nickname = (String)response_obj.get("nickname");
+			
 		String socialId = (String)response_obj.get("email");
 		String name = (String)response_obj.get("name");
 		String gender = (String)response_obj.get("gender");
+		
+		System.out.println("네이버 아이디 : " + socialId);
 		
 		//유저 DTO에 소셜 로그인 정보 저장
 		User_table user = new User_table();
@@ -51,16 +57,20 @@ public class NaverServiceImpl implements NaverService{
 		//소셜 로그인 정보 존재 유무 검사
 		int socialCnt = getSocialAccountCnt(user);
 		
-		//소셜로그인 정보가 회원정보에 담겨 있지 않으면 UserTable에 소셜로그인 데이터 삽입
 		if(socialCnt == 0) {
-			insertSocialInfo(user);
+			session.setAttribute("socialDouble", false);
+			
 		}
+		else 
+			session.setAttribute("socialDouble", true);
 		
 		//3.파싱 닉네임 세션으로 저장
-		session.setAttribute("nickname",nickname); 	// 세션 생성
+		session.setAttribute("usernick",nickname); 	// 세션 생성
 		session.setAttribute("login", true); 		// 로그인 상태 true
 		session.setAttribute("socialId", socialId);	// 소셜 ID(이메일)
-		session.setAttribute("name", name);			// 이름
+		session.setAttribute("username", name);			// 이름
+		session.setAttribute("socialType", "Naver");
+	
 
 		return apiResult;
 	}

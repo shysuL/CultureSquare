@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import prboard.service.face.PRBoardService;
 import user.bo.NaverLoginBO;
+import user.dto.User_table;
 import user.service.face.KakaoService;
 
 @Controller
