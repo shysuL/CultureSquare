@@ -62,7 +62,7 @@ public interface FreeBoardDao {
 	public User_table selectByUserNick(Object attribute);
 
 	/**
-	 * 2019-12-26
+	 * 2019-12-27
 	 * 고인호
 	 * 
 	 * 자유게시판 전체 게시글중 조회수 높은 순으로 조회
@@ -70,6 +70,27 @@ public interface FreeBoardDao {
 	 * @return List - 조회수 가장 높은 게시글 리스트
 	 */
 	public List<FreeBoard> selectViewsAll();
+
+	/**
+	 * 2019-12-29
+	 * 고인호
+	 * 
+	 * 자유게시판 게시글 삭제
+	 * 
+	 * @param boardno - 삭제할 게시글 번호
+	 */
+	public void deleteFreeBoard(int boardno);
+	
+	/**
+	 * 2019-12-29
+	 * 고인호
+	 * 
+	 * 자유게시판 게시글 수정
+	 * 
+	 * @param freeboard - 수정에 반영될 게시글 제목, 내용 정보
+	 * @return 
+	 */
+	public void updateFreeBoard(FreeBoard freeboard);
 
 
 }
