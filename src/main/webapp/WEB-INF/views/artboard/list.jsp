@@ -171,19 +171,22 @@ $(document).ready(function() {
 	</div>
 	<!-- 캐러셀영역 END -->	
 	
+	
+	
 	<div class="b"> 
 	<c:choose>
-		<c:when test="${not login}">
+ 		<c:when test="${not login}">
 			<button id="notLoginWrite" class="btn btn-sm b-btn"
-				style="float: right; background-color: #343a40; color: white;">글작성</button>
+				style="background-color: #343a40; color: white;">글작성</button>
 		</c:when>
 		<c:when test="${login}">
 			<a href="/artboard/write"><button id="LoginWrite"
 					class="btn btn-sm b-btn"
-					style="float: right; background-color: #343a40; color: white;">글작성</button></a>
+					style="background-color: #343a40; color: white;">글작성</button></a>
 		</c:when>
 	</c:choose>
 	</div> 
+
 
 <%
 	Date date = new Date();
@@ -279,24 +282,24 @@ $(document).ready(function() {
 		</div>
 		<br>
 		<div>
-			<div class="list-group">
-	  		<table>
+			<div>
+	  		<table class="list-group">
 	  		<tr>
 	  		<th colspan="4"><a class="list-group-item" id="pfIntroduceContent">카테고리 별 보기</a></th>
 	  		</tr>
 	  		
 	  		<tr>
-	  		<td><a href="#" ><input class="list-group-item active tit" type="button" value="전체" /></a></td>
-	  		<td><a href="#" ><input class="list-group-item tit" type="submit" value="공연" /></a></td>
-	  		<td><a href="#" ><input class="list-group-item tit" type="submit" value="버스킹" /></a></td>
-	  		<td><a href="#" ><input class="list-group-item tit" type="submit" value="연극" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item active cate" type="submit" value="전체" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="공연" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="버스킹" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="연극" /></a></td>
 	  		</tr>
 	  		
 	  		<tr>
-	  		<td>콘서트</td>
-	  		<td>축제</td>
-	  		<td>행사</td>
-	  		<td>기타</td>
+	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="콘서트" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="축제" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="행사" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="기타" /></a></td>
 	  		</tr>
 	  		</table>
 

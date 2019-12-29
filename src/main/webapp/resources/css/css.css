@@ -89,8 +89,14 @@
 }
 .b {
     text-align: right;
+    margin-top: 5px;
+    margin-bottom: 3px;
 }
-
-
+.cate {
+    width: 90px;
+}
+.fottercol {
+	color: white;
+}
 
 
