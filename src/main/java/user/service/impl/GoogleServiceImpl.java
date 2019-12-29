@@ -108,7 +108,7 @@ public class GoogleServiceImpl implements GoogleService {
 
 	@Override
 	public void insertGoogleSocial(User_table socialuser) {
-		userDao.insertGoogleSocial(socialuser);
+		userDao.insertSocial(socialuser);
 	}
 
 	@Override

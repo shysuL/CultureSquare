@@ -44,8 +44,6 @@ public class NaverServiceImpl implements NaverService{
 		String name = (String)response_obj.get("name");
 		String gender = (String)response_obj.get("gender");
 		
-		System.out.println("네이버 아이디 : " + socialId);
-		
 		//유저 DTO에 소셜 로그인 정보 저장
 		User_table user = new User_table();
 		user.setUsernick(nickname);
@@ -59,13 +57,18 @@ public class NaverServiceImpl implements NaverService{
 		
 		if(socialCnt == 0) {
 			session.setAttribute("socialDouble", false);
-			
+			session.setAttribute("usernick",nickname); 	// 닉네임
 		}
-		else 
+		else {
 			session.setAttribute("socialDouble", true);
+			int userno = userDao.selectSocialuserNo(nickname);
+			String usernick = userDao.selectUserNick(userno);
+			session.setAttribute("usernick", usernick);
+		}
 		
 		//3.파싱 닉네임 세션으로 저장
-		session.setAttribute("usernick",nickname); 	// 세션 생성
+		
+		session.setAttribute("socialnick", nickname);
 		session.setAttribute("login", true); 		// 로그인 상태 true
 		session.setAttribute("socialId", socialId);	// 소셜 ID(이메일)
 		session.setAttribute("username", name);			// 이름
@@ -82,7 +85,17 @@ public class NaverServiceImpl implements NaverService{
 	}
 
 	@Override
-	public void insertSocialInfo(User_table user) {
+	public void insertNaverInfo(User_table user) {
 		userDao.insertNaverLoginInfo(user);
+	}
+
+	@Override
+	public void insertNaverSocial(User_table socialuser) {
+		userDao.insertSocial(socialuser);
+	}
+
+	@Override
+	public int getUserNo(String socialnick) {
+		return userDao.selectuserNo(socialnick);
 	}
 }

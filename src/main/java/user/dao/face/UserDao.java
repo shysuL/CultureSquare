@@ -134,11 +134,11 @@ public interface UserDao {
 	 * 2019-12-29
 	 * 조홍철
 	 * 
-	 * 구글 소셜로그인 시도시, 소셜테이블에 데이터 삽입
+	 * 소셜로그인 시도시, 소셜테이블에 데이터 삽입
 	 * 
 	 * @param user - 소셜로그인 닉네임이 담긴 유저 객체
 	 */
-	public void insertGoogleSocial(User_table socialuser);
+	public void insertSocial(User_table socialuser);
 	
 	/**
 	 * 2019-12-29
