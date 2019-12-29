@@ -69,4 +69,16 @@ public class MainController {
 		model.addAttribute("google_url", googleUrl);
 		
 	}
+	
+	@RequestMapping(value="/layout/fotter/service")
+	public void service() { }
+	@RequestMapping(value="/layout/fotter/clause")
+	public void clause() { }
+	@RequestMapping(value="/layout/fotter/personal")
+	public void personal() { }
+	@RequestMapping(value="/layout/fotter/cheongsonyeon")
+	public void commercial() { }
+	@RequestMapping(value="/layout/fotter/customer")
+	public void customer() { }
+	
 }

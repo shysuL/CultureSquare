@@ -17,4 +17,11 @@ public class MyPageServiceImpl implements MyPageService{
 		mypageDao.updateUserNick(user);
 	}
 
+	@Override
+	public User_table getUserInfo(User_table user) {
+		
+		return mypageDao.selectUserAll(user);
+		
+	}
+
 }
