@@ -130,23 +130,20 @@ public class LoginController {
 			User_table userSession = userService.getUserSession(user);
 			
 			// 결과에 따른 세션관리
-			if(isLogin) {
-				//세션에 정보 저장하기
-				session.setAttribute("login", true);
-				session.setAttribute("userid", user.getUserid());
-				session.setAttribute("usernick", userSession.getUsernick());
-				session.setAttribute("username", userSession.getUsername());
-				session.setAttribute("interest", userSession.getInterest());
-				logger.info(userSession.getUsernick().toString());
-				logger.info(userSession.getUsername().toString());
-				logger.info(userSession.getInterest().toString());
-				logger.info(userSession.getEmailcheck().toString());
-				System.out.println(userSession.getUserno());
-//				logger.info("로그인 성공하고 세션 저장");
-				
-			}
-		
-			return "redirect:/main/main";
+			if(isLogin) { // 로그인 성공 했을 때
+
+					
+					//세션에 정보 저장하기
+					session.setAttribute("login", true);
+					session.setAttribute("userid", user.getUserid());
+					session.setAttribute("usernick", userSession.getUsernick());
+					session.setAttribute("username", userSession.getUsername());
+					session.setAttribute("interest", userSession.getInterest());
+					session.setAttribute("userno", userSession.getUserno());
+
+			
 		}
+			return "redirect:/main/main";
 		
 	}
+}
