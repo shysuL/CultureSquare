@@ -126,17 +126,18 @@ $(document).ready(function(){
 					</p>
 				</c:otherwise>
 			</c:choose>
+			
 			<div class="userinformation">
-				<p style="font-size: 17px; text-align: left; margin-left: 5%;">
+				<p class="font-weight-bold" style="font-size: 17px; text-align: left; margin-left: 5%;">
 					이름 : ${username }
 				</p>
-				<p style="font-size: 17px; text-align: left; margin-left: 5%;">
+				<p class="font-weight-bold" style="font-size: 17px; text-align: left; margin-left: 5%;">
 					아이디 : ${userid }
 				</p>
-				<p style="font-size: 17px; text-align: left; margin-left: 5%;">
+				<p class="font-weight-bold" style="font-size: 17px; text-align: left; margin-left: 5%;">
 					닉네임 : ${usernick }
 				</p>
-				<p style="font-size: 17px; text-align: left; margin-left: 5%;">
+				<p class="font-weight-bold" style="font-size: 17px; text-align: left; margin-left: 5%;">
 					관심분야 : ${interest }
 				</p>
 			</div>

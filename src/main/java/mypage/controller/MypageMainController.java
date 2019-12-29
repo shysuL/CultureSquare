@@ -22,10 +22,4 @@ public class MypageMainController {
 		//마이페이지 폼 띄어주는 메소드
 		
 	}
-	
-	@RequestMapping(value="/mypage/main", method=RequestMethod.POST)
-	public void mypageInfo(HttpSession session, Model model, User_table user) {
-		
-	}
-
 }
