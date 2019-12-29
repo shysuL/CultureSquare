@@ -43,19 +43,21 @@ public class JoinController {
 		
 		// 메일 인증 발송
 		joinSendMailService.mailSendWithEmailKey(user.getUserid(), user.getUsername(), req);
+		System.out.println("getUserId: " + user.getUserid());
 		
+		model.addAttribute("user", user);
 		
-		return "redirect:/user/emailCheck";
+		return "/user/emailCheck";
 		
 	}
 	
 	// 이메일 인증 후
-	@RequestMapping(value="/user/emailCheck")
+	@RequestMapping(value="/user/emailCheckComplete")
 	public String emailCheckComplete(@RequestParam("userid") String userid, @RequestParam("emailcheck") String key) {
 		
 		joinSendMailService.emailCheckComplete(userid, key);
 		
-		return "redirect:/user/emailCheckSuccess";
+		return "/user/emailCheckSuccess";
 		
 	}
 	

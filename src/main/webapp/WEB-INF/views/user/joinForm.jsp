@@ -180,7 +180,7 @@ $(document).ready(function(){
 				console.log("res.idCheck")
 				console.log(res.idCheck)
 				
-				if(res.idCheck==1){
+				if(res.idCheck>0){
 					// 1 : 아이디가 중복되는 문구
 					$("#id_check").text("사용중인 이메일입니다");
 					$("#id_check").css("color", "red");
