@@ -37,55 +37,66 @@
 			location.href="/logout";
 		})
 		
+		//체크박스 눌렀을때 기존 닉네임 사용, 해제시  사라짐
+		$("#usesocialnick").change(function(){
+			if($("#usesocialnick").is(":checked")){
+				$('input[name=usernick]').attr('value','${socialnick }');
+			}else{
+			   $('input[name=usernick]').attr('value','');
+			 }
+		});
 		
 		//로그인 상태
 		if('${login}'){
 			
-			console.log('${socialDouble}' + " 트루잖아");
-			// DB에 회원정보 있을 경우
-			if('${socialDouble}'=='true'){
-				console.log("DB에 이미 정보 있지");
-			}
-			// 없을 경우
-			else{
-				$("#SocialMainModal").modal({backdrop: 'static', keyboard: false});
-				
-				//중복 체크 버튼을 눌렀을때 
-				 $("#SocialCheckBtn").click(function(){
-					 
-					 var usernick = $('#socialInput').val();
-					//닉네임 정규식
-					var nickJ = /^[0-9a-zA-Z가-힣]{2,12}$/;
+			//소셜 로그인인 경우만  모달 출력
+			if('${socialType}' == 'Google' || '${socialType}' == 'Naver' || '${socialType}' == 'Kakao'){
+				console.log('${socialDouble}' + " 트루잖아");
+				// DB에 회원정보 있을 경우
+				if('${socialDouble}'=='true'){
+					console.log("DB에 이미 정보 있지");
+				}
+				// 없을 경우
+				else{
+					$("#SocialMainModal").modal({backdrop: 'static', keyboard: false});
 					
-						$.ajax({
-							url : "/user/nickCheck",
-							type : 'post',
-							data: {"usernick" : usernick},
-							datatype:"json",
-							success : function(res){
-								console.log(res.nickCheck + "수정");
-								if(res.nickCheck == 1){
-									$('#nick_check').text('중복된 닉네임입니다')
-									$('#nick_check').css('color', 'red')
-									$("#SocialMainBtn").attr("disabled", true);
-								} else {
-									if(nickJ.test(usernick)){
-										$('#nick_check').text('사용가능한 닉네임입니다')
-										$('#nick_check').css('color','green')
-										$("#SocialMainBtn").attr("disabled", false);
-									} else if (usernick == ''){
-										$('#nick_check').text('닉네임을 입력해주세요')
-										$('#nick_check').css('color','red')
-										$("#SocialMainBtn").attr("disabled", true);
-									}else {
-										$('#nick_check').text('올바른 닉네임 형식이 아닙니다')
+					//중복 체크 버튼을 눌렀을때 
+					 $("#SocialCheckBtn").click(function(){
+						 
+						 var usernick = $('#socialInput').val();
+						//닉네임 정규식
+						var nickJ = /^[0-9a-zA-Z가-힣]{2,12}$/;
+						
+							$.ajax({
+								url : "/user/nickCheck",
+								type : 'post',
+								data: {"usernick" : usernick},
+								datatype:"json",
+								success : function(res){
+									console.log(res.nickCheck + "수정");
+									if(res.nickCheck == 1){
+										$('#nick_check').text('중복된 닉네임입니다')
 										$('#nick_check').css('color', 'red')
 										$("#SocialMainBtn").attr("disabled", true);
+									} else {
+										if(nickJ.test(usernick)){
+											$('#nick_check').text('사용가능한 닉네임입니다')
+											$('#nick_check').css('color','green')
+											$("#SocialMainBtn").attr("disabled", false);
+										} else if (usernick == ''){
+											$('#nick_check').text('닉네임을 입력해주세요')
+											$('#nick_check').css('color','red')
+											$("#SocialMainBtn").attr("disabled", true);
+										}else {
+											$('#nick_check').text('올바른 닉네임 형식이 아닙니다')
+											$('#nick_check').css('color', 'red')
+											$("#SocialMainBtn").attr("disabled", true);
+										}
 									}
 								}
-							}
-						})
-				 })
+							})
+					 })
+				}
 			}
 		}
 		else{
@@ -234,13 +245,26 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">닉네임을 중복을 진행해 주세요</h4>
+        <h4 class="modal-title" id ="nickalarm">닉네임 중복을 진행해 주세요</h4>
         <button id="SocialMainX" type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body content">
-      	${socialType } 닉네임 : ${socialnick }<br>
+      
+      <c:choose>
+      	<c:when test="${socialType eq 'Google'}">
+      		<img src="/resources/img/googleCircle.png" style="width:32px; height:32px;">
+      	</c:when>
+      	<c:when test="${socialType eq 'Naver'}">
+      		<img src="/resources/img/naverCircle.png" style="width:32px; height:32px;">
+      	</c:when>
+      	<c:otherwise>
+      		<img src="/resources/img/kakaoCircle.png" style="width:32px; height:32px;">
+      	</c:otherwise>
+      </c:choose>
+      	 닉네임 : ${socialnick } <input type='checkbox' name='usesocialnick' id='usesocialnick' />
+      	 <br>
       	사용할 닉네임 입력 : 
      	 <input type="text" name = "usernick"id="socialInput" value="">
      	 <div class="check_font" id="nick_check"></div>

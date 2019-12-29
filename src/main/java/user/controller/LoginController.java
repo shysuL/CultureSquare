@@ -159,14 +159,11 @@ public class LoginController {
 			user.setUsernick(usernick);
 			
 			//유저 테이블에 정보 저장
-			naverService.insertSocialInfo(user);
+			naverService.insertNaverInfo(user);
 			
 			
 			//유저 테이블 번호 얻어오기
 			int userno = naverService.getUserNo(usernick);
-			
-			System.out.println("유저 번호 테스트 : " + userno);
-			System.out.println("유저 닉넴 테스트 : " + (String) mySession.getAttribute("socialnick"));
 			
 			//유저 DTO에 소셜 로그인 정보 저장
 			User_table socialuser = new User_table();
@@ -191,17 +188,26 @@ public class LoginController {
 			User_table user = new User_table();
 			user.setUsername(username);
 			user.setUsernick(usernick);
-			kakaoService.insertKakaoInfo(user);
-
-			//소셜 로그인 정보 존재 유무 검사
-			int socialCnt = kakaoService.getSocialAccountCnt(user);
 			
-			if(socialCnt == 0) {
-				mySession.setAttribute("socialDouble", false);
-				
-			}
-			else 
-				mySession.setAttribute("socialDouble", true);
+			//유저 테이블에 정보 저장
+			kakaoService.insertKakaoInfo(user);
+			
+			//유저 테이블 번호 얻어오기
+			int userno = kakaoService.getUserNo(usernick);
+			
+			//유저 DTO에 소셜 로그인 정보 저장
+			User_table socialuser = new User_table();
+			socialuser.setUserno(userno);
+			socialuser.setUsernick((String) mySession.getAttribute("socialnick"));
+			
+			//소셜 테이블에 로그인 정보 저장
+			kakaoService.insertKakaoSocial(socialuser);
+			
+			//세션 설정
+			// 두번쨰 로그인 여부 true로
+			mySession.setAttribute("socialDouble", true);
+			//유저 닉네임은 변경된 닉네임으로 세션 설정
+			mySession.setAttribute("usernick", usernick);
 		}
 		return "redirect:/main/main";
 	}

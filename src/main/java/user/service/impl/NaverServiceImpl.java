@@ -85,7 +85,7 @@ public class NaverServiceImpl implements NaverService{
 	}
 
 	@Override
-	public void insertSocialInfo(User_table user) {
+	public void insertNaverInfo(User_table user) {
 		userDao.insertNaverLoginInfo(user);
 	}
 

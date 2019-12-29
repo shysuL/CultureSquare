@@ -171,18 +171,21 @@ $(document).ready(function() {
 	</div>
 	<!-- 캐러셀영역 END -->	
 	
-	
-	
-	<div class="b"> 
+	<div class="b">
 	<c:choose>
- 		<c:when test="${not login}">
+		<c:when test="${not login}">
+		<div>
 			<button id="notLoginWrite" class="btn btn-sm b-btn"
 				style="background-color: #343a40; color: white;">글작성</button>
+		</div>
 		</c:when>
+		<%--  예술인일 때 작성 가능한 조건 추가 필요 --%>
 		<c:when test="${login}">
+			<div>
 			<a href="/artboard/write"><button id="LoginWrite"
 					class="btn btn-sm b-btn"
 					style="background-color: #343a40; color: white;">글작성</button></a>
+			</div>
 		</c:when>
 	</c:choose>
 	</div> 
