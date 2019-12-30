@@ -26,7 +26,7 @@ public class MyPwModifyController {
 		logger.info("나오냐");
 		
 		user.setUserid(session.getAttribute("userid").toString());
-		user.setUserno((int)session.getAttribute("userno"));
+		user.setUserno((Integer)session.getAttribute("userno"));
 		
 //		mypageService.getFindUserPw(user);
 		

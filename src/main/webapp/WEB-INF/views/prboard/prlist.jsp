@@ -8,10 +8,29 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	//로그인 했을 경우 글쓰기 버튼 누르면 이동
+	//로그인 했을 경우 글쓰기 버튼 누르면 하루 쓴 게시글 검사
 	$("#LoginWrite").click(function() {
-		location.href="/prboard/write";
-		return false;
+		
+		$.ajax({
+			type:"post",
+			url:"/prboard/checkWriteDate",
+			datatype: "json",
+			success : function(res){
+				console.log(res.time)
+				//1분 지났을 경우
+				if(res.time){
+					//글 쓰기 폼으로 이동
+					location.href="/prboard/write";
+					return false;
+				} else {
+					$(".content").text('하루에 1개의 게시글 작성이 가능합니다.');
+					$("#prcntOverModal").modal({backdrop: 'static', keyboard: false});
+					return false;
+				}
+			}
+				
+		})
+
 	});
 	
 	//로그인 안했을 경우 글쓰기 버튼 누르면 모달
@@ -20,14 +39,6 @@ $(document).ready(function() {
 		$("#prNotLoginModal").modal({backdrop: 'static', keyboard: false});
 		return false;
 	});
-	
-	//하루 작성 게시글 초과한 상태에서 글쓰기 버튼 누르면 모달
-	$("#prCntOver").click(function() {
-		$(".content").text('하루에 1개의 게시글만 작성 가능합니다!');
-		$("#prcntOverModal").modal({backdrop: 'static', keyboard: false});
-		return false;
-	});
-	
 });
 </script>
 
@@ -98,12 +109,7 @@ $(document).ready(function() {
 				<button id="notLoginWrite" class="btn btn-md b-btn" style="float: right; background-color: #494b4d; color: white;">글작성</button>
 			</c:when>
 			<c:when test="${login}">
-<%-- 				<c:if test="${prCntCheck eq 0}"> --%>
 					<button id="LoginWrite" class="btn btn-md b-btn" style="float: right; background-color: #494b4d; color: white;">글작성</button>
-<%-- 				</c:if> --%>
-<%-- 				<c:if test="${prCntCheck eq 1}"> --%>
-<!-- 					<button id="prCntOver" class="btn btn-md b-btn" style="float: right; background-color: #494b4d; color: white;">글초과</button> -->
-<%-- 				</c:if> --%>
 			</c:when>
 		</c:choose>
 		
