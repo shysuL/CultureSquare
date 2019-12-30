@@ -49,6 +49,15 @@ $(document).ready(function() {
 #content {
 	width: 95%;	
 }
+
+#freeIntroduceContent{
+	background-color:#343a40; 
+	color:white;
+}
+
+.tit { 
+color: #343a40;
+}
 </style>
 
 <div class="container">
@@ -57,7 +66,8 @@ $(document).ready(function() {
 <hr>
 <h2>자유게시판</h2>
 
-<div>
+<div class="row">
+<div class="col-8">
 <form action="/board/freewrite" method="post"
 enctype="multipart/form-data">
 <table class="table table-bordered">
@@ -70,12 +80,23 @@ enctype="multipart/form-data">
 
 </form>
 </div>
+<div class="col-4">
+
+	<div class="list-group" id="freeIntroduceTitle">
+	  <a class="list-group-item" id="freeIntroduceContent">글쓰기 안내</a>
+	  <a class="list-group-item tit"><i class="fas fa-exclamation-circle"></i> 타 사이트의 게시물을 옮겨오실 경우 저작권 보호를 위해 내용을 그대로 붙여넣지 마시고 내용 요약 및 원문링크(또는 출처)를 삽입해 주세요.</a>
+	</div>
+
+</div>
+</div>
 
 <div class="text-center">	
-	<button type="button" id="btnWrite" class="btn btn-default" style="float: right; background-color: #494b4d; color: white;">작성</button>
-	<button type="button" id="btnCancel" class="btn btn-default" style="float: left; background-color: #494b4d; color: white;">취소</button>
+	<button type="button" id="btnWrite" class="btn btn-default" style="float: center; background-color: #494b4d; color: white;">작성</button>
+	<button type="button" id="btnCancel" class="btn btn-default" style="float: center; background-color: #494b4d; color: white; margin-right: 380px;">취소</button>
 </div>
 </div>
+<br>
+
 
 <jsp:include page="../layout/footer.jsp" />
 

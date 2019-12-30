@@ -37,6 +37,14 @@
 			location.href="/logout";
 		})
 		
+		//체크박스 눌렀을때 기존 닉네임 사용, 해제시  사라짐
+		$("#usesocialnick").change(function(){
+			if($("#usesocialnick").is(":checked")){
+				$('input[name=usernick]').attr('value','${socialnick }');
+			}else{
+			   $('input[name=usernick]').attr('value','');
+			 }
+		});
 		
 		//로그인 상태
 		if('${login}'){
@@ -237,13 +245,26 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">닉네임을 중복을 진행해 주세요</h4>
+        <h4 class="modal-title" id ="nickalarm">닉네임 중복을 진행해 주세요</h4>
         <button id="SocialMainX" type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body content">
-      	${socialType } 닉네임 : ${socialnick }<br>
+      
+      <c:choose>
+      	<c:when test="${socialType eq 'Google'}">
+      		<img src="/resources/img/googleCircle.png" style="width:32px; height:32px;">
+      	</c:when>
+      	<c:when test="${socialType eq 'Naver'}">
+      		<img src="/resources/img/naverCircle.png" style="width:32px; height:32px;">
+      	</c:when>
+      	<c:otherwise>
+      		<img src="/resources/img/kakaoCircle.png" style="width:32px; height:32px;">
+      	</c:otherwise>
+      </c:choose>
+      	 닉네임 : ${socialnick } <input type='checkbox' name='usesocialnick' id='usesocialnick' />
+      	 <br>
       	사용할 닉네임 입력 : 
      	 <input type="text" name = "usernick"id="socialInput" value="">
      	 <div class="check_font" id="nick_check"></div>

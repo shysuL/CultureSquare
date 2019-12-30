@@ -74,20 +74,19 @@ $(document).ready(function() {
 });
 
 </script>
-
+<%
+	Date date = new Date();
+	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+	String strdate = simpleDate.format(date);
+%>
+<%
+	Calendar cal = Calendar.getInstance();
+%>
 
 <script type="text/javascript">
 	var today = null;
-	var year = null;
-	var month = null;
-	var firstDay = null;
-	var lastDay = null;
-	var $tdDay = null;
-	var $tdSche = null;
-	var jsonData = null;
-	
-	var clickDate = null;
-	var clickScheduleno = null;
+	var year = <%= cal.get(Calendar.YEAR)%>;
+	var month = <%= cal.get(Calendar.MONTH) +1 %>;
 	
 		
 	// =============================================== 날짜 포맷 함수 ===============================================
@@ -103,7 +102,7 @@ $(document).ready(function() {
 		if (month < 10) {
 			month = String("0" + month);
 		}
-		getNewInfo();
+		location.href="/artboard/list?bo_table=calendar&cal_year="+year+"&cal_month="+month;
 	}
 	function moveNextMonth() {
 		month++;
@@ -114,21 +113,19 @@ $(document).ready(function() {
 		if (month < 10) {
 			month = String("0" + month);
 		}
-		getNewInfo();
-	}
-	//정보갱신
-	function getNewInfo() {
-		for (var i = 0; i < 42; i++) {
-			$tdDay.eq(i).text("");
-			$tdSche.eq(i).text("");
-		}
-		dayCount = 0;
-		firstDay = new Date(year, month - 1, 1);
-		lastDay = new Date(year, month, 0);
-		drawDays();
+		location.href="/artboard/list?bo_table=calendar&cal_year="+year+"&cal_month="+month;
 	}
 	
 	
+$(document).ready(function(){
+	$("#movePrevMonth").on("click", function() {
+		movePrevMonth();
+	});
+	$("#moveNextMonth").on("click", function() {
+		moveNextMonth();
+	});
+	
+});	
 	
 	
 	
@@ -172,34 +169,25 @@ $(document).ready(function() {
 	<!-- 캐러셀영역 END -->	
 	
 	<div class="b">
-
 	<c:choose>
 		<c:when test="${not login}">
-		<div class="b">
+		<div>
 			<button id="notLoginWrite" class="btn btn-sm b-btn"
-				style="float: right; background-color: #343a40; color: white;">글작성</button>
+				style="background-color: #343a40; color: white;">글작성</button>
 		</div>
 		</c:when>
 		<%--  예술인일 때 작성 가능한 조건 추가 필요 --%>
 		<c:when test="${login}">
-			<div class="b">
+			<div>
 			<a href="/artboard/write"><button id="LoginWrite"
 					class="btn btn-sm b-btn"
-					style="float: right; background-color: #343a40; color: white;">글작성</button></a>
+					style="background-color: #343a40; color: white;">글작성</button></a>
 			</div>
 		</c:when>
 	</c:choose>
-
 	</div> 
 
-<%
-	Date date = new Date();
-	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
-	String strdate = simpleDate.format(date);
-%>
-<%
-	Calendar cal = Calendar.getInstance();
-%>
+
 
 
 	
@@ -208,20 +196,41 @@ $(document).ready(function() {
 			<div class="cal_header_div eng">
 				<form method="get" action="/artboard/list">
 					<input type="hidden" name="bo_table" value="calendar">
-					<a href="/artboard/list?bo_table=calendar&cal_year=2019&cal_month=11">
+					<a href="#" id="movePrevMonth">
 <!-- 					<button id = "leftgo"> -->
+						<span id="prevMonth" class="cal_tit">
 					<i class="fa fa-chevron-left goto" ></i>
+					</span>
 <!-- 					</button> -->
 					</a>
 					&nbsp;&nbsp;
 					<input class="cal_header_year inputin" type="text" name="cal_year" id="cal_year" value="<%= cal.get(Calendar.YEAR)%>" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp;
 					<input class="cal_header_month inputin" type="text" name="cal_month" id="cal_month" value="<%= cal.get(Calendar.MONTH) + 1%>" maxlength="2" required="required"  data-hasqtip="24" oldtitle="월" title="">&nbsp;
 					<input class="btn inputbt" type="submit" value="이동" data-hasqtip="25" oldtitle="이동" title="">&nbsp;&nbsp;
-					<a href="/artboard/list?bo_table=calendar&cal_year=2020&cal_month=01"><i class="fa fa-chevron-right goto" ></i></a>
+					<a href="#" id="moveNextMonth">
+					<span id="nextMonth" class="cal_tit">
+					<i class="fa fa-chevron-right goto" >
+					</i>
+					</span>
+					</a>
+					
+	<%-- 참고 코드 --%>
+	<%-- 				
+		<div class="cal_top">
+		<a href="#" id="movePrevMonth"><span id="prevMonth"
+			class="cal_tit">&lt;</span></a> 
+			<span id="cal_top_year"></span> 
+			<span id="cal_top_month"></span> 
+			<a href="#" id="moveNextMonth"><span
+			id="nextMonth" class="cal_tit">&gt;</span></a>
+	</div>
+	--%>
 				</form>
 			</div>
 		</div>
 	</div>
+	
+	<div id="cal_tab" class="cal"></div>
 
 	<c:forEach items="${list }" var="i">
 	<div class = "list">
@@ -258,20 +267,20 @@ $(document).ready(function() {
 
 
 
-	<div id="list_table" class="width_660 box_shadow_3 text-center">
-		<div class="list_cal_row_title relative">
-			<div class="cal_header_div eng">
-				<form method="get" action="/artboard/list">
-					<input type="hidden" name="bo_table" value="calendar">
-					<a href="/g2/bbs/board.php?bo_table=calendar&amp;cal_year=2019&amp;cal_month=12&amp;cal_year=2019&amp;cal_month=11"><i class="fa fa-chevron-left goto" ></i></a>&nbsp;&nbsp;
-					<input class="cal_header_year inputin" type="text" name="cal_year" value="2019" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp;
-					<input class="cal_header_month inputin" type="text" name="cal_month" value="12" maxlength="2" required="required"  data-hasqtip="24" oldtitle="월" title="">&nbsp;
-					<input class="btn inputbt" type="submit" value="이동" data-hasqtip="25" oldtitle="이동" title="">&nbsp;&nbsp;
-					<a href="/g2/bbs/board.php?bo_table=calendar&amp;cal_year=2019&amp;cal_month=12&amp;cal_year=2020&amp;cal_month=1"><i class="fa fa-chevron-right goto" ></i></a>
-				</form>
-			</div>
-		</div>
-	</div>
+<!-- 	<div id="list_table" class="width_660 box_shadow_3 text-center"> -->
+<!-- 		<div class="list_cal_row_title relative"> -->
+<!-- 			<div class="cal_header_div eng"> -->
+<!-- 				<form method="get" action="/artboard/list"> -->
+<!-- 					<input type="hidden" name="bo_table" value="calendar"> -->
+<!-- 					<a href="/g2/bbs/board.php?bo_table=calendar&amp;cal_year=2019&amp;cal_month=12&amp;cal_year=2019&amp;cal_month=11"><i class="fa fa-chevron-left goto" ></i></a>&nbsp;&nbsp; -->
+<!-- 					<input class="cal_header_year inputin" type="text" name="cal_year" value="2019" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp; -->
+<!-- 					<input class="cal_header_month inputin" type="text" name="cal_month" value="12" maxlength="2" required="required"  data-hasqtip="24" oldtitle="월" title="">&nbsp; -->
+<!-- 					<input class="btn inputbt" type="submit" value="이동" data-hasqtip="25" oldtitle="이동" title="">&nbsp;&nbsp; -->
+<!-- 					<a href="/g2/bbs/board.php?bo_table=calendar&amp;cal_year=2019&amp;cal_month=12&amp;cal_year=2020&amp;cal_month=1"><i class="fa fa-chevron-right goto" ></i></a> -->
+<!-- 				</form> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 	</div>
 	
 	<!-- 사이트 게시판 -->
@@ -286,24 +295,24 @@ $(document).ready(function() {
 		</div>
 		<br>
 		<div>
-			<div class="list-group">
-	  		<table>
+			<div>
+	  		<table class="list-group">
 	  		<tr>
 	  		<th colspan="4"><a class="list-group-item" id="pfIntroduceContent">카테고리 별 보기</a></th>
 	  		</tr>
 	  		
 	  		<tr>
-	  		<td><a href="#" ><input class="list-group-item active tit" type="button" value="전체" /></a></td>
-	  		<td><a href="#" ><input class="list-group-item tit" type="submit" value="공연" /></a></td>
-	  		<td><a href="#" ><input class="list-group-item tit" type="submit" value="버스킹" /></a></td>
-	  		<td><a href="#" ><input class="list-group-item tit" type="submit" value="연극" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item active cate" type="submit" value="전체" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="공연" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="버스킹" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="연극" /></a></td>
 	  		</tr>
 	  		
 	  		<tr>
-	  		<td>콘서트</td>
-	  		<td>축제</td>
-	  		<td>행사</td>
-	  		<td>기타</td>
+	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="콘서트" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="축제" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="행사" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="기타" /></a></td>
 	  		</tr>
 	  		</table>
 

@@ -235,22 +235,22 @@ public class LoginController {
 			
 			// 결과에 따른 세션관리
 			if(isLogin) {
-				//세션에 정보 저장하기
-				logger.info(user.toString());
-				session.setAttribute("login", true);
-				session.setAttribute("userid", user.getUserid());
-				session.setAttribute("usernick", userSession.getUsernick());
-				session.setAttribute("username", userSession.getUsername());
-				session.setAttribute("interest", userSession.getInterest());
-				session.setAttribute("userno", userSession.getUserno());
-				logger.info(userSession.getUsernick().toString());
-				logger.info(userSession.getUsername().toString());
-				logger.info(userSession.getInterest().toString());
-				logger.info(userSession.getEmailcheck().toString());
-				System.out.println(userSession.getUserno());
-				logger.info("세션 userno : " + session.getAttribute("userno").toString());
-				logger.info("로그인 성공하고 세션 저장");
-				
+				 if(userSession.getEmailcheck()=="Y") {
+					
+					//세션에 정보 저장하기
+						logger.info(user.toString());
+						session.setAttribute("login", true);
+						session.setAttribute("userid", user.getUserid());
+						session.setAttribute("usernick", userSession.getUsernick());
+						session.setAttribute("username", userSession.getUsername());
+						session.setAttribute("interest", userSession.getInterest());
+						session.setAttribute("userno", userSession.getUserno());		
+					 
+				 } else {
+					 
+					 return "/user/emailCheckError";
+					 
+				 } 			
 			}
 			return "redirect:/main/main";
 		
