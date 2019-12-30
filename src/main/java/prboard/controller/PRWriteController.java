@@ -35,22 +35,31 @@ public class PRWriteController {
 		// 사용자의 최근 PR 게시글 작성 시간 구하기
 		String writeDate = prBoardService.getWriteDate(userNo);
 		
-		
-		//하루가 지났는지 비교, (지금은 테스트로 1분 지났는지 비교 할거임)
-		int time = prBoardService.getTimePass(writeDate);
-
-		
-		//1분 지났으면
-		if(time > 0)
+		//작성한적이 없다면
+		if(writeDate.equals("0")) {
 			mav.addObject("time", true);
-		else
-			mav.addObject("time", false);
-			
-		//viewName지정하기
-		mav.setViewName("jsonView");
-			
-		return mav;
+			//viewName지정하기
+			mav.setViewName("jsonView");
+		}
 		
+		else {
+			System.out.println("이게 되면 안됨");
+
+			//하루가 지났는지 비교, (지금은 테스트로 1분 지났는지 비교 할거임)
+			int time = prBoardService.getTimePass(writeDate);
+
+
+			//1분 지났으면
+			if(time > 0)
+				mav.addObject("time", true);
+			else
+				mav.addObject("time", false);
+
+			//viewName지정하기
+			mav.setViewName("jsonView");
+		}
+		
+		return mav;
 	}
 	
 	
@@ -62,7 +71,7 @@ public class PRWriteController {
 		int i = 1;
 		
 		logger.info("타이틀 ? : " + prBoard.getTitle());
-		logger.info("내용 ? : " + prBoard.getcontent());
+		logger.info("내용 ? : " + prBoard.getContent());
 		logger.info("PR 유형 : " + prType.getPrname());
 		
 		//사용자 번호 구하기

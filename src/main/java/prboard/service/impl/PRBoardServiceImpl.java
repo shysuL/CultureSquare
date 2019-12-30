@@ -2,6 +2,7 @@ package prboard.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -12,11 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import artboard.dto.Board;
 import prboard.dao.face.PRBoardDao;
 import prboard.dto.PRBoard;
 import prboard.dto.PRType;
 import prboard.dto.UpFile;
 import prboard.service.face.PRBoardService;
+import util.PRPaging;
 
 @Service
 public class PRBoardServiceImpl implements PRBoardService {
@@ -96,5 +99,19 @@ public class PRBoardServiceImpl implements PRBoardService {
 		
 		return prBoardDao.selectTimePass(writeDate);
 	}
+
+	@Override
+	public int getCntAll() {
+		return prBoardDao.selectCntAll();
+	}
+
+	@Override
+	public List getList(PRPaging paging) {
+		
+		List list = prBoardDao.selectAll(paging);
+		return list;
+	}
+	
+	
 	
 }
