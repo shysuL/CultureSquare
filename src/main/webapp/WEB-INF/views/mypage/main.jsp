@@ -25,7 +25,7 @@ $(document).ready(function() {
 	   function warningModal(content) {
 	      $(".modal-contents").text(content);
 	      $("#defaultModal").modal('show');
-	      console.log(11111111111);
+	      console.log("나는 경고모달창");
 	   }
 	
 	$("#updateUserPw").click(function(){
@@ -34,16 +34,16 @@ $(document).ready(function() {
 		$("#updateUserPwModal").modal({backdrop: 'static', keyboard: false});
 		
 		$("#updatePw").click(function(){
-			
 			//현재 비밀번호 입력
 			if($("#currentpw").val() == ""){
 				warningModal('현재 비밀번호를 입력해주세요.')
+				console.log("비밀번호 ${userinfo.userpw}")
 				$("#currentpw").focus();
 				return false;
 			}
 			
 			//현재 비밀번호 오류
-			if($("currentpw").val() != "${user.userpw}"){
+			if($("currentpw").val() !== "${userinfo.userpw}"){
 				warningModal('현재 비밀번호를 다시 입력해주세요.')
 				$("#currentpw").focus();
 				return false;
@@ -69,7 +69,7 @@ $(document).ready(function() {
 		    	return false;
 			}
 	       	
-			if(($("#changepw").val()) != ($("#changepw2").val())){
+			if(($("#changepw").val()) !== ($("#changepw2").val())){
 		    	warningModal('변경하실 비밀번호가 일치하지 않습니다');
 		    	return false;
 			}
@@ -221,7 +221,7 @@ $(document).ready(function() {
 			<br>
 			<button type="button" class="btn btn-outline-dark" data-toggle="modal" id="updateUserPw" style="width: 84%; display: block; margin: 0 auto;">비밀번호 변경</button>
 			
-			<form action="/mypage/updatepw" method="post" id="updateForm">	
+			<form action="/mypage/main" method="post" id="updateForm">	
 				<!-- 비밀번호 모달 -->
 				<div class="modal fade" id="updateUserPwModal">
 					<div class="modal-dialog modal-dialog-centered">
@@ -236,10 +236,10 @@ $(document).ready(function() {
 	
 							<!-- Modal body -->
 							<div class="modal-body content" id="modalBody">
-								<input type="hidden" value="${user.userno }" id="userno" name="userno"/>
-								<input type="hidden" value="${user.userid }" id="userid" name="userid"/>
+								<input type="hidden" value="${userno }" id="userno" name="userno"/>
+								<input type="hidden" value="${userid }" id="userid" name="userid"/>
 								
-								현재 비밀번호 
+								현재 비밀번호
 								<input type="password" name="currentpw" id="currentpw" placeholder="현재 비밀번호 입력"/><br><br>
 								변경할 비밀번호
 								<input type="password" name="changepw" id="changepw" placeholder="변경할 비밀번호 입력"/><br><br>

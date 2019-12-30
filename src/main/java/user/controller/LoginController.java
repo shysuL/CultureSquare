@@ -1,6 +1,8 @@
 package user.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -235,6 +237,7 @@ public class LoginController {
 			user.setUserpw(PwSha256.userPwEncSHA256(encPw));
 			
 			boolean isLogin = userService.loginProc(user); // true 로그인
+			
 			
 			
 			//세션 정보 불러오기
