@@ -103,8 +103,6 @@ $(document).ready(function() {
 			month = String("0" + month);
 		}
 		location.href="/artboard/list?bo_table=calendar&cal_year="+year+"&cal_month="+month;
-		$('input[name=cal_year]').attr('value',year);
-		$('input[name=cal_month]').attr('value',month);
 	}
 	function moveNextMonth() {
 		month++;
@@ -116,15 +114,15 @@ $(document).ready(function() {
 			month = String("0" + month);
 		}
 		location.href="/artboard/list?bo_table=calendar&cal_year="+year+"&cal_month="+month;
-		$('input[name=cal_year]').attr('value',year);
-		$('input[name=cal_month]').attr('value',month);
 	}
 	//날짜 초기화
 	function initDate() {
 		dayCount = 0;
 		today = new Date();
-		year = today.getFullYear();
-		month = today.getMonth() + 1;
+// 		year = today.getFullYear();
+// 		month = today.getMonth() + 1;
+		year = "${nowYear}";
+		month = "${nowMonth}";
 		if (month < 10) {
 			month = "0" + month;
 		}
@@ -133,8 +131,6 @@ $(document).ready(function() {
 	
 $(document).ready(function(){
 	initDate();
-	console.log(year);
-	console.log(month);
 	$("#movePrevMonth").on("click", function() {
 		movePrevMonth();
 	});
@@ -214,15 +210,13 @@ $(document).ready(function(){
 				<form method="get" action="/artboard/list">
 					<input type="hidden" name="bo_table" value="calendar">
 					<a href="#" id="movePrevMonth">
-<!-- 					<button id = "leftgo"> -->
 						<span id="prevMonth" class="cal_tit">
 					<i class="fa fa-chevron-left goto" ></i>
 					</span>
-<!-- 					</button> -->
 					</a>
 					&nbsp;&nbsp;
-					<input class="cal_header_year inputin" type="text" name="cal_year" id="cal_year" value="" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp;
-					<input class="cal_header_month inputin" type="text" name="cal_month" id="cal_month" value="" maxlength="2" required="required"  data-hasqtip="24" oldtitle="월" title="">&nbsp;
+					<input class="cal_header_year inputin" type="text" name="cal_year" id="cal_year" value="${nowYear }" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp;
+					<input class="cal_header_month inputin" type="text" name="cal_month" id="cal_month" value="${nowMonth }" maxlength="2" required="required"  data-hasqtip="24" oldtitle="월" title="">&nbsp;
 					<input class="btn inputbt" type="submit" value="이동" data-hasqtip="25" oldtitle="이동" title="">&nbsp;&nbsp;
 					<a href="#" id="moveNextMonth">
 					<span id="nextMonth" class="cal_tit">
@@ -230,18 +224,6 @@ $(document).ready(function(){
 					</i>
 					</span>
 					</a>
-					
-	<%-- 참고 코드 --%>
-	<%-- 				
-		<div class="cal_top">
-		<a href="#" id="movePrevMonth"><span id="prevMonth"
-			class="cal_tit">&lt;</span></a> 
-			<span id="cal_top_year"></span> 
-			<span id="cal_top_month"></span> 
-			<a href="#" id="moveNextMonth"><span
-			id="nextMonth" class="cal_tit">&gt;</span></a>
-	</div>
-	--%>
 				</form>
 			</div>
 		</div>
@@ -289,15 +271,28 @@ $(document).ready(function(){
 <!-- 			<div class="cal_header_div eng"> -->
 <!-- 				<form method="get" action="/artboard/list"> -->
 <!-- 					<input type="hidden" name="bo_table" value="calendar"> -->
-<!-- 					<a href="/g2/bbs/board.php?bo_table=calendar&amp;cal_year=2019&amp;cal_month=12&amp;cal_year=2019&amp;cal_month=11"><i class="fa fa-chevron-left goto" ></i></a>&nbsp;&nbsp; -->
-<!-- 					<input class="cal_header_year inputin" type="text" name="cal_year" value="2019" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp; -->
-<!-- 					<input class="cal_header_month inputin" type="text" name="cal_month" value="12" maxlength="2" required="required"  data-hasqtip="24" oldtitle="월" title="">&nbsp; -->
+<!-- 					<a href="#" id="movePrevMonth"> -->
+<!-- 						<span id="prevMonth" class="cal_tit"> -->
+<!-- 					<i class="fa fa-chevron-left goto" ></i> -->
+<!-- 					</span> -->
+<!-- 					</a> -->
+<!-- 					&nbsp;&nbsp; -->
+<%-- 					<input class="cal_header_year inputin" type="text" name="cal_year" id="cal_year" value="${nowYear }" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp; --%>
+<%-- 					<input class="cal_header_month inputin" type="text" name="cal_month" id="cal_month" value="${nowMonth }" maxlength="2" required="required"  data-hasqtip="24" oldtitle="월" title="">&nbsp; --%>
 <!-- 					<input class="btn inputbt" type="submit" value="이동" data-hasqtip="25" oldtitle="이동" title="">&nbsp;&nbsp; -->
-<!-- 					<a href="/g2/bbs/board.php?bo_table=calendar&amp;cal_year=2019&amp;cal_month=12&amp;cal_year=2020&amp;cal_month=1"><i class="fa fa-chevron-right goto" ></i></a> -->
+<!-- 					<a href="#" id="moveNextMonth"> -->
+<!-- 					<span id="nextMonth" class="cal_tit"> -->
+<!-- 					<i class="fa fa-chevron-right goto" > -->
+<!-- 					</i> -->
+<!-- 					</span> -->
+<!-- 					</a> -->
+					
+
 <!-- 				</form> -->
 <!-- 			</div> -->
 <!-- 		</div> -->
 <!-- 	</div> -->
+	
 	</div>
 	
 	<!-- 사이트 게시판 -->

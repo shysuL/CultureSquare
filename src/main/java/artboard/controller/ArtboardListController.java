@@ -98,8 +98,8 @@ public class ArtboardListController {
 		String nowYear = format1.format(time);
 		String nowMonth = format2.format(time);
 				
-		model.addAttribute("nowYear",nowYear);
-		model.addAttribute("nowMonth",nowMonth);
+		model.addAttribute("nowYear",cal_year);
+		model.addAttribute("nowMonth",cal_month);
 //		return "artboard/list?bo_table=calendar&cal_year="+time1+"&cal_month="+time2;
 	}
 	
