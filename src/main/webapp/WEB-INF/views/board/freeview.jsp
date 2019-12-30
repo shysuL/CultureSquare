@@ -10,18 +10,19 @@ $(document).ready(function() {
 	$("#btnList").click(function() {
 		$(location).attr("href", "/board/freelist");
 	});
-	
-// 	//수정버튼 동작
-// 	$("#btnUpdate").click(function() {
-// 		$(location).attr("href", "/board/update")
-// 	});
+		
+	$("#deleteWrite").click(function() {
+		$(".content").text('삭제 하시겠습니까?') 
+		$("#deleteWriteModal").modal({
+			backdrop : 'static',
+			keyboard : false			
+		});
+		
+		return false;
+	});
 
-	//삭제버튼 동작
-// 	$("#btnDelete").click(function() {
-// 		$(location).attr("href", "/board/delete?boardno=?%{}")
-// 	});
-	
 });
+
 </script>
 
 <div class="container" style="
@@ -60,10 +61,34 @@ $(document).ready(function() {
 	<div class="text-center" >
 		<button id="btnList" class="btn btn-default" style="float: left; background-color: #343a40; color: white;">목록</button>
 		<c:if test="${usernick eq board.usernick}"> 
-		<a class="btn btn-default" style="float: right; background-color: #343a40; color: white;" href="/board/freedelete?boardno=${board.boardno }" role="button">삭제</a>
+		<a id="deleteWrite" class="btn btn-default" style="float: right; background-color: #343a40; color: white;" role="button">삭제</a>
 		<a class="btn btn-default" style="float: right; background-color: #343a40; color: white; white;margin-right: 1px;" href="/board/freemodifiy?boardno=${board.boardno }" role="button">수정</a>
 		</c:if>
 	</div>	
+</div>
+<!-- 게시글 삭제 모달창 -->
+<div class="modal fade" id="deleteWriteModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">게시글 삭제</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <a href="/board/freedelete?boardno=${board.boardno }&fileno=${file.fileno }" class="btn btn-default" style="float: right; background-color: #343a40; color: white;" role="button">확인</a>
+        <button type="submit" id="freeCancelBtn"class="btn btn-default" style="float: right; background-color: #343a40; color: white;" data-dismiss="modal" >취소</button>
+      </div>
+
+    </div>
+  </div>
 </div>
 </div>
 <br>
