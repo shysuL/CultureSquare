@@ -1,6 +1,8 @@
 package user.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -232,6 +234,8 @@ public class LoginController {
 			
 			//세션 정보 불러오기
 			User_table userSession = userService.getUserSession(user);
+			
+				
 			
 			// 결과에 따른 세션관리
 			if(isLogin) {

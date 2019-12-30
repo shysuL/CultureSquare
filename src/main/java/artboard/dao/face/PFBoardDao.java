@@ -8,6 +8,7 @@ import util.Paging;
 public interface PFBoardDao {
 
 	
+	public List<Board> selectAll3(String searchMonth);
 	public List<Board> selectAll2(String searchMonth);
 
 	/**

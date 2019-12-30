@@ -54,24 +54,24 @@ $(document).ready(function() {
 </script>
 
 <script type="text/javascript">
-$(document).ready(function() {
-   $(".fa-chevron-left").click(function() {
-      $.ajax({
-         type: "get"
-         , url: "/artboard/list"
-         , data: {yyyy : 2019, MM : 11 }
-         , dataType: "html"
-         , success: function(  ) {
-        	 location.href="/artboard/list?bo_table=calendar&cal_year=${yyyy}&cal_month=${MM}";
-            console.log("성공")
-            console.log( res )
-         }
-         , error: function() {
-            console.log("실패")
-         }
-      });
-   })
-});
+// $(document).ready(function() {
+//    $(".fa-chevron-left").click(function() {
+//       $.ajax({
+//          type: "get"
+//          , url: "/artboard/list"
+//          , data: {yyyy : 2019, MM : 11 }
+//          , dataType: "html"
+//          , success: function(  ) {
+//         	 location.href="/artboard/list?bo_table=calendar&cal_year=${yyyy}&cal_month=${MM}";
+//             console.log("성공")
+//             console.log( res )
+//          }
+//          , error: function() {
+//             console.log("실패")
+//          }
+//       });
+//    })
+// });
 
 </script>
 <%
@@ -85,10 +85,10 @@ $(document).ready(function() {
 
 <script type="text/javascript">
 	var today = null;
-	var year = <%= cal.get(Calendar.YEAR)%>;
-	var month = <%= cal.get(Calendar.MONTH) +1 %>;
-	
-		
+	var year = null;
+	var month = null;
+<%-- 	<%= cal.get(Calendar.YEAR)%> --%>
+<%-- 	<%= cal.get(Calendar.MONTH) +1 %>	 --%>
 	// =============================================== 날짜 포맷 함수 ===============================================
 	
 	
@@ -103,6 +103,8 @@ $(document).ready(function() {
 			month = String("0" + month);
 		}
 		location.href="/artboard/list?bo_table=calendar&cal_year="+year+"&cal_month="+month;
+		$('input[name=cal_year]').attr('value',year);
+		$('input[name=cal_month]').attr('value',month);
 	}
 	function moveNextMonth() {
 		month++;
@@ -114,10 +116,25 @@ $(document).ready(function() {
 			month = String("0" + month);
 		}
 		location.href="/artboard/list?bo_table=calendar&cal_year="+year+"&cal_month="+month;
+		$('input[name=cal_year]').attr('value',year);
+		$('input[name=cal_month]').attr('value',month);
+	}
+	//날짜 초기화
+	function initDate() {
+		dayCount = 0;
+		today = new Date();
+		year = today.getFullYear();
+		month = today.getMonth() + 1;
+		if (month < 10) {
+			month = "0" + month;
+		}
 	}
 	
 	
 $(document).ready(function(){
+	initDate();
+	console.log(year);
+	console.log(month);
 	$("#movePrevMonth").on("click", function() {
 		movePrevMonth();
 	});
@@ -204,8 +221,8 @@ $(document).ready(function(){
 <!-- 					</button> -->
 					</a>
 					&nbsp;&nbsp;
-					<input class="cal_header_year inputin" type="text" name="cal_year" id="cal_year" value="<%= cal.get(Calendar.YEAR)%>" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp;
-					<input class="cal_header_month inputin" type="text" name="cal_month" id="cal_month" value="<%= cal.get(Calendar.MONTH) + 1%>" maxlength="2" required="required"  data-hasqtip="24" oldtitle="월" title="">&nbsp;
+					<input class="cal_header_year inputin" type="text" name="cal_year" id="cal_year" value="" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp;
+					<input class="cal_header_month inputin" type="text" name="cal_month" id="cal_month" value="" maxlength="2" required="required"  data-hasqtip="24" oldtitle="월" title="">&nbsp;
 					<input class="btn inputbt" type="submit" value="이동" data-hasqtip="25" oldtitle="이동" title="">&nbsp;&nbsp;
 					<a href="#" id="moveNextMonth">
 					<span id="nextMonth" class="cal_tit">
