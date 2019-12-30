@@ -1,6 +1,8 @@
 package prboard.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Iterator;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,8 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import prboard.dto.PRBoard;
+import prboard.dto.PRType;
+import prboard.dto.UpFile;
 import prboard.service.face.PRBoardService;
 
 @Controller
@@ -21,4 +27,49 @@ public class PRWriteController {
 	@RequestMapping(value="/prboard/write", method=RequestMethod.GET)
 	public void writePR() {}
 	
+	@RequestMapping(value="/prboard/writeProc", method=RequestMethod.POST)
+	public String writePR(MultipartHttpServletRequest multi, PRBoard prBoard, PRType prType,HttpSession session) {
+		
+		String originName="";
+		int i = 1;
+		
+		logger.info("타이틀 ? : " + prBoard.getTitle());
+		logger.info("내용 ? : " + prBoard.getcontent());
+		logger.info("PR 유형 : " + prType.getPrname());
+		
+		//사용자 번호 구하기
+		logger.info("세션 : " + session.getAttribute("usernick"));
+		int userNo = prBoardService.getUserNoByUserNick((String)session.getAttribute("usernick"));
+		prBoard.setUserno(userNo);
+		
+		//1. 게시글 내용 삽입
+		prBoardService.writePR(prBoard);
+		logger.info("pr보드 테스트 : " + prBoard);
+		
+		//2. PR 유형 테이블 삽입
+		prType.setBoardno(prBoard.getBoardno());
+		logger.info("prType 테스트 : " + prType);
+		prBoardService.insertPRType(prType);
+		
+		//3. 파일 삽입
+		
+		Iterator<String> files = multi.getFileNames();
+		
+		while(files.hasNext()) {
+			String uploadFile = files.next();
+			MultipartFile mFile = multi.getFile(uploadFile);
+			originName = mFile.getOriginalFilename();
+			//빈파일 처리
+			if(originName == null || originName .equals("")) {
+				logger.info("빈파일 있음");
+			}
+			else {
+				prBoardService.fileSave(mFile, prBoard.getBoardno());
+				logger.info(i + ". 실제 파일 이름 : " + originName);
+				i++;
+			}
+		}
+		
+		return "redirect:/prboard/prlist";
+	}
 }

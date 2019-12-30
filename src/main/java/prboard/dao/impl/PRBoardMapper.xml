@@ -7,15 +7,40 @@
 <mapper namespace="prboard.dao.face.PRBoardDao">
 	
 	<insert id="insertPR"
-	 parameterType="hashmap">
+	 parameterType="prboard.dto.PRBoard">
+	 
+	 	<selectKey order="BEFORE" resultType="int" keyProperty="boardno">
+			SELECT board_seq.nextval FROM dual
+		</selectKey>
+		
 		INSERT INTO board 
-		VALUES(board_seq.nextval, #{title}, sysdate, #{content}, 0, 1, 2)
-	</insert>
-	
-	<insert id="insertFile"
-	 parameterType="hashmap">
-		INSERT INTO upfile 
-		VALUES(upfile_seq.nextval, #{originname}, #{storedname}, #{filesize}, 1)
+		VALUES(#{boardno}, #{title}, sysdate, #{content}, 0, #{userno}, 2)
 	</insert>
 
+	<!-- 유저번호 가져오기 -->
+	<select id="selectUserNoByUserNick"
+    	parameterType="String" resultType="int">
+	    SELECT userno FROM user_table
+	    WHERE 1=1
+	   	AND usernick = #{usernick}
+	 </select>
+	 
+	 <insert id="insertPRType"
+	 		parameterType="prboard.dto.PRType">
+	 	<selectKey order="BEFORE" resultType="int" keyProperty="prno">
+			SELECT prtype_seq.nextval FROM dual
+		</selectKey>
+		
+		INSERT INTO prtype 
+		VALUES(#{prno}, #{prname}, #{boardno})
+	</insert>
+	
+	<insert id="insertFile" parameterType="prboard.dto.UpFile">
+		<selectKey order="BEFORE" resultType="int" keyProperty="fileno">
+			SELECT upfile_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO upfile
+		VALUES ( #{fileno}, #{originname }, #{storedname }, #{filesize }, #{boardno} )
+	</insert>
+	
 </mapper>

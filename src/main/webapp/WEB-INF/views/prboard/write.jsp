@@ -132,7 +132,7 @@
 	<h3 id ="h3title">게시글 쓰기</h3>
 
 	<div>
-		<form action="/board/write" method="post" enctype="multipart/form-data">
+		<form action="/prboard/writeProc" method="post" enctype="multipart/form-data">
 			<table class="table table-bordered">
 				<tr>
 					<td class="info" id ="nicknameTitle">닉네임</td>
@@ -140,12 +140,12 @@
 				</tr>
 				<tr>
 					<td class="info" id="typeTitle">유형</td>
-					<td><select name="prType" id="prType"
+					<td><select name="prname" id="prname"
 						style="margin: 0 auto; padding: 3px;">
-							<option value="1">앨범 홍보</option>
-							<option value="2">공연 홍보</option>
-							<option value="3">전시회 홍보</option>
-							<option value="4">기타</option>
+							<option value="앨범 홍보">앨범 홍보</option>
+							<option value="공연 홍보">공연 홍보</option>
+							<option value="전시회 홍보">전시회 홍보</option>
+							<option value="기타">기타</option>
 					</select></td>
 				</tr>
 				<tr>
