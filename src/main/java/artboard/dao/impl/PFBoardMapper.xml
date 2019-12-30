@@ -104,5 +104,13 @@
 		SELECT
 		board_seq.nextval FROM dual
 	</select>
+	
+	
+	
+	<select id="selectUserByNo" parameterType="artboard.dto.Board"
+		resultType="artboard.dto.Board">
+		SELECT * FROM user_table
+		WHERE userno = #{userno}
+	</select>
 
 </mapper>

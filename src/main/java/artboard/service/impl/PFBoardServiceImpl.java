@@ -97,6 +97,12 @@ public class PFBoardServiceImpl implements PFBoardService{
 	    }
 	    return day ;
 	}
+
+
+	@Override
+	public Board getUserByNo(Board userno) {
+		return pfboardDao.selectUserByNo(userno);
+	}
 	
 	
 

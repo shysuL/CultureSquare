@@ -70,4 +70,19 @@ public interface PFBoardService {
 
 
 
+
+	/**
+	 * 이수현
+	 * 2019 - 12 - 30
+	 * 
+	 * 세션에 저장된(로그인한) 회원의 정보를 조회하여 예술인인지 구분(게시글 작성 제한)
+	 * 
+	 * 
+	 * @param userno - 세션에 저장된 회원 번호
+	 * @return Board(User_table) - 회원번호에 해당하는 회원정보
+	 */
+	public Board getUserByNo(Board userno);
+
+
+
 }
