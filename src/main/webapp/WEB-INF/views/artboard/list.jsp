@@ -100,10 +100,42 @@ $(document).ready(function(){
 	});
 	
 });	
-	
-	
-	
 </script>
+
+
+
+
+<style type="text/css">
+#views_img{
+    max-width: 4%;
+	float:right;
+	margin-right: 6px;
+}
+#views{
+	float: right;
+	margin-right: 6px;
+}
+#like_img{
+    max-width: 4%;
+    float: right;
+	margin-right: 6px;
+}
+#likes{
+    max-width: 4%;
+    float: right;
+	margin-right: 6px;
+}
+#reply_img{
+    max-width: 4%;
+    float: right;
+	margin-right: 6px;
+}
+#replies{
+    max-width: 4%;
+    float: right;
+	margin-right: 6px;
+}
+</style>
 
 <div class="container list-container">
 <div class="h2"><h2> CALLENDAR </h2></div>
@@ -145,8 +177,7 @@ $(document).ready(function(){
 	<c:choose>
 		<c:when test="${not login}">
 		<div>
-			<button id="notLoginWrite" class="btn btn-sm b-btn"
-				style="background-color: #343a40; color: white;">글작성</button>
+			<button id="notLoginWrite" class="btn bbc">글작성</button>
 		</div>
 		</c:when>
 		<%--  예술인일 때 작성 가능한 조건 추가 필요 --%>
@@ -154,16 +185,14 @@ $(document).ready(function(){
      <c:choose> 
 			<c:when test = "${LoginUser.usertype ne 1}">
 			<div>
-			<button id="notArtistWrite"
-					class="btn btn-sm b-btn"
-					style="background-color: #343a40; color: white;">글작성</button>
+			<button id="notArtistWrite" class="btn bbc">글작성</button>
 			</div>
 			</c:when>
 			<c:otherwise>
 			<div>
-			<a href="/artboard/write"><button id="LoginWrite"
-					class="btn btn-sm b-btn"
-					style="background-color: #343a40; color: white;">글작성</button></a>
+			<a href="/artboard/write">
+			<button id="LoginWrite"class="btn bbc">글작성</button>
+			</a>
 			</div>
 			</c:otherwise>
 		</c:choose>
@@ -229,6 +258,17 @@ $(document).ready(function(){
 				<span class="media-heading"><a href="/artboard/view?boardno=${i.boardno}">${i.title }</a></span>
 				<br><br>
 				<span id = "category_name">${i.performname}</span>
+				
+				<span id = "views">${i.views }</span>
+				<span id = "views_img"><img src="/resources/img/view.png" class="d-block w-100" alt="..."> </span>
+
+				<span id = "replies"> [미완] </span>
+				<span id = "reply_img"><img src="/resources/img/note.png" class="d-block w-100" alt="..."></span>
+
+				<span id = "likes"> [미완] </span>
+				<span id = "like_img"><img src="/resources/img/like.png" class="d-block w-100" alt="..."></span> 
+				
+				
 			</div>
 	  
 		</div>

@@ -24,9 +24,10 @@
 	</select>
 	
 	<select id="selectFreeDetail" parameterType="int" resultType="board.dto.FreeBoard">
-		SELECT fb.boardno, fb.title, fb.writtendate, fb.contents, fb.views, ut.usernick FROM board fb, user_table ut
+		SELECT fb.boardno, fb.title, fb.writtendate, fb.contents, fb.views, ut.usernick, up.originname FROM board fb, user_table ut, upfile up
 		WHERE fb.userno = ut.userno
-		AND boardno = #{boardno }
+		AND fb.boardno = up.boardno(+)
+		AND fb.boardno = #{boardno }
 	</select>
 	
 	<insert id="insertFreeBoard" parameterType="board.dto.FreeBoard">
@@ -69,5 +70,25 @@
 		UPDATE board SET title = #{title }, contents = #{contents }
 		WHERE boardno = #{boardno }
 	</update>
+	
+	<insert id="insertFile" parameterType="board.dto.UpFile">
+		
+		<selectKey order="BEFORE" resultType="int" keyProperty="fileno">
+		SELECT upfile_seq.nextval FROM dual
+		</selectKey>
+		
+		INSERT INTO upfile ( fileno, originname, storedname, filesize, boardno )
+		VALUES ( #{fileno }, #{originname }, #{storedname }, #{filesize }, #{boardno })
+	</insert>
+	
+	<select id="selectFile" parameterType="int" resultType="board.dto.UpFile">
+		SELECT * FROM upfile
+		WHERE boardno = #{boardno }
+	</select>
+	
+	<select id="selectFileNo" parameterType="int" resultType="board.dto.UpFile">
+		SELECT * FROM upfile
+		WHERE fileno = #{fileno }
+	</select>
 	
 </mapper>

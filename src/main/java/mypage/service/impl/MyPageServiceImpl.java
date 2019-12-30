@@ -52,7 +52,8 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		int cnt = 0;
 		cnt = mypageDao.selectCntByUserPw(pwParam);
-		
+		System.out.println("cnt : " + cnt);
+		System.out.println(pwParam);
 		if(cnt == 1) {
 			return true;
 		}
@@ -62,9 +63,24 @@ public class MyPageServiceImpl implements MyPageService{
 
 	@Override
 	public void modifyUserPassword(User_table pwParam) {
+		System.out.println("서비스 임플에서 pwParam(변경비밀번호가 나와야함 : " + pwParam );
+		
 		mypageDao.updatePassword(pwParam);
 		
 		
 	}
 
+	@Override
+	public boolean comparedPw(User_table user) {
+		
+		int cnt = 0;
+		cnt = mypageDao.selectCntByUserPw(user);
+		System.out.println("cnt : " + cnt);
+		System.out.println(user);
+		if(cnt == 1) {
+			return true;
+		}
+		
+		return false;
+	}
 }

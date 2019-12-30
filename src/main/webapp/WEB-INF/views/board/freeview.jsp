@@ -49,15 +49,13 @@ $(document).ready(function() {
 <!-- 			<td class="info">조회수</td> -->
 			<td colspan="1" style="width: 15%"><i class="fas fa-eye" style="padding-right: 5px; width: 3.125em;"></i>${board.views }</td>
 		</tr>
-	
-		<tr>
-<%-- 			<td class="info">작성일</td><td colspan="3">${board.writtendate }</td> --%>
-		</tr>
-	
 <!-- 		<tr><td class="info"  colspan="4">본문</td></tr> -->
 	
 		<tr><td colspan="4">${board.contents }</td></tr>
 
+		<tr>
+			<td class="info" colspan="1">첨부파일</td><td colspan="3"><a href="/board/download?fileno=${file.fileno }">${file.originname }</a></td>
+		</tr>
 </table>
 	<div class="text-center" >
 		<button id="btnList" class="btn btn-default" style="float: left; background-color: #343a40; color: white;">목록</button>
