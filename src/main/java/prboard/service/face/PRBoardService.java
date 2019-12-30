@@ -1,13 +1,12 @@
 package prboard.service.face;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import prboard.dto.PRBoard;
 import prboard.dto.PRType;
+import util.PRPaging;
 
 public interface PRBoardService {
 	
@@ -52,5 +51,58 @@ public interface PRBoardService {
 	 * @param boardNo - 게시판 번호
 	 */
 	public void fileSave(MultipartFile mFile, int boardNo);
+	
+	/**
+	 * 2019-12-30
+	 * 조홍철
+	 * 
+	 * prwritedate를 현재 시간으로 업데이트
+	 * 
+	 * @param userNo - 유저 번호
+	 */
+	public void updatePrWriteDate(int userNo);
+	
+	/**
+	 * 2019-12-30
+	 * 조홍철
+	 * 
+	 * prwritedate를 유저번호로 가져오기
+	 * 
+	 * @param userNo - 유저 번호
+	 * @return String - prwritedate
+	 */
+	public String getWriteDate(int userNo);
+	
+	/**
+	 * 2019-12-30
+	 * 조홍철
+	 * 
+	 * 글 작성시간과 현재시간 차이를 구한다
+	 * 
+	 * @param writeDate - 사용자가 최근에 작성한 시간
+	 * @return int - 현재 시간과의 차이
+	 */
+	public int getTimePass(String writeDate);
 
+	/**
+	 * 2019-12-30
+	 * 조홍철
+	 * 
+	 * PR 게시글 전체 갯수를 구한다.
+	 * 
+	 * @return - PR 전체 개시글 갯수
+	 */
+	public int getCntAll();
+	
+	/**
+	 * 2019-12-30
+	 * 조홍철 
+	 * 
+	 * PR 게시판 리스트를 가져온다.
+	 * 
+	 * @param paging - 페이징 객체
+	 * @return List - PR 게시글 리스트
+	 */
+	public List getList(PRPaging paging);
+	
 }

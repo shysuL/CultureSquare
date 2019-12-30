@@ -5,6 +5,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="prboard.dao.face.PRBoardDao">
+
+
+	<resultMap type="prboard.dto.PRBoard" id="PRBoard">
+		<result column="contents" property="content"/>
+	</resultMap>
 	
 	<insert id="insertPR"
 	 parameterType="prboard.dto.PRBoard">
@@ -42,5 +47,42 @@
 		INSERT INTO upfile
 		VALUES ( #{fileno}, #{originname }, #{storedname }, #{filesize }, #{boardno} )
 	</insert>
+	
+	<update id="updateWritePrDate"
+		 parameterType="int">
+		UPDATE user_table SET prwritedate = TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS')
+		WHERE 1=1
+			AND userno = #{userNo}
+	</update>
+	
+	<select id="selectWriteDate" resultType="String" parameterType="int">
+		SELECT prwritedate FROM user_table
+		WHERE userno = #{userNo}
+	</select>
+	
+	<select id="selectTimePass" resultType="int" parameterType="String">
+		SELECT (TRUNC(SYSDATE, 'MI')-TO_DATE(#{value},'YYYY.MM.DD HH24:MI:SS')) * 1440 as time FROM DUAL
+	</select>
+	
+	<select id="selectCntAll" resultType="int">
+		SELECT count(*) from board
+		WHERE postno = 2
+	</select>
+	
+	<select id="selectAll" resultMap="PRBoard" parameterType="util.PRPaging">
+		SELECT * FROM (
+		   SELECT rownum rnum, B.* FROM (
+		       SELECT
+		            BO.boardno, BO.title, BO.writtendate, BO.contents,
+		           BO.views, BO.userno, BO.postno, P.prname
+		       FROM board BO, prtype P
+               WHERE BO.boardno = P.boardno
+               AND BO.postno = 2
+              ORDER BY boardno DESC
+		    ) B
+		    ORDER BY rnum
+		 ) BOARD
+		 WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
 	
 </mapper>

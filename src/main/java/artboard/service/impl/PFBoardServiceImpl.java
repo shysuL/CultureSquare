@@ -22,8 +22,8 @@ public class PFBoardServiceImpl implements PFBoardService{
 	
 	@Override
 	public List<Board> getList(String searchMonth) {
-	
-		List<Board> list = pfboardDao.selectAll2(searchMonth);
+		
+		List<Board> list = pfboardDao.selectAll3(searchMonth);
 		for (int i = 0; i < list.size(); i++) {
 			Board board = list.get(i);
 			board.setPerformday(getDateDay(board.getPerformdate(),"yyyyMMdd"));
@@ -31,26 +31,12 @@ public class PFBoardServiceImpl implements PFBoardService{
 		return list;
 	}
 	
-	@Override
-	public List<Board> getList(Paging paging) {
-		List<Board> list = pfboardDao.selectAll(paging);
-		for (int i = 0; i < list.size(); i++) {
-			Board board = list.get(i);
-			board.setPerformday(getDateDay(board.getPerformdate(),"yyyyMMdd"));
-		}
-		return list;
-	}
-
-	@Override
-	public Paging getPaging(Paging paging) {
-		
-		int totalCount = pfboardDao.selectCntAll();
-		
-		return new Paging(totalCount, paging.getCurPage() );
-	}
 
 	@Override
 	public Board view(Board bno) {
+		//게시글 조회수 +1
+		pfboardDao.updateViews(bno);
+		
 		return pfboardDao.view(bno);
 	}
 
@@ -113,6 +99,12 @@ public class PFBoardServiceImpl implements PFBoardService{
 	             
 	    }
 	    return day ;
+	}
+
+
+	@Override
+	public Board getUserByNo(Board userno) {
+		return pfboardDao.selectUserByNo(userno);
 	}
 	
 	

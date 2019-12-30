@@ -47,7 +47,7 @@ public class ArtboardListController {
 	@Autowired PFBoardService pfboardService;
 	
 	@RequestMapping(value = "/artboard/list", method = RequestMethod.GET)
-	public void pfList(Model model, Paging paging, HttpSession session, String cal_year, String cal_month) {
+	public void pfList(Model model, Paging paging, HttpSession session, String cal_year, String cal_month , Board userno) {
 		
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
@@ -74,33 +74,36 @@ public class ArtboardListController {
 		//구글
 		model.addAttribute("google_url", googleUrl);
 		
-		paging = pfboardService.getPaging(paging);
 		
-		model.addAttribute("paging",paging);
-		
-//		logger.info(paging.toString()); 
-		
+		// 년도 + 월로 게시글리스트 조회
 		String searchMonth = cal_year+cal_month;
-		logger.info("searchMonth : " + searchMonth);
+		
+//		logger.info("searchMonth : " + searchMonth);
+		
 		List<Board> list = pfboardService.getList(searchMonth);
 		
-//		List<Board> list = pfboardService.getList(paging);
-		    		
 		model.addAttribute("list", list);
 		
-//		System.out.println(list.toString());
+//		logger.info(list.toString());
+				
+		// 모델값으로 cal_year, cal_month를 전달
+		model.addAttribute("nowYear",cal_year);
+		model.addAttribute("nowMonth",cal_month);
 		
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy");
-		SimpleDateFormat format2 = new SimpleDateFormat ( "MM");
-				
-		Date time = new Date();
-				
-		String nowYear = format1.format(time);
-		String nowMonth = format2.format(time);
-				
-		model.addAttribute("nowYear",nowYear);
-		model.addAttribute("nowMonth",nowMonth);
-//		return "artboard/list?bo_table=calendar&cal_year="+time1+"&cal_month="+time2;
+		if(session.getAttribute("userno") != null) {
+			// 세션에 저장된 userno를 모델로 전달
+			userno.setUserno((Integer)session.getAttribute("userno"));
+		}
+		
+		// 세션에 저장된 회원이 예술인인지 조회할 회원정보 조회 
+		Board LoginUser = new Board();
+		LoginUser = pfboardService.getUserByNo(userno);
+		
+//		logger.info("LoginUser : " + LoginUser.toString());
+		
+		// 조회된 회원정보를 모델로 전달
+		model.addAttribute("LoginUser",LoginUser);
+		
 	}
 	
 	
