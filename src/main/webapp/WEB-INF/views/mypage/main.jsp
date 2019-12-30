@@ -31,15 +31,33 @@ $(document).ready(function() {
 	
 	$("#updateUserPw").click(function(){
 		$("#updateUserPwModal").modal({backdrop: 'static', keyboard: false});
-	
+	})
 	
 		$("#updatePw").click(function(){
 		var userpw = $('#userpw').val();
 		var changepw = $('#changepw').val();
 		var changepw2 = $('#changepw2').val();
+		console.log("1")
 		console.log(userpw)
+		console.log("2")
 		console.log(changepw)
+		console.log("3")
 		console.log(changepw2)
+		
+		$.ajax({
+			type: "post",
+			url: "/mypage/curpwCheck",
+			data: {"userpw" : userpw},
+			datatype: "json",
+			success: function(res){
+				
+				if(!res.lock){
+					warningModal('현재 비밀번호를 다시 입력해주세요.')
+					$("#userpw").focus();
+					return false;
+				}
+			}
+		})
 		
 		//현재 비밀번호 입력
 		if(userpw == ""){
@@ -49,11 +67,11 @@ $(document).ready(function() {
 		}
 		
 		//현재 비밀번호 오류
-		if(userpw == "${userpw}"){
-			warningModal('현재 비밀번호를 다시 입력해주세요.')
-			$("#userpw").focus();
-			return false;
-		}
+// 		if(userpw != "${userpw }"){
+// 			warningModal('현재 비밀번호를 다시 입력해주세요.')
+// 			$("#userpw").focus();
+// 			return false;
+// 		}
 		
 		//변경할 비밀번호
 		if(changepw == ""){
@@ -80,8 +98,6 @@ $(document).ready(function() {
 	    	return false;
 		}
 		
-//			$("#updateForm").submit();
-			
 			$.ajax({
 				type: "post",
 				url: "/mypage/main",
@@ -89,13 +105,12 @@ $(document).ready(function() {
 				datatype: "json",
 				success: function(res){
 					
-					console.log("1234?")
 					console.log(res.userInfo)
 					
 				}
 			})
+
 		})
-	})
 	
 });
 </script>

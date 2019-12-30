@@ -34,5 +34,11 @@
 		SET userpw = #{userpw }
 		WHERE userid = #{userid }
 	</update>
+	
+	<select id="selectComparedPw" parameterType="user.dto.User_table" resultType="int">
+		SELECT count(*)
+		FROM User_table
+		WHERE userno = #{userno } AND userpw = #{userpw }
+	</select>
 
 </mapper>

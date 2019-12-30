@@ -70,4 +70,17 @@ public class MyPageServiceImpl implements MyPageService{
 		
 	}
 
+	@Override
+	public boolean comparedPw(User_table user) {
+		
+		int cnt = 0;
+		cnt = mypageDao.selectCntByUserPw(user);
+		System.out.println("cnt : " + cnt);
+		System.out.println(user);
+		if(cnt == 1) {
+			return true;
+		}
+		
+		return false;
+	}
 }
