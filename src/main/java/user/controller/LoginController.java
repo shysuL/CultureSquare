@@ -25,6 +25,7 @@ import user.service.face.GoogleService;
 import user.service.face.KakaoService;
 import user.service.face.NaverService;
 import user.service.face.UserService;
+import util.PwSha256;
 
 @Controller
 public class LoginController {
@@ -228,31 +229,47 @@ public class LoginController {
 		
 		// userLogin.jsp에서 아이디기억하기 name값 ( remember ) 가져오기
 //		String userCheck = req.getParameter("UserIdSave");
+		
+			// 로그인시 입력한 비밀번호를 SHA256으로 암호화
+			String encPw = user.getUserpw();
+			user.setUserpw(PwSha256.userPwEncSHA256(encPw));
+			
 			boolean isLogin = userService.loginProc(user); // true 로그인
+			
 			
 			//세션 정보 불러오기
 			User_table userSession = userService.getUserSession(user);
 			
+			System.out.println(userSession.getEmailcheck());
+			
 			// 결과에 따른 세션관리
 			if(isLogin) {
-				 if(userSession.getEmailcheck()=="Y") {
+				System.out.println("이프문");
+				 
+				System.out.println("isLoging : " + isLogin);
+				System.out.println("if안 if emailcheck: " + userSession.getEmailcheck());
+				if(userSession.getEmailcheck().equals("Y")) {
 					
+					logger.info("이프 안 이메일 체크 : " + userSession.getEmailcheck());
 					//세션에 정보 저장하기
-						logger.info(user.toString());
-						session.setAttribute("login", true);
-						session.setAttribute("userid", user.getUserid());
-						session.setAttribute("usernick", userSession.getUsernick());
-						session.setAttribute("username", userSession.getUsername());
-						session.setAttribute("interest", userSession.getInterest());
-						session.setAttribute("userno", userSession.getUserno());		
-					 
+					logger.info("1번 : " + user.toString());
+					session.setAttribute("login", true);
+					session.setAttribute("userid", user.getUserid());
+					session.setAttribute("usernick", userSession.getUsernick());
+					session.setAttribute("username", userSession.getUsername());
+					session.setAttribute("interest", userSession.getInterest());
+					session.setAttribute("userno", userSession.getUserno());		
+					
+					return "redirect:/main/main";
+					
 				 } else {
-					 
+					 logger.info("if안 엘스" + userSession.getEmailcheck());
 					 return "/user/emailCheckError";
 					 
 				 } 			
 			}
-			return "redirect:/main/main";
-		
+			//로그인 안했을때 처리
+			else
+				return "redirect:/main/main";
 	}
 }
