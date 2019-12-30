@@ -60,6 +60,7 @@
 	   	WHERE 1=1
 	   		AND userid = #{userid}
 	   		AND userpw = #{userpw}
+	   		AND sociallogin = 0
 	   </select>
 	   
 	   <!-- 세선정보(usernick, username, interest, userno) -->

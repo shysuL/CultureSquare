@@ -29,7 +29,7 @@ public class ArtboardWriteController {
 //		logger.info(session.getAttribute("userno").toString());
 		
 		// 세션에 저장된 userno를 모델로 전달
-		board.setUserno((int)session.getAttribute("userno"));
+		board.setUserno((Integer)session.getAttribute("userno"));
 		model.addAttribute("userno",board);
 		
 		

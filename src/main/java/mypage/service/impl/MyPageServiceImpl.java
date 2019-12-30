@@ -24,4 +24,10 @@ public class MyPageServiceImpl implements MyPageService{
 		
 	}
 
+	@Override
+	public User_table getFindUserPw(User_table user) {
+		
+		return mypageDao.selectByUserid(user);
+	}
+
 }

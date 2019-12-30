@@ -26,6 +26,15 @@
 
 	<dependencies>
 		
+		<!-- 비밀번호 암호화  -->
+		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+		<dependency>
+    		<groupId>commons-codec</groupId>
+    		<artifactId>commons-codec</artifactId>
+    		<version>1.13</version>
+		</dependency>
+		
+		
 		<!-- 이메일 인증 -->
 		<dependency>
 			<groupId>javax.mail</groupId>

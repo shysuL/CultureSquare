@@ -40,6 +40,7 @@
 		//체크박스 눌렀을때 기존 닉네임 사용, 해제시  사라짐
 		$("#usesocialnick").change(function(){
 			if($("#usesocialnick").is(":checked")){
+				$('input[name=usernick]').attr('value','');
 				$('input[name=usernick]').attr('value','${socialnick }');
 			}else{
 			   $('input[name=usernick]').attr('value','');
