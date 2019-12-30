@@ -48,9 +48,8 @@ $(document).ready(function() {
 
 #prIntroduceTitle{
 	width: 340px;
-    padding-top: 100px;
+    padding-top: 120px;
     padding-bottom: 50px;
-}
 }
 
 #prRankTitle{
@@ -110,7 +109,6 @@ $(document).ready(function() {
 					<button id="LoginWrite" class="btn btn-md b-btn" style="float: right; background-color: #494b4d; color: white;">글작성</button>
 			</c:when>
 		</c:choose>
-		
 </span>
 </div>
  <div class="row">
@@ -119,10 +117,11 @@ $(document).ready(function() {
       <div class="card h-100">
         <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
         <div class="card-body">
+        	 <p class="card-text">${prboard.prname }</p>
           <h4 class="card-title">
             <a href="#">${prboard.title }</a>
           </h4>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          <p class="card-text">${prboard.usernick}</p>
         </div>
       </div>
     </div>

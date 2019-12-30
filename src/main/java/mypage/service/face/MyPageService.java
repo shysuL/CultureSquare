@@ -28,4 +28,6 @@ public interface MyPageService{
 
 	public void modifyUserPassword(User_table pwParam);
 
+	public boolean comparedPw(User_table user);
+
 }

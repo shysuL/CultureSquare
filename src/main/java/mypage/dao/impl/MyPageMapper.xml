@@ -14,7 +14,7 @@
 	
 	<update id="updateUserNick" parameterType="user.dto.User_table">
 		UPDATE User_table 
-		SET usernick = #{usernick } AND userphone = #{userphone }AND interest = #{interest } 
+		SET usernick = #{usernick }, userphone = #{userphone }, interest = #{interest } 
 		WHERE userno = #{userno }
 	</update>
 	
@@ -34,5 +34,11 @@
 		SET userpw = #{userpw }
 		WHERE userid = #{userid }
 	</update>
+	
+	<select id="selectComparedPw" parameterType="user.dto.User_table" resultType="int">
+		SELECT count(*)
+		FROM User_table
+		WHERE userno = #{userno } AND userpw = #{userpw }
+	</select>
 
 </mapper>

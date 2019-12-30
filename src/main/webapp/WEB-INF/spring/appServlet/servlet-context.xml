@@ -16,6 +16,9 @@ http://www.springframework.org/schema/task/spring-task.xsd">
 	<!--  어노테이션으로 스프링 빈을 등록하는 걸 허용하는 태그 -->
 	<annotation-driven />
 	
+	<!-- DownloadView클래스를 down이라는 이름의 스프링 빈으로 등록하기 -->
+	<beans:bean id="down" class="board.view.DownloadView" />
+	
 	<!-- 인터셉터 설정 --> <!--  인터셉터 사용시  -->
 <!-- 	<interceptors> -->
 <!-- 		<interceptor> -->
