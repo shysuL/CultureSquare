@@ -88,13 +88,17 @@ $(document).ready(function(){
 	  <label for="adminpw">PASSWORD</label>
 	  <input type="password" class="form-control" id="adminpw" name="adminpw" placeholder="Admin PassWord">
 	</div>
+	
 	<br>
+	
 	<button type="submit" class="btn btn-secondary" id="adminloginbtn">LOGIN</button>
 	<br><br>
+	
 	<div style="text-align: center;">
 		<small>이곳은 "Culture Square"의 관리자 사이트입니다.<br>
 		관리자를 제외한 다른 사용자는 접속할 수 없습니다.</small><br>
 	</div>
+	
 </div>
 
 <!-- 로그인 실패시 모달창 -->
