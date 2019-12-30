@@ -26,7 +26,7 @@ public class MyInfoModifyController {
 	@RequestMapping(value="/mypage/updateform", method=RequestMethod.GET)
 	public void updateform(User_table user, Model model) {
 		
-		user.setUserno((int) session.getAttribute("userno"));
+		user.setUserno((Integer) session.getAttribute("userno"));
 		
 		User_table getUser = mypageService.getUserInfo(user);
 		
