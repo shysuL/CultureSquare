@@ -132,6 +132,7 @@ h5 {
 				<input id="logout" class="btn btn-danger" onclick="location.href='/logout'" value="로그아웃">
 	       </div>
 	    </c:if>
+	    
 	    <!-- 로그아웃 상태 -->
 	    <c:if test="${not login}">
 	       <div class="dropdown-menu ">

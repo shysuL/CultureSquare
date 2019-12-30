@@ -8,10 +8,27 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	//로그인 했을 경우 글쓰기 버튼 누르면 이동
+	//로그인 했을 경우 글쓰기 버튼 누르면 하루 쓴 게시글 검사
 	$("#LoginWrite").click(function() {
-		location.href="/prboard/write";
-		return false;
+		
+		$.ajax({
+			type:"post",
+			url:"/prboard/checkWriteDate",
+			datatype: "json",
+			success : function(res){
+				console.log(res.time)
+				//1분 지났거나 안썼을 경우
+				if(res.time){
+					//글 쓰기 폼으로 이동
+					location.href="/prboard/write";
+					return false;
+				} else {
+					$(".content").text('하루에 1개의 게시글 작성이 가능합니다.');
+					$("#prcntOverModal").modal({backdrop: 'static', keyboard: false});
+					return false;
+				}
+			}
+		})
 	});
 	
 	//로그인 안했을 경우 글쓰기 버튼 누르면 모달
@@ -20,14 +37,6 @@ $(document).ready(function() {
 		$("#prNotLoginModal").modal({backdrop: 'static', keyboard: false});
 		return false;
 	});
-	
-	//하루 작성 게시글 초과한 상태에서 글쓰기 버튼 누르면 모달
-	$("#prCntOver").click(function() {
-		$(".content").text('하루에 1개의 게시글만 작성 가능합니다!');
-		$("#prcntOverModal").modal({backdrop: 'static', keyboard: false});
-		return false;
-	});
-	
 });
 </script>
 
@@ -39,7 +48,7 @@ $(document).ready(function() {
 
 #prIntroduceTitle{
 	width: 340px;
-    padding-top: 400px;
+    padding-top: 100px;
     padding-bottom: 50px;
 }
 }
@@ -98,131 +107,30 @@ $(document).ready(function() {
 				<button id="notLoginWrite" class="btn btn-md b-btn" style="float: right; background-color: #494b4d; color: white;">글작성</button>
 			</c:when>
 			<c:when test="${login}">
-<%-- 				<c:if test="${prCntCheck eq 0}"> --%>
 					<button id="LoginWrite" class="btn btn-md b-btn" style="float: right; background-color: #494b4d; color: white;">글작성</button>
-<%-- 				</c:if> --%>
-<%-- 				<c:if test="${prCntCheck eq 1}"> --%>
-<!-- 					<button id="prCntOver" class="btn btn-md b-btn" style="float: right; background-color: #494b4d; color: white;">글초과</button> -->
-<%-- 				</c:if> --%>
 			</c:when>
 		</c:choose>
 		
 </span>
 </div>
-  <div class="row">
-    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+ <div class="row">
+<c:forEach items="${list }" var="prboard">
+	<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
       <div class="card h-100">
         <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
         <div class="card-body">
           <h4 class="card-title">
-            <a href="#">Project One</a>
+            <a href="#">${prboard.title }</a>
           </h4>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
+          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
         </div>
       </div>
     </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-      <div class="card h-100">
-        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-        <div class="card-body">
-          <h4 class="card-title">
-            <a href="#">Project Two</a>
-          </h4>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-      <div class="card h-100">
-        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-        <div class="card-body">
-          <h4 class="card-title">
-            <a href="#">Project Three</a>
-          </h4>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis mollitia recusandae vero vel quam!</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-      <div class="card h-100">
-        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-        <div class="card-body">
-          <h4 class="card-title">
-            <a href="#">Project Four</a>
-          </h4>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-      <div class="card h-100">
-        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-        <div class="card-body">
-          <h4 class="card-title">
-            <a href="#">Project Five</a>
-          </h4>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-      <div class="card h-100">
-        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-        <div class="card-body">
-          <h4 class="card-title">
-            <a href="#">Project Six</a>
-          </h4>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum nostrum suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in voluptates, nemo repellat fugiat excepturi! Nemo, esse.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-      <div class="card h-100">
-        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-        <div class="card-body">
-          <h4 class="card-title">
-            <a href="#">Project Seven</a>
-          </h4>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-      <div class="card h-100">
-        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-        <div class="card-body">
-          <h4 class="card-title">
-            <a href="#">Project Eight</a>
-          </h4>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius adipisci dicta dignissimos neque animi ea, veritatis, provident hic consequatur ut esse! Commodi ea consequatur accusantium, beatae qui deserunt tenetur ipsa.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- /.row -->
-  <!-- Pagination -->
+</c:forEach>
+ </div> <!-- row -->
+
   <ul class="pagination justify-content-center">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-            <span class="sr-only">Previous</span>
-          </a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">1</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">2</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">3</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-            <span class="sr-only">Next</span>
-          </a>
-    </li>
+  <jsp:include page="/WEB-INF/views/layout/prpaging.jsp" />
   </ul>
 
 <!-- 로그인 실패시 모달창 -->

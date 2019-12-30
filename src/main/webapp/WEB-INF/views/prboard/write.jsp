@@ -28,16 +28,11 @@
 	var g_count =1;
 	$(document).ready(function() {
 		
-		$(".content").text('로그인 후 게시글 작성이 가능합니다.');
-		$("#prNotLoginModal").modal({backdrop: 'static', keyboard: false});
-		return false;
-
 		//작성버튼 동작
 		$("#btnWrite").click(function() {
 
 			// 스마트에디터의 내용을 <textarea>에 적용
 			submitContents($("#btnWrite"));
-
 			
 			// form submit
 			$("form").submit();
@@ -47,7 +42,31 @@
 		$("#btnCancel").click(function() {
 			history.go(-1);
 		});
+		
+		$("a[name='delete']").on("click",function(e){
+			e.preventDefault();
+			fn_fileDelete($(this));
+		})
+		$("#add").on("click",function(e){
+			e.preventDefault();
+			fn_fileAdd();
+		})
+		
 	});
+	
+	function fn_fileDelete(obj){
+		obj.parent().remove();
+	}
+	function fn_fileAdd(){
+		var str = "<p><input type='file' name='file_"+(g_count++)+"'/><button type='button' id='delete' name = 'delete'class='btn btn-danger'>삭제하기</button></p> ";
+		$("#fileDiv").append(str);
+		
+		$("button[name='delete']").on("click",function(e){
+			e.preventDefault();
+			fn_fileDelete($(this));			
+		})
+	}
+	
 </script>
 
 <style type="text/css">
@@ -113,20 +132,20 @@
 	<h3 id ="h3title">게시글 쓰기</h3>
 
 	<div>
-		<form action="/board/write" method="post">
+		<form action="/prboard/writeProc" method="post" enctype="multipart/form-data">
 			<table class="table table-bordered">
 				<tr>
 					<td class="info" id ="nicknameTitle">닉네임</td>
-					<td id="nicknameShow">${nickname}</td>
+					<td id="nicknameShow">${usernick}</td>
 				</tr>
 				<tr>
 					<td class="info" id="typeTitle">유형</td>
-					<td><select name="prType" id="prType"
+					<td><select name="prname" id="prname"
 						style="margin: 0 auto; padding: 3px;">
-							<option>앨범 홍보</option>
-							<option>공연 홍보</option>
-							<option>전시회 홍보</option>
-							<option>기타</option>
+							<option value="앨범 홍보">앨범 홍보</option>
+							<option value="공연 홍보">공연 홍보</option>
+							<option value="전시회 홍보">전시회 홍보</option>
+							<option value="기타">기타</option>
 					</select></td>
 				</tr>
 				<tr>
@@ -147,16 +166,14 @@
 				<button type="button" id="delete" name = "delete"class="btn btn-danger">삭제하기</button>
 			</p> 
 		</div>
-
-<div class="text-center">
+		</form>
+	</div>	
+	
+	<div class="text-center">
 		<button type="button" id="add" class="btn btn-info">파일 추가하기</button>
 		<button type="button" id="btnWrite" class="btn btn-info">작성</button>
 		<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
 	</div>
-
-
-		</form>
-	</div>	
 </div>
 <!-- 컨테이너 -->
 

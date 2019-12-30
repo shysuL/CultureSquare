@@ -2,6 +2,7 @@ package mypage.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import mypage.dao.face.MyPageDao;
 import mypage.service.face.MyPageService;
@@ -27,7 +28,43 @@ public class MyPageServiceImpl implements MyPageService{
 	@Override
 	public User_table getFindUserPw(User_table user) {
 		
-		return mypageDao.selectByUserid(user);
+		return mypageDao.selectByUserPw(user);
+	}
+
+	@Override
+	public User_table getCurrentPwParam(Model model) {
+		
+		User_table user = new User_table();
+		
+		String param = null;
+		
+		param = (String) model.getAttribute("userpw");
+		
+		System.out.println("서비스임플 getCurrentPwParam : " + param);
+		
+		user.setUserpw(param);
+		
+		return user;
+	}
+
+	@Override
+	public boolean equalsPw(User_table pwParam) {
+		
+		int cnt = 0;
+		cnt = mypageDao.selectCntByUserPw(pwParam);
+		
+		if(cnt == 1) {
+			return true;
+		}
+		
+		return false;
+	}
+
+	@Override
+	public void modifyUserPassword(User_table pwParam) {
+		mypageDao.updatePassword(pwParam);
+		
+		
 	}
 
 }
