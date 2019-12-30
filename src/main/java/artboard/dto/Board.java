@@ -34,7 +34,7 @@ public class Board {
 	private String interest;
 	private int usertype;
 	private int permit;
-	private int emailcheck;
+	private String emailcheck;
 	private String originname;
 	private String storedname;
 	private int follow;
@@ -259,7 +259,14 @@ public class Board {
 
 
 
-	public int getEmailcheck() {
+
+
+
+
+
+
+
+	public String getEmailcheck() {
 		return emailcheck;
 	}
 
@@ -268,7 +275,7 @@ public class Board {
 
 
 
-	public void setEmailcheck(int emailcheck) {
+	public void setEmailcheck(String emailcheck) {
 		this.emailcheck = emailcheck;
 	}
 
