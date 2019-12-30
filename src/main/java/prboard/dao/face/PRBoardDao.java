@@ -1,8 +1,11 @@
 package prboard.dao.face;
 
+import java.util.List;
+
 import prboard.dto.PRBoard;
 import prboard.dto.PRType;
 import prboard.dto.UpFile;
+import util.PRPaging;
 
 public interface PRBoardDao {
 	
@@ -78,4 +81,25 @@ public interface PRBoardDao {
 	 * @return int - 현재 시간과의 차이
 	 */
 	public int selectTimePass(String writeDate);
+	
+	/**
+	 * 2019-12-30
+	 * 조홍철
+	 * 
+	 * PR 게시글 리스트를 구한다.
+	 * 
+	 * @param paging - 페이징 객체
+	 * @return List - PR 게시글 리스트
+	 */
+	public List selectAll(PRPaging paging);
+	
+	/**
+	 * 2019-12-30
+	 * 조홍철
+	 * 
+	 * PR 게시글 갯수를 구한다
+	 * 
+	 * @return int - PR 게시글 갯수
+	 */
+	public int selectCntAll();
 }

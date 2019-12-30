@@ -1,5 +1,7 @@
 package prboard.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,9 +16,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import artboard.dto.Board;
 import prboard.service.face.PRBoardService;
 import user.bo.NaverLoginBO;
 import user.service.face.KakaoService;
+import util.PRPaging;
 import util.Paging;
 
 @Controller
@@ -42,7 +46,7 @@ public class PRListController {
 	private OAuth2Parameters googleOAuth2Parameters;
 	
 	@RequestMapping(value="/prboard/prlist", method=RequestMethod.GET)
-	public void prList(Model model, Paging paging, HttpSession session) {
+	public void prList(Model model, PRPaging paging, HttpSession session) {
 		logger.info("pr리스트 출력");
 		
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
@@ -70,6 +74,19 @@ public class PRListController {
 		//구글
 		model.addAttribute("google_url", googleUrl);
 		
+		int totalCount = prBoardService.getCntAll();
+		
+		logger.info("토탈 갯수 : " + totalCount);
+		
+		PRPaging paging2 = new PRPaging(totalCount, paging.getCurPage());
+		
+		logger.info("paging2 : " + paging2.toString());
+		
+		model.addAttribute("paging", paging2);
+		List list = prBoardService.getList(paging2);
+		model.addAttribute("list",list);
+		
+		logger.info("보드 리스트 겟 테스트 : " + list);
 	
 	}
 }
