@@ -40,25 +40,25 @@
 <%-- 			관심분야 : <input type="text" id="interest" name = "interest" value="${getUser.interest }"/><br> --%>
 			<div class="form-group">
            		관심분야
-           		<c:forEach items="${checkList}" >
+           		<c:forEach items="${checkList}" var="check">
+	           			<c:if test="${check == '버스킹'}">
 	           		<div class="custom-control custom-check">
-	           			<c:if test="${checkList } = 버스킹">
 		                	<input type="checkbox" class="custom-control-input" id="busking" name="interest" value="버스킹" checked="checked">
-		                </c:if>
 		                <label class="custom-control-label" for="busking">버스킹</label>
 		            </div>
-		            <div class="custom-control custom-check">
-           				<c:if test="${checkList } = 공연/예술">
-							<input type="checkbox" class="custom-control-input" id="perform" name="interest" value="공연/예술">
 		                </c:if>
+        				<c:if test="${check == '공연/예술'}">
+		            <div class="custom-control custom-check">
+							<input type="checkbox" class="custom-control-input" id="perform" name="interest" value="공연/예술" checked="checked">
 		                <label class="custom-control-label" for="perform">공연/예술</label>
 		            </div>
+	                </c:if>
+           				<c:if test="${check == '기타'}">
 		            <div class="custom-control custom-check">
-           				<c:if test="${checkList } = 기타">
 		                <input type="checkbox" class="custom-control-input" id="etc" name="interest" value="기타">
-		                </c:if>
 		                <label class="custom-control-label" for="etc">기타</label>
 		            </div>   
+		                </c:if>
 				</c:forEach>       		
 			</div>
            
