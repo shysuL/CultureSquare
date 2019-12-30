@@ -8,7 +8,19 @@ import util.Paging;
 public interface PFBoardDao {
 
 	
+	
+	/**
+	 * 이수현
+	 * 2019 - 12 - 30
+	 * 
+	 * 연+월에 해당하는 게시글 리스트 조회
+	 * 
+	 * 
+	 * @param searchMonth - 연 + 월 
+	 * @return List<Board> - 게시글 리스트
+	 */
 	public List<Board> selectAll3(String searchMonth);
+	
 	public List<Board> selectAll2(String searchMonth);
 
 	/**

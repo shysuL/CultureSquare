@@ -74,33 +74,21 @@ public class ArtboardListController {
 		//구글
 		model.addAttribute("google_url", googleUrl);
 		
-		paging = pfboardService.getPaging(paging);
 		
-		model.addAttribute("paging",paging);
-		
-//		logger.info(paging.toString()); 
-		
+		// 년도 + 월로 게시글리스트 조회
 		String searchMonth = cal_year+cal_month;
-		logger.info("searchMonth : " + searchMonth);
+		
+//		logger.info("searchMonth : " + searchMonth);
+		
 		List<Board> list = pfboardService.getList(searchMonth);
 		
-//		List<Board> list = pfboardService.getList(paging);
-		    		
 		model.addAttribute("list", list);
 		
-//		System.out.println(list.toString());
-		
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy");
-		SimpleDateFormat format2 = new SimpleDateFormat ( "MM");
-				
-		Date time = new Date();
-				
-		String nowYear = format1.format(time);
-		String nowMonth = format2.format(time);
+//		logger.info(list.toString());
 				
 		model.addAttribute("nowYear",cal_year);
 		model.addAttribute("nowMonth",cal_month);
-//		return "artboard/list?bo_table=calendar&cal_year="+time1+"&cal_month="+time2;
+		
 	}
 	
 	

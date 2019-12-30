@@ -8,31 +8,6 @@
 
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />  
 
-<script type="text/javascript">
-$(document).ready(function(){
-	
-// 	$("#leftgo").click(function(){
-// 		var cal_year = $('#cal_year').val();
-// 		var cal_month = $('#cal_month').val();
-		
-// 		$.ajax({
-// 			type:"get",
-// 			url:"/artboard/list",
-// 			data:{"cal_year" : cal_year, "cal_month" : cal_month},
-// 			datatype : "json",
-// 			success: function(res){
-// 				console.log(cal_year)
-// 				console.log(cal_month)
-// // 				location.href="/artboard/list?bo_table=calendar&cal_year=&cal_month="
-// 			}
-// 		})
-		
-// 	})
-	
-})
-</script>
-
-
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -53,27 +28,6 @@ $(document).ready(function() {
 });
 </script>
 
-<script type="text/javascript">
-// $(document).ready(function() {
-//    $(".fa-chevron-left").click(function() {
-//       $.ajax({
-//          type: "get"
-//          , url: "/artboard/list"
-//          , data: {yyyy : 2019, MM : 11 }
-//          , dataType: "html"
-//          , success: function(  ) {
-//         	 location.href="/artboard/list?bo_table=calendar&cal_year=${yyyy}&cal_month=${MM}";
-//             console.log("성공")
-//             console.log( res )
-//          }
-//          , error: function() {
-//             console.log("실패")
-//          }
-//       });
-//    })
-// });
-
-</script>
 <%
 	Date date = new Date();
 	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
@@ -191,6 +145,7 @@ $(document).ready(function(){
 		</c:when>
 		<%--  예술인일 때 작성 가능한 조건 추가 필요 --%>
 		<c:when test="${login}">
+			
 			<div>
 			<a href="/artboard/write"><button id="LoginWrite"
 					class="btn btn-sm b-btn"
