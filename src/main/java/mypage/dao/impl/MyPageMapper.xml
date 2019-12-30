@@ -14,7 +14,7 @@
 	
 	<update id="updateUserNick" parameterType="user.dto.User_table">
 		UPDATE User_table 
-		SET usernick = #{usernick } AND userphone = #{userphone }AND interest = #{interest } 
+		SET usernick = #{usernick }, userphone = #{userphone }, interest = #{interest } 
 		WHERE userno = #{userno }
 	</update>
 	

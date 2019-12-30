@@ -27,7 +27,12 @@ public class MypageMainController {
 		logger.info("나오냐");
 		
 		user.setUserid(session.getAttribute("userid").toString());
-		user.setUserno((int)session.getAttribute("userno"));
+		
+		if(session.getAttribute("userno") != null) {
+
+			user.setUserno((Integer)session.getAttribute("userno"));
+			
+		}
 		
 		User_table userInfo = new User_table();
 		
@@ -39,43 +44,48 @@ public class MypageMainController {
 	}
 	
 	@RequestMapping(value="/mypage/main", method=RequestMethod.POST)
-	public String mypage(User_table user, Model model, HttpSession session) {
+	public String mypage(User_table user, Model model, HttpSession session, String changepw) {
 		
+		//세션에서 로그인한 사용자의 userno와 userid, usernick 가져와서 user객체에 담기
 		user.setUserid(session.getAttribute("userid").toString());
 		user.setUserno((int)session.getAttribute("userno"));
+		user.setUsernick(session.getAttribute("usernick").toString());
 		
+		//새로운 userInfo객체 생성
 		User_table userInfo = new User_table();
 		
+		//로그인한 사용자의 비밀번호 조회해서 userInfo객체에 담기
+		System.out.println(user);
 		userInfo = mypageService.getFindUserPw(user); // DB에 있는 비밀번호
-		System.out.println("1 : " + userInfo.getUserpw());
+		System.out.println(user);
+		System.out.println("디비에 있는 암호화된 비밀번호 : " + userInfo.getUserpw());
+		
 		// 로그인시 입력한 비밀번호를 SHA256으로 암호화
+		System.out.println(user);
 		String encPw = user.getUserpw();
-		user.setUserpw(PwSha256.userPwEncSHA256(encPw)); // 현재비밀번호를 암호환거
+		user.setUserpw(PwSha256.userPwEncSHA256(encPw)); // 현재비밀번호를 암호화 한거
+		System.out.println("로그인 시 입력한 암호화된 비밀번호 : " + user.getUserpw());
 		
-		System.out.println("암호화 : " + encPw);
-		System.out.println("2 : " + userInfo.getUserpw());
-		System.out.println("컨트롤러 : " + userInfo);
+		//boolean타입으로 true/false를 이용해서 현재 비밀번호와 사용자가 입력한 비밀번호가 맞는지 확인
+		boolean password01 = mypageService.equalsPw(user);
+		System.out.println("비밀번호 일치여부(true/false): " + password01);
 		
-		//0과 1로 현재 비밀번호와 입력한 현재 비밀번호가 맞는 지 확인
-		boolean password01 = mypageService.equalsPw(userInfo);
-		System.out.println(password01);
-		
-		System.out.println(1);
-		model.addAttribute("userInfo", userInfo);
-		System.out.println(2);
-		
-		if(password01 == true) {
-			System.out.println(3);
-			userInfo.setUserpw((String) model.getAttribute("userpw"));
-			System.out.println("너가바꾸니?" + (String) model.getAttribute("userpw"));
-			mypageService.modifyUserPassword(userInfo);
-			System.out.println(userInfo.toString());
+		if(password01) { //일치여부가 true이면
+			
+			String encPw2 = changepw;
+			user.setUserpw(PwSha256.userPwEncSHA256(encPw2));
+//			
+			System.out.println("변경되니?" + changepw);
+			
+//			mypageService.modifyUserPassword(changepw);
+			mypageService.modifyUserPassword(user);
+			
+
 			return "/redirect:/main/main";
 			
 		} else {
-			System.out.println(4);
 			return "/redirect:/mypage/main";
-		}
+		}		
 		
 	}
 }
