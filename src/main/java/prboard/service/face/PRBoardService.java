@@ -1,8 +1,9 @@
 package prboard.service.face;
 
-import javax.servlet.http.HttpSession;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 public interface PRBoardService {
 
-		
 }

@@ -1,27 +1,30 @@
 package prboard.dao.face;
 
-import user.dto.User_table;
+import java.util.Map;
 
 public interface PRBoardDao {
 	
 	/**
+	 * 2019-12-26
 	 * 조홍철
-	 * 2019-12-27
 	 * 
-	 * 하루가 지나면 prCnt를 0으로 초기화 (지금은 30초로 테스트)
+	 * 게시글 작성
 	 * 
-	 * @param usernick - 사용자 닉네임
+	 * 
+	 * @param map - 게시글 입력 정보가 담긴 맵
+	 * 
 	 */
-	public void updatePRCnt(String usernick);
+	public void insertPR(Map<String, Object> map);
 	
 	/**
+	 * 2019-12-26
 	 * 조홍철
-	 * 2019-12-27
 	 * 
-	 * 로그인 한 사용자의 현재 prCnt 갯수 구하기
+	 * 첨부파일 삽입
 	 * 
-	 * @param nickName - 사용자 닉네임
-	 * @return
+	 * 
+	 * @param map - 파일 정보가 담긴 맵
+	 * 
 	 */
-	public User_table selectprCnt(String usernick);
+	public void insertFile(Map<String, Object> map);
 }
