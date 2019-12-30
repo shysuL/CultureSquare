@@ -74,9 +74,10 @@
 		   SELECT rownum rnum, B.* FROM (
 		       SELECT
 		            BO.boardno, BO.title, BO.writtendate, BO.contents,
-		           BO.views, BO.userno, BO.postno, P.prname
-		       FROM board BO, prtype P
+		           BO.views, BO.userno, BO.postno, P.prname, U.usernick
+		       FROM board BO, prtype P, user_table U
                WHERE BO.boardno = P.boardno
+               AND BO.userno = U.userno
                AND BO.postno = 2
               ORDER BY boardno DESC
 		    ) B

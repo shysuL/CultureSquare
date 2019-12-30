@@ -27,7 +27,7 @@ public class MypageMainController {
 		logger.info("나오냐");
 		
 		user.setUserid(session.getAttribute("userid").toString());
-		user.setUserno((int)session.getAttribute("userno"));
+		user.setUserno((Integer)session.getAttribute("userno"));
 		
 		User_table userInfo = new User_table();
 		
@@ -43,7 +43,7 @@ public class MypageMainController {
 		
 		User_table pwParam = mypageService.getCurrentPwParam(model);
 		
-		pwParam.setUserno((int)session.getAttribute("userno"));
+		pwParam.setUserno((Integer)session.getAttribute("userno"));
 		pwParam.setUserid(session.getAttribute("userid").toString());
 		
 		// 로그인시 입력한 비밀번호를 SHA256으로 암호화
