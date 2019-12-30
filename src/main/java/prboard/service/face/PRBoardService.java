@@ -1,13 +1,12 @@
 package prboard.service.face;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import prboard.dto.PRBoard;
 import prboard.dto.PRType;
+import util.PRPaging;
 
 public interface PRBoardService {
 	
@@ -85,4 +84,25 @@ public interface PRBoardService {
 	 */
 	public int getTimePass(String writeDate);
 
+	/**
+	 * 2019-12-30
+	 * 조홍철
+	 * 
+	 * PR 게시글 전체 갯수를 구한다.
+	 * 
+	 * @return - PR 전체 개시글 갯수
+	 */
+	public int getCntAll();
+	
+	/**
+	 * 2019-12-30
+	 * 조홍철 
+	 * 
+	 * PR 게시판 리스트를 가져온다.
+	 * 
+	 * @param paging - 페이징 객체
+	 * @return List - PR 게시글 리스트
+	 */
+	public List getList(PRPaging paging);
+	
 }

@@ -90,9 +90,10 @@ public class ArtboardListController {
 		model.addAttribute("nowYear",cal_year);
 		model.addAttribute("nowMonth",cal_month);
 		
-		
-		// 세션에 저장된 userno를 모델로 전달
-		userno.setUserno((Integer)session.getAttribute("userno"));
+		if(session.getAttribute("userno") != null) {
+			// 세션에 저장된 userno를 모델로 전달
+			userno.setUserno((Integer)session.getAttribute("userno"));
+		}
 		
 		// 세션에 저장된 회원이 예술인인지 조회할 회원정보 조회 
 		Board LoginUser = new Board();
