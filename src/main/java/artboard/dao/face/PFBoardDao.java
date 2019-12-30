@@ -8,6 +8,19 @@ import util.Paging;
 public interface PFBoardDao {
 
 	
+	
+	/**
+	 * 이수현
+	 * 2019 - 12 - 30
+	 * 
+	 * 연+월에 해당하는 게시글 리스트 조회
+	 * 
+	 * 
+	 * @param searchMonth - 연 + 월 
+	 * @return List<Board> - 게시글 리스트
+	 */
+	public List<Board> selectAll3(String searchMonth);
+	
 	public List<Board> selectAll2(String searchMonth);
 
 	/**
@@ -87,5 +100,16 @@ public interface PFBoardDao {
 	 * @return int - board_seq.nextval
 	 */
 	public int selectSeqNextval();
+
+	/**
+	 * 이수현
+	 * 2019 - 12 - 30
+	 * 
+	 * userno에 해당하는 회원정보 조회
+	 * 
+	 * @param userno - 로그인 회원의 회원번호
+	 * @return Board(User_table) - 회원 정보
+	 */
+	public Board selectUserByNo(Board userno);
 
 }

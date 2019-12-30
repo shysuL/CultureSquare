@@ -26,33 +26,34 @@ public class MyInfoModifyController {
 	@RequestMapping(value="/mypage/updateform", method=RequestMethod.GET)
 	public void updateform(User_table user, Model model) {
 		
-		user.setUserno((int) session.getAttribute("userno"));
+		user.setUserno((Integer) session.getAttribute("userno"));
 		
 		User_table getUser = mypageService.getUserInfo(user);
 		
 //--------------------------------------------------------------------	
 		//체크박스로 선택한 사용자의 interest 관심분야 
-		String[] checkInterest = null;
-		
-		for(int i = 0; i<getUser.getInterest().length(); i++) {
-			checkInterest = getUser.getInterest().split(",");   
-			
-		}
-		
-		for (String string : checkInterest) {
-			System.out.println("1 : " + string);
-		}
-		
-		List checkList = new ArrayList();
-		
-		for(int i = 0 ; i<checkInterest.length; i++) {
-			checkList.add(checkInterest[i]);
-		}
-		
-		System.out.println(checkList);
+//		String[] checkInterest = null;
+//		
+//		for(int i = 0; i<getUser.getInterest().length(); i++) {
+//			checkInterest = getUser.getInterest().split(",");   
+//			
+//		}
+//		
+//		for (String string : checkInterest) {
+//			System.out.println("1 : " + string);
+//		}
+//		
+//		List checkList = new ArrayList();
+//		
+//		for(int i = 0 ; i<checkInterest.length; i++) {
+//			checkList.add(checkInterest[i]);
+//		}
+//		
+//		System.out.println(checkList);
 //		getUser.setInterest(checkInterest);
 		
-		model.addAttribute("checkList", checkList);
+//		model.addAttribute("checkList", checkList);
+		model.addAttribute("checkList", getUser.getInterest().split(","));
 		
 //--------------------------------------------------------------------	
 		

@@ -8,31 +8,6 @@
 
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />  
 
-<script type="text/javascript">
-$(document).ready(function(){
-	
-// 	$("#leftgo").click(function(){
-// 		var cal_year = $('#cal_year').val();
-// 		var cal_month = $('#cal_month').val();
-		
-// 		$.ajax({
-// 			type:"get",
-// 			url:"/artboard/list",
-// 			data:{"cal_year" : cal_year, "cal_month" : cal_month},
-// 			datatype : "json",
-// 			success: function(res){
-// 				console.log(cal_year)
-// 				console.log(cal_month)
-// // 				location.href="/artboard/list?bo_table=calendar&cal_year=&cal_month="
-// 			}
-// 		})
-		
-// 	})
-	
-})
-</script>
-
-
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -49,31 +24,17 @@ $(document).ready(function() {
 		$("#pfNotLoginModal").modal({backdrop: 'static', keyboard: false});
 		return false;
 	});
+
+	//로그인 회원이 예술인이거나 소셜로그인인 경우 글쓰기 버튼 누르면 모달
+	$("#notArtistWrite").click(function() {
+		$(".content").text('예술인 회원만 게시글 작성이 가능합니다.');
+		$("#pfNotArtistModal").modal({backdrop: 'static', keyboard: false});
+		return false;
+	});
 	
 });
 </script>
 
-<script type="text/javascript">
-$(document).ready(function() {
-   $(".fa-chevron-left").click(function() {
-      $.ajax({
-         type: "get"
-         , url: "/artboard/list"
-         , data: {yyyy : 2019, MM : 11 }
-         , dataType: "html"
-         , success: function(  ) {
-        	 location.href="/artboard/list?bo_table=calendar&cal_year=${yyyy}&cal_month=${MM}";
-            console.log("성공")
-            console.log( res )
-         }
-         , error: function() {
-            console.log("실패")
-         }
-      });
-   })
-});
-
-</script>
 <%
 	Date date = new Date();
 	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
@@ -85,10 +46,10 @@ $(document).ready(function() {
 
 <script type="text/javascript">
 	var today = null;
-	var year = <%= cal.get(Calendar.YEAR)%>;
-	var month = <%= cal.get(Calendar.MONTH) +1 %>;
-	
-		
+	var year = null;
+	var month = null;
+<%-- 	<%= cal.get(Calendar.YEAR)%> --%>
+<%-- 	<%= cal.get(Calendar.MONTH) +1 %>	 --%>
 	// =============================================== 날짜 포맷 함수 ===============================================
 	
 	
@@ -115,9 +76,22 @@ $(document).ready(function() {
 		}
 		location.href="/artboard/list?bo_table=calendar&cal_year="+year+"&cal_month="+month;
 	}
+	//날짜 초기화
+	function initDate() {
+		dayCount = 0;
+		today = new Date();
+// 		year = today.getFullYear();
+// 		month = today.getMonth() + 1;
+		year = "${nowYear}";
+		month = "${nowMonth}";
+		if (month < 10) {
+			month = "0" + month;
+		}
+	}
 	
 	
 $(document).ready(function(){
+	initDate();
 	$("#movePrevMonth").on("click", function() {
 		movePrevMonth();
 	});
@@ -167,7 +141,6 @@ $(document).ready(function(){
 	  </a>
 	</div>
 	<!-- 캐러셀영역 END -->	
-	
 	<div class="b">
 	<c:choose>
 		<c:when test="${not login}">
@@ -177,13 +150,24 @@ $(document).ready(function(){
 		</div>
 		</c:when>
 		<%--  예술인일 때 작성 가능한 조건 추가 필요 --%>
-		<c:when test="${login}">
+	 <c:otherwise> 
+     <c:choose> 
+			<c:when test = "${LoginUser.usertype ne 1}">
+			<div>
+			<button id="notArtistWrite"
+					class="btn btn-sm b-btn"
+					style="background-color: #343a40; color: white;">글작성</button>
+			</div>
+			</c:when>
+			<c:otherwise>
 			<div>
 			<a href="/artboard/write"><button id="LoginWrite"
 					class="btn btn-sm b-btn"
 					style="background-color: #343a40; color: white;">글작성</button></a>
 			</div>
-		</c:when>
+			</c:otherwise>
+		</c:choose>
+		</c:otherwise>
 	</c:choose>
 	</div> 
 
@@ -197,15 +181,13 @@ $(document).ready(function(){
 				<form method="get" action="/artboard/list">
 					<input type="hidden" name="bo_table" value="calendar">
 					<a href="#" id="movePrevMonth">
-<!-- 					<button id = "leftgo"> -->
 						<span id="prevMonth" class="cal_tit">
 					<i class="fa fa-chevron-left goto" ></i>
 					</span>
-<!-- 					</button> -->
 					</a>
 					&nbsp;&nbsp;
-					<input class="cal_header_year inputin" type="text" name="cal_year" id="cal_year" value="<%= cal.get(Calendar.YEAR)%>" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp;
-					<input class="cal_header_month inputin" type="text" name="cal_month" id="cal_month" value="<%= cal.get(Calendar.MONTH) + 1%>" maxlength="2" required="required"  data-hasqtip="24" oldtitle="월" title="">&nbsp;
+					<input class="cal_header_year inputin" type="text" name="cal_year" id="cal_year" value="${nowYear }" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp;
+					<input class="cal_header_month inputin" type="text" name="cal_month" id="cal_month" value="${nowMonth }" maxlength="2" required="required"  data-hasqtip="24" oldtitle="월" title="">&nbsp;
 					<input class="btn inputbt" type="submit" value="이동" data-hasqtip="25" oldtitle="이동" title="">&nbsp;&nbsp;
 					<a href="#" id="moveNextMonth">
 					<span id="nextMonth" class="cal_tit">
@@ -213,18 +195,6 @@ $(document).ready(function(){
 					</i>
 					</span>
 					</a>
-					
-	<%-- 참고 코드 --%>
-	<%-- 				
-		<div class="cal_top">
-		<a href="#" id="movePrevMonth"><span id="prevMonth"
-			class="cal_tit">&lt;</span></a> 
-			<span id="cal_top_year"></span> 
-			<span id="cal_top_month"></span> 
-			<a href="#" id="moveNextMonth"><span
-			id="nextMonth" class="cal_tit">&gt;</span></a>
-	</div>
-	--%>
 				</form>
 			</div>
 		</div>
@@ -272,15 +242,28 @@ $(document).ready(function(){
 <!-- 			<div class="cal_header_div eng"> -->
 <!-- 				<form method="get" action="/artboard/list"> -->
 <!-- 					<input type="hidden" name="bo_table" value="calendar"> -->
-<!-- 					<a href="/g2/bbs/board.php?bo_table=calendar&amp;cal_year=2019&amp;cal_month=12&amp;cal_year=2019&amp;cal_month=11"><i class="fa fa-chevron-left goto" ></i></a>&nbsp;&nbsp; -->
-<!-- 					<input class="cal_header_year inputin" type="text" name="cal_year" value="2019" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp; -->
-<!-- 					<input class="cal_header_month inputin" type="text" name="cal_month" value="12" maxlength="2" required="required"  data-hasqtip="24" oldtitle="월" title="">&nbsp; -->
+<!-- 					<a href="#" id="movePrevMonth"> -->
+<!-- 						<span id="prevMonth" class="cal_tit"> -->
+<!-- 					<i class="fa fa-chevron-left goto" ></i> -->
+<!-- 					</span> -->
+<!-- 					</a> -->
+<!-- 					&nbsp;&nbsp; -->
+<%-- 					<input class="cal_header_year inputin" type="text" name="cal_year" id="cal_year" value="${nowYear }" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp; --%>
+<%-- 					<input class="cal_header_month inputin" type="text" name="cal_month" id="cal_month" value="${nowMonth }" maxlength="2" required="required"  data-hasqtip="24" oldtitle="월" title="">&nbsp; --%>
 <!-- 					<input class="btn inputbt" type="submit" value="이동" data-hasqtip="25" oldtitle="이동" title="">&nbsp;&nbsp; -->
-<!-- 					<a href="/g2/bbs/board.php?bo_table=calendar&amp;cal_year=2019&amp;cal_month=12&amp;cal_year=2020&amp;cal_month=1"><i class="fa fa-chevron-right goto" ></i></a> -->
+<!-- 					<a href="#" id="moveNextMonth"> -->
+<!-- 					<span id="nextMonth" class="cal_tit"> -->
+<!-- 					<i class="fa fa-chevron-right goto" > -->
+<!-- 					</i> -->
+<!-- 					</span> -->
+<!-- 					</a> -->
+					
+
 <!-- 				</form> -->
 <!-- 			</div> -->
 <!-- 		</div> -->
 <!-- 	</div> -->
+	
 	</div>
 	
 	<!-- 사이트 게시판 -->
@@ -322,7 +305,7 @@ $(document).ready(function(){
 	</div>
 </div>
 
-<!-- 로그인 실패시 모달창 -->
+<!-- 비로그인 시 모달창 -->
 <div class="modal fade" id="pfNotLoginModal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -330,6 +313,30 @@ $(document).ready(function(){
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">로그아웃 상태</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="pfLoginCheckBtn"class="btn btn-info" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 일반회원, 소셜회원 글작성 클릭 시 모달창 -->
+<div class="modal fade" id="pfNotArtistModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">일반회원, 소셜로그인 회원</h4>
         <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 

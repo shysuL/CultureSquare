@@ -6,15 +6,46 @@
 
 <mapper namespace="artboard.dao.face.PFBoardDao">
 
+	<select id="selectAll3" parameterType="String"
+		resultType="artboard.dto.Board">
+		<![CDATA[ 
+		SELECT
+		B.boardno, B.title, B.writtendate
+		, B.contents
+		, B.views, B.userno, b.postno
+		, p.performno, p.performname, p.performdate, p.writepermit,
+		p.updatepermit, p.deletepermit
+		FROM board B, perform_add P
+		WHERE B.boardno = P.boardno
+		AND substr(p.performdate, 1, 6) =
+		#{searchMonth }
+		ORDER BY
+		(
+		SELECT performdate FROM perform_add PA
+		WHERE pa.performno = p.performno
+		AND performdate >= to_char(sysdate, 'yyyymmdd')
+		)
+		,
+		(
+		SELECT performdate FROM perform_add PA
+		WHERE pa.performno = p.performno
+		AND performdate < to_char(sysdate, 'yyyymmdd')
+		)
+		, boardno
+		]]>
+	</select>
+
 	<select id="selectAll2" parameterType="String"
 		resultType="artboard.dto.Board">
 		SELECT
-			b.boardno, b.title, b.writtendate, b.contents, b.views, b.userno, b.postno, p.performno, p.performname, p.performdate
+		b.boardno, b.title, b.writtendate, b.contents, b.views, b.userno, b.postno,
+		p.performno, p.performname, p.performdate
 		FROM board b, perform_add p
 		WHERE b.boardno = p.boardno
-		AND substr(p.performdate, 1, 6) = #{searchMonth }
+		AND substr(p.performdate, 1, 6) =
+		#{searchMonth }
 		AND b.postno = 1
-		ORDER BY boardno DESC 
+		ORDER BY p.performdate DESC
 	</select>
 
 
@@ -22,45 +53,64 @@
 		resultType="artboard.dto.Board">
 		SELECT * FROM (SELECT rownum rnum, B.* FROM (
 		SELECT
-		b.boardno, b.title, b.writtendate, b.contents, b.views, b.userno, b.postno, p.performno, p.performname, p.performdate FROM
-		board b, perform_add p
+		b.boardno, b.title, b.writtendate, b.contents, b.views, b.userno,
+		b.postno, p.performno, p.performname, p.performdate FROM
+		board b,
+		perform_add p
 		WHERE b.boardno = p.boardno
 		ORDER BY boardno DESC ) B
 		ORDER BY rnum ) BOARD
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
 	</select>
 
-	<select id="selectCntAll"  resultType="int">
-		SELECT count(*) FROM board ORDER BY boardno
+	<select id="selectCntAll" resultType="int">
+		SELECT count(*) FROM board
+		ORDER BY boardno
 	</select>
-	
+
 	<select id="view" parameterType="artboard.dto.Board"
 		resultType="artboard.dto.Board">
-		SELECT b.boardno, b.title, b.writtendate, b.contents, b.views, b.userno, b.postno, p.performno, p.performname, p.performdate FROM
+		SELECT b.boardno, b.title, b.writtendate, b.contents,
+		b.views, b.userno, b.postno, p.performno, p.performname, p.performdate
+		FROM
 		board b, perform_add p
 		WHERE b.boardno = p.boardno
-		AND b.boardno = #{boardno}
-	
+		AND b.boardno =
+		#{boardno}
+
 	</select>
-	
+
 	<select id="selectWriter" parameterType="artboard.dto.Board"
 		resultType="artboard.dto.Board">
 		SELECT * FROM user_table
 		WHERE userno = #{userno}
 	</select>
-	
+
 	<insert id="insertBoard" parameterType="artboard.dto.Board">
-		INSERT INTO board (boardno, title, writtendate, contents, views, userno, postno)
-		VALUES (#{boardno}, #{title}, sysdate, #{contents}, 0, #{userno}, 1)
+		INSERT INTO board
+		(boardno, title, writtendate, contents, views, userno, postno)
+		VALUES
+		(#{boardno}, #{title}, sysdate, #{contents}, 0, #{userno}, 1)
 	</insert>
-	
-		<insert id="insertPerform" parameterType="artboard.dto.Board">
-		INSERT INTO perform_add (performno,performname, performdate,boardno)
-		VALUES (perform_add_seq.nextval,#{performname},#{performdate},#{boardno})
+
+	<insert id="insertPerform" parameterType="artboard.dto.Board">
+		INSERT INTO perform_add
+		(performno,performname, performdate,boardno)
+		VALUES
+		(perform_add_seq.nextval,#{performname},#{performdate},#{boardno})
 	</insert>
-	
+
 	<select id="selectSeqNextval" resultType="int">
-		SELECT board_seq.nextval FROM dual
+		SELECT
+		board_seq.nextval FROM dual
+	</select>
+	
+	
+	
+	<select id="selectUserByNo" parameterType="artboard.dto.Board"
+		resultType="artboard.dto.Board">
+		SELECT * FROM user_table
+		WHERE userno = #{userno}
 	</select>
 
 </mapper>
