@@ -3,6 +3,7 @@ package board.dao.face;
 import java.util.List;
 
 import board.dto.FreeBoard;
+import board.dto.UpFile;
 import user.dto.User_table;
 import util.Paging;
 
@@ -91,6 +92,38 @@ public interface FreeBoardDao {
 	 * @return 
 	 */
 	public void updateFreeBoard(FreeBoard freeboard);
+	
+	/**
+	 * 2019-12-30
+	 * 고인호
+	 * 
+	 * 자유게시판 게시글에 첨부할 파일
+	 * 
+	 * @param upfile - DB에 저장할 파일 정보
+	 */
+	public void insertFile(UpFile upfile);
+	
+	/**
+	 * 2019-12-30
+	 * 고인호
+	 * 
+	 * 자유게시판 게시글 첨부파일 정보
+	 * 
+	 * @param boardno - 첨부파일정보 조회할 게시글 번호
+	 * @return - DB에서 조회된 첨부파일 정보 
+	 */
+	public UpFile selectFile(int boardno);
+
+	/**
+	 * 2019-12-30
+	 * 고인호
+	 * 
+	 * 자유게시판 게시글 첨부파일 정보
+	 * 
+	 * @param fileno - 첨부파일정보 조회할 파일번호
+	 * @return - DB에서 조회된 첨부파일 정보
+	 */
+	public UpFile selectFileNo(int fileno);
 
 
 }

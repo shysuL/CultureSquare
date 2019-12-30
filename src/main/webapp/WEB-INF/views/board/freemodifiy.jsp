@@ -45,9 +45,83 @@ $(document).ready(function() {
 });
 </script>
 
+<script type="text/javascript">
+        var g_count =1;
+        $(document).ready(function(){
+            $("#list").on("click",function(e){
+                e.preventDefault();
+                fn_openBoardList();
+            })
+            $("#write").on("click",function(e){
+                e.preventDefault();
+                fn_writeBoard();
+            })
+            $("a[name='delete']").on("click",function(e){
+                e.preventDefault();
+                fn_fileDelete($(this));
+            })
+            $("#add").on("click",function(e){
+                e.preventDefault();
+                fn_fileAdd();
+            })
+        });
+         
+         
+        function fn_openBoardList(){
+            var comSubmit = new ComSubmit();
+            comSubmit.setUrl("<c:url value='/sample/openBoardList.do'/>");
+            comSubmit.submit();
+        }
+         
+        function fn_writeBoard(){
+            var comSubmit = new ComSubmit("frm");
+            comSubmit.setUrl("<c:url value='/sample/writeBoard.do'/>");
+            comSubmit.submit();
+        }
+        function fn_fileDelete(obj){
+            obj.parent().remove();
+        }
+        function fn_fileAdd(){
+            var str = "<p><input type='file' name='file_"+(g_count++)+"'/><a href='#this' name='delete' class='btn'>삭제하기</a></p> ";
+            $("#fileDiv").append(str);
+             
+            $("a[name='delete']").on("click",function(e){
+                e.preventDefault();
+                fn_fileDelete($(this));         
+            })
+        }
+    </script>
+
 <style type="text/css">
 #content {
-	width: 95%;	
+	width: 95%;
+}
+
+.btn-file {
+	position: relative;
+	overflow: hidden;
+}
+
+.btn-file input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	min-width: 100%;
+	min-height: 100%;
+	font-size: 100px;
+	text-align: right;
+	filter: alpha(opacity = 0);
+	opacity: 0;
+	outline: none;
+	background: white;
+	cursor: inherit;
+	display: block;
+}
+
+.btn-primary {
+	color: #fff;
+	background-color: #494b4d;
+	border-color: #494b4d;
 }
 </style>
 
@@ -66,17 +140,20 @@ enctype="multipart/form-data">
 <tr><td colspan="2"><input type="text" name="title" style="width:100%" value="${board.title }"/></td></tr>
 <tr><td class="info" colspan="2">내용</td></tr>
 <tr><td colspan="2"><textarea id="content" name="contents" >${board.contents }</textarea></td></tr>
-<tr><td class="info">첨부파일</td><td><input type="file" name="file" id="file"></td></tr>
+<%-- <tr><td class="info">첨부파일</td><td><input type="file" name="file" id="file">${file.originname }</td></tr> --%>
 </table>
-
+<label class="btn btn-primary btn-file">
+        첨부파일 <input type="file" name="file">
+    </label>${file.originname }
 </form>
 </div>
-
+                                                                                                                                                                                           
 <div class="text-center">	
-	<button type="button" id="btnWrite" class="btn btn-default" style="float: right; background-color: #494b4d; color: white;">작성</button>
-	<button type="button" id="btnCancel" class="btn btn-default" style="float: left; background-color: #494b4d; color: white;">취소</button>
+	<button type="button" id="btnWrite" class="btn btn-default" style="float: center; background-color: #494b4d; color: white;">작성</button>
+	<button type="button" id="btnCancel" class="btn btn-default" style="float: center; background-color: #494b4d; color: white;">취소</button>
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 </div>
-</div>
+<br>
 
 <jsp:include page="../layout/footer.jsp" />
 
