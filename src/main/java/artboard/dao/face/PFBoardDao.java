@@ -112,4 +112,15 @@ public interface PFBoardDao {
 	 */
 	public Board selectUserByNo(Board userno);
 
+	
+	/**
+	 * 이수현
+	 * 2019 - 12 - 30
+	 *
+	 * 조회되는 게시글의 조회수 +1
+	 * 
+	 * @param bno - 조회 대상
+	 */
+	public void updateViews(Board bno);
+
 }

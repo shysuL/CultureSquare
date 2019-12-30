@@ -112,5 +112,10 @@
 		SELECT * FROM user_table
 		WHERE userno = #{userno}
 	</select>
+	
+	<update id="updateViews" parameterType="artboard.dto.Board">
+		UPDATE board SET views = views+1
+		WHERE boardno = #{boardno}
+	</update>
 
 </mapper>

@@ -34,6 +34,9 @@ public class PFBoardServiceImpl implements PFBoardService{
 
 	@Override
 	public Board view(Board bno) {
+		//게시글 조회수 +1
+		pfboardDao.updateViews(bno);
+		
 		return pfboardDao.view(bno);
 	}
 
