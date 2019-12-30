@@ -7,11 +7,11 @@
 
 
 <script type="text/javascript" src="/resources/ckeditor/ckeditor.js"></script>
-    <script>
+<script>
     window.onload = function(){
        ck = CKEDITOR.replace("contents");
     };
-    </script>
+</script>
 
 <script type="text/javascript">
 $(document).ready(function() {
