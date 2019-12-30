@@ -78,5 +78,23 @@ public class PRBoardServiceImpl implements PRBoardService {
 		prBoardDao.insertFile(upfile);
 		
 	}
+
+	@Override
+	public void updatePrWriteDate(int userNo) {
+
+		prBoardDao.updateWritePrDate(userNo);
+	}
+
+	@Override
+	public String getWriteDate(int userNo) {
+		
+		return prBoardDao.selectWriteDate(userNo);
+	}
+
+	@Override
+	public int getTimePass(String writeDate) {
+		
+		return prBoardDao.selectTimePass(writeDate);
+	}
 	
 }

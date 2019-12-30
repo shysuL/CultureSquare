@@ -43,4 +43,20 @@
 		VALUES ( #{fileno}, #{originname }, #{storedname }, #{filesize }, #{boardno} )
 	</insert>
 	
+	<update id="updateWritePrDate"
+		 parameterType="int">
+		UPDATE user_table SET prwritedate = TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS')
+		WHERE 1=1
+			AND userno = #{userNo}
+	</update>
+	
+	<select id="selectWriteDate" resultType="String" parameterType="int">
+		SELECT prwritedate FROM user_table
+		WHERE userno = #{userNo}
+	</select>
+	
+	<select id="selectTimePass" resultType="int" parameterType="String">
+		SELECT (TRUNC(SYSDATE, 'MI')-TO_DATE(#{value},'YYYY.MM.DD HH24:MI:SS')) * 1440 as time FROM DUAL
+	</select>
+	
 </mapper>
