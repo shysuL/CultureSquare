@@ -3,7 +3,6 @@ package user.controller;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -237,25 +236,16 @@ public class LoginController {
 			user.setUserpw(PwSha256.userPwEncSHA256(encPw));
 			
 			boolean isLogin = userService.loginProc(user); // true 로그인
-			
-			
-			
+				
 			//세션 정보 불러오기
 			User_table userSession = userService.getUserSession(user);
 			
-			System.out.println(userSession.getEmailcheck());
-			
 			// 결과에 따른 세션관리
 			if(isLogin) {
-				System.out.println("이프문");
-				 
-				System.out.println("isLoging : " + isLogin);
-				System.out.println("if안 if emailcheck: " + userSession.getEmailcheck());
+
 				if(userSession.getEmailcheck().equals("Y")) {
 					
-					logger.info("이프 안 이메일 체크 : " + userSession.getEmailcheck());
 					//세션에 정보 저장하기
-					logger.info("1번 : " + user.toString());
 					session.setAttribute("login", true);
 					session.setAttribute("userid", user.getUserid());
 					session.setAttribute("usernick", userSession.getUsernick());
@@ -266,12 +256,13 @@ public class LoginController {
 					return "redirect:/main/main";
 					
 				 } else {
-					 logger.info("if안 엘스" + userSession.getEmailcheck());
+
 					 return "/user/emailCheckError";
 					 
 				 } 			
 			}
-			//로그인 안했을때 처리
+			
+			//로그인 안했을때 처리 ( isLogin : false )
 			else
 				return "redirect:/main/main";
 	}
