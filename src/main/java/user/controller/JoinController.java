@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import user.dto.User_table;
 import user.service.face.JoinSendMailService;
 import user.service.face.UserService;
+import util.PwSha256;
 
 @Controller
 public class JoinController {
@@ -33,14 +34,22 @@ public class JoinController {
 	
 	// 회원가입 입력한 폼 처리
 	@RequestMapping(value="/user/joinProc", method=RequestMethod.POST)
-	public String joinProc(User_table user, Model model, HttpServletRequest req) {
+	public String joinProc(User_table user, Model model, HttpServletRequest req) { 
 		
 //		logger.info(user.toString()); // form 입력 값 잘 받아오는지 -완료-
 		
+		//비밀번호 확인
+		logger.info("사용자가 입력한  비밀번호 : " + user.getUserpw());
+		
+		// 비밀번호 암호화 SHA256
+		String encPw = PwSha256.userPwEncSHA256(user.getUserpw());
+		user.setUserpw(encPw);
+		// SHA256암호화 후 비밀번호 확인
+		logger.info("SHA256암호화 후 비밀번호 : " + user.getUserpw());
 		
 		// 회원가입처리 
 		userService.joinProc(user);
-		
+				
 		// 메일 인증 발송
 		joinSendMailService.mailSendWithEmailKey(user.getUserid(), user.getUsername(), req);
 		System.out.println("getUserId: " + user.getUserid());
