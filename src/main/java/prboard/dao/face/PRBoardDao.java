@@ -47,4 +47,35 @@ public interface PRBoardDao {
 	 */
 	public void insertFile(UpFile upFile);
 	
+	/**
+	 * 2019-12-30
+	 * 조홍철
+	 * 
+	 * PRWRITEDATE를 현재시간으로 업데이트
+	 * 
+	 * @param userNo - 유저 번호
+	 */
+	public void updateWritePrDate(int userNo);
+	
+	/**
+	 * 2019-12-30
+	 * 조홍철
+	 * 
+	 * prwritedate를 유저번호로 가져오기
+	 * 
+	 * @param userNo - 유저 번호
+	 * @return String - prwritedate
+	 */
+	public String selectWriteDate(int userNo);
+	
+	/**
+	 * 2019-12-30
+	 * 조홍철
+	 * 
+	 * 글 작성시간과 현재시간 차이를 구한다
+	 * 
+	 * @param writeDate - 사용자가 최근에 작성한 시간
+	 * @return int - 현재 시간과의 차이
+	 */
+	public int selectTimePass(String writeDate);
 }

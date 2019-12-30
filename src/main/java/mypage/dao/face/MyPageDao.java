@@ -25,6 +25,16 @@ public interface MyPageDao {
 	 * @param user
 	 * @return
 	 */
-	public User_table selectByUserid(User_table user);
+	public User_table selectByUserPw(User_table user);
+
+	/**
+	 * 비밀번호가 맞는 지 확인
+	 * 
+	 * @param pwParam
+	 * @return
+	 */
+	public int selectCntByUserPw(User_table pwParam);
+
+	public void updatePassword(User_table pwParam);
 
 }

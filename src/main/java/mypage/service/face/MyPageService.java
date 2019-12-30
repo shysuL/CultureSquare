@@ -1,5 +1,7 @@
 package mypage.service.face;
 
+import org.springframework.ui.Model;
+
 import user.dto.User_table;
 
 public interface MyPageService{
@@ -19,5 +21,11 @@ public interface MyPageService{
 	 * @param user
 	 */
 	public User_table getFindUserPw(User_table user);
+
+	public User_table getCurrentPwParam(Model model);
+
+	public boolean equalsPw(User_table pwParam);
+
+	public void modifyUserPassword(User_table pwParam);
 
 }

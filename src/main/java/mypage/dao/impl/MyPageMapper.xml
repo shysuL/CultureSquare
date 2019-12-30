@@ -14,14 +14,25 @@
 	
 	<update id="updateUserNick" parameterType="user.dto.User_table">
 		UPDATE User_table 
-		SET usernick = #{usernick }, userphone = ${userphone }, interest = ${interest } 
+		SET usernick = #{usernick } AND userphone = #{userphone }AND interest = #{interest } 
 		WHERE userno = #{userno }
 	</update>
 	
-	<select id="selectByUserid" parameterType="user.dto.User_table" resultType="user.dto.User_table">
-		SELECT userpw 
-		FROM user_table
-		WHERE userno = #{userno }, userid = #{userid }
+	<select id="selectByUserPw" parameterType="user.dto.User_table" resultType="user.dto.User_table">
+		SELECT * FROM User_table
+		WHERE userno = #{userno } AND userid = #{userid }
 	</select>
+	
+	<select id="selectCntByUserPw" parameterType="user.dto.User_table" resultType="int">
+		SELECT count(*)
+		FROM User_table
+		WHERE userno = #{userno } AND userpw = #{userpw }
+	</select>
+	
+	<update id="updatePassword" parameterType="user.dto.User_table">
+		UPDATE User_table 
+		SET userpw = #{userpw }
+		WHERE userid = #{userid }
+	</update>
 
 </mapper>
