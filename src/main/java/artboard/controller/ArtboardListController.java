@@ -86,6 +86,7 @@ public class ArtboardListController {
 		
 //		logger.info(list.toString());
 				
+		// 모델값으로 cal_year, cal_month를 전달
 		model.addAttribute("nowYear",cal_year);
 		model.addAttribute("nowMonth",cal_month);
 		
@@ -93,12 +94,13 @@ public class ArtboardListController {
 		// 세션에 저장된 userno를 모델로 전달
 		userno.setUserno((Integer)session.getAttribute("userno"));
 		
+		// 세션에 저장된 회원이 예술인인지 조회할 회원정보 조회 
 		Board LoginUser = new Board();
 		LoginUser = pfboardService.getUserByNo(userno);
 		
-		logger.info("LoginUser : " + LoginUser.toString());
+//		logger.info("LoginUser : " + LoginUser.toString());
 		
-		
+		// 조회된 회원정보를 모델로 전달
 		model.addAttribute("LoginUser",LoginUser);
 		
 	}
