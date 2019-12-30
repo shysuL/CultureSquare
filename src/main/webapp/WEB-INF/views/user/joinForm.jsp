@@ -4,6 +4,7 @@
 <!-- Header -->
 <jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 
+
 <style type="text/css">
 
 .container{
@@ -44,7 +45,7 @@
 
 </style>
 
-<script type="text/javascript">
+<script type="text/javascript">	
 
 // 정규식
 	// 아이디(이메일) 검사 정규식
@@ -62,7 +63,34 @@
 	//모든 공백 체크 정규식
 	var blankJ = /\s/g;
 
+	function showLoadingBar() {
+		console.log("이미지 보여줘")
+	    var maskHeight = $(document).height();
+	    var maskWidth = window.document.body.clientWidth;
+
+	    var mask = "<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'></div>";
+	    var loadingImg = '';
+
+	    loadingImg += "<div id='loadingImg' style='position:absolute; left:50%; top:40%; display:none; z-index:10000; margin-top:23%;'>";
+	    loadingImg += "    <img src='/resources/img/loadimg.gif'>";
+	    loadingImg += "</div>";
+
+	    $('body').append(mask).append(loadingImg);
+	    
+	    $('#mask').css({
+	        'width' : maskWidth
+	        , 'height': maskHeight
+	        , 'opacity' : '0.3'
+	    });
+
+	    $('#mask').show();
+	    $('#loadingImg').show();
+	}
+	
+	
 $(document).ready(function(){
+	
+//	showLoadingBar();
 	
 // 	정규식 검사 변수
 	var id_Check = true;
@@ -73,7 +101,8 @@ $(document).ready(function(){
 	var nick_Check = true;
 	var birth_Check = true;
 	
-	$("#joinBtn").click(function(){
+	$("#joinBtn").click(function(){ // 가입 버튼 눌렀을 때
+		
 		
 // 		정규식 만족 안했을때 or 입력값이 null일때 or 입력값 없을 때
 //		1. 아이디 검사
@@ -157,7 +186,16 @@ $(document).ready(function(){
 		}
 
 		else { 	
-			$(this).parents("form").submit();			
+			
+			$(this).parents("form").submit();
+
+			$('#joinBtn').attr('disabled', true); // 버튼 비활성화
+			console.log("버튼비활성화")
+			
+			showLoadingBar();
+
+			// 로딩바 숨김
+			function hideLoadingBar() { $('#mask, #loadingImg').hide(); $('#mask, #loadingImg').remove(); }
 		}
 		
     	
@@ -446,6 +484,7 @@ $(document).ready(function(){
            </div>
            
            <button id = "joinBtn" type="submit" class="btn btn-primary">가입</button>
+           
          </form>
       </div>
    </div> <!-- innercon1 -->

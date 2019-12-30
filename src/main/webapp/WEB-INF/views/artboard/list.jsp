@@ -24,6 +24,13 @@ $(document).ready(function() {
 		$("#pfNotLoginModal").modal({backdrop: 'static', keyboard: false});
 		return false;
 	});
+
+	//로그인 회원이 예술인이거나 소셜로그인인 경우 글쓰기 버튼 누르면 모달
+	$("#notArtistWrite").click(function() {
+		$(".content").text('예술인 회원만 게시글 작성이 가능합니다.');
+		$("#pfNotArtistModal").modal({backdrop: 'static', keyboard: false});
+		return false;
+	});
 	
 });
 </script>
@@ -93,10 +100,42 @@ $(document).ready(function(){
 	});
 	
 });	
-	
-	
-	
 </script>
+
+
+
+
+<style type="text/css">
+#views_img{
+    max-width: 4%;
+	float:right;
+	margin-right: 6px;
+}
+#views{
+	float: right;
+	margin-right: 6px;
+}
+#like_img{
+    max-width: 4%;
+    float: right;
+	margin-right: 6px;
+}
+#likes{
+    max-width: 4%;
+    float: right;
+	margin-right: 6px;
+}
+#reply_img{
+    max-width: 4%;
+    float: right;
+	margin-right: 6px;
+}
+#replies{
+    max-width: 4%;
+    float: right;
+	margin-right: 6px;
+}
+</style>
 
 <div class="container list-container">
 <div class="h2"><h2> CALLENDAR </h2></div>
@@ -134,7 +173,6 @@ $(document).ready(function(){
 	  </a>
 	</div>
 	<!-- 캐러셀영역 END -->	
-	
 	<div class="b">
 	<c:choose>
 		<c:when test="${not login}">
@@ -144,14 +182,24 @@ $(document).ready(function(){
 		</div>
 		</c:when>
 		<%--  예술인일 때 작성 가능한 조건 추가 필요 --%>
-		<c:when test="${login}">
-			
+	 <c:otherwise> 
+     <c:choose> 
+			<c:when test = "${LoginUser.usertype ne 1}">
+			<div>
+			<button id="notArtistWrite"
+					class="btn btn-sm b-btn"
+					style="background-color: #343a40; color: white;">글작성</button>
+			</div>
+			</c:when>
+			<c:otherwise>
 			<div>
 			<a href="/artboard/write"><button id="LoginWrite"
 					class="btn btn-sm b-btn"
 					style="background-color: #343a40; color: white;">글작성</button></a>
 			</div>
-		</c:when>
+			</c:otherwise>
+		</c:choose>
+		</c:otherwise>
 	</c:choose>
 	</div> 
 
@@ -213,6 +261,17 @@ $(document).ready(function(){
 				<span class="media-heading"><a href="/artboard/view?boardno=${i.boardno}">${i.title }</a></span>
 				<br><br>
 				<span id = "category_name">${i.performname}</span>
+				
+				<span id = "views">${i.views }</span>
+				<span id = "views_img"><img src="/resources/img/view.png" class="d-block w-100" alt="..."> </span>
+
+				<span id = "replies"> [미완] </span>
+				<span id = "reply_img"><img src="/resources/img/note.png" class="d-block w-100" alt="..."></span>
+
+				<span id = "likes"> [미완] </span>
+				<span id = "like_img"><img src="/resources/img/like.png" class="d-block w-100" alt="..."></span> 
+				
+				
 			</div>
 	  
 		</div>
@@ -289,7 +348,7 @@ $(document).ready(function(){
 	</div>
 </div>
 
-<!-- 로그인 실패시 모달창 -->
+<!-- 비로그인 시 모달창 -->
 <div class="modal fade" id="pfNotLoginModal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -297,6 +356,30 @@ $(document).ready(function(){
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">로그아웃 상태</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="pfLoginCheckBtn"class="btn btn-info" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 일반회원, 소셜회원 글작성 클릭 시 모달창 -->
+<div class="modal fade" id="pfNotArtistModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">일반회원, 소셜로그인 회원</h4>
         <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
