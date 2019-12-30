@@ -61,6 +61,20 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		return freeboardDao.selectViewsAll();
 	}
 
+	@Override
+	public void freeDelete(int boardno) {
+		
+		freeboardDao.deleteFreeBoard(boardno);
+		
+	}
+
+	@Override
+	public void updateFreeBoard(FreeBoard freeboard) {
+
+		freeboardDao.updateFreeBoard(freeboard);
+		
+	}
+
 
 
 	}

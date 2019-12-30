@@ -61,5 +61,13 @@
 		WHERE rnum BETWEEN 1 AND 5
 	</select>
 	
+	<delete id="deleteFreeBoard" parameterType="int">
+		DELETE FROM board WHERE boardno = #{boardno }
+	</delete>
+	
+	<update id="updateFreeBoard" parameterType="board.dto.FreeBoard">
+		UPDATE board SET title = #{title }, contents = #{contents }
+		WHERE boardno = #{boardno }
+	</update>
 	
 </mapper>

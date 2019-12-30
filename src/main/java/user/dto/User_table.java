@@ -133,6 +133,10 @@ public class User_table {
 	public void setSociallogin(int sociallogin) {
 		this.sociallogin = sociallogin;
 	}
+
+	public void setInterest(String[] checkInterest) {
+		
+	}
 	
 	
 

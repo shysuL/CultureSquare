@@ -12,11 +12,11 @@
 <br>
 <nav class="navbar navbar-dark bg-dark fotter" >
    <div class="fotter"><br>    
-         <a href="/service">서비스소개&emsp;|</a>
-         <a href="/clause">&emsp;회원약관&emsp;|</a>
-         <a href="/personal">&emsp;개인정보처리방침&emsp;|</a>
-         <a href="/commercial">&emsp;광고문의&emsp;|</a>
-         <a href="/customer">&emsp;고객센터</a><br><br>
+         <a class="fottercol" href="/layout/fotter/service">서비스소개&emsp;|</a>
+         <a class="fottercol" href="/layout/fotter/clause">&emsp;이용약관&emsp;|</a>
+         <a class="fottercol" href="/layout/fotter/personal">&emsp;개인정보처리방침&emsp;|</a>
+         <a class="fottercol" href="/layout/fotter/cheongsonyeon">&emsp;청소년보호정책&emsp;|</a>
+         <a class="fottercol" href="/layout/fotter/customer">&emsp;고객센터</a><br><br>
       <div class="company_info">&copy;
       <span class="ft_copyright"> 2020 <strong>Culture Square</strong>&emsp;All rights reserved.
       </span>
