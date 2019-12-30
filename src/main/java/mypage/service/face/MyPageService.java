@@ -13,4 +13,11 @@ public interface MyPageService{
 	 */
 	public User_table getUserInfo(User_table user);
 
+	/**
+	 * 비밀번호 변경 전 사용자의 현재 비밀번호 
+	 * 
+	 * @param user
+	 */
+	public User_table getFindUserPw(User_table user);
+
 }

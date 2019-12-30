@@ -17,5 +17,11 @@
 		SET usernick = #{usernick }, userphone = ${userphone }, interest = ${interest } 
 		WHERE userno = #{userno }
 	</update>
+	
+	<select id="selectByUserid" parameterType="user.dto.User_table" resultType="user.dto.User_table">
+		SELECT userpw 
+		FROM user_table
+		WHERE userno = #{userno }, userid = #{userid }
+	</select>
 
 </mapper>
