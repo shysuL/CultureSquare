@@ -240,6 +240,8 @@ public class LoginController {
 			//세션 정보 불러오기
 			User_table userSession = userService.getUserSession(user);
 			
+			// 모달이메일때문에 넣어주기
+			userSession.setUserid(user.getUserid());
 			// 결과에 따른 세션관리
 			if(isLogin) {
 
@@ -256,14 +258,18 @@ public class LoginController {
 					return "redirect:/main/main";
 					
 				 } else {
-
-					 return "/user/emailCheckError";
+					 logger.info("로그인됐으면서 메일체크가 Y가아 아닌애들");
+					 session.setAttribute("login", true);
+					 session.setAttribute("emailcheck", "N");
+					 session.setAttribute("usermailcheck", userSession);
+					 return "/main/main";
 					 
 				 } 			
 			}
 			
 			//로그인 안했을때 처리 ( isLogin : false )
 			else
+				logger.info("로그인안됨");
 				return "redirect:/main/main";
 	}
 }
