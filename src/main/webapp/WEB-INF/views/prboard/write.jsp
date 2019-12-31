@@ -84,9 +84,9 @@
 }
 
 @font-face {
-	font-family: 'SDMiSaeng';
+	font-family: 'YanoljaYacheR';
 	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/SDMiSaeng.woff')
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/YanoljaYacheR.woff')
 		format('woff');
 	font-weight: normal;
 	font-style: normal;
@@ -116,7 +116,8 @@
 }
 
 #nicknameShow{
-	font-family: '잘난체 폰트', 'Jalnan', yg-jalnan;
+	font-family: '야놀자', 'YanoljaYacheR', YanoljaYacheR;
+	font-size: 25px;
 }
 
 #prType{
