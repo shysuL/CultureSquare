@@ -19,9 +19,9 @@
 	border: 1px solid black;
 	max-width: 95%;
 	height: 45px;
-	text-align: center;
 	color: white;
 	padding: 6px;
+	font-size: 25px;
 }
 .con_left{
 	width: 68%;
@@ -86,30 +86,45 @@
 	padding: 10px;
 	text-align: center;
 }
-#side{
-	position:absolute;
-	right: 20px;
-    top: 384px;
-}
+
 </style>
 
-<h1> CALLENDAR </h1>
+<div class="container list-container">
+
+<div class="h2"><h2> CALLENDAR </h2></div>
 <hr>
-
-<h2>VIEWVIEW</h2>
-
-<div class="container container-fluid" style="margin-bottom: 600px">
-<div id = "view_head" class="col-xs-12 col-sm-6 col-md-8">
-<span style="">${view.title }</span>
-</div>
-<div id = "view_writer" class="col-xs-12 col-sm-6 col-md-8" >
-	<div id = "writer_nick" class="col-md-4">
-	${writer.usernick }
-	</div>
-	<div id = "write_date"  class="col-md-4">
-	${view.writtendate }
-		<div id = "viewcount">
-		${view.views }
+<h3>VIEWVIEW</h3>
+<br>
+<div class="row">
+	<div class="col-9">
+		<div class="container container-fluid" style="margin-bottom: 600px">
+			<div id = "view_head" class="col-xs-12 col-sm-6 col-md-8">
+				<span>${view.title }</span>
+			</div>
+		<div id = "view_writer" class="col-xs-12 col-sm-6 col-md-8" >
+			<div id = "writer_nick" class="col-md-4">
+			${writer.usernick }
+			</div>
+			<div id = "write_date"  class="col-md-4">
+			${view.writtendate }
+			<div id = "viewcount">
+			${view.views }
+			</div>
+			</div>
+		</div>
+		<!-- 글내용 -->
+		<div id = view_content class="col-xs-12 col-sm-6 col-md-8">
+			${view.contents }<br>
+		<br><br><br><br><br><br><br><br><br><br><br><br><br>
+		</div>
+		<!-- 버튼 -->
+		<div id = "view_buttonarea" class="btn col-md-4" role="group">
+			<button type = "button" class="btn  bbc" >후원하기</button>
+			<button type = "button" class="btn  bbc" >추천</button>
+			<a href="/artboard/list">
+			<button type = "button" class="btn  bbc" >목록</button>
+			</a>
+		</div>
 		</div>
 	</div>
 
@@ -129,9 +144,65 @@ ${view.contents }<br>
 </div>
 <div>&nbsp;</div><br>
 
+<!-- 댓글 처리 -->
+<div>
+
+<hr>
+
+<!-- 비로그인상태 -->
+<c:if test="${not login }">
+<strong>로그인이 필요합니다</strong><br>
+</c:if>
+
+<!-- 로그인상태 -->
+<c:if test="${login }">
+<!-- 댓글 입력 -->
+${LoginUser.userno }
+<div class="form-inline text-center">
+	<input type="hidden"  id="userno" name="userno" value="${LoginUser.userno }" />
+	<input type="hidden"  id="boardno" name="boardno" value="${ view.boardno}" />
+	<input type="text" size="10" class="form-control" id="replyWriter" name = "usernick" value="${LoginUser.usernick }" readonly="readonly"/>
+	<textarea rows="2" cols="60" class="form-control" id="recontents" name="recontents"></textarea>
+	<button id="btnCommInsert" class="btn">입력</button>
+</div>	<!-- 댓글 입력 end -->
+</c:if>
+
+<!-- 댓글 리스트 -->
+<table class="table table-striped table-hover table-condensed">
+<thead>
+<tr>
+	<th style="width: 5%;">번호</th>
+	<th style="width: 10%;">작성자</th>
+	<th style="width: 50%;">댓글</th>
+	<th style="width: 20%;">작성일</th>
+	<th style="width: 5%;"></th>
+</tr>
+</thead>
+<tbody id="commentBody">
+<c:forEach items="${replyList }" var="reply">
+<tr data-commentno="${reply.replyno }">
+	<td>${reply.rnum }</td>
+	<td>${reply.userno }</td><!-- 닉네임으로 해도 좋음 -->
+	<td>${reply.recontents }</td>
+	<td>${reply.replydate}</td>
+	<td>
+		<c:if test="${sessionScope.userno eq reply.userno }">
+		<button class="btn btn-default btn-xs"
+			onclick="deleteComment(${reply.replyno });">삭제</button>
+		</c:if>
+	</td>
+	
+</tr>
+</c:forEach>
+</tbody>
+</table>	<!-- 댓글 리스트 end -->
+
+</div>	<!-- 댓글 처리 end -->
 
 
-<ul id = "side" class="list-group">
+
+<div class="col-3">
+<ul class="list-group" style="width: 300px;">
   <li id = "writer_title" class="list-group-item">
 	작성자 프로필
 	</li>
@@ -147,6 +218,7 @@ ${view.contents }<br>
    </div>
    </li>
 </ul>
+</div>
 
 
 
@@ -162,3 +234,65 @@ ${view.contents }<br>
 </div> <!-- div_container -->
 
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+	// 댓글 입력
+	$("#btnCommInsert").click(function() {
+		// 게시글 번호.... ${viewBoard.boardno }
+	//		console.log($("#commentWriter").val());
+	//		console.log($("#commentContent").val());
+		
+		$form = $("<form>").attr({
+			action: "/reply/insert",
+			method: "post"
+		}).append(
+			$("<input>").attr({
+				type:"hidden",
+				name:"boardno",
+				value:"${view.boardno }"
+			})
+		).append(
+			$("<input>").attr({
+				type:"hidden",
+				name:"userno",
+				value:"${LoginUser.userno }"
+			})
+		).append(
+			$("<textarea>")
+				.attr("name", "recontents")
+				.css("display", "none")
+				.text($("#recontents").val())
+		);
+		$(document.body).append($form);
+		$form.submit();
+		
+	});
+	
+});
+
+// //댓글 삭제
+// function deleteComment(commentNo) {
+// 	$.ajax({
+// 		type: "post"
+// 		, url: "/comment/delete"
+// 		, dataType: "json"
+// 		, data: {
+// 			commentNo: commentNo
+// 		}
+// 		, success: function(data){
+// 			if(data.success) {
+				
+// 				$("[data-commentno='"+commentNo+"']").remove();
+				
+// 			} else {
+// 				alert("댓글 삭제 실패");
+// 			}
+// 		}
+// 		, error: function() {
+// 			console.log("error");
+// 		}
+// 	});
+// }
+</script>

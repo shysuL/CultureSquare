@@ -16,7 +16,20 @@
 <!-- 크롤링 불러오기 ajax -->
 <script type="text/javascript">
 	$(document).ready(function() {
-		 
+		
+		// 메일인증요구 확인버튼 누를시
+		$("#mailCheckOkBtn").click(function(){
+			location.href="/logout";
+		})
+		// 회원가입 후 첫 메일인증요구 모달 띄우기
+		if ('${emailcheck}' == 'N'){
+			$("#mailCheckModal").modal({backdrop: 'static', keyboard: false});
+		} else if('${login}'== true && '${emailcheck}' == 'N' ) {
+			$("#mailCheckModal").modal({backdrop: 'static', keyboard: false});
+		} else {}
+			
+
+		
 		//닉넴 중복 검사하는 모달에서 X버튼 눌렀을 때
 		$("#SocialMainX").click(function(){
 			$("#notifyModal").modal({backdrop: 'static', keyboard: false});
@@ -275,6 +288,32 @@
       <div class="modal-footer">
         <button id="SocialCheckBtn"class="btn btn-info">중복체크</button>
         <button type="submit" id="SocialMainBtn"class="btn btn-info" data-dismiss="modal" disabled>확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- 회원가입 후 메일인증 모달 -->
+<div class="modal fade" id="mailCheckModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">알림</h4>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	 ${usermailcheck.username}님의 가입하신 이메일(${usermailcheck.userid})에서<br> 
+      	 인증완료 해주시면 서비스 이용 가능합니다.
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="mailCheckOkBtn"class="btn btn-info" data-dismiss="modal">확인</button>
       </div>
 
     </div>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 마이바티스 3 Configuration DOCTYPE -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="artboard.dao.face.ReplyDao">
+	
+	<insert id="insert" parameterType="artboard.dto.Reply">
+		INSERT INTO reply (replyno, groupno,replyorder,replydepth,recontents,replydate,userno,boardno)
+		VALUES(reply_seq.nextval, 0,0,0,#{recontents} ,TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), #{userno},#{boardno})
+	</insert>
+	
+	<select id="selectReply" parameterType="artboard.dto.Board"
+		resultType="artboard.dto.Reply">
+		SELECT rownum rnum, B.* FROM (
+				SELECT 
+					replyno, groupno, replyorder, replydepth, recontents, replydate, userno, boardno
+				FROM reply
+				WHERE boardno = #{boardno}
+				ORDER BY replydate
+				) B
+		 ORDER BY rnum
+	</select>
+
+
+</mapper>

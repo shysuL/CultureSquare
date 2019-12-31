@@ -177,8 +177,7 @@ $(document).ready(function(){
 	<c:choose>
 		<c:when test="${not login}">
 		<div>
-			<button id="notLoginWrite" class="btn btn-sm b-btn"
-				style="background-color: #343a40; color: white;">글작성</button>
+			<button id="notLoginWrite" class="btn bbc">글작성</button>
 		</div>
 		</c:when>
 		<%--  예술인일 때 작성 가능한 조건 추가 필요 --%>
@@ -186,16 +185,14 @@ $(document).ready(function(){
      <c:choose> 
 			<c:when test = "${LoginUser.usertype ne 1}">
 			<div>
-			<button id="notArtistWrite"
-					class="btn btn-sm b-btn"
-					style="background-color: #343a40; color: white;">글작성</button>
+			<button id="notArtistWrite" class="btn bbc">글작성</button>
 			</div>
 			</c:when>
 			<c:otherwise>
 			<div>
-			<a href="/artboard/write"><button id="LoginWrite"
-					class="btn btn-sm b-btn"
-					style="background-color: #343a40; color: white;">글작성</button></a>
+			<a href="/artboard/write">
+			<button id="LoginWrite"class="btn bbc">글작성</button>
+			</a>
 			</div>
 			</c:otherwise>
 		</c:choose>
