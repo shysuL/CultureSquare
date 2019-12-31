@@ -9,7 +9,7 @@ public interface MyPageDao {
 	 * 
 	 * @param user
 	 */
-	public void updateUserNick(User_table user);
+	public void updateUserInfo(User_table user);
 	
 	/**
 	 * 사용자 개인정보 수정
@@ -38,5 +38,7 @@ public interface MyPageDao {
 	public void updatePassword(User_table pwParam);
 
 	public int selectComparedPw(String lockPw);
+
+	public int selectUserNick(String usernick);
 
 }

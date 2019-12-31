@@ -7,6 +7,91 @@
 
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />  
 
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	// 댓글 입력
+	$("#btnCommInsert").click(function() {
+		
+		$form = $("<form>").attr({
+			action: "/reply/insert",
+			method: "post"
+		}).append(
+			$("<input>").attr({
+				type:"hidden",
+				name:"boardno",
+				value:"${view.boardno }"
+			})
+		).append(
+			$("<input>").attr({
+				type:"hidden",
+				name:"userno",
+				value:"${LoginUser.userno }"
+			})
+		).append(
+			$("<textarea>")
+				.attr("name", "recontents")
+				.css("display", "none")
+				.text($("#recontents").val())
+		);
+		$(document.body).append($form);
+		$form.submit();
+		
+	});
+	
+});
+//댓글 삭제
+function deleteReply(replyno) {
+	$.ajax({
+		type: "post"
+		, url: "/reply/delete"
+		, dataType: "json"
+		, data: {
+			replyno: replyno
+		}
+		, success: function(data){
+			if(data.success) {
+				console.log(replyno);
+				$("[data-replyno='"+replyno+"']").remove();
+				
+			} else {
+				alert("댓글 삭제 실패");
+			}
+		}
+		, error: function() {
+			console.log("error");
+		}
+	});
+}
+
+</script>	
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	//후원하기버튼 클릭 시 모달
+	$("#donationbtn").click(function() {
+// 		$(".content").text('후원할 금액을 입력해 주세요');
+		$("#donationModal").modal({backdrop: 'static', keyboard: false});
+	});
+	
+	   $("input:radio[name=donprice]").click(function(){
+		   var donChecked = $("input[name=donprice]:checked").val();
+// 			console.log(donChecked);
+			if(donChecked == '1000'){
+				$('input[name=etcinput]').attr('value','');
+				$("#etcinput").attr("disabled", true);
+			}else if(donChecked == '5000'){
+				$('input[name=etcinput]').attr('value','');
+				$("#etcinput").attr("disabled", true);
+			}else if(donChecked == '10000'){
+				$('input[name=etcinput]').attr('value','');
+				$("#etcinput").attr("disabled", true);
+			}else
+				$("#etcinput").attr("disabled", false);
+	   })
+});
+</script>
+
 <style type="text/css">
 #view_head{
 	background-color: #343a40;
@@ -129,7 +214,7 @@
 		</div>
 		<!-- 버튼 -->
 		<div id = "view_buttonarea" class="btn col-md-4" role="group">
-			<button type = "button" class="btn  bbc" >후원하기</button>
+			<button type = "button" class="btn  bbc" id = "donationbtn">후원하기</button>
 			<button type = "button" class="btn  bbc" >추천</button>
 			<a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%= cal.get(Calendar.MONTH) +1 %>">
 			<button type = "button" class="btn  bbc" >목록</button>
@@ -147,7 +232,8 @@
 <div>
 
 <hr>
-
+		<div id="commentbody"></div>
+		<%-- 댓글입력 시 이동 위치 --%>
 <!-- 비로그인상태 -->
 <c:if test="${not login }">
 <strong>로그인이 필요합니다</strong><br>
@@ -185,9 +271,9 @@ ${LoginUser.userno }
 	<td>${reply.recontents }</td>
 	<td>${reply.replydate}</td>
 	<td>
-		<c:if test="${sessionScope.userno eq reply.userno }">
-		<button class="btn btn-default btn-xs"
-			onclick="deleteComment(${reply.replyno });">삭제</button>
+		<c:if test="${LoginUser.userno eq reply.userno }">
+		<button class="btn btn-default btn-xs" style="font-size: 12px;"
+			onclick="deleteReply(${reply.replyno });">삭제</button>
 		</c:if>
 	</td>
 	
@@ -220,78 +306,54 @@ ${LoginUser.userno }
 </div>
 
 
-
-
-
-
-
-
-
-
-
 <br><br>
+
+<!-- 게시글 후원 모달창 -->
+<div class="modal fade" id="donationModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">후원하기</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	금액 
+      		<div class="custom-control custom-radio">
+	               <input type="radio" class="custom-control-input" id="1000won" name="donprice" value="1000">
+	               <label class="custom-control-label" for="1000won">1000원</label>
+	            </div>
+	            <div class="custom-control custom-radio">
+	               <input type="radio" class="custom-control-input" id="5000won" name="donprice" value="5000">
+	               <label class="custom-control-label" for="5000won">5000원</label>
+	            </div>
+	            <div class="custom-control custom-radio">
+	               <input type="radio" class="custom-control-input" id="10000won" name="donprice" value="10000">
+	               <label class="custom-control-label" for="10000won">10000원</label>
+	            </div>
+	            <div class="custom-control custom-radio">
+	               <input type="radio" class="custom-control-input" id="etc" name="donprice" value="">
+	               <label class="custom-control-label" for="etc">기타</label>
+	               <input id = "etcinput" name = "etcinput"  class="form-control"  disabled="disabled"/>
+	            </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" id="donation" class="btn btn-info" data-dismiss="modal">후원하기</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
 </div> <!-- div_container -->
 
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
 
 
-<script type="text/javascript">
-$(document).ready(function() {
-	// 댓글 입력
-	$("#btnCommInsert").click(function() {
-		// 게시글 번호.... ${viewBoard.boardno }
-	//		console.log($("#commentWriter").val());
-	//		console.log($("#commentContent").val());
-		
-		$form = $("<form>").attr({
-			action: "/reply/insert",
-			method: "post"
-		}).append(
-			$("<input>").attr({
-				type:"hidden",
-				name:"boardno",
-				value:"${view.boardno }"
-			})
-		).append(
-			$("<input>").attr({
-				type:"hidden",
-				name:"userno",
-				value:"${LoginUser.userno }"
-			})
-		).append(
-			$("<textarea>")
-				.attr("name", "recontents")
-				.css("display", "none")
-				.text($("#recontents").val())
-		);
-		$(document.body).append($form);
-		$form.submit();
-		
-	});
-	
-});
-
-//댓글 삭제
-function deleteComment(commentNo) {
-	$.ajax({
-		type: "post"
-		, url: "/reply/delete"
-		, dataType: "json"
-		, data: {
-			replyno: replyno
-		}
-		, success: function(data){
-			if(data.success) {
-				
-				$("[data-replyno='"+replyno+"']").remove();
-				
-			} else {
-				alert("댓글 삭제 실패");
-			}
-		}
-		, error: function() {
-			console.log("error");
-		}
-	});
-}
-</script>

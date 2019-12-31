@@ -89,7 +89,7 @@ public interface UserDao {
 	 * 
 	 * @param user - 로그인폼에서 입력받은 정보
 	 * 
-	 * @return - boolean ( true : 로그인, false : 실패 )
+	 * @return int - 0 : 일치아이디 없음, 1 : 일치아이디 존재
 	 */
 	public int selectCnt(User_table user);
 
@@ -173,5 +173,16 @@ public interface UserDao {
 	 * @return String - 변경된 닉네임
 	 */
 	public String selectUserNick(int userno);
+	
+	/**
+	 * 2019-12-31
+	 * 이빈
+	 * 
+	 * 입력받은 사용자 아이디를 통해 해당 아이디에 관한 정보들을 가져온다.
+	 * 
+	 * @param userId - 사용자 아이디
+	 * @return - 사용자 정보
+	 */
+	public User_table loginUserInfo(String userId);
 
 }

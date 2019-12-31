@@ -12,9 +12,9 @@
 		WHERE userno = #{userno }	
 	</select>
 	
-	<update id="updateUserNick" parameterType="user.dto.User_table">
+	<update id="updateUserInfo" parameterType="user.dto.User_table">
 		UPDATE User_table 
-		SET usernick = #{usernick }, userphone = #{userphone }, interest = #{interest } 
+		SET usernick = #{usernick }, userphone = #{userphone }
 		WHERE userno = #{userno }
 	</update>
 	
@@ -39,6 +39,12 @@
 		SELECT count(*)
 		FROM User_table
 		WHERE userno = #{userno } AND userpw = #{userpw }
+	</select>
+	
+	<select id="selectUserNick" parameterType="String" resultType="int">
+		SELECT count(*)
+		FROM User_table
+		WHERE usernick = #{usernick }
 	</select>
 
 </mapper>

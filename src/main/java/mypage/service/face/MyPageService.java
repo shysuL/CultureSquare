@@ -6,7 +6,7 @@ import user.dto.User_table;
 
 public interface MyPageService{
 
-	public void modifyUserNick(User_table user);
+	public void modifyUserInfo(User_table user);
 
 	/**
 	 * 사용자의 원래 개인정보 불러오기
@@ -29,5 +29,7 @@ public interface MyPageService{
 	public void modifyUserPassword(User_table pwParam);
 
 	public boolean comparedPw(User_table user);
+
+	public int userNickCheck(String usernick);
 
 }
