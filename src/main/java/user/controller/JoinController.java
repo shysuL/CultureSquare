@@ -46,14 +46,13 @@ public class JoinController {
 		String encPw = PwSha256.userPwEncSHA256(user.getUserpw());
 		user.setUserpw(encPw);
 		// SHA256암호화 후 비밀번호 확인
-		logger.info("SHA256암호화 후 비밀번호 : " + user.getUserpw());
+//		logger.info("SHA256암호화 후 비밀번호 : " + user.getUserpw());
 		
 		// 회원가입처리 
 		userService.joinProc(user);
 				
 		// 메일 인증 발송
 		joinSendMailService.mailSendWithEmailKey(user.getUserid(), user.getUsername(), req);
-		System.out.println("getUserId: " + user.getUserid());
 		
 		model.addAttribute("usermailcheck", user);
 		session.setAttribute("emailcheck", "N");

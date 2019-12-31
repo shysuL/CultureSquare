@@ -1,5 +1,9 @@
 package user.service.face;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import user.dto.User_table;
 
 public interface UserService {
@@ -14,7 +18,7 @@ public interface UserService {
 	public int joinProc(User_table user);
 
 	
-	/**
+	/** 
 	 * 2019-12-25
 	 * 이빈
 	 * 아이디 중복체크 하기(AJAX)
@@ -32,14 +36,16 @@ public interface UserService {
 	 */
 	public int userNickCheck(String usernick);
 
-	/**
+	/** 수정중 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	 * 2019-12-27
 	 * 이빈
 	 * 로그인
 	 * @param user - 입력한 아이디 / 패스워드
-	 * @return true - 로그인 성공
+	 * @param userCheck - 쿠키 체크 여부
+	 * @param session - 세션
+	 * @return 0:기본값, 1:로그인성공, 2:입력한아이디가 없을경우, 3:비밀번호가 다른경우, 4:이메일 인증하지 않은 경우
 	 */
-	public boolean loginProc(User_table user);
+	public int loginProc(User_table user, HttpSession session, String userCheck, HttpServletResponse resp);
 
 	/**
 	 * 2019-12-27

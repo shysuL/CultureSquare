@@ -213,10 +213,10 @@ $(document).ready(function(){
 			datatype:"json",
 			success : function(res){
 				// idCheck는 ModelAndView에서 지정해준 이름			
-				console.log("res")
-				console.log(res)
-				console.log("res.idCheck")
-				console.log(res.idCheck)
+//				console.log("res")
+//				console.log(res)
+//				console.log("res.idCheck")
+//				console.log(res.idCheck)
 				
 				if(res.idCheck>0){
 					// 1 : 아이디가 중복되는 문구
@@ -336,6 +336,7 @@ $(document).ready(function(){
 		
 	})
 	
+	// 핸드폰
 	$('#userphone').blur(function(){
 		
 		if(phoneJ.test($(this).val())){
