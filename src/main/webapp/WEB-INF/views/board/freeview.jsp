@@ -55,7 +55,9 @@ $(document).ready(function() {
 		<tr><td colspan="4">${board.contents }</td></tr>
 
 		<tr>
-			<td class="info" colspan="1">첨부파일</td><td colspan="3"><a href="/board/download?fileno=${file.fileno }">${file.originname }</a></td>
+			<c:if test="${not empty file }">
+			<td colspan="4"><a href="/board/download?fileno=${file.fileno }">${file.originname }</a></td>
+			</c:if>
 		</tr>
 </table>
 	<div class="text-center" >
@@ -83,7 +85,14 @@ $(document).ready(function() {
 
       <!-- Modal footer -->
       <div class="modal-footer">
+      <c:choose>
+      	<c:when test="${file.fileno eq null }">
+      	<a href="/board/freedelete?boardno=${board.boardno }" class="btn btn-default" style="float: right; background-color: #343a40; color: white;" role="button">확인</a>
+      	</c:when>
+      	<c:otherwise>
         <a href="/board/freedelete?boardno=${board.boardno }&fileno=${file.fileno }" class="btn btn-default" style="float: right; background-color: #343a40; color: white;" role="button">확인</a>
+      	</c:otherwise>
+      </c:choose>
         <button type="submit" id="freeCancelBtn"class="btn btn-default" style="float: right; background-color: #343a40; color: white;" data-dismiss="modal" >취소</button>
       </div>
 

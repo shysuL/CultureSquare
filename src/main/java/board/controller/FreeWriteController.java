@@ -58,6 +58,8 @@ public class FreeWriteController {
 		
 		logger.info(freeboard.toString());
 		
+		logger.info(upfile.toString());
+		
 		if(upfile.equals(null)) {
 			
 			freeboardService.writeFree(freeboard);

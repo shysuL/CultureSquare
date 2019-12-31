@@ -85,7 +85,7 @@ public class MyInfoModifyController {
 		//세션에 저장되어있는 사용자의 닉네임 불러오기
 		String userNname = userinfo.getUsernick();
 		
-		//변경할 닉네임
+		//변경할 닉네임과 핸드폰 번호
 		Object nick = user.getUsernick();
 		Object phone = user.getUserphone();
 		

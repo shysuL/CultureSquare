@@ -63,6 +63,14 @@
 	   		AND sociallogin = 0
 	   </select>
 	   
+	   <select id="loginUserInfo" 
+	    parameterType="String" resultType="user.dto.User_table">
+	     SELECT * FROM user_table
+	     WHERE 1=1
+	     	AND userid = #{userId}
+	     	AND sociallogin = 0
+	    </select>
+	   
 	   <!-- 세선정보(usernick, username, interest, userno) -->
 	   <select id="selectUserInfoById"
 	    parameterType="user.dto.User_table" resultType="user.dto.User_table">

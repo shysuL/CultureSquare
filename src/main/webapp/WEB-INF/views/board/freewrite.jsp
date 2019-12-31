@@ -75,7 +75,7 @@ enctype="multipart/form-data">
 <tr><td colspan="2"><input type="text" name="title" style="width:100%"/></td></tr>
 <tr><td class="info" colspan="2">내용</td></tr>
 <tr><td colspan="2"><textarea id="content" name="contents"></textarea></td></tr>
-<tr><td class="info">첨부파일</td><td><input type="file" name="file" id="file"></td></tr>
+<tr><td><input type="file" name="file" id="file"></td></tr>
 </table>
 
 </form>

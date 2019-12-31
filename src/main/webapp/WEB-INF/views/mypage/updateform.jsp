@@ -33,8 +33,27 @@ $(document).ready(function(){
 			$("#userphone").focus();
 			
 			return false;
-		} 		
+			
+		} 
 		
+		//수정완료 모달
+		$("#UserInfoSuccessModal").modal({backdrop: 'static', keyboard: false});
+		
+	})
+	
+	//개인정보 수정 취소시 모달
+	$("#updatecancel").click(function(){
+		$("#UserInfoCancelModal").modal({backdrop: 'static', keyboard: false});
+	})
+	
+	//수정완료 모달에서의 확인버튼
+	$("#updateok").click(function(){
+		$("#updateinfoform").submit();
+	})
+	
+	//수정취소 모달에서의 확인 버튼
+	$("#cancelok").click(function(){
+		$(location).attr("href", "/mypage/main")
 	})
 	
 	
@@ -115,7 +134,7 @@ $(document).ready(function(){
 		<h4 id="updateform">개인정보 수정</h4>
 	</div>
 	
-	<form action="/mypage/updateform" method="post">
+	<form action="/mypage/updateform" method="post" id="updateinfoform">
 		<div class="container container-center" id="updateform2">
 			<input type="hidden" name = "userno" value="${getUser.userno }"/>
 			
@@ -128,12 +147,10 @@ $(document).ready(function(){
 			<label>아이디 &nbsp;:&nbsp;</label>${getUser.userid }<br>
 			
 			<label>닉네임 &nbsp;:&nbsp;</label><input type="text" id="usernick" name="usernick" value="${getUser.usernick }"/>
-<!-- 			<button type="button" id="nicknameCheck" class="btn btn-outline-dark">중복확인</button> -->
 			<div class="check-font" id="nick_check"></div><br>
 			
 			<label>전화번호 &nbsp;:&nbsp;</label><input type="text" id="userphone" name = "userphone" value="${getUser.userphone }"/>
-<!-- 			<button type="button" id="phoneCheck" class="btn btn-outline-dark">번호확인</button><br> -->
-			<small>'-'없이 번호만 입력해주세요.</small>
+			<small>&emsp;'-'없이 번호만 입력해주세요.</small>
 			<div class="check_font" id="phone_check"></div><br>
 			
 			<div class="form-group">
@@ -176,13 +193,16 @@ $(document).ready(function(){
 			                </c:if>
 				</c:forEach>       		
 			</div>
-           
-			<button id="updatecancel" class="btn btn-danger" >수정 취소</button>
-			<button type="submit" id="updatesuccess" class="btn btn-dark">수정 완료</button>
+			
+			<button type="button" id="updatesuccess" class="btn btn-dark">수정 완료</button>
+			<button type="button" id="updatecancel" class="btn btn-danger" >수정 취소</button>
 		
 		</div>
 	</form>
 	
+	
+	
+<!-- 모달 -->
 	<!-- 닉네임 중복 검사 실패시  모달창 -->
 	<div class="modal fade" id="NickAuthenticationModal">
 	  <div class="modal-dialog modal-dialog-centered">
@@ -191,7 +211,7 @@ $(document).ready(function(){
 	      <!-- Modal Header -->
 	      <div class="modal-header">
 	        <h4 class="modal-title">닉네임 중복</h4>
-	        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
 	      </div>
 	
 	      <!-- Modal body -->
@@ -200,14 +220,14 @@ $(document).ready(function(){
 	
 	      <!-- Modal footer -->
 	      <div class="modal-footer">
-	        <button type="submit" id="inputjoinCheckBtn"class="btn btn-info" data-dismiss="modal">확인</button>
+	        <button type="submit" class="btn btn-info" data-dismiss="modal">확인</button>
 	      </div>
 	
 	    </div>
 	  </div>
 	</div>
 	
-	<!-- 닉네임 중복 검사 실패시  모달창 -->
+	<!-- 핸드폰 번호 유효성 검사 실패시  모달창 -->
 	<div class="modal fade" id="PhoneAuthenticationModal">
 	  <div class="modal-dialog modal-dialog-centered">
 	    <div class="modal-content">
@@ -215,7 +235,7 @@ $(document).ready(function(){
 	      <!-- Modal Header -->
 	      <div class="modal-header">
 	        <h4 class="modal-title">휴대폰 번호 </h4>
-	        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
 	      </div>
 	
 	      <!-- Modal body -->
@@ -224,7 +244,58 @@ $(document).ready(function(){
 	
 	      <!-- Modal footer -->
 	      <div class="modal-footer">
-	        <button type="submit" id="inputjoinCheckBtn"class="btn btn-info" data-dismiss="modal">확인</button>
+	        <button type="submit"class="btn btn-info" data-dismiss="modal">확인</button>
+	      </div>
+	
+	    </div>
+	  </div>
+	</div>
+
+	<!-- 개인정보 수정 완료시 모달창 -->
+	<div class="modal fade" id="UserInfoSuccessModal">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <h4 class="modal-title">수정 완료 </h4>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+	
+	      <!-- Modal body -->
+	      <div class="modal-body content">
+	      	개인정보 수정이 완료되었습니다.
+	      </div>
+	
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	        <button type="submit" id="updateok" class="btn btn-info" data-dismiss="modal">확인</button>
+	      </div>
+	
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- 개인정보 수정 취소시 모달창 -->
+	<div class="modal fade" id="UserInfoCancelModal">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <h4 class="modal-title">수정 취소 </h4>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+	
+	      <!-- Modal body -->
+	      <div class="modal-body content">
+	      	개인정보 수정을 정말 취소하시겠습니까?
+	      </div>
+	
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	        <button type="submit"class="btn btn-info" id="cancelok" data-dismiss="modal">확인</button>
+	        <button type="cancel" class="btn btn-info" data-dismiss="modal">취소</button>
 	      </div>
 	
 	    </div>
