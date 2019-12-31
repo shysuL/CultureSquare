@@ -153,8 +153,8 @@ $(document).ready(function() {
 	<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
       <div class="card h-100">
         <a href="/prboard/view?boardno=${prboard.boardno }">
-        
-        <img class="card-img-top" onerror="this.src='/prImage/NoImage.gif';"src="/prImage/${prboard.boardno }"></a>
+       	 	<img class="card-img-top" onerror="this.src='/resources/img/NoImage.gif';"src="/prImage/${prboard.boardno }" style="height: 202px; padding: 10px;">
+        </a>
         <div class="card-body">
         	 <p class="card-text" style = "font-weight: bold;">${prboard.prname }</p>
           <p class="card-title">
