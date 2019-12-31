@@ -123,4 +123,17 @@ public interface PFBoardDao {
 	 */
 	public void updateViews(Board bno);
 
+	
+	/**
+	 * 이수현
+	 * 2019 - 12 - 30
+	 * 
+	 * usernick으로 userno 조회
+	 * 
+	 * 
+	 * @param loginUser - usernick
+	 * @return int(User_table) - userno
+	 */
+	public int selectUsernoByUsernick(Board loginUser);
+
 }

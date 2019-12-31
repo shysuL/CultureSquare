@@ -14,8 +14,8 @@ public class MyPageServiceImpl implements MyPageService{
 	@Autowired MyPageDao mypageDao;
 
 	@Override
-	public void modifyUserNick(User_table user) {
-		mypageDao.updateUserNick(user);
+	public void modifyUserInfo(User_table user) {
+		mypageDao.updateUserInfo(user);
 	}
 
 	@Override
@@ -82,5 +82,10 @@ public class MyPageServiceImpl implements MyPageService{
 		}
 		
 		return false;
+	}
+
+	@Override
+	public int userNickCheck(String usernick) {
+		return mypageDao.selectUserNick(usernick);
 	}
 }

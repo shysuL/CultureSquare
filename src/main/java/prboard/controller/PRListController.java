@@ -1,6 +1,8 @@
 package prboard.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,12 +18,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import artboard.dto.Board;
 import prboard.service.face.PRBoardService;
 import user.bo.NaverLoginBO;
 import user.service.face.KakaoService;
 import util.PRPaging;
-import util.Paging;
 
 @Controller
 public class PRListController {
@@ -46,7 +46,7 @@ public class PRListController {
 	private OAuth2Parameters googleOAuth2Parameters;
 	
 	@RequestMapping(value="/prboard/prlist", method=RequestMethod.GET)
-	public void prList(Model model, PRPaging paging, HttpSession session) {
+	public void prList(Model model, String searchType, String search, PRPaging paging, HttpSession session) {
 		logger.info("pr리스트 출력");
 		
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
@@ -74,11 +74,27 @@ public class PRListController {
 		//구글
 		model.addAttribute("google_url", googleUrl);
 		
-		int totalCount = prBoardService.getCntAll();
+		Map<String, String> map = new HashMap<String, String>();
+		logger.info("여긴ㅅ ㅣㄹ행 되나");
+		
+		
+		if(searchType!=null & !"".equals(searchType)) {
+			map.put("searchType",searchType);
+		}
+
+		if(search!=null && !"".equals(search)) {
+			map.put("search", search);
+		}
+		
+		int totalCount = prBoardService.getCntAll(map);
 		
 		logger.info("토탈 갯수 : " + totalCount);
 		
 		PRPaging paging2 = new PRPaging(totalCount, paging.getCurPage());
+		
+		paging2.setsearch2(map);
+		
+		logger.info("맵 : " + map.toString());
 		
 		logger.info("paging2 : " + paging2.toString());
 		
