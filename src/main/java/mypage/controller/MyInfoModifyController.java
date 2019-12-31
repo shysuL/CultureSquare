@@ -63,31 +63,6 @@ public class MyInfoModifyController {
 	      model.addAttribute("list", list);
 	      
 	     //--------------------------------------------------------------------   
-
-//		String[] checkInterest = null;
-//		
-//		for(int i = 0; i<getUser.getInterest().length(); i++) {
-//			checkInterest = getUser.getInterest().split(",");   
-//			
-//		}
-//		
-//		for (String string : checkInterest) {
-//			System.out.println("1 : " + string);
-//		}
-//		
-//		List checkList = new ArrayList();
-//		
-//		for(int i = 0 ; i<checkInterest.length; i++) {
-//			checkList.add(checkInterest[i]);
-//		}
-//		
-//		System.out.println(checkList);
-//		getUser.setInterest(checkInterest);
-		
-//		model.addAttribute("checkList", checkList);
-//		model.addAttribute("checkList", getUser.getInterest().split(","));
-		
-//--------------------------------------------------------------------	
 		
 		model.addAttribute("getUser", getUser);
 		
@@ -99,25 +74,28 @@ public class MyInfoModifyController {
 	
 	//사용자 개인정보 수정
 	@RequestMapping(value="/mypage/updateform", method=RequestMethod.POST)
-	public void modifyUserInfo(User_table user) {
+	public String modifyUserInfo(User_table user) {
 		
 		logger.info(session.getAttribute("userno").toString());
 		
-		mypageService.getUserInfo(user);
+		User_table userinfo = mypageService.getUserInfo(user);
 		
-		logger.info("사용자 현재 개인정보 : " + mypageService.getUserInfo(user));
+		logger.info("사용자 현재 개인정보 : " + userinfo);
 		
 		//세션에 저장되어있는 사용자의 닉네임 불러오기
-		Object obj = session.getAttribute("usernick");
-//		
-//		//변경할 닉네임
-		Object obj1 = user.getUsernick();
-//		
-		logger.info("닉네임 : " + obj);
-		logger.info("닉네임1 : " + obj1);
-//
-		mypageService.modifyUserNick(user);
+		String userNname = userinfo.getUsernick();
 		
+		//변경할 닉네임
+		Object nick = user.getUsernick();
+		Object phone = user.getUserphone();
+		
+		logger.info("닉네임 : " + userNname);
+		logger.info("닉네임1 : " + nick);
+		logger.info("핸드폰 : " + phone);
+
+		mypageService.modifyUserInfo(user);
+		
+		return "redirect:/main/main";
 	}
 	
 	// 닉네임 중복체크
@@ -126,7 +104,9 @@ public class MyInfoModifyController {
 		
 		mav.addObject("nickCheck", mypageService.userNickCheck(usernick));
 		mav.setViewName("jsonView");
+		
 		logger.info("nickCheck(0-사용가능, 1-중복nick) : " + mav.toString());
+		
 		return mav;
 		
 	}

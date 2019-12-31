@@ -1,4 +1,4 @@
-package mypage.controller;
+ package mypage.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -28,12 +28,17 @@ public class MypageMainController {
 		logger.info("나오냐");
 		
 		user.setUserid(session.getAttribute("userid").toString());
+		user.setUsernick(session.getAttribute("usernick").toString());
 		
 		if(session.getAttribute("userno") != null) {
 
 			user.setUserno((Integer)session.getAttribute("userno"));
 			
 		}
+		
+		User_table getUser = mypageService.getUserInfo(user);
+		
+		model.addAttribute("getUser", getUser);
 		
 		User_table userInfo = new User_table();
 		
