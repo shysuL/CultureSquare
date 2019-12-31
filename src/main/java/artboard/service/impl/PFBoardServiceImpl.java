@@ -126,6 +126,18 @@ public class PFBoardServiceImpl implements PFBoardService{
 	public List<Reply> getReplyList(Board bno) {
 		return replyDao.selectReply(bno);
 	}
+
+
+	@Override
+	public boolean deleteReply(Reply reply) {
+		replyDao.deleteReply(reply);
+		
+		if(replyDao.countReply(reply) > 0) {
+			return false;
+		}else {
+			return true;
+		}		
+	}
 	
 	
 
