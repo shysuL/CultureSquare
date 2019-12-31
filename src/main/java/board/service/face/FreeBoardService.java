@@ -136,5 +136,15 @@ public interface FreeBoardService {
 	 */
 	public UpFile getFileNo(int fileno);
 
+	/**
+	 * 2019-12-30
+	 * 고인호
+	 * 
+	 * 자유게시판 게시글 첨부파일 삭제
+	 * 
+	 * @param fileno - 삭제할 첨부파일번호
+	 */
+	public void fileDelete(int fileno);
+
 
 }

@@ -14,7 +14,8 @@ public class PRPaging {
 	private int startNo;//화면에 보이는 페이지의 게시글 시작 번호(계산으로 알아냄)
 	private int endNo;//화면에 보이는 페이지의 게시글 끝 번호(계산으로 알아냄)
 	//	private String search;
-	private Map<String, String> search; //�˻�
+	
+	private Map<String, String> search2; //�˻�
 
 	// Paging 기본 생성자
 	public PRPaging() {}
@@ -38,12 +39,12 @@ public class PRPaging {
 	}
 
 
-	public PRPaging(int curPage, int totalCount, String search) {
+	public PRPaging(int curPage, int totalCount, String search2) {
 		this.setTotalCount(totalCount);
 		this.setCurPage(curPage);
 
 
-		//		this.setSearch(search);
+		//		this.setsearch2(search2);
 		this.makePaging();
 
 	}
@@ -103,7 +104,7 @@ public class PRPaging {
 	public String toString() {
 		return "paging [curPage=" + curPage + ", endNo=" + endNo + ", endPage=" + endPage + ", listCount=" + listCount
 				+ ", pageCount=" + pageCount + ", startNo=" + startNo + ", startPage=" + startPage + ", totalCount="
-				+ totalCount + ", totalPage=" + totalPage + ",search=" + search + "]";
+				+ totalCount + ", totalPage=" + totalPage + ",search2=" + search2 + "]";
 	}
 
 	public int getCurPage() {
@@ -177,19 +178,19 @@ public class PRPaging {
 	public void setEndNo(int endNo) {
 		this.endNo = endNo;
 	}
-	//	public String getSearch() {
-	//		return search;
+	//	public String getsearch2() {
+	//		return search2;
 	//	}
 	//	
-	//	public void setSearch(String search) {
-	//		this.search = search;
+	//	public void setSearch2(String search2) {
+	//		this.search2 = search2;
 	//	}
 
-	public Map<String, String> getSearch() {
-		return search;
+	public Map<String, String> getsearch2() {
+		return search2;
 	}
 
-	public void setSearch(Map<String, String> search) {
-		this.search = search;
+	public void setsearch2(Map<String, String> search2) {
+		this.search2 = search2;
 	}
 }

@@ -49,7 +49,7 @@ public class MypageMainController {
 		
 		//세션에서 로그인한 사용자의 userno와 userid, usernick 가져와서 user객체에 담기
 		user.setUserid(session.getAttribute("userid").toString());
-		user.setUserno((int)session.getAttribute("userno"));
+		user.setUserno((Integer)session.getAttribute("userno"));
 		user.setUsernick(session.getAttribute("usernick").toString());
 		
 		//새로운 userInfo객체 생성
@@ -94,7 +94,7 @@ public class MypageMainController {
 	public ModelAndView currentPwCheck(ModelAndView mav, HttpSession session, User_table user) {
 		
 		//세션에서 로그인한 사용자의 userno와 userid, usernick 가져와서 user객체에 담기
-		user.setUserno((int)session.getAttribute("userno"));
+		user.setUserno((Integer)session.getAttribute("userno"));
 		
 		//암호화
 		String encPw = user.getUserpw();

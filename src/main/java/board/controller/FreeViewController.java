@@ -63,9 +63,19 @@ public class FreeViewController {
 	}
 	
 	@RequestMapping(value = "/board/freedelete", method = RequestMethod.GET)
-	public String deleteFreeProc(@RequestParam("boardno") int boardno, HttpSession session) {
+	public String deleteFreeProc(@RequestParam("boardno") int boardno, HttpSession session, int fileno) {
 		
-		freeboardService.freeDelete(boardno);
+		if(fileno != 0) {
+		
+			freeboardService.freeDelete(boardno);
+			
+			freeboardService.fileDelete(fileno);
+			
+		}else {
+			
+			freeboardService.freeDelete(boardno);
+		
+		}
 		
 		return "redirect:/board/freelist";
 	}
