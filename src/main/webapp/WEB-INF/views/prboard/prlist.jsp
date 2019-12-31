@@ -3,6 +3,18 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+
+<c:forEach var="i" items="${paging.search2 }">
+<c:if test="${i.key=='searchType' }">
+   <c:set var="searchType" value="${i.value }"/>
+</c:if>
+<c:if test="${i.key=='keyword' }">
+   <c:set var="keyword" value="${i.value }"/>
+</c:if>
+</c:forEach>
+<c:set var="query" value="&searchType=${searchType}&keyword=${keyword }"/>
+
+
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
 
 <script type="text/javascript">
@@ -72,27 +84,41 @@ $(document).ready(function() {
 	right: -355px;
 }
 
+#cardview{
+	padding-left: 36px;
+}
+
+#cardlike{
+	padding-left: 20px;
+    padding-bottom: 5px;
+}
+
+#replyShow{
+	position:absolute; 
+	z-index:1; 
+	font-size:1.0em;
+}
+
+
 </style>
 <br><br>
 
 <div class="container" style="position: relative">
 <!-- Page Heading -->
-  <h1 class="my-4">Page Heading
-    <small>Secondary Text</small>
+  <h1 class="my-4"><a href="/prboard/prlist" style="color: black; text-decoration: none;">PR</a>
   </h1>
 
-<!-- <form action="/manager/counselormanage" method="get"> -->
+<form action="/prboard/prlist" method="get">
 <div style="margin: 1%">
 <select name="searchType">
-	<option value="albumPR">앨범 홍보</option>
-	<option value="showPR">공연 홍보</option>
-	<option value="exhibitionPR">전시회 홍보</option>
-	<option value="etc">기타</option>
+	<option value="title">제목</option>
+	<option value="usernick">닉네임</option>
+	<option value="prname">게시판 유형</option>
 </select>
 <input type="text" id="search" name="search">
 <button>검색</button>
 </div>
-<!-- </form> -->
+</form>
 
 <div style="margin-top:20px; margin-bottom: 20px;">
 <span >
@@ -117,11 +143,13 @@ $(document).ready(function() {
       <div class="card h-100">
         <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
         <div class="card-body">
-        	 <p class="card-text">${prboard.prname }</p>
-          <h4 class="card-title">
-            <a href="#">${prboard.title }</a>
-          </h4>
-          <p class="card-text">${prboard.usernick}</p>
+        	 <p class="card-text" style = "font-weight: bold;">${prboard.prname }</p>
+          <p class="card-title">
+            <a href="#" style = "font-weight: bold;">${prboard.title }</a>&nbsp;&nbsp;<span class="badge badge-pill badge-danger" id ="replyShow">0</span>
+          </p>
+          <p class="card-text">${prboard.usernick}&nbsp;(${prboard.writtendate})</p>
+          <img id ="cardview"src="/resources/img/view.png"/>&nbsp;&nbsp;${prboard.views}
+          <img id ="cardlike"src="/resources/img/like.png"/>&nbsp;&nbsp;1K
         </div>
       </div>
     </div>
@@ -185,7 +213,7 @@ $(document).ready(function() {
   <a class="list-group-item" id="prIntroduceContent">
    PR 소개
   </a>
-  <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+  <p class="list-group-item">개인이 여러 사람들에게 자신이 속한 집단 혹은 자신에게 좋은 이미지를 갖게 만드는 것을 목적으로 홍보하는 게시판</p>
 </div>
 <div class="list-group" id="prRankTitle">
   <a class="list-group-item" id="prRankContent">

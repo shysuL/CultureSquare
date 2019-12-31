@@ -2,6 +2,9 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+<%@ page import="java.util.*"%>
+<%@ page import="java.text.*"%>
+
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />  
 
 <style type="text/css">
@@ -88,7 +91,14 @@
 }
 
 </style>
-
+<%
+	Date date = new Date();
+	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+	String strdate = simpleDate.format(date);
+%>
+<%
+	Calendar cal = Calendar.getInstance();
+%>
 <div class="container list-container">
 
 <div class="h2"><h2> CALLENDAR </h2></div>
@@ -121,12 +131,74 @@
 		<div id = "view_buttonarea" class="btn col-md-4" role="group">
 			<button type = "button" class="btn  bbc" >후원하기</button>
 			<button type = "button" class="btn  bbc" >추천</button>
-			<a href="/artboard/list">
+			<a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%= cal.get(Calendar.MONTH) +1 %>">
 			<button type = "button" class="btn  bbc" >목록</button>
 			</a>
 		</div>
 		</div>
 	</div>
+
+
+</div>
+
+
+
+<!-- 댓글 처리 -->
+<div>
+
+<hr>
+
+<!-- 비로그인상태 -->
+<c:if test="${not login }">
+<strong>로그인이 필요합니다</strong><br>
+</c:if>
+
+<!-- 로그인상태 -->
+<c:if test="${login }">
+<!-- 댓글 입력 -->
+${LoginUser.userno }
+<div class="form-inline text-center">
+	<input type="hidden"  id="userno" name="userno" value="${LoginUser.userno }" />
+	<input type="hidden"  id="boardno" name="boardno" value="${ view.boardno}" />
+	<input type="text" size="10" class="form-control" id="replyWriter" name = "usernick" value="${LoginUser.usernick }" readonly="readonly"/>
+	<textarea rows="2" cols="60" class="form-control" id="recontents" name="recontents"></textarea>
+	<button id="btnCommInsert" class="btn">입력</button>
+</div>	<!-- 댓글 입력 end -->
+</c:if>
+
+<!-- 댓글 리스트 -->
+<table class="table table-striped table-hover table-condensed">
+<thead>
+<tr>
+	<th style="width: 5%;">번호</th>
+	<th style="width: 10%;">작성자</th>
+	<th style="width: 50%;">댓글</th>
+	<th style="width: 20%;">작성일</th>
+	<th style="width: 5%;"></th>
+</tr>
+</thead>
+<tbody id="commentBody">
+<c:forEach items="${replyList }" var="reply">
+<tr data-commentno="${reply.replyno }">
+	<td>${reply.rnum }</td>
+	<td>${reply.userno }</td><!-- 닉네임으로 해도 좋음 -->
+	<td>${reply.recontents }</td>
+	<td>${reply.replydate}</td>
+	<td>
+		<c:if test="${sessionScope.userno eq reply.userno }">
+		<button class="btn btn-default btn-xs"
+			onclick="deleteComment(${reply.replyno });">삭제</button>
+		</c:if>
+	</td>
+	
+</tr>
+</c:forEach>
+</tbody>
+</table>	<!-- 댓글 리스트 end -->
+
+</div>	<!-- 댓글 처리 end -->
+
+
 
 <div class="col-3">
 <ul class="list-group" style="width: 300px;">
@@ -150,7 +222,6 @@
 
 
 
-</div>
 
 
 
@@ -162,3 +233,65 @@
 </div> <!-- div_container -->
 
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+	// 댓글 입력
+	$("#btnCommInsert").click(function() {
+		// 게시글 번호.... ${viewBoard.boardno }
+	//		console.log($("#commentWriter").val());
+	//		console.log($("#commentContent").val());
+		
+		$form = $("<form>").attr({
+			action: "/reply/insert",
+			method: "post"
+		}).append(
+			$("<input>").attr({
+				type:"hidden",
+				name:"boardno",
+				value:"${view.boardno }"
+			})
+		).append(
+			$("<input>").attr({
+				type:"hidden",
+				name:"userno",
+				value:"${LoginUser.userno }"
+			})
+		).append(
+			$("<textarea>")
+				.attr("name", "recontents")
+				.css("display", "none")
+				.text($("#recontents").val())
+		);
+		$(document.body).append($form);
+		$form.submit();
+		
+	});
+	
+});
+
+//댓글 삭제
+function deleteComment(commentNo) {
+	$.ajax({
+		type: "post"
+		, url: "/reply/delete"
+		, dataType: "json"
+		, data: {
+			replyno: replyno
+		}
+		, success: function(data){
+			if(data.success) {
+				
+				$("[data-replyno='"+replyno+"']").remove();
+				
+			} else {
+				alert("댓글 삭제 실패");
+			}
+		}
+		, error: function() {
+			console.log("error");
+		}
+	});
+}
+</script>

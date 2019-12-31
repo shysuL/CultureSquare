@@ -3,6 +3,7 @@ package prboard.service.impl;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -13,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import artboard.dto.Board;
 import prboard.dao.face.PRBoardDao;
 import prboard.dto.PRBoard;
 import prboard.dto.PRType;
@@ -101,8 +101,8 @@ public class PRBoardServiceImpl implements PRBoardService {
 	}
 
 	@Override
-	public int getCntAll() {
-		return prBoardDao.selectCntAll();
+	public int getCntAll(Map<String, String> map) {
+		return prBoardDao.selectCntAll(map);
 	}
 
 	@Override

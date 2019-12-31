@@ -1,5 +1,9 @@
 package artboard.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,16 +13,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import artboard.dto.Board;
+import artboard.dto.Reply;
 import artboard.service.face.PFBoardService;
 
 @Controller
 public class ArtboardViewController {
 	private static final Logger logger = LoggerFactory.getLogger(ArtboardViewController.class);
 	@Autowired PFBoardService pfboardService;
+	@Autowired HttpSession session;
 	
 
 	@RequestMapping(value = "/artboard/view", method = RequestMethod.GET)
-	public void pfView(Board bno, Model model) {
+	public void pfView(Board bno, Model model, Board LoginUser) {
 		
 		
 		// 전달받은 파라미터 (boardno)에 해당하는 게시글 상세보기
@@ -39,6 +45,24 @@ public class ArtboardViewController {
 		
 		// 작성자 정보 모델로 전달
 		model.addAttribute("writer", writer);
+		
+		
+		// 비로그인 시 댓글 작성자 정보 조회 안함
+		if(session.getAttribute("login") != null) {
+			LoginUser.setUsernick((String) session.getAttribute("usernick"));
+			
+//			logger.info("session usernick : " + LoginUser.getUsernick());
+			LoginUser.setUserno(pfboardService.getUsernoByUsernick(LoginUser));
+//			logger.info("userno : " + LoginUser.getUserno());
+			model.addAttribute("LoginUser",LoginUser );
+			
+		}
+		
+		//댓글 리스트 전달
+		Reply reply = new Reply();
+		List<Reply> replyList = pfboardService.getReplyList(bno);
+		model.addAttribute("replyList", replyList);
+		
 		
 	}
 }

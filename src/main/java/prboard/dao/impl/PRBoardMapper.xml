@@ -64,9 +64,14 @@
 		SELECT (TRUNC(SYSDATE, 'MI')-TO_DATE(#{value},'YYYY.MM.DD HH24:MI:SS')) * 1440 as time FROM DUAL
 	</select>
 	
-	<select id="selectCntAll" resultType="int">
-		SELECT count(*) from board
-		WHERE postno = 2
+	<select id="selectCntAll" resultType="int" parameterType="Map">
+		SELECT count(*) FROM board B, prtype P, user_table U
+		WHERE B.boardno = P.boardno
+		AND B.userno = U.userno
+		AND postno = 2
+		 <if test="searchType != null and searchType != '' and search != null and search != ''">
+   			 AND ${searchType} LIKE '%'||#{search}||'%'
+ 		 </if>
 	</select>
 	
 	<select id="selectAll" resultMap="PRBoard" parameterType="util.PRPaging">
@@ -79,6 +84,9 @@
                WHERE BO.boardno = P.boardno
                AND BO.userno = U.userno
                AND BO.postno = 2
+          <if test="!search2.isEmpty() and search2.searthType != null, search2.search != null">
+   			 AND ${search2.searchType} LIKE '%'||#{search2.search}||'%'
+ 		 </if>
               ORDER BY boardno DESC
 		    ) B
 		    ORDER BY rnum
