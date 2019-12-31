@@ -91,4 +91,9 @@
 		WHERE fileno = #{fileno }
 	</select>
 	
+	<delete id="deleteFile" parameterType="board.dto.UpFile">
+		DELETE FROM upfile
+		WHERE fileno = #{fileno }
+	</delete>
+	
 </mapper>

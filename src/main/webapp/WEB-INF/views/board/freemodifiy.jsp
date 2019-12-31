@@ -97,32 +97,7 @@ $(document).ready(function() {
 	width: 95%;
 }
 
-.btn-file {
-	position: relative;
-	overflow: hidden;
-}
 
-.btn-file input[type=file] {
-	position: absolute;
-	top: 0;
-	right: 0;
-	min-width: 100%;
-	min-height: 100%;
-	font-size: 100px;
-	text-align: right;
-	filter: alpha(opacity = 0);
-	opacity: 0;
-	outline: none;
-	background: white;
-	cursor: inherit;
-	display: block;
-}
-
-.btn-primary {
-	color: #fff;
-	background-color: #494b4d;
-	border-color: #494b4d;
-}
 </style>
 
 <div class="container">
@@ -136,15 +111,16 @@ $(document).ready(function() {
 enctype="multipart/form-data">
 <table class="table table-bordered">
 <tr><td hidden=""><input type="text" name="boardno" value="${board.boardno }"></td></tr>
+<tr><td hidden=""><input type="text" name="boardno" value="${file.fileno }"></td></tr>
 <tr><td class="info" colspan="2">제목</td></tr>
 <tr><td colspan="2"><input type="text" name="title" style="width:100%" value="${board.title }"/></td></tr>
 <tr><td class="info" colspan="2">내용</td></tr>
 <tr><td colspan="2"><textarea id="content" name="contents" >${board.contents }</textarea></td></tr>
 <%-- <tr><td class="info">첨부파일</td><td><input type="file" name="file" id="file">${file.originname }</td></tr> --%>
 </table>
-<label class="btn btn-primary btn-file">
-        첨부파일 <input type="file" name="file">
-    </label>${file.originname }
+
+    <input type="file" name="file" id="file">
+    ${file.originname }
 </form>
 </div>
                                                                                                                                                                                            

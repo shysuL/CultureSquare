@@ -125,5 +125,15 @@ public interface FreeBoardDao {
 	 */
 	public UpFile selectFileNo(int fileno);
 
+	/**
+	 * 2019-12-31
+	 * 고인호
+	 * 
+	 * 자유게시판 게시글 첨부파일 삭제
+	 * 
+	 * @param fileno - 삭제할 첨부파일 번호
+	 */
+	public void deleteFile(UpFile fileno);
+
 
 }

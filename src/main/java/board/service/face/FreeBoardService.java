@@ -144,7 +144,7 @@ public interface FreeBoardService {
 	 * 
 	 * @param fileno - 삭제할 첨부파일번호
 	 */
-	public void fileDelete(int fileno);
+	public void fileDelete(UpFile fileno);
 
 
 }

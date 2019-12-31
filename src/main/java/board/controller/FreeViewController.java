@@ -41,35 +41,71 @@ public class FreeViewController {
 		
 	}
 	
-	@RequestMapping(value = "/board/freemodifiy")
+	@RequestMapping(value = "/board/freemodifiy", method = RequestMethod.GET)
 	public void modifiyFree(Model model, HttpSession session, @RequestParam("boardno") int boardno) {
 		
 		FreeBoard boardDetail = freeboardService.freeDetail(boardno);	
 		UpFile fileinfo = freeboardService.getFile(boardno);
+//		logger.info(fileinfo.toString());
 		
 		model.addAttribute("board", boardDetail);
 		model.addAttribute("file", fileinfo);
 	}
 	
 	@RequestMapping(value = "/board/freemodifiy", method = RequestMethod.POST)
-	public String modifiyFree(Model model, HttpSession session, FreeBoard freeboard) {
+	public String modifiyFree(Model model, HttpSession session, FreeBoard freeboard, UpFile file) {
 		
 		logger.info(freeboard.toString());
 		
-		freeboardService.updateFreeBoard(freeboard);
+		UpFile fileinfo = freeboardService.getFile(freeboard.getBoardno());
+		
+		logger.info(file.toString());
+		
+		
+		if( fileinfo == null ) {
+			
+			if(file.getFile().isEmpty()) {
+				
+//				logger.info("확인");
+				
+				freeboardService.updateFreeBoard(freeboard);
+			
+			} else {
+			
+				freeboardService.updateFreeBoard(freeboard);
+			
+				freeboardService.filesave(file, freeboard.getBoardno());
+			
+			}
+		
+
+		}else {
+			
+			if(!file.getFile().isEmpty()) {
+				
+				freeboardService.fileDelete(fileinfo);
+				
+				freeboardService.filesave(file, freeboard.getBoardno());
+				
+			}
+			
+			freeboardService.updateFreeBoard(freeboard);
+		}
 		
 		return "redirect:/board/freelist";
 		
 	}
 	
 	@RequestMapping(value = "/board/freedelete", method = RequestMethod.GET)
-	public String deleteFreeProc(@RequestParam("boardno") int boardno, HttpSession session, int fileno) {
+	public String deleteFreeProc(@RequestParam("boardno") int boardno, HttpSession session, UpFile file) {			
 		
-		if(fileno != 0) {
+		logger.info(file.toString());
 		
-			freeboardService.freeDelete(boardno);
+		if( file.getFileno() != 0 ) {
+		
+			freeboardService.fileDelete(file);
 			
-			freeboardService.fileDelete(fileno);
+			freeboardService.freeDelete(boardno);
 			
 		}else {
 			

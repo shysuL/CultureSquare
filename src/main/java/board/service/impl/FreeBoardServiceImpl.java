@@ -135,4 +135,11 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		return freeboardDao.selectFileNo(fileno);
 	}
 
+	@Override
+	public void fileDelete(UpFile fileno) {
+		
+		freeboardDao.deleteFile(fileno);
+		
+	}
+
 	}
