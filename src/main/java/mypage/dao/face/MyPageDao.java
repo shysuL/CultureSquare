@@ -39,4 +39,6 @@ public interface MyPageDao {
 
 	public int selectComparedPw(String lockPw);
 
+	public int selectUserNick(String usernick);
+
 }
