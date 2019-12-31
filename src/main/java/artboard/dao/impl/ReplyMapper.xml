@@ -23,5 +23,13 @@
 		 ORDER BY rnum
 	</select>
 
+	<delete id="deleteReply" parameterType="artboard.dto.Reply">
+		DELETE reply
+		WHERE replyno = #{replyno}
+	</delete>
 
+	<select id="countReply" parameterType="artboard.dto.Reply"
+		resultType="int">
+		SELECT count(*) FROM reply WHERE replyno = #{replyno}
+	</select>
 </mapper>

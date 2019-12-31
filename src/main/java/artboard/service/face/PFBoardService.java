@@ -128,4 +128,17 @@ public interface PFBoardService {
 
 
 
+	/**
+	 * 이수현
+	 * 2019 - 12 - 31
+	 * 
+	 * 댓글 삭제
+	 * 
+	 * @param reply - 삭제할 댓글
+	 * @return boolean - 삭제 성공 여부
+	 */
+	public boolean deleteReply(Reply reply);
+
+
+
 }

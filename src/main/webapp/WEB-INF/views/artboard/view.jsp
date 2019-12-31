@@ -2,6 +2,9 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+<%@ page import="java.util.*"%>
+<%@ page import="java.text.*"%>
+
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />  
 
 <style type="text/css">
@@ -88,7 +91,14 @@
 }
 
 </style>
-
+<%
+	Date date = new Date();
+	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+	String strdate = simpleDate.format(date);
+%>
+<%
+	Calendar cal = Calendar.getInstance();
+%>
 <div class="container list-container">
 
 <div class="h2"><h2> CALLENDAR </h2></div>
@@ -121,7 +131,7 @@
 		<div id = "view_buttonarea" class="btn col-md-4" role="group">
 			<button type = "button" class="btn  bbc" >후원하기</button>
 			<button type = "button" class="btn  bbc" >추천</button>
-			<a href="/artboard/list">
+			<a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%= cal.get(Calendar.MONTH) +1 %>">
 			<button type = "button" class="btn  bbc" >목록</button>
 			</a>
 		</div>
@@ -132,17 +142,6 @@
 </div>
 
 
-<div id = view_content class="col-xs-12 col-sm-6 col-md-8">
-${view.contents }<br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br>
-</div>
-
-
-<div id = "view_buttonarea" class="btn col-md-4" role="group">
-	<button type = "button" class="btn btn-default" style="background-color: #343a40 !important; color: white !important;">후원하기</button>
-	<button type = "button" class="btn btn-default" style="background-color: #343a40 !important; color: white !important;">추천</button>
-</div>
-<div>&nbsp;</div><br>
 
 <!-- 댓글 처리 -->
 <div>
@@ -272,27 +271,27 @@ $(document).ready(function() {
 	
 });
 
-// //댓글 삭제
-// function deleteComment(commentNo) {
-// 	$.ajax({
-// 		type: "post"
-// 		, url: "/comment/delete"
-// 		, dataType: "json"
-// 		, data: {
-// 			commentNo: commentNo
-// 		}
-// 		, success: function(data){
-// 			if(data.success) {
+//댓글 삭제
+function deleteComment(commentNo) {
+	$.ajax({
+		type: "post"
+		, url: "/reply/delete"
+		, dataType: "json"
+		, data: {
+			replyno: replyno
+		}
+		, success: function(data){
+			if(data.success) {
 				
-// 				$("[data-commentno='"+commentNo+"']").remove();
+				$("[data-replyno='"+replyno+"']").remove();
 				
-// 			} else {
-// 				alert("댓글 삭제 실패");
-// 			}
-// 		}
-// 		, error: function() {
-// 			console.log("error");
-// 		}
-// 	});
-// }
+			} else {
+				alert("댓글 삭제 실패");
+			}
+		}
+		, error: function() {
+			console.log("error");
+		}
+	});
+}
 </script>

@@ -1,6 +1,9 @@
 package artboard.controller;
 
 
+import java.io.IOException;
+import java.io.Writer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,4 +35,25 @@ public class ArtboardReplyInsertController {
 		
 		return "redirect:/artboard/view?boardno="+reply.getBoardno();
 	}
+	
+	@RequestMapping(value = "/reply/delete", method = RequestMethod.GET)
+	public void replyDelete(Reply reply, Writer out) {
+		replyDeleteProc(reply, out);
+	}
+	
+	
+	@RequestMapping(value = "/reply/delete", method = RequestMethod.POST)
+	public void replyDeleteProc(Reply reply, Writer out) {
+		
+		boolean success = pfboardService.deleteReply(reply);
+		
+		
+		try {
+			out.write("{\"success\":"+success+"}");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 }
