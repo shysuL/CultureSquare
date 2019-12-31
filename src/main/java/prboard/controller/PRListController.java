@@ -102,6 +102,7 @@ public class PRListController {
 		List list = prBoardService.getList(paging2);
 		model.addAttribute("list",list);
 		
+		
 		logger.info("보드 리스트 겟 테스트 : " + list);
 	
 	}

@@ -141,4 +141,14 @@ public interface PRBoardService {
 	 */
 	public UpFile getFile(int fileno);
 	
+	/**
+	 * 2019-12-30
+	 * 조홍철
+	 * 
+	 * 처음 올리는 이미지인 경우 이미지 업로드
+	 * 
+	 * @param mFile - 멀티 파일 처리해줄 정보가 담긴 객체
+	 * @param boardno - 게시판 번호
+	 */
+	public void firstImageSave(MultipartFile mFile, int boardno);
 }

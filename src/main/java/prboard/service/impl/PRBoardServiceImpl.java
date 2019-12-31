@@ -53,6 +53,10 @@ public class PRBoardServiceImpl implements PRBoardService {
 		//파일이 저장될 경로
 		String storedPath = context.getRealPath("upload");
 		
+		//이미지 파일이 저장될 경로
+		String storedPath2 = context.getRealPath("prImage");
+		
+		
 		//UUID
 		String uid = UUID.randomUUID().toString().split("-")[4];
 		
@@ -61,8 +65,12 @@ public class PRBoardServiceImpl implements PRBoardService {
 		
 		//저장될 파일 객체
 		File dest = new File(storedPath, filename);
+		
+		//저장될 이미지 파일 객체
+//		File imgDest = new File(storedPath2, filename);
 		try {	
 			mFile.transferTo(dest);			//실제 파일 저장
+//			mFile.transferTo(imgDest);		//이미지 파일 저장
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -131,6 +139,32 @@ public class PRBoardServiceImpl implements PRBoardService {
 	@Override
 	public UpFile getFile(int fileno) {
 		return prBoardDao.selectFileByFileno(fileno);
+	}
+
+	@Override
+	public void firstImageSave(MultipartFile mFile, int boardno) {
+
+		//파일이 저장될 경로
+		String storedPath = context.getRealPath("prImage");
+		
+		//UUID
+		String uid = UUID.randomUUID().toString().split("-")[4];
+		
+		//저장될 파일의 이름(원본명 + UUID)
+		String filename = boardno +"";
+		
+		//저장될 파일 객체
+		File dest = new File(storedPath, filename);
+		
+		try {	
+			mFile.transferTo(dest);			//실제 파일 저장
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 	
 }

@@ -68,6 +68,8 @@ public class PRWriteController {
 		String originName="";
 		int i = 1;
 		
+		boolean firsImage = true;
+		
 		logger.info("타이틀 ? : " + prBoard.getTitle());
 		logger.info("내용 ? : " + prBoard.getContent());
 		logger.info("PR 유형 : " + prType.getPrname());
@@ -102,6 +104,16 @@ public class PRWriteController {
 			}
 			else {
 				prBoardService.fileSave(mFile, prBoard.getBoardno());
+				
+				//.png 파일이거나 .jpg 파일인 경우
+				if( "image".equals(mFile.getContentType().split("/")[0]) ) {
+					
+					//처음 이미지인 경우 이미지 파일에 업로드
+					if(firsImage) {
+						prBoardService.firstImageSave(mFile, prBoard.getBoardno());
+						firsImage = false;
+					}
+				}
 				logger.info(i + ". 실제 파일 이름 : " + originName);
 				i++;
 			}
