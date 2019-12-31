@@ -3,6 +3,7 @@ package board.service.impl;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -36,9 +37,9 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 
 	@Override
-	public int getListCnt() {
+	public int getListCnt(Map<String, String> map) {
 		
-		return freeboardDao.selectCnt();
+		return freeboardDao.selectCnt(map);
 	}
 
 	@Override

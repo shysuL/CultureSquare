@@ -1,6 +1,7 @@
 package board.dao.face;
 
 import java.util.List;
+import java.util.Map;
 
 import board.dto.FreeBoard;
 import board.dto.UpFile;
@@ -19,8 +20,19 @@ public interface FreeBoardDao {
 	 * @return
 	 */
 	public List<FreeBoard> selectAll(Paging paging);
-
-	public int selectCnt();
+	
+	
+	/**
+	 * 2019-12-25
+	 * 고인호
+	 * 
+	 * 자유게시판 게시글 전체 개수
+	 * 
+	 * @param searchtarget - 검색어
+	 * @param searchcategory - 검색조건
+	 * @return
+	 */
+	public int selectCnt(Map<String, String> map);
 
 	
 	/**
@@ -134,6 +146,5 @@ public interface FreeBoardDao {
 	 * @param fileno - 삭제할 첨부파일 번호
 	 */
 	public void deleteFile(UpFile fileno);
-
 
 }

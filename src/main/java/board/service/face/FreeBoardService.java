@@ -1,6 +1,7 @@
 package board.service.face;
 
 import java.util.List;
+import java.util.Map;
 
 import board.dto.FreeBoard;
 import board.dto.UpFile;
@@ -13,9 +14,11 @@ public interface FreeBoardService {
 	 * 고인호
 	 * 
 	 * 전체 게시글 개수 구하기
+	 * @param searchcategory - 검색 조건
+	 * @param searchtarget - 검색어
 	 * 
 	 */
-	public int getListCnt();
+	public int getListCnt(Map<String, String> map);
 	
 	
 	/** 
@@ -145,6 +148,5 @@ public interface FreeBoardService {
 	 * @param fileno - 삭제할 첨부파일번호
 	 */
 	public void fileDelete(UpFile fileno);
-
 
 }
