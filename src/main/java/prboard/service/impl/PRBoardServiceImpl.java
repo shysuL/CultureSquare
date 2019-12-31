@@ -111,6 +111,22 @@ public class PRBoardServiceImpl implements PRBoardService {
 		List list = prBoardDao.selectAll(paging);
 		return list;
 	}
+
+	@Override
+	public PRBoard getViewInfo(int boardno) {
+		
+		prBoardDao.hit(boardno);
+		PRBoard viewBoard = prBoardDao.selectViewInfo(boardno);
+		
+		return viewBoard;
+	}
+
+	@Override
+	public List<UpFile> getFileList(int boardno) {
+		
+		List<UpFile> list = prBoardDao.selectFileList(boardno);
+		return list;
+	}
 	
 	
 	

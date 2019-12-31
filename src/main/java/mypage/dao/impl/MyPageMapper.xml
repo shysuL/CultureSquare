@@ -12,9 +12,9 @@
 		WHERE userno = #{userno }	
 	</select>
 	
-	<update id="updateUserNick" parameterType="user.dto.User_table">
+	<update id="updateUserInfo" parameterType="user.dto.User_table">
 		UPDATE User_table 
-		SET usernick = #{usernick }
+		SET usernick = #{usernick }, userphone = #{userphone }
 		WHERE userno = #{userno }
 	</update>
 	

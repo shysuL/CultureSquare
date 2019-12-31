@@ -9,7 +9,7 @@ public interface MyPageDao {
 	 * 
 	 * @param user
 	 */
-	public void updateUserNick(User_table user);
+	public void updateUserInfo(User_table user);
 	
 	/**
 	 * 사용자 개인정보 수정

@@ -94,4 +94,29 @@
 		 WHERE rnum BETWEEN #{startNo} AND #{endNo}
 	</select>
 	
+	
+	<select id="selectViewInfo" resultMap="PRBoard" parameterType="int">
+		SELECT 
+             B.boardno, B.title, B.writtendate, B.contents,
+            B.views, B.userno, B.postno, P.prname, U.usernick
+        FROM board B, prtype P, user_table U
+		WHERE B.boardno = P.boardno
+		AND B.userno = U.userno
+		AND postno = 2
+			AND B.boardno = #{value}
+	</select>
+	
+	<update id="hit"
+	 parameterType="int">
+		UPDATE board set views = views +1 
+		WHERE 1=1
+			AND boardno = #{value }
+	</update>
+	
+	<select id="selectFileList" resultType="prboard.dto.UpFile" parameterType="int">
+		SELECT fileno, originname, storedname, filesize, boardno FROM upfile
+		WHERE boardno = ${value}
+		ORDER BY fileno
+	</select>
+	
 </mapper>
