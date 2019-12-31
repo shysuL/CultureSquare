@@ -10,15 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import artboard.dao.face.PFBoardDao;
+import artboard.dao.face.ReplyDao;
 import artboard.dto.Board;
+import artboard.dto.Reply;
 import artboard.service.face.PFBoardService;
-import util.Paging;
 
 
 @Service
 public class PFBoardServiceImpl implements PFBoardService{
 
 	@Autowired PFBoardDao pfboardDao;
+	@Autowired ReplyDao replyDao;
 	
 	@Override
 	public List<Board> getList(String searchMonth) {
@@ -105,6 +107,24 @@ public class PFBoardServiceImpl implements PFBoardService{
 	@Override
 	public Board getUserByNo(Board userno) {
 		return pfboardDao.selectUserByNo(userno);
+	}
+
+
+	@Override
+	public void insertReply(Reply reply) {
+		replyDao.insert(reply);
+	}
+
+
+	@Override
+	public int getUsernoByUsernick(Board loginUser) {
+		return pfboardDao.selectUsernoByUsernick(loginUser);
+	}
+
+
+	@Override
+	public List<Reply> getReplyList(Board bno) {
+		return replyDao.selectReply(bno);
 	}
 	
 	

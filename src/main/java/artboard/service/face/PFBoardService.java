@@ -3,6 +3,7 @@ package artboard.service.face;
 import java.util.List;
 
 import artboard.dto.Board;
+import artboard.dto.Reply;
 import util.Paging;
 
 public interface PFBoardService {
@@ -82,6 +83,48 @@ public interface PFBoardService {
 	 * @return Board(User_table) - 회원번호에 해당하는 회원정보
 	 */
 	public Board getUserByNo(Board userno);
+
+
+
+
+	/**
+	 * 이수현
+	 * 2019 - 12 - 30
+	 * 
+	 * 댓글 입력
+	 * 
+	 * @param reply - 입력될 댓글
+	 */
+	public void insertReply(Reply reply) ;
+
+
+
+
+	/**
+	 * 
+	 * 이수현
+	 * 2019 - 12 - 30
+	 * 
+	 * 세션에 저장된 닉네임으로 회원번호 조회( 소셜로그인 회원 userno 조회)
+	 * 
+	 * @param loginUser - 세션의 usernick
+	 * @return int(User_table) - userno
+	 */
+	public int getUsernoByUsernick(Board loginUser);
+
+
+
+
+	/**
+	 * 이수현
+	 * 2019 - 12 - 31
+	 * 
+	 * 댓글 리스트
+	 * 
+	 * @param bno - 해당 게시글의 boardno
+	 * @return List - 댓글리스트
+	 */
+	public List<Reply> getReplyList(Board bno);
 
 
 

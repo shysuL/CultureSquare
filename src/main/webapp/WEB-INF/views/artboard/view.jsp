@@ -129,6 +129,61 @@ ${view.contents }<br>
 </div>
 <div>&nbsp;</div><br>
 
+<!-- 댓글 처리 -->
+<div>
+
+<hr>
+
+<!-- 비로그인상태 -->
+<c:if test="${not login }">
+<strong>로그인이 필요합니다</strong><br>
+</c:if>
+
+<!-- 로그인상태 -->
+<c:if test="${login }">
+<!-- 댓글 입력 -->
+${LoginUser.userno }
+<div class="form-inline text-center">
+	<input type="hidden"  id="userno" name="userno" value="${LoginUser.userno }" />
+	<input type="hidden"  id="boardno" name="boardno" value="${ view.boardno}" />
+	<input type="text" size="10" class="form-control" id="replyWriter" name = "usernick" value="${LoginUser.usernick }" readonly="readonly"/>
+	<textarea rows="2" cols="60" class="form-control" id="recontents" name="recontents"></textarea>
+	<button id="btnCommInsert" class="btn">입력</button>
+</div>	<!-- 댓글 입력 end -->
+</c:if>
+
+<!-- 댓글 리스트 -->
+<table class="table table-striped table-hover table-condensed">
+<thead>
+<tr>
+	<th style="width: 5%;">번호</th>
+	<th style="width: 10%;">작성자</th>
+	<th style="width: 50%;">댓글</th>
+	<th style="width: 20%;">작성일</th>
+	<th style="width: 5%;"></th>
+</tr>
+</thead>
+<tbody id="commentBody">
+<c:forEach items="${replyList }" var="reply">
+<tr data-commentno="${reply.replyno }">
+	<td>${reply.rnum }</td>
+	<td>${reply.userno }</td><!-- 닉네임으로 해도 좋음 -->
+	<td>${reply.recontents }</td>
+	<td>${reply.replydate}</td>
+	<td>
+		<c:if test="${sessionScope.userno eq reply.userno }">
+		<button class="btn btn-default btn-xs"
+			onclick="deleteComment(${reply.replyno });">삭제</button>
+		</c:if>
+	</td>
+	
+</tr>
+</c:forEach>
+</tbody>
+</table>	<!-- 댓글 리스트 end -->
+
+</div>	<!-- 댓글 처리 end -->
+
 
 
 <ul id = "side" class="list-group">
@@ -162,3 +217,65 @@ ${view.contents }<br>
 </div> <!-- div_container -->
 
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+	// 댓글 입력
+	$("#btnCommInsert").click(function() {
+		// 게시글 번호.... ${viewBoard.boardno }
+	//		console.log($("#commentWriter").val());
+	//		console.log($("#commentContent").val());
+		
+		$form = $("<form>").attr({
+			action: "/reply/insert",
+			method: "post"
+		}).append(
+			$("<input>").attr({
+				type:"hidden",
+				name:"boardno",
+				value:"${view.boardno }"
+			})
+		).append(
+			$("<input>").attr({
+				type:"hidden",
+				name:"userno",
+				value:"${LoginUser.userno }"
+			})
+		).append(
+			$("<textarea>")
+				.attr("name", "recontents")
+				.css("display", "none")
+				.text($("#recontents").val())
+		);
+		$(document.body).append($form);
+		$form.submit();
+		
+	});
+	
+});
+
+// //댓글 삭제
+// function deleteComment(commentNo) {
+// 	$.ajax({
+// 		type: "post"
+// 		, url: "/comment/delete"
+// 		, dataType: "json"
+// 		, data: {
+// 			commentNo: commentNo
+// 		}
+// 		, success: function(data){
+// 			if(data.success) {
+				
+// 				$("[data-commentno='"+commentNo+"']").remove();
+				
+// 			} else {
+// 				alert("댓글 삭제 실패");
+// 			}
+// 		}
+// 		, error: function() {
+// 			console.log("error");
+// 		}
+// 	});
+// }
+</script>
