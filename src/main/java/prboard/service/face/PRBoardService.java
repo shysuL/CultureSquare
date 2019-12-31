@@ -1,6 +1,7 @@
 package prboard.service.face;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -90,9 +91,10 @@ public interface PRBoardService {
 	 * 
 	 * PR 게시글 전체 갯수를 구한다.
 	 * 
-	 * @return - PR 전체 개시글 갯수
+	 * @param map - 검색 조건 담긴 맵
+	 * @return  int - PR 전체 개시글 갯수
 	 */
-	public int getCntAll();
+	public int getCntAll(Map<String, String> map);
 	
 	/**
 	 * 2019-12-30
