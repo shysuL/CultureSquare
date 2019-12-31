@@ -43,8 +43,6 @@ public class PRWriteController {
 		}
 		
 		else {
-			System.out.println("이게 되면 안됨");
-
 			//하루가 지났는지 비교, (지금은 테스트로 1분 지났는지 비교 할거임)
 			int time = prBoardService.getTimePass(writeDate);
 

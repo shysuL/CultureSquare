@@ -3,6 +3,18 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+
+<c:forEach var="i" items="${paging.search2 }">
+<c:if test="${i.key=='searchType' }">
+   <c:set var="searchType" value="${i.value }"/>
+</c:if>
+<c:if test="${i.key=='keyword' }">
+   <c:set var="keyword" value="${i.value }"/>
+</c:if>
+</c:forEach>
+<c:set var="query" value="&searchType=${searchType}&keyword=${keyword }"/>
+
+
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
 
 <script type="text/javascript">
@@ -81,18 +93,17 @@ $(document).ready(function() {
     <small>Secondary Text</small>
   </h1>
 
-<!-- <form action="/manager/counselormanage" method="get"> -->
+<form action="/prboard/prlist" method="get">
 <div style="margin: 1%">
 <select name="searchType">
-	<option value="albumPR">앨범 홍보</option>
-	<option value="showPR">공연 홍보</option>
-	<option value="exhibitionPR">전시회 홍보</option>
-	<option value="etc">기타</option>
+	<option value="title">제목</option>
+	<option value="usernick">닉네임</option>
+	<option value="prname">게시판 유형</option>
 </select>
 <input type="text" id="search" name="search">
 <button>검색</button>
 </div>
-<!-- </form> -->
+</form>
 
 <div style="margin-top:20px; margin-bottom: 20px;">
 <span >

@@ -1,6 +1,7 @@
 package prboard.dao.face;
 
 import java.util.List;
+import java.util.Map;
 
 import prboard.dto.PRBoard;
 import prboard.dto.PRType;
@@ -99,7 +100,8 @@ public interface PRBoardDao {
 	 * 
 	 * PR 게시글 갯수를 구한다
 	 * 
+	 * @param map - 검색 조건 담긴 맵
 	 * @return int - PR 게시글 갯수
 	 */
-	public int selectCntAll();
+	public int selectCntAll(Map<String, String> map);
 }
