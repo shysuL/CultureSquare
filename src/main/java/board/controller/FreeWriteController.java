@@ -2,6 +2,7 @@ package board.controller;
 
 import java.text.SimpleDateFormat;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import board.dto.FreeBoard;
+import board.dto.UpFile;
 import board.service.face.FreeBoardService;
 import user.dto.User_table;
 import user.service.face.UserService;
@@ -21,6 +23,7 @@ import user.service.face.UserService;
 @Controller
 public class FreeWriteController {
 	
+	@Autowired ServletContext context;
 	@Autowired FreeBoardService freeboardService;
 	@Autowired UserService userService;
 	
@@ -31,17 +34,17 @@ public class FreeWriteController {
 		
 		System.out.println("요청 확인");
 
-//		User_table user = userService.getMember(session.getAttribute("loginid"));
-
-//		model.addAttribute("member", member);
 	}
 	
 	@RequestMapping(value = "/board/freewrite", method = RequestMethod.POST)
-	public String freeWrite(Model model, FreeBoard freeboard, HttpSession session) {
+	public String freeWrite(Model model, FreeBoard freeboard, HttpSession session, UpFile upfile) {
 		
-		logger.info(session.getAttribute("usernick").toString());
+		logger.info(upfile.toString());
+		
 		//로그인한 유저 정보 조회 
 		User_table user = freeboardService.getboardWriter(session.getAttribute("usernick"));
+		
+		logger.info(user.toString());
 		
 		freeboard.setUserid(user.getUserid());
 		freeboard.setUsernick(user.getUsernick());
@@ -55,7 +58,19 @@ public class FreeWriteController {
 		
 		logger.info(freeboard.toString());
 		
-		freeboardService.writeFree(freeboard);
+		if(upfile.equals(null)) {
+			
+			freeboardService.writeFree(freeboard);
+			
+		} else {
+			
+			freeboardService.writeFree(freeboard);
+			
+			logger.info(freeboard.toString());
+			
+			freeboardService.filesave(upfile, freeboard.getBoardno());
+			
+		}
 		
 		return "redirect:/board/freelist";
 		

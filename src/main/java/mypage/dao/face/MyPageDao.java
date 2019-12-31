@@ -37,4 +37,6 @@ public interface MyPageDao {
 
 	public void updatePassword(User_table pwParam);
 
+	public int selectComparedPw(String lockPw);
+
 }

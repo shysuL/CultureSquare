@@ -20,63 +20,97 @@ $(document).ready(function(){
 
 //--- 비밀번호수정 모달 ---
 $(document).ready(function() {
+	console.log("비밀번호 ${userinfo.userpw}")
 	
 	//경고 모달 호출 메서드
-	   function warningModal(content) {
-	      $(".modal-contents").text(content);
-	      $("#defaultModal").modal('show');
-	      console.log("나는 경고모달창");
-	   }
+    function warningModal(content) {
+       $(".modal-contents").text(content);
+       $("#defaultModal").modal('show');
+       console.log("나는 경고모달창");
+    }
 	
 	$("#updateUserPw").click(function(){
-// 		var userpw = $('#userpw').val();
-		
 		$("#updateUserPwModal").modal({backdrop: 'static', keyboard: false});
-		
-		$("#updatePw").click(function(){
-			//현재 비밀번호 입력
-			if($("#currentpw").val() == ""){
-				warningModal('현재 비밀번호를 입력해주세요.')
-				console.log("비밀번호 ${userinfo.userpw}")
-				$("#currentpw").focus();
-				return false;
-			}
-			
-			//현재 비밀번호 오류
-			if($("currentpw").val() !== "${userinfo.userpw}"){
-				warningModal('현재 비밀번호를 다시 입력해주세요.')
-				$("#currentpw").focus();
-				return false;
-			}
-			
-			//변경할 비밀번호
-			if($("#changepw").val() == ""){
-				warningModal('변경할 비밀번호를 입력해주세요.')
-				$("#changepw").focus();
-				return false;
-			}
-			
-			//변경할 비밀번호 다시 입력
-			if("#changepw2".val() == ""){
-				warningModal('변경할 비밀번호를 한 번 더 입력해주세요.')
-				$("#changepw2").focus();
-				return false;
-			}
-			
-			// 변경할 비밀번호와 재확인이 같지 않을 때
-			if(($("#currentpw").val()) == ($("#changepw").val())){
-		    	warningModal('현재 비밀번호와 다르게 입력하세요');
-		    	return false;
-			}
-	       	
-			if(($("#changepw").val()) !== ($("#changepw2").val())){
-		    	warningModal('변경하실 비밀번호가 일치하지 않습니다');
-		    	return false;
-			}
-			
-			$("#updateForm").submit();
-		})
 	})
+	
+		$("#updatePw").click(function(){
+		var userpw = $('#userpw').val();
+		var changepw = $('#changepw').val();
+		var changepw2 = $('#changepw2').val();
+		console.log("1")
+		console.log(userpw)
+		console.log("2")
+		console.log(changepw)
+		console.log("3")
+		console.log(changepw2)
+		
+		$.ajax({
+			type: "post",
+			url: "/mypage/curpwCheck",
+			data: {"userpw" : userpw},
+			datatype: "json",
+			success: function(res){
+				
+				if(!res.lock){
+					warningModal('현재 비밀번호를 다시 입력해주세요.')
+					$("#userpw").focus();
+					return false;
+				}
+			}
+		})
+		
+		//현재 비밀번호 입력
+		if(userpw == ""){
+			warningModal('현재 비밀번호를 입력해주세요.')
+			$("#userpw").focus();
+			return false;
+		}
+		
+		//현재 비밀번호 오류
+// 		if(userpw != "${userpw }"){
+// 			warningModal('현재 비밀번호를 다시 입력해주세요.')
+// 			$("#userpw").focus();
+// 			return false;
+// 		}
+		
+		//변경할 비밀번호
+		if(changepw == ""){
+			warningModal('변경할 비밀번호를 입력해주세요.')
+			$("#changepw").focus();
+			return false;
+		}
+		
+		//변경할 비밀번호 다시 입력
+		if(changepw2 == ""){
+			warningModal('변경할 비밀번호를 한 번 더 입력해주세요.')
+			$("#changepw2").focus();
+			return false;
+		}
+		
+		// 변경할 비밀번호와 재확인이 같지 않을 때
+		if(userpw == changepw){
+	    	warningModal('현재 비밀번호와 다르게 입력하세요');
+	    	return false;
+		}
+       	
+		if(changepw != changepw2){
+	    	warningModal('변경하실 비밀번호가 일치하지 않습니다');
+	    	return false;
+		}
+		
+			$.ajax({
+				type: "post",
+				url: "/mypage/main",
+				data: {"userpw" : userpw, "changepw" : changepw, "changepw2" :changepw2},
+				datatype: "json",
+				success: function(res){
+					
+					console.log(res.userInfo)
+					
+				}
+			})
+
+		})
 	
 });
 </script>
@@ -240,7 +274,7 @@ $(document).ready(function() {
 								<input type="hidden" value="${userid }" id="userid" name="userid"/>
 								
 								현재 비밀번호
-								<input type="password" name="currentpw" id="currentpw" placeholder="현재 비밀번호 입력"/><br><br>
+								<input type="password" name="userpw" id="userpw" placeholder="현재 비밀번호 입력"/><br><br>
 								변경할 비밀번호
 								<input type="password" name="changepw" id="changepw" placeholder="변경할 비밀번호 입력"/><br><br>
 								비밀번호 확인
@@ -249,7 +283,7 @@ $(document).ready(function() {
 	
 							<!-- Modal footer -->
 							<div class="modal-footer">
-								<button type="submit" id="updatePw" class="btn btn-dark" data-dismiss="modal">변경하기</button>
+								<button type="button" id="updatePw" class="btn btn-dark" data-dismiss="modal">변경하기</button>
 								<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
 							</div>
 	
