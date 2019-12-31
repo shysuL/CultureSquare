@@ -119,4 +119,9 @@
 		ORDER BY fileno
 	</select>
 	
+	<select id="selectFileByFileno" resultType="prboard.dto.UpFile" parameterType="int">
+		SELECT fileno, originname, storedname, filesize, boardno FROM upfile
+		WHERE fileno = #{fileno}
+	</select>
+	
 </mapper>

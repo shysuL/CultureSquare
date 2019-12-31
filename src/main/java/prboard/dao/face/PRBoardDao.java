@@ -136,4 +136,15 @@ public interface PRBoardDao {
 	 * @return List - 파일 리스트
 	 */
 	public List<UpFile> selectFileList(int boardno);
+	
+	/**
+	 * 2019-12-31
+	 * 조홍철
+	 * 
+	 * 파일정보를 가져온다.
+	 * 
+	 * @param fileno - 사용자가 클릭한 파일의 번호
+	 * @return UpFile - 파일정보가 담긴 객체
+	 */
+	public UpFile selectFileByFileno(int fileno);
 }

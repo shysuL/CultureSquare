@@ -127,7 +127,10 @@ public class PRBoardServiceImpl implements PRBoardService {
 		List<UpFile> list = prBoardDao.selectFileList(boardno);
 		return list;
 	}
-	
-	
+
+	@Override
+	public UpFile getFile(int fileno) {
+		return prBoardDao.selectFileByFileno(fileno);
+	}
 	
 }

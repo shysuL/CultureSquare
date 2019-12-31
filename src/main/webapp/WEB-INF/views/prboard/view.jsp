@@ -123,7 +123,7 @@
 				   첨부파일
 				  </a>
 				<c:forEach items="${fileList }" var="fileList">
- 					<a href="#" class="list-group-item">${fileList.originname}</a>					
+ 					<a href="/prboard/download?fileno=${fileList.fileno}" class="list-group-item">${fileList.originname}</a>					
 				</c:forEach>
 			</div>
 	</div>	
