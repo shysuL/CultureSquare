@@ -187,6 +187,7 @@ public class KakaoServiceImpl implements KakaoService {
 		//유저 정보를 카카오 API에서 가져오기
 		JsonNode properties = userInfo.path("properties");
 		
+//		String email = userInfo.get("kaccount_email").toString();
 
 		kname = properties.path("nickname").asText();
 		
@@ -196,11 +197,13 @@ public class KakaoServiceImpl implements KakaoService {
 		session.setAttribute("login", true); 		// 로그인 상태 true
 		session.setAttribute("socialType", "Kakao");
 		session.setAttribute("token", accessToken);
+//		session.setAttribute("userid", email);
 		
 		//유저 DTO에 소셜 로그인 정보 저장
 		User_table user = new User_table();
 		user.setUsernick(kname);
 		user.setUsername(kname);
+//		user.setUserid(email);
 		
 //		소셜 로그인 정보 존재 유무 검사
 		int socialCnt = getSocialAccountCnt(user);

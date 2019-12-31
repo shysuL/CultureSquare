@@ -87,7 +87,7 @@
 	    $('#loadingImg').show();
 	}
 	
-	
+	 
 $(document).ready(function(){
 	
 //	showLoadingBar();
