@@ -95,7 +95,7 @@ public interface PRBoardDao {
 	public List selectAll(PRPaging paging);
 	
 	/**
-	 * 2019-12-30
+	 * 2019-12-31
 	 * 조홍철
 	 * 
 	 * PR 게시글 갯수를 구한다
@@ -104,4 +104,47 @@ public interface PRBoardDao {
 	 * @return int - PR 게시글 갯수
 	 */
 	public int selectCntAll(Map<String, String> map);
+	
+	/**
+	 * 2019-12-31
+	 * 조홍철
+	 * 
+	 * 게시글 세부정보 조회
+	 * 
+	 * @param boardno - 게시글 번호
+	 * @return PRBoard - 게시글 세부정보가 담긴 객체
+	 */
+	public PRBoard selectViewInfo(int boardno);
+	
+	/**
+	 * 2019-12-31
+	 * 조홍철
+	 * 
+	 * 조회수를 1 증가시킨다.
+	 * 
+	 * @param boardno - 게시글 번호
+	 */
+	public void hit(int boardno);
+	
+	/**
+	 * 2019-12-31
+	 * 조홍철
+	 * 
+	 * 게시글에 번호에 해당하는 파일 리스트를 가져온다.
+	 * 
+	 * boardno - 게시글 번호
+	 * @return List - 파일 리스트
+	 */
+	public List<UpFile> selectFileList(int boardno);
+	
+	/**
+	 * 2019-12-31
+	 * 조홍철
+	 * 
+	 * 파일정보를 가져온다.
+	 * 
+	 * @param fileno - 사용자가 클릭한 파일의 번호
+	 * @return UpFile - 파일정보가 담긴 객체
+	 */
+	public UpFile selectFileByFileno(int fileno);
 }

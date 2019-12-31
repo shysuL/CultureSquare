@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import prboard.dto.PRBoard;
 import prboard.dto.PRType;
+import prboard.dto.UpFile;
 import util.PRPaging;
 
 public interface PRBoardService {
@@ -86,7 +87,7 @@ public interface PRBoardService {
 	public int getTimePass(String writeDate);
 
 	/**
-	 * 2019-12-30
+	 * 2019-12-31
 	 * 조홍철
 	 * 
 	 * PR 게시글 전체 갯수를 구한다.
@@ -97,7 +98,7 @@ public interface PRBoardService {
 	public int getCntAll(Map<String, String> map);
 	
 	/**
-	 * 2019-12-30
+	 * 2019-12-31
 	 * 조홍철 
 	 * 
 	 * PR 게시판 리스트를 가져온다.
@@ -106,5 +107,38 @@ public interface PRBoardService {
 	 * @return List - PR 게시글 리스트
 	 */
 	public List getList(PRPaging paging);
+	
+	/**
+	 * 2019-12-31
+	 * 조홍철
+	 * 
+	 * PR 게시글 세부정보를 가져온다.
+	 * 
+	 * @param boardno - 게시글 번호
+	 * @return PRBoard - 게시글 세부정보가 담긴 객체
+	 */
+	public PRBoard getViewInfo(int boardno);
+	
+	/**
+	 * 2019-12-31
+	 * 조홍철
+	 * 
+	 * 게시글에 번호에 해당하는 파일 리스트를 가져온다.
+	 * 
+	 * boardno - 게시글 번호
+	 * @return List - 파일 리스트
+	 */
+	public List<UpFile> getFileList(int boardno);
+	
+	/**
+	 * 2019-12-31
+	 * 조홍철
+	 * 
+	 * 파일정보를 가져온다.
+	 * 
+	 * @param fileno - 사용자가 클릭한 파일의 번호
+	 * @return UpFile - 파일정보가 담긴 객체
+	 */
+	public UpFile getFile(int fileno);
 	
 }

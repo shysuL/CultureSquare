@@ -53,6 +53,17 @@ $(document).ready(function() {
 </script>
 
 <style type="text/css">
+
+@font-face {
+	font-family: 'YanoljaYacheR';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/YanoljaYacheR.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
 #carouselExampleFade img {
 	width: 800px;
 	height: 400px;
@@ -141,13 +152,13 @@ $(document).ready(function() {
 <c:forEach items="${list }" var="prboard">
 	<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
       <div class="card h-100">
-        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+        <a href="/prboard/view?boardno=${prboard.boardno }"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
         <div class="card-body">
         	 <p class="card-text" style = "font-weight: bold;">${prboard.prname }</p>
           <p class="card-title">
-            <a href="#" style = "font-weight: bold;">${prboard.title }</a>&nbsp;&nbsp;<span class="badge badge-pill badge-danger" id ="replyShow">0</span>
+            <a href="/prboard/view?boardno=${prboard.boardno }" style = "font-weight: bold;">${prboard.title }</a>&nbsp;&nbsp;<span class="badge badge-pill badge-danger" id ="replyShow">0</span>
           </p>
-          <p class="card-text">${prboard.usernick}&nbsp;(${prboard.writtendate})</p>
+          <p class="card-text" id ="useFont">${prboard.usernick}&nbsp;(${prboard.writtendate})</p>
           <img id ="cardview"src="/resources/img/view.png"/>&nbsp;&nbsp;${prboard.views}
           <img id ="cardlike"src="/resources/img/like.png"/>&nbsp;&nbsp;1K
         </div>
