@@ -84,13 +84,28 @@ $(document).ready(function() {
 	right: -355px;
 }
 
+#cardview{
+	padding-left: 36px;
+}
+
+#cardlike{
+	padding-left: 20px;
+    padding-bottom: 5px;
+}
+
+#replyShow{
+	position:absolute; 
+	z-index:1; 
+	font-size:1.0em;
+}
+
+
 </style>
 <br><br>
 
 <div class="container" style="position: relative">
 <!-- Page Heading -->
-  <h1 class="my-4">Page Heading
-    <small>Secondary Text</small>
+  <h1 class="my-4"><a href="/prboard/prlist" style="color: black; text-decoration: none;">PR</a>
   </h1>
 
 <form action="/prboard/prlist" method="get">
@@ -128,11 +143,13 @@ $(document).ready(function() {
       <div class="card h-100">
         <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
         <div class="card-body">
-        	 <p class="card-text">${prboard.prname }</p>
-          <h4 class="card-title">
-            <a href="#">${prboard.title }</a>
-          </h4>
-          <p class="card-text">${prboard.usernick}</p>
+        	 <p class="card-text" style = "font-weight: bold;">${prboard.prname }</p>
+          <p class="card-title">
+            <a href="#" style = "font-weight: bold;">${prboard.title }</a>&nbsp;&nbsp;<span class="badge badge-pill badge-danger" id ="replyShow">0</span>
+          </p>
+          <p class="card-text">${prboard.usernick}&nbsp;(${prboard.writtendate})</p>
+          <img id ="cardview"src="/resources/img/view.png"/>&nbsp;&nbsp;${prboard.views}
+          <img id ="cardlike"src="/resources/img/like.png"/>&nbsp;&nbsp;1K
         </div>
       </div>
     </div>
@@ -196,7 +213,7 @@ $(document).ready(function() {
   <a class="list-group-item" id="prIntroduceContent">
    PR 소개
   </a>
-  <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+  <p class="list-group-item">개인이 여러 사람들에게 자신이 속한 집단 혹은 자신에게 좋은 이미지를 갖게 만드는 것을 목적으로 홍보하는 게시판</p>
 </div>
 <div class="list-group" id="prRankTitle">
   <a class="list-group-item" id="prRankContent">

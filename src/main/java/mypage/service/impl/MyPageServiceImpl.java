@@ -83,4 +83,9 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		return false;
 	}
+
+	@Override
+	public int userNickCheck(String usernick) {
+		return mypageDao.selectUserNick(usernick);
+	}
 }

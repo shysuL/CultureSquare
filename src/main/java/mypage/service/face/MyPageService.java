@@ -30,4 +30,6 @@ public interface MyPageService{
 
 	public boolean comparedPw(User_table user);
 
+	public int userNickCheck(String usernick);
+
 }
