@@ -136,6 +136,7 @@ h5 {
 	    <!-- 로그아웃 상태 -->
 	    <c:if test="${not login}">
 	       <div class="dropdown-menu ">
+	       
 	          <form class="px-4 py-3" action="/login" method=post>
 	             <div class="form-group">
 	                <label for="exampleDropdownFormEmail1">Email address</label> <input
@@ -149,9 +150,9 @@ h5 {
 	             </div>
 	             <div class="form-group">
 	                <div class="form-check">
-	                   <input type="checkbox" class="form-check-input"
-	                      id="dropdownCheck"> <label class="form-check-label"
-	                      for="dropdownCheck"> Remember me </label>
+	                   <input type="checkbox" class="form-check-input" name="rememberUser"
+	                      id="rememberCheck"> <label class="form-check-label"
+	                      for="rememberCheck"> Remember me </label>
 	                </div>
 	             </div>
 	             <button type="submit" id="login" class="btn btn-primary">로그인</button>
