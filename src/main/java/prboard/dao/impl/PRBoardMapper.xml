@@ -145,4 +145,18 @@
 			AND boardno = #{boardno }
 	</delete>
 	
+	<delete id="deletePR"
+	 parameterType="prboard.dto.PRBoard">
+		DELETE board
+		WHERE 1=1
+			AND boardno = #{boardno }
+	</delete>
+	
+	<delete id="deletePRType"
+	 parameterType="prboard.dto.PRBoard">
+		DELETE prtype
+		WHERE 1=1
+			AND boardno = #{boardno }
+	</delete>
+	
 </mapper>

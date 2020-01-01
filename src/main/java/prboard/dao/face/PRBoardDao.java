@@ -177,4 +177,24 @@ public interface PRBoardDao {
 	 * @param boardno - 게시글 번호
 	 */
 	public void deleteFile(int boardno);
+	
+	/**
+	 * 2020-01-01
+	 * 조홍철
+	 * 
+	 * PR 유형 삭제
+	 * 
+	 * @param prBoard - 삭제할 게시글 정보가 담긴 객체
+	 */
+	public void deletePRType(PRBoard prBoard);
+	
+	/**
+	 * 2020-01-01
+	 * 조홍철
+	 * 
+	 * 게시글 삭제
+	 * 
+	 * @param prBoard - 삭제할 게시글 정보가 담긴 객체
+	 */
+	public void deletePR(PRBoard prBoard);
 }

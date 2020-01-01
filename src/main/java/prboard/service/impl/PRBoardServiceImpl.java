@@ -214,4 +214,16 @@ public class PRBoardServiceImpl implements PRBoardService {
 			prBoardDao.deleteFile(list.get(i).getBoardno());
 		}
 	}
+
+	@Override
+	public void deletePR(PRBoard prBoard) {
+
+		prBoardDao.deletePR(prBoard);
+	}
+
+	@Override
+	public void deletePRType(PRBoard prBoard) {
+
+		prBoardDao.deletePRType(prBoard);
+	}
 }

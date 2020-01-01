@@ -192,4 +192,23 @@ public interface PRBoardService {
 	 * @param list - 삭제할 파일이 담긴 리스트
 	 */
 	public void deleteFile(List<UpFile> list);
+	
+	/**
+	 * 2020-01-01
+	 * 조홍철
+	 * 
+	 * PR 유형 테이블 삭제
+	 * @param prBoard - 삭제할 게시글 정보가 담긴 객체
+	 */
+	public void deletePRType(PRBoard prBoard);
+	
+	/**
+	 * 2020-01-01
+	 * 조홍철
+	 * 
+	 * 게시글 삭제
+	 * 
+	 * @param prBoard - 삭제할 게시글 정보가 담긴 객체
+	 */
+	public void deletePR(PRBoard prBoard);
 }

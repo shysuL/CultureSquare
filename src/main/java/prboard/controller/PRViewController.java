@@ -141,6 +141,38 @@ public class PRViewController {
 		}
 		return "redirect:/prboard/prlist";
 	}
+	
+	@RequestMapping(value="/prboard/delete", method=RequestMethod.GET)
+	public String deletePR(PRBoard prBoard,	HttpSession session) {
+		
+		
+		logger.info("수정 : " + prBoard);
+		
+		// 1. 대표 이미지 삭제
+		prBoardService.deleteThumbnail(prBoard.getBoardno());
+		
+		//게시글 첨부파일 조회
+		List<UpFile> list = prBoardService.getFileList(prBoard.getBoardno());
+		
+		logger.info("기존 파일 : " + list);
+
+		//2. 파일 삭제(기존 파일 삭제) 첨부파일이 있을때만 삭제
+		if(!list.isEmpty()) {
+			//서버에 있는 파일 삭제
+			prBoardService.deleteServerFile(list);
+			
+			//DB 파일 삭제
+			prBoardService.deleteFile(list);
+		}
+		
+		//3. PR 타입 삭제
+		prBoardService.deletePRType(prBoard);
+		
+		//4. PR 게시글 삭제
+		prBoardService.deletePR(prBoard);
+
+		return "redirect:/prboard/prlist";
+	}
 }
 	
 	
