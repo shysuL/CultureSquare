@@ -151,4 +151,45 @@ public interface PRBoardService {
 	 * @param boardno - 게시판 번호
 	 */
 	public void firstImageSave(MultipartFile mFile, int boardno);
+	
+	/**
+	 * 2020-01-01
+	 * 조홍철
+	 * 
+	 * 게시글 내용 수정
+	 * 
+	 * @param prBoard - 게시글 내용이 담긴 객체
+	 */
+	public void modifyPR(PRBoard prBoard);
+	
+	/**
+	 * 2020-01-01
+	 * 조홍철
+	 * 
+	 * 대표 이미지 삭제
+	 * 
+	 * @param boardno - 게시글 번호
+	 */
+	public void deleteThumbnail(int boardno);
+	
+	
+	/**
+	 * 2020-01-01
+	 * 조홍철
+	 * 
+	 * 서버에 올라간 파일 삭제
+	 * 
+	 * @param list - 삭제할 파일이 담긴 리스트
+	 */
+	public void deleteServerFile(List<UpFile> list);
+	
+	/**
+	 * 2020-01-01
+	 * 조홍철
+	 * 
+	 * DB에 있는 파일 삭제
+	 * 
+	 * @param list - 삭제할 파일이 담긴 리스트
+	 */
+	public void deleteFile(List<UpFile> list);
 }

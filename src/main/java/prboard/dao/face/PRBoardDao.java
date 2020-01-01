@@ -147,4 +147,34 @@ public interface PRBoardDao {
 	 * @return UpFile - 파일정보가 담긴 객체
 	 */
 	public UpFile selectFileByFileno(int fileno);
+	
+	/**
+	 * 2020-01-01
+	 * 조홍철
+	 * 
+	 * PR 게시판 내용을 수정한다
+	 * 
+	 * @param prBoard - 수정 내용이 담긴 객체
+	 */
+	public void updatePR(PRBoard prBoard);
+	
+	/**
+	 * 2020-01-01
+	 * 조홍철
+	 * 
+	 * PR 게시판 유형을 수정한다
+	 * 
+	 * @param prBoard - 수정 내용이 담긴 객체
+	 */
+	public void updatePRType(PRBoard prBoard);
+	
+	/**
+	 * 2020-01-01
+	 * 조홍철
+	 * 
+	 * PR 게시판 첨부파일을 삭제한다
+	 * 
+	 * @param boardno - 게시글 번호
+	 */
+	public void deleteFile(int boardno);
 }

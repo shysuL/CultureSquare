@@ -18,7 +18,7 @@
 		
 		//수정버튼 동작
 		$("#btnUpdate").click(function() {
-			$(location).attr("href", "/prboard/update?boardno=${viewBoard.boardno }");
+			$(location).attr("href", "/prboard/modify?boardno=${viewBoard.boardno }");
 		});
 
 		//삭제버튼 동작

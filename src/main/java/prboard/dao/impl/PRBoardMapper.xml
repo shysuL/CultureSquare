@@ -124,4 +124,25 @@
 		WHERE fileno = #{fileno}
 	</select>
 	
+	<update id="updatePR"
+	 parameterType="prboard.dto.PRBoard">
+		UPDATE board set title = #{title}, contents = #{content}
+		WHERE 1=1
+			AND boardno = #{boardno}
+	</update>
+	
+	<update id="updatePRType"
+	 parameterType="prboard.dto.PRBoard">
+		UPDATE prtype set prname = #{prname}
+		WHERE 1=1
+			AND boardno = #{boardno}
+	</update>
+	
+	<delete id="deleteFile"
+	 parameterType="int">
+		DELETE upfile
+		WHERE 1=1
+			AND boardno = #{boardno }
+	</delete>
+	
 </mapper>

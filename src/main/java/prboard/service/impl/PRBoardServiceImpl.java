@@ -53,10 +53,6 @@ public class PRBoardServiceImpl implements PRBoardService {
 		//파일이 저장될 경로
 		String storedPath = context.getRealPath("upload");
 		
-		//이미지 파일이 저장될 경로
-		String storedPath2 = context.getRealPath("prImage");
-		
-		
 		//UUID
 		String uid = UUID.randomUUID().toString().split("-")[4];
 		
@@ -166,5 +162,56 @@ public class PRBoardServiceImpl implements PRBoardService {
 			e.printStackTrace();
 		}	
 	}
+
+	@Override
+	public void modifyPR(PRBoard prBoard) {
+
+		// 1. 게시글 내용 변경
+		prBoardDao.updatePR(prBoard);
+		
+		// 2. PR 유형 변경
+		prBoardDao.updatePRType(prBoard);
+		
+	}
+
+	@Override
+	public void deleteThumbnail(int boardno) {
+
+		String storedPath = context.getRealPath("prImage");
+		//서버에 있는 파일 삭제
+		// 삭제할 파일의 경로
+		String path = storedPath+"\\"+boardno; 
+		
+		File file = new File(path);
+		if(file.exists() == true){
+			file.delete();
+			logger.info("삭제 성공임니당!");
+		}
+	}
 	
+	@Override
+	public void deleteServerFile(List<UpFile> list) {
+		String storedPath = context.getRealPath("upload");
+		String path = "";
+		
+		// 서버에 있는 파일 삭제
+		for (int i=0; i<list.size(); i++) {
+			// 삭제할 파일의 경로
+			path = storedPath+"\\"+list.get(i).getStoredname(); 
+			
+			File file = new File(path);
+			if(file.exists() == true){
+				file.delete();
+			}
+		}
+	}
+
+	@Override
+	public void deleteFile(List<UpFile> list) {
+
+		// DB에 있는 파일 삭제
+		for (int i=0; i<list.size(); i++) {
+			prBoardDao.deleteFile(list.get(i).getBoardno());
+		}
+	}
 }
