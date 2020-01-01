@@ -34,6 +34,8 @@ public class PRViewController {
 		
 		model.addAttribute("fileList", list);
 		
+		logger.info("파일 테스트 : " + list);
+		
 	}
 	
 	@RequestMapping(value="/prboard/download")

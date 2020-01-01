@@ -3,6 +3,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <jsp:include page="../layout/header.jsp" />
 
@@ -115,7 +116,27 @@
 					<td colspan="4" class="info" id = "Title">내용</td>
 				</tr>
 				<tr>
-					<td colspan="4" id="Content">${viewBoard.content }</td>
+				<td colspan="4" id="Content">
+					
+				<!-- 이미지 파일인 경우 내용에서 보여줌 -->
+					<c:forEach items="${fileList }" var="fileList">
+						<c:set var="image" value="${fileList.storedname}" />
+						<c:if test="${fn:contains(image, '.jpg')}">
+							<img src="/upload/${fn:trim(image)}" style="width: 1080px; padding-bottom: 50px;">
+						</c:if>
+						<c:if test="${fn:contains(image, '.png')}">
+							<img src="/upload/${fn:trim(image)}" style="width: 1080px; padding-bottom: 50px;">
+						</c:if>
+						<c:if test="${fn:contains(image, '.JPG')}">
+							<img src="/upload/${fn:trim(image)}" style="width: 1080px; padding-bottom: 50px;">
+						</c:if>
+						<c:if test="${fn:contains(image, '.PNG')}">
+							<img src="/upload/${fn:trim(image)}" style="width: 1080px; padding-bottom: 50px;">
+						</c:if>
+					</c:forEach>
+					<!-- 내용 보여줌 -->
+						${viewBoard.content }
+					</td>
 				</tr>
 			</table>
 			<div class="list-group" id="fileTitle">
