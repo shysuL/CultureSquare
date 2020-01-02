@@ -185,7 +185,15 @@ h5 {
 					%>
 
 					<li class="nav-item">
-	        <a class="nav-link" href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%= cal.get(Calendar.MONTH)+1%>">CALENDAL </a>
+<%-- 					<c:set var = "month" value= <%= cal.get(Calendar.MONTH)+1%> > --%>
+					
+					<%
+// 						String cal_Month = "" + (cal.get(Calendar.MONTH)+1);
+					
+					%>
+					
+<%-- 					<c:if test = "${<%= cal.get(Calendar.MONTH)+1%> < 10 }"> --%>
+	        <a class="nav-link" href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>">CALENDAL </a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="/prboard/prlist">PR</a>

@@ -3,6 +3,7 @@ package artboard.dao.face;
 import java.util.List;
 
 import artboard.dto.Board;
+import artboard.dto.Donation;
 import util.Paging;
 
 public interface PFBoardDao {
@@ -135,5 +136,26 @@ public interface PFBoardDao {
 	 * @return int(User_table) - userno
 	 */
 	public int selectUsernoByUsernick(Board loginUser);
+
+	/**
+	 * 조홍철
+	 * 2020-01-02
+	 * 
+	 * 후원자 닉네임을 통한 후원자 번호 조회
+	 * 
+	 * @param donation - 후원자 닉네임이 담긴 객체
+	 * @return int - 후원자 번호
+	 */
+	public int selectNoForDonation(Donation donation);
+	
+	/**
+	 * 조홍철
+	 * 2020-01-02
+	 * 
+	 * 후원테이블에 정보 삽입
+	 * 
+	 * @param donation - 삽입할 정보가 담긴 객체
+	 */
+	public void insertDonation(Donation donation);
 
 }

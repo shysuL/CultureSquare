@@ -11,6 +11,8 @@ public class Reply {
 	private String replydate;
 	private int userno;
 	private int boardno;
+	
+	private String usernick;
 
 	
 	
@@ -19,7 +21,15 @@ public class Reply {
 	public String toString() {
 		return "Reply [rnum=" + rnum + ", replyno=" + replyno + ", groupno=" + groupno + ", replyorder=" + replyorder
 				+ ", replydepth=" + replydepth + ", recontents=" + recontents + ", replydate=" + replydate + ", userno="
-				+ userno + ", boardno=" + boardno + "]";
+				+ userno + ", boardno=" + boardno + ", usernick=" + usernick + "]";
+	}
+
+	public String getUsernick() {
+		return usernick;
+	}
+
+	public void setUsernick(String usernick) {
+		this.usernick = usernick;
 	}
 
 	public int getRnum() {
