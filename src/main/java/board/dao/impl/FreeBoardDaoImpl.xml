@@ -12,7 +12,7 @@
 		SELECT fb.postno, fb.boardno, fb.title, fb.writtendate, fb.contents, fb.views, ut.usernick FROM board fb, user_table ut
 		WHERE fb.userno = ut.userno
 		AND fb.postno = 3
-		<if test="searchcategory != null, searchtarget != null">
+		<if test="searchcategory != null and searchcategory != '' and searchtarget != null and searchtarget != ''">
    			 AND ${searchcategory} LIKE '%'||#{searchtarget}||'%'
  		</if>
 		ORDER BY boardno DESC
