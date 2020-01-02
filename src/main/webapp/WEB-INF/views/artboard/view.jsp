@@ -68,6 +68,8 @@ function deleteReply(replyno) {
 <script type="text/javascript">
 $(document).ready(function() {
 	
+	var money;
+	
 	//로그인 안했을 경우 후원하기 버튼 누르면 모달
 	$("#noLoginDonationbtn").click(function() {
 		$("#artNotLoginModal .content").text('로그인 후 후원이 가능합니다.');
@@ -164,6 +166,9 @@ $(document).ready(function() {
 		         }, function (rsp) {
 		             console.log(rsp);
 		             if (rsp.success) {
+		            	 
+		            	 money = rsp.paid_amount;
+		            	 
 		                 var msg = '결제가 완료되었습니다.';
 		                 msg +='<br>';
 		                 msg += '고유ID : ' + rsp.imp_uid;
@@ -172,17 +177,20 @@ $(document).ready(function() {
 		                 msg +='<br>';
 		        		 msg += '후원자 : ${usernick}'
 		        		 msg +='<br>';
-		        		 msg += '피후원자 : ${writer.usernick}'
+		        		 msg += '후원받는 사람 : ${writer.usernick}'
 			        	 msg +='<br>';
 		                 msg += '결제 금액 : ' + rsp.paid_amount +"원";
 		                 msg +='<br>';
+		                 
+		                 $(".content").html(msg);
+				         $("#donationSuccess").modal({backdrop: 'static', keyboard: false});
 		             } else {
 		                 var msg = '결제에 실패하였습니다.';
 		                 msg +='<br>';
 		                 msg += '에러내용 : ' + rsp.error_msg;
+		                 $("#donationFail .content").html(msg);
+				         $("#donationFail").modal({backdrop: 'static', keyboard: false});
 		             }
-		             $(".content").html(msg);
-			         $("#donationSuccess").modal({backdrop: 'static', keyboard: false});
 		         })
 			
 			
@@ -253,6 +261,9 @@ $(document).ready(function() {
 			         }, function (rsp) {
 			             console.log(rsp);
 			             if (rsp.success) {
+			            	 
+			            	 money = rsp.paid_amount;
+			            	 
 			                 var msg = '결제가 완료되었습니다.';
 			                 msg +='<br>';
 			                 msg += '고유ID : ' + rsp.imp_uid;
@@ -261,17 +272,20 @@ $(document).ready(function() {
 			                 msg +='<br>';
 			        		 msg += '후원자 : ${usernick}'
 			        		 msg +='<br>';
-			        		 msg += '피후원자 : ${writer.usernick}'
+			        		 msg += '후원받는 사람 : ${writer.usernick}'
 				        	 msg +='<br>';
 			                 msg += '결제 금액 : ' + rsp.paid_amount +"원";
 			                 msg +='<br>';
+			                 $("#donationSuccess .content").html(msg);
+					         $("#donationSuccess").modal({backdrop: 'static', keyboard: false});
 			             } else {
 			                 var msg = '결제에 실패하였습니다.';
 			                 msg +='<br>';
 			                 msg += '에러내용 : ' + rsp.error_msg;
+			                 
+			                 $("#donationFail .content").html(msg);
+					         $("#donationFail").modal({backdrop: 'static', keyboard: false});
 			             }
-			             $("#donationSuccess .content").html(msg);
-				         $("#donationSuccess").modal({backdrop: 'static', keyboard: false});
 			         })
 			}
 			
@@ -299,6 +313,17 @@ $(document).ready(function() {
 				console.log(1)
 				$("#donationModal #etcinput").attr("disabled", false);
 			}
+	   })
+	   
+	   //후원 하고 확인 버튼 눌렀을때 DB에 저장
+	   $("#donationSuccessModalBtn").click(function() {
+
+		 //후원 처리 컨트롤러로 이동
+		 location.href="/artboard/donation?donprice="+money+"&usernick=${usernick}&boardno=${ view.boardno}";
+		   
+		   console.log("후원자 : ${usernick}");
+		   console.log("금액 : " + money);
+		   console.log("게시글 번호 : ${ view.boardno}" );
 	   })
 });
 </script>
@@ -633,8 +658,7 @@ ${LoginUser.userno }
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">후원하기</h4>
-        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">후원완료!</h4>
       </div>
 
       <!-- Modal body -->
@@ -644,6 +668,29 @@ ${LoginUser.userno }
       <!-- Modal footer -->
       <div class="modal-footer">
         <button type="submit" id="donationSuccessModalBtn"class="btn btn-info" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 후원 실패 모달창 -->
+<div class="modal fade" id="donationFail">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">후원실패!</h4>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="donationFailModalBtn"class="btn btn-info" data-dismiss="modal">확인</button>
       </div>
 
     </div>
