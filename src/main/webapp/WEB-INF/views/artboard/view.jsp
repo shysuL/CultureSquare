@@ -85,8 +85,8 @@ $(document).ready(function() {
 	
 	//로그인 후 후원하기버튼 클릭 시 모달
 	$("#donationbtn").click(function() {
-		var msg = '결제가 완료되었습니다.';
-  		msg += '<div class="custom-control custom-radio">'
+		var msg = '후원하실 금액을 선택하세요.';
+		msg += '<div class="custom-control custom-radio">'
   		msg +=    '<input type="radio" class="custom-control-input" id="1000won" name="donprice" value="1000">';
   		msg +=     '<label class="custom-control-label" for="1000won">1000원</label>';
   		msg +=   '</div>';
