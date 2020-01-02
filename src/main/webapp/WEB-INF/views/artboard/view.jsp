@@ -13,6 +13,8 @@ $(document).ready(function() {
 	// 댓글 입력
 	$("#btnCommInsert").click(function() {
 		
+// 		if('${emailcheck}' == 'N')
+		
 		$form = $("<form>").attr({
 			action: "/reply/insert",
 			method: "post"
@@ -411,6 +413,49 @@ $(document).ready(function() {
 	text-align: center;
 }
 
+#reply_head{
+	background-color: #343a40;
+	border: 1px solid black;
+	max-width: 95%;
+	height: 45px;
+	color: white;
+	padding: 6px;
+	font-size: 25px;
+}
+
+#reply_date{
+	width: 20%;
+	float:right;
+}
+#view_recontents{
+	border: 1px solid black;
+	max-width: 95%;
+    height: 35px;
+	padding: 6px;
+}
+#recontents{
+	float: left;
+}
+#deleteReplyBtn{
+	font-size: 12px; 
+	float: right;
+}
+
+#replyinputheader{
+	background-color: #343a40;
+	border: 1px solid black;
+	max-width: 95%;
+	height: 45px;
+	color: white;
+	padding: 6px;
+	font-size: 25px;
+}
+#replyinputbody{
+	border: 1px solid black;
+	max-width: 95%;
+    height: 80px;
+	padding: 6px;
+}
 </style>
 <%
 	Date date = new Date();
@@ -446,7 +491,7 @@ $(document).ready(function() {
 		<!-- 글내용 -->
 		<div id = view_content class="col-xs-12 col-sm-6 col-md-8">
 			${view.contents }<br>
-		<br><br><br><br><br><br><br><br><br><br><br><br><br>
+		<br><br><br><br><br>
 		</div>
 		<!-- 버튼 -->
 		<div id = "view_buttonarea" class="btn col-md-4" role="group">
@@ -461,7 +506,7 @@ $(document).ready(function() {
 			</c:when>
 		</c:choose>
 			<button type = "button" class="btn  bbc" >추천</button>
-			<a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%= cal.get(Calendar.MONTH) +1 %>">
+			<a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>">
 			<button type = "button" class="btn  bbc" >목록</button>
 			</a>
 		</div>
@@ -487,45 +532,77 @@ $(document).ready(function() {
 <!-- 로그인상태 -->
 <c:if test="${login }">
 <!-- 댓글 입력 -->
-${LoginUser.userno }
-<div class="form-inline text-center">
+<div class="col-9">
+<div id = "replyinputheader">
+	코멘트 남기기
+</div>
+<div  id = "replyinputbody" class="form-inline text-center col-9">
 	<input type="hidden"  id="userno" name="userno" value="${LoginUser.userno }" />
 	<input type="hidden"  id="boardno" name="boardno" value="${ view.boardno}" />
-	<input type="text" size="10" class="form-control" id="replyWriter" name = "usernick" value="${LoginUser.usernick }" readonly="readonly"/>
+<%-- 	<input type="text" size="10" class="form-control" id="replyWriter" name = "usernick" value="${LoginUser.usernick }" readonly="readonly"/> --%>
 	<textarea rows="2" cols="60" class="form-control" id="recontents" name="recontents"></textarea>
 	<button id="btnCommInsert" class="btn">입력</button>
 </div>	<!-- 댓글 입력 end -->
+</div>
 </c:if>
 
+<br>
 <!-- 댓글 리스트 -->
-<table class="table table-striped table-hover table-condensed">
-<thead>
-<tr>
-	<th style="width: 5%;">번호</th>
-	<th style="width: 10%;">작성자</th>
-	<th style="width: 50%;">댓글</th>
-	<th style="width: 20%;">작성일</th>
-	<th style="width: 5%;"></th>
-</tr>
-</thead>
-<tbody id="commentBody">
+<!-- <table class="table table-striped table-hover table-condensed"> -->
+<!-- <thead> -->
+<!-- <tr> -->
+<!-- 	<th style="width: 5%;">번호</th> -->
+<!-- 	<th style="width: 10%;">작성자</th> -->
+<!-- 	<th style="width: 50%;">댓글</th> -->
+<!-- 	<th style="width: 20%;">작성일</th> -->
+<!-- 	<th style="width: 5%;"></th> -->
+<!-- </tr> -->
+<!-- </thead> -->
+<!-- <tbody id="commentBody"> -->
+<%-- <c:forEach items="${replyList }" var="reply"> --%>
+<%-- <tr data-commentno="${reply.replyno }"> --%>
+<%-- 	<td>${reply.rnum }</td> --%>
+<%-- 	<td>${reply.usernick }</td><!-- 닉네임으로 해도 좋음 --> --%>
+<%-- 	<td>${reply.recontents }</td> --%>
+<%-- 	<td>${reply.replydate}</td> --%>
+<!-- 	<td> -->
+<%-- 		<c:if test="${LoginUser.userno eq reply.userno }"> --%>
+<!-- 		<button class="btn btn-default btn-xs" style="font-size: 12px;" -->
+<%-- 			onclick="deleteReply(${reply.replyno });">삭제</button> --%>
+<%-- 		</c:if> --%>
+<!-- 	</td> -->
+<!-- </tr> -->
+<%-- </c:forEach> --%>
+<!-- </tbody> -->
+<!-- </table>	댓글 리스트 end -->
+
 <c:forEach items="${replyList }" var="reply">
-<tr data-commentno="${reply.replyno }">
-	<td>${reply.rnum }</td>
-	<td>${reply.userno }</td><!-- 닉네임으로 해도 좋음 -->
-	<td>${reply.recontents }</td>
-	<td>${reply.replydate}</td>
-	<td>
-		<c:if test="${LoginUser.userno eq reply.userno }">
-		<button class="btn btn-default btn-xs" style="font-size: 12px;"
-			onclick="deleteReply(${reply.replyno });">삭제</button>
-		</c:if>
-	</td>
-	
-</tr>
+<div class="col-9">
+		<div class="container container-fluid" style="margin-bottom: 20px">
+			<div id = "reply_head" class="col-xs-12 col-sm-6 col-md-8">
+				<span>${reply.usernick }</span>
+				<div id = "reply_date" class="col-md-4">
+					${reply.replydate}
+				</div>
+			</div>
+		<div id = "view_recontents" class="col-xs-12 col-sm-6 col-md-8" >
+			<div id = "recontents"  class="col-md-4" >
+				${reply.recontents }
+			</div>
+				<c:if test="${LoginUser.userno eq reply.userno }">
+					<div id = "deleteReplyBtn"  class="col-md-2"  >
+					<button class="btn btn-default btn-xs" 
+						onclick="deleteReply(${reply.replyno });">삭제</button>
+					</div>
+				</c:if>
+		</div>
+		<!-- 글내용 -->
+		<!-- 버튼 -->
+		
+		</div>
+	</div>
 </c:forEach>
-</tbody>
-</table>	<!-- 댓글 리스트 end -->
+
 
 </div>	<!-- 댓글 처리 end -->
 
