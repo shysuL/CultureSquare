@@ -175,6 +175,33 @@ $(document).ready(function() {
 	text-align: center;
 }
 
+#reply_head{
+	background-color: #343a40;
+	border: 1px solid black;
+	max-width: 95%;
+	height: 45px;
+	color: white;
+	padding: 6px;
+	font-size: 25px;
+}
+
+#reply_date{
+	width: 20%;
+	float:right;
+}
+#view_recontents{
+	border: 1px solid black;
+	max-width: 95%;
+    height: 35px;
+	padding: 6px;
+}
+#recontents{
+	float: left;
+}
+#deleteReplyBtn{
+	font-size: 12px; 
+	float: right;
+}
 </style>
 <%
 	Date date = new Date();
@@ -210,13 +237,13 @@ $(document).ready(function() {
 		<!-- 글내용 -->
 		<div id = view_content class="col-xs-12 col-sm-6 col-md-8">
 			${view.contents }<br>
-		<br><br><br><br><br><br><br><br><br><br><br><br><br>
+		<br><br><br><br><br>
 		</div>
 		<!-- 버튼 -->
 		<div id = "view_buttonarea" class="btn col-md-4" role="group">
 			<button type = "button" class="btn  bbc" id = "donationbtn">후원하기</button>
 			<button type = "button" class="btn  bbc" >추천</button>
-			<a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%= cal.get(Calendar.MONTH) +1 %>">
+			<a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>">
 			<button type = "button" class="btn  bbc" >목록</button>
 			</a>
 		</div>
@@ -267,7 +294,7 @@ ${LoginUser.userno }
 <c:forEach items="${replyList }" var="reply">
 <tr data-commentno="${reply.replyno }">
 	<td>${reply.rnum }</td>
-	<td>${reply.userno }</td><!-- 닉네임으로 해도 좋음 -->
+	<td>${reply.usernick }</td><!-- 닉네임으로 해도 좋음 -->
 	<td>${reply.recontents }</td>
 	<td>${reply.replydate}</td>
 	<td>
@@ -281,6 +308,34 @@ ${LoginUser.userno }
 </c:forEach>
 </tbody>
 </table>	<!-- 댓글 리스트 end -->
+
+<c:forEach items="${replyList }" var="reply">
+<div class="col-9">
+		<div class="container container-fluid" style="margin-bottom: 20px">
+			<div id = "reply_head" class="col-xs-12 col-sm-6 col-md-8">
+				<span>${reply.usernick }</span>
+				<div id = "reply_date" class="col-md-4">
+					${reply.replydate}
+				</div>
+			</div>
+		<div id = "view_recontents" class="col-xs-12 col-sm-6 col-md-8" >
+			<div id = "recontents"  class="col-md-4" >
+				${reply.recontents }
+			</div>
+				<c:if test="${LoginUser.userno eq reply.userno }">
+					<div id = "deleteReplyBtn"  class="col-md-2"  >
+					<button class="btn btn-default btn-xs" 
+						onclick="deleteReply(${reply.replyno });">삭제</button>
+					</div>
+				</c:if>
+		</div>
+		<!-- 글내용 -->
+		<!-- 버튼 -->
+		
+		</div>
+	</div>
+</c:forEach>
+
 
 </div>	<!-- 댓글 처리 end -->
 
