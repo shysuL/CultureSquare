@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import artboard.dto.Board;
+import artboard.dto.Donation;
 import artboard.dto.Reply;
 import artboard.service.face.PFBoardService;
 
@@ -64,5 +65,19 @@ public class ArtboardViewController {
 		model.addAttribute("replyList", replyList);
 		
 		
+	}
+	
+	@RequestMapping(value = "/artboard/donation", method = RequestMethod.GET)
+	public String pfDonation(Donation donation, Model model) {
+		
+		// 1. 회원 번호 구하기
+		donation = pfboardService.getUserNoByNick(donation);
+		logger.info("유저번호는 뭐냐 ? : " + donation);
+		
+		// 2. 후원 테이블에 삽입
+		pfboardService.insertDonation(donation);
+		
+		// 3. 해당 글로 다시 이동
+		return "redirect:/artboard/view?boardno=" + donation.getBoardno();
 	}
 }

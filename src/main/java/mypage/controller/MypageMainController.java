@@ -25,7 +25,7 @@ public class MypageMainController {
 	@RequestMapping(value="/mypage/main", method=RequestMethod.GET)
 	public void mypage(HttpSession session, User_table user, Model model) {
 		
-		logger.info("나오냐");
+//		logger.info("나오냐");
 		
 		user.setUserid(session.getAttribute("userid").toString());
 		user.setUsernick(session.getAttribute("usernick").toString());
@@ -46,7 +46,7 @@ public class MypageMainController {
 		
 		model.addAttribute("userinfo", userInfo);
 		
-		System.out.println(userInfo);
+//		System.out.println(userInfo);
 	}
 	
 	@RequestMapping(value="/mypage/main", method=RequestMethod.POST)
@@ -61,27 +61,27 @@ public class MypageMainController {
 		User_table userInfo = new User_table();
 		
 		//로그인한 사용자의 비밀번호 조회해서 userInfo객체에 담기
-		System.out.println(user);
+//		System.out.println(user);
 		userInfo = mypageService.getFindUserPw(user); // DB에 있는 비밀번호
-		System.out.println(user);
-		System.out.println("디비에 있는 암호화된 비밀번호 : " + userInfo.getUserpw());
+//		System.out.println(user);
+//		System.out.println("디비에 있는 암호화된 비밀번호 : " + userInfo.getUserpw());
 		
 		// 로그인시 입력한 비밀번호를 SHA256으로 암호화
-		System.out.println(user);
+//		System.out.println(user);
 		String encPw = user.getUserpw();
 		user.setUserpw(PwSha256.userPwEncSHA256(encPw)); // 현재비밀번호를 암호화 한거
-		System.out.println("로그인 시 입력한 암호화된 비밀번호 : " + user.getUserpw());
+//		System.out.println("로그인 시 입력한 암호화된 비밀번호 : " + user.getUserpw());
 		
 		//boolean타입으로 true/false를 이용해서 현재 비밀번호와 사용자가 입력한 비밀번호가 맞는지 확인
 		boolean password01 = mypageService.equalsPw(user);
-		System.out.println("비밀번호 일치여부(true/false): " + password01);
+//		System.out.println("비밀번호 일치여부(true/false): " + password01);
 		
 		if(password01) { //일치여부가 true이면
 			
 			String encPw2 = changepw;
 			user.setUserpw(PwSha256.userPwEncSHA256(encPw2));
 //			
-			System.out.println("변경되니?" + changepw);
+//			System.out.println("변경되니?" + changepw);
 			
 //			mypageService.modifyUserPassword(changepw);
 			mypageService.modifyUserPassword(user);
@@ -104,7 +104,7 @@ public class MypageMainController {
 		//암호화
 		String encPw = user.getUserpw();
 		user.setUserpw(PwSha256.userPwEncSHA256(encPw)); // 현재비밀번호를 암호화 한거
-		System.out.println("로그인 시 입력한 암호화된 비밀번호 : " + user.getUserpw());
+//		System.out.println("로그인 시 입력한 암호화된 비밀번호 : " + user.getUserpw());
 		
 		boolean lock = mypageService.comparedPw(user);
 		
@@ -112,8 +112,9 @@ public class MypageMainController {
 		
 		//viewName지정하기
 		mav.setViewName("jsonView");
-		
+		 
 		return mav;
 		
 	}
+	
 }
