@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import artboard.dao.face.PFBoardDao;
 import artboard.dao.face.ReplyDao;
 import artboard.dto.Board;
+import artboard.dto.Donation;
 import artboard.dto.Reply;
 import artboard.service.face.PFBoardService;
 
@@ -138,7 +139,19 @@ public class PFBoardServiceImpl implements PFBoardService{
 			return true;
 		}		
 	}
-	
+
+
+	@Override
+	public Donation getUserNoByNick(Donation donation) {
+		donation.setUserno(pfboardDao.selectNoForDonation(donation));
+		return donation;
+	}
+
+
+	@Override
+	public void insertDonation(Donation donation) {
+		pfboardDao.insertDonation(donation);
+	}
 	
 
 }

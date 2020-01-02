@@ -40,8 +40,9 @@
 // 정규식
 	// 아이디(이메일) 검사 정규식
 	var idJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-	// 비밀번호 정규식
-	var pwJ = /^[A-Za-z0-9]{4,12}$/;
+	// 비밀번호 정규식 - 암호길이 8자 이상 16 이하, 영문숫자특수문자조합
+//	var pwJ = /^[A-Za-z0-9]{4,12}$/;
+	var pwJ = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;
 	// 이름 정규식
 	var nameJ = /^[가-힣]{2,6}$/;
 	//닉네임 정규식
@@ -53,7 +54,7 @@
 	//모든 공백 체크 정규식
 	var blankJ = /\s/g;
 	function showLoadingBar() {
-		console.log("이미지 보여줘")
+//		console.log("이미지 보여줘")
 	    var maskHeight = $(document).height();
 	    var maskWidth = window.document.body.clientWidth;
 	    var mask = "<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'></div>";
@@ -238,7 +239,7 @@ $(document).ready(function(){
 			pw_Check = true;
 		} else {
 			console.log('false');
-			$('#pw_check').text('비밀번호는 숫자 or 문자로만 4~12자리 입력해주세요');
+			$('#pw_check').text('비밀번호는 숫자 or 문자로만 8~16자리 입력해주세요');
 			$('#pw_check').css('color', 'red');
 			pw_Check = false;
 		}		
@@ -363,7 +364,7 @@ $(document).ready(function(){
            
            <div class="form-group">
              <label for="userpw">비밀번호</label>
-             <input type="password" class="form-control" id="userpw" placeholder="비밀번호 입력" name="userpw" required>
+             <input type="password" class="form-control" id="userpw" placeholder="8자 이상 16 이하, 영문 숫자 특수문자조합" name="userpw" required>
              <div class="valid-feedback">Valid.</div>
              <div class="invalid-feedback">Please fill out this field.</div>
              <div class="check_font" id="pw_check"></div>

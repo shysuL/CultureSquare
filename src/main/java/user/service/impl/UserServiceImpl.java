@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService{
 		
 		// 아이디, 비밀번호가 일치하는 회원정보가 존재할 경우
 		if (userLogin.getUserid().equals(userId) && userLogin.getUserpw().equals(userPw)) {
-			
+			logger.info("UserServiceImpl에서 userCheck : " + userCheck);
 			//세션 정보 불러오기
 			User_table userSession = getUserSession(user);
 			session.setAttribute("login", true);
@@ -92,14 +92,17 @@ public class UserServiceImpl implements UserService{
 			session.setAttribute("username", userSession.getUsername());
 			session.setAttribute("interest", userSession.getInterest());
 			session.setAttribute("userno", userSession.getUserno());
+						
+//			if(userCheck != null) { // null이랑 equals("on")은 비교할 수 없음
+				// 쿠키 체크 검사 
+				if (userCheck.equals("on")) { 
+					logger.info("쿠키저장 확인");
+					Cookie cookie = new Cookie("rememberUser", (String)session.getAttribute("userid"));
+					resp.addCookie(cookie);
+					logger.info("쿠키 : " + cookie.getName());
+					logger.info("쿠키 : " + cookie.getValue());
+				}
 			
-			// 쿠키 체크 검사
-			if (userCheck == "checked") {
-				
-				Cookie cookie = new Cookie("rememberUser", session.getId());
-				resp.addCookie(cookie);
-				logger.info("쿠키저장했어~" );
-			}
 			
 			result = 1;
 		}

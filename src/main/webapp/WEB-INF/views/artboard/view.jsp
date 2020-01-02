@@ -12,8 +12,12 @@
 $(document).ready(function() {
 	// 댓글 입력
 	$("#btnCommInsert").click(function() {
+
+		if($('#recontents').val() == ''){
+			$("#replyerror").modal({backdrop: 'static', keyboard: false});
+		}else{
+			
 		
-// 		if('${emailcheck}' == 'N')
 		
 		$form = $("<form>").attr({
 			action: "/reply/insert",
@@ -38,7 +42,7 @@ $(document).ready(function() {
 		);
 		$(document.body).append($form);
 		$form.submit();
-		
+		}
 	});
 	
 });
@@ -69,6 +73,8 @@ function deleteReply(replyno) {
 </script>	
 <script type="text/javascript">
 $(document).ready(function() {
+	
+	var money;
 	
 	//로그인 안했을 경우 후원하기 버튼 누르면 모달
 	$("#noLoginDonationbtn").click(function() {
@@ -166,6 +172,9 @@ $(document).ready(function() {
 		         }, function (rsp) {
 		             console.log(rsp);
 		             if (rsp.success) {
+		            	 
+		            	 money = rsp.paid_amount;
+		            	 
 		                 var msg = '결제가 완료되었습니다.';
 		                 msg +='<br>';
 		                 msg += '고유ID : ' + rsp.imp_uid;
@@ -174,17 +183,20 @@ $(document).ready(function() {
 		                 msg +='<br>';
 		        		 msg += '후원자 : ${usernick}'
 		        		 msg +='<br>';
-		        		 msg += '피후원자 : ${writer.usernick}'
+		        		 msg += '후원받는 사람 : ${writer.usernick}'
 			        	 msg +='<br>';
 		                 msg += '결제 금액 : ' + rsp.paid_amount +"원";
 		                 msg +='<br>';
+		                 
+		                 $(".content").html(msg);
+				         $("#donationSuccess").modal({backdrop: 'static', keyboard: false});
 		             } else {
 		                 var msg = '결제에 실패하였습니다.';
 		                 msg +='<br>';
 		                 msg += '에러내용 : ' + rsp.error_msg;
+		                 $("#donationFail .content").html(msg);
+				         $("#donationFail").modal({backdrop: 'static', keyboard: false});
 		             }
-		             $(".content").html(msg);
-			         $("#donationSuccess").modal({backdrop: 'static', keyboard: false});
 		         })
 			
 			
@@ -255,6 +267,9 @@ $(document).ready(function() {
 			         }, function (rsp) {
 			             console.log(rsp);
 			             if (rsp.success) {
+			            	 
+			            	 money = rsp.paid_amount;
+			            	 
 			                 var msg = '결제가 완료되었습니다.';
 			                 msg +='<br>';
 			                 msg += '고유ID : ' + rsp.imp_uid;
@@ -263,17 +278,20 @@ $(document).ready(function() {
 			                 msg +='<br>';
 			        		 msg += '후원자 : ${usernick}'
 			        		 msg +='<br>';
-			        		 msg += '피후원자 : ${writer.usernick}'
+			        		 msg += '후원받는 사람 : ${writer.usernick}'
 				        	 msg +='<br>';
 			                 msg += '결제 금액 : ' + rsp.paid_amount +"원";
 			                 msg +='<br>';
+			                 $("#donationSuccess .content").html(msg);
+					         $("#donationSuccess").modal({backdrop: 'static', keyboard: false});
 			             } else {
 			                 var msg = '결제에 실패하였습니다.';
 			                 msg +='<br>';
 			                 msg += '에러내용 : ' + rsp.error_msg;
+			                 
+			                 $("#donationFail .content").html(msg);
+					         $("#donationFail").modal({backdrop: 'static', keyboard: false});
 			             }
-			             $("#donationSuccess .content").html(msg);
-				         $("#donationSuccess").modal({backdrop: 'static', keyboard: false});
 			         })
 			}
 			
@@ -301,6 +319,17 @@ $(document).ready(function() {
 				console.log(1)
 				$("#donationModal #etcinput").attr("disabled", false);
 			}
+	   })
+	   
+	   //후원 하고 확인 버튼 눌렀을때 DB에 저장
+	   $("#donationSuccessModalBtn").click(function() {
+
+		 //후원 처리 컨트롤러로 이동
+		 location.href="/artboard/donation?donprice="+money+"&usernick=${usernick}&boardno=${ view.boardno}";
+		   
+		   console.log("후원자 : ${usernick}");
+		   console.log("금액 : " + money);
+		   console.log("게시글 번호 : ${ view.boardno}" );
 	   })
 });
 </script>
@@ -405,11 +434,14 @@ $(document).ready(function() {
 #view_recontents{
 	border: 1px solid black;
 	max-width: 95%;
-    height: 35px;
+    height: 40px;
 	padding: 6px;
+/*     overflow: scroll; */
 }
 #recontents{
 	float: left;
+	width: 680px;
+    height: auto;
 }
 #deleteReplyBtn{
 	font-size: 12px; 
@@ -448,7 +480,7 @@ $(document).ready(function() {
 <br>
 <div class="row">
 	<div class="col-9">
-		<div class="container container-fluid" style="margin-bottom: 600px">
+		<div class="container container-fluid" style="margin-bottom: 50px">
 			<div id = "view_head" class="col-xs-12 col-sm-6 col-md-8">
 				<span>${view.title }</span>
 			</div>
@@ -496,7 +528,6 @@ $(document).ready(function() {
 <!-- 댓글 처리 -->
 <div>
 
-<hr>
 		<div id="commentbody"></div>
 		<%-- 댓글입력 시 이동 위치 --%>
 <!-- 비로그인상태 -->
@@ -710,8 +741,7 @@ $(document).ready(function() {
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">후원하기</h4>
-        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">후원완료!</h4>
       </div>
 
       <!-- Modal body -->
@@ -727,7 +757,54 @@ $(document).ready(function() {
   </div>
 </div>
 
+<!-- 후원 실패 모달창 -->
+<div class="modal fade" id="donationFail">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">후원실패!</h4>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="donationFailModalBtn"class="btn btn-info" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 </div> <!-- div_container -->
+
+<!-- 댓글 입력이 비었을 때 모달 -->
+<div class="modal fade" id="replyerror">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">알림</h4>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	 댓글 내용을 입력해주세요
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="btnCommInsert"class="btn btn-info" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
 

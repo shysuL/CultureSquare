@@ -29,14 +29,41 @@
 $(document).ready(function() {
 	
 	
+	
+	$('#rememberCheck').click(function(){
+		if($("input:checkbox[id='rememberCheck']").is(":checked") == true){
+//			console.log("ㅊ크박스 체크");
+			$('#userid1').val("${cookie.rememberUser.value }");
+		}
+		else{		
+//			console.log("ㅊ크박스 체크 해제");
+			$('#userid1').val("");
+		}
+	})
+	
+	
+	// 아이디 / 비밀번호 찾기
+	$("#findInfo").click(function(){
+		
+		$("#findModal").modal({backdrop: 'static', keyboard:false});
+		
+	})
+	
+	
 	$("#loginBtn").click(function(){
-		console.log("안들어와?");
+//		console.log("안들어와?");
 		var userid = $('#userid1').val();
 		var userpw = $('#userpw1').val();
-		var rememberUser = $('#rememberUser').val();
+		if ($('#rememberCheck').is(":checked")){			
+			var rememberUser = $('input:checkbox[id="rememberCheck"]').val();
+		} else {
+			var rememberUser = "off"
+		}
+		
 		console.log(userid);
 		console.log(userpw);
 		console.log(rememberUser);
+		console.log($('#rememberUser').val());
 	
 		if(userid == ""){
 			$(".content").text('아이디를 입력해주세요.');
@@ -209,10 +236,11 @@ h5 {
 	       <div class="dropdown-menu ">
 	       
 	          <form class="px-4 py-3" action="/login" method=post>
-	             <div class="form-group">
-	                <label for="exampleDropdownFormEmail1">Email address</label> <input
+	             <div class="form-group">0
+	                <label for="exampleDropdownFormEmail1">Email address</label> 
+	                <input
 	                   type="email" class="form-control"
-	                   id="userid1" placeholder="email@example.com" name=userid>
+	                   id="userid1" placeholder="email@example.com" name="userid" >
 	             </div>
 	             <div class="form-group">
 	                <label for="exampleDropdownFormPassword1">Password</label> <input
@@ -221,7 +249,7 @@ h5 {
 	             </div>
 	             <div class="form-group">
 	                <div class="form-check">
-	                   <input type="checkbox" class="form-check-input" name="rememberUser" value="checked"
+	                   <input type="checkbox" class="form-check-input" name="rememberUser"
 	                      id="rememberCheck" > <label class="form-check-label"
 	                      for="rememberCheck"> Remember me </label>
 	                </div>
@@ -288,4 +316,28 @@ h5 {
     </div>
   </div>
 </div>
+
+<!-- 아이디/비밀번호 찾기 모달 -->
+<div class="modal fade" id="findModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">아이디/비밀번호 찾기</h4>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button class="btn btn-info" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
