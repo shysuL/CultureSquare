@@ -6,10 +6,10 @@
 <%@ page import="java.text.*"%>
 
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />  
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
-	
 	// 댓글 입력
 	$("#btnCommInsert").click(function() {
 		
@@ -68,26 +68,237 @@ function deleteReply(replyno) {
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	//후원하기버튼 클릭 시 모달
+	//로그인 안했을 경우 후원하기 버튼 누르면 모달
+	$("#noLoginDonationbtn").click(function() {
+		$("#artNotLoginModal .content").text('로그인 후 후원이 가능합니다.');
+		$("#artNotLoginModal").modal({backdrop: 'static', keyboard: false});
+		return false;
+	});
+	
+	//로그인 후 후원하기버튼 클릭 시 모달
 	$("#donationbtn").click(function() {
-// 		$(".content").text('후원할 금액을 입력해 주세요');
+		var msg = '결제가 완료되었습니다.';
+  		msg += '<div class="custom-control custom-radio">'
+  		msg +=    '<input type="radio" class="custom-control-input" id="1000won" name="donprice" value="1000">';
+  		msg +=     '<label class="custom-control-label" for="1000won">1000원</label>';
+  		msg +=   '</div>';
+  		msg +=   '<div class="custom-control custom-radio">';
+  		msg +=      '<input type="radio" class="custom-control-input" id="5000won" name="donprice" value="5000">';
+  		msg +=     '<label class="custom-control-label" for="5000won">5000원</label>';
+  		msg +=   '</div>';
+  		msg +=   '<div class="custom-control custom-radio">';
+  		msg +=     '<input type="radio" class="custom-control-input" id="10000won" name="donprice" value="10000">';
+  		msg +=      '<label class="custom-control-label" for="10000won">10000원</label>';
+  		msg +=  '</div>';
+  		msg +=  '<div class="custom-control custom-radio">';
+  		msg +=      '<input type="radio" class="custom-control-input" id="etc" name="donprice" value="">';
+  		msg +=      '<label class="custom-control-label" for="etc">기타</label>';
+  		msg +=     '<input id = "etcinput" name = "etcinput"  class="form-control"  disabled="disabled"/>';
+  		msg +=  '</div>';
+  		
+  		$("#donationModal .content").html(msg);
 		$("#donationModal").modal({backdrop: 'static', keyboard: false});
 	});
 	
-	   $("input:radio[name=donprice]").click(function(){
-		   var donChecked = $("input[name=donprice]:checked").val();
-// 			console.log(donChecked);
+	//후원 모달에서 후원하기 눌렀을때
+	$("#donation").click(function() {
+		
+		var donChecked = $("input[name=donprice]:checked").val();
+		var inputCost = $('#etcinput').val();
+		
+		//숫자 정규식
+		var regexp = /^[0-9]*$/
+		
+		//화면에 나온 금액 입력
+		if(donChecked == '1000' || donChecked == '5000' || donChecked == '10000'){
+			
+			// 라디오 초기화
+			$('input[name="donprice"]').removeAttr('checked');
+			console.log(donChecked + "입니다.");
+			
+		    	 var IMP = window.IMP; // 생략가능
+		         IMP.init('imp21286391'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+		         var msg;
+		         
+		         IMP.request_pay({
+//		              pg: 'inicis', // version 1.1.0부터 지원.
+		             pg: 'kakaopay', // version 1.1.0부터 지원.
+		             /* 
+		                 'kakao':카카오페이, 
+		                 html5_inicis':이니시스(웹표준결제)
+		                     'nice':나이스페이
+		                     'jtnet':제이티넷
+		                     'uplus':LG유플러스
+		                     'danal':다날
+		                     'payco':페이코
+		                     'syrup':시럽페이
+		                     'paypal':페이팔
+		                 */
+		             pay_method: 'card',
+		             /* 
+		                 'samsung':삼성페이, 
+		                 'card':신용카드, 
+		                 'trans':실시간계좌이체,
+		                 'vbank':가상계좌,
+		                 'phone':휴대폰소액결제 
+		             */
+		             merchant_uid: 'merchant_' + new Date().getTime(),
+		             /* 
+		              */
+		             name: '주문명: 카카오결제테스트',
+		             //결제창에서 보여질 이름
+		             amount: donChecked, 
+		             
+		             //가격 
+		             buyer_email: 'iamport@siot.do',
+		             buyer_name: '구매자이름',
+		             buyer_tel: '010-1234-5678',
+		             buyer_addr: '서울특별시 강남구 삼성동',
+		             buyer_postcode: '123-456',
+		             m_redirect_url: 'https://www.yourdomain.com/payments/complete'
+		             /*  
+		                 모바일 결제시,
+		                 결제가 끝나고 랜딩되는 URL을 지정 
+		                 (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐) 
+		                 */
+		         }, function (rsp) {
+		             console.log(rsp);
+		             if (rsp.success) {
+		                 var msg = '결제가 완료되었습니다.';
+		                 msg +='<br>';
+		                 msg += '고유ID : ' + rsp.imp_uid;
+		                 msg +='<br>';
+		                 msg += '상점 거래ID : ' + rsp.merchant_uid;
+		                 msg +='<br>';
+		        		 msg += '후원자 : ${usernick}'
+		        		 msg +='<br>';
+		        		 msg += '피후원자 : ${writer.usernick}'
+			        	 msg +='<br>';
+		                 msg += '결제 금액 : ' + rsp.paid_amount +"원";
+		                 msg +='<br>';
+		             } else {
+		                 var msg = '결제에 실패하였습니다.';
+		                 msg +='<br>';
+		                 msg += '에러내용 : ' + rsp.error_msg;
+		             }
+		             $(".content").html(msg);
+			         $("#donationSuccess").modal({backdrop: 'static', keyboard: false});
+		         })
+			
+			
+		}
+		//기타 금액 입력
+		else{
+			//빈칸 입력
+			if(inputCost ==""){
+				//후원 에러 모달 호출
+				$("#donationErrorModal .content").html("빈칸은 입력할 수 없습니다.");
+				$("#donationErrorModal").modal({backdrop: 'static', keyboard: false});
+			}
+			
+			//숫자가 아닌 경우
+			else if(!regexp.test(inputCost)){
+				//숫자 입력하라는 모달 호출
+				$("#donationNumberModal .content").html("숫자만 입력 가능합니다.");
+				$("#donationNumberModal").modal({backdrop: 'static', keyboard: false});
+			}
+			
+			// 숫자 입력 결제 시스템 호출
+			else{
+			    	 var IMP = window.IMP; // 생략가능
+			         IMP.init('imp21286391'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+			         var msg;
+			         
+			         IMP.request_pay({
+//			              pg: 'inicis', // version 1.1.0부터 지원.
+			             pg: 'kakaopay', // version 1.1.0부터 지원.
+			             /* 
+			                 'kakao':카카오페이, 
+			                 html5_inicis':이니시스(웹표준결제)
+			                     'nice':나이스페이
+			                     'jtnet':제이티넷
+			                     'uplus':LG유플러스
+			                     'danal':다날
+			                     'payco':페이코
+			                     'syrup':시럽페이
+			                     'paypal':페이팔
+			                 */
+			             pay_method: 'card',
+			             /* 
+			                 'samsung':삼성페이, 
+			                 'card':신용카드, 
+			                 'trans':실시간계좌이체,
+			                 'vbank':가상계좌,
+			                 'phone':휴대폰소액결제 
+			             */
+			             merchant_uid: 'merchant_' + new Date().getTime(),
+			             /* 
+			              */
+			             name: '주문명: 카카오결제테스트',
+			             //결제창에서 보여질 이름
+			             amount: inputCost, 
+			             
+			             //가격 
+			             buyer_email: 'iamport@siot.do',
+			             buyer_name: '구매자이름',
+			             buyer_tel: '010-1234-5678',
+			             buyer_addr: '서울특별시 강남구 삼성동',
+			             buyer_postcode: '123-456',
+			             m_redirect_url: 'https://www.yourdomain.com/payments/complete'
+			             /*  
+			                 모바일 결제시,
+			                 결제가 끝나고 랜딩되는 URL을 지정 
+			                 (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐) 
+			                 */
+			         }, function (rsp) {
+			             console.log(rsp);
+			             if (rsp.success) {
+			                 var msg = '결제가 완료되었습니다.';
+			                 msg +='<br>';
+			                 msg += '고유ID : ' + rsp.imp_uid;
+			                 msg +='<br>';
+			                 msg += '상점 거래ID : ' + rsp.merchant_uid;
+			                 msg +='<br>';
+			        		 msg += '후원자 : ${usernick}'
+			        		 msg +='<br>';
+			        		 msg += '피후원자 : ${writer.usernick}'
+				        	 msg +='<br>';
+			                 msg += '결제 금액 : ' + rsp.paid_amount +"원";
+			                 msg +='<br>';
+			             } else {
+			                 var msg = '결제에 실패하였습니다.';
+			                 msg +='<br>';
+			                 msg += '에러내용 : ' + rsp.error_msg;
+			             }
+			             $("#donationSuccess .content").html(msg);
+				         $("#donationSuccess").modal({backdrop: 'static', keyboard: false});
+			         })
+			}
+			
+			// 값 초기화
+			$('#etcinput').val("");
+			$('input[name="donprice"]').removeAttr('checked');
+			console.log("요긴 기타 버튼 : " +  inputCost);
+		}
+			
+	});
+	   $("#donationModal").on("click","input:radio[name=donprice]", function(){
+		   var donChecked = $(this).val();
+// 		   var donChecked = $("input[name=donprice]:checked").val();
+			console.log(donChecked);
 			if(donChecked == '1000'){
-				$('input[name=etcinput]').attr('value','');
-				$("#etcinput").attr("disabled", true);
+				$('#donationModal #etcinput').val("");
+				$("#donationModal #etcinput").attr("disabled", true);
 			}else if(donChecked == '5000'){
-				$('input[name=etcinput]').attr('value','');
-				$("#etcinput").attr("disabled", true);
+				$('#donationModal #etcinput').val("");
+				$("#donationModal #etcinput").attr("disabled", true);
 			}else if(donChecked == '10000'){
-				$('input[name=etcinput]').attr('value','');
-				$("#etcinput").attr("disabled", true);
-			}else
-				$("#etcinput").attr("disabled", false);
+				$('#donationModal #etcinput').val("");
+				$("#donationModal #etcinput").attr("disabled", true);
+			}else{
+				console.log(1)
+				$("#donationModal #etcinput").attr("disabled", false);
+			}
 	   })
 });
 </script>
@@ -241,7 +452,16 @@ $(document).ready(function() {
 		</div>
 		<!-- 버튼 -->
 		<div id = "view_buttonarea" class="btn col-md-4" role="group">
-			<button type = "button" class="btn  bbc" id = "donationbtn">후원하기</button>
+		
+<!-- 		로그인 여부 처리 -->
+		<c:choose>
+			<c:when test="${not login}">
+				<button type = "button" class="btn  bbc" id = "noLoginDonationbtn">후원하기</button>
+			</c:when>
+			<c:when test="${login}">
+					<button type = "button" class="btn  bbc" id = "donationbtn">후원하기</button>
+			</c:when>
+		</c:choose>
 			<button type = "button" class="btn  bbc" >추천</button>
 			<a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>">
 			<button type = "button" class="btn  bbc" >목록</button>
@@ -374,26 +594,8 @@ ${LoginUser.userno }
         <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
-      <!-- Modal body -->
+        <!-- Modal body -->
       <div class="modal-body content">
-      	금액 
-      		<div class="custom-control custom-radio">
-	               <input type="radio" class="custom-control-input" id="1000won" name="donprice" value="1000">
-	               <label class="custom-control-label" for="1000won">1000원</label>
-	            </div>
-	            <div class="custom-control custom-radio">
-	               <input type="radio" class="custom-control-input" id="5000won" name="donprice" value="5000">
-	               <label class="custom-control-label" for="5000won">5000원</label>
-	            </div>
-	            <div class="custom-control custom-radio">
-	               <input type="radio" class="custom-control-input" id="10000won" name="donprice" value="10000">
-	               <label class="custom-control-label" for="10000won">10000원</label>
-	            </div>
-	            <div class="custom-control custom-radio">
-	               <input type="radio" class="custom-control-input" id="etc" name="donprice" value="">
-	               <label class="custom-control-label" for="etc">기타</label>
-	               <input id = "etcinput" name = "etcinput"  class="form-control"  disabled="disabled"/>
-	            </div>
       </div>
 
       <!-- Modal footer -->
@@ -406,6 +608,102 @@ ${LoginUser.userno }
 </div>
 
 
+<!-- 로그인 실패시 모달창 -->
+<div class="modal fade" id="artNotLoginModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">로그아웃 상태</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="artLoginCheckBtn"class="btn btn-info" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 후원 에러 모달창 -->
+<div class="modal fade" id="donationErrorModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">후원하기 오류!</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="donationErrorBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 후원 숫자 에러 모달창 -->
+<div class="modal fade" id="donationNumberModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">후원하기 오류!</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="donationNumberModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- 후원 성공 모달창 -->
+<div class="modal fade" id="donationSuccess">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">후원하기</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="donationSuccessModalBtn"class="btn btn-info" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 </div> <!-- div_container -->
 
