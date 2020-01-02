@@ -33,7 +33,7 @@ $(document).ready(function() {
 		$("#updateUserPwModal").modal({backdrop: 'static', keyboard: false});
 	})
 	
-		$("#updatePw").click(function(){
+	$("#updatePw").click(function(){
 		var userpw = $('#userpw').val();
 		var changepw = $('#changepw').val();
 		var changepw2 = $('#changepw2').val();
@@ -43,7 +43,7 @@ $(document).ready(function() {
 		console.log(changepw)
 		console.log("3")
 		console.log(changepw2)
-		
+	
 		$.ajax({
 			type: "post",
 			url: "/mypage/curpwCheck",
@@ -111,8 +111,80 @@ $(document).ready(function() {
 			})
 
 		})
-	
+			
 });
+
+$(document).ready(function(){
+	
+	//경고 모달 호출 메서드
+    function warningModal1(content) {
+       $(".modal-contents").text(content);
+       $("#defaultModal2").modal('show');
+       console.log("나는 경고모달창2");
+    }		
+			
+	//회원 탈퇴 모달
+	$("#deleteuser").click(function(){
+		$("#deleteUserIdModal").modal({backdrop: 'static', keyboard: false});
+	})
+	
+	$("#deleteUserCheckBtn1").click(function(){
+		$("#checkUserPwModal").modal({backdrop: 'static', keyboard: false});
+		
+		$("#deleteUserCheckBtn2").click(function(){
+			
+			var userpw = $('#pw1').val();
+			var userpw2 = $('#pw2').val();
+			
+			console.log("1")
+			console.log(userpw)
+			console.log("2")
+			console.log(userpw2)
+			
+			$.ajax({
+				type: "post",
+				url: "/mypage/deleteuser",
+				data: {"userpw" : userpw, "userpw2" : userpw2},
+				datatype: "json",
+				success: function(res){
+					
+					console.log("userpw나와")
+					console.log(userpw)
+					
+					if(!res.lock){
+						warningModal1('비밀번호를 다시 입력해주세요.')
+						$("#pw1").focus();
+						return false;
+					}
+					
+				}
+			})
+			
+			//현재 비밀번호 입력
+			if(pw1 == ""){
+				warningModal1('현재 비밀번호를 입력해주세요.')
+				$("#pw1").focus();
+				return false;
+			}
+			
+			if(pw2 == ""){
+				warningModal1('비밀번호 확인을 입력해주세요.')
+				$("#pw2").focus();
+				return false;
+			}
+			
+			if(pw1 != pw2){
+		    	warningModal1('비밀번호가 일치하지 않습니다');
+		    	return false;
+			}
+			
+			$("#userdeleteform").submit();
+		})
+	})
+})	
+		
+
+
 </script>
 
 <style type="text/css">
@@ -311,10 +383,33 @@ $(document).ready(function() {
 				<!-- /.modal-dialog -->
 			</div>
 			<!-- /.modal -->
+			
+			<!--모달창 -->
+			<div class="modal fade" id="defaultModal2">
+				<div class="modal-dialog">
+					<div class="modal-content ">
+						<div class="modal-header panel-heading">
+							<h4 class="modal-title">회원탈퇴 알림</h4>
+						</div>
+						<div class="modal-body">
+							<p class="modal-contents"></p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-dark" data-dismiss="modal">확인</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
 
 
 			<br>
-			<input type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;" value="회원탈퇴"/>
+			<form action="/mypage/deleteuser" method="post" id="userdeleteform">
+				<button type="button" class="btn btn-outline-dark" id="deleteuser" 
+						style="width: 84%; display: block; margin: 0 auto;">회원 탈퇴</button>
+			</form>
 		</div>
 
 		<!-- 활동이력 -->
@@ -364,13 +459,16 @@ $(document).ready(function() {
 			일반 사용자가 예술인으로 변경을 원할 시에만 눌러주세요.<br>
 			공연, 연극, 버스킹등의 예술분야를 홍보할 수 있는<br>
 			CALENDAL게시판 이용이 가능합니다.</small><br><br>
-			<button type="submit" class="btn btn-outline-dark" id="artistsapply" 
-					style="width: 84%; display: block; margin: 0 auto;">예술인 신청하기</button>
+			<form action="/mypage/main" method="post">
+				<button type="button" class="btn btn-outline-dark" id="artistsapply" 
+						style="width: 84%; display: block; margin: 0 auto;">예술인 신청하기</button>
+			</form>
 		</div>
 		<div style="clear: both;"></div>
 	</div>
 </div>
 <!-- container -->
+
 
 <!-- 모달 -->
 <!-- 예술인으로 신청하기를 눌렀을 떄 모달 -->
@@ -420,5 +518,57 @@ $(document).ready(function() {
   </div>
 </div>
 
+<!-- 회원탈퇴를 눌렀을 떄 모달 -->
+<div class="modal fade" id="deleteUserIdModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">회원 탈퇴를 진행하시겠습니까?</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+		회원 탈퇴를 하실 경우, Culture Square의 서비스를 이용하실 수 없습니다.
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="deleteUserCheckBtn1"class="btn btn-dark" data-dismiss="modal">확인</button>
+        <button type="cancel" class="btn btn-danger" data-dismiss="modal">취소</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 회원탈퇴를 눌렀을 떄  비밀번호 확인 모달 -->
+<div class="modal fade" id="checkUserPwModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">비밀번호 확인</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+		비밀번호 : <input type="password" id="pw1" placeholder="현재 비밀번호 입력"/><br>
+		비밀번호 확인 : <input type="password" id="pw2" placeholder="한번 더 입력"/>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="deleteUserCheckBtn2"class="btn btn-dark" data-dismiss="modal">탈퇴하기</button>
+        <button type="cancel" class="btn btn-danger" data-dismiss="modal">탈퇴취소</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />

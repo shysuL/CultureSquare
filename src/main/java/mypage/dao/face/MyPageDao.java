@@ -41,4 +41,6 @@ public interface MyPageDao {
 
 	public int selectUserNick(String usernick);
 
+	public void deleteUserId(User_table user);
+
 }
