@@ -15,12 +15,13 @@
 		resultType="artboard.dto.Reply">
 		SELECT rownum rnum, B.* FROM (
 				SELECT 
-					replyno, groupno, replyorder, replydepth, recontents, replydate, userno, boardno
-				FROM reply
+					r.replyno, r.groupno, r.replyorder, r.replydepth, r.recontents, r.replydate, r.userno, r.boardno, u.usernick
+				FROM reply r, user_table u
 				WHERE boardno = #{boardno}
+				AND r.userno = u.userno
 				ORDER BY replydate
 				) B
-		 ORDER BY rnum
+		 ORDER BY rnum DESC
 	</select>
 
 	<delete id="deleteReply" parameterType="artboard.dto.Reply">

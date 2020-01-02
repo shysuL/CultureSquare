@@ -224,13 +224,13 @@ public class LoginController {
 	}
 		
 	@RequestMapping(value="/login", method= RequestMethod.POST)
-	public ModelAndView loginproc(User_table user, HttpSession session, String remeberUser, HttpServletResponse resp, ModelAndView mav) {
+	public ModelAndView loginproc(User_table user, HttpSession session, String rememberUser, HttpServletResponse resp, ModelAndView mav) {
 		
 		// 아이디 기억하기 체크박스 name값 (remeberUser) 가져오기
 		
-		logger.info("로거 나오는거냐?" + remeberUser);
+		logger.info("로거 나오는거냐?" + rememberUser);
 		
-		String userCheck = remeberUser;
+		String userCheck = rememberUser;
 		
 		// 로그인시 입력한 비밀번호를 SHA256으로 암호화
 		String encPw = user.getUserpw();
@@ -238,7 +238,7 @@ public class LoginController {
 		
 		int result = userService.loginProc(user, session, userCheck, resp);
 		
-		logger.info("로그인 result : " + result);
+//		logger.info("로그인 result : " + result);
 
 		mav.addObject("result", result);
 		

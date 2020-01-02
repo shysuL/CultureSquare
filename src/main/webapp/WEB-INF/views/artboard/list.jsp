@@ -325,7 +325,7 @@ $(document).ready(function(){
 	  		</tr>
 	  		
 	  		<tr>
-	  		<td><a href="#" ><input class="list-group-item active cate" type="submit" value="전체" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item action cate" type="submit" value="전체" /></a></td>
 	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="공연" /></a></td>
 	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="버스킹" /></a></td>
 	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="연극" /></a></td>

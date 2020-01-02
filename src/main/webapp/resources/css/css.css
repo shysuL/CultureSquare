@@ -41,12 +41,7 @@
 .tit {
 	color: #343a40;
 }
-.list-group-item.active {
-   
-    color: #fff;
-    background-color: #343a40;
-    border-color: #343a40;
-}
+
 
 #carouselExampleFade img {
 	width: 500px;
