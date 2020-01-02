@@ -121,7 +121,7 @@
 		<div id = "view_buttonarea" class="btn col-md-4" role="group">
 			<button type = "button" class="btn  bbc" >후원하기</button>
 			<button type = "button" class="btn  bbc" >추천</button>
-			<a href="/artboard/list">
+			<a href="https://localhost:8443/artboard/list?bo_table=calendar&cal_year=2020&cal_month=01">
 			<button type = "button" class="btn  bbc" >목록</button>
 			</a>
 		</div>
