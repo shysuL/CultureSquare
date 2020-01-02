@@ -76,7 +76,7 @@ $(document).ready(function() {
 
 
 
-<div class="container container-fluid" style="margin-bottom: 600px">
+<div class="container container-fluid" style="margin-bottom: 300px">
 
 <h1>WRITE</h1>
 <hr>
@@ -147,13 +147,13 @@ $(document).ready(function() {
 
 
 <br>
-첨부파일 <input type="file" name="file" />
+<input type="file" name="file" />
 
 <input type="hidden" id = "userno" name = "userno" value = "${userno.userno }"/>
 </form>
 <div class="text-center">	
-	<button type="button" id="btnWrite" class="btn btn-info">작성</button>
-	<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
+	<button type="button" id="btnWrite" class="btn bbc">작성</button>
+	<button type="button" id="btnCancel" class="btn bbc">취소</button>
 </div>
 
 
