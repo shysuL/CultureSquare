@@ -40,36 +40,36 @@
 	width: 95%;
 }
 
-@font-face {
-	font-family: 'yg-jalnan';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
+/* @font-face { */
+/* 	font-family: 'yg-jalnan'; */
+/* 	src: */
+/* 		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') */
+/* 		format('woff'); */
+/* 	font-weight: normal; */
+/* 	font-style: normal; */
+/* } */
 
-@font-face {
-	font-family: 'YanoljaYacheR';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/YanoljaYacheR.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
+/* @font-face { */
+/* 	font-family: 'YanoljaYacheR'; */
+/* 	src: */
+/* 		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/YanoljaYacheR.woff') */
+/* 		format('woff'); */
+/* 	font-weight: normal; */
+/* 	font-style: normal; */
+/* } */
 
 #h3title {
-	font-family: '잘난체 폰트', 'Jalnan', yg-jalnan;
+/* 	font-family: '잘난체 폰트', 'Jalnan', yg-jalnan; */
 	text-align: center;
 	padding: 20px;
 }
 
 #Title {
-	font-family: '잘난체 폰트', 'Jalnan', yg-jalnan;
+/* 	font-family: '잘난체 폰트', 'Jalnan', yg-jalnan; */
 }
 
 #Content {
-	font-family: '야놀자', 'YanoljaYacheR', YanoljaYacheR;
+/* 	font-family: '야놀자', 'YanoljaYacheR', YanoljaYacheR; */
 	font-size: 25px;
 }
 #btnList{
@@ -82,7 +82,7 @@
 #fileContent{
 	background-color:#343a40; 
 	color:white;
-	font-family: '야놀자', 'YanoljaYacheR', YanoljaYacheR;
+/* 	font-family: '야놀자', 'YanoljaYacheR', YanoljaYacheR; */
 	font-size: 25px;
 }
 

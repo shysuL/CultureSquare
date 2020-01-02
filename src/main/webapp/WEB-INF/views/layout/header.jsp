@@ -116,6 +116,18 @@ $(document).ready(function() {
 
 <style type="text/css">
 
+/* 웹폰트 적용 */
+@font-face { 
+   font-family: 'KHNPHU'; 
+   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/KHNPHU.woff') format('woff'); 
+   font-weight: normal; 
+   font-style: normal; 
+}
+
+.sitefont {
+   font-family:'KHNPHU';
+}
+
 .culture { 
    width: 300px;
    height:250px;
@@ -156,7 +168,7 @@ h5 {
 </style>
 
 </head>
-<body>
+<body class="sitefont">
 
 <!-- header --> 
 <div class="wrap">
