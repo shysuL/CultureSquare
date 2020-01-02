@@ -434,12 +434,14 @@ $(document).ready(function() {
 #view_recontents{
 	border: 1px solid black;
 	max-width: 95%;
-    height: 35px;
+    height: 40px;
 	padding: 6px;
+/*     overflow: scroll; */
 }
 #recontents{
 	float: left;
 	width: 680px;
+    height: auto;
 }
 #deleteReplyBtn{
 	font-size: 12px; 
