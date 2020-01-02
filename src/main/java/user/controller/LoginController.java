@@ -1,9 +1,8 @@
 package user.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.parser.ParseException;
@@ -17,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
@@ -222,54 +222,32 @@ public class LoginController {
 
 		return "redirect:/main/main";
 	}
-	
+		
 	@RequestMapping(value="/login", method= RequestMethod.POST)
-	public String loginProc(User_table user, HttpSession session, 
-			HttpServletRequest req, HttpServletRequest resp, 
-			Model model) {
+	public ModelAndView loginproc(User_table user, HttpSession session, String remeberUser, HttpServletResponse resp, ModelAndView mav) {
 		
-		// userLogin.jsp에서 아이디기억하기 name값 ( remember ) 가져오기
-//		String userCheck = req.getParameter("UserIdSave");
+		// 아이디 기억하기 체크박스 name값 (remeberUser) 가져오기
 		
-			// 로그인시 입력한 비밀번호를 SHA256으로 암호화
-			String encPw = user.getUserpw();
-			user.setUserpw(PwSha256.userPwEncSHA256(encPw));
-			
-			boolean isLogin = userService.loginProc(user); // true 로그인
-				
-			//세션 정보 불러오기
-			User_table userSession = userService.getUserSession(user);
-			
-			// 결과에 따른 세션관리
-			if(isLogin) {
+		logger.info("로거 나오는거냐?" + remeberUser);
+		
+		String userCheck = remeberUser;
+		
+		// 로그인시 입력한 비밀번호를 SHA256으로 암호화
+		String encPw = user.getUserpw();
+		user.setUserpw(PwSha256.userPwEncSHA256(encPw));
+		
+		int result = userService.loginProc(user, session, userCheck, resp);
+		
+		logger.info("로그인 result : " + result);
 
-				if(userSession.getEmailcheck().equals("Y")) {
-					
-					//세션에 정보 저장하기
-					session.setAttribute("login", true);
-					session.setAttribute("userid", user.getUserid());
-					session.setAttribute("usernick", userSession.getUsernick());
-					session.setAttribute("username", userSession.getUsername());
-					session.setAttribute("interest", userSession.getInterest());
-					session.setAttribute("userno", userSession.getUserno());		
-					
-					return "redirect:/main/main";
-					
-				 } else {
-					 logger.info("로그인됐으면서 메일체크가 Y가아 아닌애들");
-					 session.setAttribute("login", true);
-					 // 모달이메일때문에 넣어주기
-				     userSession.setUserid(user.getUserid());
-					 session.setAttribute("emailcheck", "N");
-					 session.setAttribute("usermailcheck", userSession);
-					 return "/main/main";
-					 
-				 } 			
-			}
-			
-			//로그인 안했을때 처리 ( isLogin : false )
-			else
-				logger.info("로그인안됨");
-				return "redirect:/main/main";
+		mav.addObject("result", result);
+		
+		
+		mav.setViewName("jsonView");
+		
+		return mav;
+		
+		
 	}
+	
 }

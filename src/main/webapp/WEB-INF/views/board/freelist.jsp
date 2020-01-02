@@ -53,6 +53,7 @@ tr td:not(:first-child), tr th:not(:first-child) {
 
 .src{
 	text-align: center;
+	width: 670px;
 }
 
 .far{
@@ -133,9 +134,15 @@ color: #343a40;
 
 <jsp:include page = "/WEB-INF/views/layout/freepaging.jsp" />
 
-<div class="src">
+<div class="src" >
 	<form action="/board/freelist" method="get">
-	<input name="search" type="text" placeholder = "검색어 입력">
+	<select name="searchcategory" style="
+    height: 30px;">
+	<option value="title">제목</option>
+	<option value="usernick">닉네임</option>
+<!-- 	<option value="prname">게시판 유형</option> -->
+</select>
+	<input id=search name="searchtarget" type="text" placeholder = "검색어 입력">
 	<button>검색</button>
 	</form>
 </div>

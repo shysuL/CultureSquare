@@ -3,6 +3,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <jsp:include page="../layout/header.jsp" />
 
@@ -17,11 +18,17 @@
 		
 		//수정버튼 동작
 		$("#btnUpdate").click(function() {
-			$(location).attr("href", "/prboard/update?boardno=${viewBoard.boardno }");
+			$(location).attr("href", "/prboard/modify?boardno=${viewBoard.boardno }");
 		});
 
 		//삭제버튼 동작
 		$("#btnDelete").click(function() {
+			$(".content").text('정말 게시글을 삭제하시겠습니까?');
+			$("#prdeleteModal").modal({backdrop: 'static', keyboard: false});
+		});
+		
+		//삭제모달 확인 버튼 눌렀을때
+		$("#prDeleteCheckBtn").click(function() {
 			$(location).attr("href", "/prboard/delete?boardno=${viewBoard.boardno }");
 		});
 	})
@@ -115,7 +122,27 @@
 					<td colspan="4" class="info" id = "Title">내용</td>
 				</tr>
 				<tr>
-					<td colspan="4" id="Content">${viewBoard.content }</td>
+				<td colspan="4" id="Content">
+					
+				<!-- 이미지 파일인 경우 내용에서 보여줌 -->
+					<c:forEach items="${fileList }" var="fileList">
+						<c:set var="image" value="${fileList.storedname}" />
+						<c:if test="${fn:contains(image, '.jpg')}">
+							<img src="/upload/${fn:trim(image)}" style="width: 1080px; padding-bottom: 50px;">
+						</c:if>
+						<c:if test="${fn:contains(image, '.png')}">
+							<img src="/upload/${fn:trim(image)}" style="width: 1080px; padding-bottom: 50px;">
+						</c:if>
+						<c:if test="${fn:contains(image, '.JPG')}">
+							<img src="/upload/${fn:trim(image)}" style="width: 1080px; padding-bottom: 50px;">
+						</c:if>
+						<c:if test="${fn:contains(image, '.PNG')}">
+							<img src="/upload/${fn:trim(image)}" style="width: 1080px; padding-bottom: 50px;">
+						</c:if>
+					</c:forEach>
+					<!-- 내용 보여줌 -->
+						${viewBoard.content }
+					</td>
 				</tr>
 			</table>
 			<div class="list-group" id="fileTitle">
@@ -136,6 +163,32 @@
 		</c:if>
 	</div>
 </div>
+
+
+<!-- 삭제 여부 확인 모달-->
+<div class="modal fade" id="prdeleteModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">PR 게시글 삭제</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="prDeleteCheckBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- 컨테이너 -->
 
 <jsp:include page="../layout/footer.jsp" />

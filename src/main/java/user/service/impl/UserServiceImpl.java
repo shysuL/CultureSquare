@@ -1,7 +1,10 @@
 package user.service.impl;
 
 
-import java.util.Random;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,13 +50,61 @@ public class UserServiceImpl implements UserService{
 
 	
 	@Override
-	public boolean loginProc(User_table user) {
-//		logger.info("서비스임플에서 입력받은 로그인 정보 : " + user);
-		if (userDao.selectCnt(user) == 1 ) {
-			return true; // 로그인 성공
+	public int loginProc(User_table user, HttpSession session, String userCheck, HttpServletResponse resp) {
+		
+		logger.info("UserServiceImpl - loginProc(user) : " + user);
+		String userId = user.getUserid();
+		String userPw = user.getUserpw();
+		
+		// 입력받은 유저아이디에 맞는 회원정보 가져오기
+		User_table userLogin = userDao.loginUserInfo(userId); 
+		logger.info("UserServiceImpl - userLogin : " + userLogin);
+		
+		// 로그인 결과값
+		int result = 0;
+		
+		// 아이디에 맞는 회원정보가 없을시
+		if (userLogin == null) {
+			result = 2;
+			return result;
 		}
 		
-		return false; // 로그인 실패
+		// 비밀번호가 다른 경우
+		if (!(userLogin.getUserpw().equals(userPw))) {
+			result = 3;
+			return result;
+		}
+		
+		// 이메일 체크가 되지 않은 사용자
+		if (!(userLogin.getEmailcheck().equals("Y"))){ 
+			result = 4;
+			return result;
+		}
+		
+		// 아이디, 비밀번호가 일치하는 회원정보가 존재할 경우
+		if (userLogin.getUserid().equals(userId) && userLogin.getUserpw().equals(userPw)) {
+			
+			//세션 정보 불러오기
+			User_table userSession = getUserSession(user);
+			session.setAttribute("login", true);
+			session.setAttribute("userid", user.getUserid());
+			session.setAttribute("usernick", userSession.getUsernick());
+			session.setAttribute("username", userSession.getUsername());
+			session.setAttribute("interest", userSession.getInterest());
+			session.setAttribute("userno", userSession.getUserno());
+			
+			// 쿠키 체크 검사
+			if (userCheck == "checked") {
+				
+				Cookie cookie = new Cookie("rememberUser", session.getId());
+				resp.addCookie(cookie);
+				logger.info("쿠키저장했어~" );
+			}
+			
+			result = 1;
+		}
+		return result;
+
 	}
 
 	
@@ -63,4 +114,5 @@ public class UserServiceImpl implements UserService{
 		return userDao.selectUserInfoById(user);
 		
 	}
+
 }
