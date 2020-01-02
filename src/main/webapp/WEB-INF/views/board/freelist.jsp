@@ -156,14 +156,14 @@ color: #343a40;
 
 	<div class="list-group" id="freeIntroduceTitle">
 	  <a class="list-group-item" id="freeIntroduceContent">자유게시판 소개</a>
-	  <a href="#" class="list-group-item tit">Dapibus ac facilisis in</a>
+	  <a class="list-group-item tit">모든 주제에 대해 여러사람들과 자유롭게 이용하는 게시판</a>
 	</div>
 	<br><br><br><br><br><br><br><br><br><br>
 	
 	<div class="list-group" id="freeRankTitle">
-	  <a class="list-group-item" id="freeRankContent">자유게시판 순위</a>
-	<c:forEach items = "${viewslist }" var = "views">
-	  <a href="/board/freeview?boardno=${views.boardno }" class="list-group-item tit">${views.title }</a>
+	  <a class="list-group-item" id="freeRankContent">자유게시판 최다 조회글</a>
+	<c:forEach items = "${viewslist }" var = "views" varStatus="status">
+	  <a href="/board/freeview?boardno=${views.boardno }" class="list-group-item tit">(${status.count}) ${views.title }</a>
 	  </c:forEach>
 	 </div>
 
