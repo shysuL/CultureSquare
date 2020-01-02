@@ -105,8 +105,6 @@
 		board_seq.nextval FROM dual
 	</select>
 	
-	
-	
 	<select id="selectUserByNo" parameterType="artboard.dto.Board"
 		resultType="artboard.dto.Board">
 		SELECT * FROM user_table
@@ -123,5 +121,17 @@
 		SELECT userno FROM user_table
 		WHERE usernick = #{usernick}
 	</select>
+	
+	<select id="selectNoForDonation" parameterType="artboard.dto.Donation"
+		resultType="int">
+		SELECT userno FROM user_table
+		WHERE usernick = #{usernick}
+	</select>
+	
+	<insert id="insertDonation" parameterType="artboard.dto.Donation">
+		INSERT INTO donation
+		VALUES
+		(donation_seq.nextval,#{donprice},#{userno},#{boardno})
+	</insert>
 
 </mapper>
