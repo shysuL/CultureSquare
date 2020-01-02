@@ -43,59 +43,25 @@ $(document).ready(function() {
 		history.go(-1);
 	});
 });
+
 </script>
 
-<script type="text/javascript">
-        var g_count =1;
-        $(document).ready(function(){
-            $("#list").on("click",function(e){
-                e.preventDefault();
-                fn_openBoardList();
-            })
-            $("#write").on("click",function(e){
-                e.preventDefault();
-                fn_writeBoard();
-            })
-            $("a[name='delete']").on("click",function(e){
-                e.preventDefault();
-                fn_fileDelete($(this));
-            })
-            $("#add").on("click",function(e){
-                e.preventDefault();
-                fn_fileAdd();
-            })
-        });
-         
-         
-        function fn_openBoardList(){
-            var comSubmit = new ComSubmit();
-            comSubmit.setUrl("<c:url value='/sample/openBoardList.do'/>");
-            comSubmit.submit();
-        }
-         
-        function fn_writeBoard(){
-            var comSubmit = new ComSubmit("frm");
-            comSubmit.setUrl("<c:url value='/sample/writeBoard.do'/>");
-            comSubmit.submit();
-        }
-        function fn_fileDelete(obj){
-            obj.parent().remove();
-        }
-        function fn_fileAdd(){
-            var str = "<p><input type='file' name='file_"+(g_count++)+"'/><a href='#this' name='delete' class='btn'>삭제하기</a></p> ";
-            $("#fileDiv").append(str);
-             
-            $("a[name='delete']").on("click",function(e){
-                e.preventDefault();
-                fn_fileDelete($(this));         
-            })
-        }
-    </script>
+
 
 <style type="text/css">
 #content {
 	width: 95%;
 }
+
+#fileTitle{
+	padding-bottom: 20px;
+}
+#fileContent{
+	background-color:#343a40; 
+	color:white;
+/* 	font-size: 25px; */
+}
+
 
 
 </style>
@@ -119,10 +85,16 @@ enctype="multipart/form-data">
 <%-- <tr><td class="info">첨부파일</td><td><input type="file" name="file" id="file">${file.originname }</td></tr> --%>
 </table>
 
-    <input type="file" name="file" id="file">
-    ${file.originname }
+    <input type="file" name="file" id="file" >
+    
 </form>
-</div>
+<br>
+
+		<div class="list-group" id="fileTitle">
+			<a class="list-group-item" id="fileContent"> 기존 첨부파일 </a>
+				<p class="list-group-item">${file.originname}</p>
+		</div>
+	</div>
                                                                                                                                                                                            
 <div class="text-center">	
 	<button type="button" id="btnWrite" class="btn btn-default" style="float: center; background-color: #494b4d; color: white;">작성</button>

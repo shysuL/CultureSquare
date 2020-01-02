@@ -88,4 +88,9 @@ public class MyPageServiceImpl implements MyPageService{
 	public int userNickCheck(String usernick) {
 		return mypageDao.selectUserNick(usernick);
 	}
+
+	@Override
+	public void deleteUser(User_table user) {
+		mypageDao.deleteUserId(user);
+	}
 }

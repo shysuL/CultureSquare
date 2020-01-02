@@ -14,7 +14,7 @@
 		AND fb.postno = 3
 		<if test="searchcategory != null, searchtarget != null">
    			 AND ${searchcategory} LIKE '%'||#{searchtarget}||'%'
- 		 </if>
+ 		</if>
 		ORDER BY boardno DESC
 		) B
 		ORDER BY rnum
