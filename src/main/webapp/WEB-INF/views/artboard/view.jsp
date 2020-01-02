@@ -518,17 +518,17 @@ $(document).ready(function() {
 			</a>
 		</div>
 		</div>
-	</div>
+	
 
 
-</div>
+
 
 
 
 <!-- 댓글 처리 -->
 <div>
 
-		<div id="commentbody"></div>
+	<div id="commentbody"></div>
 		<%-- 댓글입력 시 이동 위치 --%>
 <!-- 비로그인상태 -->
 <c:if test="${not login }">
@@ -538,7 +538,7 @@ $(document).ready(function() {
 <!-- 로그인상태 -->
 <c:if test="${login }">
 <!-- 댓글 입력 -->
-<div class="col-9">
+
 <div id = "replyinputheader">
 	코멘트 남기기
 </div>
@@ -549,7 +549,7 @@ $(document).ready(function() {
 	<textarea rows="2" cols="60" class="form-control" id="recontents" name="recontents"></textarea>
 	<button id="btnCommInsert" class="btn">입력</button>
 </div>	<!-- 댓글 입력 end -->
-</div>
+
 </c:if>
 
 <br>
@@ -583,7 +583,7 @@ $(document).ready(function() {
 <!-- </table>	댓글 리스트 end -->
 
 <c:forEach items="${replyList }" var="reply">
-<div class="col-9">
+
 		<div class="container container-fluid" style="margin-bottom: 20px">
 			<div id = "reply_head" class="col-xs-12 col-sm-6 col-md-8">
 				<span>${reply.usernick }</span>
@@ -606,12 +606,12 @@ $(document).ready(function() {
 		<!-- 버튼 -->
 		
 		</div>
-	</div>
+	
 </c:forEach>
 
 
 </div>	<!-- 댓글 처리 end -->
-
+</div>
 
 
 <div class="col-3">
@@ -632,7 +632,7 @@ $(document).ready(function() {
    </li>
 </ul>
 </div>
-
+</div>
 
 <br><br>
 
@@ -781,6 +781,9 @@ $(document).ready(function() {
 </div>
 
 </div> <!-- div_container -->
+
+
+
 
 <!-- 댓글 입력이 비었을 때 모달 -->
 <div class="modal fade" id="replyerror">
