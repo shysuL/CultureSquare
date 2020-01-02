@@ -76,7 +76,7 @@ $(document).ready(function() {
 
 
 
-<div class="container container-fluid" style="margin-bottom: 600px">
+<div class="container container-fluid" style="margin-bottom: 300px">
 
 <h1>WRITE</h1>
 <hr>
@@ -87,10 +87,10 @@ $(document).ready(function() {
 </div><br>
 <label for="title"><b> 제목 </b></label><br>
 <input id="title" name="title" type="text" size="125" placeholder="제목을 입력하세요."/>
-<br>
+<br><br>
 <label for="performdate"> <b>일시 </b></label><br>
 <input id="performdate" name="performdate" type="text" size="125" placeholder="입력 양식 : 20201221"/>
-<br>
+<br><br>
 <label for="performname"> <b>게시물 카테고리 </b></label><br>
 
 <div id = "performradio">
@@ -147,13 +147,13 @@ $(document).ready(function() {
 
 
 <br>
-첨부파일 <input type="file" name="file" />
+<input type="file" name="file" />
 
 <input type="hidden" id = "userno" name = "userno" value = "${userno.userno }"/>
 </form>
 <div class="text-center">	
-	<button type="button" id="btnWrite" class="btn btn-info">작성</button>
-	<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
+	<button type="button" id="btnWrite" class="btn bbc">작성</button>
+	<button type="button" id="btnCancel" class="btn bbc">취소</button>
 </div>
 
 

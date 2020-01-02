@@ -227,7 +227,7 @@ h5 {
 	         <h5>${usernick}님 할라븅~!</h5>
 	    	 <div class="dropdown-divider"></div>
 				<input id="mypage" class="btn btn" onclick="location.href='/mypage/main'" value="마이페이지">
-				<input id="logout" class="btn btn-danger" onclick="location.href='/logout'" value="로그아웃">
+				<input id="logout" class="btn btn-danger  logt"  onclick="location.href='/logout'" value="로그아웃">
 	       </div>
 	    </c:if>
 	    
@@ -236,7 +236,7 @@ h5 {
 	       <div class="dropdown-menu ">
 	       
 	          <form class="px-4 py-3" action="/login" method=post>
-	             <div class="form-group">0
+	             <div class="form-group">
 	                <label for="exampleDropdownFormEmail1">Email address</label> 
 	                <input
 	                   type="email" class="form-control"
