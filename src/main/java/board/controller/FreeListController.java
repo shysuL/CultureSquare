@@ -1,6 +1,8 @@
 package board.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -48,7 +50,7 @@ public class FreeListController {
 	private static final Logger logger = LoggerFactory.getLogger(FreeListController.class);
 	
 	@RequestMapping(value = "/board/freelist", method = RequestMethod.GET)
-	public void freeList(Model model, @RequestParam(defaultValue = "1") int curPage, HttpSession session) {
+	public void freeList(Model model, @RequestParam(defaultValue = "1") int curPage, HttpSession session, String searchtarget, String searchcategory) {
 			
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
@@ -75,16 +77,28 @@ public class FreeListController {
 		//구글
 		model.addAttribute("google_url", googleUrl);
 		
+		logger.info(searchtarget);
+		logger.info(searchcategory);
 		
-		Paging paging = new Paging(freeboardService.getListCnt(), curPage);
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("searchcategory", searchcategory);
+		map.put("searchtarget", searchtarget);
+		
+		Paging paging = new Paging(freeboardService.getListCnt(map), curPage);
+		
+		paging.setSearchcategory(searchcategory);
+		
+		paging.setSearchtarget(searchtarget);
 				
 		model.addAttribute("paging", paging);
-
+		
+		logger.info(paging.toString());
+		
 		List<FreeBoard> list = freeboardService.getList(paging);
 		logger.info(list.toString());
 		
 		model.addAttribute("boardlist", list);
-
 		
 		List<FreeBoard> viewsList = freeboardService.getViewsList();
 		logger.info(viewsList.toString());

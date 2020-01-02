@@ -3,6 +3,7 @@ package prboard.service.impl;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -13,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import artboard.dto.Board;
 import prboard.dao.face.PRBoardDao;
 import prboard.dto.PRBoard;
 import prboard.dto.PRType;
@@ -61,8 +61,12 @@ public class PRBoardServiceImpl implements PRBoardService {
 		
 		//저장될 파일 객체
 		File dest = new File(storedPath, filename);
+		
+		//저장될 이미지 파일 객체
+//		File imgDest = new File(storedPath2, filename);
 		try {	
 			mFile.transferTo(dest);			//실제 파일 저장
+//			mFile.transferTo(imgDest);		//이미지 파일 저장
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -101,8 +105,8 @@ public class PRBoardServiceImpl implements PRBoardService {
 	}
 
 	@Override
-	public int getCntAll() {
-		return prBoardDao.selectCntAll();
+	public int getCntAll(Map<String, String> map) {
+		return prBoardDao.selectCntAll(map);
 	}
 
 	@Override
@@ -111,7 +115,115 @@ public class PRBoardServiceImpl implements PRBoardService {
 		List list = prBoardDao.selectAll(paging);
 		return list;
 	}
+
+	@Override
+	public PRBoard getViewInfo(int boardno) {
+		
+		prBoardDao.hit(boardno);
+		PRBoard viewBoard = prBoardDao.selectViewInfo(boardno);
+		
+		return viewBoard;
+	}
+
+	@Override
+	public List<UpFile> getFileList(int boardno) {
+		
+		List<UpFile> list = prBoardDao.selectFileList(boardno);
+		return list;
+	}
+
+	@Override
+	public UpFile getFile(int fileno) {
+		return prBoardDao.selectFileByFileno(fileno);
+	}
+
+	@Override
+	public void firstImageSave(MultipartFile mFile, int boardno) {
+
+		//파일이 저장될 경로
+		String storedPath = context.getRealPath("prImage");
+		
+		//UUID
+		String uid = UUID.randomUUID().toString().split("-")[4];
+		
+		//저장될 파일의 이름(원본명 + UUID)
+		String filename = boardno +"";
+		
+		//저장될 파일 객체
+		File dest = new File(storedPath, filename);
+		
+		try {	
+			mFile.transferTo(dest);			//실제 파일 저장
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+
+	@Override
+	public void modifyPR(PRBoard prBoard) {
+
+		// 1. 게시글 내용 변경
+		prBoardDao.updatePR(prBoard);
+		
+		// 2. PR 유형 변경
+		prBoardDao.updatePRType(prBoard);
+		
+	}
+
+	@Override
+	public void deleteThumbnail(int boardno) {
+
+		String storedPath = context.getRealPath("prImage");
+		//서버에 있는 파일 삭제
+		// 삭제할 파일의 경로
+		String path = storedPath+"\\"+boardno; 
+		
+		File file = new File(path);
+		if(file.exists() == true){
+			file.delete();
+			logger.info("삭제 성공임니당!");
+		}
+	}
 	
-	
-	
+	@Override
+	public void deleteServerFile(List<UpFile> list) {
+		String storedPath = context.getRealPath("upload");
+		String path = "";
+		
+		// 서버에 있는 파일 삭제
+		for (int i=0; i<list.size(); i++) {
+			// 삭제할 파일의 경로
+			path = storedPath+"\\"+list.get(i).getStoredname(); 
+			
+			File file = new File(path);
+			if(file.exists() == true){
+				file.delete();
+			}
+		}
+	}
+
+	@Override
+	public void deleteFile(List<UpFile> list) {
+
+		// DB에 있는 파일 삭제
+		for (int i=0; i<list.size(); i++) {
+			prBoardDao.deleteFile(list.get(i).getBoardno());
+		}
+	}
+
+	@Override
+	public void deletePR(PRBoard prBoard) {
+
+		prBoardDao.deletePR(prBoard);
+	}
+
+	@Override
+	public void deletePRType(PRBoard prBoard) {
+
+		prBoardDao.deletePRType(prBoard);
+	}
 }

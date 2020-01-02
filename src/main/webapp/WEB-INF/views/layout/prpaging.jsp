@@ -2,17 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<!-- 검색조건 쿼리스트링 가져오기 -->
-<%-- <c:forEach var="i" items="${paging.search }"> --%>
-<%-- <c:if test="${i.key=='searchType' }"> --%>
-<%--    <c:set var="searchType" value="${i.value }"/> --%>
-<%-- </c:if> --%>
-<%-- <c:if test="${i.key=='search' }"> --%>
-<%--    <c:set var="search" value="${i.value }"/> --%>
-<%-- </c:if> --%>
-<%-- </c:forEach> --%>
-<%-- <c:set var="query" value="&searchType=${searchType}&search=${search }"/> --%>
-<!--  -->
+<c:forEach var="i" items="${paging.search2 }">
+<c:if test="${i.key=='searchType' }">
+   <c:set var="searchType" value="${i.value }"/>
+</c:if>
+<c:if test="${i.key=='search' }">
+   <c:set var="search" value="${i.value }"/>
+</c:if>
+</c:forEach>
+<c:set var="query" value="&searchType=${searchType}&search=${search }"/>
+
 
 <div class="paging">
    <ul class="pagination justify-content-center" >

@@ -24,6 +24,69 @@
 <link rel="stylesheet" href="/resources/css/css.css" />
 <link href="carousel.css" rel="stylesheet">
 
+<script type="text/javascript">
+
+$(document).ready(function() {
+	
+	
+	$("#loginBtn").click(function(){
+		console.log("안들어와?");
+		var userid = $('#userid1').val();
+		var userpw = $('#userpw1').val();
+		var rememberUser = $('#rememberUser').val();
+		console.log(userid);
+		console.log(userpw);
+		console.log(rememberUser);
+	
+		if(userid == ""){
+			$(".content").text('아이디를 입력해주세요.');
+			$("#loginModal").modal({backdrop: 'static', keyboard: false});
+		}
+		
+		if(userpw == ""){
+			$(".content").text('비밀번호를 입력해주세요.');
+			$("#loginModal").modal({backdrop: 'static', keyboard: false});
+		}
+		
+		$.ajax({
+			
+			type:"post",
+			url:"/login",
+			data: {"userid" : userid, "userpw" : userpw, "rememberUser" : rememberUser},
+			success : function(res){
+				// ModelAndView - result
+				
+				if(res.result == 1){ // 로그인 성공
+					location.href="/main/main";
+				}
+				
+				if(res.result == 2){ // 아이디 틀림
+					$(".content").text('해당하는 사용자가 없습니다.');
+					$("#loginModal").modal({backdrop: 'static', keyboard: false});
+					$('#userid1').val('');
+					$('#userpw1').val('');
+				}
+				
+				if(res.result == 3){ // 비밀번호 틀림
+					$(".content").text('비밀번호가 일치하지 않습니다.');
+					$("#loginModal").modal({backdrop: 'static', keyboard: false});
+					$('#userid1').val('');
+					$('#userpw1').val('');
+				}
+				
+				if(res.result == 4){ // 메일인증 안한 사용자
+					$(".content").text('가입하신 아이디(이메일)에서 인증확인을 하셔야 서비스 이용 가능하십니다.');
+					$("#loginModal").modal({backdrop: 'static', keyboard: false});
+					$('#userid1').val('');
+					$('#userpw1').val('');
+				}
+				
+			}
+		})
+	})
+})
+</script>
+
 <style type="text/css">
 
 .culture { 
@@ -136,25 +199,26 @@ h5 {
 	    <!-- 로그아웃 상태 -->
 	    <c:if test="${not login}">
 	       <div class="dropdown-menu ">
+	       
 	          <form class="px-4 py-3" action="/login" method=post>
 	             <div class="form-group">
 	                <label for="exampleDropdownFormEmail1">Email address</label> <input
 	                   type="email" class="form-control"
-	                   id="exampleDropdownFormEmail1" placeholder="email@example.com" name=userid>
+	                   id="userid1" placeholder="email@example.com" name=userid>
 	             </div>
 	             <div class="form-group">
 	                <label for="exampleDropdownFormPassword1">Password</label> <input
 	                   type="password" class="form-control"
-	                   id="exampleDropdownFormPassword1" placeholder="Password" name=userpw>
+	                   id="userpw1" placeholder="Password" name=userpw>
 	             </div>
 	             <div class="form-group">
 	                <div class="form-check">
-	                   <input type="checkbox" class="form-check-input"
-	                      id="dropdownCheck"> <label class="form-check-label"
-	                      for="dropdownCheck"> Remember me </label>
+	                   <input type="checkbox" class="form-check-input" name="rememberUser" value="checked"
+	                      id="rememberCheck" > <label class="form-check-label"
+	                      for="rememberCheck"> Remember me </label>
 	                </div>
 	             </div>
-	             <button type="submit" id="login" class="btn btn-primary">로그인</button>
+	             <button type="button" id="loginBtn" class="btn btn-primary">로그인</button>
 	             <div class="find">
 	                <a href="#" id="findInfo">아이디/비밀번호 찾기</a>
 	             </div>
@@ -193,3 +257,27 @@ h5 {
       <a href="/main/main"><img class="culture" src="/resources/logo/culturesquareLogo.png" ></a>
    </div>
 </nav>
+
+<!-- 로그인 모달 -->
+<div class="modal fade" id="loginModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">알림</h4>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button class="btn btn-info" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+

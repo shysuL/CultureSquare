@@ -6,47 +6,37 @@
 
 
 <style type="text/css">
-
 .container{
 	margin-top: 5%;
 }
-
 .btn-primary {
     color: white;
     background-color: #343a40;
     border-color: #343a40!important;
 }
-
 .btn-primary:hover {
     color: white;
     background-color: #343a40;
     border-color: rgba(255,255,255,.75);
 }
-
-
 .btn-info {
     color: rgba(255,255,255,.75);
     background-color: #212529;
     border-color: #212529;
 }
-
 .btn-info:hover {
     color: rgba(255,255,255,.75);
     background-color: #5a6268;
     border-color: #5a6268;
 }
-
 .btn-info:not(:disabled):not(.disabled).active, .btn-info:not(:disabled):not(.disabled):active, .show>.btn-info.dropdown-toggle {
     color: rgba(255,255,255,.75);
     background-color: #5a6268;
     border-color: #5a6268;
-
 }
-
 </style>
 
 <script type="text/javascript">	
-
 // 정규식
 	// 아이디(이메일) 검사 정규식
 	var idJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -62,19 +52,15 @@
 	var birthJ = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/
 	//모든 공백 체크 정규식
 	var blankJ = /\s/g;
-
 	function showLoadingBar() {
 		console.log("이미지 보여줘")
 	    var maskHeight = $(document).height();
 	    var maskWidth = window.document.body.clientWidth;
-
 	    var mask = "<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'></div>";
 	    var loadingImg = '';
-
 	    loadingImg += "<div id='loadingImg' style='position:absolute; left:50%; top:40%; display:none; z-index:10000; margin-top:23%;'>";
 	    loadingImg += "    <img src='/resources/img/loadimg.gif'>";
 	    loadingImg += "</div>";
-
 	    $('body').append(mask).append(loadingImg);
 	    
 	    $('#mask').css({
@@ -82,7 +68,6 @@
 	        , 'height': maskHeight
 	        , 'opacity' : '0.3'
 	    });
-
 	    $('#mask').show();
 	    $('#loadingImg').show();
 	}
@@ -132,7 +117,6 @@ $(document).ready(function(){
 			$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
 			$("#username").focus();
 		}
-
 // 		5. 닉네임 검사
 		else if(!nick_Check || $('#usernick').val() == ""){
 				$(".content").text('닉네임을 확인해주세요.');
@@ -146,13 +130,11 @@ $(document).ready(function(){
 				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
 				$("#userphone").focus();
 		} 		
-
 //		7. 생년월일 검사
 		else if(!birth_Check || $('#userbirth').val() == ""){
 			$(".content").text('생년월일을 확인해주세요.');
 			$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
 			$("#userbirth").focus();
-
 		}
 		
 // 		8. 성별 체크 검사
@@ -177,23 +159,19 @@ $(document).ready(function(){
 				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
 				$("#usertype").focus();	
 		}
-
 //		11. 이용약관
 		else if($("input:checkbox[name='agree']").is(":checked") == false){			
 				$(".content").text('이용약관에 동의 해주세요');
 				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
 				$("#agree").focus();	
 		}
-
 		else { 	
 			
 			$(this).parents("form").submit();
-
 			$('#joinBtn').attr('disabled', true); // 버튼 비활성화
 			console.log("버튼비활성화")
 			
 			showLoadingBar();
-
 			// 로딩바 숨김
 			function hideLoadingBar() { $('#mask, #loadingImg').hide(); $('#mask, #loadingImg').remove(); }
 		}
@@ -213,10 +191,10 @@ $(document).ready(function(){
 			datatype:"json",
 			success : function(res){
 				// idCheck는 ModelAndView에서 지정해준 이름			
-				console.log("res")
-				console.log(res)
-				console.log("res.idCheck")
-				console.log(res.idCheck)
+//				console.log("res")
+//				console.log(res)
+//				console.log("res.idCheck")
+//				console.log(res.idCheck)
 				
 				if(res.idCheck>0){
 					// 1 : 아이디가 중복되는 문구
@@ -283,7 +261,6 @@ $(document).ready(function(){
 		}
 	});
 	
-
 	
 	
 	// 이름 유효성 검사( 특수문자 들어가지 않도록 )
@@ -336,6 +313,7 @@ $(document).ready(function(){
 		
 	})
 	
+	// 핸드폰
 	$('#userphone').blur(function(){
 		
 		if(phoneJ.test($(this).val())){
@@ -363,9 +341,7 @@ $(document).ready(function(){
 			birth_Check = false;
 		}
 	})
-
 })// document ready
-
 </script>
 
 <div class="container">

@@ -56,4 +56,7 @@ public class ArtboardWriteController {
 		        
 		return "redirect:/artboard/list?bo_table=calendar&cal_year="+nowYear+"&cal_month="+nowMonth;
 	}
+	
+	
+	
 }

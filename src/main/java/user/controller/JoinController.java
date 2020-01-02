@@ -1,6 +1,7 @@
 package user.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,7 @@ public class JoinController {
 	
 	// 회원가입 입력한 폼 처리
 	@RequestMapping(value="/user/joinProc", method=RequestMethod.POST)
-	public String joinProc(User_table user, Model model, HttpServletRequest req) { 
+	public String joinProc(User_table user, Model model, HttpServletRequest req, HttpSession session) { 
 		
 //		logger.info(user.toString()); // form 입력 값 잘 받아오는지 -완료-
 		
@@ -45,18 +46,18 @@ public class JoinController {
 		String encPw = PwSha256.userPwEncSHA256(user.getUserpw());
 		user.setUserpw(encPw);
 		// SHA256암호화 후 비밀번호 확인
-		logger.info("SHA256암호화 후 비밀번호 : " + user.getUserpw());
+//		logger.info("SHA256암호화 후 비밀번호 : " + user.getUserpw());
 		
 		// 회원가입처리 
 		userService.joinProc(user);
 				
 		// 메일 인증 발송
 		joinSendMailService.mailSendWithEmailKey(user.getUserid(), user.getUsername(), req);
-		System.out.println("getUserId: " + user.getUserid());
 		
-		model.addAttribute("user", user);
+		model.addAttribute("usermailcheck", user);
+		session.setAttribute("emailcheck", "N");
 		
-		return "/user/emailCheck";
+		return "/main/main";
 		
 	}
 	

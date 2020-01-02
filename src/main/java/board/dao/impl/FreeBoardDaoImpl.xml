@@ -12,6 +12,9 @@
 		SELECT fb.postno, fb.boardno, fb.title, fb.writtendate, fb.contents, fb.views, ut.usernick FROM board fb, user_table ut
 		WHERE fb.userno = ut.userno
 		AND fb.postno = 3
+		<if test="searchcategory != null, searchtarget != null">
+   			 AND ${searchcategory} LIKE '%'||#{searchtarget}||'%'
+ 		 </if>
 		ORDER BY boardno DESC
 		) B
 		ORDER BY rnum
@@ -19,8 +22,13 @@
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
-	<select id="selectCnt" resultType="int">
-		SELECT count(*) FROM board
+	<select id="selectCnt" parameterType="map" resultType="int">
+		SELECT count(*) FROM board B, user_table U
+		WHERE B.userno = U.userno
+		AND postno = 3
+		 <if test="searchcategory != null and searchcategory != '' and searchtarget != null and searchtarget != ''">
+   			 AND ${searchcategory} LIKE '%'||#{searchtarget}||'%'
+ 		 </if>
 	</select>
 	
 	<select id="selectFreeDetail" parameterType="int" resultType="board.dto.FreeBoard">
@@ -90,5 +98,10 @@
 		SELECT * FROM upfile
 		WHERE fileno = #{fileno }
 	</select>
+	
+	<delete id="deleteFile" parameterType="board.dto.UpFile">
+		DELETE FROM upfile
+		WHERE fileno = #{fileno }
+	</delete>
 	
 </mapper>

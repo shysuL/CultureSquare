@@ -196,7 +196,7 @@ $(document).ready(function() {
 
 <div class="container myPageContainer" id="myPageContainer">
 	<div class="container text-center">
-		<h4 id="mypageheader">${usernick }의 마이페이지</h4>
+		<h4 id="mypageheader">${getUser.usernick }의 마이페이지</h4>
 	</div>
 	<div class="container box" style="margin-bottom: 1%;">
 		<!-- 나의 정보 -->
@@ -225,16 +225,16 @@ $(document).ready(function() {
 			
 			<div class="userinformation">
 				<p class="font-weight-bold" style="font-size: 17px; text-align: left; margin-left: 5%;">
-					이름 : ${username }
+					이름 : ${getUser.username }
 				</p>
 				<p class="font-weight-bold" style="font-size: 17px; text-align: left; margin-left: 5%;">
-					아이디 : ${userid }
+					아이디 : ${getUser.userid }
 				</p>
 				<p class="font-weight-bold" style="font-size: 17px; text-align: left; margin-left: 5%;">
-					닉네임 : ${usernick }
+					닉네임 : ${getUser.usernick }
 				</p>
 				<p class="font-weight-bold" style="font-size: 17px; text-align: left; margin-left: 5%;">
-					관심분야 : ${interest }
+					관심분야 : ${getUser.interest }
 				</p>
 			</div>
 			<button type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;"
