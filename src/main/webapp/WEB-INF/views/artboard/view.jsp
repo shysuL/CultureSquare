@@ -12,8 +12,12 @@
 $(document).ready(function() {
 	// 댓글 입력
 	$("#btnCommInsert").click(function() {
+
+		if($('#recontents').val() == ''){
+			$("#replyerror").modal({backdrop: 'static', keyboard: false});
+		}else{
+			
 		
-// 		if('${emailcheck}' == 'N')
 		
 		$form = $("<form>").attr({
 			action: "/reply/insert",
@@ -38,7 +42,7 @@ $(document).ready(function() {
 		);
 		$(document.body).append($form);
 		$form.submit();
-		
+		}
 	});
 	
 });
@@ -728,6 +732,30 @@ $(document).ready(function() {
 </div>
 
 </div> <!-- div_container -->
+
+<!-- 댓글 입력이 비었을 때 모달 -->
+<div class="modal fade" id="replyerror">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">알림</h4>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	 댓글 내용을 입력해주세요
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="btnCommInsert"class="btn btn-info" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
 
