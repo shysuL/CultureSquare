@@ -439,6 +439,7 @@ $(document).ready(function() {
 }
 #recontents{
 	float: left;
+	width: 680px;
 }
 #deleteReplyBtn{
 	font-size: 12px; 
@@ -477,7 +478,7 @@ $(document).ready(function() {
 <br>
 <div class="row">
 	<div class="col-9">
-		<div class="container container-fluid" style="margin-bottom: 600px">
+		<div class="container container-fluid" style="margin-bottom: 50px">
 			<div id = "view_head" class="col-xs-12 col-sm-6 col-md-8">
 				<span>${view.title }</span>
 			</div>
@@ -525,7 +526,6 @@ $(document).ready(function() {
 <!-- 댓글 처리 -->
 <div>
 
-<hr>
 		<div id="commentbody"></div>
 		<%-- 댓글입력 시 이동 위치 --%>
 <!-- 비로그인상태 -->
