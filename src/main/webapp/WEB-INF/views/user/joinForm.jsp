@@ -239,7 +239,7 @@ $(document).ready(function(){
 			pw_Check = true;
 		} else {
 			console.log('false');
-			$('#pw_check').text('비밀번호는 숫자 or 문자로만 8~16자리 입력해주세요');
+			$('#pw_check').text('숫자,문자,특수문자를 이용해 8~16자리 입력해주세요');
 			$('#pw_check').css('color', 'red');
 			pw_Check = false;
 		}		
@@ -248,7 +248,7 @@ $(document).ready(function(){
 	// 1-2 비밀번호 확인
 	$("#userpw2").blur(function(){
 		if (!pwJ.test($('#userpw2').val())){
-			$('#pw_check2').text('비밀번호는 숫자 or 문자로만 4~12자리 입력해주세요');
+			$('#pw_check2').text('숫자,문자,특수문자를 이용해 8~16자리 입력해주세요');
 			$('#pw_check2').css('color', 'red')
 			pw_Check2 = false;
 		} else if($('#userpw').val() != $(this).val()) {
