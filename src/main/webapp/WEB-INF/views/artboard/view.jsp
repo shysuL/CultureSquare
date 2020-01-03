@@ -125,7 +125,7 @@ $(document).ready(function() {
 			console.log(donChecked + "입니다.");
 			
 		    	 var IMP = window.IMP; // 생략가능
-		         IMP.init('imp21286391'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+		         IMP.init('imp31677120'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 		         var msg;
 		         
 		         IMP.request_pay({
@@ -220,7 +220,7 @@ $(document).ready(function() {
 			// 숫자 입력 결제 시스템 호출
 			else{
 			    	 var IMP = window.IMP; // 생략가능
-			         IMP.init('imp21286391'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+			         IMP.init('imp31677120'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 			         var msg;
 			         
 			         IMP.request_pay({
