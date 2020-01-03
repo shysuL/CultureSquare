@@ -226,4 +226,49 @@ public class PRBoardServiceImpl implements PRBoardService {
 
 		prBoardDao.deletePRType(prBoard);
 	}
+
+	@Override
+	public PRBoard getUserNoByNick(String usernick) {
+		
+		return prBoardDao.selectUserNoToLike(usernick);
+	}
+	
+	@Override
+	public int recommendCheck(PRBoard prBoard) {
+		
+		int check = prBoardDao.selectRecommend(prBoard);
+
+		//전에 추천한적이 없다면
+		if(check == 0) {
+			
+			return check; //추천
+		}
+		else {
+			return check; //추천 취소
+		}
+	}
+
+	@Override
+	public void recommend(PRBoard prBoard) {
+
+		prBoardDao.insertRecommend(prBoard);
+	}
+
+	@Override
+	public void recommendCancal(PRBoard prBoard) {
+
+		prBoardDao.deleteRecommend(prBoard);
+	}
+
+	@Override
+	public int recommendView(PRBoard prBoard) {
+
+		return prBoardDao.selectrecommendView(prBoard);
+	}
+
+	@Override
+	public void deleteBlike(PRBoard prBoard) {
+
+		prBoardDao.deleteBlike(prBoard);
+	}
 }

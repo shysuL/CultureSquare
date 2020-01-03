@@ -151,10 +151,50 @@
 		WHERE 1=1
 			AND boardno = #{boardno }
 	</delete>
-	
+
 	<delete id="deletePRType"
 	 parameterType="prboard.dto.PRBoard">
 		DELETE prtype
+		WHERE 1=1
+			AND boardno = #{boardno }
+	</delete>
+	
+	<select id="selectUserNoToLike"
+    	parameterType="String" resultType="prboard.dto.PRBoard">
+	    SELECT userno FROM user_table
+	    WHERE 1=1
+	   	AND usernick = #{usernick}
+	 </select>
+	
+	<select id="selectRecommend" resultType="int" parameterType="prboard.dto.PRBoard">
+		SELECT count(*) FROM blike
+		WHERE userno = #{userno}
+		AND boardno = #{boardno }
+	</select>
+	
+	<insert id="insertRecommend"
+	 parameterType="prboard.dto.PRBoard">
+		
+		INSERT INTO blike 
+		VALUES(blike_seq.nextval, #{userno}, #{boardno})
+	</insert>
+	
+	<delete id="deleteRecommend"
+	 parameterType="prboard.dto.PRBoard">
+		DELETE blike
+		WHERE 1=1
+			AND userno = #{userno}
+			AND boardno = #{boardno }
+	</delete>
+	
+	<select id="selectrecommendView" resultType="int" parameterType="prboard.dto.PRBoard">
+		SELECT COUNT(*) FROM blike 
+		WHERE boardno = #{boardno}
+	</select>
+	
+	<delete id="deleteBlike"
+	 parameterType="prboard.dto.PRBoard">
+		DELETE blike
 		WHERE 1=1
 			AND boardno = #{boardno }
 	</delete>

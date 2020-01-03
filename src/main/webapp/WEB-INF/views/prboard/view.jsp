@@ -11,6 +11,9 @@
 <script type="text/javascript">
 
 	$(document).ready(function() {
+		
+		recheckAction();
+		
 		//목록버튼 동작
 		$("#btnList").click(function() {
 			$(location).attr("href", "/prboard/prlist");
@@ -23,7 +26,6 @@
 
 		//삭제버튼 동작
 		$("#btnDelete").click(function() {
-			$(".content").text('정말 게시글을 삭제하시겠습니까?');
 			$("#prdeleteModal").modal({backdrop: 'static', keyboard: false});
 		});
 		
@@ -31,7 +33,55 @@
 		$("#prDeleteCheckBtn").click(function() {
 			$(location).attr("href", "/prboard/delete?boardno=${viewBoard.boardno }");
 		});
+
+		//추천버튼 동작
+		$("#recommendtd").on("click", "#recommend", function() {
+//	 		$(location).attr("href", "/board/recommend?boardno=${viewBoard.boardno }");
+			console.log("추천버튼 눌림");
+			recommendAction();
+		});
+		
 	})
+	
+	function recommendAction() {
+		$.ajax({
+			type : "get",
+			url : "/prboard/recommend",
+			data : {
+				boardno : '${viewBoard.boardno }'
+			},
+			dataType : "html",
+			success : function(data) {
+				console.log("성공")
+				console.log(data)
+
+				$("#recommendtd").html(data)
+			},
+			error : function() {
+				$("#prLikeLoginModal").modal({backdrop: 'static', keyboard: false});
+			}
+		});
+	}
+	
+	function recheckAction() {
+		$.ajax({
+			type : "get",
+			url : "/prboard/recheck",
+			data : {
+				boardno : '${viewBoard.boardno }'
+			},
+			dataType : "html",
+			success : function(data) {
+				console.log("성공")
+				console.log(data)
+
+				$("#recommendtd").html(data)
+			},
+			error : function() {
+				console.log("실패연 하이하이");
+			}
+		});
+	}
 	
 </script>
 
@@ -40,38 +90,39 @@
 	width: 95%;
 }
 
-@font-face {
-	font-family: 'yg-jalnan';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
+/* @font-face { */
+/* 	font-family: 'yg-jalnan'; */
+/* 	src: */
+/* 		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') */
+/* 		format('woff'); */
+/* 	font-weight: normal; */
+/* 	font-style: normal; */
+/* } */
 
-@font-face {
-	font-family: 'YanoljaYacheR';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/YanoljaYacheR.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
+/* @font-face { */
+/* 	font-family: 'YanoljaYacheR'; */
+/* 	src: */
+/* 		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/YanoljaYacheR.woff') */
+/* 		format('woff'); */
+/* 	font-weight: normal; */
+/* 	font-style: normal; */
+/* } */
 
 #h3title {
-	font-family: '잘난체 폰트', 'Jalnan', yg-jalnan;
+/* 	font-family: '잘난체 폰트', 'Jalnan', yg-jalnan; */
 	text-align: center;
 	padding: 20px;
 }
 
 #Title {
-	font-family: '잘난체 폰트', 'Jalnan', yg-jalnan;
+/* 	font-family: '잘난체 폰트', 'Jalnan', yg-jalnan; */
 }
 
 #Content {
-	font-family: '야놀자', 'YanoljaYacheR', YanoljaYacheR;
+/* 	font-family: '야놀자', 'YanoljaYacheR', YanoljaYacheR; */
 	font-size: 25px;
 }
+
 #btnList{
 	background-color:#343a40;
 }
@@ -82,7 +133,11 @@
 #fileContent{
 	background-color:#343a40; 
 	color:white;
-	font-family: '야놀자', 'YanoljaYacheR', YanoljaYacheR;
+/* 	font-family: '야놀자', 'YanoljaYacheR', YanoljaYacheR; */
+	font-size: 25px;
+}
+
+#recommendtd{
 	font-size: 25px;
 }
 
@@ -113,7 +168,7 @@
 				</tr>
 				<tr>
 					<td class="info" id ="Title">조회수</td><td id="Content">${viewBoard.views }</td>
-					<td class="info" id = "Title">추천수</td><td id="Content">[ 추후 추가 ]</td>
+					<td class="info" id = "Title">추천수</td><td id="recommendtd"></td>
 				</tr>
 				<tr>
 					<td class="info" id = "Title">작성일</td><td colspan="3" id="Content">${viewBoard.writtendate }</td>
@@ -178,11 +233,38 @@
 
       <!-- Modal body -->
       <div class="modal-body content">
+     	 정말 게시글을 삭제하시겠습니까?
       </div>
 
       <!-- Modal footer -->
       <div class="modal-footer">
         <button type="submit" id="prDeleteCheckBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- 로그인 부탁 모달-->
+<div class="modal fade" id="prLikeLoginModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">로그인 필요!</h4>
+        <button id="prLikeLoginX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	로그인 후 좋아요가 가능합니다.
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="prLikeLoginModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
       </div>
 
     </div>

@@ -58,6 +58,7 @@ public class MypageMainController {
 		user.setUsernick(session.getAttribute("usernick").toString());
 		
 		//새로운 userInfo객체 생성
+		
 		User_table userInfo = new User_table();
 		
 		//로그인한 사용자의 비밀번호 조회해서 userInfo객체에 담기
