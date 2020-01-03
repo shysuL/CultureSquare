@@ -63,12 +63,13 @@ public class ArtboardReplyInsertController {
 	
 	@RequestMapping(value = "/reply/reinsert", method = RequestMethod.POST)
 	public String rereplyInsertProc(Reply reply,
-			@RequestParam("rerecontents") String rerecontents) {
+			@RequestParam("rerecontents") String rerecontents,
+			@RequestParam("groupno") int groupno) {
 		
 		reply.setRecontents(rerecontents);
 		
 		logger.info("대댓글 입력 : " +  reply);
-
+		logger.info("그룹번호 : " + groupno);
 		
 //		pfboardService.insertRereply(reply);
 		

@@ -83,13 +83,28 @@ $(document).ready(function() {
 			name:"userno",
 			value:"${LoginUser.userno }"
 		})
-	).append(
+	)
+	.append(
 		$("<input>").attr({
 			type:"hidden",
-			name:"userno",
-			value:"${LoginUser.userno }"
+			name:"groupno",
+			value:"${reply.groupno }"
 		})
-	).append(
+	)
+// 	.append(
+// 		$("<input>").attr({
+// 			type:"hidden",
+// 			name:"replyorder",
+// 			value:"${reply.replyorder }"
+// 		})
+// 	).append(
+// 		$("<input>").attr({
+// 			type:"hidden",
+// 			name:"replydepth",
+// 			value:"${reply.replydepth }"
+// 		})
+// 	)
+	.append(
 		$("<textarea>")
 			.attr("name", "rerecontents")
 			.css("display", "none")
@@ -658,7 +673,7 @@ $(document).ready(function() {
 						<input type="hidden"  id="replyorder" name="replyorder" value="${ reply.replyorder}" />	
 						<input type="hidden"  id="replydepth" name="replydepth" value="${ reply.replydepth}" />	
 						<textarea rows="2" cols="50" class="form-control" id="rerecontents" name="rerecontents" >
-<%-- 						${reply.replyno } ${ reply.groupno}  ${ reply.replyorder}  ${ reply.replydepth} --%>
+						${ reply.groupno}  ${ reply.replyorder}  ${ reply.replydepth}
 						</textarea>
 						<button id="btnrereplyInsert" class="btn bbc">입력</button>
 					</div>
