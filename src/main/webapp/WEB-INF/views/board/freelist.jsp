@@ -98,8 +98,8 @@ color: #343a40;
 <div style="background-color: #343a40; height: 50px;">
 	<i class="fas fa-list" style= "color: #ffff;margin-left: 18px;" title="게시글 번호"></i>
 	<i class="far fa-user" style= "color: #ffff;margin-left: 435px;" title="작성자 닉네임"></i>
-	<a href="board/freelist" title="조회수, 클릭하시면 조회수 순으로 정렬"><i class="fas fa-eye" style= "color: #ffff;margin-left: 86px;"></i></a>
-	<a href="board/freelist" title="게시글 작성 시간, 클릭하시면 시간 순으로 정렬"><i class="far fa-clock" style= "color: #ffff;margin-left: 70px;"></i></a>
+	<a href="/board/freelist" title="조회수, 클릭하시면 조회수 순으로 정렬"><i class="fas fa-eye" style= "color: #ffff;margin-left: 86px;"></i></a>
+	<a href="/board/freelist" title="게시글 작성 시간, 클릭하시면 시간 순으로 정렬"><i class="far fa-clock" style= "color: #ffff;margin-left: 70px;"></i></a>
 </div>
 
 <table class="table table-border table-hover table-condesed table-stripe" style="color: #343a40;">
@@ -163,7 +163,7 @@ color: #343a40;
 	<div class="list-group" id="freeRankTitle">
 	  <a class="list-group-item" id="freeRankContent">자유게시판 최다 조회글</a>
 	<c:forEach items = "${viewslist }" var = "views" varStatus="status">
-	  <a href="/board/freeview?boardno=${views.boardno }" class="list-group-item tit">(${status.count}) ${views.title }</a>
+	  <a href="/board/freeview?boardno=${views.boardno }" class="list-group-item tit"> ${views.title }</a>
 	  </c:forEach>
 	 </div>
 
