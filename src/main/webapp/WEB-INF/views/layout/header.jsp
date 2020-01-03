@@ -22,17 +22,25 @@
 <script src="https://kit.fontawesome.com/175b2de93b.js" crossorigin="anonymous"></script>
 <!-- resources css파일 -->
 <link rel="stylesheet" href="/resources/css/css.css" />
-<link href="carousel.css" rel="stylesheet">
+
 
 <script type="text/javascript">
 
 $(document).ready(function() {
 	
 	
+	if(${not empty cookie.rememberUser.value }){
+		// 쿠키값이 있을때 // 쿠키값에 들어있는 아이디 가져오기 // 체크박스 선택 
+		$('#userid1').val("${cookie.rememberUser.value }");
+		$("input:checkbox[id='rememberCheck']").prop("checked", true);
+	} else {
+		// 쿠키값이 없다면 // 체크박스 해제
+		$("input:checkbox[id='rememberCheck']").prop("checked", false); // 체크 해제
+	}
 	
 	$('#rememberCheck').click(function(){
 		if($("input:checkbox[id='rememberCheck']").is(":checked") == true){
-//			console.log("ㅊ크박스 체크");
+//			console.log("체크 트루야");
 			$('#userid1').val("${cookie.rememberUser.value }");
 		}
 		else{		
@@ -65,51 +73,53 @@ $(document).ready(function() {
 		console.log(rememberUser);
 		console.log($('#rememberUser').val());
 	
-		if(userid == ""){
+		if( $('#userid1').val() == ""){
+			console.log(1);
 			$(".content").text('아이디를 입력해주세요.');
 			$("#loginModal").modal({backdrop: 'static', keyboard: false});
-		}
-		
-		if(userpw == ""){
+			
+		} else if($('#userpw1').val() == ""){
+			console.log(2);
 			$(".content").text('비밀번호를 입력해주세요.');
 			$("#loginModal").modal({backdrop: 'static', keyboard: false});
 		}
-		
-		$.ajax({
-			
-			type:"post",
-			url:"/login",
-			data: {"userid" : userid, "userpw" : userpw, "rememberUser" : rememberUser},
-			success : function(res){
-				// ModelAndView - result
+		else{
+			$.ajax({
 				
-				if(res.result == 1){ // 로그인 성공
-					location.href="/main/main";
+				type:"post",
+				url:"/login",
+				data: {"userid" : userid, "userpw" : userpw, "rememberUser" : rememberUser},
+				success : function(res){
+					// ModelAndView - result
+					
+					if(res.result == 1){ // 로그인 성공
+						location.href="/main/main";
+					}
+					
+					if(res.result == 2){ // 아이디 틀림
+						$(".content").text('해당하는 사용자가 없습니다.');
+						$("#loginModal").modal({backdrop: 'static', keyboard: false});
+						$('#userid1').val('');
+						$('#userpw1').val('');
+					}
+					
+					if(res.result == 3){ // 비밀번호 틀림
+						$(".content").text('비밀번호가 일치하지 않습니다.');
+						$("#loginModal").modal({backdrop: 'static', keyboard: false});
+						$('#userid1').val('');
+						$('#userpw1').val('');
+					}
+					
+					if(res.result == 4){ // 메일인증 안한 사용자
+						$(".content").text('가입하신 아이디(이메일)에서 인증확인을 하셔야 서비스 이용 가능하십니다.');
+						$("#loginModal").modal({backdrop: 'static', keyboard: false});
+						$('#userid1').val('');
+						$('#userpw1').val('');
+					}
+					
 				}
-				
-				if(res.result == 2){ // 아이디 틀림
-					$(".content").text('해당하는 사용자가 없습니다.');
-					$("#loginModal").modal({backdrop: 'static', keyboard: false});
-					$('#userid1').val('');
-					$('#userpw1').val('');
-				}
-				
-				if(res.result == 3){ // 비밀번호 틀림
-					$(".content").text('비밀번호가 일치하지 않습니다.');
-					$("#loginModal").modal({backdrop: 'static', keyboard: false});
-					$('#userid1').val('');
-					$('#userpw1').val('');
-				}
-				
-				if(res.result == 4){ // 메일인증 안한 사용자
-					$(".content").text('가입하신 아이디(이메일)에서 인증확인을 하셔야 서비스 이용 가능하십니다.');
-					$("#loginModal").modal({backdrop: 'static', keyboard: false});
-					$('#userid1').val('');
-					$('#userpw1').val('');
-				}
-				
-			}
-		})
+			})
+		}
 	})
 })
 </script>
@@ -259,11 +269,13 @@ h5 {
 	                   type="password" class="form-control"
 	                   id="userpw1" placeholder="Password" name=userpw>
 	             </div>
+	            
+  
 	             <div class="form-group">
 	                <div class="form-check">
-	                   <input type="checkbox" class="form-check-input" name="rememberUser"
-	                      id="rememberCheck" > <label class="form-check-label"
-	                      for="rememberCheck"> Remember me </label>
+	                   <input type="checkbox" class="form-check-input" name="rememberUser" 	
+	                      id="rememberCheck"> <label class="form-check-label"
+	                      for="rememberCheck" > 아이디 저장 </label>
 	                </div>
 	             </div>
 	             <button type="button" id="loginBtn" class="btn btn-primary">로그인</button>
