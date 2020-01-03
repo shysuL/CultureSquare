@@ -7,6 +7,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	//자유게시판
 	$("#freeboard-tab").on("click", function() {
 		$.ajax({
 			type:"post",
@@ -18,6 +19,25 @@ $(document).ready(function() {
 			success : function(res){
 				console.log(res);
 				$("#freeboard").html(res);
+			},
+			error: function(e){
+			console.log(e);
+			}
+		});
+	});
+	
+	//pr게시판
+	$("#prboard-tab").on("click", function() {
+		$.ajax({
+			type:"post",
+			url:"/admin/main",
+			data: {
+				"category" : 2,
+			},
+			datatype: "html",
+			success : function(res){
+				console.log(res);
+				$("#prboard").html(res);
 			},
 			error: function(e){
 			console.log(e);

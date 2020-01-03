@@ -78,11 +78,11 @@ public class AdminBoardController {
 				prmap.put("search", search);
 			}
 			
-			int totalCount = prBoardService.getCntAll(map);
+			int totalCount = prBoardService.getCntAll(prmap);
 			
 			PRPaging paging2 = new PRPaging(totalCount, prpaging.getCurPage());
 			
-			paging2.setsearch2(map);
+			paging2.setsearch2(prmap);
 			
 			model.addAttribute("paging", paging2);
 			
@@ -100,7 +100,8 @@ public class AdminBoardController {
 	}
 	
 	@RequestMapping(value="/admin/main", method=RequestMethod.POST)
-	public String board(int category, String searchcategory, String searchtarget, @RequestParam(defaultValue="1") int curPage, Model model, HttpServletRequest req) {
+	public String board(int category, String searchcategory, String searchtarget, @RequestParam(defaultValue="1") int curPage, 
+						Model model, HttpServletRequest req, String searchType, String search, PRPaging prpaging) {
 		if (category == 1) {
 			//자유게시판
 			Map<String, String> map = new HashMap<String, String>();
@@ -125,6 +126,34 @@ public class AdminBoardController {
 			model.addAttribute("viewList", viewList);
 			
 			return "/admin/board/freeBoard";
+			
+		} else if (category == 2) {
+			//pr게시판
+			Map<String, String> prmap = new HashMap<String, String>();
+			
+			if(searchType!=null && !"".equals(searchType)) {
+				prmap.put("searchType", searchType);
+			}
+			
+			if(search!=null && !"".equals(search)) {
+				prmap.put("search", search);
+			}
+			
+			int totalCount = prBoardService.getCntAll(prmap);
+			
+			PRPaging paging2 = new PRPaging(totalCount, prpaging.getCurPage());
+			
+			paging2.setsearch2(prmap);
+			
+			model.addAttribute("paging", paging2);
+			
+			List prlist = prBoardService.getList(paging2);
+			
+			model.addAttribute("prlist", prlist);
+			
+			logger.info("보드 리스트 겟 테스트 : " + prlist);
+			
+			return "/admin/board/prboard";
 		}
 		
 		return "/admin/board/user";
