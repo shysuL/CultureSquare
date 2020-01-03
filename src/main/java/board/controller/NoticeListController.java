@@ -40,7 +40,7 @@ public class NoticeListController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(NoticeListController.class);
 	
-	@RequestMapping(value = "/board/noticelist", method = RequestMethod.GET)
+	@RequestMapping(value = "/noticeboard/noticelist", method = RequestMethod.GET)
 	public void noticeboardList(Model model, @RequestParam(defaultValue = "1") int curPage, HttpSession session) {
 		logger.info("노티스 보드 리스트");
 		

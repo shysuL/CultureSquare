@@ -390,134 +390,7 @@ $(document).ready(function() {
 </script>
 
 <style type="text/css">
-#view_head{
-	background-color: #343a40;
-	border: 1px solid black;
-	max-width: 95%;
-	height: 45px;
-	text-align: center;
-	color: white;
-	padding: 6px;
-}
-#writer_head{
-	background-color: #343a40;
-	border: 1px solid black;
-	max-width: 95%;
-	height: 45px;
-	color: white;
-	padding: 6px;
-	font-size: 25px;
-}
-.con_left{
-	width: 68%;
-	border: 1px solid black;
-	float: left;
-}
-.con_right{
-	width: 32%;
-	border: 1px solid black;
-	float: right;
-}
-#view_writer{
-	border: 1px solid black;
-	max-width: 95%;
-    height: 35px;
-	padding: 6px;
 
-}
-#view_content{
-	border: 1px solid black;
-	max-width: 95%;
-	height: auto;
-}
-#writer_nick{
-	width:30%;
-	float: left;
-}
-
-#viewcount{
-	width: 20%;
-	float:right;
-}
-#write_date{
-	width: 30%;
-	float:right;
-}
-
-#view_buttonarea{
-	max-width: 95%;
-	text-align: right;
-}
-#writer_title{
-	background-color: #343a40;
-	color : white;
-}
-#writer_photo{
-    width: 100px;
-    height: 100px;
-	float:left;
-}
-#profileImg{
-	width:98px;
-	height:98px;
-	display: block;
-	margin: 0 auto;
-}
-
-#writer_info{
-    width: 150px;
-    height: 100px;
-	float:right;
-	padding: 10px;
-	text-align: center;
-}
-
-#reply_head{
-	background-color: #343a40;
-	border: 1px solid black;
-	max-width: 95%;
-	height: 45px;
-	color: white;
-	padding: 6px;
-	font-size: 25px;
-}
-
-#reply_date{
-	width: 20%;
-	float:right;
-}
-#view_recontents{
-	border: 1px solid black;
-	max-width: 95%;
-    height: 80px;
-	padding: 6px;
-/*     overflow: scroll; */
-}
-#recontents{
-	float: left;
-	width: 680px;
-    height: auto;
-}
-#deleteReplyBtn{
-	font-size: 12px; 
-	float: right;
-}
-
-#replyinputheader{
-	background-color: #343a40;
-	border: 1px solid black;
-	max-width: 95%;
-	height: 45px;
-	color: white;
-	padding: 6px;
-	font-size: 25px;
-}
-#replyinputbody{
-	border: 1px solid black;
-	max-width: 95%;
-    height: 80px;
-	padding: 6px;
-}
 </style>
 <%
 	Date date = new Date();
@@ -598,26 +471,25 @@ $(document).ready(function() {
 <c:if test="${login }">
 <!-- 댓글 입력 -->
 <div>
-<div style="text-align: right; margin-right: 35px; margin-bottom: 5px;">
-		<a><button id="writereply" class="btn  bbc" type="button">댓글작성</button></a>
-</div>
-
-<div id = "replyinputheader">
-	코멘트 남기기
-</div>
-<div  id = "replyinputbody" class="form-inline text-center col-9" style="display: none;">
-	<div class="row">
-	<div class="col-10">
-	<input type="hidden"  id="userno" name="userno" value="${LoginUser.userno }" />
-	<input type="hidden"  id="boardno" name="boardno" value="${ view.boardno}" />
-<%-- 	<input type="text" size="10" class="form-control" id="replyWriter" name = "usernick" value="${LoginUser.usernick }" readonly="readonly"/> --%>
-	<textarea rows="2" cols="90" style="width:100%;" class="form-control" id="recontents" name="recontents" ></textarea>
+	<div style="text-align: right; margin-right: 35px; margin-bottom: 5px;">
+			<a><button id="writereply" class="btn  bbc" type="button">댓글작성</button></a>
 	</div>
-	<div class="col-2">
-	<button id="btnCommInsert" class="btn bbc">입력</button>
-	</div>
-	</div>
-</div>	<!-- 댓글 입력 end -->
+	
+	<div id = "replyinputheader">코멘트 남기기</div>
+	
+	<div  id = "replyinputbody" class="form-inline text-center col-9" style="display: none;">
+		<div class="row">
+			<div class="col-10">
+				<input type="hidden"  id="userno" name="userno" value="${LoginUser.userno }" />
+				<input type="hidden"  id="boardno" name="boardno" value="${ view.boardno}" />
+				<%-- 	<input type="text" size="10" class="form-control" id="replyWriter" name = "usernick" value="${LoginUser.usernick }" readonly="readonly"/> --%>
+				<textarea rows="2" cols="90" style="width:100%;" class="form-control" id="recontents" name="recontents" ></textarea>
+			</div>
+			<div class="col-2">
+				<button id="btnCommInsert" class="btn bbc">입력</button>
+			</div>
+		</div>
+	</div>	<!-- 댓글 입력 end -->
 </div>
 
 </c:if>
@@ -626,48 +498,55 @@ $(document).ready(function() {
 
 
 <c:forEach items="${replyList }" var="reply">
-
+	
 		<div class="container container-fluid" style="margin-bottom: 40px">
-			<div id = "reply_head" class="col-xs-12 col-sm-6 col-md-8">
+		<div class="row">
+		
+			<div id = "reply_head" class="col-12">
 				<span>${reply.usernick }</span>
 				<div id = "reply_date" class="col-md-4" style="font-size: 13px;">
 					${reply.replydate}
 				</div>
 			</div>
-		<div id = "view_recontents" class="col-xs-12 col-sm-6 col-md-8" >
-			<div id = "recontents"  class="col-md-4" >
-				${reply.recontents }
+			
+			<div class="col-9">
+			<div id = "view_recontents" >
+				<div id = "recontents" class="col-12">${reply.recontents }</div>
 			</div>
+			</div>
+			<div class="col-1.5">
 				<c:if test="${login }">
-				<br><br>
-					<div id = "rereplyBtn" class="col-md-2"style="float:left" >
-						<a ><button id="rereply" class="btn  bbc" type="button">답글</button></a>
-					</div>
+				<div id = "rereplyBtn">
+					<a ><button id="rereply" class="btn bbc" type="button">답글</button></a>
+				</div>
 				</c:if>
+			</div>
+			<div class="col-1.5">
 				<c:if test="${LoginUser.userno eq reply.userno }">
-					<div id = "deleteReplyBtn"  class="col-md-2"  >
-					<button class="btn btn-default btn-xs" 
-						onclick="deleteReply(${reply.replyno });">삭제</button>
-					</div>
+				<div id = "deleteReplyBtn">
+					<button class="btn bbc" onclick="deleteReply(${reply.replyno });">삭제</button>
+				</div>
 				</c:if>
-					<div id = "rereplybody" class="form-inline text-center col-9" style = "display: none;">
-						<input type="hidden"  id="replyno" name="replyno" value="${reply.replyno }" />
-						<input type="hidden"  id="userno" name="userno" value="${LoginUser.userno }" />
-						<input type="hidden"  id="boardno" name="boardno" value="${ view.boardno}" />	
-						<input type="hidden"  id="groupno" name="groupno" value="${ reply.groupno}" />	
-						<input type="hidden"  id="replyorder" name="replyorder" value="${ reply.replyorder}" />	
-						<input type="hidden"  id="replydepth" name="replydepth" value="${ reply.replydepth}" />	
-						<textarea rows="2" cols="50" class="form-control" id="rerecontents" name="rerecontents" >
+			</div>
+				<div id = "rereplybody" class="form-inline text-center col-6" style = "display: none;">
+					<input type="hidden"  id="replyno" name="replyno" value="${reply.replyno }" />
+					<input type="hidden"  id="userno" name="userno" value="${LoginUser.userno }" />
+					<input type="hidden"  id="boardno" name="boardno" value="${ view.boardno}" />	
+					<input type="hidden"  id="groupno" name="groupno" value="${ reply.groupno}" />	
+					<input type="hidden"  id="replyorder" name="replyorder" value="${ reply.replyorder}" />	
+					<input type="hidden"  id="replydepth" name="replydepth" value="${ reply.replydepth}" />	
+					<textarea rows="2" cols="50" class="form-control" id="rerecontents" name="rerecontents" >
 <%-- 						${reply.replyno } ${ reply.groupno}  ${ reply.replyorder}  ${ reply.replydepth} --%>
-						</textarea>
-						<button id="btnrereplyInsert" class="btn bbc">입력</button>
-					</div>
-		</div>
+					</textarea>
+					<button id="btnrereplyInsert" class="btn bbc">입력</button>
+				</div>
+			
+			</div>
+			</div>
 		<!-- 글내용 -->
 		<!-- 버튼 -->
 		
-		</div>
-	
+		
 </c:forEach>
 
 
