@@ -95,9 +95,12 @@ public class FreeListController {
 		
 		logger.info(paging.toString());
 		
+		
 		List<FreeBoard> list = freeboardService.getList(paging);
+
 		logger.info(list.toString());
 		
+
 		model.addAttribute("boardlist", list);
 		
 		List<FreeBoard> viewsList = freeboardService.getViewsList();

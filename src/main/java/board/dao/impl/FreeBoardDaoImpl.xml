@@ -52,7 +52,7 @@
 		UPDATE board SET views = views + 1 WHERE boardno = #{boardno } 
 	</update>
 	
-	<select id="selectByUserNick" parameterType="object" resultType="user.dto.User_table">
+	<select id="selectByUserNick" parameterType="object" resultType="board.dto.FreeBoard">
 		SELECT * FROM User_table
 		WHERE usernick = #{usernick }
 	</select>
@@ -104,4 +104,36 @@
 		WHERE fileno = #{fileno }
 	</delete>
 	
+	<select id="selectRecommend" resultType="int" parameterType="board.dto.FreeBoard">
+		SELECT count(*) FROM blike
+		WHERE userno = #{userno}
+		AND boardno = #{boardno }
+	</select>
+	
+	<insert id="insertRecommend"
+	 parameterType="board.dto.FreeBoard">		
+		INSERT INTO blike 
+		VALUES(blike_seq.nextval, #{userno}, #{boardno})
+	</insert>
+	
+	<delete id="deleteRecommend"
+	 parameterType="board.dto.FreeBoard">
+		DELETE blike
+		WHERE 1=1
+			AND userno = #{userno}
+			AND boardno = #{boardno }
+	</delete>
+	
+	<select id="selectrecommendView" resultType="int" parameterType="board.dto.FreeBoard">
+		SELECT COUNT(*) FROM blike 
+		WHERE boardno = #{boardno}
+	</select>
+	
+	<delete id="deleteBlike"
+	 parameterType="int">
+		DELETE blike
+		WHERE 1=1
+			AND boardno = #{boardno }
+	</delete>
+		
 </mapper>

@@ -97,7 +97,8 @@ color: #343a40;
 
 <div style="background-color: #343a40; height: 50px;">
 	<i class="fas fa-list" style= "color: #ffff;margin-left: 18px;" title="게시글 번호"></i>
-	<i class="far fa-user" style= "color: #ffff;margin-left: 405px;" title="작성자 닉네임"></i>
+	<i class="fas fa-heart" style= "color: #ffff;margin-left: 30px;" title="좋아요"></i>
+	<i class="far fa-user" style= "color: #ffff;margin-left: 351px;" title="작성자 닉네임"></i>
 	<a href="/board/freelist" title="조회수, 클릭하시면 조회수 순으로 정렬"><i class="fas fa-eye" style= "color: #ffff;margin-left: 83px;"></i></a>
 	<a href="/board/freelist" title="게시글 작성 시간, 클릭하시면 시간 순으로 정렬"><i class="far fa-clock" style= "color: #ffff;margin-left: 80px;"></i></a>
 </div>
@@ -109,7 +110,10 @@ color: #343a40;
 	<tr>
 <%-- 	<td><input type="checkbox" name="checkRow" value="${list.boardno }"/></td> --%>
 		<td style="color: #1a3a5a; width: 5%;">${list.boardno }</td>
-		<td style="color: #1a3a5a; width: 45%;"><a class="tit" href="/board/freeview?boardno=${list.boardno }">${list.title }</a></td>
+		<c:forEach items = "${like }" var = "like">
+		<td style="color: #1a3a5a; width: 5%;">${like }</td>
+		</c:forEach>
+		<td style="color: #1a3a5a; width: 40%;"><a class="tit" href="/board/freeview?boardno=${list.boardno }">${list.title }</a></td>
 		<td style="color: #1a3a5a; width: 20%;">${list.usernick }</td>
 		<td style="color: #1a3a5a; width: 10%;">${list.views }</td>
 		<td style="color: #1a3a5a; width: 20%;">${list.writtendate }</td>

@@ -6,6 +6,9 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	
+	recheckAction();
+	
 	//목록버튼 동작
 	$("#btnList").click(function() {
 		$(location).attr("href", "/board/freelist");
@@ -20,10 +23,69 @@ $(document).ready(function() {
 		
 		return false;
 	});
+	
+	//추천버튼 동작
+	$("#recommendtd").on("click", "#recommend", function() {
+// 		$(location).attr("href", "/board/recommend?boardno=${viewBoard.boardno }");
+		console.log("추천버튼 눌림");
+		recommendAction();
+	});
 
 });
 
+function recommendAction() {
+	$.ajax({
+		type : "get",
+		url : "/board/recommend",
+		data : {
+			boardno : '${board.boardno }'
+		},
+		dataType : "html",
+		success : function(data) {
+			console.log("성공")
+			console.log(data)
+
+			$("#recommendtd").html(data)
+		},
+		error : function() {
+			$("#freeLikeLoginModal").modal({backdrop: 'static', keyboard: false});
+		}
+	});
+}
+
+function recheckAction() {
+	$.ajax({
+		type : "get",
+		url : "/board/recheck",
+		data : {
+			boardno : '${board.boardno }'
+		},
+		dataType : "html",
+		success : function(data) {
+			console.log("성공")
+			console.log(data)
+
+			$("#recommendtd").html(data)
+		},
+		error : function() {
+			console.log("실패연 하이하이");
+		}
+	});
+}
+
 </script>
+
+<style type="text/css">
+
+#text{
+	
+}
+
+#recommendtd{
+	font-size: 18px;
+}
+
+</style>
 
 <div class="container" style="
     padding-left: 200px;
@@ -43,12 +105,13 @@ $(document).ready(function() {
 	
 		<tr>
 			<!-- <td class="info">닉네임</td> -->
-			<td colspan="2" style="width: 60%"><i class="far fa-user" style="padding-right: 10px"></i>${board.usernick }</td>
-			<td colspan="1" style="width: 25%"><i class="far fa-clock" style="padding-right: 10px"></i>${board.writtendate }</td>
+			<td colspan="1" style="width: 45%; padding-top: 16px;"><i class="far fa-user" style="padding-right: 10px"></i>${board.usernick }</td>
+			<td colspan="1" style="width: 25%; padding-top: 16px;"><i class="far fa-clock" style="padding-right: 10px"></i>${board.writtendate }</td>
 <!-- 			<td class="info">추천수</td> -->
 <!-- 			<td colspan="1" style="width: 15%">[ 1203 ]</td> -->
 <!-- 			<td class="info">조회수</td> -->
-			<td colspan="1" style="width: 15%"><i class="fas fa-eye" style="padding-right: 5px; width: 3.125em;"></i>${board.views }</td>
+			<td colspan="1" style="width: 15%; padding-top: 16px;"><i class="fas fa-eye" style="padding-right: 5px; width: 3.125em;"></i>${board.views }</td>
+			<td colspan="1" style="width: 15%" id="recommendtd" ></td>
 		</tr>
 <!-- 		<tr><td class="info"  colspan="4">본문</td></tr> -->
 	
@@ -99,6 +162,32 @@ $(document).ready(function() {
     </div>
   </div>
 </div>
+
+<!-- 로그인 부탁 모달-->
+<div class="modal fade" id="freeLikeLoginModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">로그인 필요!</h4>
+        <button id="freeLikeLoginX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	로그인 후 좋아요가 가능합니다.
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="freeLikeLoginModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 </div>
 <br>
 <br>

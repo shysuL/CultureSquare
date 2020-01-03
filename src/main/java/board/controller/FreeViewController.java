@@ -1,6 +1,5 @@
 package board.controller;
 
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import board.dto.FreeBoard;
 import board.dto.UpFile;
 import board.service.face.FreeBoardService;
-import prboard.service.face.PRBoardService;
 import user.bo.NaverLoginBO;
 import user.service.face.KakaoService;
 
@@ -158,13 +156,11 @@ public class FreeViewController {
 		
 			freeboardService.fileDelete(fileinfo);
 			
-			freeboardService.freeDelete(boardno);
-			
-		}else {
-			
-			freeboardService.freeDelete(boardno);
-		
 		}
+		
+		freeboardService.deleteBlike(boardno);
+		
+		freeboardService.freeDelete(boardno);
 		
 		return "redirect:/board/freelist";
 	}
@@ -185,6 +181,78 @@ public class FreeViewController {
 
 		return mav;
 
+	}
+	
+	@RequestMapping(value="/board/recommend", method=RequestMethod.GET)
+	public String recommendFree(FreeBoard freeBoard, Model model, HttpSession session) {
+		
+		//보드 번호 저장
+		int boardno = freeBoard.getBoardno();
+		
+		//로그인 상태인 경우만 처리
+		if((String)session.getAttribute("usernick")!=null) {
+			// 1. 회원 번호 구하기
+			freeBoard = freeboardService.getUserNoByNick((String)session.getAttribute("usernick"));
+			freeBoard.setBoardno(boardno);
+
+			int result = freeboardService.recommendCheck(freeBoard);
+
+
+			//전에 추천한적이 없다면
+			if(result == 0) {
+				freeboardService.recommend(freeBoard);
+			}
+			else {
+				freeboardService.recommendCancal(freeBoard);
+			}
+
+			logger.info("버튼 클릭 : " + result);
+			logger.info("추천 보드 정보 : " + freeBoard);
+
+			int recommendCnt = freeboardService.recommendView(freeBoard);
+
+			//	VIEW에 모델(MODEL)값 전달하기
+			model.addAttribute("result", result);
+
+			model.addAttribute("recommendCnt", recommendCnt);
+			return "board/recommend";
+		}
+		//로그아웃일 경우 실패를 받을수 있도록 다시 보냄
+		else {
+			return "/board/view?boardno="+boardno;
+		}
+		
+	}
+	
+	@RequestMapping(value="/board/recheck", method=RequestMethod.GET)
+	public String reCheckPR(FreeBoard freeBoard, Model model, HttpSession session) {
+		
+		
+		//보드 번호 저장
+		int boardno = freeBoard.getBoardno();
+		
+		// 1. 회원 번호 구하기
+		
+		//로그인 상태인 경우만 처리
+		if((String)session.getAttribute("usernick")!=null) {
+			freeBoard = freeboardService.getUserNoByNick((String)session.getAttribute("usernick"));
+		}
+		
+		freeBoard.setBoardno(boardno);
+		
+		logger.info(freeBoard.toString());
+		
+		int result = freeboardService.recommendCheck(freeBoard);
+		
+		logger.info("요건 첨에 나올 : " + result);
+		
+		int recommendCnt = freeboardService.recommendView(freeBoard);
+		
+		//	VIEW에 모델(MODEL)값 전달하기
+		model.addAttribute("result", result);
+		
+		model.addAttribute("recommendCnt", recommendCnt);
+		return "/board/recheck";
 	}
 
 }

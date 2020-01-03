@@ -70,9 +70,9 @@ public interface FreeBoardDao {
 	 * 게시글 작성을 위한 유저닉네임 조회
 	 * 
 	 * @param attribute - 로그인한 유정 정보 객체
-	 * @return User_table - 로그인한 유저 정보와 일치하는 닉네임
+	 * @return FreeBoard - 로그인한 유저 정보와 일치하는 닉네임
 	 */
-	public User_table selectByUserNick(Object attribute);
+	public FreeBoard selectByUserNick(Object attribute);
 
 	/**
 	 * 2019-12-27
@@ -146,5 +146,57 @@ public interface FreeBoardDao {
 	 * @param fileno - 삭제할 첨부파일 번호
 	 */
 	public void deleteFile(UpFile fileno);
+
+	/**
+	 * 2020-01-03
+	 * 고인호
+	 * 
+	 * 추천 여부 조회
+	 * 
+	 * @param prBoard - 추천 여부 정보가 담긴 객체
+	 * @return int - 추천 여부
+	 */
+	public int selectRecommend(FreeBoard freeBoard);
+
+	/**
+	 * 2020-01-03
+	 * 고인호
+	 * 
+	 * 추천테이블에 데이터를 삽입한다.
+	 * 
+	 * @param prBoard - 추천테이블에 삽입할 데이터가 담긴 객체
+	 */
+	public void insertRecommend(FreeBoard freeBoard);
+
+	/**
+	 * 2020-01-03
+	 * 고인호
+	 * 
+	 * 추천테이블에서 데이터를 삭제한다.
+	 * 
+	 * @param prBoard - 추천테이블에서 삭제할 데이터가 담긴 객체
+	 */
+	public void deleteRecommend(FreeBoard freeBoard);
+
+	/**
+	 * 2020-01-03
+	 * 고인호
+	 * 
+	 * 게시글의 추천 갯수를 센다
+	 * 
+	 * @param prBoard - 게시글 정보가 담긴 객체
+	 * @return int - 추천수
+	 */
+	public int selectrecommendView(FreeBoard freeBoard);
+
+	/**
+	 * 2020-01-03
+	 * 고인호
+	 * 
+	 * 좋아요 삭제
+	 * 
+	 * @param boardno - 삭제할 게시글 번호가 담긴 객체
+	 */
+	public void deleteBlike(int boardno);
 
 }

@@ -63,7 +63,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 
 	@Override
-	public User_table getboardWriter(Object attribute) {
+	public FreeBoard getUserNoByNick(Object attribute) {
 		
 		return freeboardDao.selectByUserNick(attribute);
 	}
@@ -151,4 +151,46 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		
 	}
 
+	@Override
+	public int recommendCheck(FreeBoard freeBoard) {
+		int check = freeboardDao.selectRecommend(freeBoard);
+
+		//전에 추천한적이 없다면
+		if(check == 0) {
+			
+			return check; //추천
+		}
+		else {
+			return check; //추천 취소
+		}
 	}
+
+	@Override
+	public void recommend(FreeBoard freeBoard) {
+
+		freeboardDao.insertRecommend(freeBoard);
+		
+	}
+
+	@Override
+	public void recommendCancal(FreeBoard freeBoard) {
+
+		freeboardDao.deleteRecommend(freeBoard);
+		
+	}
+
+	@Override
+	public int recommendView(FreeBoard freeBoard) {
+		
+		return freeboardDao.selectrecommendView(freeBoard);
+	}
+
+	@Override
+	public void deleteBlike(int boardno) {
+
+		freeboardDao.deleteBlike(boardno);
+		
+	}
+
+
+}
