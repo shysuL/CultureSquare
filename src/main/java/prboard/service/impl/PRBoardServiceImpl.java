@@ -287,4 +287,10 @@ public class PRBoardServiceImpl implements PRBoardService {
 	public void deleteReplyToBoard(PRBoard prBoard) {
 		prBoardDao.deleteReplyToBoard(prBoard);
 	}
+
+	@Override
+	public void addReply(Reply reply) {
+
+		prBoardDao.insertReply(reply);
+	}
 }

@@ -297,4 +297,14 @@ public interface PRBoardDao {
 	 * @param prBoard - 게시판 번호
 	 */
 	public void deleteReplyToBoard(PRBoard prBoard);
+
+	/**
+	 * 2020-01-03
+	 * 조홍철
+	 * 
+	 * 댓글 삽입
+	 * 
+	 * @param reply - 삽입될 댓글 정보가 저장된 객체
+	 */
+	public void insertReply(Reply reply);
 }
