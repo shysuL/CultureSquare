@@ -1,5 +1,7 @@
 package board.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -149,9 +151,12 @@ public class FreeViewController {
 		
 		logger.info(file.toString());
 		
+		//게시글 첨부파일 조회
+		UpFile fileinfo = freeboardService.getFile(boardno);
+		
 		if( file.getFileno() != 0 ) {
 		
-			freeboardService.fileDelete(file);
+			freeboardService.fileDelete(fileinfo);
 			
 			freeboardService.freeDelete(boardno);
 			
