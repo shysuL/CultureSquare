@@ -18,7 +18,7 @@ $(document).ready(function() {
 
 	$("#btnWrite").click(function() {
 
-		console.log(111);
+		console.log("작성작성");
 
 
 		//form submit
@@ -70,6 +70,11 @@ $(document).ready(function() {
 #contentsarea{
 	width: 800px;
 	height:600px;
+	border: 1px solid black;
+}
+#fileup{
+	width: 800px;
+	height:auto;
 	border: 1px solid black;
 }
 </style>
@@ -147,13 +152,23 @@ $(document).ready(function() {
 
 
 <br>
+<div id = "fileup">
+
+<div>
+
+리스트용 대표 이미지 선택<br>
 <input type="file" name="file" />
 
+
+</div>
+
+</div>
 <input type="hidden" id = "userno" name = "userno" value = "${userno.userno }"/>
 </form>
-<div class="text-center">	
-	<button type="button" id="btnWrite" class="btn bbc">작성</button>
-	<button type="button" id="btnCancel" class="btn bbc">취소</button>
+<br>
+<div class="text-center col-xs-12 col-sm-6 col-md-8">	
+	<button type="button" id="btnCancel" class="btn bbc" style = "float:left;">작성취소</button>
+	<button type="button" id="btnWrite" class="btn bbc" style = "float:right;">작성완료</button>
 </div>
 
 
