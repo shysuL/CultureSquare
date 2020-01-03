@@ -29,10 +29,18 @@
 $(document).ready(function() {
 	
 	
+	if(${not empty cookie.rememberUser.value }){
+		// 쿠키값이 있을때 // 쿠키값에 들어있는 아이디 가져오기 // 체크박스 선택 
+		$('#userid1').val("${cookie.rememberUser.value }");
+		$("input:checkbox[id='rememberCheck']").prop("checked", true);
+	} else {
+		// 쿠키값이 없다면 // 체크박스 해제
+		$("input:checkbox[id='rememberCheck']").prop("checked", false); // 체크 해제
+	}
 	
 	$('#rememberCheck').click(function(){
 		if($("input:checkbox[id='rememberCheck']").is(":checked") == true){
-//			console.log("ㅊ크박스 체크");
+//			console.log("체크 트루야");
 			$('#userid1').val("${cookie.rememberUser.value }");
 		}
 		else{		
@@ -259,11 +267,13 @@ h5 {
 	                   type="password" class="form-control"
 	                   id="userpw1" placeholder="Password" name=userpw>
 	             </div>
+	            
+  
 	             <div class="form-group">
 	                <div class="form-check">
-	                   <input type="checkbox" class="form-check-input" name="rememberUser"
-	                      id="rememberCheck" > <label class="form-check-label"
-	                      for="rememberCheck"> Remember me </label>
+	                   <input type="checkbox" class="form-check-input" name="rememberUser" 	
+	                      id="rememberCheck"> <label class="form-check-label"
+	                      for="rememberCheck" > 아이디 저장 </label>
 	                </div>
 	             </div>
 	             <button type="button" id="loginBtn" class="btn btn-primary">로그인</button>

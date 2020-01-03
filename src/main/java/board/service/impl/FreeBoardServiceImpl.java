@@ -139,6 +139,12 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	@Override
 	public void fileDelete(UpFile fileno) {
 		
+		logger.info(fileno.toString());
+		
+		File file = new File(context.getRealPath("upload/"+fileno.getStoredname()));
+		
+		file.delete();
+		
 		freeboardDao.deleteFile(fileno);
 		
 	}

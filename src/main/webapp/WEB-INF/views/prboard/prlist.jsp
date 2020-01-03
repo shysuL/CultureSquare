@@ -161,8 +161,8 @@ $(document).ready(function() {
             <a href="/prboard/view?boardno=${prboard.boardno }" style = "font-weight: bold;">${prboard.title }</a>&nbsp;&nbsp;<span class="badge badge-pill badge-danger" id ="replyShow">0</span>
           </p>
           <p class="card-text" id ="useFont">${prboard.usernick}&nbsp;(${prboard.writtendate})</p>
-          <img id ="cardview"src="/resources/img/view.png"/>&nbsp;&nbsp;${prboard.views}
-          <img id ="cardlike"src="/resources/img/likeheart.png" style="padding-top: 5px; padding-left: 7px;"/>&nbsp;&nbsp;1K
+          <img id ="cardview"src="/resources/img/view.png"/>&nbsp;${prboard.views}
+          <img id ="cardlike"src="/resources/img/likeheart.png" style="padding-top: 5px; padding-left: 7px;"/>&nbsp;${prboard.blike }
         </div>
       </div>
     </div>
