@@ -287,7 +287,8 @@ h5 {
 	                      for="rememberCheck" > 아이디 저장 </label>
 	                </div>
 	             </div>
-	             <button type="button" id="loginBtn" class="btn btn-primary">로그인</button>
+	             <button type="button" id="loginBtn" class="btn btn-dark">로그인</button>
+	             
 	             <div class="find">
 	                <a href="#" id="findInfo">아이디/비밀번호 찾기</a>
 	             </div>
@@ -343,7 +344,7 @@ h5 {
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button class="btn btn-info" data-dismiss="modal">확인</button>
+        <button class="btn btn-dark" data-dismiss="modal">확인</button>
       </div>
 
     </div>
@@ -366,7 +367,7 @@ h5 {
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button class="btn btn-info" data-dismiss="modal">확인</button>
+        <button class="btn btn-dark" data-dismiss="modal">확인</button>
       </div>
 
     </div>
