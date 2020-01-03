@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import board.dto.FreeBoard;
+import board.dto.Reply;
 import board.dto.UpFile;
 import user.dto.User_table;
 import util.Paging;
@@ -73,7 +74,7 @@ public interface FreeBoardService {
 	 * @param attribute - 로그인한 유정 정보 객체
 	 * @return 
 	 */
-	public User_table getboardWriter(Object attribute);
+	public FreeBoard getUserNoByNick(Object attribute);
 
 	/**
 	 * 2019-12-26
@@ -148,4 +149,77 @@ public interface FreeBoardService {
 	 * @param fileno - 삭제할 첨부파일번호
 	 */
 	public void fileDelete(UpFile fileno);
+
+	/**
+	 * 2020-01-03
+	 * 고인호
+	 * 
+	 * 추천 여부 조회
+	 * 
+	 * @param freeBoard - 추천 여부 조회할 정보가 담긴 객체
+	 * @return int - 추천 여부
+	 */
+	public int recommendCheck(FreeBoard freeBoard);
+
+	/**
+	 * 2020-01-03
+	 * 고인호
+	 * 
+	 * 추천을 한다.
+	 * 
+	 * @param freeBoard - 추천 테이블에 삽입할 데이터 객체
+	 */
+	public void recommend(FreeBoard freeBoard);
+
+	/**
+	 * 2020-01-03
+	 * 고인호
+	 * 
+	 * 추천 취소를 한다.
+	 * 
+	 * @param freeBoard - 추천 테이블에서 삭제할 데이터 객체
+	 */
+	public void recommendCancal(FreeBoard freeBoard);
+
+	/**
+	 * 2020-01-03
+	 * 고인호
+	 * 
+	 * 게시글의 추천 갯수를 센다
+	 * 
+	 * @param freeBoard - 게시글 정보가 담긴 객체
+	 * @return int - 추천수
+	 */
+	public int recommendView(FreeBoard freeBoard);
+
+	/**
+	 * 2020-01-03
+	 * 고인호
+	 * 
+	 * 좋아요 테이블 삭제
+	 * @param boardno - 삭제할 게시글 번호가 담긴 객체
+	 */
+	public void deleteBlike(int boardno);
+
+	/**
+	 * 2019-01-03
+	 * 고인호
+	 * 
+	 * 댓글 입력
+	 * 
+	 * @param reply - 입력될 댓글
+	 */
+	public void insertReply(Reply reply);
+
+	/**
+	 * 2019-01-03
+	 * 고인호
+	 * 
+	 * 댓글 리스트
+	 * 
+	 * @param boardno - 댓글 리스트 조회할 게시글번호
+	 * @return - 조회된 게시글 댓글 리스트
+	 */
+	public List<Reply> getReplyList(int boardno);
+
 }

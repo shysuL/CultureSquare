@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import board.controller.FreeWriteController;
 import board.dao.face.FreeBoardDao;
 import board.dto.FreeBoard;
+import board.dto.Reply;
 import board.dto.UpFile;
 import board.service.face.FreeBoardService;
 import user.dto.User_table;
@@ -63,7 +64,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 
 	@Override
-	public User_table getboardWriter(Object attribute) {
+	public FreeBoard getUserNoByNick(Object attribute) {
 		
 		return freeboardDao.selectByUserNick(attribute);
 	}
@@ -137,16 +138,74 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 
 	@Override
-	public void fileDelete(UpFile fileno) {
+	public void fileDelete(UpFile fileinfo) {
 		
-		logger.info(fileno.toString());
+		logger.info(fileinfo.toString());
 		
-		File file = new File(context.getRealPath("upload/"+fileno.getStoredname()));
+		File file = new File(context.getRealPath("upload\\"+fileinfo.getStoredname()));
 		
+		// 삭제할 파일의 경로
+		if(file.exists() == true){
 		file.delete();
-		
-		freeboardDao.deleteFile(fileno);
+		}	
+		freeboardDao.deleteFile(fileinfo);
 		
 	}
 
+	@Override
+	public int recommendCheck(FreeBoard freeBoard) {
+		int check = freeboardDao.selectRecommend(freeBoard);
+
+		//전에 추천한적이 없다면
+		if(check == 0) {
+			
+			return check; //추천
+		}
+		else {
+			return check; //추천 취소
+		}
 	}
+
+	@Override
+	public void recommend(FreeBoard freeBoard) {
+
+		freeboardDao.insertRecommend(freeBoard);
+		
+	}
+
+	@Override
+	public void recommendCancal(FreeBoard freeBoard) {
+
+		freeboardDao.deleteRecommend(freeBoard);
+		
+	}
+
+	@Override
+	public int recommendView(FreeBoard freeBoard) {
+		
+		return freeboardDao.selectrecommendView(freeBoard);
+	}
+
+	@Override
+	public void deleteBlike(int boardno) {
+
+		freeboardDao.deleteBlike(boardno);
+		
+	}
+
+	@Override
+	public void insertReply(Reply reply) {
+		
+		freeboardDao.insertReply(reply);
+		
+	}
+
+	@Override
+	public List<Reply> getReplyList(int boardno) {
+		
+		return freeboardDao.selectReply(boardno);
+		
+	}
+
+
+}

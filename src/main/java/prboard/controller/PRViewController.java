@@ -314,6 +314,9 @@ public class PRViewController {
 			reply.setUserno(prBoardService.getUserNoForReply((String)session.getAttribute("usernick")).getUserno());
 			logger.info("서비스 후  : " + reply);
 			
+			//댓글 삽입
+			prBoardService.addReply(reply);
+			
 			mav.addObject("insert", true);
 			//viewName지정하기
 			mav.setViewName("jsonView");

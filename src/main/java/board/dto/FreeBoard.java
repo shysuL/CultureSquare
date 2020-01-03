@@ -11,11 +11,13 @@ public class FreeBoard {
 	private String usernick;
 	private String userid;
 	
+	private int blike;
+
 	@Override
 	public String toString() {
 		return "FreeBoard [boardno=" + boardno + ", title=" + title + ", writtendate=" + writtendate + ", contents="
 				+ contents + ", views=" + views + ", userno=" + userno + ", postno=" + postno + ", usernick=" + usernick
-				+ ", userid=" + userid + "]";
+				+ ", userid=" + userid + ", blike=" + blike + "]";
 	}
 
 	public int getBoardno() {
@@ -89,7 +91,13 @@ public class FreeBoard {
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
-	
-	
+
+	public int getBlike() {
+		return blike;
+	}
+
+	public void setBlike(int blike) {
+		this.blike = blike;
+	}
 
 }

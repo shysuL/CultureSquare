@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import artboard.dto.Board;
 import board.dto.FreeBoard;
 import board.service.face.FreeBoardService;
 import user.bo.NaverLoginBO;
@@ -95,9 +96,12 @@ public class FreeListController {
 		
 		logger.info(paging.toString());
 		
+		
 		List<FreeBoard> list = freeboardService.getList(paging);
+
 		logger.info(list.toString());
 		
+
 		model.addAttribute("boardlist", list);
 		
 		List<FreeBoard> viewsList = freeboardService.getViewsList();
