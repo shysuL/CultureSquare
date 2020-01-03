@@ -79,7 +79,7 @@
 		   SELECT rownum rnum, B.* FROM (
 		       SELECT
 		            BO.boardno, BO.title, BO.writtendate, BO.contents,
-		           BO.views, BO.userno, BO.postno, P.prname, U.usernick
+		           BO.views, BO.userno, BO.postno, P.prname, U.usernick, (SELECT COUNT(*) FROM blike WHERE BO.boardno = boardno) AS blike
 		       FROM board BO, prtype P, user_table U
                WHERE BO.boardno = P.boardno
                AND BO.userno = U.userno
@@ -93,7 +93,6 @@
 		 ) BOARD
 		 WHERE rnum BETWEEN #{startNo} AND #{endNo}
 	</select>
-	
 	
 	<select id="selectViewInfo" resultMap="PRBoard" parameterType="int">
 		SELECT 
@@ -151,7 +150,7 @@
 		WHERE 1=1
 			AND boardno = #{boardno }
 	</delete>
-	
+
 	<delete id="deletePRType"
 	 parameterType="prboard.dto.PRBoard">
 		DELETE prtype
@@ -159,4 +158,64 @@
 			AND boardno = #{boardno }
 	</delete>
 	
+	<select id="selectUserNoToLike"
+    	parameterType="String" resultType="prboard.dto.PRBoard">
+	    SELECT userno FROM user_table
+	    WHERE 1=1
+	   	AND usernick = #{usernick}
+	 </select>
+	
+	<select id="selectRecommend" resultType="int" parameterType="prboard.dto.PRBoard">
+		SELECT count(*) FROM blike
+		WHERE userno = #{userno}
+		AND boardno = #{boardno }
+	</select>
+	
+	<insert id="insertRecommend"
+	 parameterType="prboard.dto.PRBoard">
+		
+		INSERT INTO blike 
+		VALUES(blike_seq.nextval, #{userno}, #{boardno})
+	</insert>
+	
+	<delete id="deleteRecommend"
+	 parameterType="prboard.dto.PRBoard">
+		DELETE blike
+		WHERE 1=1
+			AND userno = #{userno}
+			AND boardno = #{boardno }
+	</delete>
+	
+	<select id="selectrecommendView" resultType="int" parameterType="prboard.dto.PRBoard">
+		SELECT COUNT(*) FROM blike 
+		WHERE boardno = #{boardno}
+	</select>
+	
+	<delete id="deleteBlike"
+	 parameterType="prboard.dto.PRBoard">
+		DELETE blike
+		WHERE 1=1
+			AND boardno = #{boardno }
+	</delete>
+	
+	<select id="selectUserNoToReply"
+    	parameterType="String" resultType="prboard.dto.Reply">
+	    SELECT userno FROM user_table
+	    WHERE 1=1
+	   	AND usernick = #{usernick}
+	 </select>
+	 
+	<select id="selectReplyList" resultType="prboard.dto.Reply" parameterType="prboard.dto.Reply">
+		select R.*, U.usernick from reply R, user_table U
+		WHERE R.userno = U.userno
+		AND boardno = #{boardno}
+		ORDER BY replyno DESC
+	</select>
+	
+	<delete id="deleteReplyToBoard"
+	 parameterType="prboard.dto.PRBoard">
+		DELETE reply
+		WHERE 1=1
+			AND boardno = #{boardno }
+	</delete>
 </mapper>

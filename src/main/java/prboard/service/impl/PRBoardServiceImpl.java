@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import prboard.dao.face.PRBoardDao;
 import prboard.dto.PRBoard;
 import prboard.dto.PRType;
+import prboard.dto.Reply;
 import prboard.dto.UpFile;
 import prboard.service.face.PRBoardService;
 import util.PRPaging;
@@ -225,5 +226,65 @@ public class PRBoardServiceImpl implements PRBoardService {
 	public void deletePRType(PRBoard prBoard) {
 
 		prBoardDao.deletePRType(prBoard);
+	}
+
+	@Override
+	public PRBoard getUserNoByNick(String usernick) {
+		
+		return prBoardDao.selectUserNoToLike(usernick);
+	}
+	
+	@Override
+	public int recommendCheck(PRBoard prBoard) {
+		
+		int check = prBoardDao.selectRecommend(prBoard);
+
+		//전에 추천한적이 없다면
+		if(check == 0) {
+			
+			return check; //추천
+		}
+		else {
+			return check; //추천 취소
+		}
+	}
+
+	@Override
+	public void recommend(PRBoard prBoard) {
+
+		prBoardDao.insertRecommend(prBoard);
+	}
+
+	@Override
+	public void recommendCancal(PRBoard prBoard) {
+
+		prBoardDao.deleteRecommend(prBoard);
+	}
+
+	@Override
+	public int recommendView(PRBoard prBoard) {
+
+		return prBoardDao.selectrecommendView(prBoard);
+	}
+
+	@Override
+	public void deleteBlike(PRBoard prBoard) {
+
+		prBoardDao.deleteBlike(prBoard);
+	}
+
+	@Override
+	public Reply getUserNoForReply(String usernick) {
+		return prBoardDao.selectUserNoToReply(usernick);
+	}
+
+	@Override
+	public List<Reply> getReplyByboardNo(Reply reply) {
+		return prBoardDao.selectReplyList(reply);
+	}
+
+	@Override
+	public void deleteReplyToBoard(PRBoard prBoard) {
+		prBoardDao.deleteReplyToBoard(prBoard);
 	}
 }

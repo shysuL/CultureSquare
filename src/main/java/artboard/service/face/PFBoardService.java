@@ -164,4 +164,16 @@ public interface PFBoardService {
 
 
 
+	/**
+	 * 이수현
+	 * 2020-01-03
+	 * 
+	 * 댓글의 답글 입력
+	 * 
+	 * @param reply - 입력될 댓글
+	 */
+	public void insertRereply(Reply reply);
+
+
+
 }

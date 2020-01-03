@@ -4,6 +4,7 @@ import java.util.List;
 
 import artboard.dto.Board;
 import artboard.dto.Donation;
+import artboard.dto.Reply;
 import util.Paging;
 
 public interface PFBoardDao {
@@ -157,5 +158,7 @@ public interface PFBoardDao {
 	 * @param donation - 삽입할 정보가 담긴 객체
 	 */
 	public void insertDonation(Donation donation);
+
+
 
 }

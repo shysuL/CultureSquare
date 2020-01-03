@@ -113,7 +113,7 @@ public class PFBoardServiceImpl implements PFBoardService{
 
 	@Override
 	public void insertReply(Reply reply) {
-		replyDao.insert(reply);
+		replyDao.insertReply(reply);
 	}
 
 
@@ -151,6 +151,12 @@ public class PFBoardServiceImpl implements PFBoardService{
 	@Override
 	public void insertDonation(Donation donation) {
 		pfboardDao.insertDonation(donation);
+	}
+
+
+	@Override
+	public void insertRereply(Reply reply) {
+		replyDao.insertRereply(reply);
 	}
 	
 
