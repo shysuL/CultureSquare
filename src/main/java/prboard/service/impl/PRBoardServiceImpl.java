@@ -282,4 +282,9 @@ public class PRBoardServiceImpl implements PRBoardService {
 	public List<Reply> getReplyByboardNo(Reply reply) {
 		return prBoardDao.selectReplyList(reply);
 	}
+
+	@Override
+	public void deleteReplyToBoard(PRBoard prBoard) {
+		prBoardDao.deleteReplyToBoard(prBoard);
+	}
 }

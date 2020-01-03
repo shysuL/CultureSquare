@@ -222,7 +222,10 @@ public class PRViewController {
 		//4.  좋아요 삭제
 		prBoardService.deleteBlike(prBoard);
 		
-		//5. PR 게시글 삭제
+		//5. 댓글 대댓글 삭제
+		prBoardService.deleteReplyToBoard(prBoard);
+		
+		//6. PR 게시글 삭제
 		prBoardService.deletePR(prBoard);
 
 		return "redirect:/prboard/prlist";
@@ -329,19 +332,20 @@ public class PRViewController {
 
 		ArrayList<HashMap> reList = new ArrayList<HashMap>();
         
-        // 해당 게시물 댓글
+        // 해당 게시물 댓글 리스트 불러오기
         List<Reply> replyVO = prBoardService.getReplyByboardNo(reply);
         
         if(replyVO.size() > 0){
             for(int i=0; i<replyVO.size(); i++){
                 HashMap hm = new HashMap();
+                hm.put("replyno", replyVO.get(i).getReplyno());
                 hm.put("boardno", replyVO.get(i).getBoardno());
                 hm.put("recontents", replyVO.get(i).getRecontents());
                 hm.put("usernick", replyVO.get(i).getUsernick());
+                hm.put("replydate", replyVO.get(i).getReplydate());
                 
                 reList.add(hm);
             }
-            
         }
 		
 		mav.addObject("reList", reList);

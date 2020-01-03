@@ -211,4 +211,11 @@
 		AND boardno = #{boardno}
 		ORDER BY replyno DESC
 	</select>
+	
+	<delete id="deleteReplyToBoard"
+	 parameterType="prboard.dto.PRBoard">
+		DELETE reply
+		WHERE 1=1
+			AND boardno = #{boardno }
+	</delete>
 </mapper>

@@ -8,6 +8,17 @@
 <jsp:include page="../layout/header.jsp" />
 
 <script type="text/javascript">
+
+//댓글 삭제 클릭
+function deleteReply(boardno){
+	console.log("댓글 삭제 번호당: " + boardno);
+}
+
+//댓글 수정 클릭
+function modifyReply(boardno){
+	console.log("댓글 수정 번호당: " + boardno);
+}
+
 /*
  * 댓글 등록하기(Ajax)
  */
@@ -84,24 +95,34 @@ function getCommentList(){
         	console.log("리스트 : ");
         	console.log(res.reList);
         	
-            var html = "";
             var cCnt = res.reList.length;
-            
+            var html = "";
             if(res.reList.length > 0){
                 
                 for(i=0; i<res.reList.length; i++){
-                    html += "<div>";
-                    html += "<div><table class='table'><h6><strong>"+res.reList[i].usernick+"</strong></h6>";
-                    html += res.reList[i].recontents + "<tr><td></td></tr>";
-                    html += "</table></div>";
+                    html += "<div class='commentBox'>";
+                    html += "<h6><strong>"+res.reList[i].usernick+"</strong></h6>";
+                    html += res.reList[i].recontents + "&nbsp;<small>(" + res.reList[i].replydate + ")</small>";
+                    
+                    //댓글 번호 삭제
+                    html += "<h1 style='display:none;'>" + res.reList[i].replyno + "</h1>";
+                    
+                    //자기가 작성한 댓글만 수정 삭제 출력
+                    if(res.reList[i].usernick == "${usernick}") {
+                    	html += "<div class='btnBox'>"
+                    	html += "<button class ='btn-danger' onClick=deleteReply(" + res.reList[i].replyno + ")>삭제</button>&nbsp";
+                    	html += "<button class = 'btn-info' onClick=modifyReply(" + res.reList[i].replyno + ")>수정</button>&nbsp";
+                    	html += "</div>";
+                    	
+                    }
                     html += "</div>";
+                    
                 }
                 
             } else {
                 
                 html += "<div>";
-                html += "<div><table class='table'><h6><strong>등록된 댓글이 없습니다.</strong></h6>";
-                html += "</table></div>";
+                html += "<h6><strong>등록된 댓글이 없습니다.</strong></h6>";
                 html += "</div>";
                 
             }
@@ -254,6 +275,20 @@ function getCommentList(){
 	font-size: 25px;
 }
 
+.commentBox {
+	position: relative;
+	padding: 5px;
+}
+.btnBox {
+	position: absolute;
+	right: 5px;
+	bottom: 5px;
+}
+/*  .commentBox:first-child {  */
+/*  	border-top: 1px solid #ccc; */
+/*  }  */
+.commentBox {
+	border-bottom: 1px solid #ccc;
 }
 </style>
 
@@ -341,14 +376,6 @@ function getCommentList(){
                 </table>
             </div>
         </div>
-	
-	<div class="text-center">	
-		<button id="btnList" class="btn btn-primary">목록</button>
-		<c:if test="${viewBoard.usernick eq usernick}">
-			<button id="btnUpdate" class="btn btn-info">수정</button>
-			<button id="btnDelete" class="btn btn-danger">삭제</button>
-		</c:if>
-	</div>
 </div>
 
 
@@ -455,10 +482,19 @@ function getCommentList(){
 <!-- 컨테이너 -->
 
 <div class="container">
-    <form id="commentListForm" name="commentListForm" method="post">
+<!--     <form id="commentListForm" name="commentListForm" method="post"> -->
         <div id="commentList">
         </div>
-    </form>
+<!--     </form> -->
+</div>
+<div class="container" style ="margin-top: 15px;">
+	<div class="text-center">	
+		<button id="btnList" class="btn btn-primary">목록</button>
+		<c:if test="${viewBoard.usernick eq usernick}">
+			<button id="btnUpdate" class="btn btn-info">수정</button>
+			<button id="btnDelete" class="btn btn-danger">삭제</button>
+		</c:if>
+	</div>
 </div>
 
 <jsp:include page="../layout/footer.jsp" />

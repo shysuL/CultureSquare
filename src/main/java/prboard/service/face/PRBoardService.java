@@ -299,4 +299,14 @@ public interface PRBoardService {
 	 */
 	public List<Reply> getReplyByboardNo(Reply reply);
 
+	/**
+	 * 2020-01-03
+	 * 조홍철
+	 * 
+	 * 댓글 삭제(게시판 삭제될때)
+	 * 
+	 * @param prBoard - 게시판 번호
+	 */
+	public void deleteReplyToBoard(PRBoard prBoard);
+
 }
