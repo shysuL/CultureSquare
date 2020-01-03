@@ -23,6 +23,7 @@ $(document).ready(function(){
 	});
 });
 $(document).ready(function() {
+	
 	// 댓글 입력
 	$("#btnCommInsert").click(function() {
 
@@ -52,6 +53,47 @@ $(document).ready(function() {
 				.attr("name", "recontents")
 				.css("display", "none")
 				.text($("#recontents").val())
+		);
+		$(document.body).append($form);
+		$form.submit();
+		}
+	});
+
+	// 대댓글 입력
+	$("#btnrereplyInsert").click(function() {
+
+	if($('#rerecontents').val() == ''){
+		$("#replyerror").modal({backdrop: 'static', keyboard: false});
+	}else{
+		
+	
+	
+	$form = $("<form>").attr({
+		action: "/reply/reinsert",
+		method: "post"
+	}).append(
+		$("<input>").attr({
+			type:"hidden",
+			name:"boardno",
+			value:"${view.boardno }"
+		})
+	).append(
+		$("<input>").attr({
+			type:"hidden",
+			name:"userno",
+			value:"${LoginUser.userno }"
+		})
+	).append(
+		$("<input>").attr({
+			type:"hidden",
+			name:"userno",
+			value:"${LoginUser.userno }"
+		})
+	).append(
+		$("<textarea>")
+			.attr("name", "rerecontents")
+			.css("display", "none")
+			.text($("#rerecontents").val())
 		);
 		$(document.body).append($form);
 		$form.submit();
@@ -348,134 +390,7 @@ $(document).ready(function() {
 </script>
 
 <style type="text/css">
-#view_head{
-	background-color: #343a40;
-	border: 1px solid black;
-	max-width: 95%;
-	height: 45px;
-	text-align: center;
-	color: white;
-	padding: 6px;
-}
-#writer_head{
-	background-color: #343a40;
-	border: 1px solid black;
-	max-width: 95%;
-	height: 45px;
-	color: white;
-	padding: 6px;
-	font-size: 25px;
-}
-.con_left{
-	width: 68%;
-	border: 1px solid black;
-	float: left;
-}
-.con_right{
-	width: 32%;
-	border: 1px solid black;
-	float: right;
-}
-#view_writer{
-	border: 1px solid black;
-	max-width: 95%;
-    height: 35px;
-	padding: 6px;
 
-}
-#view_content{
-	border: 1px solid black;
-	max-width: 95%;
-	height: auto;
-}
-#writer_nick{
-	width:30%;
-	float: left;
-}
-
-#viewcount{
-	width: 20%;
-	float:right;
-}
-#write_date{
-	width: 30%;
-	float:right;
-}
-
-#view_buttonarea{
-	max-width: 95%;
-	text-align: right;
-}
-#writer_title{
-	background-color: #343a40;
-	color : white;
-}
-#writer_photo{
-    width: 100px;
-    height: 100px;
-	float:left;
-}
-#profileImg{
-	width:98px;
-	height:98px;
-	display: block;
-	margin: 0 auto;
-}
-
-#writer_info{
-    width: 150px;
-    height: 100px;
-	float:right;
-	padding: 10px;
-	text-align: center;
-}
-
-#reply_head{
-	background-color: #343a40;
-	border: 1px solid black;
-	max-width: 95%;
-	height: 45px;
-	color: white;
-	padding: 6px;
-	font-size: 25px;
-}
-
-#reply_date{
-	width: 20%;
-	float:right;
-}
-#view_recontents{
-	border: 1px solid black;
-	max-width: 95%;
-    height: 80px;
-	padding: 6px;
-/*     overflow: scroll; */
-}
-#recontents{
-	float: left;
-	width: 680px;
-    height: auto;
-}
-#deleteReplyBtn{
-	font-size: 12px; 
-	float: right;
-}
-
-#replyinputheader{
-	background-color: #343a40;
-	border: 1px solid black;
-	max-width: 95%;
-	height: 45px;
-	color: white;
-	padding: 6px;
-	font-size: 25px;
-}
-#replyinputbody{
-	border: 1px solid black;
-	max-width: 95%;
-    height: 80px;
-	padding: 6px;
-}
 </style>
 <%
 	Date date = new Date();
@@ -534,16 +449,9 @@ $(document).ready(function() {
 	
 
 
-	<c:if test="${userno eq writer.userno  }">
-		<a style="float: right"
-			href=""><button style="margin-left:2px;" class="btn btn-primary" type="button">수정하기</button></a>
-		<a style="float: right"
-			href=""
-			onclick="warning();"><button style="margin-left:2px;"class="btn btn-primary" type="button">삭제하기</button></a>
-	</c:if>
-
 <!-- 댓글 처리 -->
 <div>
+
 
 	
 		<%-- 댓글입력 시 이동 위치 --%>
@@ -556,68 +464,97 @@ $(document).ready(function() {
 <c:if test="${login }">
 <!-- 댓글 입력 -->
 <div>
-<div style="text-align: right; margin-right: 35px; margin-bottom: 5px;">
-		<a><button id="writereply" class="btn  bbc" type="button">댓글작성</button></a>
-</div>
-
-<div id = "replyinputheader">
-	코멘트 남기기
-</div>
-<div  id = "replyinputbody" class="form-inline text-center col-9" style="display: none;">
-	<div class="row">
-	<div class="col-10">
-	<input type="hidden"  id="userno" name="userno" value="${LoginUser.userno }" />
-	<input type="hidden"  id="boardno" name="boardno" value="${ view.boardno}" />
-<%-- 	<input type="text" size="10" class="form-control" id="replyWriter" name = "usernick" value="${LoginUser.usernick }" readonly="readonly"/> --%>
-	<textarea rows="2" style="width:100%;" class="form-control" id="recontents" name="recontents" ></textarea>
+	<div style="text-align: right; margin-right: 35px; margin-bottom: 5px;">
+			<a><button id="writereply" class="btn  bbc" type="button">댓글작성</button></a>
+			<c:if test="${userno eq writer.userno  }">
+				<a style="float: right"
+					href=""><button style="margin-left:2px;" class="btn bbc" type="button">수정하기</button></a>
+				<a style="float: right"
+					href=""
+					onclick="warning();"><button style="margin-left:2px;"class="btn bbc" type="button">삭제하기</button></a>
+			</c:if>
 	</div>
-	<div class="col-2">
-	<button id="btnCommInsert" class="btn bbc">입력</button>
-	</div>
-	</div>
-</div>	<!-- 댓글 입력 end -->
+	
+	<div id = "replyinputheader">코멘트 남기기</div>
+	
+	<div  id = "replyinputbody" class="form-inline text-center col-9" style="display: none;">
+		<div class="row">
+			<div class="col-10">
+				<input type="hidden"  id="userno" name="userno" value="${LoginUser.userno }" />
+				<input type="hidden"  id="boardno" name="boardno" value="${ view.boardno}" />
+				<%-- 	<input type="text" size="10" class="form-control" id="replyWriter" name = "usernick" value="${LoginUser.usernick }" readonly="readonly"/> --%>
+				<textarea rows="2" cols="90" style="width:100%;" class="form-control" id="recontents" name="recontents" ></textarea>
+			</div>
+			<div class="col-2">
+				<button id="btnCommInsert" class="btn bbc">입력</button>
+			</div>
+		</div>
+	</div>	<!-- 댓글 입력 end -->
 </div>
 
 </c:if>
 
 <br>
 
-
+	<!-- 댓글view -->
 <c:forEach items="${replyList }" var="reply">
-
+	
 		<div class="container container-fluid" style="margin-bottom: 40px">
-			<div id = "reply_head" class="col-xs-12 col-sm-6 col-md-8">
+		<div class="row">
+		
+			<div id = "reply_head" class="col-12">
 				<span>${reply.usernick }</span>
 				<div id = "reply_date" class="col-md-4" style="font-size: 13px;">
 					${reply.replydate}
 				</div>
 			</div>
-		<div id = "view_recontents" class="col-xs-12 col-sm-6 col-md-8" >
-			<div id = "recontents"  class="col-md-4" >
-				${reply.recontents }
+			
+			<div class="col-9">
+			<div id = "view_recontents" >
+				<div id = "recontents" class="col-12">${reply.recontents }</div>
 			</div>
+			</div>
+			<div class="col-1.5">
 				<c:if test="${login }">
-				<br><br>
-					<div id = "rereplyBtn" class="col-md-2"style="float:left" >
-						<a ><button id="rereply" class="btn  bbc" type="button">답글</button></a>
-					</div>
+				<div id = "rereplyBtn">
+					<a ><button id="rereply" class="btn bbc" type="button">답글</button></a>
+				</div>
 				</c:if>
+			</div>
+			<div class="col-1.5">
 				<c:if test="${LoginUser.userno eq reply.userno }">
-					<div id = "deleteReplyBtn"  class="col-md-2"  >
-					<button class="btn btn-default btn-xs" 
-						onclick="deleteReply(${reply.replyno });">삭제</button>
-					</div>
+				<div id = "deleteReplyBtn">
+					<button class="btn bbc" onclick="deleteReply(${reply.replyno });">삭제</button>
+				</div>
 				</c:if>
-					<div id = "rereplybody" class="form-inline text-center col-9" style = "display: none;">
-						<textarea rows="2" cols="50" class="form-control" id="rerecontents" name="rerecontents" ></textarea>
-						<button id="btnrereplyInsert" class="btn bbc">입력</button>
-					</div>
-		</div>
+			</div>
+			
+			<!-- 대댓글 입력 -->
+				<div id = "rereplybody" class="form-inline text-center col-9" >
+				<div class="row">
+				<div class="col-6">
+					<input type="hidden"  id="replyno" name="replyno" value="${reply.replyno }" />
+					<input type="hidden"  id="userno" name="userno" value="${LoginUser.userno }" />
+					<input type="hidden"  id="boardno" name="boardno" value="${ view.boardno}" />	
+					<input type="hidden"  id="groupno" name="groupno" value="${ reply.groupno}" />	
+					<input type="hidden"  id="replyorder" name="replyorder" value="${ reply.replyorder}" />	
+					<input type="hidden"  id="replydepth" name="replydepth" value="${ reply.replydepth}" />	
+					<textarea rows="2" cols="50" class="form-control" >
+<%-- 						${reply.replyno } ${ reply.groupno}  ${ reply.replyorder}  ${ reply.replydepth} --%>
+					</textarea>
+				</div>
+				</div>
+				<div class="col-2">
+					<button id="btnrereplyInsert" class="btn bbc">입력</button>
+				</div>
+				</div>
+			
+			</div>
+			</div>
 		<!-- 글내용 -->
 		<!-- 버튼 -->
 		
-		</div>
-	
+		
 </c:forEach>
 
 
@@ -626,20 +563,20 @@ $(document).ready(function() {
 
 
 <div class="col-3">
-<ul class="list-group" style="width: 300px;">
-  <li id = "writer_title" class="list-group-item">
-	작성자 프로필
-	</li>
-  <li class="list-group-item">
-  <div id = "writer_photo">
-	<img id="profileImg" src="/resources/img/userdefaultprofile.png" class="img-responsive img-circle"
+	<ul class="list-group" style="width: 300px;">
+		<li id = "writer_title" class="list-group-item">작성자 프로필</li>
+	<li class="list-group-item">
+		<div id = "writer_photo">
+		<img id="profileImg" src="/resources/img/userdefaultprofile.png" class="img-responsive img-circle"
 							alt="Responsive image">
-</div>
-  <div id = "writer_info">${writer.usernick } 
-  <br>
-  		<div> <button class="btn btn-default" style="background-color: #343a40 !important; color: white !important; margin-top: 15px;">
-  		팔로우</button></div>
-   </div>
+		</div>
+  		<div id = "writer_info">${writer.usernick } 
+  		<br>
+	  		<div> 
+	  		<button class="btn btn-default" style="background-color: #343a40 !important; 
+	  				color: white !important; margin-top: 15px;">팔로우</button>
+	  		</div>
+  		</div>
    </li>
 </ul>
 </div>

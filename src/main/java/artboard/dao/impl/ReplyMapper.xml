@@ -6,7 +6,7 @@
 
 <mapper namespace="artboard.dao.face.ReplyDao">
 	
-	<insert id="insert" parameterType="artboard.dto.Reply">
+	<insert id="insertReply" parameterType="artboard.dto.Reply">
 		INSERT INTO reply (replyno, groupno,replyorder,replydepth,recontents,replydate,userno,boardno)
 		VALUES(reply_seq.nextval, groupno_seq.nextval,0,1,#{recontents} ,TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), #{userno},#{boardno})
 	</insert>
@@ -33,4 +33,10 @@
 		resultType="int">
 		SELECT count(*) FROM reply WHERE replyno = #{replyno}
 	</select>
+	
+	
+	<insert id="insertRereply" parameterType="artboard.dto.Reply">
+		INSERT INTO reply (replyno, groupno,replyorder,replydepth,recontents,replydate,userno,boardno)
+		VALUES(reply_seq.nextval,    ,0,1,#{recontents} ,TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), #{userno},#{boardno})
+	</insert>
 </mapper>

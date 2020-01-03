@@ -5,6 +5,7 @@ import java.util.Map;
 
 import prboard.dto.PRBoard;
 import prboard.dto.PRType;
+import prboard.dto.Reply;
 import prboard.dto.UpFile;
 import util.PRPaging;
 
@@ -255,7 +256,7 @@ public interface PRBoardDao {
 	public int selectrecommendView(PRBoard prBoard);
 
 	/**
-	 * 2020-01-01
+	 * 2020-01-02
 	 * 조홍철
 	 * 
 	 * 좋아요 삭제
@@ -263,4 +264,37 @@ public interface PRBoardDao {
 	 * @param prBoard - 삭제할 게시글 정보가 담긴 객체
 	 */
 	public void deleteBlike(PRBoard prBoard);
+
+	
+	/**
+	 * 2020-01-03
+	 * 조홍철
+	 * 
+	 * 유저 번호 조회
+	 * 
+	 * @param usernick - 유저 닉네임
+	 * @return Reply -유저 번호가 담긴 객체
+	 */
+	public Reply selectUserNoToReply(String usernick);
+
+	/**
+	 * 2020-01-03
+	 * 조홍철
+	 * 
+	 * 댓글 리스트 조회
+	 * 
+	 * @param reply - 게시판 번호가 담긴 객체
+	 * @return List - 댓글 리스트
+	 */
+	public List<Reply> selectReplyList(Reply reply);
+
+	/**
+	 * 2020-01-03
+	 * 조홍철
+	 * 
+	 * 댓글 삭제(게시판 삭제될때)
+	 * 
+	 * @param prBoard - 게시판 번호
+	 */
+	public void deleteReplyToBoard(PRBoard prBoard);
 }
