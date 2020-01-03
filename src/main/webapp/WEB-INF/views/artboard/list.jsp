@@ -138,7 +138,7 @@ $(document).ready(function(){
 </style>
 
 <div class="container list-container">
-<div class="h2"><h2> CALLENDAR </h2></div>
+<div class="h2"><h2> CALENDAR </h2></div>
 <hr>
 <div class="row">
 	
