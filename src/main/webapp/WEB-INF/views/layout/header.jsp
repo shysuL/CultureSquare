@@ -31,19 +31,28 @@ $(document).ready(function() {
 	
 	if(${not empty cookie.rememberUser.value }){
 		// 쿠키값이 있을때 // 쿠키값에 들어있는 아이디 가져오기 // 체크박스 선택 
+//		console.log(1)
 		$('#userid1').val("${cookie.rememberUser.value }");
 		$("input:checkbox[id='rememberCheck']").prop("checked", true);
 	} else {
 		// 쿠키값이 없다면 // 체크박스 해제
+//		console.log(2)
 		$("input:checkbox[id='rememberCheck']").prop("checked", false); // 체크 해제
 	}
 	
 	$('#rememberCheck').click(function(){
 		if($("input:checkbox[id='rememberCheck']").is(":checked") == true){
-//			console.log("체크 트루야");
-			$('#userid1').val("${cookie.rememberUser.value }");
-		}
-		else{		
+	
+			if(${not empty cookie.rememberUser.value }){
+			console.log("체크 트루야");
+			$('#userid1').val("${cookie.rememberUser.value }");				
+			
+			} else {
+				$('#userid1').val();
+			}
+		} 
+		
+		else {		
 //			console.log("ㅊ크박스 체크 해제");
 			$('#userid1').val("");
 		}
@@ -122,6 +131,39 @@ $(document).ready(function() {
 		}
 	})
 })
+
+$(document).ready(function() {
+	/**
+	 *    헤더에 적용할 JS active
+	 */
+	
+    var url = location.href;
+    var arr = url.split("/");
+    
+    let identifier = arr[3];
+    
+    if (identifier == "board" || "artboard" || "prboard") {
+       // url이 메인이거나 구독이라면
+       if (arr[4] == "noticelist") {
+	       $("#noticelist").addClass("active");
+       } else if (arr[4] == "freelist") {
+	       $("#freelist").addClass("active");
+       
+       } else if (arr[4] == "faqlist") {
+	       $("#faqlist").addClass("active");
+       
+       } else if (arr[3] == "artboard") {
+	       $("#artboard").addClass("active");
+       
+       } else if (arr[4] == "prlist") {
+	       $("#prlist").addClass("active");
+       
+       } 
+       
+    } 
+	    
+});
+
 </script>
 
 <style type="text/css">
@@ -191,11 +233,11 @@ h5 {
   
 	<div class="collapse navbar-collapse" id="navbarCollapse">
 	    <ul class="navbar-nav mr-auto">
-	      <li class="nav-item">
-	        <a class="nav-link" href="/board/noticelist">공지사항<span class="sr-only">(current)</span></a>
+	      <li class="nav-item ">
+	        <a class="nav-link" id="noticelist" href="/board/noticelist">공지사항<span class="sr-only">(current)</span></a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/board/freelist">자유 게시판</a>
+	        <a class="nav-link" id="freelist" href="/board/freelist">자유 게시판</a>
 	      </li>
 					<%
 						Date date = new Date();
@@ -215,13 +257,13 @@ h5 {
 					%>
 					
 <%-- 					<c:if test = "${<%= cal.get(Calendar.MONTH)+1%> < 10 }"> --%>
-	        <a class="nav-link" href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>">CALENDAL </a>
+	        <a class="nav-link" id="artboard" href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>">CALENDAL </a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/prboard/prlist">PR</a>
+	        <a class="nav-link" id="prlist" href="/prboard/prlist">PR</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/board/faqlist">FAQ</a>
+	        <a class="nav-link" id="faqlist" href="/board/faqlist">FAQ</a>
 	      </li>
 	    </ul>
 	<!-- 우측 상단 아이콘 -->
