@@ -15,7 +15,7 @@ public interface ReplyDao {
 	 * 
 	 * @param comment - 입력될 댓글
 	 */
-	public void insert(Reply reply);
+	public void insertReply(Reply reply);
 
 	/**
 	 * 이수현
@@ -50,5 +50,15 @@ public interface ReplyDao {
 	 * @return int - 댓글 갯수
 	 */
 	public int countReply(Reply reply);
+
+	/**
+	 * 이수현
+	 * 2020 - 01 - 03
+	 * 
+	 * 대댓글 INSERT
+	 * 
+	 * @param reply - 입력될 댓글
+	 */
+	public void insertRereply(Reply reply);
 
 }

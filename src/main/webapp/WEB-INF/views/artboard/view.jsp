@@ -23,6 +23,7 @@ $(document).ready(function(){
 	});
 });
 $(document).ready(function() {
+	
 	// 댓글 입력
 	$("#btnCommInsert").click(function() {
 
@@ -52,6 +53,47 @@ $(document).ready(function() {
 				.attr("name", "recontents")
 				.css("display", "none")
 				.text($("#recontents").val())
+		);
+		$(document.body).append($form);
+		$form.submit();
+		}
+	});
+
+	// 대댓글 입력
+	$("#btnrereplyInsert").click(function() {
+
+	if($('#rerecontents').val() == ''){
+		$("#replyerror").modal({backdrop: 'static', keyboard: false});
+	}else{
+		
+	
+	
+	$form = $("<form>").attr({
+		action: "/reply/reinsert",
+		method: "post"
+	}).append(
+		$("<input>").attr({
+			type:"hidden",
+			name:"boardno",
+			value:"${view.boardno }"
+		})
+	).append(
+		$("<input>").attr({
+			type:"hidden",
+			name:"userno",
+			value:"${LoginUser.userno }"
+		})
+	).append(
+		$("<input>").attr({
+			type:"hidden",
+			name:"userno",
+			value:"${LoginUser.userno }"
+		})
+	).append(
+		$("<textarea>")
+			.attr("name", "rerecontents")
+			.css("display", "none")
+			.text($("#rerecontents").val())
 		);
 		$(document.body).append($form);
 		$form.submit();
@@ -609,7 +651,15 @@ $(document).ready(function() {
 					</div>
 				</c:if>
 					<div id = "rereplybody" class="form-inline text-center col-9" style = "display: none;">
-						<textarea rows="2" cols="50" class="form-control" id="rerecontents" name="rerecontents" ></textarea>
+						<input type="hidden"  id="replyno" name="replyno" value="${reply.replyno }" />
+						<input type="hidden"  id="userno" name="userno" value="${LoginUser.userno }" />
+						<input type="hidden"  id="boardno" name="boardno" value="${ view.boardno}" />	
+						<input type="hidden"  id="groupno" name="groupno" value="${ reply.groupno}" />	
+						<input type="hidden"  id="replyorder" name="replyorder" value="${ reply.replyorder}" />	
+						<input type="hidden"  id="replydepth" name="replydepth" value="${ reply.replydepth}" />	
+						<textarea rows="2" cols="50" class="form-control" id="rerecontents" name="rerecontents" >
+<%-- 						${reply.replyno } ${ reply.groupno}  ${ reply.replyorder}  ${ reply.replydepth} --%>
+						</textarea>
 						<button id="btnrereplyInsert" class="btn bbc">입력</button>
 					</div>
 		</div>
