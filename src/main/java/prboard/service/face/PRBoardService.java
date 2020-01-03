@@ -211,4 +211,69 @@ public interface PRBoardService {
 	 * @param prBoard - 삭제할 게시글 정보가 담긴 객체
 	 */
 	public void deletePR(PRBoard prBoard);
+
+	/**
+	 * 202-01-02
+	 * 조홍철
+	 * 
+	 * 유저 번호 조회
+	 * 
+	 * @param usernick - 유저 닉네임
+	 * @return PRBoard - 유저 번호가 담긴 객체
+	 */
+	public PRBoard getUserNoByNick(String usernick);
+	
+	/**
+	 * 2020-01-02
+	 * 조홍철
+	 * 
+	 * 추천 여부 조회
+	 * 
+	 * @param prBoard - 추천 여부 조회할 정보가 담긴 객체
+	 * @return int - 추천 여부
+	 */
+	public int recommendCheck(PRBoard prBoard);
+
+	/**
+	 * 2020-01-02
+	 * 조홍철
+	 * 
+	 * 추천을 한다.
+	 * 
+	 * @param prBoard - 추천 테이블에 삽입할 데이터 객체
+	 */
+	public void recommend(PRBoard prBoard);
+
+	
+	/**
+	 * 2020-01-02
+	 * 조홍철
+	 * 
+	 * 추천 취소를 한다..
+	 * 
+	 * @param prBoard - 추천 테이블에서 삭제할 데이터 객체
+	 */
+	public void recommendCancal(PRBoard prBoard);
+
+	/**
+	 * 2020-01-02
+	 * 조홍철
+	 * 
+	 * 게시글의 추천 갯수를 센다
+	 * 
+	 * @param prBoard - 게시글 정보가 담긴 객체
+	 * @return int - 추천수
+	 */
+	
+	public int recommendView(PRBoard prBoard);
+
+	/**
+	 * 2020-01-03
+	 * 조홍철
+	 * 
+	 * 좋아요 테이블 삭제
+	 * @param prBoard - 삭제할 게시글 정보가 담긴 객체
+	 */
+	public void deleteBlike(PRBoard prBoard);
+
 }
