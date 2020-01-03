@@ -31,19 +31,28 @@ $(document).ready(function() {
 	
 	if(${not empty cookie.rememberUser.value }){
 		// 쿠키값이 있을때 // 쿠키값에 들어있는 아이디 가져오기 // 체크박스 선택 
+//		console.log(1)
 		$('#userid1').val("${cookie.rememberUser.value }");
 		$("input:checkbox[id='rememberCheck']").prop("checked", true);
 	} else {
 		// 쿠키값이 없다면 // 체크박스 해제
+//		console.log(2)
 		$("input:checkbox[id='rememberCheck']").prop("checked", false); // 체크 해제
 	}
 	
 	$('#rememberCheck').click(function(){
 		if($("input:checkbox[id='rememberCheck']").is(":checked") == true){
-//			console.log("체크 트루야");
-			$('#userid1').val("${cookie.rememberUser.value }");
-		}
-		else{		
+	
+			if(${not empty cookie.rememberUser.value }){
+			console.log("체크 트루야");
+			$('#userid1').val("${cookie.rememberUser.value }");				
+			
+			} else {
+				$('#userid1').val();
+			}
+		} 
+		
+		else {		
 //			console.log("ㅊ크박스 체크 해제");
 			$('#userid1').val("");
 		}
