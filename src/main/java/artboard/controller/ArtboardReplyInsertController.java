@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import artboard.dto.Reply;
 import artboard.service.face.PFBoardService;
@@ -53,6 +54,25 @@ public class ArtboardReplyInsertController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@RequestMapping(value = "/reply/reinsert", method = RequestMethod.GET)
+	public void rereplyInsert(Reply reply) {
+		
+	}
+	
+	@RequestMapping(value = "/reply/reinsert", method = RequestMethod.POST)
+	public String rereplyInsertProc(Reply reply,
+			@RequestParam("rerecontents") String rerecontents) {
+		
+		reply.setRecontents(rerecontents);
+		
+		logger.info("대댓글 입력 : " +  reply);
+
+		
+//		pfboardService.insertRereply(reply);
+		
+		return "redirect:/artboard/view?boardno="+reply.getBoardno();
 	}
 	
 	

@@ -40,7 +40,7 @@ public class FAQLIstController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(FAQLIstController.class);
 	
-	@RequestMapping(value = "/board/faqlist", method = RequestMethod.GET)
+	@RequestMapping(value = "/faqboard/faqlist", method = RequestMethod.GET)
 	public void faqList(Model model, @RequestParam(defaultValue = "1") int curPage, HttpSession session) {
 	
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */

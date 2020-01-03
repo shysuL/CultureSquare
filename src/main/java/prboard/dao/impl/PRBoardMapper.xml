@@ -79,7 +79,7 @@
 		   SELECT rownum rnum, B.* FROM (
 		       SELECT
 		            BO.boardno, BO.title, BO.writtendate, BO.contents,
-		           BO.views, BO.userno, BO.postno, P.prname, U.usernick, (SELECT COUNT(*) FROM blike WHERE BO.boardno = boardno) AS blike
+		           BO.views, BO.userno, BO.postno, P.prname, U.usernick, (SELECT COUNT(*) FROM blike WHERE BO.boardno = boardno) AS blike, (SELECT COUNT(*) FROM reply WHERE BO.boardno = boardno) AS replyCnt
 		       FROM board BO, prtype P, user_table U
                WHERE BO.boardno = P.boardno
                AND BO.userno = U.userno
@@ -198,4 +198,31 @@
 			AND boardno = #{boardno }
 	</delete>
 	
+	<select id="selectUserNoToReply"
+    	parameterType="String" resultType="prboard.dto.Reply">
+	    SELECT userno FROM user_table
+	    WHERE 1=1
+	   	AND usernick = #{usernick}
+	 </select>
+	 
+	<select id="selectReplyList" resultType="prboard.dto.Reply" parameterType="prboard.dto.Reply">
+		select R.*, U.usernick from reply R, user_table U
+		WHERE R.userno = U.userno
+		AND boardno = #{boardno}
+		ORDER BY replyno DESC
+	</select>
+	
+	<delete id="deleteReplyToBoard"
+	 parameterType="prboard.dto.PRBoard">
+		DELETE reply
+		WHERE 1=1
+			AND boardno = #{boardno }
+	</delete>
+	
+	<insert id="insertReply"
+	 parameterType="prboard.dto.Reply">
+		
+		INSERT INTO reply 
+		VALUES(reply_seq.nextval, groupno_seq.nextval, 0, 1, #{recontents}, sysdate, #{userno}, #{boardno})
+	</insert>
 </mapper>
