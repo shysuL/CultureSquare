@@ -17,13 +17,8 @@ public class PRBoard {
 	private String usernick;
 	
 	private int blike;
-
-	@Override
-	public String toString() {
-		return "PRBoard [boardno=" + boardno + ", title=" + title + ", writtendate=" + writtendate + ", content="
-				+ content + ", views=" + views + ", userno=" + userno + ", postno=" + postno + ", prname=" + prname
-				+ ", usernick=" + usernick + ", blike=" + blike + "]";
-	}
+	
+	private int replyCnt;
 
 	public int getBoardno() {
 		return boardno;
@@ -105,5 +100,18 @@ public class PRBoard {
 		this.blike = blike;
 	}
 
-	
+	public int getReplyCnt() {
+		return replyCnt;
+	}
+
+	public void setReplyCnt(int replyCnt) {
+		this.replyCnt = replyCnt;
+	}
+
+	@Override
+	public String toString() {
+		return "PRBoard [boardno=" + boardno + ", title=" + title + ", writtendate=" + writtendate + ", content="
+				+ content + ", views=" + views + ", userno=" + userno + ", postno=" + postno + ", prname=" + prname
+				+ ", usernick=" + usernick + ", blike=" + blike + ", replyCnt=" + replyCnt + "]";
+	}
 }
