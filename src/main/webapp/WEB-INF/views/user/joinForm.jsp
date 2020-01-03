@@ -6,33 +6,29 @@
 
 
 <style type="text/css">
+
+.form-group{
+
+	margin-bottom:5%;
+
+}
+
+.form-group2{
+
+	margin-bottom:10%;
+
+}
+
+#joinName{
+    height: 70px;
+    text-align: center;
+    padding: 1.5%;
+    margin-bottom: 5%;
+    color: rgba(255,255,255,.75)
+}
+
 .container{
-	margin-top: 5%;
-}
-.btn-primary {
-    color: white;
-    background-color: #343a40;
-    border-color: #343a40!important;
-}
-.btn-primary:hover {
-    color: white;
-    background-color: #343a40;
-    border-color: rgba(255,255,255,.75);
-}
-.btn-info {
-    color: rgba(255,255,255,.75);
-    background-color: #212529;
-    border-color: #212529;
-}
-.btn-info:hover {
-    color: rgba(255,255,255,.75);
-    background-color: #5a6268;
-    border-color: #5a6268;
-}
-.btn-info:not(:disabled):not(.disabled).active, .btn-info:not(:disabled):not(.disabled):active, .show>.btn-info.dropdown-toggle {
-    color: rgba(255,255,255,.75);
-    background-color: #5a6268;
-    border-color: #5a6268;
+	margin-top: 2%;
 }
 </style>
 
@@ -59,7 +55,7 @@
 	    var maskWidth = window.document.body.clientWidth;
 	    var mask = "<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'></div>";
 	    var loadingImg = '';
-	    loadingImg += "<div id='loadingImg' style='position:absolute; left:50%; top:40%; display:none; z-index:10000; margin-top:23%;'>";
+	    loadingImg += "<div id='loadingImg' style='position:absolute; left:45%; top:55%; display:none; z-index:10000;'>";
 	    loadingImg += "    <img src='/resources/img/loadimg.gif'>";
 	    loadingImg += "</div>";
 	    $('body').append(mask).append(loadingImg);
@@ -76,7 +72,7 @@
 	
 $(document).ready(function(){
 	
-//	showLoadingBar();
+//	showLoadingBar(); // 로딩바 TEST
 	
 // 	정규식 검사 변수
 	var id_Check = true;
@@ -95,47 +91,63 @@ $(document).ready(function(){
 		if(!id_Check || $('#userid').val() == ""){
 			$(".content").text('아이디를 확인해주세요.');
 			$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
-			$("#userid").focus();
+			$("#inputjoinCheckBtn").click(function(){
+				$("#userid").focus();	
+			})
+			
 		} 
 		
 //		2. 패스워드 검사	
 		else if(!pw_Check || $('#userpw').val() == ""){
 			$(".content").text('비밀번호를 확인해주세요.');
 			$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
-			$("#userpw").focus();
+			$("#inputjoinCheckBtn").click(function(){
+				$("#userpw").focus();	
+			})
 		}
 		
 // 		3. 패스워드 확인 검사
 		else if(!pw_Check2 || $('#userpw2').val() == "" || $('#userpw').val() != $('#userpw2').val()) {
-				$(".content").text('비밀번호2를 확인해주세요.');
+				$(".content").text('비밀번호 재입력란을 다시 확인해주세요.');
 				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
 				$("#userpw2").focus();
+				$("#inputjoinCheckBtn").click(function(){
+					$("#userpw2").focus();	
+				})
 		}
 		
 // 		4. 이름 검사
 		else if(!name_Check || $('#username').val() == "") {
 			$(".content").text('이름을 확인해주세요.');
 			$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
-			$("#username").focus();
+			$("#inputjoinCheckBtn").click(function(){
+				$("#username").focus();	
+			})
 		}
 // 		5. 닉네임 검사
 		else if(!nick_Check || $('#usernick').val() == ""){
 				$(".content").text('닉네임을 확인해주세요.');
 				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
-				$("#usernick").focus();
+				$("#inputjoinCheckBtn").click(function(){
+					$("#usernick").focus();	
+				})
 		}
 		
 // 		6. 핸드폰 검사
-		else if(!phone_Check ||  $('#usernick').val() == ""){
+		else if(!phone_Check ||  $('#userphone').val() == ""){
 				$(".content").text('핸드폰 번호를 확인해주세요.');
 				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
-				$("#userphone").focus();
+				$("#inputjoinCheckBtn").click(function(){
+					$("#userphone").focus();	
+				})
 		} 		
 //		7. 생년월일 검사
 		else if(!birth_Check || $('#userbirth').val() == ""){
 			$(".content").text('생년월일을 확인해주세요.');
 			$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
-			$("#userbirth").focus();
+			$("#inputjoinCheckBtn").click(function(){
+				$("#userbirth").focus();	
+			})
 		}
 		
 // 		8. 성별 체크 검사
@@ -144,27 +156,35 @@ $(document).ready(function(){
 				console.log("엘스 이 프 : " + a);
 				$(".content").text('성별을 선택 해주세요');
 				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
-				$("#usergender").focus();
+				$("#inputjoinCheckBtn").click(function(){
+					$("#usergender").focus();	
+				})
 		}
 		
 // 		9. 관심분야 검사
 		else if($("input:checkbox[name='interest']").is(":checked") == false){
 				$(".content").text('관심분야를 한개 이상 선택 해주세요');
 				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
-				$("#interest").focus();	
+				$("#inputjoinCheckBtn").click(function(){
+					$("#interest").focus();	
+				})
 		}
 		
 // 		10. 회원구분
 		else if($("input:radio[name='usertype']").is(":checked") == false){
 				$(".content").text('회원구분을  선택 해주세요');
 				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
-				$("#usertype").focus();	
+				$("#inputjoinCheckBtn").click(function(){
+					$("#usertype").focus();	
+				})
 		}
 //		11. 이용약관
 		else if($("input:checkbox[name='agree']").is(":checked") == false){			
 				$(".content").text('이용약관에 동의 해주세요');
 				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
-				$("#agree").focus();	
+				$("#inputjoinCheckBtn").click(function(){
+					$("#agree").focus();	
+				})
 		}
 		else { 	
 			
@@ -347,15 +367,15 @@ $(document).ready(function(){
 
 <div class="container">
    
-   <div class="innercon1" style="width: 40%;">
-   
+<form action="/user/joinProc" method=post>
+  
       <div style="background-color: #343a40!important;">
-         <h2 style="color: rgba(255,255,255,.75);">회원가입</h2>
+         <h2 id="joinName">회원가입</h2>
       </div>
       
-      <div>
-         <form action="/user/joinProc" method=post>
-           
+  	
+  	 <div class="row">
+      <div class="col-5" style="padding-left: 3%;">           
            <div class="form-group">
              <label for="userid">아이디</label>
              <input type="text" class="form-control" id="userid" placeholder="이메일 입력" name="userid" required>
@@ -386,7 +406,7 @@ $(document).ready(function(){
              <div class="check_font" id="name_check"></div>
              
            </div>
-
+	
            <div class="form-group">
              <label for="usernick">닉네임</label>
              <input type="text" class="form-control" id="usernick" placeholder="닉네임 입력" name="usernick" required>
@@ -401,20 +421,23 @@ $(document).ready(function(){
              <input type="tel" class="form-control" id="userphone" placeholder="'-'없이 번호만 입력해주세요" name="userphone" required>
              <div class="valid-feedback">Valid.</div>
              <div class="invalid-feedback">Please fill out this field.</div>
-             <div class="check_font" id="phone_check"></div>
-             
+             <div class="check_font" id="phone_check"></div>         
            </div>
            
            <div class="form-group">
-             <label for="userbirth">생년월일</label>
-             <input type="text" class="form-control" id="userbirth" placeholder="생년월일 입력" name="userbirth" required>
+             <label for="userbirth">생년월일 </label>
+             <input type="text" class="form-control" id="userbirth" placeholder="생년월일 ex)20200101" name="userbirth" required>
              <div class="valid-feedback">Valid.</div>
              <div class="invalid-feedback">Please fill out this field.</div>
              <div class="check_font" id="birth_check"></div>
            </div>
-           
-           
-           <div class="form-group">
+        </div> 
+        
+       <div class="col-2"></div> 
+       
+		<div class="col-5">
+	                    
+           <div class="form-group2">
            		성별
 	            <div class="custom-control custom-radio">
 	               <input type="radio" class="custom-control-input" id="customradiom" name="usergender" value="남자">
@@ -426,7 +449,19 @@ $(document).ready(function(){
 	            </div>
            </div> 
            
-           <div class="form-group">
+           <div class="form-group2">
+           		회원구분
+	            <div class="custom-control custom-radio">
+	               <input type="radio" class="custom-control-input" id="usualuser" name="usertype" value="0">
+	               <label class="custom-control-label" for="usualuser">일반 사용자</label>
+	            </div>
+	            <div class="custom-control custom-radio">
+	               <input type="radio" class="custom-control-input" id="perfomencer" name="usertype" value="1">
+	               <label class="custom-control-label" for="perfomencer">예술인</label>
+	            </div>
+           </div> 
+           
+           <div class="form-group2">
            		관심분야
            		<div class="custom-control custom-check">
 	               <input type="checkbox" class="custom-control-input" id="busking" name="interest" value="버스킹">
@@ -440,31 +475,22 @@ $(document).ready(function(){
 	               <input type="checkbox" class="custom-control-input" id="etc" name="interest" value="기타">
 	               <label class="custom-control-label" for="etc">기타</label>
 	            </div>           		
+	            
            </div>
-           
-           <div class="form-group">
-           		회원구분
-	            <div class="custom-control custom-radio">
-	               <input type="radio" class="custom-control-input" id="usualuser" name="usertype" value="0">
-	               <label class="custom-control-label" for="usualuser">일반 사용자</label>
-	            </div>
-	            <div class="custom-control custom-radio">
-	               <input type="radio" class="custom-control-input" id="perfomencer" name="usertype" value="1">
-	               <label class="custom-control-label" for="perfomencer">예술인</label>
-	            </div>
-           </div> 
-                           
-           <div class="form-group form-check">
-             <label class="form-check-label">
-               <input class="form-check-input" type="checkbox" name="agree" required> 이용약관 및 개인정보처리방침에 동의
-             </label>
+                             
+           <div class="form-group2">
+           	 <div class="custom-control custom-check">
+	              <input type="checkbox" class="custom-control-input" id="agree" name="agree">
+	              <label class="custom-control-label" for="agree"><a href="https://localhost:8443/layout/fotter/clause">이용약관</a> 및 <a href="https://localhost:8443/layout/fotter/personal">개인정보처리방침에 동의</a></label>
+	         </div>           
            </div>
-           
-           <button id = "joinBtn" type="submit" class="btn btn-primary">가입</button>
-           
-         </form>
-      </div>
-   </div> <!-- innercon1 -->
+		</div> <!-- col-4 -->
+         <div style="    margin-left: 47%; margin-top: 2%;">
+           <button id = "joinBtn" type="submit" class="btn btn-dark">가입</button>
+         </div>
+                    
+      
+   </div> <!-- row -->
    
    
 <!-- 유효성 검사 실패시  모달창 -->
@@ -484,13 +510,14 @@ $(document).ready(function(){
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="submit" id="inputjoinCheckBtn"class="btn btn-info" data-dismiss="modal">확인</button>
+        <button type="submit" id="inputjoinCheckBtn"class="btn btn-dark" data-dismiss="modal">확인</button>
       </div>
 
     </div>
   </div>
 </div>
    
+         </form>
 </div> <!-- container -->
 
 
