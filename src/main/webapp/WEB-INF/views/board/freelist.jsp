@@ -110,9 +110,14 @@ color: #343a40;
 	<tr>
 <%-- 	<td><input type="checkbox" name="checkRow" value="${list.boardno }"/></td> --%>
 		<td style="color: #1a3a5a; width: 5%;">${list.boardno }</td>
-		<c:forEach items = "${like }" var = "like">
-		<td style="color: #1a3a5a; width: 5%;">${like }</td>
-		</c:forEach>
+		<c:choose>
+			<c:when test="${list.blike == 0}">
+				<td style="color: #1a3a5a; width: 5%;"></td>
+			</c:when>
+			<c:otherwise>
+				<td style="color: #1a3a5a; width: 5%;">${list.blike }</td>
+			</c:otherwise>
+		</c:choose>
 		<td style="color: #1a3a5a; width: 40%;"><a class="tit" href="/board/freeview?boardno=${list.boardno }">${list.title }</a></td>
 		<td style="color: #1a3a5a; width: 20%;">${list.usernick }</td>
 		<td style="color: #1a3a5a; width: 10%;">${list.views }</td>

@@ -9,7 +9,8 @@
 	<select id="selectAll" parameterType="util.Paging" resultType="board.dto.FreeBoard">
 		SELECT * FROM (
 		SELECT rownum rnum, B.*FROM (
-		SELECT fb.postno, fb.boardno, fb.title, fb.writtendate, fb.contents, fb.views, ut.usernick FROM board fb, user_table ut
+		SELECT fb.postno, fb.boardno, fb.title, fb.writtendate, fb.contents, fb.views, ut.usernick, (SELECT COUNT(*) FROM blike WHERE fb.boardno = boardno) AS blike
+		FROM board fb, user_table ut
 		WHERE fb.userno = ut.userno
 		AND fb.postno = 3
 		<if test="searchcategory != null and searchcategory != '' and searchtarget != null and searchtarget != ''">
