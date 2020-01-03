@@ -116,7 +116,7 @@
 		else{
 			console.log("로그아웃 상태");
 		}
-		
+		//크롤링
 		$.ajax({
 			type : "get",
 			url : "/main/culture",
