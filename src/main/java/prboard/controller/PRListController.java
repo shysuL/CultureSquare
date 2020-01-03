@@ -78,7 +78,7 @@ public class PRListController {
 		logger.info("여긴ㅅ ㅣㄹ행 되나");
 		
 		
-		if(searchType!=null & !"".equals(searchType)) {
+		if(searchType!=null && !"".equals(searchType)) {
 			map.put("searchType",searchType);
 		}
 
