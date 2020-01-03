@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import board.dto.FreeBoard;
+import board.dto.Reply;
 import board.dto.UpFile;
 import user.dto.User_table;
 import util.Paging;
@@ -198,5 +199,26 @@ public interface FreeBoardDao {
 	 * @param boardno - 삭제할 게시글 번호가 담긴 객체
 	 */
 	public void deleteBlike(int boardno);
+
+	/**
+	 * 2019-01-03
+	 * 고인호
+	 * 
+	 * 댓글 입력
+	 * 
+	 * @param reply - 입력될 댓글
+	 */
+	public void insertReply(Reply reply);
+
+	/**
+	 * 2019-01-03
+	 * 고인호
+	 * 
+	 * 댓글 리스트
+	 * 
+	 * @param boardno - 댓글 리스트 조회할 게시글번호
+	 * @return - 조회된 게시글 댓글 리스트
+	 */
+	public List<Reply> selectReply(int boardno);
 
 }

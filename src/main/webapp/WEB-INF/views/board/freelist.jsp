@@ -97,7 +97,7 @@ color: #343a40;
 
 <div style="background-color: #343a40; height: 50px;">
 	<i class="fas fa-list" style= "color: #ffff;margin-left: 18px;" title="게시글 번호"></i>
-	<i class="fas fa-heart" style= "color: #ffff;margin-left: 30px;" title="좋아요"></i>
+	<i class="fas fa-heart" style= "color: #ffff;margin-left: 29px;" title="좋아요"></i>
 	<i class="far fa-user" style= "color: #ffff;margin-left: 351px;" title="작성자 닉네임"></i>
 	<a href="/board/freelist" title="조회수, 클릭하시면 조회수 순으로 정렬"><i class="fas fa-eye" style= "color: #ffff;margin-left: 83px;"></i></a>
 	<a href="/board/freelist" title="게시글 작성 시간, 클릭하시면 시간 순으로 정렬"><i class="far fa-clock" style= "color: #ffff;margin-left: 80px;"></i></a>

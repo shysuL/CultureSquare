@@ -73,6 +73,80 @@ function recheckAction() {
 	});
 }
 
+//댓글 슬라이드토글
+$(document).ready(function(){
+	$('#writereply').click(function() {
+		$('#replyinputbody').slideToggle("fast");
+	});
+});
+
+//대댓글 슬라이드토글
+$(document).ready(function(){
+	$('#rereply').click(function() {
+		$('#rereplybody').slideToggle("fast");
+	});
+});
+$(document).ready(function() {
+	// 댓글 입력
+	$("#btnCommInsert").click(function() {
+
+		if($('#recontents').val() == ''){
+			$("#replyerror").modal({backdrop: 'static', keyboard: false});
+		}else{
+			
+		
+		
+		$form = $("<form>").attr({
+			action: "/freereply/insert",
+			method: "post"
+		}).append(
+			$("<input>").attr({
+				type:"hidden",
+				name:"boardno",
+				value:"${board.boardno }"
+			})
+		).append(
+			$("<input>").attr({
+				type:"hidden",
+				name:"userno",
+				value:"${LoginUser.userno }"
+			})
+		).append(
+			$("<textarea>")
+				.attr("name", "recontents")
+				.css("display", "none")
+				.text($("#recontents").val())
+		);
+		$(document.body).append($form);
+		$form.submit();
+		}
+	});
+});
+	
+//댓글 삭제
+function deleteReply(replyno) {
+	$.ajax({
+		type: "post"
+		, url: "/freereply/delete"
+		, dataType: "json"
+		, data: {
+			replyno: replyno
+		}
+		, success: function(data){
+			if(data.success) {
+				console.log(replyno);
+				$("[data-replyno='"+replyno+"']").remove();
+				
+			} else {
+				alert("댓글 삭제 실패");
+			}
+		}
+		, error: function() {
+			console.log("error");
+		}
+	});
+}
+
 </script>
 
 <style type="text/css">
@@ -123,6 +197,88 @@ function recheckAction() {
 			</c:if>
 		</tr>
 </table>
+
+  <!-- 댓글 처리 -->
+<div>
+
+	
+		<%-- 댓글입력 시 이동 위치 --%>
+<!-- 비로그인상태 -->
+<c:if test="${not login }">
+<strong>로그인이 필요합니다</strong><br>
+</c:if>
+
+<!-- 로그인상태 -->
+<c:if test="${login }">
+<!-- 댓글 입력 -->
+<div>
+<div style="text-align: left; margin-bottom: 5px;">
+		<a><button id="writereply" class="btn  bbc" type="button">댓글작성</button></a>
+</div>
+
+<div id = "replyinputheader">
+	코멘트 남기기
+</div>
+<div  id = "replyinputbody" class="form-inline text-center col-9" style="display: none;">
+	<div class="row">
+	<div class="col-11">
+	<input type="hidden"  id="userno" name="userno" value="${board.userno }" />
+	<input type="hidden"  id="boardno" name="boardno" value="${ board.boardno}" />
+<%-- 	<input type="text" size="10" class="form-control" id="replyWriter" name = "usernick" value="${LoginUser.usernick }" readonly="readonly"/> --%>
+	<textarea rows="2" style="width: 626px;" class="form-control" id="recontents" name="recontents" ></textarea>
+	</div>
+	<div class="col-1">
+	<button id="btnCommInsert" class="btn bbc" style="
+    margin-left: 40px;">입력</button>
+	</div>
+	</div>
+</div>	<!-- 댓글 입력 end -->
+</div>
+
+</c:if>
+
+<br>
+
+
+<c:forEach items="${replyList }" var="reply">
+
+		<div class="container container-fluid" style="margin-bottom: 40px">
+			<div id = "reply_head" class="col-xs-12 col-sm-6 col-md-8">
+				<span>${reply.usernick }</span>
+				<div id = "reply_date" class="col-md-4" style="font-size: 13px;">
+					${reply.replydate}
+				</div>
+			</div>
+		<div id = "view_recontents" class="col-xs-12 col-sm-6 col-md-8" >
+			<div id = "recontents"  class="col-md-4" >
+				${reply.recontents }
+			</div>
+				<c:if test="${login }">
+				<br><br>
+					<div id = "rereplyBtn" class="col-md-2"style="float:left" >
+						<a ><button id="rereply" class="btn  bbc" type="button">답글</button></a>
+					</div>
+				</c:if>
+				<c:if test="${LoginUser.userno eq reply.userno }">
+					<div id = "deleteReplyBtn"  class="col-md-2"  >
+					<button class="btn btn-default btn-xs" 
+						onclick="deleteReply(${reply.replyno });">삭제</button>
+					</div>
+				</c:if>
+					<div id = "rereplybody" class="form-inline text-center col-9" style = "display: none;">
+						<textarea rows="2" cols="50" class="form-control" id="rerecontents" name="rerecontents" ></textarea>
+						<button id="btnrereplyInsert" class="btn bbc">입력</button>
+					</div>
+		</div>
+		<!-- 글내용 -->
+		<!-- 버튼 -->
+		
+		</div>
+	
+</c:forEach>
+
+</div>	<!-- 댓글 처리 end -->
+
 	<div class="text-center" >
 		<button id="btnList" class="btn btn-default" style="float: left; background-color: #343a40; color: white;">목록</button>
 		<c:if test="${usernick eq board.usernick}"> 

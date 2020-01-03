@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import board.controller.FreeWriteController;
 import board.dao.face.FreeBoardDao;
 import board.dto.FreeBoard;
+import board.dto.Reply;
 import board.dto.UpFile;
 import board.service.face.FreeBoardService;
 import user.dto.User_table;
@@ -189,6 +190,20 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	public void deleteBlike(int boardno) {
 
 		freeboardDao.deleteBlike(boardno);
+		
+	}
+
+	@Override
+	public void insertReply(Reply reply) {
+		
+		freeboardDao.insertReply(reply);
+		
+	}
+
+	@Override
+	public List<Reply> getReplyList(int boardno) {
+		
+		return freeboardDao.selectReply(boardno);
 		
 	}
 

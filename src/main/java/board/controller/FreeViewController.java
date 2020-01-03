@@ -1,6 +1,10 @@
 package board.controller;
 
 
+import java.io.IOException;
+import java.io.Writer;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -17,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import board.dto.FreeBoard;
+import board.dto.Reply;
 import board.dto.UpFile;
 import board.service.face.FreeBoardService;
 import user.bo.NaverLoginBO;
@@ -80,12 +86,28 @@ public class FreeViewController {
 		FreeBoard boardDetail = freeboardService.freeDetail(boardno);
 		UpFile fileinfo = freeboardService.getFile(boardno);
 		
+		if(session.getAttribute("usernick") != null) {
+			// 세션에 저장된 usernick를 모델로 전달
+			FreeBoard user = new FreeBoard();
+			Object usernick = session.getAttribute("usernick");
+			user = freeboardService.getUserNoByNick(usernick);		
+			
+			// 조회된 회원정보를 모델로 전달
+			model.addAttribute("LoginUser", user);
+		}
+		
+		
+		
 //		System.out.println(boardDetail);
 		
 		logger.info(boardDetail.toString());
-		
 		model.addAttribute("board", boardDetail);
 		model.addAttribute("file", fileinfo);
+		
+		//댓글 리스트 전달
+		Reply reply = new Reply();
+		List<Reply> replyList = freeboardService.getReplyList(boardno);
+		model.addAttribute("replyList", replyList);
 		
 	}
 	
@@ -254,5 +276,40 @@ public class FreeViewController {
 		model.addAttribute("recommendCnt", recommendCnt);
 		return "/board/recheck";
 	}
+	
+	@RequestMapping(value = "/freereply/insert", method = RequestMethod.GET)
+	public void replyInsert(Reply reply) {	
+		replyInsertProc(reply);
+	
+	}
+	
+	@RequestMapping(value = "/freereply/insert", method = RequestMethod.POST)
+	public String replyInsertProc(Reply reply) {
+		
+		logger.info(reply.toString());
+		// 전달받은 댓글 내용을 입력
+		freeboardService.insertReply(reply);
+		
+		return "redirect:/board/freeview?boardno="+reply.getBoardno();
+	}
+	
+//	@RequestMapping(value = "/reply/delete", method = RequestMethod.GET)
+//	public void replyDelete(Reply reply, Writer out) {
+//		replyDeleteProc(reply, out);
+//	}
+//	
+//	
+//	@RequestMapping(value = "/reply/delete", method = RequestMethod.POST)
+//	public void replyDeleteProc(Reply reply, Writer out) {
+//		
+//		boolean success = pfboardService.deleteReply(reply);
+//		
+//		
+//		try {
+//			out.write("{\"success\":"+success+"}");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 }

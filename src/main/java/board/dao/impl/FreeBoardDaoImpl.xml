@@ -136,5 +136,23 @@
 		WHERE 1=1
 			AND boardno = #{boardno }
 	</delete>
+	
+	<insert id="insertReply" parameterType="board.dto.Reply">
+		INSERT INTO reply (replyno, groupno,replyorder,replydepth,recontents,replydate,userno,boardno)
+		VALUES(reply_seq.nextval, groupno_seq.nextval,0,1,#{recontents} ,TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), #{userno}, #{boardno})
+	</insert>
+	
+	<select id="selectReply" parameterType="int"
+		resultType="board.dto.Reply">
+		SELECT rownum rnum, B.* FROM (
+				SELECT 
+					r.replyno, r.groupno, r.replyorder, r.replydepth, r.recontents, r.replydate, r.userno, r.boardno, u.usernick
+				FROM reply r, user_table u
+				WHERE boardno = #{boardno}
+				AND r.userno = u.userno
+				ORDER BY replydate
+				) B
+		 ORDER BY rnum DESC
+	</select>
 		
 </mapper>
