@@ -449,16 +449,9 @@ $(document).ready(function() {
 	
 
 
-	<c:if test="${userno eq writer.userno  }">
-		<a style="float: right"
-			href=""><button style="margin-left:2px;" class="btn btn-primary" type="button">수정하기</button></a>
-		<a style="float: right"
-			href=""
-			onclick="warning();"><button style="margin-left:2px;"class="btn btn-primary" type="button">삭제하기</button></a>
-	</c:if>
-
 <!-- 댓글 처리 -->
 <div>
+
 
 	
 		<%-- 댓글입력 시 이동 위치 --%>
@@ -473,6 +466,13 @@ $(document).ready(function() {
 <div>
 	<div style="text-align: right; margin-right: 35px; margin-bottom: 5px;">
 			<a><button id="writereply" class="btn  bbc" type="button">댓글작성</button></a>
+			<c:if test="${userno eq writer.userno  }">
+				<a style="float: right"
+					href=""><button style="margin-left:2px;" class="btn bbc" type="button">수정하기</button></a>
+				<a style="float: right"
+					href=""
+					onclick="warning();"><button style="margin-left:2px;"class="btn bbc" type="button">삭제하기</button></a>
+			</c:if>
 	</div>
 	
 	<div id = "replyinputheader">코멘트 남기기</div>
