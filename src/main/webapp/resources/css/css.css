@@ -103,3 +103,147 @@
     margin-bottom: 5px;
     margin-top: 3px;
 }
+
+
+
+
+/* --------------- artView.jap ------------------------------------------*/
+
+#view_head{
+	background-color: #343a40;
+	border: 1px solid black;
+	max-width: 95%;
+	height: 45px;
+	text-align: center;
+	color: white;
+	padding: 6px;
+}
+#writer_head{
+	background-color: #343a40;
+	border: 1px solid black;
+	max-width: 95%;
+	height: 45px;
+	color: white;
+	padding: 6px;
+	font-size: 25px;
+}
+.con_left{
+	width: 68%;
+	border: 1px solid black;
+	float: left;
+}
+.con_right{
+	width: 32%;
+	border: 1px solid black;
+	float: right;
+}
+#view_writer{
+	border: 1px solid black;
+	max-width: 95%;
+    height: 35px;
+	padding: 6px;
+
+}
+#view_content{
+	border: 1px solid black;
+	max-width: 95%;
+	height: auto;
+}
+#writer_nick{
+	width:30%;
+	float: left;
+}
+
+#viewcount{
+	width: 20%;
+	float:right;
+}
+#write_date{
+	width: 30%;
+	float:right;
+}
+
+#view_buttonarea{
+	max-width: 95%;
+	text-align: right;
+}
+#writer_title{
+	background-color: #343a40;
+	color : white;
+}
+#writer_photo{
+    width: 100px;
+    height: 100px;
+	float:left;
+}
+#profileImg{
+	width:98px;
+	height:98px;
+	display: block;
+	margin: 0 auto;
+}
+
+#writer_info{
+    width: 150px;
+    height: 100px;
+	float:right;
+	padding: 10px;
+	text-align: center;
+}
+
+#reply_head{
+	background-color: #343a40;
+	border: 1px solid black;
+	max-width: 95%;
+	height: 45px;
+	color: white;
+	padding: 6px;
+	font-size: 25px;
+}
+
+#reply_date{
+	width: 20%;
+	float:right;
+}
+#view_recontents{
+	border: 1px solid black;
+	max-width: 95%;
+    height: 80px;
+	padding: 6px;
+/*     overflow: scroll; */
+}
+#recontents{
+	float: left;
+	width: 680px;
+    height: auto;
+}
+
+#rereplyBtn {
+	margin-top: 15px;
+    margin-right: 10px;
+}
+#deleteReplyBtn{
+	margin-top: 15px;
+    
+	
+}
+
+#replyinputheader{
+	background-color: #343a40;
+	border: 1px solid black;
+	max-width: 95%;
+	height: 45px;
+	color: white;
+	padding: 6px;
+	font-size: 25px;
+}
+#replyinputbody{
+	border: 1px solid black;
+	max-width: 95%;
+    height: 80px;
+	padding: 6px;
+}
+#btnrereplyInsert {
+	margin-top: 10px;
+}
+

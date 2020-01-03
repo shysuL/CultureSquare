@@ -142,21 +142,22 @@ $(document).ready(function() {
     
     let identifier = arr[3];
     
-    if (identifier == "board" || "artboard" || "prboard") {
+    if (identifier == "noticeboard" || "board" || "artboard" || "prboard" || "faqboard") {
        // url이 메인이거나 구독이라면
-       if (arr[4] == "noticelist") {
-	       $("#noticelist").addClass("active");
-       } else if (arr[4] == "freelist") {
-	       $("#freelist").addClass("active");
-       
-       } else if (arr[4] == "faqlist") {
-	       $("#faqlist").addClass("active");
+       if (arr[3] == "noticeboard") {
+	       $("#noticeboard").addClass("active");
+	       
+       } else if (arr[3] == "board") {
+	       $("#board").addClass("active");
        
        } else if (arr[3] == "artboard") {
 	       $("#artboard").addClass("active");
        
-       } else if (arr[4] == "prlist") {
-	       $("#prlist").addClass("active");
+       } else if (arr[3] == "prboard") {
+	       $("#prboard").addClass("active");
+       
+       } else if (arr[3] == "faqboard") {
+	       $("#faqboard").addClass("active");
        
        } 
        
@@ -234,10 +235,10 @@ h5 {
 	<div class="collapse navbar-collapse" id="navbarCollapse">
 	    <ul class="navbar-nav mr-auto">
 	      <li class="nav-item ">
-	        <a class="nav-link" id="noticelist" href="/board/noticelist">공지사항<span class="sr-only">(current)</span></a>
+	        <a class="nav-link" id="noticeboard" href="/noticeboard/noticelist">공지사항<span class="sr-only">(current)</span></a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" id="freelist" href="/board/freelist">자유 게시판</a>
+	        <a class="nav-link" id="board" href="/board/freelist">자유 게시판</a>
 	      </li>
 					<%
 						Date date = new Date();
@@ -260,10 +261,10 @@ h5 {
 	        <a class="nav-link" id="artboard" href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>">CALENDAL </a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" id="prlist" href="/prboard/prlist">PR</a>
+	        <a class="nav-link" id="prboard" href="/prboard/prlist">PR</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" id="faqlist" href="/board/faqlist">FAQ</a>
+	        <a class="nav-link" id="faqboard" href="/faqboard/faqlist">FAQ</a>
 	      </li>
 	    </ul>
 	<!-- 우측 상단 아이콘 -->
