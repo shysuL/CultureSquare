@@ -541,13 +541,11 @@ $(document).ready(function() {
 			href=""
 			onclick="warning();"><button style="margin-left:2px;"class="btn btn-primary" type="button">삭제하기</button></a>
 	</c:if>
-	
-
 
 <!-- 댓글 처리 -->
 <div>
 
-	<div id="commentbody"></div>
+	
 		<%-- 댓글입력 시 이동 위치 --%>
 <!-- 비로그인상태 -->
 <c:if test="${not login }">
@@ -557,20 +555,28 @@ $(document).ready(function() {
 <!-- 로그인상태 -->
 <c:if test="${login }">
 <!-- 댓글 입력 -->
-<div><br><br>
-		<a style="float: right"><button id="writereply" class="btn  bbc" type="button">댓글작성</button></a>
+<div>
+<div style="text-align: right; margin-right: 35px; margin-bottom: 5px;">
+		<a><button id="writereply" class="btn  bbc" type="button">댓글작성</button></a>
 </div>
 
 <div id = "replyinputheader">
 	코멘트 남기기
 </div>
 <div  id = "replyinputbody" class="form-inline text-center col-9" style="display: none;">
+	<div class="row">
+	<div class="col-10">
 	<input type="hidden"  id="userno" name="userno" value="${LoginUser.userno }" />
 	<input type="hidden"  id="boardno" name="boardno" value="${ view.boardno}" />
 <%-- 	<input type="text" size="10" class="form-control" id="replyWriter" name = "usernick" value="${LoginUser.usernick }" readonly="readonly"/> --%>
-	<textarea rows="2" cols="60" class="form-control" id="recontents" name="recontents" ></textarea>
+	<textarea rows="2" style="width:100%;" class="form-control" id="recontents" name="recontents" ></textarea>
+	</div>
+	<div class="col-2">
 	<button id="btnCommInsert" class="btn bbc">입력</button>
+	</div>
+	</div>
 </div>	<!-- 댓글 입력 end -->
+</div>
 
 </c:if>
 
