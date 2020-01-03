@@ -59,9 +59,12 @@ $(document).ready(function() {
 		}
 	});
 
-	// 대댓글 입력
-	$("#btnrereplyInsert").click(function() {
-
+	
+	$('.btnreplyInsert').click(function() {
+//1	
+		
+		var groupno = $(this).attr("data-groupno")
+		
 	if($('#rerecontents').val() == ''){
 		$("#replyerror").modal({backdrop: 'static', keyboard: false});
 	}else{
@@ -88,7 +91,7 @@ $(document).ready(function() {
 		$("<input>").attr({
 			type:"hidden",
 			name:"groupno",
-			value:"${reply.groupno }"
+			value: groupno
 		})
 	)
 // 	.append(
@@ -115,7 +118,38 @@ $(document).ready(function() {
 		}
 	});
 });
+
+//2
+// 대댓글 등록하기
+fn_rereco(boardno, groupno) {
+	//빈칸 입력한 경우
+	if($('#recontents').val() == ''){
+		$("#replyerror").modal({backdrop: 'static', keyboard: false});
+	}
 	
+	else{
+		$.ajax({
+			type : "POST",
+			url : "/reply/insert",
+			data: {
+				//게시판 번호, 그룹번호, 댓글 내용
+				boardno : boardno,
+				groupno : groupno,
+				rerecontents : rerecontents
+			},
+			dataType : "json",
+			success : function(res){
+				
+				
+			}
+				
+				
+		});
+		
+		
+	}
+	
+}	
 //댓글 삭제
 function deleteReply(replyno) {
 	$.ajax({
@@ -554,13 +588,14 @@ $(document).ready(function() {
 					<input type="hidden"  id="groupno" name="groupno" value="${ reply.groupno}" />	
 					<input type="hidden"  id="replyorder" name="replyorder" value="${ reply.replyorder}" />	
 					<input type="hidden"  id="replydepth" name="replydepth" value="${ reply.replydepth}" />	
-					<textarea rows="2" cols="50" class="form-control" >
-<%-- 						${reply.replyno } ${ reply.groupno}  ${ reply.replyorder}  ${ reply.replydepth} --%>
+					<textarea rows="2" cols="50" class="form-control" id = "rerecontents" name = "rerecontents">
+						${reply.replyno } /  ${ reply.groupno} /  ${ reply.replyorder} / ${ reply.replydepth}
 					</textarea>
 				</div>
 				</div>
 				<div class="col-2">
-					<button id="btnrereplyInsert" class="btn bbc">입력</button>
+<%-- 					<button class="btnrereplyInsert btn bbc" data-groupno="${ reply.groupno}"  >입력</button> --%>
+					<button class="btnrereplyInsert"  onclick="fn_rereco('${ view.boardno}','${ reply.groupno}')" class="btn bbc">입력</button>
 				</div>
 				</div>
 			
