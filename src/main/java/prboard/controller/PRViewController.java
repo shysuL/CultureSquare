@@ -1,5 +1,9 @@
 package prboard.controller;
 
+import java.io.IOException;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,6 +25,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import prboard.dto.PRBoard;
+import prboard.dto.Reply;
 import prboard.dto.UpFile;
 import prboard.service.face.PRBoardService;
 import user.bo.NaverLoginBO;
@@ -295,6 +300,56 @@ public class PRViewController {
 		return "prboard/recheck";
 	}
 	
+	
+	@RequestMapping(value="/prboard/addComment", method=RequestMethod.POST)
+	public ModelAndView addCommentPR(Model model, Reply reply, HttpSession session, ModelAndView mav) {
+		
+		//로그인 상태인 경우만 처리
+		if((String)session.getAttribute("usernick")!=null) {
+			logger.info("댓글 등록 테스트  : " + reply);
+			//유저 번호 저장
+			reply.setUserno(prBoardService.getUserNoForReply((String)session.getAttribute("usernick")).getUserno());
+			logger.info("서비스 후  : " + reply);
+			
+			mav.addObject("insert", true);
+			//viewName지정하기
+			mav.setViewName("jsonView");
+		}
+		else {
+			mav.addObject("insert", false);
+			//viewName지정하기
+			mav.setViewName("jsonView");
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value="/prboard/commentList", method=RequestMethod.POST)
+	public ModelAndView commentListPR(Model model, Reply reply, HttpSession session, ModelAndView mav) {
+		
+
+		ArrayList<HashMap> reList = new ArrayList<HashMap>();
+        
+        // 해당 게시물 댓글
+        List<Reply> replyVO = prBoardService.getReplyByboardNo(reply);
+        
+        if(replyVO.size() > 0){
+            for(int i=0; i<replyVO.size(); i++){
+                HashMap hm = new HashMap();
+                hm.put("boardno", replyVO.get(i).getBoardno());
+                hm.put("recontents", replyVO.get(i).getRecontents());
+                hm.put("usernick", replyVO.get(i).getUsernick());
+                
+                reList.add(hm);
+            }
+            
+        }
+		
+		mav.addObject("reList", reList);
+		//viewName지정하기
+		mav.setViewName("jsonView");
+		
+		return mav;
+	}
 }
 	
 	

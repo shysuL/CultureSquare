@@ -7,6 +7,119 @@
 
 <jsp:include page="../layout/header.jsp" />
 
+<script type="text/javascript">
+/*
+ * 댓글 등록하기(Ajax)
+ */
+function fn_comment(boardno){
+    
+	//입력한 댓글 내용 저장
+	var recontents = $('#reply').val();
+	
+	//빈칸 입력한 경우
+	if(recontents==""){
+		$("#prReplyErrorModal").modal({backdrop: 'static', keyboard: false});
+	}
+	
+	//제대로 입력한 경우
+	else{
+		$.ajax({
+			type : "POST",
+			url : "/prboard/addComment",
+			data : {
+				//게시판 번호, 댓글 내용 넘겨줌
+				boardno : boardno,
+				recontents : recontents
+			},
+			dataType : "json",
+			success : function(res) {
+				
+				// 로그인 후 댓글 작성일때 처리 - 댓글 리스트 보여줌
+	            if(res.insert)
+	            {
+	            	console.log("로그인 상태");
+	                getCommentList();
+	                $("#reply").val("");
+	            }
+	            
+				//로그아웃 상태에서 댓글 작성 처리 - 모달 호출
+	            else{
+	            	$("#reply").val("");
+	            	$("#prReplyLoginModal").modal({backdrop: 'static', keyboard: false});
+	            }
+			},
+			error : function() {
+				console.log("실패");
+			}
+		});
+	}
+}
+ 
+/**
+ * 초기 페이지 로딩시 댓글 불러오기
+ */
+$(function(){
+    
+    getCommentList();
+    
+});
+ 
+/**
+ * 댓글 불러오기(Ajax)
+ */
+function getCommentList(){
+    
+	console.log('${viewBoard.boardno }');
+	
+    $.ajax({
+        type:'POST',
+        url : "/prboard/commentList",
+        data : {
+			//게시판 번호
+			boardno : '${viewBoard.boardno }',
+		},
+        dataType : "json",
+        success : function(res){
+            
+        	console.log("리스트 : ");
+        	console.log(res.reList);
+        	
+            var html = "";
+            var cCnt = res.reList.length;
+            
+            if(res.reList.length > 0){
+                
+                for(i=0; i<res.reList.length; i++){
+                    html += "<div>";
+                    html += "<div><table class='table'><h6><strong>"+res.reList[i].usernick+"</strong></h6>";
+                    html += res.reList[i].recontents + "<tr><td></td></tr>";
+                    html += "</table></div>";
+                    html += "</div>";
+                }
+                
+            } else {
+                
+                html += "<div>";
+                html += "<div><table class='table'><h6><strong>등록된 댓글이 없습니다.</strong></h6>";
+                html += "</table></div>";
+                html += "</div>";
+                
+            }
+            
+            $("#cCnt").html(cCnt);
+            $("#commentList").html(html);
+            
+        },
+        error:function(request,status,error){
+            
+       }
+        
+    });
+}
+ 
+</script>
+
+
 
 <script type="text/javascript">
 
@@ -168,7 +281,7 @@
 				</tr>
 				<tr>
 					<td class="info" id ="Title">조회수</td><td id="Content">${viewBoard.views }</td>
-					<td class="info" id = "Title">추천수</td><td id="recommendtd"></td>
+					<td class="info" id = "Title">좋아요 수</td><td id="recommendtd"></td>
 				</tr>
 				<tr>
 					<td class="info" id = "Title">작성일</td><td colspan="3" id="Content">${viewBoard.writtendate }</td>
@@ -210,7 +323,24 @@
 			</div>
 	</div>	
 	
-	<jsp:include page="../prboard/comment.jsp" />
+        <div>
+            <div>
+                <span><strong>Comments</strong></span> <span id="cCnt"></span>
+            </div>
+            <div>
+                <table class="table">                    
+                    <tr>
+                        <td style="border-top: none;">
+                            <textarea style="margin-left: -15px;width: 1110px" rows="3" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
+                            <br>
+                            <div style="text-align: right;">
+                                <a href='#' onClick="fn_comment('${viewBoard.boardno }')" class="btn pull-right btn-success">등록</a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
 	
 	<div class="text-center">	
 		<button id="btnList" class="btn btn-primary">목록</button>
@@ -273,6 +403,62 @@
   </div>
 </div>
 
+<!-- 로그인 부탁 모달-->
+<div class="modal fade" id="prReplyLoginModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">로그인 필요!</h4>
+        <button id="prLikeLoginX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	로그인 후 댓글 작성이 가능합니다.
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="prReplyLoginModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 로그인 부탁 모달-->
+<div class="modal fade" id="prReplyErrorModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">댓글 오류</h4>
+        <button id="prLikeLoginX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	내용을 입력해주세요!
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="prReplyErrorModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 <!-- 컨테이너 -->
+
+<div class="container">
+    <form id="commentListForm" name="commentListForm" method="post">
+        <div id="commentList">
+        </div>
+    </form>
+</div>
 
 <jsp:include page="../layout/footer.jsp" />

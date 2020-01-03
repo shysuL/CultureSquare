@@ -198,4 +198,17 @@
 			AND boardno = #{boardno }
 	</delete>
 	
+	<select id="selectUserNoToReply"
+    	parameterType="String" resultType="prboard.dto.Reply">
+	    SELECT userno FROM user_table
+	    WHERE 1=1
+	   	AND usernick = #{usernick}
+	 </select>
+	 
+	<select id="selectReplyList" resultType="prboard.dto.Reply" parameterType="prboard.dto.Reply">
+		select R.*, U.usernick from reply R, user_table U
+		WHERE R.userno = U.userno
+		AND boardno = #{boardno}
+		ORDER BY replyno DESC
+	</select>
 </mapper>

@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import prboard.dao.face.PRBoardDao;
 import prboard.dto.PRBoard;
 import prboard.dto.PRType;
+import prboard.dto.Reply;
 import prboard.dto.UpFile;
 import prboard.service.face.PRBoardService;
 import util.PRPaging;
@@ -270,5 +271,15 @@ public class PRBoardServiceImpl implements PRBoardService {
 	public void deleteBlike(PRBoard prBoard) {
 
 		prBoardDao.deleteBlike(prBoard);
+	}
+
+	@Override
+	public Reply getUserNoForReply(String usernick) {
+		return prBoardDao.selectUserNoToReply(usernick);
+	}
+
+	@Override
+	public List<Reply> getReplyByboardNo(Reply reply) {
+		return prBoardDao.selectReplyList(reply);
 	}
 }
