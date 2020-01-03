@@ -51,9 +51,9 @@ public class AdminLoginController {
 		
 	}
 	
-	@RequestMapping(value="/admin/main", method=RequestMethod.GET)
-	public void main() {
-		//로그인 성공 폼 띄어주는 메소드
-	}
+//	@RequestMapping(value="/admin/main", method=RequestMethod.GET)
+//	public void main() {
+//		//로그인 성공 폼 띄어주는 메소드
+//	}
 
 } 

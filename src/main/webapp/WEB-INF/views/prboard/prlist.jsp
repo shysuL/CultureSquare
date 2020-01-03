@@ -158,7 +158,7 @@ $(document).ready(function() {
         <div class="card-body">
         	 <p class="card-text" style = "font-weight: bold;">${prboard.prname }</p>
           <p class="card-title">
-            <a href="/prboard/view?boardno=${prboard.boardno }" style = "font-weight: bold;">${prboard.title }</a>&nbsp;&nbsp;<span class="badge badge-pill badge-danger" id ="replyShow">0</span>
+            <a href="/prboard/view?boardno=${prboard.boardno }" style = "font-weight: bold;">${prboard.title }</a>&nbsp;&nbsp;<span class="badge badge-pill badge-danger" id ="replyShow">${prboard.replyCnt }</span>
           </p>
           <p class="card-text" id ="useFont">${prboard.usernick}&nbsp;(${prboard.writtendate})</p>
           <img id ="cardview"src="/resources/img/view.png"/>&nbsp;${prboard.views}

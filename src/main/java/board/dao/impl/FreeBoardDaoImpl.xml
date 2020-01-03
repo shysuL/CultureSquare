@@ -9,7 +9,8 @@
 	<select id="selectAll" parameterType="util.Paging" resultType="board.dto.FreeBoard">
 		SELECT * FROM (
 		SELECT rownum rnum, B.*FROM (
-		SELECT fb.postno, fb.boardno, fb.title, fb.writtendate, fb.contents, fb.views, ut.usernick FROM board fb, user_table ut
+		SELECT fb.postno, fb.boardno, fb.title, fb.writtendate, fb.contents, fb.views, ut.usernick, (SELECT COUNT(*) FROM blike WHERE fb.boardno = boardno) AS blike
+		FROM board fb, user_table ut
 		WHERE fb.userno = ut.userno
 		AND fb.postno = 3
 		<if test="searchcategory != null and searchcategory != '' and searchtarget != null and searchtarget != ''">
@@ -52,7 +53,7 @@
 		UPDATE board SET views = views + 1 WHERE boardno = #{boardno } 
 	</update>
 	
-	<select id="selectByUserNick" parameterType="object" resultType="user.dto.User_table">
+	<select id="selectByUserNick" parameterType="object" resultType="board.dto.FreeBoard">
 		SELECT * FROM User_table
 		WHERE usernick = #{usernick }
 	</select>
@@ -104,4 +105,54 @@
 		WHERE fileno = #{fileno }
 	</delete>
 	
+	<select id="selectRecommend" resultType="int" parameterType="board.dto.FreeBoard">
+		SELECT count(*) FROM blike
+		WHERE userno = #{userno}
+		AND boardno = #{boardno }
+	</select>
+	
+	<insert id="insertRecommend"
+	 parameterType="board.dto.FreeBoard">		
+		INSERT INTO blike 
+		VALUES(blike_seq.nextval, #{userno}, #{boardno})
+	</insert>
+	
+	<delete id="deleteRecommend"
+	 parameterType="board.dto.FreeBoard">
+		DELETE blike
+		WHERE 1=1
+			AND userno = #{userno}
+			AND boardno = #{boardno }
+	</delete>
+	
+	<select id="selectrecommendView" resultType="int" parameterType="board.dto.FreeBoard">
+		SELECT COUNT(*) FROM blike 
+		WHERE boardno = #{boardno}
+	</select>
+	
+	<delete id="deleteBlike"
+	 parameterType="int">
+		DELETE blike
+		WHERE 1=1
+			AND boardno = #{boardno }
+	</delete>
+	
+	<insert id="insertReply" parameterType="board.dto.Reply">
+		INSERT INTO reply (replyno, groupno,replyorder,replydepth,recontents,replydate,userno,boardno)
+		VALUES(reply_seq.nextval, groupno_seq.nextval,0,1,#{recontents} ,TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), #{userno}, #{boardno})
+	</insert>
+	
+	<select id="selectReply" parameterType="int"
+		resultType="board.dto.Reply">
+		SELECT rownum rnum, B.* FROM (
+				SELECT 
+					r.replyno, r.groupno, r.replyorder, r.replydepth, r.recontents, r.replydate, r.userno, r.boardno, u.usernick
+				FROM reply r, user_table u
+				WHERE boardno = #{boardno}
+				AND r.userno = u.userno
+				ORDER BY replydate
+				) B
+		 ORDER BY rnum DESC
+	</select>
+		
 </mapper>

@@ -23,7 +23,6 @@
 <!-- resources css파일 -->
 <link rel="stylesheet" href="/resources/css/css.css" />
 
-
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -282,7 +281,7 @@ h5 {
 		   </button>
 		</a>&nbsp;&nbsp;
 		<!-- 상단 로그인 아이콘 -->  
-		<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		   <span class="fas fa-user" ></span>
 		</button>
 		<!-- 로그인  드롭다운-->
@@ -298,7 +297,7 @@ h5 {
 	    
 	    <!-- 로그아웃 상태 -->
 	    <c:if test="${not login}">
-	       <div class="dropdown-menu ">
+	       <div class="dropdown-menu " id="dpMenu">
 	       
 	          <form class="px-4 py-3" action="/login" method=post>
 	             <div class="form-group">
@@ -312,7 +311,6 @@ h5 {
 	                   type="password" class="form-control"
 	                   id="userpw1" placeholder="Password" name=userpw>
 	             </div>
-	            
   
 	             <div class="form-group">
 	                <div class="form-check">
@@ -321,32 +319,39 @@ h5 {
 	                      for="rememberCheck" > 아이디 저장 </label>
 	                </div>
 	             </div>
-	             <button type="button" id="loginBtn" class="btn btn-dark">로그인</button>
 	             
-	             <div class="find">
+	             <div>
+	             <button type="button" id="loginBtn" class="btn btn-dark">로그인</button>
+	             </div>
+	             
+	             <div class="find" style="margin-top: 10px;">
 	                <a href="#" id="findInfo">아이디/비밀번호 찾기</a>
 	             </div>
-	             <div class="join">
+	           
+	             <div class="join" style="margin-top: 5px;">
 	                <a href="/user/joinForm" id="join">회원가입</a>
 	             </div>
 	          </form>
 	          <div class="dropdown-divider"></div>
 	          <!-- 구글 로그인 화면으로 이동 시키는 URL -->
 	          <!-- 구글 로그인 화면에서 ID, PW를 올바르게 입력하면 oauth2callback 메소드 실행 요청-->
-	          <div id="google_id_login" style="text-align:center">
-	             <a href="${google_url}">
-	                <img width="220" src="/resources/img/google.png"/>
-	             </a>
-	          </div>
-	          <!-- 네이버 로그인 창으로 이동 -->
-	          <div id="naver_id_login" style="text-align: center">
-	             <a href="${naver_url}"> <img width="223"
-	                src="/resources/img/naver.png" /></a>
-	          </div>
-	          <!-- 카카오 로그인 창으로 이동 -->
-	          <div id="kakao_id_login" style="text-align: center">
-	             <a href="${kakao_url}"><img width="223"
-	                src="/resources/img/kakao.png" /></a>
+	          <div class="row">
+		          <div id="google_id_login" style="text-align:center" class="col-4">
+		             <a href="${google_url}">
+		                <img width="100%" height="60" src="/resources/img/g.jpg"/>
+		             </a>
+		          </div>
+		          <!-- 네이버 로그인 창으로 이동 -->
+		          <div id="naver_id_login" style="text-align: center" class="col-4">
+		             <a href="${naver_url}"> 
+		             <img width="100%" height="55" src="/resources/img/n.jpg" /></a>
+		          </div>
+		          <!-- 카카오 로그인 창으로 이동 -->
+		          <div id="kakao_id_login" style="text-align: center" class="col-4">
+		             <a href="${kakao_url}">
+		             <img width="100%" height="55" src="/resources/img/k.jpg" /></a>
+		          </div>
+		          
 	          </div>
 	       </div>
 	    </c:if>

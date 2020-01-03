@@ -72,4 +72,36 @@ a {
 	</div>
 </nav>
 
+<!-- 관리자페이지 네비게이션 바 -->
+<ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+	<li class="nav-item">
+		<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+			aria-selected="true">&emsp;&emsp;Home&emsp;&emsp;</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="artboard-tab" data-toggle="tab" href="#artboard" role="tab" aria-controls="artboard"
+			aria-selected="false">&emsp;&emsp;ArtInformation Board&emsp;&emsp;</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="prboard-tab" data-toggle="tab" href="#prboard" role="tab" aria-controls="prboard"
+			aria-selected="false">&emsp;&emsp;PR Board&emsp;&emsp;</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="freeboard-tab" data-toggle="tab" href="#freeboard" role="tab" aria-controls="freeboard"
+			aria-selected="false">&emsp;&emsp;Free Board&emsp;&emsp;</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="faqboard-tab" data-toggle="tab" href="#faqboard" role="tab" aria-controls="faqboard"
+			aria-selected="false">&emsp;&emsp;FAQ Board&emsp;&emsp;</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="noticeboard-tab" data-toggle="tab" href="#noticeboard" role="tab" aria-controls="noticeboard"
+			aria-selected="false">&emsp;&emsp;Notice Board&emsp;&emsp;</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="user-tab" data-toggle="tab" href="#user" role="tab" aria-controls="user"
+			aria-selected="false">&emsp;&emsp;User&emsp;&emsp;</a>
+	</li>
+</ul>
+
 <div class="wrap">
