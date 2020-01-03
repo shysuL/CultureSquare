@@ -219,10 +219,12 @@
 }
 
 #rereplyBtn {
-	
+	margin-top: 15px;
+    margin-right: 10px;
 }
 #deleteReplyBtn{
-	font-size: 12px; 
+	margin-top: 15px;
+    
 	
 }
 
@@ -241,3 +243,7 @@
     height: 80px;
 	padding: 6px;
 }
+#btnrereplyInsert {
+	margin-top: 10px;
+}
+

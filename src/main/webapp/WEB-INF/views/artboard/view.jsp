@@ -496,7 +496,7 @@ $(document).ready(function() {
 
 <br>
 
-
+	<!-- 댓글view -->
 <c:forEach items="${replyList }" var="reply">
 	
 		<div class="container container-fluid" style="margin-bottom: 40px">
@@ -528,17 +528,25 @@ $(document).ready(function() {
 				</div>
 				</c:if>
 			</div>
-				<div id = "rereplybody" class="form-inline text-center col-6" style = "display: none;">
+			
+			<!-- 대댓글 입력 -->
+				<div id = "rereplybody" class="form-inline text-center col-9" >
+				<div class="row">
+				<div class="col-6">
 					<input type="hidden"  id="replyno" name="replyno" value="${reply.replyno }" />
 					<input type="hidden"  id="userno" name="userno" value="${LoginUser.userno }" />
 					<input type="hidden"  id="boardno" name="boardno" value="${ view.boardno}" />	
 					<input type="hidden"  id="groupno" name="groupno" value="${ reply.groupno}" />	
 					<input type="hidden"  id="replyorder" name="replyorder" value="${ reply.replyorder}" />	
 					<input type="hidden"  id="replydepth" name="replydepth" value="${ reply.replydepth}" />	
-					<textarea rows="2" cols="50" class="form-control" id="rerecontents" name="rerecontents" >
+					<textarea rows="2" cols="50" class="form-control" >
 <%-- 						${reply.replyno } ${ reply.groupno}  ${ reply.replyorder}  ${ reply.replydepth} --%>
 					</textarea>
+				</div>
+				</div>
+				<div class="col-2">
 					<button id="btnrereplyInsert" class="btn bbc">입력</button>
+				</div>
 				</div>
 			
 			</div>
@@ -555,20 +563,20 @@ $(document).ready(function() {
 
 
 <div class="col-3">
-<ul class="list-group" style="width: 300px;">
-  <li id = "writer_title" class="list-group-item">
-	작성자 프로필
-	</li>
-  <li class="list-group-item">
-  <div id = "writer_photo">
-	<img id="profileImg" src="/resources/img/userdefaultprofile.png" class="img-responsive img-circle"
+	<ul class="list-group" style="width: 300px;">
+		<li id = "writer_title" class="list-group-item">작성자 프로필</li>
+	<li class="list-group-item">
+		<div id = "writer_photo">
+		<img id="profileImg" src="/resources/img/userdefaultprofile.png" class="img-responsive img-circle"
 							alt="Responsive image">
-</div>
-  <div id = "writer_info">${writer.usernick } 
-  <br>
-  		<div> <button class="btn btn-default" style="background-color: #343a40 !important; color: white !important; margin-top: 15px;">
-  		팔로우</button></div>
-   </div>
+		</div>
+  		<div id = "writer_info">${writer.usernick } 
+  		<br>
+	  		<div> 
+	  		<button class="btn btn-default" style="background-color: #343a40 !important; 
+	  				color: white !important; margin-top: 15px;">팔로우</button>
+	  		</div>
+  		</div>
    </li>
 </ul>
 </div>
