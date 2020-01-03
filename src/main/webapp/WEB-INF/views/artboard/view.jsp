@@ -569,7 +569,7 @@ $(document).ready(function() {
 	<input type="hidden"  id="userno" name="userno" value="${LoginUser.userno }" />
 	<input type="hidden"  id="boardno" name="boardno" value="${ view.boardno}" />
 <%-- 	<input type="text" size="10" class="form-control" id="replyWriter" name = "usernick" value="${LoginUser.usernick }" readonly="readonly"/> --%>
-	<textarea rows="2" style="width:100%;" class="form-control" id="recontents" name="recontents" ></textarea>
+	<textarea rows="2" cols="90" style="width:100%;" class="form-control" id="recontents" name="recontents" ></textarea>
 	</div>
 	<div class="col-2">
 	<button id="btnCommInsert" class="btn bbc">입력</button>
