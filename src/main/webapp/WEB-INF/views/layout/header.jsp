@@ -22,7 +22,7 @@
 <script src="https://kit.fontawesome.com/175b2de93b.js" crossorigin="anonymous"></script>
 <!-- resources css파일 -->
 <link rel="stylesheet" href="/resources/css/css.css" />
-<link href="carousel.css" rel="stylesheet">
+
 
 <script type="text/javascript">
 
