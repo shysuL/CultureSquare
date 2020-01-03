@@ -15,12 +15,14 @@ public class PRBoard {
 	private String prname;
 	
 	private String usernick;
+	
+	private int blike;
 
 	@Override
 	public String toString() {
 		return "PRBoard [boardno=" + boardno + ", title=" + title + ", writtendate=" + writtendate + ", content="
 				+ content + ", views=" + views + ", userno=" + userno + ", postno=" + postno + ", prname=" + prname
-				+ ", usernick=" + usernick + "]";
+				+ ", usernick=" + usernick + ", blike=" + blike + "]";
 	}
 
 	public int getBoardno() {
@@ -94,4 +96,14 @@ public class PRBoard {
 	public void setUsernick(String usernick) {
 		this.usernick = usernick;
 	}
+
+	public int getBlike() {
+		return blike;
+	}
+
+	public void setBlike(int blike) {
+		this.blike = blike;
+	}
+
+	
 }
