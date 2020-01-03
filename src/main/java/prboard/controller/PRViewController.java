@@ -168,11 +168,87 @@ public class PRViewController {
 		//3. PR 타입 삭제
 		prBoardService.deletePRType(prBoard);
 		
-		//4. PR 게시글 삭제
+		//4.  좋아요 삭제
+		prBoardService.deleteBlike(prBoard);
+		
+		//5. PR 게시글 삭제
 		prBoardService.deletePR(prBoard);
 
 		return "redirect:/prboard/prlist";
 	}
+	
+	@RequestMapping(value="/prboard/recommend", method=RequestMethod.GET)
+	public String recommendPR(PRBoard prBoard, Model model, HttpSession session) {
+		
+		//보드 번호 저장
+		int boardno = prBoard.getBoardno();
+		
+		//로그인 상태인 경우만 처리
+		if((String)session.getAttribute("usernick")!=null) {
+			// 1. 회원 번호 구하기
+			prBoard = prBoardService.getUserNoByNick((String)session.getAttribute("usernick"));
+			prBoard.setBoardno(boardno);
+
+			int result = prBoardService.recommendCheck(prBoard);
+
+
+			//전에 추천한적이 없다면
+			if(result == 0) {
+				prBoardService.recommend(prBoard);
+			}
+			else {
+				prBoardService.recommendCancal(prBoard);
+			}
+
+			logger.info("버튼 클릭 : " + result);
+			logger.info("추천 보드 정보 : " + prBoard);
+
+			int recommendCnt = prBoardService.recommendView(prBoard);
+
+			//	VIEW에 모델(MODEL)값 전달하기
+			model.addAttribute("result", result);
+
+			model.addAttribute("recommendCnt", recommendCnt);
+			return "prboard/recommend";
+		}
+		//로그아웃일 경우 실패를 받을수 있도록 다시 보냄
+		else {
+			return "/prboard/view?boardno="+boardno;
+		}
+		
+	}
+	
+	@RequestMapping(value="/prboard/recheck", method=RequestMethod.GET)
+	public String reCheckPR(PRBoard prBoard, Model model, HttpSession session) {
+		
+		
+		//보드 번호 저장
+		int boardno = prBoard.getBoardno();
+		
+		// 1. 회원 번호 구하기
+		
+		//로그인 상태인 경우만 처리
+		if((String)session.getAttribute("usernick")!=null) {
+			prBoard = prBoardService.getUserNoByNick((String)session.getAttribute("usernick"));
+		}
+		
+		prBoard.setBoardno(boardno);
+		
+		logger.info(prBoard.toString());
+		
+		int result = prBoardService.recommendCheck(prBoard);
+		
+		logger.info("요건 첨에 나올 : " + result);
+		
+		int recommendCnt = prBoardService.recommendView(prBoard);
+		
+		//	VIEW에 모델(MODEL)값 전달하기
+		model.addAttribute("result", result);
+		
+		model.addAttribute("recommendCnt", recommendCnt);
+		return "prboard/recheck";
+	}
+	
 }
 	
 	
