@@ -210,6 +210,8 @@
 			</div>
 	</div>	
 	
+	<jsp:include page="../prboard/comment.jsp" />
+	
 	<div class="text-center">	
 		<button id="btnList" class="btn btn-primary">목록</button>
 		<c:if test="${viewBoard.usernick eq usernick}">

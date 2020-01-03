@@ -125,7 +125,23 @@
 			success : function(data) {
 				console.log("success")
 // 				console.log(data)
-				$("#culture").html(data)
+				$("#culture").html(data);
+				// 링크 바꾸기
+				$(".list_title").on("click", "a" , function() {
+					window.location.href = "https://search.naver.com/search.naver" + $(this).attr("href");
+					return false;
+				});
+				$(".list_thumb").on("click", "a" , function() {
+					window.location.href = "https://search.naver.com/search.naver" + $(this).attr("href");
+					return false;
+				});
+				$(".list_cate").on("click", "a", function() {
+					window.location.href = "https://search.naver.com/search.naver" + $(this).attr("href");
+					return false;
+				});
+// 					$("#culture").click(function(){
+// 					location.href="https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=%EA%B3%B5%EC%97%B0&oquery=%EC%B9%B4%EC%B9%B4%EC%98%A4%EB%B0%B0%EA%B7%B8+%EC%8B%9C%EA%B0%84&tqi=UlI4PdprvhGss75of9Nssssss1R-031480";
+// 				})
 			},
 			error : function() {
 				console.log("error")
@@ -152,16 +168,25 @@
 	<div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
 	  <div class="carousel-inner">
 	    <div class="carousel-item active">
-	      <img src="/resources/slider/AIU.jpg" class="d-block w-100" alt="...">
+	      <img src="/resources/slider/main1.jpg" class="d-block w-100" alt="...">
 	    </div>
 	    <div class="carousel-item">
-	      <img src="/resources/slider/test.jpg" class="d-block w-100" alt="...">
+	      <img src="/resources/slider/main2.jpg" class="d-block w-100" alt="...">
 	    </div>
 	    <div class="carousel-item">
-	      <img src="/resources/slider/AIU3.jpg" class="d-block w-100" alt="...">
+	      <img src="/resources/slider/main3.jpg" class="d-block w-100" alt="...">
 	    </div>
 	    <div class="carousel-item">
-	      <img src="/resources/slider/test1.jpg" class="d-block w-100" alt="...">
+	      <img src="/resources/slider/main4.jpg" class="d-block w-100" alt="...">
+	    </div>
+	    <div class="carousel-item">
+	      <img src="/resources/slider/main5.jpg" class="d-block w-100" alt="...">
+	    </div>
+	    <div class="carousel-item">
+	      <img src="/resources/slider/main6.jpg" class="d-block w-100" alt="...">
+	    </div>
+	    <div class="carousel-item">
+	      <img src="/resources/slider/main7.jpg" class="d-block w-100" alt="...">
 	    </div>
 	  </div>
 	  <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
@@ -173,6 +198,7 @@
 	    <span class="sr-only">Next</span>
 	  </a>
 	</div>
+
 	
 	<!-- 캐러셀영역 END -->
 
