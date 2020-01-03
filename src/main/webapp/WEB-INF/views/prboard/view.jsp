@@ -9,15 +9,21 @@
 
 <script type="text/javascript">
 
-//댓글 삭제 클릭
-function deleteReply(boardno){
-	console.log("댓글 삭제 번호당: " + boardno);
+//지울 댓글 번호
+var dreplyno;
+
+//댓글 삭제 클릭 -> 진짜로 삭제 할거냐는 모달 호출
+function deleteReply(replyno){
+	$("#prReplyDeleteModal").modal({backdrop: 'static', keyboard: false});
+	console.log("댓글 삭제 번호당: " + replyno);
+	dreplyno = replyno;
 }
 
 //댓글 수정 클릭
-function modifyReply(boardno){
-	console.log("댓글 수정 번호당: " + boardno);
+function modifyReply(replyno){
+	console.log("댓글 수정 번호당: " + replyno);
 }
+
 
 /*
  * 댓글 등록하기(Ajax)
@@ -100,7 +106,7 @@ function getCommentList(){
             if(res.reList.length > 0){
                 
                 for(i=0; i<res.reList.length; i++){
-                    html += "<div class='commentBox'>";
+                    html += "<div class='commentBox' id='commentBox'>";
                     html += "<h6><strong>"+res.reList[i].usernick+"</strong></h6>";
                     html += res.reList[i].recontents + "&nbsp;<small>(" + res.reList[i].replydate + ")</small>";
                     
@@ -173,6 +179,31 @@ function getCommentList(){
 //	 		$(location).attr("href", "/board/recommend?boardno=${viewBoard.boardno }");
 			console.log("추천버튼 눌림");
 			recommendAction();
+		});
+		
+		//댓글 삭제모달에서 확인 버튼 클릭 - 댓글 삭제 동작 Ajax 처리
+		$("#prReplyDeleteModalBtn").click(function() {
+			console.log(dreplyno + "입니다.");
+			
+			$.ajax({
+				type : "POST",
+				url : "/prboard/deleteComment",
+				data : {
+					//댓글번호 넘겨줌
+					replyno : dreplyno,
+				},
+				dataType : "json",
+				success : function(res) {
+
+					console.log("삭제 요청 성공");
+		           	getCommentList();
+		            
+				},
+				error : function() {
+					console.log("실패");
+				}
+			});
+			
 		});
 		
 	})
@@ -369,7 +400,7 @@ function getCommentList(){
                             <textarea style="margin-left: -15px;width: 1110px" rows="3" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
                             <br>
                             <div style="text-align: right;">
-                                <a href='#' onClick="fn_comment('${viewBoard.boardno }')" class="btn pull-right btn-success">등록</a>
+                                <a style="color:white" onClick="fn_comment('${viewBoard.boardno }')" class="btn pull-right btn-success">등록</a>
                             </div>
                         </td>
                     </tr>
@@ -474,6 +505,31 @@ function getCommentList(){
       <!-- Modal footer -->
       <div class="modal-footer">
         <button type="submit" id="prReplyErrorModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 댓글 삭제 확인 모달-->
+<div class="modal fade" id="prReplyDeleteModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">댓글 삭제</h4>
+        <button id="prLikeLoginX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	댓글을 삭제하시겠습니까?
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="prReplyDeleteModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
       </div>
 
     </div>

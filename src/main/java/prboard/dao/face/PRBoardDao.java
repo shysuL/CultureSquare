@@ -307,4 +307,14 @@ public interface PRBoardDao {
 	 * @param reply - 삽입될 댓글 정보가 저장된 객체
 	 */
 	public void insertReply(Reply reply);
+
+	/**
+	 * 2020-01-04
+	 * 조홍철
+	 * 
+	 * 댓글 삭제(댓글 삭제 버튼 눌렀을때)
+	 * 
+	 * @param reply - 댓글 번호가 담긴 객체
+	 */
+	public void deleteReplyByNo(Reply reply);
 }
