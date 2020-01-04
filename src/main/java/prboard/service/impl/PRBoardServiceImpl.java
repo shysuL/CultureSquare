@@ -299,4 +299,10 @@ public class PRBoardServiceImpl implements PRBoardService {
 
 		prBoardDao.deleteReplyByNo(reply);
 	}
+
+	@Override
+	public void updateReplyByNo(Reply reply) {
+
+		prBoardDao.updateReplyByNo(reply);
+	}
 }

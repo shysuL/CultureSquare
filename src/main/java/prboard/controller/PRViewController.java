@@ -371,6 +371,20 @@ public class PRViewController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="/prboard/modifyComment", method=RequestMethod.POST)
+	public ModelAndView modifyCommentPR(Model model, Reply reply, HttpSession session, ModelAndView mav) {
+		
+		logger.info("댓글 수정 테스트  : " + reply);
+
+		//댓글 수정
+		prBoardService.updateReplyByNo(reply);
+
+		//viewName지정하기
+		mav.setViewName("jsonView");
+		
+		return mav;
+	}
 }
 	
 	

@@ -61,7 +61,7 @@ function modifyReply(replyno,recontents){
 		html += '<span class="d-block">';
 		html += '<strong class="text-gray-dark">' + replyno + '</strong>';
 		html += '<span style="padding-left: 7px; font-size: 9pt">';
-		html += '<a href="javascript:void(0)" style="padding-right:5px">수정</a>';
+		html += '<a href="javascript:void(0)" onClick="modifyReplyAjax('+replyno +')" style="padding-right:5px">수정<a>';
 		html += '<a href="javascript:void(0)" onClick="getCommentList()" style="color:red;">취소<a>';
 		html += '</span>';
 		html += '</span>';		
@@ -140,6 +140,42 @@ $(function(){
     getCommentList();
     
 });
+
+/**
+ * 댓글 수정 처리 (Ajax)
+ */
+ function modifyReplyAjax(replyno){
+	
+	//수정한 댓글 내용
+	 var updateReContents = $('#editContent').val();
+	
+	console.log("댓글수정하ㅗㄱ 버튼 클릭 : " + replyno);
+	console.log("댓글수정내용: " + updateReContents);
+	
+	//빈칸 입력한 경우
+	if(updateReContents==""){
+		$("#prReplyErrorModal").modal({backdrop: 'static', keyboard: false});
+	}
+	//내용 입력한 경우
+	else{
+		$.ajax({
+			type : "POST",
+			url : "/prboard/modifyComment",
+			data : {
+				//댓글 번호, 수정 댓글 내용 넘겨줌
+				replyno : replyno,
+				recontents : updateReContents
+			},
+			dataType : "json",
+			success : function(res) {
+	            getCommentList();
+			},
+			error : function() {
+				console.log("실패");
+			}
+		});
+	}
+}
  
 /**
  * 댓글 불러오기(Ajax)
@@ -317,38 +353,11 @@ function getCommentList(){
 	width: 95%;
 }
 
-/* @font-face { */
-/* 	font-family: 'yg-jalnan'; */
-/* 	src: */
-/* 		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') */
-/* 		format('woff'); */
-/* 	font-weight: normal; */
-/* 	font-style: normal; */
-/* } */
-
-/* @font-face { */
-/* 	font-family: 'YanoljaYacheR'; */
-/* 	src: */
-/* 		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/YanoljaYacheR.woff') */
-/* 		format('woff'); */
-/* 	font-weight: normal; */
-/* 	font-style: normal; */
-/* } */
-
 #h3title {
-/* 	font-family: '잘난체 폰트', 'Jalnan', yg-jalnan; */
 	text-align: center;
 	padding: 20px;
 }
 
-#Title {
-/* 	font-family: '잘난체 폰트', 'Jalnan', yg-jalnan; */
-}
-
-#Content {
-/* 	font-family: '야놀자', 'YanoljaYacheR', YanoljaYacheR; */
-	font-size: 25px;
-}
 
 #btnList{
 	background-color:#343a40;
@@ -360,14 +369,7 @@ function getCommentList(){
 #fileContent{
 	background-color:#343a40; 
 	color:white;
-/* 	font-family: '야놀자', 'YanoljaYacheR', YanoljaYacheR; */
-	font-size: 25px;
 }
-
-#recommendtd{
-	font-size: 25px;
-}
-
 .commentBox {
 	position: relative;
 	padding: 5px;

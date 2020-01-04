@@ -317,4 +317,14 @@ public interface PRBoardDao {
 	 * @param reply - 댓글 번호가 담긴 객체
 	 */
 	public void deleteReplyByNo(Reply reply);
+
+	/**
+	 * 2020-01-04
+	 * 조홍철
+	 * 
+	 * 댓글 수정
+	 * 
+	 * @param reply - 댓글 번호가 담긴 객체
+	 */
+	public void updateReplyByNo(Reply reply);
 }

@@ -231,4 +231,11 @@
 		WHERE 1=1
 			AND replyno = #{replyno }
 	</delete>
+	
+	<update id="updateReplyByNo"
+		 parameterType="prboard.dto.Reply">
+		UPDATE reply SET recontents = #{recontents}
+		WHERE 1=1
+			AND replyno = #{replyno}
+	</update>
 </mapper>
