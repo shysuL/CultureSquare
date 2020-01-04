@@ -361,7 +361,6 @@ public class PRViewController {
 	@RequestMapping(value="/prboard/deleteComment", method=RequestMethod.POST)
 	public ModelAndView deleteCommentPR(Model model, Reply reply, HttpSession session, ModelAndView mav) {
 		
-		//로그인 상태인 경우만 처리
 		logger.info("댓글 삭제 테스트  : " + reply);
 
 		//댓글 삭제

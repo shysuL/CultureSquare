@@ -20,8 +20,55 @@ function deleteReply(replyno){
 }
 
 //댓글 수정 클릭
-function modifyReply(replyno){
+//댓글 번호, 댓글 내용 매개변수로 받음
+function modifyReply(replyno,recontents){
 	console.log("댓글 수정 번호당: " + replyno);
+	console.log("댓글 내용이당 : " + recontents);
+	
+	var html = "";
+
+	html += '<div id="commentBox' + replyno + '">';
+
+	html += '<title>Placeholder</title>';
+
+	html += '<rect width="100%" height="100%" fill="#007bff"></rect>';
+
+	html += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
+
+	html += '<span class="d-block">';
+
+	html += '<strong class="text-gray-dark">' + replyno + '</strong>';
+
+	html += '<span style="padding-left: 7px; font-size: 9pt">';
+
+	html += '<a href="javascript:void(0)" style="padding-right:5px">수정</a>';
+
+	html += '<a href="javascript:void(0)" onClick="showReplyList()" style="color:red;">취소<a>';
+
+	html += '</span>';
+
+	html += '</span>';		
+
+	html += '<textarea name="editContent" id="editContent" class="form-control" >';
+
+	html += recontents;
+
+	html += '</textarea>';
+
+	
+
+	html += '</p>';
+
+	html += '</div>';
+
+	
+
+	$('#commentBox' + replyno).replaceWith(html);
+
+	$('#commentBox' + replyno + ' #editContent').focus();
+
+
+	
 }
 
 
@@ -106,7 +153,7 @@ function getCommentList(){
             if(res.reList.length > 0){
                 
                 for(i=0; i<res.reList.length; i++){
-                    html += "<div class='commentBox' id='commentBox'>";
+                    html += "<div class='commentBox' id='commentBox"+res.reList[i].replyno+"'>";
                     html += "<h6><strong>"+res.reList[i].usernick+"</strong></h6>";
                     html += res.reList[i].recontents + "&nbsp;<small>(" + res.reList[i].replydate + ")</small>";
                     
@@ -117,12 +164,11 @@ function getCommentList(){
                     if(res.reList[i].usernick == "${usernick}") {
                     	html += "<div class='btnBox'>"
                     	html += "<button class ='btn-danger' onClick=deleteReply(" + res.reList[i].replyno + ")>삭제</button>&nbsp";
-                    	html += "<button class = 'btn-info' onClick=modifyReply(" + res.reList[i].replyno + ")>수정</button>&nbsp";
+                    	html += "<button class = 'btn-info' onClick=modifyReply(" + res.reList[i].replyno + ",\'"+res.reList[i].recontents+"\')>수정</button>&nbsp";
                     	html += "</div>";
                     	
                     }
                     html += "</div>";
-                    
                 }
                 
             } else {
