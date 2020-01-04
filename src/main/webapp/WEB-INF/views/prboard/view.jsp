@@ -12,6 +12,9 @@
 //지울 댓글 번호
 var dreplyno;
 
+//한번에 여러개 수정 못하게 하는 체크 변후
+var modifyCnt = 0;
+
 //댓글 삭제 클릭 -> 진짜로 삭제 할거냐는 모달 호출
 function deleteReply(replyno){
 	$("#prReplyDeleteModal").modal({backdrop: 'static', keyboard: false});
@@ -19,55 +22,65 @@ function deleteReply(replyno){
 	dreplyno = replyno;
 }
 
+// 댓글 수정 버튼 클릭시, 기존댓글에서 커서 맨 뒤로 이동시키기 위한 메서드 추가
+$.fn.setCursorPosition = function( pos )
+{
+    this.each( function( index, elem ) {
+        if( elem.setSelectionRange ) {
+            elem.setSelectionRange(pos, pos);
+        } else if( elem.createTextRange ) {
+            var range = elem.createTextRange();
+            range.collapse(true);
+            range.moveEnd('character', pos);
+            range.moveStart('character', pos);
+            range.select();
+        }
+    });
+    
+    return this;
+};
+
 //댓글 수정 클릭
 //댓글 번호, 댓글 내용 매개변수로 받음
 function modifyReply(replyno,recontents){
-	console.log("댓글 수정 번호당: " + replyno);
-	console.log("댓글 내용이당 : " + recontents);
 	
-	var html = "";
-
-	html += '<div id="commentBox' + replyno + '">';
-
-	html += '<title>Placeholder</title>';
-
-	html += '<rect width="100%" height="100%" fill="#007bff"></rect>';
-
-	html += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
-
-	html += '<span class="d-block">';
-
-	html += '<strong class="text-gray-dark">' + replyno + '</strong>';
-
-	html += '<span style="padding-left: 7px; font-size: 9pt">';
-
-	html += '<a href="javascript:void(0)" style="padding-right:5px">수정</a>';
-
-	html += '<a href="javascript:void(0)" onClick="showReplyList()" style="color:red;">취소<a>';
-
-	html += '</span>';
-
-	html += '</span>';		
-
-	html += '<textarea name="editContent" id="editContent" class="form-control" >';
-
-	html += recontents;
-
-	html += '</textarea>';
-
+	modifyCnt++;
 	
-
-	html += '</p>';
-
-	html += '</div>';
-
+	//하나만 수정 시도 할 경우
+	if(modifyCnt == 1){
+		console.log("댓글 수정 번호당: " + replyno);
+		console.log("댓글 내용이당 : " + recontents);
+		console.log("수정하고 있는 갯수당 : " + modifyCnt);
+		
+		var html = "";
 	
-
-	$('#commentBox' + replyno).replaceWith(html);
-
-	$('#commentBox' + replyno + ' #editContent').focus();
-
-
+		html += '<div id="commentBox' + replyno + '">';
+		html += '<title>Placeholder</title>';
+		html += '<rect width="100%" height="100%" fill="#007bff"></rect>';
+		html += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
+		html += '<span class="d-block">';
+		html += '<strong class="text-gray-dark">' + replyno + '</strong>';
+		html += '<span style="padding-left: 7px; font-size: 9pt">';
+		html += '<a href="javascript:void(0)" style="padding-right:5px">수정</a>';
+		html += '<a href="javascript:void(0)" onClick="getCommentList()" style="color:red;">취소<a>';
+		html += '</span>';
+		html += '</span>';		
+		html += '<textarea name="editContent" id="editContent" class="form-control">';
+		html += recontents;
+		html += '</textarea>';
+		html += '</p>';
+		html += '</div>';
+	
+		//수정 가능하도록 textarea로 기존 댓글창을 치환
+		$('#commentBox' + replyno).replaceWith(html);
+		
+		//수정 textarea에 문자열 맨뒤로 포커스
+		$('#commentBox' + replyno + ' #editContent').focus().setCursorPosition(recontents.length);
+	}
+	//여러개 수정 시도
+	else{
+		$("#prModifyDupleModal").modal({backdrop: 'static', keyboard: false});
+	}
 	
 }
 
@@ -132,7 +145,9 @@ $(function(){
  * 댓글 불러오기(Ajax)
  */
 function getCommentList(){
-    
+	
+	//댓글 수정에서 취소 눌렀을때 고려해서 카운트 초기화
+	modifyCnt = 0;
 	console.log('${viewBoard.boardno }');
 	
     $.ajax({
@@ -164,7 +179,8 @@ function getCommentList(){
                     if(res.reList[i].usernick == "${usernick}") {
                     	html += "<div class='btnBox'>"
                     	html += "<button class ='btn-danger' onClick=deleteReply(" + res.reList[i].replyno + ")>삭제</button>&nbsp";
-                    	html += "<button class = 'btn-info' onClick=modifyReply(" + res.reList[i].replyno + ",\'"+res.reList[i].recontents+"\')>수정</button>&nbsp";
+                    	//.replace 메서드로 빈칸 에러 해결 => 정규식 / /gi 이 모든 빈칸을 뜻함
+                    	html += "<button class = 'btn-info' onClick=modifyReply(" + res.reList[i].replyno + ",\'"+res.reList[i].recontents.replace(/ /gi, "&nbsp;") +"\')>수정</button>&nbsp";
                     	html += "</div>";
                     	
                     }
@@ -576,6 +592,30 @@ function getCommentList(){
       <!-- Modal footer -->
       <div class="modal-footer">
         <button type="submit" id="prReplyDeleteModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 댓글 수정 여러개 시도 에러  모달-->
+<div class="modal fade" id="prModifyDupleModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">수정 오류</h4>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	기존 댓글 수정 작업을 완료해 주세요!
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="prModifyDupleModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
       </div>
 
     </div>
