@@ -15,6 +15,9 @@ var dreplyno;
 //한번에 여러개 수정 못하게 하는 체크 변후
 var modifyCnt = 0;
 
+//답글 눌렀는지 판별여부 위한 배열
+var checkReReply = new Array(); //배열 선언
+
 //댓글 삭제 클릭 -> 진짜로 삭제 할거냐는 모달 호출
 function deleteReply(replyno){
 	$("#prReplyDeleteModal").modal({backdrop: 'static', keyboard: false});
@@ -82,6 +85,54 @@ function modifyReply(replyno,recontents){
 		$("#prModifyDupleModal").modal({backdrop: 'static', keyboard: false});
 	}
 	
+}
+
+//답글 처리 메서드
+function addReReply(replyno, len){
+	console.log("답글 테스트 번호: " + replyno);
+	
+	//답글 버튼을 처음 누른다면 답글 리스트 출력하도록
+	if(checkReReply[replyno] == undefined || checkReReply[replyno]=='undefined'){
+		//기존 div 제거
+		$('#RereplyBox' + replyno).remove();
+		
+		var html = "";
+		
+//         html += "<div>";
+//         html += "<h6><strong>등록된 답글이 없습니=다.</strong></h6>";
+//         html += "</div>";
+
+		html += '<div id="RereplyBox' + replyno + '">';
+		html += '<p style="padding-top: 10px; padding-left: 15px;"><img style="margin-right: 10px;" src="/resources/img/replyarrow.png" />답글 리스트를 불러오쟝</p>';
+		html += '<title>Placeholder</title>';
+		html += '<rect width="100%" height="100%" fill="#007bff"></rect>';
+		html += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
+		html += '<span class="d-block">';
+		html += '<strong class="text-gray-dark">' + '답글의 댓글 번호 : ' + replyno + '</strong>';
+		html += '<span style="padding-left: 7px; font-size: 9pt">';
+//	 	html += '<a href="javascript:void(0)" onClick="modifyReplyAjax('+replyno +')" style="padding-right:5px">수정<a>';
+//	 	html += '<a href="javascript:void(0)" onClick="getCommentList()" style="color:red;">취소<a>';
+		html += '</span>';
+		html += '</span>';		
+		html += '<textarea name="editContent" id="editContent" class="form-control">';
+		html += '</textarea>';
+		html += '<button style="margin-top: 5px;}">등록</button>'
+		html += '</p>';
+		html += '</div>';
+
+		$('#commentBox' + replyno).append(html);
+
+		//twice 상태면 답글 버튼을 한번 누른 상태
+		checkReReply[replyno] = 'twice';
+		console.log("수행 후 출력 : " + checkReReply[replyno]);
+	}
+	
+	//답글 버튼을 두번째 누르는 상황 => 답글이 닫히도록 => remove();
+	else{
+		checkReReply[replyno] = 'undefined';
+		console.log("두번째 눌림 : " + checkReReply[replyno]);
+		$('#RereplyBox' + replyno).remove();
+	}
 }
 
 
@@ -202,22 +253,24 @@ function getCommentList(){
             var cCnt = res.reList.length;
             var html = "";
             if(res.reList.length > 0){
-                
-                for(i=0; i<res.reList.length; i++){
+            	
+            	for(i=0; i<res.reList.length; i++){
                     html += "<div class='commentBox' id='commentBox"+res.reList[i].replyno+"'>";
                     html += "<h6><strong>"+res.reList[i].usernick+"</strong></h6>";
                     html += res.reList[i].recontents + "&nbsp;<small>(" + res.reList[i].replydate + ")</small>";
+                    html+= "<br><button style='height:25px; margin-right:5px' onClick=addReReply(" + res.reList[i].replyno + ",\'"+res.reList.length +"\')>답글</button>"
+                    html += "<strong>[추후작업]</strong>"
                     
                     //댓글 번호 삭제
                     html += "<h1 style='display:none;'>" + res.reList[i].replyno + "</h1>";
                     
                     //자기가 작성한 댓글만 수정 삭제 출력
                     if(res.reList[i].usernick == "${usernick}") {
-                    	html += "<div class='btnBox'>"
-                    	html += "<button class ='btn-danger' onClick=deleteReply(" + res.reList[i].replyno + ")>삭제</button>&nbsp";
+//                     	html += "<div class='btnBox'>"
+                    	html += "<button style = 'float:right;' class ='btn-danger' onClick=deleteReply(" + res.reList[i].replyno + ")>삭제</button>&nbsp";
                     	//.replace 메서드로 빈칸 에러 해결 => 정규식 / /gi 이 모든 빈칸을 뜻함
-                    	html += "<button class = 'btn-info' onClick=modifyReply(" + res.reList[i].replyno + ",\'"+res.reList[i].recontents.replace(/ /gi, "&nbsp;") +"\')>수정</button>&nbsp";
-                    	html += "</div>";
+                    	html += "<button style = 'float:right; margin-right: 10px;' class = 'btn-info' onClick=modifyReply(" + res.reList[i].replyno + ",\'"+res.reList[i].recontents.replace(/ /gi, "&nbsp;") +"\')>수정</button>&nbsp";
+//                     	html += "</div>";
                     	
                     }
                     html += "</div>";
@@ -385,6 +438,16 @@ function getCommentList(){
 .commentBox {
 	border-bottom: 1px solid #ccc;
 }
+
+/*RereplyBox라는 이름을 id가 포함하는 div 태그*/
+div[id*=RereplyBox]{
+	border-top: 1px solid;
+    border-bottom: 1px solid;
+	margin-top: 15px;
+    margin-bottom: 10px;
+    background-color: rgb(240,240,240);
+}
+
 </style>
 
 <div class="container">
