@@ -74,54 +74,16 @@
 	width: 95%;
 }
 
-@font-face {
-	font-family: 'yg-jalnan';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'YanoljaYacheR';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/YanoljaYacheR.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
 
 #h3title {
-	font-family: '잘난체 폰트', 'Jalnan', yg-jalnan;
 	text-align: center;
 	padding: 20px;
 }
 
-#nicknameTitle {
-	font-family: '잘난체 폰트', 'Jalnan', yg-jalnan;
-}
-
-#titleTitle {
-	font-family: '잘난체 폰트', 'Jalnan', yg-jalnan;
-}
-
-#typeTitle {
-
-	font-family: '잘난체 폰트', 'Jalnan', yg-jalnan;
-}
-
 #contentTitle {
-	font-family: '잘난체 폰트', 'Jalnan', yg-jalnan;
-}
-
-#nicknameShow{
-	font-family: '야놀자', 'YanoljaYacheR', YanoljaYacheR;
-	font-size: 25px;
 }
 
 #prType{
-	font-family: '잘난체 폰트', 'Jalnan', yg-jalnan;
 	height: 35px;
 }
 
@@ -142,7 +104,7 @@
 				<tr>
 					<td class="info" id="typeTitle">유형</td>
 					<td><select name="prname" id="prname"
-						style="margin: 0 auto; padding: 3px;">
+						style="margin: 0 auto; padding: 3px; height: 30px;">
 							<option value="앨범 홍보">앨범 홍보</option>
 							<option value="공연 홍보">공연 홍보</option>
 							<option value="전시회 홍보">전시회 홍보</option>
