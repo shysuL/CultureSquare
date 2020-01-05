@@ -217,6 +217,15 @@ $(document).ready(function() {
 h5 {
 	margin-top: 10px;
 }
+
+img{min-height: 100%; max-width: 100%; }
+.imgHoverEvent{width: 300px; height: 220px; margin-top: 10px; position: relative; overflow: hidden; display: inline-block;}
+/* .imgHoverEvent .imgBox{width: 200px; height: 200px; text-align: center; background:url(http://gahyun.wooga.kr/portfolio/triple/resources/img/city00.jpg) no-repeat 50% 50%; background-size: auto 100%;} */
+.imgHoverEvent .hoverBox{position: absolute; top:0; left: 0; width: 250px; height: 250px;}
+.hoverBox p.p1{text-align:center; font-size:18px;}
+.hoverBox p.p2{margin-top: 40px;}
+.event3 .hoverBox{background: linear-gradient(to right, rgba(0,0,0,0) ,rgba(255,255,255,1)); width: 50px; height:400px; transform: rotateZ(30deg);top: -100px; left:-130px; transition: 0.4s; opacity: 0.5;}
+.event3:hover .hoverBox{left: 300px; opacity: 1;}
 </style>
 
 </head>
@@ -336,20 +345,20 @@ h5 {
 	          <!-- 구글 로그인 화면으로 이동 시키는 URL -->
 	          <!-- 구글 로그인 화면에서 ID, PW를 올바르게 입력하면 oauth2callback 메소드 실행 요청-->
 	          <div class="row">
-		          <div id="google_id_login" style="text-align:center" class="col-4">
+		          <div id="google_id_login" style="text-align:center; " class="col-4">
 		             <a href="${google_url}">
-		                <img width="100%" height="60" src="/resources/img/g.jpg"/>
+		                <img width="100%" height="50" style="margin-left: 10px; " src="/resources/img/g.jpg"/>
 		             </a>
 		          </div>
 		          <!-- 네이버 로그인 창으로 이동 -->
-		          <div id="naver_id_login" style="text-align: center" class="col-4">
+		          <div id="naver_id_login" style="text-align: center;" class="col-4">
 		             <a href="${naver_url}"> 
-		             <img width="100%" height="55" src="/resources/img/n.jpg" /></a>
+		             <img width="100%" height="50" src="/resources/img/n.jpg" /></a>
 		          </div>
 		          <!-- 카카오 로그인 창으로 이동 -->
-		          <div id="kakao_id_login" style="text-align: center" class="col-4">
+		          <div id="kakao_id_login" style="text-align: center;" class="col-4">
 		             <a href="${kakao_url}">
-		             <img width="100%" height="55" src="/resources/img/k.jpg" /></a>
+		             <img width="100%" height="50" style=" margin-left: -15px;" src="/resources/img/k.jpg" /></a>
 		          </div>
 		          
 	          </div>
@@ -361,9 +370,16 @@ h5 {
 
 
 <!-- 메인이미지 -->
+
+          
+
 <nav class="navbar navbar-dark bg-dark center">
    <div class="cropping">
-      <a href="/main/main"><img class="culture" src="/resources/logo/culturesquareLogo.png" ></a>
+	  <div class="imgHoverEvent event3">
+    	  <div class="imgBox"> <a href="/main/main"><img class="culture" src="/resources/logo/culturesquareLogo.png" ></a></div>
+  	 	  <div class="hoverBox">
+  	 	  </div>
+  	  </div>
    </div>
 </nav>
 

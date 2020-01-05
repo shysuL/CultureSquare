@@ -141,7 +141,11 @@
 				});
 // 					$("#culture").click(function(){
 // 					location.href="https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=%EA%B3%B5%EC%97%B0&oquery=%EC%B9%B4%EC%B9%B4%EC%98%A4%EB%B0%B0%EA%B7%B8+%EC%8B%9C%EA%B0%84&tqi=UlI4PdprvhGss75of9Nssssss1R-031480";
-// 				})
+// 				});
+				
+				$(".period").on("click", "span", function() {
+					
+				})
 			},
 			error : function() {
 				console.log("error")
