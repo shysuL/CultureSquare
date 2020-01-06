@@ -217,6 +217,9 @@ $(document).ready(function() {
 h5 {
 	margin-top: 10px;
 }
+.loginwidth{
+    padding-left: 80px;
+}
 
 /* 로고 애니메이션 */
 img{min-height: 100%; max-width: 100%; }
@@ -277,7 +280,7 @@ img{min-height: 100%; max-width: 100%; }
 	      </li>
 	    </ul>
 	<!-- 우측 상단 아이콘 -->
-	<div class="btn-group rpadding">
+	<div class="btn-group rpadding loginwidth" >
 		<!-- 상단 날씨 아이콘 -->  
 		<a href="#">
 		   <button type="button" class="btn btn-secondary " >
@@ -348,18 +351,18 @@ img{min-height: 100%; max-width: 100%; }
 	          <div class="row">
 		          <div id="google_id_login" style="text-align:center; " class="col-4">
 		             <a href="${google_url}">
-		                <img width="100%" height="50" style="margin-left: 10px; " src="/resources/img/g.jpg"/>
+		                <img width="77%" height="55" style="margin-left: 30px; " src="/resources/img/g.jpg"/>
 		             </a>
 		          </div>
 		          <!-- 네이버 로그인 창으로 이동 -->
 		          <div id="naver_id_login" style="text-align: center;" class="col-4">
 		             <a href="${naver_url}"> 
-		             <img width="100%" height="50" src="/resources/img/n.jpg" /></a>
+		             <img width="75%" height="55" src="/resources/img/n.jpg" /></a>
 		          </div>
 		          <!-- 카카오 로그인 창으로 이동 -->
 		          <div id="kakao_id_login" style="text-align: center;" class="col-4">
 		             <a href="${kakao_url}">
-		             <img width="100%" height="50" style=" margin-left: -15px;" src="/resources/img/k.jpg" /></a>
+		             <img width="75%" height="55" style=" margin-left: -35px;" src="/resources/img/k.jpg" /></a>
 		          </div>
 		          
 	          </div>
