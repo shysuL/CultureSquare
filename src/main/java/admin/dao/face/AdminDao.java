@@ -1,6 +1,10 @@
 package admin.dao.face;
 
+import java.util.List;
+
 import admin.dto.Admin;
+import user.dto.User_table;
+import util.Paging;
 
 public interface AdminDao {
 
@@ -14,5 +18,9 @@ public interface AdminDao {
 	 * @return int - 일치하는 유저수
 	 */
 	public int selectCnt(Admin admin);
+
+	public int selectUserCnt(User_table user);
+
+	public List<User_table> selectUserList(Paging userpaging);
 
 }
