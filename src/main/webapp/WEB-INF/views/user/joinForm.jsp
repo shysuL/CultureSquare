@@ -403,8 +403,7 @@ $(document).ready(function(){
              <input type="text" class="form-control" id="username" placeholder="이름 입력" name="username" required>
              <div class="valid-feedback">Valid.</div>
              <div class="invalid-feedback">Please fill out this field.</div>
-             <div class="check_font" id="name_check"></div>
-             
+             <div class="check_font" id="name_check"></div>           
            </div>
 	
            <div class="form-group">
