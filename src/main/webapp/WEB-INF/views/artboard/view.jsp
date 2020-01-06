@@ -58,49 +58,98 @@ $(document).ready(function() {
 		$form.submit();
 		}
 	});
-
-	// 대댓글 입력
-	$("#btnrereplyInsert").click(function() {
-
-	if($('#rerecontents').val() == ''){
-		$("#replyerror").modal({backdrop: 'static', keyboard: false});
-	}else{
+});
+	
+// 	$('.btnreplyInsert').click(function() {
+// //1	
+		
+// 		var groupno = $(this).attr("data-groupno")
+		
+// 	if($('#rerecontents').val() == ''){
+// 		$("#replyerror").modal({backdrop: 'static', keyboard: false});
+// 	}else{
 		
 	
 	
-	$form = $("<form>").attr({
-		action: "/reply/reinsert",
-		method: "post"
-	}).append(
-		$("<input>").attr({
-			type:"hidden",
-			name:"boardno",
-			value:"${view.boardno }"
-		})
-	).append(
-		$("<input>").attr({
-			type:"hidden",
-			name:"userno",
-			value:"${LoginUser.userno }"
-		})
-	).append(
-		$("<input>").attr({
-			type:"hidden",
-			name:"userno",
-			value:"${LoginUser.userno }"
-		})
-	).append(
-		$("<textarea>")
-			.attr("name", "rerecontents")
-			.css("display", "none")
-			.text($("#rerecontents").val())
-		);
-		$(document.body).append($form);
-		$form.submit();
-		}
-	});
-});
+// 	$form = $("<form>").attr({
+// 		action: "/reply/reinsert",
+// 		method: "post"
+// 	}).append(
+// 		$("<input>").attr({
+// 			type:"hidden",
+// 			name:"boardno",
+// 			value:"${view.boardno }"
+// 		})
+// 	).append(
+// 		$("<input>").attr({
+// 			type:"hidden",
+// 			name:"userno",
+// 			value:"${LoginUser.userno }"
+// 		})
+// 	)
+// 	.append(
+// 		$("<input>").attr({
+// 			type:"hidden",
+// 			name:"groupno",
+// 			value: groupno
+// 		})
+// 	)
+// // 	.append(
+// // 		$("<input>").attr({
+// // 			type:"hidden",
+// // 			name:"replyorder",
+// // 			value:"${reply.replyorder }"
+// // 		})
+// // 	).append(
+// // 		$("<input>").attr({
+// // 			type:"hidden",
+// // 			name:"replydepth",
+// // 			value:"${reply.replydepth }"
+// // 		})
+// // 	)
+// 	.append(
+// 		$("<textarea>")
+// 			.attr("name", "rerecontents")
+// 			.css("display", "none")
+// 			.text($("#rerecontents").val())
+// 		);
+// 		$(document.body).append($form);
+// 		$form.submit();
+// 		}
+// 	});
+// });
+
+//2
+// 대댓글 등록하기
+function fn_rereco(boardno, groupno) {
+	//빈칸 입력한 경우
+	if($('#rerecontents').val() == ''){
+		$("#replyerror").modal({backdrop: 'static', keyboard: false});
+	}
 	
+	else{
+		$.ajax({
+			type : "POST",
+			url : "/reply/reinsert",
+			data: {
+				//게시판 번호, 그룹번호, 댓글 내용
+				boardno : boardno,
+				groupno : groupno,
+				rerecontents : rerecontents
+			},
+			dataType : "json",
+			success : function(res){
+				console.log("로그인상태 -> 댓글입력");
+				$("#rerecontents").val("");
+				
+			},
+			error : function(){
+				console.log("실패실패");
+			}
+		});
+	}
+	
+}	
 //댓글 삭제
 function deleteReply(replyno) {
 	$.ajax({
@@ -125,7 +174,93 @@ function deleteReply(replyno) {
 	});
 }
 
-</script>	
+/**
+ * 초기 페이지 로딩시 댓글 불러오기
+ */
+$(function(){
+    
+    getCommentList();
+    
+});
+
+// 댓글 불러오기
+function getCommentList(){
+	
+	// 댓글 수정에서 취소 눌렀을 때 고려해서 카운트 초기화
+	modifyCnt = 0;
+	console.log('${view.boardno}');
+//     console.log("세션 : " + session.getAttribute("login"));
+	console.log('${userno}');
+
+	 $.ajax({
+	        type:'POST',
+	        url : "/artboard/commentList",
+	        data : {
+				//게시판 번호
+				boardno : '${view.boardno }',
+			},
+			dataType : "json",
+	        success : function(res){
+	        	console.log("리스트 : ");
+	        	console.log(res.reList);
+	        	
+	            var cCnt = res.reList.length;
+	            var html = "";
+	            if(res.reList.length > 0){
+	            	 
+	            	for(i=0; i<res.reList.length; i++){
+	                    html += "<div class='container container-fluid' style='mawrgin-bottom: 40px'>";
+	                    html += "<div class='row'>";
+	                    html += "<div id = 'reply_head' class='col-12'>";
+	                    html += "<span>" + res.reList[i].usernick + "</span>"
+	                    html += "<div id = 'reply_date' class='col-md-4' style='font-size: 13px;'>" + res.reList[i].replydate + "</div>";
+	                    html += "</div>";
+	                    
+	                    html += "<div class='col-9'>";
+	                    html += "<div id = 'view_recontents' >";
+	                    html += "<div id = 'recontents' class='col-12'>" + res.reList[i].recontents + "</div>";
+	                    html += "</div>";
+	                    html += "</div>";
+	                    
+	                    html += "<div class='col-1.5'>";
+
+	                    html += "<div id = 'rereplyBtn'>";
+	                    html += "<a ><button id='rereply' class='btn bbc' type='button'>답글</button></a>";
+	                    html += "</div>";
+	                    
+	                    if(res.reList[i].usernick == "${usernick}"){
+	                    	html += "<div id = 'deleteReplyBtn'>";
+	                    	html += "<button class='btn bbc' onclick='deleteReply(" + res.reList[i].replyno + ");'>삭제</button>";
+	                    	html += "</div>";
+	                    	
+	                    	
+	                    }
+                    	html += "</div>";
+
+	                    
+// 	       
+	                    html += "</div>";
+	                }
+	                
+	            } else {
+	                
+	                html += "<div>";
+	                html += "<h6><strong>등록된 댓글이 없습니다.</strong></h6>";
+	                html += "</div>";
+	                
+	            }
+	            
+	            $("#cCnt").html(cCnt);
+	            $("#commentList").html(html);
+	            
+	        },
+	        error:function(request,status,error){
+	            
+	       }	        	
+	 })
+	
+}
+</script>
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -497,65 +632,69 @@ $(document).ready(function() {
 <br>
 
 	<!-- 댓글view -->
-<c:forEach items="${replyList }" var="reply">
+
+                            
+         <div id="commentList">
+        </div>                           
+                            
+<%-- <c:forEach items="${replyList }" var="reply"> --%>
 	
-		<div class="container container-fluid" style="margin-bottom: 40px">
-		<div class="row">
+<!-- 		<div class="container container-fluid" style="mawrgin-bottom: 40px"> -->
+<!-- 		<div class="row"> -->
 		
-			<div id = "reply_head" class="col-12">
-				<span>${reply.usernick }</span>
-				<div id = "reply_date" class="col-md-4" style="font-size: 13px;">
-					${reply.replydate}
-				</div>
-			</div>
+<!-- 			<div id = "reply_head" class="col-12"> -->
+<%-- 				<span>${reply.usernick }</span> --%>
+<!-- 				<div id = "reply_date" class="col-md-4" style="font-size: 13px;"> -->
+<%-- 					${reply.replydate} --%>
+<!-- 				</div> -->
+<!-- 			</div> -->
 			
-			<div class="col-9">
-			<div id = "view_recontents" >
-				<div id = "recontents" class="col-12">${reply.recontents }</div>
-			</div>
-			</div>
-			<div class="col-1.5">
-				<c:if test="${login }">
-				<div id = "rereplyBtn">
-					<a ><button id="rereply" class="btn bbc" type="button">답글</button></a>
-				</div>
-				</c:if>
-			</div>
-			<div class="col-1.5">
-				<c:if test="${LoginUser.userno eq reply.userno }">
-				<div id = "deleteReplyBtn">
-					<button class="btn bbc" onclick="deleteReply(${reply.replyno });">삭제</button>
-				</div>
-				</c:if>
-			</div>
+<!-- 			<div class="col-9"> -->
+<!-- 			<div id = "view_recontents" > -->
+<%-- 				<div id = "recontents" class="col-12">${reply.recontents }</div> --%>
+<!-- 			</div> -->
+<!-- 			</div> -->
+<!-- 			<div class="col-1.5"> -->
+<%-- 				<c:if test="${login }"> --%>
+<!-- 				<div id = "rereplyBtn"> -->
+<!-- 					<a ><button id="rereply" class="btn bbc" type="button">답글</button></a> -->
+<!-- 				</div> -->
+<%-- 				</c:if> --%>
+<!-- 			</div> -->
+<!-- 			<div class="col-1.5"> -->
+<%-- 				<c:if test="${LoginUser.userno eq reply.userno }"> --%>
+<!-- 				<div id = "deleteReplyBtn"> -->
+<%-- 					<button class="btn bbc" onclick="deleteReply(${reply.replyno });">삭제</button> --%>
+<!-- 				</div> -->
+<%-- 				</c:if> --%>
+<!-- 			</div> -->
 			
 			<!-- 대댓글 입력 -->
-				<div id = "rereplybody" class="form-inline text-center col-9" style="display: none;">
-				<div class="row">
-				<div class="col-6">
-					<input type="hidden"  id="replyno" name="replyno" value="${reply.replyno }" />
-					<input type="hidden"  id="userno" name="userno" value="${LoginUser.userno }" />
-					<input type="hidden"  id="boardno" name="boardno" value="${ view.boardno}" />	
-					<input type="hidden"  id="groupno" name="groupno" value="${ reply.groupno}" />	
-					<input type="hidden"  id="replyorder" name="replyorder" value="${ reply.replyorder}" />	
-					<input type="hidden"  id="replydepth" name="replydepth" value="${ reply.replydepth}" />	
-					<textarea rows="2" cols="50" class="form-control" >
-<%-- 						${reply.replyno } ${ reply.groupno}  ${ reply.replyorder}  ${ reply.replydepth} --%>
-					</textarea>
-				</div>
-				</div>
-				<div class="col-2">
-					<button id="btnrereplyInsert" class="btn bbc">입력</button>
-				</div>
-				</div>
-			
-			</div>
-			</div>
+<!-- 				<div id = "rereplybody" class="form-inline text-center col-9" style = "display: none;"> -->
+<!-- 				<div class="row"> -->
+<!-- 				<div class="col-6"> -->
+<%-- 					<input type="hidden"  id="replyno" name="replyno" value="${reply.replyno }" /> --%>
+<%-- 					<input type="hidden"  id="userno" name="userno" value="${LoginUser.userno }" /> --%>
+<%-- 					<input type="hidden"  id="boardno" name="boardno" value="${ view.boardno}" />	 --%>
+<%-- 					<input type="hidden"  id="groupno" name="groupno" value="${ reply.groupno}" />	 --%>
+<%-- 					<input type="hidden"  id="replyorder" name="replyorder" value="${ reply.replyorder}" />	 --%>
+<%-- 					<input type="hidden"  id="replydepth" name="replydepth" value="${ reply.replydepth}" />	 --%>
+<!-- 					<textarea rows="2" cols="50" class="form-control" id = "rerecontents" name = "rerecontents"> -->
+<%-- 						${reply.replyno } /  ${ reply.groupno} /  ${ reply.replyorder} / ${ reply.replydepth} --%>
+<!-- 					</textarea> -->
+<!-- 				</div> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-2"> -->
+<%-- <%-- 					<button class="btnrereplyInsert btn bbc" data-groupno="${ reply.groupno}"  >입력</button> --%> 
+<%-- 					<button class="btnrereplyInsert"  onclick="fn_rereco('${ view.boardno}','${ reply.groupno}')" class="btn bbc">입력</button> --%>
+<!-- 				</div> -->
+<!-- 				</div> -->
+
 		<!-- 글내용 -->
 		<!-- 버튼 -->
 		
 		
-</c:forEach>
+<%-- </c:forEach> --%>
 
 
 </div>	<!-- 댓글 처리 end -->

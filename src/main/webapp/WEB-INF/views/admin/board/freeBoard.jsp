@@ -50,7 +50,8 @@
 					
 					<tbody style="text-align: center;">
 						<c:forEach items="${fblist }" var="fblist">
-							<tr onclick="location.href='/admin/freeboard?boardno=${fblist.boardno }';">
+<%-- 						/admin/freeboard?boardno=${fblist.boardno } --%>
+							<tr onclick="location.href='/board/freeview?boardno=${fblist.boardno }';" style="text-align: center;">
 								<td><input type="checkbox" name="checkRow" value="${fblist.boardno  }"/></td>
 								<td>${fblist.boardno }</td>
 								<td>${fblist.title }</td>

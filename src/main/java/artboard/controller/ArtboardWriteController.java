@@ -2,6 +2,7 @@ package artboard.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import artboard.dto.Board;
 import artboard.service.face.PFBoardService;
@@ -37,7 +40,7 @@ public class ArtboardWriteController {
 	}
 
 	@RequestMapping(value = "/artboard/write", method=RequestMethod.POST)
-	public String writeProc(Board board) {
+	public String writeProc(MultipartHttpServletRequest multi, Board board) {
 		
 		// 작성 수행
 		pfboardService.write(board);
@@ -53,6 +56,34 @@ public class ArtboardWriteController {
 		String nowMonth = format2.format(time);
 		// -------------------------------------------------------
 		
+		//파일 업로드
+		//-----------------------------------------------------------
+		
+		String originName="";
+		int i = 1;
+		
+		Iterator<String> files = multi.getFileNames();
+		
+		while(files.hasNext()) {
+			String uploadFile = files.next();
+			MultipartFile mFile = multi.getFile(uploadFile);
+			originName = mFile.getOriginalFilename();
+			//빈파일 처리
+			if(originName == null || originName .equals("")) {
+				logger.info("빈파일 있음");
+			}
+			else {
+				pfboardService.fileSave(mFile, board.getBoardno());
+				
+				//.png 파일이거나 .jpg 파일인 경우
+				if( "image".equals(mFile.getContentType().split("/")[0]) ) {
+					
+					
+				}
+				logger.info(i + ". 실제 파일 이름 : " + originName);
+				i++;
+			}
+		}		
 		        
 		return "redirect:/artboard/list?bo_table=calendar&cal_year="+nowYear+"&cal_month="+nowMonth;
 	}

@@ -1,6 +1,10 @@
 package admin.service.face;
 
+import java.util.List;
+
 import admin.dto.Admin;
+import user.dto.User_table;
+import util.Paging;
 
 public interface AdminService {
 
@@ -15,5 +19,9 @@ public interface AdminService {
 	 * @return true - 로그인 인증성공 / false - 로그인 인증 실패
 	 */
 	public boolean login(Admin admin);
+
+	public int getUserCnt(User_table user);
+
+	public List<User_table> getUserList(Paging userpaging);
 
 }

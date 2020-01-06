@@ -2,9 +2,16 @@ package artboard.service.face;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import artboard.dto.Board;
 import artboard.dto.Donation;
 import artboard.dto.Reply;
+
+import prboard.dto.UpFile;
+
+import util.Paging;
+
 
 public interface PFBoardService {
 
@@ -173,6 +180,90 @@ public interface PFBoardService {
 	 * @param reply - 입력될 댓글
 	 */
 	public void insertRereply(Reply reply);
+
+
+
+	/**
+	 * 이수현
+	 * 2020-01-06
+	 * 
+	 * 댓글 리스트 조회
+	 * 
+	 * @param reply - 게시판 번호가 담긴 객체
+	 * @return List - 댓글 리스트
+	 */
+	public List<Reply> getReplyByboardNo(Reply reply);
+
+
+
+
+	/**
+	 * 2020-01-06
+	 * 강성일
+	 * 
+	 * 첨부파일 사입
+	 * 
+	 * @param mFile - 멀티 파일을 처리해줄 정보가 담긴 객체
+	 * @param boardno - 게시판 번호
+	 */
+	public void fileSave(MultipartFile mFile, int boardno);
+
+	/**
+	 * 2020-01-06
+	 * 강성일
+	 * 
+	 * 게시글에 번호에 해당하는 파일 리스트를 가져온다.
+	 * 
+	 * boardno - 게시글 번호
+	 * @return List - 파일 리스트
+	 */
+	public List<UpFile> getFileList(int boardno);
+	
+	
+	/**
+	 * 2020-01-06
+	 * 강성일
+	 * 
+	 * 파일정보를 가져온다.
+	 * 
+	 * @param fileno - 사용자가 클릭한 파일의 번호
+	 * @return UpFile - 파일정보가 담긴 객체
+	 */
+	public UpFile getFile(int fileno);
+	
+	
+	/**
+	 * 2020-01-07
+	 * 강성일
+	 * 
+	 * 서버에 올라간 파일 삭제
+	 * 
+	 * @param list - 삭제할 파일이 담긴 리스트
+	 */
+	public void deleteServerFile(List<UpFile> list);
+	
+	/**
+	 * 2020-01-07
+	 * 강성일
+	 * 
+	 * DB에 있는 파일 삭제
+	 * 
+	 * @param list - 삭제할 파일이 담긴 리스트
+	 */
+	public void deleteFile(List<UpFile> list);
+	
+	
+	
+	
+
+
+	public List<Board> getselectAll(Paging pfpaging);
+
+
+
+
+	public int getTotalCnt(Board pfboard);
+
 
 
 

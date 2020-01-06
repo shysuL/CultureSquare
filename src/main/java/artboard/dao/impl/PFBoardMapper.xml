@@ -134,4 +134,8 @@
 		(donation_seq.nextval,#{donprice},#{userno},#{boardno})
 	</insert>
 
+	<select id="selectPfCnt" resultType="int" parameterType="artboard.dto.Board">
+		SELECT count(*) FROM board
+		WHERE postno = 1
+	</select>
 </mapper>

@@ -94,7 +94,7 @@ $(document).ready(function() {
 <input id="title" name="title" type="text" size="125" placeholder="제목을 입력하세요."/>
 <br><br>
 <label for="performdate"> <b>일시 </b></label><br>
-<input id="performdate" name="performdate" type="text" size="125" placeholder="입력 양식 : 20201221"/>
+<input id="performdate" name="performdate" type="time" size="125" placeholder="입력 양식 : 20201221"/>
 <br><br>
 <label for="performname"> <b>게시물 카테고리 </b></label><br>
 

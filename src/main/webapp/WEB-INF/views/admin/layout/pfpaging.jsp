@@ -14,20 +14,20 @@
 }
 </style>
 
-<c:set var="query" value="&searchcategory=${fbpaging.searchcategory }&searchtarget=${fbpaging.searchtarget }"/>
+<c:set var="query" value="&searchcategory=${pfpaging.searchcategory }&searchtarget=${pfpaging.searchtarget }"/>
 
 <div style="text-align: center;">
 	<ul class="pagination justify-content-center ">
 	
    <!-- 처음으로 가기 -->
-   <c:if test="${fbpaging.curPage ne 1 }">
+   <c:if test="${pfpaging.curPage ne 1 }">
    <li><a class="page-link"  href="${url }?curPage=1${query }">&larr;처음</a></li>
    </c:if>
    
    
    <!-- 이전 페이징  리스트로 가기 -->
-   <c:if test="${fbpaging.startPage gt fbpaging.pageCount }">
-   <li><a class="page-link"  href="${url }?curPage=${fbpaging.startPage - fbpaging.pageCount }${query }">&laquo;</a></li>
+   <c:if test="${pfpaging.startPage gt pfpaging.pageCount }">
+   <li><a class="page-link"  href="${url }?curPage=${pfpaging.startPage - pfpaging.pageCount }${query }">&laquo;</a></li>
    </c:if>
 <%--    <c:if test="${paging.startPage le paging.pageCount }"> --%>
 <!--    <li class="disabled"><a>&laquo;</a></li> -->
@@ -36,16 +36,16 @@
    
 
    <!-- 이전 페이지로 가기 -->
-   <c:if test="${fbpaging.curPage ne 1  }">
-   <li><a class="page-link"  href="${url }?curPage=${fbpaging.curPage - 1 }${query }">
+   <c:if test="${pfpaging.curPage ne 1  }">
+   <li><a class="page-link"  href="${url }?curPage=${pfpaging.curPage - 1 }${query }">
    &lt;</a></li>
    </c:if>	
 	
 	<!-- 각 페이징 리스트 -->
-	<c:forEach begin="${fbpaging.startPage }" end="${fbpaging.endPage }"
+	<c:forEach begin="${pfpaging.startPage }" end="${pfpaging.endPage }"
 	var="i">
 		<c:choose>
-			<c:when test="${fbpaging.curPage eq i }">
+			<c:when test="${pfpaging.curPage eq i }">
 				<li class="page-item active"><a class="page-link" href="${url }?curPage=${i }${query }">${i }</a></li>
 			</c:when>
 			<c:otherwise>
@@ -55,21 +55,21 @@
 	</c:forEach>	
 
 	<!-- 다음 페이지로 가기 -->
-	<c:if test="${fbpaging.curPage ne fbpaging.totalPage }">
-	<li><a class="page-link" href="${url }?curPage=${fbpaging.curPage + 1 }${query }">&gt;</a></li>
+	<c:if test="${pfpaging.curPage ne pfpaging.totalPage }">
+	<li><a class="page-link" href="${url }?curPage=${pfpaging.curPage + 1 }${query }">&gt;</a></li>
 	</c:if>
 	
 	<!-- 다음 페이징 리스트로 가기 -->
-	<c:if test="${fbpaging.endPage ne fbpaging.totalPage }">
-	<li><a class="page-link" href="${url }?curPage=${fbpaging.startPage + fbpaging.pageCount }${query }">&raquo;</a>
+	<c:if test="${pfpaging.endPage ne pfpaging.totalPage }">
+	<li><a class="page-link" href="${url }?curPage=${pfpaging.startPage + pfpaging.pageCount }${query }">&raquo;</a>
 	</c:if>
 <%-- 	<c:if test="${paging.endPage eq paging.totalPage }"> --%>
 <!-- 	<li class="disabled"><a>&raquo;</a></li> -->
 <%-- 	</c:if> --%>
 	
 	<!-- 끝 페이지로 가기 -->
-	<c:if test="${fbpaging.curPage ne fbpaging.totalPage }">
-	<li><a class="page-link" href="${url }?curPage=${fbpaging.totalPage }${query }">&rarr;끝</a></li>
+	<c:if test="${pfpaging.curPage ne pfpaging.totalPage }">
+	<li><a class="page-link" href="${url }?curPage=${pfpaging.totalPage }${query }">&rarr;끝</a></li>
 	
 	</c:if>
 	
