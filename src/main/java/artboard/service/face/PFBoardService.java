@@ -5,6 +5,7 @@ import java.util.List;
 import artboard.dto.Board;
 import artboard.dto.Donation;
 import artboard.dto.Reply;
+import util.Paging;
 
 public interface PFBoardService {
 
@@ -173,6 +174,16 @@ public interface PFBoardService {
 	 * @param reply - 입력될 댓글
 	 */
 	public void insertRereply(Reply reply);
+
+
+
+
+	public List<Board> getselectAll(Paging pfpaging);
+
+
+
+
+	public int getTotalCnt(Board pfboard);
 
 
 

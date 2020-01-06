@@ -15,6 +15,7 @@ import artboard.dto.Board;
 import artboard.dto.Donation;
 import artboard.dto.Reply;
 import artboard.service.face.PFBoardService;
+import util.Paging;
 
 
 @Service
@@ -157,6 +158,18 @@ public class PFBoardServiceImpl implements PFBoardService{
 	@Override
 	public void insertRereply(Reply reply) {
 		replyDao.insertRereply(reply);
+	}
+
+
+	@Override
+	public List<Board> getselectAll(Paging pfpaging) {
+		return pfboardDao.selectAll(pfpaging);
+	}
+
+
+	@Override
+	public int getTotalCnt(Board pfboard) {
+		return pfboardDao.selectPfCnt(pfboard);
 	}
 	
 

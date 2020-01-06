@@ -159,6 +159,8 @@ public interface PFBoardDao {
 	 */
 	public void insertDonation(Donation donation);
 
+	public int selectPfCnt(Board pfboard);
+
 
 
 }
