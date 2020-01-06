@@ -218,6 +218,7 @@ h5 {
 	margin-top: 10px;
 }
 
+/* 로고 애니메이션 */
 img{min-height: 100%; max-width: 100%; }
 .imgHoverEvent{width: 300px; height: 220px; margin-top: 10px; position: relative; overflow: hidden; display: inline-block;}
 /* .imgHoverEvent .imgBox{width: 200px; height: 200px; text-align: center; background:url(http://gahyun.wooga.kr/portfolio/triple/resources/img/city00.jpg) no-repeat 50% 50%; background-size: auto 100%;} */
@@ -225,7 +226,7 @@ img{min-height: 100%; max-width: 100%; }
 .hoverBox p.p1{text-align:center; font-size:18px;}
 .hoverBox p.p2{margin-top: 40px;}
 .event3 .hoverBox{background: linear-gradient(to right, rgba(0,0,0,0) ,rgba(255,255,255,1)); width: 50px; height:400px; transform: rotateZ(30deg);top: -100px; left:-130px; transition: 0.4s; opacity: 0.5;}
-.event3:hover .hoverBox{left: 300px; opacity: 1;}
+.event3:hover .hoverBox{left: 400px; opacity: 1;}
 </style>
 
 </head>
