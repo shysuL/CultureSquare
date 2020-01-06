@@ -42,8 +42,6 @@ public class AdminBoardController {
 							String searchType, String search, PRPaging prpaging,
 							Paging pfpaging, Paging upaging) {
 		
-		System.out.println(session.getAttribute("adminLogin"));
-		
 		if( session.getAttribute("adminLogin") == null ) {
 			
 			return "redirect:/admin/login"; 
@@ -182,10 +180,6 @@ public class AdminBoardController {
 			
 			model.addAttribute("prlist", prlist);
 			
-			System.out.println(paging2);
-			
-			logger.info("보드 리스트 겟 테스트 : " + prlist);
-			
 			return "/admin/board/prboard";
 			
 		} else if (category == 3) {
@@ -201,9 +195,8 @@ public class AdminBoardController {
 			model.addAttribute("pfpaging", paging);		
 			model.addAttribute("pflist", list);
 			
-			System.out.println(list);
-			
 			return "/admin/board/calendar";
+			
 		} else if (category == 4) {
 			
 		} else if (category == 5) {
@@ -220,8 +213,9 @@ public class AdminBoardController {
 			
 			model.addAttribute("userpaging", userpaging);
 			model.addAttribute("userlist", userlist);
+
+			return "/admin/board/user";
 		}
-		
 		return "/admin/board/user";
 	}
 	
