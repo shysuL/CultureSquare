@@ -60,7 +60,7 @@ $(document).ready(function() {
 #write_head{
 	background-color: #343a40;
 	border: 1px solid black;
-	max-width: 95%;
+	max-width: 100%;
 	height: 45px;
 	text-align: center;
 	color: white;

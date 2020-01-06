@@ -699,9 +699,6 @@ $(document).ready(function() {
 <%-- 					<button class="btnrereplyInsert"  onclick="fn_rereco('${ view.boardno}','${ reply.groupno}')" class="btn bbc">입력</button> --%>
 <!-- 				</div> -->
 <!-- 				</div> -->
-			
-<!-- 			</div> -->
-<!-- 			</div> -->
 
 		<!-- 글내용 -->
 		<!-- 버튼 -->

@@ -13,5 +13,22 @@
 		AND adminid = #{adminid }
 		AND adminpw = #{adminpw }
 	</select>
+	
+	<select id="selectUserCnt" resultType="int" parameterType="user.dto.User_table">
+		SELECT count(*)
+		FROM User_table
+	</select>
+	
+	<select id="selectUserList" resultType="user.dto.User_table" parameterType="util.Paging">
+		SELECT * FROM (
+			SELECT rownum rnum, B.* FROM (
+				SELECT userno, usertype, username, userid, usernick, userphone, permit, follow, sociallogin
+				FROM user_table
+				ORDER BY userno
+			) B
+			ORDER BY rnum
+		) BOARD
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
 
 </mapper>
