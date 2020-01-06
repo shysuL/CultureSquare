@@ -221,8 +221,21 @@
 	
 	<insert id="insertReply"
 	 parameterType="prboard.dto.Reply">
-		
 		INSERT INTO reply 
 		VALUES(reply_seq.nextval, groupno_seq.nextval, 0, 1, #{recontents}, sysdate, #{userno}, #{boardno})
 	</insert>
+	
+	<delete id="deleteReplyByNo"
+	 parameterType="prboard.dto.Reply">
+		DELETE reply
+		WHERE 1=1
+			AND replyno = #{replyno }
+	</delete>
+	
+	<update id="updateReplyByNo"
+		 parameterType="prboard.dto.Reply">
+		UPDATE reply SET recontents = #{recontents}
+		WHERE 1=1
+			AND replyno = #{replyno}
+	</update>
 </mapper>
