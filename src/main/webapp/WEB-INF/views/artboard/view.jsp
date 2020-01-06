@@ -207,7 +207,7 @@ function getCommentList(){
 	            var cCnt = res.reList.length;
 	            var html = "";
 	            if(res.reList.length > 0){
-	            	
+	            	 
 	            	for(i=0; i<res.reList.length; i++){
 	                    html += "<div class='container container-fluid' style='mawrgin-bottom: 40px'>";
 	                    html += "<div class='row'>";
