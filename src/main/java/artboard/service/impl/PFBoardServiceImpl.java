@@ -158,6 +158,12 @@ public class PFBoardServiceImpl implements PFBoardService{
 	public void insertRereply(Reply reply) {
 		replyDao.insertRereply(reply);
 	}
+
+
+	@Override
+	public List<Reply> getReplyByboardNo(Reply reply) {
+		return replyDao.selectReplyList(reply);
+	}
 	
 
 }

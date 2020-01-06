@@ -1,5 +1,7 @@
 package artboard.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import artboard.dto.Board;
 import artboard.dto.Donation;
@@ -127,5 +130,32 @@ public class ArtboardViewController {
 		
 		// 3. 해당 글로 다시 이동
 		return "redirect:/artboard/view?boardno=" + donation.getBoardno();
+	}
+	
+	@RequestMapping(value = "/artboard/commentList" , method = RequestMethod.POST)
+	public ModelAndView commentListPF(Model model, Reply reply, HttpSession session, ModelAndView mav) {
+	
+		ArrayList<HashMap> reList = new ArrayList<HashMap>();
+		
+		List<Reply> replyList = pfboardService.getReplyByboardNo(reply);
+
+		if(replyList.size() > 0) {
+			for(int i = 0; i<replyList.size(); i++) {
+				HashMap hm = new HashMap();
+				hm.put("replyno", replyList.get(i).getReplyno());
+				hm.put("boardno", replyList.get(i).getBoardno());
+				hm.put("recontents", replyList.get(i).getRecontents());
+				hm.put("usernick", replyList.get(i).getUsernick());
+				hm.put("replydate", replyList.get(i).getReplydate());				
+				
+				reList.add(hm);
+			}
+		}
+		mav.addObject("reList", reList);
+		
+		mav.setViewName("jsonView");
+		
+		return mav;
+		
 	}
 }
