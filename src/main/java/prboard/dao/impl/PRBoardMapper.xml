@@ -209,6 +209,7 @@
 		select R.*, U.usernick from reply R, user_table U
 		WHERE R.userno = U.userno
 		AND boardno = #{boardno}
+		AND replyorder = 0
 		ORDER BY replyno DESC
 	</select>
 	
@@ -238,4 +239,25 @@
 		WHERE 1=1
 			AND replyno = #{replyno}
 	</update>
+	
+	<select id="selectGroupNo"
+    	parameterType="prboard.dto.Reply" resultType="int">
+	    SELECT groupno FROM reply
+	    WHERE 1=1
+	   	AND replyno = #{replyno}
+	 </select>
+	 
+	 <select id="selectReReplyList" resultType="prboard.dto.Reply" parameterType="int">
+		select R.*, U.usernick from reply R, user_table U
+		WHERE R.userno = U.userno
+		AND groupno = #{groupno}
+		AND replyorder != 0
+		ORDER BY replyorder DESC
+	</select>
+	
+	<select id="selectREreplyCnt" resultType="int" parameterType="int">
+		 SELECT count(*) FROM reply WHERE groupno = #{groupno} 
+		 AND replyorder != 0
+	</select>
+	
 </mapper>

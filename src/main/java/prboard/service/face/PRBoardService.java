@@ -339,4 +339,37 @@ public interface PRBoardService {
 	 */
 	public void updateReplyByNo(Reply reply);
 
+	/**
+	 * 2020-01-06
+	 * 조홍철
+	 * 
+	 * 댓글번호를 이용해 그룹번호 가져오기
+	 * 
+	 * @param reply - 댓글번호가 담긴 객체
+	 * @return int - 그룹번호
+	 */
+	public int getGroupNoByReplyNo(Reply reply);
+
+	/**
+	 * 2020-01-06
+	 * 조홍철
+	 * 
+	 * 답글 리스트 조회
+	 * 
+	 * @param groupNo - 댓글 그룹 번호
+	 * @return List - 답글 리스트
+	 */
+	public List<Reply> getReReplyByNo(int groupNo);
+
+	/**
+	 * 2020-01-06
+	 * 조홍철
+	 * 
+	 * 댓글의 답글 갯수 조회
+	 * 
+	 * @param groupno - 댓글의 그룹 번호
+	 * @return int - 답글 갯수
+	 */
+	public int getREreplyCnt(int groupno);
+	
 }
