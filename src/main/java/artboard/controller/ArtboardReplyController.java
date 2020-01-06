@@ -16,8 +16,8 @@ import artboard.dto.Reply;
 import artboard.service.face.PFBoardService;
 
 @Controller
-public class ArtboardReplyInsertController {
-	private static final Logger logger = LoggerFactory.getLogger(ArtboardReplyInsertController.class);
+public class ArtboardReplyController {
+	private static final Logger logger = LoggerFactory.getLogger(ArtboardReplyController.class);
 	
 	@Autowired PFBoardService pfboardService;
 	
