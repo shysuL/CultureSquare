@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import artboard.dao.face.PFBoardDao;
 import artboard.dao.face.ReplyDao;
@@ -15,6 +16,7 @@ import artboard.dto.Board;
 import artboard.dto.Donation;
 import artboard.dto.Reply;
 import artboard.service.face.PFBoardService;
+import prboard.dto.UpFile;
 
 
 @Service
@@ -157,6 +159,37 @@ public class PFBoardServiceImpl implements PFBoardService{
 	@Override
 	public void insertRereply(Reply reply) {
 		replyDao.insertRereply(reply);
+	}
+
+
+	
+	@Override
+	public void fileSave(MultipartFile mFile, int boardno) {
+		
+	}
+
+
+	@Override
+	public List<UpFile> getFileList(int boardno) {
+		return null;
+	}
+
+
+	@Override
+	public UpFile getFile(int fileno) {
+		return null;
+	}
+
+
+	@Override
+	public void deleteServerFile(List<UpFile> list) {
+		
+	}
+
+
+	@Override
+	public void deleteFile(List<UpFile> list) {
+		
 	}
 	
 
