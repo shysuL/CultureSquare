@@ -25,7 +25,30 @@
 
 <script type="text/javascript">
 
+
+
 $(document).ready(function() {
+	
+	$("#findIdOkBtn").click(function(){
+		
+		var username = $("#idFindByUsername");
+		var userphone = $("#idFindByUserphone");
+		
+		$.ajax({
+			type:"post",
+			url:"/user/findId",
+			data: {"username" : username, "userphone" : userphone},
+			success : function(res){
+				// ModelAndView - result
+				console.log("ㅁㄴㅇ");
+				
+			}
+		})
+		
+		
+	})
+	
+	
 	
 	
 	if(${not empty cookie.rememberUser.value }){
@@ -60,7 +83,7 @@ $(document).ready(function() {
 	
 	// 아이디 / 비밀번호 찾기
 	$("#findInfo").click(function(){
-		
+		console.log("ㅌㅁㅇ");
 		$("#findModal").modal({backdrop: 'static', keyboard:false});
 		
 	})
@@ -295,7 +318,7 @@ img{min-height: 100%; max-width: 100%; }
 		</a>&nbsp;&nbsp;
 		<!-- 상단 로그인 아이콘 -->  
 		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		   <span class="fas fa-user" ></span>
+		   <span class="fas fa-user"></span>
 		</button>
 		<!-- 로그인  드롭다운-->
 		<!-- 로그인 상태 -->
@@ -415,9 +438,72 @@ img{min-height: 100%; max-width: 100%; }
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
 
+      <!-- Modal Header1 -->
+      <div class="modal-header1">
+        <h4 class="modal-title">아이디 찾기</h4>
+      </div>
+
+      <!-- Modal body1 -->
+      <div class="modal-body content1">
+      
+       <div class="form-group">
+        <label for="idFindByUsername">이름</label>
+        <input type="text" class="form-control" id="idFindByUsername" placeholder="이름 입력" name="idFindByUsername" required>
+        <div class="check_font" id="name_check"></div>           
+       </div>
+       <div class="form-group">
+        <label for="idFindByUserphone">휴대전화</label>
+        <input type="tel" class="form-control" id="idFindByUserphone" placeholder="'-'없이 번호만 입력해주세요" name="idFindByUserphone" required>
+        <div class="check_font" id="phone_check"></div>         
+      </div>
+      
+      <div class="modal-footer1">
+        <button class="btn btn-dark"  id="findIdOkBtn">확인</button>
+      </div>
+      
+      </div>
+      
+      <!-- Modal Header2 -->
+      <div class="modal-header2">
+       		<h4 class="modal-title">비밀번호 찾기</h4>
+      </div>
+       
+      <!-- Modal body2 -->
+      <div class="modal-body content2">
+ 
+            <div class="form-group">
+	             <label for="pwFindByUserid">이메일주소</label>
+	             <input type="text" class="form-control" id="usernameFind" placeholder="이메일을 입력해주세요" name="pwFindByUserid" required>
+	             <div class="check_font" id="name_check"></div>           
+            </div>
+            <div class="form-group">
+	             <label for="pwFindByUsername">이름</label>
+	             <input type="tel" class="form-control" id="userphoneFind" placeholder="이름을 입력해주세요" name="pwFindByUsername" required>
+	             <div class="check_font" id="phone_check"></div>         
+            </div>
+            <div class="form-group" id="findId">
+            </div>
+      
+      </div>
+     
+      <!-- Modal footer2 -->
+      <div class="modal-footer2">
+        <button class="btn btn-dark" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- 아이디 찾기 완료되면 나오는 모달 -->
+<div class="modal fade" id="searchId">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">아이디/비밀번호 찾기</h4>
+        <h4 class="modal-title">회원님의 아이디</h4>
       </div>
 
       <!-- Modal body -->
@@ -432,5 +518,4 @@ img{min-height: 100%; max-width: 100%; }
     </div>
   </div>
 </div>
-
 
