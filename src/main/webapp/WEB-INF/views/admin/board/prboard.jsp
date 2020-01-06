@@ -52,7 +52,9 @@
 					
 					<tbody style="text-align: center;">
 						<c:forEach items="${prlist }" var="prlist">
-							<tr onclick="location.href='/admin/prboard?boardno=${prlist.boardno }'">
+<%-- 						/admin/prboard?boardno=${prlist.boardno } --%>
+						
+							<tr onclick="location.href='/prboard/view?boardno=${prlist.boardno }';">
 								<td><input type="checkbox" name="checkRow" value="${prlist.boardno  }"/></td>
 								<td>${prlist.boardno }</td>
 								<td>${prlist.title }</td>
