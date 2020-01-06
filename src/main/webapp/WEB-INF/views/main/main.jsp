@@ -172,25 +172,25 @@
 	<div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
 	  <div class="carousel-inner">
 	    <div class="carousel-item active">
-	      <img src="/resources/slider/main1.jpg" class="d-block w-100" alt="...">
+	      <a href="https://www.viagogo.com/kr/Concert-Tickets/K-Pop/Ateez-Tickets?AffiliateID=49&adposition=1t1&PCID=PSKRGOOCONATEEZ9BF6FCAADA&AdID=405726659495&MetroRegionID=&psc=%2c&ps=%2c&ps_p=0&ps_c=1672117890&ps_ag=64238565829&ps_tg=kwd-609759245652&ps_ad=405726659495&ps_adp=1t1&ps_fi=%2c&ps_li=%2c&ps_lp=1009871&ps_n=g&ps_d=c&gclid=EAIaIQobChMIhfSnwdnt5gIVSHZgCh2xew1PEAAYASAAEgI8MPD_BwE"><img src="/resources/slider/main1.jpg" class="d-block w-100" alt="..."></a>
 	    </div>
 	    <div class="carousel-item">
-	      <img src="/resources/slider/main2.jpg" class="d-block w-100" alt="...">
+	      <a href="https://m.booking.naver.com/booking/12/bizes/199780/items/3253029?preview=1"><img src="/resources/slider/main2.jpg" class="d-block w-100" alt="..."></a>
 	    </div>
 	    <div class="carousel-item">
-	      <img src="/resources/slider/main3.jpg" class="d-block w-100" alt="...">
+	       <a href="https://ticket.melon.com/performance/index.htm?prodId=204798"><img src="/resources/slider/main3.jpg" class="d-block w-100" alt="..."></a>
 	    </div>
 	    <div class="carousel-item">
-	      <img src="/resources/slider/main4.jpg" class="d-block w-100" alt="...">
+	       <a href="http://ticket.yes24.com/Pages/Perf/Detail/Detail.aspx?IdPerf=35707&pid=cp03ud87p&cosemkid=go15752733754648898&gclid=EAIaIQobChMI8eWpr9jt5gIVl7aWCh1ggwScEAAYAiAAEgIgJPD_BwE"><img src="/resources/slider/main4.jpg" class="d-block w-100" alt="..."></a>
 	    </div>
 	    <div class="carousel-item">
-	      <img src="/resources/slider/main5.jpg" class="d-block w-100" alt="...">
+	       <a href="https://www.viagogo.com/kr/Theater-Tickets/Opera/Faust-Tickets?AffiliateID=49&adposition=1t1&PCID=PSKRGOOFAUSTE2C99980221DE&AdID=323682622069&MetroRegionID=&psc=%2c&ps=%2c&ps_p=0&ps_c=949911072&ps_ag=46628496465&ps_tg=kwd-367643747222&ps_ad=323682622069&ps_adp=1t1&ps_fi=%2c&ps_li=%2c&ps_lp=1009871&ps_n=g&ps_d=c&gclid=EAIaIQobChMI1sez3tjt5gIVTnZgCh0KygGJEAAYASAAEgJRRvD_BwE"><img src="/resources/slider/main5.jpg" class="d-block w-100" alt="..."></a>
 	    </div>
 	    <div class="carousel-item">
-	      <img src="/resources/slider/main6.jpg" class="d-block w-100" alt="...">
+	       <a href="http://ticket.interpark.com/Ticket/Goods/GoodsInfo.asp?GoodsCode=S0010115"><img src="/resources/slider/main6.jpg" class="d-block w-100" alt="..."></a>
 	    </div>
 	    <div class="carousel-item">
-	      <img src="/resources/slider/main7.jpg" class="d-block w-100" alt="...">
+	       <a href="https://kr.ign.com/kingdeom/7997/news/kingdeom-sijeun-2-2020nyeon-3weol-gonggae-hwagjeong"><img src="/resources/slider/main7.jpg" class="d-block w-100" alt="..."></a>
 	    </div>
 	  </div>
 	  <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
