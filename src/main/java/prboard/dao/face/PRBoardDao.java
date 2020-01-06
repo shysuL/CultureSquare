@@ -341,7 +341,7 @@ public interface PRBoardDao {
 	public int selectGroupNo(Reply reply);
 
 	/**
-	 * 2020-01-03
+	 * 2020-01-06
 	 * 조홍철
 	 * 
 	 * 답글 리스트 조회

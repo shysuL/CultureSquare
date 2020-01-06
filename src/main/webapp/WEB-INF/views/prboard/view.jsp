@@ -12,8 +12,8 @@
 //지울 댓글 번호
 var dreplyno;
 
-//지울 답글 번호
-var drereplyno;
+//선택된 댓글 번호
+var selectReply;
 
 //한번에 여러개 수정 못하게 하는 체크 변후
 var modifyCnt = 0;
@@ -30,8 +30,9 @@ function deleteReply(replyno){
 
 //답글 삭제 클릭 -> 진짜로 삭제 할거냐는 모달 호출
 function deleteReReply(replyno){
-	checkReReply[replyno] = 'undefined';
+	$("#prReReplyDeleteModal").modal({backdrop: 'static', keyboard: false});
 	console.log(checkReReply[replyno] + "답글 입니다.");
+	dreplyno = replyno;
 }
 
 
@@ -99,9 +100,8 @@ function modifyReply(replyno,recontents){
 }
 
 //답글 처리 메서드
-function getReReply(replyno, len){
+function getReReply(replyno){
 	console.log("답글 테스트 번호: " + replyno);
-	
 	
 	
 	//기존 div 제거
@@ -123,6 +123,9 @@ function getReReply(replyno, len){
 	            
 	        	//답글 버튼을 처음 누른다면 답글 리스트 출력하도록
 	        	if(checkReReply[replyno] == undefined || checkReReply[replyno]=='undefined'){
+	        	
+	        	//전역 변수에 값 저장
+	        	selectReply = replyno;
 	        		
 	    		html += '<div class = "RereplyBox" id="RereplyBox' + replyno + '">';
 	    		html += '<strong class="text-gray-dark">' + '답글의 댓글 번호 : ' + replyno + '</strong>';
@@ -319,7 +322,8 @@ function getCommentList(){
                     html += "<div class='commentBox' id='commentBox"+res.reList[i].replyno+"'>";
                     html += "<h6><strong>"+res.reList[i].usernick+"</strong></h6>";
                     html += res.reList[i].recontents + "&nbsp;<small>(" + res.reList[i].replydate + ")</small>";
-                    html+= "<br><button style='height:25px; margin-right:5px' onClick=getReReply(" + res.reList[i].replyno + ",\'"+res.reList.length +"\')>답글</button>"
+//                     html+= "<br><button style='height:25px; margin-right:5px' onClick=getReReply(" + res.reList[i].replyno + ",\'"+res.reList.length +"\')>답글</button>"
+                    html+= "<br><button style='height:25px; margin-right:5px' onClick=getReReply(" + res.reList[i].replyno + ")>답글</button>"
                     html += "<strong>"+res.reList[i].replyCnt+"</strong>"
                     
                     //댓글 번호 삭제
@@ -409,6 +413,30 @@ function getCommentList(){
 
 					console.log("삭제 요청 성공");
 		           	getCommentList();
+		            
+				},
+				error : function() {
+					console.log("실패");
+				}
+			});
+			
+		});
+		
+		//답글 삭제모달에서 확인 버튼 클릭 - 답글 삭제 동작 Ajax 처리
+		$("#prReReplyDeleteModalBtn").click(function() {
+			
+			$.ajax({
+				type : "POST",
+				url : "/prboard/deleteComment",
+				data : {
+					//댓글번호 넘겨줌
+					replyno : dreplyno,
+				},
+				dataType : "json",
+				success : function(res) {
+
+					checkReReply[selectReply] = 'undefined';
+					getReReply(selectReply);
 		            
 				},
 				error : function() {
@@ -747,6 +775,31 @@ div[class*=reReplyBox]{
       <!-- Modal footer -->
       <div class="modal-footer">
         <button type="submit" id="prReplyDeleteModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 답글 삭제 확인 모달-->
+<div class="modal fade" id="prReReplyDeleteModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">답글 삭제</h4>
+        <button id="prLikeLoginX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	답글을 삭제하시겠습니까?
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="prReReplyDeleteModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
       </div>
 
     </div>
