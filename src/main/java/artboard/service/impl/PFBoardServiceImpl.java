@@ -16,7 +16,11 @@ import artboard.dto.Board;
 import artboard.dto.Donation;
 import artboard.dto.Reply;
 import artboard.service.face.PFBoardService;
+
 import prboard.dto.UpFile;
+
+import util.Paging;
+
 
 
 @Service
@@ -162,6 +166,7 @@ public class PFBoardServiceImpl implements PFBoardService{
 	}
 
 
+
 	
 	@Override
 	public void fileSave(MultipartFile mFile, int boardno) {
@@ -189,7 +194,18 @@ public class PFBoardServiceImpl implements PFBoardService{
 
 	@Override
 	public void deleteFile(List<UpFile> list) {
-		
+	}
+
+	@Override
+	public List<Board> getselectAll(Paging pfpaging) {
+		return pfboardDao.selectAll(pfpaging);
+	}
+
+
+	@Override
+	public int getTotalCnt(Board pfboard) {
+		return pfboardDao.selectPfCnt(pfboard);
+
 	}
 	
 

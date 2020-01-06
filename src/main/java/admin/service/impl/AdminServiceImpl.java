@@ -1,11 +1,15 @@
 package admin.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import admin.dao.face.AdminDao;
 import admin.dto.Admin;
 import admin.service.face.AdminService;
+import user.dto.User_table;
+import util.Paging;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -20,6 +24,16 @@ public class AdminServiceImpl implements AdminService {
 		} //selectCnt가 1이면 true반환, 로그인 인증 성공
 		
 		return false; //아니면 false반환, 로그인 인증 실패
+	}
+
+	@Override
+	public int getUserCnt(User_table user) {
+		return adminDao.selectUserCnt(user);
+	}
+
+	@Override
+	public List<User_table> getUserList(Paging userpaging) {
+		return adminDao.selectUserList(userpaging);
 	}
 
 }

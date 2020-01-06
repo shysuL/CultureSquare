@@ -7,7 +7,11 @@ import org.springframework.web.multipart.MultipartFile;
 import artboard.dto.Board;
 import artboard.dto.Donation;
 import artboard.dto.Reply;
+
 import prboard.dto.UpFile;
+
+import util.Paging;
+
 
 public interface PFBoardService {
 
@@ -179,6 +183,7 @@ public interface PFBoardService {
 
 
 
+
 	/**
 	 * 2020-01-06
 	 * 강성일
@@ -237,4 +242,16 @@ public interface PFBoardService {
 	
 	
 	
+
+
+	public List<Board> getselectAll(Paging pfpaging);
+
+
+
+
+	public int getTotalCnt(Board pfboard);
+
+
+
+
 }

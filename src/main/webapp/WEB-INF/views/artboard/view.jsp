@@ -530,7 +530,7 @@ $(document).ready(function() {
 			</div>
 			
 			<!-- 대댓글 입력 -->
-				<div id = "rereplybody" class="form-inline text-center col-9" >
+				<div id = "rereplybody" class="form-inline text-center col-9" style="display: none;">
 				<div class="row">
 				<div class="col-6">
 					<input type="hidden"  id="replyno" name="replyno" value="${reply.replyno }" />

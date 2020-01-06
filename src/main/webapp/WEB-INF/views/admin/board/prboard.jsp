@@ -39,7 +39,7 @@
 			<br>
 			<form action="" method="get">
 				<table class="table table-hover">
-					<thead>
+					<thead> 
 						<tr class = "info" style="text-align: center;" >
 							<th style="width: 5%"><input type="checkbox" id="checkAll"/></th>
 							<th style="width: 10%">글번호</th>

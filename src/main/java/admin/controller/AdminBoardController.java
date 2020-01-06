@@ -16,24 +16,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import admin.service.face.AdminService;
+import artboard.dto.Board;
+import artboard.service.face.PFBoardService;
 import board.dto.FreeBoard;
 import board.service.face.FreeBoardService;
 import prboard.service.face.PRBoardService;
+import user.dto.User_table;
 import util.PRPaging;
 import util.Paging;
 
 @Controller
 public class AdminBoardController {
 	
+	@Autowired private AdminService adminService;
 	@Autowired private FreeBoardService freeboardService;
 	@Autowired private PRBoardService prBoardService;
+	@Autowired private PFBoardService pfboardService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdminBoardController.class);
 	
 	@RequestMapping(value="/admin/main", method=RequestMethod.GET)
 	public String board(Model model, @RequestParam(defaultValue="1") int curPage, String searchtarget, 
 							String searchcategory, HttpServletRequest req, HttpSession session,
-							String searchType, String search, PRPaging prpaging) {
+							String searchType, String search, PRPaging prpaging,
+							Paging pfpaging, Paging upaging) {
 		
 		System.out.println(session.getAttribute("adminLogin"));
 		
@@ -90,8 +97,30 @@ public class AdminBoardController {
 			
 			model.addAttribute("prlist", prlist);
 			
-			logger.info("보드 리스트 겟 테스트 : " + prlist);
 //--------------------------------------------------------------------------------------------
+			//calendar게시판
+			Board pfBoard = new Board();
+			
+			int totalCnt = pfboardService.getTotalCnt(pfBoard);
+			
+			Paging paging = new Paging(totalCnt, pfpaging.getCurPage());
+			
+			List<Board> list = pfboardService.getselectAll(paging);
+			
+			model.addAttribute("pflist", list);
+			
+//--------------------------------------------------------------------------------------------
+			//사용자
+			User_table user = new User_table();
+			
+			int totalUser = adminService.getUserCnt(user);
+			
+			Paging userpaging = new Paging(totalUser, upaging.getCurPage());
+			
+			List<User_table> userlist = adminService.getUserList(userpaging);
+			
+			model.addAttribute("userpaging", userpaging);
+			model.addAttribute("userlist", userlist);
 			
 			return "admin/main"; 
 		}
@@ -101,7 +130,9 @@ public class AdminBoardController {
 	
 	@RequestMapping(value="/admin/main", method=RequestMethod.POST)
 	public String board(int category, String searchcategory, String searchtarget, @RequestParam(defaultValue="1") int curPage, 
-						Model model, HttpServletRequest req, String searchType, String search, PRPaging prpaging) {
+						Model model, HttpServletRequest req, String searchType, String search, PRPaging prpaging,
+						HttpSession session, Paging pfpaging, Paging upaging) {
+		
 		if (category == 1) {
 			//자유게시판
 			Map<String, String> map = new HashMap<String, String>();
@@ -151,9 +182,44 @@ public class AdminBoardController {
 			
 			model.addAttribute("prlist", prlist);
 			
+			System.out.println(paging2);
+			
 			logger.info("보드 리스트 겟 테스트 : " + prlist);
 			
 			return "/admin/board/prboard";
+			
+		} else if (category == 3) {
+			//calendar게시판
+			Board pfBoard = new Board();
+			
+			int totalCnt = pfboardService.getTotalCnt(pfBoard);
+			
+			Paging paging = new Paging(totalCnt, pfpaging.getCurPage());
+			
+			List<Board> list = pfboardService.getselectAll(paging);
+			
+			model.addAttribute("pfpaging", paging);		
+			model.addAttribute("pflist", list);
+			
+			System.out.println(list);
+			
+			return "/admin/board/calendar";
+		} else if (category == 4) {
+			
+		} else if (category == 5) {
+			
+		} else if (category == 6) {
+			//사용자
+			User_table user = new User_table();
+			
+			int totalUser = adminService.getUserCnt(user);
+			
+			Paging userpaging = new Paging(totalUser, upaging.getCurPage());
+			
+			List<User_table> userlist = adminService.getUserList(userpaging);
+			
+			model.addAttribute("userpaging", userpaging);
+			model.addAttribute("userlist", userlist);
 		}
 		
 		return "/admin/board/user";
