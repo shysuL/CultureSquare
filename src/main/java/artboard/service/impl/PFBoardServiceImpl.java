@@ -72,7 +72,6 @@ public class PFBoardServiceImpl implements PFBoardService{
 		try {
 			nDate = dateFormat.parse(date);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	     

@@ -189,10 +189,12 @@ function getCommentList(){
 	// 댓글 수정에서 취소 눌렀을 때 고려해서 카운트 초기화
 	modifyCnt = 0;
 	console.log('${view.boardno}');
-	
+//     console.log("세션 : " + session.getAttribute("login"));
+	console.log('${userno}');
+
 	 $.ajax({
 	        type:'POST',
-	        url : "/artboard/view",
+	        url : "/artboard/commentList",
 	        data : {
 				//게시판 번호
 				boardno : '${view.boardno }',
@@ -222,13 +224,11 @@ function getCommentList(){
 	                    
 	                    html += "<div class='col-1.5'>";
 
+	                    html += "<div id = 'rereplyBtn'>";
+	                    html += "<a ><button id='rereply' class='btn bbc' type='button'>답글</button></a>";
+	                    html += "</div>";
 	                    
-	                    if(session.getAttribute("login")){
-	                    	html += "<div id = 'rereplyBtn'>";
-	                    	html += "<a ><button id='rereply' class='btn bbc' type='button'>답글</button></a>";
-	                    	html += "</div>";
-	                    }
-	                    if(res.reList[i].userno == "${userno}"){
+	                    if(res.reList[i].usernick == "${usernick}"){
 	                    	html += "<div id = 'deleteReplyBtn'>";
 	                    	html += "<button class='btn bbc' onclick='deleteReply(" + res.reList[i].replyno + ");'>삭제</button>";
 	                    	html += "</div>";
@@ -238,15 +238,7 @@ function getCommentList(){
                     	html += "</div>";
 
 	                    
-// 	                    //자기가 작성한 댓글만 수정 삭제 출력
-// 	                    if(res.reList[i].usernick == "${usernick}") {
-// //	                     	html += "<div class='btnBox'>"
-// 	                    	html += "<button style = 'float:right;' class ='btn-danger' onClick=deleteReply(" + res.reList[i].replyno + ")>삭제</button>&nbsp";
-// 	                    	//.replace 메서드로 빈칸 에러 해결 => 정규식 / /gi 이 모든 빈칸을 뜻함
-// 	                    	html += "<button style = 'float:right; margin-right: 10px;' class = 'btn-info' onClick=modifyReply(" + res.reList[i].replyno + ",\'"+res.reList[i].recontents.replace(/ /gi, "&nbsp;") +"\')>수정</button>&nbsp";
-// //	                     	html += "</div>";
-	                    	
-// 	                    }
+// 	       
 	                    html += "</div>";
 	                }
 	                
@@ -640,9 +632,7 @@ $(document).ready(function() {
 <br>
 
 	<!-- 댓글view -->
-	 <div style="text-align: right;">
-                                <a style="color:white" onClick="fn_rereco('${view.boardno }', '${reply.groupno}')" class="btn pull-right btn-success">등록</a>
-                            </div>
+
                             
          <div id="commentList">
         </div>                           
