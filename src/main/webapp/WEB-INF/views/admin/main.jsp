@@ -193,7 +193,9 @@ $(document).ready(function() {
 						
 					</table>
 					<button class="btn btn-secondary">삭제</button>
+					<button type="button" class="btn btn-secondary">작성</button>
 				</form>
+					
 			</div>
 		</div> <!-- container -->
 	</div>

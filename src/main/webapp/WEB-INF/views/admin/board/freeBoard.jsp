@@ -25,6 +25,29 @@
 		});
 	});
 </script>
+
+<script type="text/javascript">
+function checkedAll(){
+	// checkbox들
+   var $checkboxes=$("input:checkbox[name='checkRow']");
+
+   // checkAll 체크상태 (true:전체선택, false:전체해제)
+   var check_status = $("#checkAlls").is(":checked");
+   
+   if( check_status ) {
+      // 전체 체크박스를 checked로 바꾸기
+      $checkboxes.each(function() {
+         this.checked = true;   
+      });
+   } else {
+      // 전체 체크박스를 checked 해제하기
+      $checkboxes.each(function() {
+         this.checked = false;   
+      });
+   }
+}
+</script>
+
 <!-- 자유게시판 -->
 	<div class="container" style="margin-top: 50px;">
 		<div class="innercon2">
@@ -39,7 +62,9 @@
 				<table class="table table-hover">
 					<thead>
 					<tr class="info" style="text-align: center;">
-						<th style="width: 5%"><input type="checkbox" id="checkAll"/></th>
+						<th style="width: 5%">
+							<input type="checkbox" id="checkAlls" name="checkAlls" onclick="checkedAll();"/>
+						</th>
 						<th style="width: 10%">글번호</th>
 						<th style="width: 45%">제목</th>					
 						<th style="width: 10%">작성자</th>

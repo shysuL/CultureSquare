@@ -3,6 +3,17 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<style type="text/css">
+.page-link {
+	background: white;
+	color: #343a40;
+}
+.page-item.active .page-link {
+	background-color: #343a40;
+    border-color: #343a40;
+}
+</style>
+
 <c:forEach var="i" items="${paging.search2 }">
 	<c:if test="${i.key=='searchType' }">
 	   <c:set var="searchType" value="${i.value }"/>

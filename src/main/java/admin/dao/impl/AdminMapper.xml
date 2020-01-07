@@ -30,5 +30,10 @@
 		) BOARD
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
 	</select>
+	
+	<delete id="deleteUser" parameterType="user.dto.User_table">
+		DELETE FROM User_table
+		WHERE userno = #{userno }
+	</delete>
 
 </mapper>

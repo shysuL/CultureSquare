@@ -36,4 +36,17 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.selectUserList(userpaging);
 	}
 
+	@Override
+	public boolean userDelete(User_table userlist) {
+		
+		int result = adminDao.deleteUser(userlist);
+		
+		if(result == 1) {
+			return true;
+			
+		} else {
+			return false;
+		}
+	}
+
 }

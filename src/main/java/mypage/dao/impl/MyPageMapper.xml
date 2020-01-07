@@ -51,5 +51,9 @@
 		DELETE FROM User_table
 		WHERE userid = #{userid }
 	</delete>
+	
+	<select id="selectCntAll" resultType="int" parameterType="">
+	
+	</select>
 
 </mapper>

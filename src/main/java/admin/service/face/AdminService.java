@@ -24,4 +24,6 @@ public interface AdminService {
 
 	public List<User_table> getUserList(Paging userpaging);
 
+	public boolean userDelete(User_table userlist);
+
 }

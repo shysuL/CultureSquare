@@ -27,46 +27,53 @@
 		
 	});
 	
-$(document).ready(function(){
-	//최상단 체크박스 클릭
-    $("#checkAll").click(function() {
-       //클릭되었으면
-       if ($("#checkAll").prop("checked")) {
-          //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
-          $("input[name=checkRow]").prop("checked", true);
-          //클릭이 안되있으면
-       } else {
-          //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
-          $("input[name=checkRow]").prop("checked", false);
-       }
-    });
-});
+</script>
+
+<script type="text/javascript">
+	function checkedAll(){
+		// checkbox들
+	   var $checkboxes=$("input:checkbox[name='checkRow']");
+	
+	   // checkAll 체크상태 (true:전체선택, false:전체해제)
+	   var check_status = $("#checkAlls").is(":checked");
+	   
+	   if( check_status ) {
+	      // 전체 체크박스를 checked로 바꾸기
+	      $checkboxes.each(function() {
+	         this.checked = true;   
+	      });
+	   } else {
+	      // 전체 체크박스를 checked 해제하기
+	      $checkboxes.each(function() {
+	         this.checked = false;   
+	      });
+	   }
+	}
 </script>
 
 <div class="container" style="margin-top: 50px;">
 	<div class="innercon2">
 		<div class="src" style="text-align: right;">
 			<form action="" method="get">
-			<input type="text" name="search" id="search"/>
-			<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
+				<input type="text" name="search" id="search"/>
+				<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
 			</form>
 		</div>
 		<br>
-		<form action="" method="get">
+		<form action="/admin/user/delete" method="get">
 			<table class="table table-hover">
 				<thead>
 					<tr class = "info" style="text-align: center;">
 						<th style="width: 5%">
-							<input type="checkbox" name="checkAll" id="checkAll"/>
+							<input type="checkbox" name="checkAlls" id="checkAlls" onclick="checkedAll();"/>
 						</th>
-						<th style="width: 10%">사용자 번호</th>
+						<th style="width: 10%">유저번호</th>
 						<th style="width: 10%">타입</th>
 						<th style="width: 15%">이름</th>
-						<th style="width: 15%">아이디</th>
+						<th style="width: 20%">아이디</th>
 						<th style="width: 15%">전화번호</th>					
 						<th style="width: 10%">승인여부</th>
-						<th style="width: 10%">구독자수</th>
-						<th style="width: 10%">소셜로그인</th>
+						<th style="width: 15%">소셜로그인</th>
 					</tr>
 				</thead>
 				
@@ -82,7 +89,6 @@ $(document).ready(function(){
 							<td>${userlist.userid }</td>
 							<td>${userlist.userphone }</td>
 							<td>${userlist.permit }</td>
-							<td>${userlist.follow }</td>
 							<td>${userlist.sociallogin }</td>
 						</tr>
 					</c:forEach>
