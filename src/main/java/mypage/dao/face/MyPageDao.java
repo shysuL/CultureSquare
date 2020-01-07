@@ -1,8 +1,11 @@
 package mypage.dao.face;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import user.dto.User_table;
+import util.Paging;
 
 public interface MyPageDao {
 
@@ -46,5 +49,7 @@ public interface MyPageDao {
 	public void deleteUserId(User_table user);
 
 	public int selectCntAll(HttpServletRequest req, int i);
+
+	public List selectLikePost(Paging paging, User_table user, int i);
 
 }
