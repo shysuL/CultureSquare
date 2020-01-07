@@ -19,28 +19,20 @@
 
 <div class="container">
 	<div class="container text-center">
-		<h4 id="likepostheader">${usernick }이 좋아요한 글</h4>
+		<h4 id="likepostheader">"${usernick }"님이  좋아요한 글</h4>
 	</div>
 </div>
 
 <div class="container" style="margin-top: 50px;">
 	<div class="innercon2">
-		<div class="src" style="text-align: right;">
-			<form action="" method="get">
-				<input type="text" name="search" id="search"/>
-				<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
-			</form>
-		</div>
 		<br>
 		<form action="/mypage/likepost" method="get">
 			<table class="table table-hover">
 				<thead>
 					<tr class = "info" style="text-align: center;" >
-						<th style="width: 5%">
-							<input type="checkbox" id="checkAll"/>
-						</th>
-						<th style="width: 10%">게시판 명</th>
-						<th style="width: 35%">제목</th>					
+						<th style="width: 5%">번호</th>
+						<th style="width: 15%">게시판 명</th>
+						<th style="width: 30%">제목</th>					
 						<th style="width: 15%">작성자</th>
 						<th style="width: 20%">작성일</th>
 						<th style="width: 15%">조회수</th>
@@ -48,24 +40,28 @@
 				</thead>
 				
 				<tbody>
-					<c:forEach items="${list }" var="comp">
-					<tr onclick="location.href=''">
-						<td>
-							<input type="checkbox" name="checkRow" value="${comp.comp_no  }"/>
-						</td>
-						<td>${comp.comp_no }</td>
-						<td>${comp.comp_no }</td>
-						<td><a href="/mgr/compview?comp_no=${comp.comp_no}">${comp.comp_title }</a></td>
-						<td>${comp.userno }</td>
-						<td>${comp.comp_date }</td>
-					</tr>
+					<c:forEach items="${likelist }" var="likelist">
+					<c:if test="${likelist.BOARDNAME == '자유게시판'}">
+						<tr onclick="location.href='/board/freeview?boardno=${likelist.BOARDNO }';" style="text-align: center;">
+					</c:if>
+					<c:if test="${likelist.BOARDNAME == 'PR게시판'}">
+						<tr onclick="location.href='/prboard/view?boardno=${likelist.BOARDNO }';" style="text-align: center;">
+					</c:if>
+							<td>${likelist.RNUM }</td>
+							<td>${likelist.BOARDNAME }</td>
+							<td>${likelist.TITLE }</td>
+							<td>${likelist.USERNICK }</td>
+							<td>${likelist.WRITTENDATE }</td>
+							<td>${likelist.VIEWS }</td>
+						</tr>
 					</c:forEach>
 				</tbody>
 				
 			</table>
-			<button class="btn btn-secondary">삭제</button>
 		</form>
 	</div>
+	
+	<jsp:include page="/WEB-INF/views/layout/mypaging.jsp"/>
 </div> <!-- container -->
 
 <jsp:include page="/WEB-INF/views/layout/footer.jsp"/>

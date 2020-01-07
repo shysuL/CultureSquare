@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 
 import user.dto.User_table;
+import util.MyPaging;
 import util.Paging;
 
 public interface MyPageService{
@@ -39,8 +40,12 @@ public interface MyPageService{
 	
 	public void deleteUser(User_table user);
 
-	public Paging getPaging(HttpServletRequest req, int i);
+	public MyPaging getPaging(MyPaging paging);
 
-	public List getLikeList(Paging paging, User_table user, int i);
+	public List getLikeList(MyPaging result);
+
+	public List getWriteList(MyPaging result);
+
+	public List getReplyList(MyPaging result);
 
 }

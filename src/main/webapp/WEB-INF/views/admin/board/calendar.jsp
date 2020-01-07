@@ -66,7 +66,7 @@ function checkedAll(){
 								<th style="width: 5%">
 									<input type="checkbox" id="checkAlls" name="checkAlls" onclick="checkedAll();"/>
 								</th>
-								<th style="width: 10%">글번호</th>
+								<th style="width: 10%">번호</th>
 								<th style="width: 10%">분야</th>					
 								<th style="width: 35%">제목</th>					
 								<th style="width: 15%">날짜</th>
@@ -82,7 +82,7 @@ function checkedAll(){
 									<td>
 										<input type="checkbox" name="checkRow" id="checkRow" value="${pflist.boardno  }"/>
 									</td>
-									<td>${pflist.boardno }</td>
+									<td>${pflist.rnum }</td>
 									<td>${pflist.performname }</td>
 									<td>${pflist.title }</td>
 									<td>${pflist.performdate }</td>

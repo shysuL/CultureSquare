@@ -1,6 +1,10 @@
 package board.dto;
 
 public class FreeBoard {
+	
+	//관리자, 마이페이지 게시글 번호
+	private int rnum;
+	
 	private int boardno;
 	private String title;
 	private String writtendate;
@@ -15,9 +19,17 @@ public class FreeBoard {
 
 	@Override
 	public String toString() {
-		return "FreeBoard [boardno=" + boardno + ", title=" + title + ", writtendate=" + writtendate + ", contents="
-				+ contents + ", views=" + views + ", userno=" + userno + ", postno=" + postno + ", usernick=" + usernick
-				+ ", userid=" + userid + ", blike=" + blike + "]";
+		return "FreeBoard [rnum=" + rnum + ", boardno=" + boardno + ", title=" + title + ", writtendate=" + writtendate
+				+ ", contents=" + contents + ", views=" + views + ", userno=" + userno + ", postno=" + postno
+				+ ", usernick=" + usernick + ", userid=" + userid + ", blike=" + blike + "]";
+	}
+
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 
 	public int getBoardno() {

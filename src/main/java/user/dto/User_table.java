@@ -19,18 +19,22 @@ public class User_table {
 	private int follow;
 	private int prcnt;
 	private int sociallogin;
+	private int rnum;
 	
-	
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 	@Override
 	public String toString() {
 		return "User_table [userno=" + userno + ", userid=" + userid + ", userpw=" + userpw + ", username=" + username
 				+ ", usernick=" + usernick + ", userphone=" + userphone + ", usergender=" + usergender + ", userbirth="
 				+ userbirth + ", interest=" + interest + ", usertype=" + usertype + ", permit=" + permit
 				+ ", emailcheck=" + emailcheck + ", originname=" + originname + ", storedname=" + storedname
-				+ ", follow=" + follow + ", prcnt=" + prcnt + ", sociallogin=" + sociallogin + "]";
+				+ ", follow=" + follow + ", prcnt=" + prcnt + ", sociallogin=" + sociallogin + ", rnum=" + rnum + "]";
 	}
-	
-	
 	public int getUserno() {
 		return userno;
 	}

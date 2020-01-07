@@ -28,7 +28,7 @@ function checkedAll(){
 </script>
 
 <style type="text/css">
-#writelistsheader {
+#writereplylistheader {
 	margin-bottom: 3%; 
 	margin-top: 3%; 
 	margin-left: 30%;
@@ -41,7 +41,7 @@ function checkedAll(){
 
 <div class="container">
 	<div class="container text-center">
-		<h4 id="writelistsheader">"${usernick }"님이 쓴 글 </h4>
+		<h4 id="writereplylistheader">"${usernick }"님이 쓴 댓글 </h4>
 	</div>
 </div>
 
@@ -49,8 +49,8 @@ function checkedAll(){
 	<div class="innercon2">
 		<div class="src" style="text-align: right;">
 			<form action="" method="get">
-			<input type="text" name="search" id="search"/>
-			<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
+				<input type="text" name="search" id="search"/>
+				<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
 			</form>
 		</div>
 		<br>
@@ -63,31 +63,31 @@ function checkedAll(){
 						</th>
 						<th style="width: 10%">번호</th>
 						<th style="width: 15%">게시판 명</th>
-						<th style="width: 35%">제목</th>					
-						<th style="width: 20%">작성일</th>
-						<th style="width: 15%">조회수</th>
+						<th style="width: 15%">제목</th>
+						<th style="width: 35%">댓글내용</th>					
+						<th style="width: 20%">댓글 작성일</th>
 					</tr>
 				</thead>
 				
 				<tbody>
-					<c:forEach items="${writelist }" var="writelist">
-					<c:if test="${writelist.BOARDNAME == '자유게시판'}">
-						<tr onclick="location.href='/board/freeview?boardno=${writelist.BOARDNO }';" style="text-align: center;">
+					<c:forEach items="${replylist }" var="replylist">
+					<c:if test="${replylist.BOARDNAME == '자유게시판'}">
+						<tr onclick="location.href='/board/freeview?boardno=${replylist.BOARDNO }';" style="text-align: center;">
 					</c:if>
-					<c:if test="${writelist.BOARDNAME == 'PR게시판'}">
-						<tr onclick="location.href='/prboard/view?boardno=${writelist.BOARDNO }';" style="text-align: center;">
+					<c:if test="${replylist.BOARDNAME == 'PR게시판'}">
+						<tr onclick="location.href='/prboard/view?boardno=${replylist.BOARDNO }';" style="text-align: center;">
 					</c:if>
-					<c:if test="${writelist.BOARDNAME == '예술정보게시판'}">
-						<tr onclick="location.href='/artboard/view?boardno=${writelist.BOARDNO }';" style="text-align: center;">
+					<c:if test="${replylist.BOARDNAME == '예술정보게시판'}">
+						<tr onclick="location.href='/artboard/view?boardno=${replylist.BOARDNO }';" style="text-align: center;">
 					</c:if>
 							<td>
-								<input type="checkbox" name="checkRow" id="checkRow" value="${writelist.BOARDNO  }"/>
+								<input type="checkbox" name="checkRow" id="checkRow" value="${replylist.BOARDNO  }"/>
 							</td>
-							<td>${writelist.RNUM }</td>
-							<td>${writelist.BOARDNAME }</td>
-							<td>${writelist.TITLE }</td>
-							<td>${writelist.WRITTENDATE }</td>
-							<td>${writelist.VIEWS }</td>
+							<td>${replylist.RNUM }</td>
+							<td>${replylist.BOARDNAME }</td>
+							<td>${replylist.TITLE }</td>
+							<td>${replylist.RECONTENTS }</td>
+							<td>${replylist.REPLYDATE }</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -99,5 +99,6 @@ function checkedAll(){
 	
 	<jsp:include page="/WEB-INF/views/layout/mypaging.jsp"/>
 </div> <!-- container -->
+
 
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />    

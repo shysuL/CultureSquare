@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import mypage.dao.face.MyPageDao;
 import mypage.service.face.MyPageService;
 import user.dto.User_table;
+import util.MyPaging;
 import util.Paging;
 
 @Service
@@ -100,25 +101,29 @@ public class MyPageServiceImpl implements MyPageService{
 	}
 
 	@Override
-	public Paging getPaging(HttpServletRequest req, int i) {
+	public MyPaging getPaging(MyPaging paging) {
 		
-		String cur = req.getParameter("curPage");
+		int totalCount = mypageDao.selectCntAll(paging);
 		
-		int curPage = 0;
-		if(cur!=null && !"".equals(cur)) {
-			curPage = Integer.parseInt(cur);
-		}
+		MyPaging result = new MyPaging(totalCount, paging.getCurPage());
+		result.setUserno(paging.getUserno());
 		
-		int totalCount = mypageDao.selectCntAll(req, i);
-		
-		Paging paging = new Paging(totalCount, curPage);
-		
-		return paging;
+		return result;
 	}
 	
 	@Override
-	public List getLikeList(Paging paging, User_table user, int i) {
+	public List getLikeList(MyPaging paging) {
 		
-		return mypageDao.selectLikePost(paging, user, i);
+		return mypageDao.selectLikePost(paging);
+	}
+
+	@Override
+	public List getWriteList(MyPaging paging) {
+		return mypageDao.selectWritePost(paging);
+	}
+	
+	@Override
+	public List getReplyList(MyPaging paging) {
+		return mypageDao.selectReplyPost(paging);
 	}
 }
