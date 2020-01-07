@@ -187,5 +187,43 @@ public class ArtboardViewController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/artboard/recommend", method = RequestMethod.GET)
+	public String recommendPF(Board board, Model model,HttpSession session) {
+		
+		//보드 번호 저장
+		int boardno = board.getBoardno();
+		//로그인 상태인 경우만 처리
+		if((String)session.getAttribute("usernick")!= null) {
+			// 1. 회원 번호 구하기
+			board.setBoardno(boardno);
+			board.setUserno((int) session.getAttribute("userno"));
+			
+			int result = pfboardService.recommendCheck(board);
+			
+			//전에 추천한적이 없다면
+			if(result == 0) {
+				pfboardService.recommend(board);
+			}else {
+				pfboardService.recommendCancel(board);
+			}
+			
+			logger.info("버튼 클릭 : " + result);
+			logger.info("추천 보드 정보 : " + board);
+			
+			int recommendCnt = pfboardService.recommendView(board);
+			
+			// View에 모델 전달
+			model.addAttribute("result",result);
+			
+			model.addAttribute("recommendCnt", recommendCnt);
+			
+			return "artboard/recommend";
+		}
+		//로그아웃일 경우 실패를 받을수 있도록 다시 보냄
+		else {
+			return "/artboard/view?boardno="+boardno;
+		}
+	}
+	
 	
 }

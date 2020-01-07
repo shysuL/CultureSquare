@@ -195,6 +195,49 @@ public interface PFBoardDao {
 	 * @return UpFile - 파일정보가 담긴 객체
 	 */
 	public PFUpFile selectFileByFileno(int fileno);
+
+	/**
+	 * 2020-01-07
+	 * 이수현
+	 * 
+	 * 추천 여부 조회
+	 * 
+	 * 
+	 * @param Board - 추천 여부 정보가 담긴 객체
+	 * @return int - 추천 여부
+	 */
+	public int selectRecommend(Board board);
+
+	/**
+	 * 2020-01-07
+	 * 이수현
+	 * 
+	 * 추천테이블에 데이터를 삽입한다.
+	 * 
+	 * @param Board - 추천테이블에 삽입할 데이터가 담긴 객체
+	 */
+	public void insertRecommend(Board board);
+
+	/**
+	 * 2020-01-07
+	 * 이수현
+	 * 
+	 * 추천테이블에서 데이터를 삭제한다.
+	 * 
+	 * @param prBoard - 추천테이블에서 삭제할 데이터가 담긴 객체
+	 */
+	public void deleteRecommend(Board board);
+
+	/**
+	 * 2020-01-07
+	 * 이수현
+	 * 
+	 * 게시글의 추천 갯수를 센다
+	 * 
+	 * @param Board - 게시글 정보가 담긴 객체
+	 * @return int - 추천수
+	 */
+	public int selectrecommendView(Board board);
 	
 	
 }

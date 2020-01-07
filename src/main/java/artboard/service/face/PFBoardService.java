@@ -266,5 +266,49 @@ public interface PFBoardService {
 
 
 
+	/**
+	 * 2020-01-07
+	 * 이수현
+	 * 
+	 * 추천 여부 조회
+	 * 
+	 * @param Board - 추천 여부 조회할 정보가 담긴 객체
+	 * @return int - 추천 여부
+	 */
+	public int recommendCheck(Board board);
+
+	/**
+	 * 2020-01-07
+	 * 이수현
+	 * 
+	 * 추천을 한다.
+	 * 
+	 * @param Board - 추천 테이블에 삽입할 데이터 객체
+	 */
+	public void recommend(Board board);
+
+	/**
+	 * 2020-01-07
+	 * 이수현
+	 * 
+	 * 추천 취소를 한다..
+	 * 
+	 * @param Board - 추천 테이블에서 삭제할 데이터 객체
+	 */
+	public void recommendCancel(Board board);
+
+	/**
+	 * 2020-01-07
+	 * 이수현
+	 * 
+	 * 게시글의 추천 갯수를 센다
+	 * 
+	 * @param Board - 게시글 정보가 담긴 객체
+	 * @return int - 추천수
+	 */
+	public int recommendView(Board board);
+
+
+
 
 }
