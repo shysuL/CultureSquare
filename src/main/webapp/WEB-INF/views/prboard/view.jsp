@@ -104,7 +104,7 @@ function modifyReply(replyno,recontents){
 //답글 처리 메서드
 function getReReply(replyno){
 	console.log("답글 테스트 번호: " + replyno);
-	
+	var boardno = '${viewBoard.boardno}';
 	
 	//기존 div 제거
 	$('#RereplyBox' + replyno).remove();
@@ -151,12 +151,11 @@ function getReReply(replyno){
 						 
 						//자기가 작성한 답글만 수정 삭제 출력
 						  if(res.reReplyList[i].usernick == "${usernick}") {
-		    	              html += "<div><button class='reReplyDelete btn-danger'onClick=deleteReReply(" + res.reReplyList[i].replyno + ")>삭제</button>";
-		    	              html+= "<button class='reReplyModify btn-info'>수정</button>";
+		    	              html += "<div><a style = 'color: red; cursor: pointer;'class='reReplyDelete' onClick=deleteReReply(" + res.reReplyList[i].replyno + ")>삭제</a>";
+		    	              html+= "<a style = 'color: #007bff; cursor: pointer;' class='reReplyModify'>수정</a>";
 		    	              html +="</div>";
 						  }
 		    	              
-
 	    	              html +="</div>";
 	    	          }
 	    	      	
@@ -172,13 +171,13 @@ function getReReply(replyno){
 	    		html += '</span>';
 	    		html += '</span>';	
 	    		html += '<div style="position: relative; min-height: 90px;">';
-	    		html += '<textarea name="editContent" id="editContent" class="form-control" style= "resize:none;">';
+	    		html += '<textarea id="rreText'+replyno+'" name="editContent" id="editContent" class="form-control" style= "resize:none;">';
 	    		html += '</textarea>';
-	    		html += '<button style="margin-top: 5px; position: absolute; right: 0;">등록</button>';
+	    		html += '<button id="rreaddBtn'+replyno+'" onClick="addReReply('+replyno +','+boardno +')" style="margin-top: 5px; position: absolute; right: 0;">등록</button>';
 	    		html += '</div>';
 	    		html += '</p>';
 	    		html += '</div>';
-
+	    		
 	    		$('#commentBox' + replyno).append(html);
 
 	    		//twice 상태면 답글 버튼을 한번 누른 상태
@@ -251,6 +250,58 @@ function fn_comment(boardno){
 		});
 	}
 }
+
+/**
+ * 답글 등록하기
+ */
+ 
+ function addReReply(replyno, boardno){
+	    
+		console.log("답글 등록 테스트 -> 댓글 번호는? " + replyno);
+		//입력한 답글 내용 저장
+		var rrecontents = $('#rreText'+replyno).val();
+		console.log("입력한 내용은?" + rrecontents);
+		
+		//빈칸 입력한 경우
+		if(rrecontents==""){
+			$("#prReReplyErrorModal").modal({backdrop: 'static', keyboard: false});
+		}
+		
+		//제대로 입력한 경우
+		else{
+			$.ajax({
+				type : "POST",
+				url : "/prboard/addReReply",
+				data : {
+					//게시판 번호, 부모 댓글 번호, 답글 내용 넘겨줌
+					boardno : boardno,
+					replyno : replyno,
+					recontents : rrecontents
+				},
+				dataType : "json",
+				success : function(res) {
+					
+					// 로그인 후 답글 작성일때 처리 - 답글 리스트 보여줌
+		            if(res.insert)
+		            {
+		            	console.log("로그인 상태");
+		            	checkReReply[replyno] = 'undefined';
+						getReReply(replyno);
+		            	$('#rreText'+replyno).val("");
+		            }
+		            
+					//로그아웃 상태에서 답글 작성 처리 - 모달 호출
+		            else{
+		            	$('#rreText'+replyno).val("");
+		            	$("#prReReplyErrorModal").modal({backdrop: 'static', keyboard: false});
+		            }
+				},
+				error : function() {
+					console.log("실패");
+				}
+			});
+		}
+	}
  
 /**
  * 초기 페이지 로딩시 댓글 불러오기
@@ -558,13 +609,13 @@ div[class*=reReplyBox]{
 .reReplyDelete{
 	position: absolute;
 	bottom: 0;
-    right: 0;
+    right: 3px;
 }
 
 .reReplyModify{
 	  position: absolute;
 	  bottom: 0;
-	  right: 55px;
+	  right: 45px;
 }
 
 .RereplyBox {
@@ -736,7 +787,7 @@ div[class*=reReplyBox]{
   </div>
 </div>
 
-<!-- 로그인 부탁 모달-->
+<!-- 댓글 오류 모달-->
 <div class="modal fade" id="prReplyErrorModal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -829,6 +880,31 @@ div[class*=reReplyBox]{
       <!-- Modal footer -->
       <div class="modal-footer">
         <button type="submit" id="prModifyDupleModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 답글 오류 모달-->
+<div class="modal fade" id="prReReplyErrorModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">답글 오류</h4>
+        <button id="prLikeLoginX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	내용을 입력해주세요!
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="prReReplyErrorModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
       </div>
 
     </div>

@@ -371,4 +371,25 @@ public interface PRBoardDao {
 	 * @param groupNo - 삭제될 답글의 그룹 번호
 	 */
 	public void deleteReReplyByGroupNo(int groupNo);
+
+	/**
+	 * 2020-01-07
+	 * 조홍철
+	 * 
+	 * 최대 그룹번호 값을 가져온다.
+	 * 
+	 * @param reply - 그룹번호가 담긴 객체
+	 * @return int - 최대 그룹번호
+	 */
+	public int selectMaxReplyOrder(Reply reply);
+
+	/**
+	 * 2020-01-07
+	 * 조홍철
+	 * 
+	 * 답글 삽입
+	 * 
+	 * @param reply - 삽입할 답글 정보가 담긴 객체
+	 */
+	public void insertReReply(Reply reply);
 }

@@ -326,4 +326,16 @@ public class PRBoardServiceImpl implements PRBoardService {
 
 		prBoardDao.deleteReReplyByGroupNo(groupNo);
 	}
+
+	@Override
+	public int getMaxReplyOrder(Reply reply) {
+		
+		return prBoardDao.selectMaxReplyOrder(reply);
+	}
+
+	@Override
+	public void addReReply(Reply reply) {
+
+		prBoardDao.insertReReply(reply);
+	}
 }
