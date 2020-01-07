@@ -112,21 +112,21 @@ function modifyReReply(replyno,recontents){
 	console.log("답글 내용 : " + recontents);
 	
 	reModifyCnt++;
-	
+
 	//하나만 수정 시도 할 경우
 	if(reModifyCnt == 1){
 		console.log("수정하고 있는 갯수당 : " + reModifyCnt);
 		
 	
 		var html = "";
-		html += '<div id="commentBox' + replyno + '">';
+		html += '<div id="reReplyBox' + replyno + '">';
 		html += '<title>Placeholder</title>';
 		html += '<rect width="100%" height="100%" fill="#007bff"></rect>';
 		html += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
 		html += '<span class="d-block">';
 		html += '<strong class="text-gray-dark">' + replyno + '</strong>';
 		html += '<span style="padding-left: 7px; font-size: 9pt">';
-		html += '<a href="javascript:void(0)" onClick="modifyReplyAjax('+replyno +')" style="padding-right:5px">수정<a>';
+		html += '<a href="javascript:void(0)" onClick="modifyReReplyAjax('+replyno +')" style="padding-right:5px">수정<a>';
 		html += '<a href="javascript:void(0)" onClick="getReReply('+selectReply+');" style="color:red;">취소<a>';
 		
 		//이전 답글리스트로 돌아가도록
@@ -157,6 +157,9 @@ function modifyReReply(replyno,recontents){
 function getReReply(replyno){
 	console.log("답글 테스트 번호: " + replyno);
 	var boardno = '${viewBoard.boardno}';
+
+	//답글 수정에서 취소 눌렀을때 고려해서 카운트 초기화
+	reModifyCnt = 0;
 	
 	//기존 div 제거
 	$('#RereplyBox' + replyno).remove();
@@ -218,6 +221,7 @@ function getReReply(replyno){
 	    	    	  html += "<div>";
 	    	          html += "<h6><strong>등록된 답글이 없습니다.</strong></h6>";
 	    	          html += "</div>";
+	    	          $('#rCnt' + replyno).html(0);
 	    	          
 	    	      }
 	    		html += '<span style="padding-left: 7px; font-size: 9pt">';
@@ -395,6 +399,43 @@ $(function(){
 	}
 }
  
+/**
+ * 답글 수정 처리 (Ajax)
+ */
+ function modifyReReplyAjax(replyno){
+	
+	//수정한 답글 내용
+	 var updateReContents = $('#editReContent').val();
+	
+	console.log("답글 수정 내용 : " + updateReContents);
+	console.log("수정할 답글 번호 : " + replyno);
+	
+	//빈칸 입력한 경우
+	if(updateReContents==""){
+		$("#prReplyErrorModal").modal({backdrop: 'static', keyboard: false});
+	}
+	//내용 입력한 경우
+	else{
+		$.ajax({
+			type : "POST",
+			url : "/prboard/modifyComment",
+			data : {
+				//댓글 번호, 수정 댓글 내용 넘겨줌
+				replyno : replyno,
+				recontents : updateReContents
+			},
+			dataType : "json",
+			success : function(res) {
+				checkReReply[selectReply] = 'undefined';
+				getReReply(selectReply);
+			},
+			error : function() {
+				console.log("실패");
+			}
+		});
+	}
+} 
+
 /**
  * 댓글 불러오기(Ajax)
  */
