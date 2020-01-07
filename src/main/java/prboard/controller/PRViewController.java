@@ -332,13 +332,19 @@ public class PRViewController {
 	@RequestMapping(value="/prboard/commentList", method=RequestMethod.POST)
 	public ModelAndView commentListPR(Model model, Reply reply, HttpSession session, ModelAndView mav) {
 		
-
+		int reReplyCnt = 0;
+		
 		ArrayList<HashMap> reList = new ArrayList<HashMap>();
-        
+		
         // 해당 게시물 댓글 리스트 불러오기
         List<Reply> replyVO = prBoardService.getReplyByboardNo(reply);
         
+        
+        logger.info("답 테스트 : "  + replyVO);
+        
         if(replyVO.size() > 0){
+        	
+        	
             for(int i=0; i<replyVO.size(); i++){
                 HashMap hm = new HashMap();
                 hm.put("replyno", replyVO.get(i).getReplyno());
@@ -347,9 +353,16 @@ public class PRViewController {
                 hm.put("usernick", replyVO.get(i).getUsernick());
                 hm.put("replydate", replyVO.get(i).getReplydate());
                 
+                //댓글의 답글 갯수 구하기
+                reReplyCnt = prBoardService.getREreplyCnt(replyVO.get(i).getGroupno());
+                
+                hm.put("replyCnt", reReplyCnt);
+                
                 reList.add(hm);
             }
         }
+        
+        logger.info("리스트 테스트 수정: " + reList);
 		
 		mav.addObject("reList", reList);
 		//viewName지정하기
@@ -380,6 +393,41 @@ public class PRViewController {
 		//댓글 수정
 		prBoardService.updateReplyByNo(reply);
 
+		//viewName지정하기
+		mav.setViewName("jsonView");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/prboard/ReReplyList", method=RequestMethod.POST)
+	public ModelAndView reReplyListPR(Model model, Reply reply, HttpSession session, ModelAndView mav) {
+		
+
+		ArrayList<HashMap> reReplyList = new ArrayList<HashMap>();
+		
+		// 1. 댓글번호로 그룹번호 가져오기
+		int groupNo = prBoardService.getGroupNoByReplyNo(reply);
+		
+        // 해당 댓글 답글리스트 불러오기
+        List<Reply> replyVO = prBoardService.getReReplyByNo(groupNo);
+        
+        if(replyVO.size() > 0){
+            for(int i=0; i<replyVO.size(); i++){
+                HashMap hm = new HashMap();
+                hm.put("replyno", replyVO.get(i).getReplyno());
+                hm.put("boardno", replyVO.get(i).getBoardno());
+                hm.put("recontents", replyVO.get(i).getRecontents());
+                hm.put("usernick", replyVO.get(i).getUsernick());
+                hm.put("replydate", replyVO.get(i).getReplydate());
+                
+                reReplyList.add(hm);
+            }
+        }
+        
+        logger.info("답글 테스트 : " + reReplyList);
+		
+        
+		mav.addObject("reReplyList", reReplyList);
 		//viewName지정하기
 		mav.setViewName("jsonView");
 		

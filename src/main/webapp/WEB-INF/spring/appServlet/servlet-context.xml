@@ -86,6 +86,7 @@ http://www.springframework.org/schema/task/spring-task.xsd">
 		<beans:property name="contentType"
 		value = "application/json;charset=utf-8"/>	
 	</beans:bean>
+	
 
 
 	<!-- MultipartResolver -->

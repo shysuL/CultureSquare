@@ -183,6 +183,19 @@ public interface PFBoardService {
 
 
 
+	/**
+	 * 이수현
+	 * 2020-01-06
+	 * 
+	 * 댓글 리스트 조회
+	 * 
+	 * @param reply - 게시판 번호가 담긴 객체
+	 * @return List - 댓글 리스트
+	 */
+	public List<Reply> getReplyByboardNo(Reply reply);
+
+
+
 
 	/**
 	 * 2020-01-06

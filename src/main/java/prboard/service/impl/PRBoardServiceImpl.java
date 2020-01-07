@@ -305,4 +305,19 @@ public class PRBoardServiceImpl implements PRBoardService {
 
 		prBoardDao.updateReplyByNo(reply);
 	}
+
+	@Override
+	public int getGroupNoByReplyNo(Reply reply) {
+		return prBoardDao.selectGroupNo(reply);
+	}
+
+	@Override
+	public List<Reply> getReReplyByNo(int groupNo) {
+		return prBoardDao.selectReReplyList(groupNo);
+	}
+
+	@Override
+	public int getREreplyCnt(int groupno) {
+		return prBoardDao.selectREreplyCnt(groupno);
+	}
 }

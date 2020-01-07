@@ -12,6 +12,9 @@
 //지울 댓글 번호
 var dreplyno;
 
+//선택된 댓글 번호
+var selectReply;
+
 //한번에 여러개 수정 못하게 하는 체크 변후
 var modifyCnt = 0;
 
@@ -24,6 +27,15 @@ function deleteReply(replyno){
 	console.log("댓글 삭제 번호당: " + replyno);
 	dreplyno = replyno;
 }
+
+//답글 삭제 클릭 -> 진짜로 삭제 할거냐는 모달 호출
+function deleteReReply(replyno){
+	$("#prReReplyDeleteModal").modal({backdrop: 'static', keyboard: false});
+	console.log(checkReReply[replyno] + "답글 입니다.");
+	dreplyno = replyno;
+}
+
+
 
 // 댓글 수정 버튼 클릭시, 기존댓글에서 커서 맨 뒤로 이동시키기 위한 메서드 추가
 $.fn.setCursorPosition = function( pos )
@@ -88,51 +100,103 @@ function modifyReply(replyno,recontents){
 }
 
 //답글 처리 메서드
-function addReReply(replyno, len){
+function getReReply(replyno){
 	console.log("답글 테스트 번호: " + replyno);
 	
-	//답글 버튼을 처음 누른다면 답글 리스트 출력하도록
-	if(checkReReply[replyno] == undefined || checkReReply[replyno]=='undefined'){
-		//기존 div 제거
-		$('#RereplyBox' + replyno).remove();
-		
-		var html = "";
-		
-//         html += "<div>";
-//         html += "<h6><strong>등록된 답글이 없습니=다.</strong></h6>";
-//         html += "</div>";
-
-		html += '<div id="RereplyBox' + replyno + '">';
-		html += '<p style="padding-top: 10px; padding-left: 15px;"><img style="margin-right: 10px;" src="/resources/img/replyarrow.png" />답글 리스트를 불러오쟝</p>';
-		html += '<title>Placeholder</title>';
-		html += '<rect width="100%" height="100%" fill="#007bff"></rect>';
-		html += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
-		html += '<span class="d-block">';
-		html += '<strong class="text-gray-dark">' + '답글의 댓글 번호 : ' + replyno + '</strong>';
-		html += '<span style="padding-left: 7px; font-size: 9pt">';
-//	 	html += '<a href="javascript:void(0)" onClick="modifyReplyAjax('+replyno +')" style="padding-right:5px">수정<a>';
-//	 	html += '<a href="javascript:void(0)" onClick="getCommentList()" style="color:red;">취소<a>';
-		html += '</span>';
-		html += '</span>';		
-		html += '<textarea name="editContent" id="editContent" class="form-control">';
-		html += '</textarea>';
-		html += '<button style="margin-top: 5px;}">등록</button>'
-		html += '</p>';
-		html += '</div>';
-
-		$('#commentBox' + replyno).append(html);
-
-		//twice 상태면 답글 버튼을 한번 누른 상태
-		checkReReply[replyno] = 'twice';
-		console.log("수행 후 출력 : " + checkReReply[replyno]);
-	}
 	
-	//답글 버튼을 두번째 누르는 상황 => 답글이 닫히도록 => remove();
-	else{
-		checkReReply[replyno] = 'undefined';
-		console.log("두번째 눌림 : " + checkReReply[replyno]);
-		$('#RereplyBox' + replyno).remove();
-	}
+	//기존 div 제거
+	$('#RereplyBox' + replyno).remove();
+		
+	    $.ajax({
+	        type:'POST',
+	        url : "/prboard/ReReplyList",
+	        data : {
+				//댓글 번호
+				replyno : replyno,
+			},
+	        dataType : "json",
+	        success : function(res){
+	            
+	    		var html = "";
+	            var cCnt = res.reReplyList.length;
+	            var html = "";
+	            
+	        	//답글 버튼을 처음 누른다면 답글 리스트 출력하도록
+	        	if(checkReReply[replyno] == undefined || checkReReply[replyno]=='undefined'){
+	        	
+	        	//전역 변수에 값 저장
+	        	selectReply = replyno;
+	        		
+	    		html += '<div class = "RereplyBox" id="RereplyBox' + replyno + '">';
+	    		html += '<strong class="text-gray-dark">' + '답글의 댓글 번호 : ' + replyno + '</strong>';
+	    		html += '<title>Placeholder</title>';
+	    		html += '<rect width="100%" height="100%" fill="#007bff"></rect>';
+	    		html += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
+	    		html += '<span class="d-block">';
+	    	      if(res.reReplyList.length > 0){
+	    	      	
+	    	      	for(i=0; i<res.reReplyList.length; i++){
+	    	      		  html += "<div class='reReplyBox" + res.reReplyList[i].replyno+ "'id='reReplyBox"+res.reReplyList[i].replyno+"'>";
+	    	              html += "<img style='margin-right: 5px;margin-left: 5px;margin-top: -60px;' src='/resources/img/replyarrow.png' />"
+	    	              html += "<div style=' display: inline-block;'>"
+	    	              html += "<h6 style='padding-top: 10px; padding-left: 15px;' ><strong style='margin-left: -15px;'><strong>"+res.reReplyList[i].usernick+"</strong></h6>";
+	    	              html += "</strong>" + res.reReplyList[i].recontents + "&nbsp;<small>(" + res.reReplyList[i].replydate + ")</small>";
+	    	              
+	    	              //답글 번호 삭제
+	    	              html += "<h1 style='display:none;'>" + res.reReplyList[i].replyno + "</h1>";
+	    	              html += "</div>";
+						 
+						//자기가 작성한 답글만 수정 삭제 출력
+						  if(res.reReplyList[i].usernick == "${usernick}") {
+		    	              html += "<div><button class='reReplyDelete btn-danger'onClick=deleteReReply(" + res.reReplyList[i].replyno + ")>삭제</button>";
+		    	              html+= "<button class='reReplyModify btn-info'>수정</button>";
+		    	              html +="</div>";
+						  }
+		    	              
+
+	    	              html +="</div>";
+	    	          }
+	    	      	
+	    	          
+	    	      } else {
+	    	          
+	    	          html += "<div>";
+	    	          html += "<h6><strong>등록된 답글이 없습니다.</strong></h6>";
+	    	          html += "</div>";
+	    	          
+	    	      }
+	    		html += '<span style="padding-left: 7px; font-size: 9pt">';
+	    		html += '</span>';
+	    		html += '</span>';	
+	    		html += '<div style="position: relative; min-height: 90px;">';
+	    		html += '<textarea name="editContent" id="editContent" class="form-control" style= "resize:none;">';
+	    		html += '</textarea>';
+	    		html += '<button style="margin-top: 5px; position: absolute; right: 0;">등록</button>';
+	    		html += '</div>';
+	    		html += '</p>';
+	    		html += '</div>';
+
+	    		$('#commentBox' + replyno).append(html);
+
+	    		//twice 상태면 답글 버튼을 한번 누른 상태
+	    		checkReReply[replyno] = 'twice';
+	    	}
+			
+			//답글 버튼을 두번째 누르는 상황 => 답글이 닫히도록 => remove();
+			else{
+				checkReReply[replyno] = 'undefined';
+				$('#RereplyBox' + replyno).remove();
+			}
+				
+	        },
+	        error:function(request,status,error){
+	            console.log("실패");
+	       }
+	        
+	    });
+		
+		
+	
 }
 
 
@@ -258,8 +322,9 @@ function getCommentList(){
                     html += "<div class='commentBox' id='commentBox"+res.reList[i].replyno+"'>";
                     html += "<h6><strong>"+res.reList[i].usernick+"</strong></h6>";
                     html += res.reList[i].recontents + "&nbsp;<small>(" + res.reList[i].replydate + ")</small>";
-                    html+= "<br><button style='height:25px; margin-right:5px' onClick=addReReply(" + res.reList[i].replyno + ",\'"+res.reList.length +"\')>답글</button>"
-                    html += "<strong>[추후작업]</strong>"
+//                     html+= "<br><button style='height:25px; margin-right:5px' onClick=getReReply(" + res.reList[i].replyno + ",\'"+res.reList.length +"\')>답글</button>"
+                    html+= "<br><button style='height:25px; margin-right:5px' onClick=getReReply(" + res.reList[i].replyno + ")>답글</button>"
+                    html += "<strong>"+res.reList[i].replyCnt+"</strong>"
                     
                     //댓글 번호 삭제
                     html += "<h1 style='display:none;'>" + res.reList[i].replyno + "</h1>";
@@ -357,6 +422,30 @@ function getCommentList(){
 			
 		});
 		
+		//답글 삭제모달에서 확인 버튼 클릭 - 답글 삭제 동작 Ajax 처리
+		$("#prReReplyDeleteModalBtn").click(function() {
+			
+			$.ajax({
+				type : "POST",
+				url : "/prboard/deleteComment",
+				data : {
+					//댓글번호 넘겨줌
+					replyno : dreplyno,
+				},
+				dataType : "json",
+				success : function(res) {
+
+					checkReReply[selectReply] = 'undefined';
+					getReReply(selectReply);
+		            
+				},
+				error : function() {
+					console.log("실패");
+				}
+			});
+			
+		});
+		
 	})
 	
 	function recommendAction() {
@@ -439,6 +528,13 @@ function getCommentList(){
 	border-bottom: 1px solid #ccc;
 }
 
+.reReplyBox{
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+}
+
+
+
 /*RereplyBox라는 이름을 id가 포함하는 div 태그*/
 div[id*=RereplyBox]{
 	border-top: 1px solid;
@@ -446,6 +542,28 @@ div[id*=RereplyBox]{
 	margin-top: 15px;
     margin-bottom: 10px;
     background-color: rgb(240,240,240);
+}
+
+div[class*=reReplyBox]{
+	position: relative;
+	border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}
+
+.reReplyDelete{
+	position: absolute;
+	bottom: 0;
+    right: 0;
+}
+
+.reReplyModify{
+	  position: absolute;
+	  bottom: 0;
+	  right: 55px;
+}
+
+.RereplyBox {
+	min-height: 200px;
 }
 
 </style>
@@ -657,6 +775,31 @@ div[id*=RereplyBox]{
       <!-- Modal footer -->
       <div class="modal-footer">
         <button type="submit" id="prReplyDeleteModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 답글 삭제 확인 모달-->
+<div class="modal fade" id="prReReplyDeleteModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">답글 삭제</h4>
+        <button id="prLikeLoginX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	답글을 삭제하시겠습니까?
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="prReReplyDeleteModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
       </div>
 
     </div>
