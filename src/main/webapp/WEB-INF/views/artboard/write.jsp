@@ -14,6 +14,7 @@
 </script>
 
 <script type="text/javascript">
+var g_count =1;
 $(document).ready(function() {
 
 	$("#btnWrite").click(function() {
@@ -21,6 +22,8 @@ $(document).ready(function() {
 		console.log("작성작성");
 
 
+		
+		
 		//form submit
 		$("form").submit();
 	});
@@ -28,8 +31,30 @@ $(document).ready(function() {
 	$("#btnCancel").click(function() {
 		history.go(-1);
 	});
+	
+	$("a[name='delete']").on("click",function(e){
+		e.preventDefault();
+		fn_fileDelete($(this));
+	})
+	$("#add").on("click",function(e){
+		e.preventDefault();
+		fn_fileAdd();
+	})	
 
 });
+
+function fn_fileDelete(obj){
+	obj.parent().remove();
+}
+function fn_fileAdd(){
+	var str = "<p><input type='file' name='file_"+(g_count++)+"'/><button type='button' id='delete' name = 'delete'class='btn btn-danger'>삭제하기</button></p> ";
+	$("#fileDiv").append(str);
+	
+	$("button[name='delete']").on("click",function(e){
+		e.preventDefault();
+		fn_fileDelete($(this));			
+	})
+}
 </script>
 <script>
     var editorConfig = {
@@ -86,7 +111,7 @@ $(document).ready(function() {
 <h1>WRITE</h1>
 <hr>
 
-<form action="/artboard/write" method="post">
+<form action="/artboard/write" method="post" enctype="multipart/form-data">
 <div id = "write_head" class="col-xs-12 col-sm-6 col-md-8">
 <span style="">필수 입력 사항</span>
 </div><br>
@@ -94,45 +119,38 @@ $(document).ready(function() {
 <input id="title" name="title" type="text" size="125" placeholder="제목을 입력하세요."/>
 <br><br>
 <label for="performdate"> <b>일시 </b></label><br>
-<input id="performdate" name="performdate" type="time" size="125" placeholder="입력 양식 : 20201221"/>
+<input id="performdate" name="performdate" type="text" size="125" placeholder="입력 양식 : 20201221"/>
 <br><br>
 <label for="performname"> <b>게시물 카테고리 </b></label><br>
 
 <div id = "performradio">
 <span class="radio">
   <label>
-    <input type="radio" name="performname"  value="버스킹" checked>
-    버스킹
+    <input type="radio" name="performname"  value="버스킹" checked>버스킹
   </label>
 </span>
 <span class="radio">
   <label>
-    <input type="radio" name="performname"  value="전시회">
-    전시회
+    <input type="radio" name="performname"  value="전시회">전시회
   </label>
 </span>
 <span class="radio">
   <label>
-    <input type="radio" name="performname"  value="연극">
-    연극
+    <input type="radio" name="performname"  value="연극">연극 </label>
+</span>
+<span class="radio">
+  <label>
+    <input type="radio" name="performname"  value="뮤지컬">뮤지컬
   </label>
 </span>
 <span class="radio">
   <label>
-    <input type="radio" name="performname"  value="뮤지컬">
-   뮤지컬
+    <input type="radio" name="performname"  value="행사">행사
   </label>
 </span>
 <span class="radio">
   <label>
-    <input type="radio" name="performname"  value="행사">
-    행사
-  </label>
-</span>
-<span class="radio">
-  <label>
-    <input type="radio" name="performname"  value="축제">
-    축제
+    <input type="radio" name="performname"  value="축제">축제
   </label>
 </span>
 
@@ -150,25 +168,20 @@ $(document).ready(function() {
 
 </div>
 
+		<div id="fileDiv">
+			<p>
+				<input type="file" name="file_0"/>
+				<button type="button" id="delete" name = "delete"class="btn btn-danger">삭제하기</button>
+			</p> 
+		</div>
 
-<br>
-<div id = "fileup">
-
-<div>
-
-리스트용 대표 이미지 선택<br>
-<input type="file" name="file" />
-
-
-</div>
-
-</div>
 <input type="hidden" id = "userno" name = "userno" value = "${userno.userno }"/>
 </form>
 <br>
-<div class="text-center col-xs-12 col-sm-6 col-md-8">	
-	<button type="button" id="btnCancel" class="btn bbc" style = "float:left;">작성취소</button>
+<div class="text-center col-xs-12 col-sm-6 col-md-8">
+	<button type="button" id="add" class="btn btn-info">파일 추가하기</button>
 	<button type="button" id="btnWrite" class="btn bbc" style = "float:right;">작성완료</button>
+	<button type="button" id="btnCancel" class="btn bbc" style = "float:left;">작성취소</button>
 </div>
 
 

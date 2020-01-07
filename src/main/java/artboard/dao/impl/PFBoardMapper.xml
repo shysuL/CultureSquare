@@ -138,4 +138,25 @@
 		SELECT count(*) FROM board
 		WHERE postno = 1
 	</select>
+	
+
+ 	<insert id="insertFile" parameterType="artboard.dto.PFUpFile">
+		<selectKey order="BEFORE" resultType="int" keyProperty="fileno">
+			SELECT upfile_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO upfile
+		VALUES ( #{fileno}, #{originname }, #{storedname }, #{filesize }, #{boardno} )
+	</insert>
+	
+	<select id="selectFileList" resultType="artboard.dto.PFUpFile" parameterType="int">
+		SELECT fileno, originname, storedname, filesize, boardno FROM upfile
+		WHERE boardno = ${value}
+		ORDER BY fileno
+	</select>
+	
+		<select id="selectFileByFileno" resultType="artboard.dto.PFUpFile" parameterType="int">
+		SELECT fileno, originname, storedname, filesize, boardno FROM upfile
+		WHERE fileno = #{fileno}
+	</select>
+	
 </mapper>
