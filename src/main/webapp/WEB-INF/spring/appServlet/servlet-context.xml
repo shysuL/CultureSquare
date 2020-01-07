@@ -22,6 +22,9 @@ http://www.springframework.org/schema/task/spring-task.xsd">
 	<!-- PR보드 전용 DownloadView클래스를 down이라는 이름의 스프링 빈으로 등록하기 -->
 	<beans:bean id="prdown" class="prboard.view.DownloadView" />
 	
+	<!-- art보드 전용 DownloadView클래스를 down이라는 이름의 스프링 빈으로 등록하기 -->
+	<beans:bean id="pfdown" class="artboard.view.DownloadView" />
+	
 	<!-- 인터셉터 설정 --> <!--  인터셉터 사용시  -->
 <!-- 	<interceptors> -->
 <!-- 		<interceptor> -->
@@ -45,6 +48,7 @@ http://www.springframework.org/schema/task/spring-task.xsd">
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/prImage/**" location="/prImage/" />
 	<resources mapping="/upload/**" location="/upload/" />
+	<resources mapping="/pfImage/**" location="/pfImage/" />
 <!-- 	<resources mapping="/img/**" location="/resources/img/" /> -->
 
 	

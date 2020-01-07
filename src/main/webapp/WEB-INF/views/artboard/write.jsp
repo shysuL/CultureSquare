@@ -113,10 +113,10 @@ function fn_fileAdd(){
 
 <div class="row">
 	<div class="col-9">
-	<form action="/artboard/write" method="post" enctype="multipart/form-data">
 		<div id = "write_head" class="col-xs-12 col-sm-6 col-md-8">
 			<span>필수 입력 사항</span>
 		</div>
+		<form action="/artboard/write" method="post" enctype="multipart/form-data">
 		<br>
 			<div>
 				<label for="title"><b> 제목 </b></label><br>

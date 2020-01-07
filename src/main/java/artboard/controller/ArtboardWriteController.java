@@ -62,6 +62,8 @@ public class ArtboardWriteController {
 		String originName="";
 		int i = 1;
 		
+		boolean firsImage = true;
+		
 		Iterator<String> files = multi.getFileNames();
 		
 		while(files.hasNext()) {
@@ -77,8 +79,11 @@ public class ArtboardWriteController {
 				
 				//.png 파일이거나 .jpg 파일인 경우
 				if( "image".equals(mFile.getContentType().split("/")[0]) ) {
-					
-					
+					//처음 이미지인 경우 이미지 파일에 업로드
+					if(firsImage) {
+						pfboardService.firstImageSave(mFile, board.getBoardno());
+						firsImage = false;
+					}
 				}
 				logger.info(i + ". 실제 파일 이름 : " + originName);
 				i++;
