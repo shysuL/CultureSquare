@@ -241,7 +241,7 @@ $(document).ready(function(){
 			
 			
 			
-			<div class="cal_date eng bold help" style="font-size: 25px">${pdate }</div>
+			<div class="cal_date eng bold help" style="font-size: 25px; margin-top: 8px;">${pdate }</div>
 			<div class="cal_yoil help han " style=" margin-top: 5px;">${i.performday }<span class="mobile_hide">요일</span></div>
 		</div>
 		
@@ -251,7 +251,7 @@ $(document).ready(function(){
 		<div class="media float_right">
 			<div class="media-left media-middle">
 				<a href="#">
-				<img class="media-object" src="/resources/logo/mainlogo.png" alt="..." style="width: 80px; height: 80px;">
+				<img class="media-object" onerror="this.src='/resources/img/NoImage.gif';" src="/pfImage/${i.boardno }" style="width: 80px; height: 80px;">
 				</a>
 			</div>
 			<div class="media-body">

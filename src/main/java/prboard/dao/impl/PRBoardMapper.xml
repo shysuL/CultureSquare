@@ -260,4 +260,24 @@
 		 AND replyorder != 0
 	</select>
 	
+	<delete id="deleteReReplyByGroupNo"
+	 parameterType="int">
+		DELETE reply
+		WHERE 1=1
+			AND groupno = #{groupNo }
+	</delete>
+	
+	<select id="selectMaxReplyOrder"
+    	parameterType="prboard.dto.Reply" resultType="int">
+	    SELECT max(replyorder) FROM reply
+	    WHERE 1=1
+	   	AND groupno = #{groupno}
+	 </select>
+	 
+	 <insert id="insertReReply"
+	 	parameterType="prboard.dto.Reply">
+		INSERT INTO reply 
+		VALUES(reply_seq.nextval, #{groupno}, #{maxreplyorder}, 2, #{recontents}, sysdate, #{userno}, #{boardno})
+	</insert>
+	
 </mapper>

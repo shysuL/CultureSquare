@@ -1,10 +1,15 @@
 package artboard.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +19,11 @@ import artboard.dao.face.PFBoardDao;
 import artboard.dao.face.ReplyDao;
 import artboard.dto.Board;
 import artboard.dto.Donation;
+import artboard.dto.PFUpFile;
 import artboard.dto.Reply;
 import artboard.service.face.PFBoardService;
 
-import prboard.dto.UpFile;
+
 
 import util.Paging;
 
@@ -26,6 +32,7 @@ import util.Paging;
 @Service
 public class PFBoardServiceImpl implements PFBoardService{
 
+	@Autowired ServletContext context;
 	@Autowired PFBoardDao pfboardDao;
 	@Autowired ReplyDao replyDao;
 	
@@ -171,31 +178,90 @@ public class PFBoardServiceImpl implements PFBoardService{
 	}
 	
 	@Override
-	public void fileSave(MultipartFile mFile, int boardno) {
+	public void fileSave(MultipartFile mFile, int boardNo) {
+		//파일이 저장될 경로
+		String storedPath = context.getRealPath("upload");
+		
+		//UUID
+		String uid = UUID.randomUUID().toString().split("-")[4];
+		
+		//저장될 파일의 이름(원본명 + UUID)
+		String filename = mFile.getOriginalFilename() + "_" + uid;
+		
+		//저장될 파일 객체
+		File dest = new File(storedPath, filename);
+		
+		//저장될 이미지 파일 객체
+//				File imgDest = new File(storedPath2, filename);
+		try {	
+			mFile.transferTo(dest);			//실제 파일 저장
+//					mFile.transferTo(imgDest);		//이미지 파일 저장
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
+		// DB에 저장 (업로드된 파일의 정보를 기록)
+		PFUpFile upfile = new PFUpFile();
+		upfile.setOriginname(mFile.getOriginalFilename());
+		upfile.setStoredname(filename);
+		upfile.setFilesize((int)mFile.getSize());
+		upfile.setBoardno(boardNo);
+		
+		pfboardDao.insertFile(upfile);
 		
 	}
 
 
 	@Override
-	public List<UpFile> getFileList(int boardno) {
-		return null;
+	public List<PFUpFile> getFileList(int boardno) {
+		List<PFUpFile> list =pfboardDao.selectFileList(boardno);
+		return list;
 	}
 
 
 	@Override
-	public UpFile getFile(int fileno) {
-		return null;
+	public PFUpFile getFile(int fileno) {
+		return pfboardDao.selectFileByFileno(fileno);
 	}
 
+	@Override
+	public void firstImageSave(MultipartFile mFile, int boardno) {
+		
+		//파일이 저장될 경로
+		String storedPath = context.getRealPath("pfImage");
+		
+		//UUID
+		String uid = UUID.randomUUID().toString().split("-")[4];
+		
+		//저장될 파일의 이름(원본명 + UUID)
+		String filename = boardno +"";
+		
+		//저장될 파일 객체
+		File dest = new File(storedPath, filename);
+		
+		try {	
+			mFile.transferTo(dest);			//실제 파일 저장
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
 
 	@Override
-	public void deleteServerFile(List<UpFile> list) {
+	public void deleteServerFile(List<PFUpFile> list) {
 		
 	}
 
 
 	@Override
-	public void deleteFile(List<UpFile> list) {
+	public void deleteFile(List<PFUpFile> list) {
 	}
 
 	@Override
@@ -209,6 +275,8 @@ public class PFBoardServiceImpl implements PFBoardService{
 		return pfboardDao.selectPfCnt(pfboard);
 
 	}
+
+
 	
 
 }

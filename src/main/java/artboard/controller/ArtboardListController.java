@@ -84,6 +84,8 @@ public class ArtboardListController {
 		
 		model.addAttribute("list", list);
 		
+		logger.info("ㅌㅅㅌ" + list);
+		
 //		logger.info(list.toString());
 				
 		// 모델값으로 cal_year, cal_month를 전달

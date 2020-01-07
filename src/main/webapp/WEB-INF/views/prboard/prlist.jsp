@@ -151,7 +151,7 @@ $(document).ready(function() {
  <div class="row">
 <c:forEach items="${list }" var="prboard">
 	<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-      <div class="card h-100">
+      <div class="card h-100" onclick="location.href='/prboard/view?boardno=${prboard.boardno }';">
         <a href="/prboard/view?boardno=${prboard.boardno }">
        	 	<img class="card-img-top" onerror="this.src='/resources/img/NoImage.gif';"src="/prImage/${prboard.boardno }" style="height: 202px; padding: 10px;">
         </a>

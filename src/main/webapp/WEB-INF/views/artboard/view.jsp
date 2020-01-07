@@ -526,6 +526,7 @@ $(document).ready(function() {
 
 <style type="text/css">
 
+
 </style>
 <%
 	Date date = new Date();
@@ -560,8 +561,34 @@ $(document).ready(function() {
 		</div>
 		<!-- 글내용 -->
 		<div id = view_content class="col-xs-12 col-sm-6 col-md-8">
-			${view.contents }<br>
-		<br><br><br><br><br>
+			<!-- 이미지 파일인 경우 내용에서 보여줌 -->
+			<c:forEach items="${fileList }" var="fileList">
+				<c:set var="image" value="${fileList.storedname}" />
+				<c:if test="${fn:contains(image, '.jpg')}">
+					<img src="/upload/${fn:trim(image)}" style="width: 1080px; padding-bottom: 50px;">
+				</c:if>
+				<c:if test="${fn:contains(image, '.png')}">
+					<img src="/upload/${fn:trim(image)}" style="width: 1080px; padding-bottom: 50px;">
+				</c:if>
+				<c:if test="${fn:contains(image, '.JPG')}">
+					<img src="/upload/${fn:trim(image)}" style="width: 1080px; padding-bottom: 50px;">
+				</c:if>
+				<c:if test="${fn:contains(image, '.PNG')}">
+					<img src="/upload/${fn:trim(image)}" style="width: 1080px; padding-bottom: 50px;">
+				</c:if>
+			</c:forEach>
+			<!-- 내용 보여줌 -->
+			${view.contents }
+			
+			<hr>
+			<div class="list-group" id="fileTitle">
+				  <a class="list-group-item" id="fileContent">
+				   첨부파일
+				  </a>
+				<c:forEach items="${fileList }" var="fileList">
+ 					<a href="/pfboard/download?fileno=${fileList.fileno}" class="list-group-item">${fileList.originname}</a>					
+				</c:forEach>
+			</div>
 		</div>
 		<!-- 버튼 -->
 		<div id = "view_buttonarea" class="btn col-md-4" role="group">

@@ -320,4 +320,22 @@ public class PRBoardServiceImpl implements PRBoardService {
 	public int getREreplyCnt(int groupno) {
 		return prBoardDao.selectREreplyCnt(groupno);
 	}
+
+	@Override
+	public void deleteReReplyByGroupNo(int groupNo) {
+
+		prBoardDao.deleteReReplyByGroupNo(groupNo);
+	}
+
+	@Override
+	public int getMaxReplyOrder(Reply reply) {
+		
+		return prBoardDao.selectMaxReplyOrder(reply);
+	}
+
+	@Override
+	public void addReReply(Reply reply) {
+
+		prBoardDao.insertReReply(reply);
+	}
 }

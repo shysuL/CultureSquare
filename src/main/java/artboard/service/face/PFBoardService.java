@@ -6,9 +6,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import artboard.dto.Board;
 import artboard.dto.Donation;
+import artboard.dto.PFUpFile;
 import artboard.dto.Reply;
 
-import prboard.dto.UpFile;
+
 
 import util.Paging;
 
@@ -217,7 +218,7 @@ public interface PFBoardService {
 	 * boardno - 게시글 번호
 	 * @return List - 파일 리스트
 	 */
-	public List<UpFile> getFileList(int boardno);
+	public List<PFUpFile> getFileList(int boardno);
 	
 	
 	/**
@@ -229,7 +230,19 @@ public interface PFBoardService {
 	 * @param fileno - 사용자가 클릭한 파일의 번호
 	 * @return UpFile - 파일정보가 담긴 객체
 	 */
-	public UpFile getFile(int fileno);
+	public PFUpFile getFile(int fileno);
+	
+	
+	/**
+	 * 2020-01-07
+	 * 강성일
+	 * 
+	 * 처음 올리는 이미지인 경우 이미지 업로드
+	 * 
+	 * @param mFile - 멀티 파일 처리해줄 정보가 담긴 객체
+	 * @param boardno - 게시판 번호
+	 */
+	public void firstImageSave(MultipartFile mFile, int boardno);
 	
 	
 	/**
@@ -240,7 +253,7 @@ public interface PFBoardService {
 	 * 
 	 * @param list - 삭제할 파일이 담긴 리스트
 	 */
-	public void deleteServerFile(List<UpFile> list);
+	public void deleteServerFile(List<PFUpFile> list);
 	
 	/**
 	 * 2020-01-07
@@ -250,8 +263,7 @@ public interface PFBoardService {
 	 * 
 	 * @param list - 삭제할 파일이 담긴 리스트
 	 */
-	public void deleteFile(List<UpFile> list);
-	
+	public void deleteFile(List<PFUpFile> list);
 	
 	
 	

@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import artboard.dto.Board;
 import artboard.dto.Donation;
+import artboard.dto.PFUpFile;
 import artboard.dto.Reply;
 import artboard.service.face.PFBoardService;
 import prboard.service.face.PRBoardService;
@@ -85,6 +86,13 @@ public class ArtboardViewController {
 		// 조회된 게시글 모델로 전달
 		model.addAttribute("view", viewboard);
 //		logger.info(viewboard.toString());
+		
+		//게시글 첨부파일 조회
+		List<PFUpFile> list = pfboardService.getFileList(viewboard.getBoardno());
+		
+		model.addAttribute("fileList", list);
+		
+		logger.info("파일 테스트 : " + list);
 		
 		// 전달받은 파라미터(boardno)에 해당하는 게시글 작성자(userno)로 작성자 정보 조회
 		Board userno = new Board();
@@ -158,4 +166,26 @@ public class ArtboardViewController {
 		return mav;
 		
 	}
+	
+	@RequestMapping(value="/pfboard/download")
+	public ModelAndView download(int fileno, //파일번호 파라미터
+			ModelAndView mav) {
+		
+		logger.info("파일번호 : " + fileno) ;
+		
+		//파일 번호에 해당하는 파일 정보 가져오기
+		PFUpFile file = pfboardService.getFile(fileno);
+		
+		logger.info("조회된 파일 : " + file);
+		
+		//파일 정보를 MODEL 값으로 지정하기
+		mav.addObject("downFile", file);
+		
+		//viewName 지정하기
+		mav.setViewName("pfdown");
+		
+		return mav;
+	}
+	
+	
 }
