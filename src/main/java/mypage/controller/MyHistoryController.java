@@ -1,5 +1,9 @@
 package mypage.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -30,7 +34,34 @@ public class MyHistoryController {
 		user.setUserno((Integer)session.getAttribute("userno"));
 //		System.out.println(user);
 		
-		Paging freepaging = mypageService.getPaging(req, 1); //자유게시판은 1
+		Paging pfpaging = mypageService.getPaging(req, 1); //pr게시판은 1
+		Paging prpaging = mypageService.getPaging(req, 2); //공연정보게시판은 2
+		Paging freepaging = mypageService.getPaging(req, 3); //자유게시판은 3
+		
+		model.addAttribute("pfpaging", pfpaging);
+		model.addAttribute("prpaging", prpaging);
+		model.addAttribute("freepaging", freepaging);
+		
+		Map<Integer, List> map = new HashMap<Integer, List>();
+		
+		for(int i = 1; i<=3; i++) {
+			
+			if(i == 1) {
+				map.put(i, mypageService.getLikeList(pfpaging, user, i));
+				
+			} else if (i == 2) {
+				map.put(i, mypageService.getLikeList(prpaging, user, i));
+				
+			} else if (i == 3) {
+				map.put(i, mypageService.getLikeList(freepaging, user, i));
+				
+			}
+			
+		}
+		
+		model.addAttribute("pflist", map.get(1));
+		model.addAttribute("prlist", map.get(2));
+		model.addAttribute("freelist", map.get(3));
 		
 	}
 

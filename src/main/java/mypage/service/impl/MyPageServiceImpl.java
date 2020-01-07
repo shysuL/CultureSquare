@@ -1,5 +1,7 @@
 package mypage.service.impl;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,5 +114,11 @@ public class MyPageServiceImpl implements MyPageService{
 		Paging paging = new Paging(totalCount, curPage);
 		
 		return paging;
+	}
+	
+	@Override
+	public List getLikeList(Paging paging, User_table user, int i) {
+		
+		return mypageDao.selectLikePost(paging, user, i);
 	}
 }

@@ -1,5 +1,7 @@
 package mypage.service.face;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.ui.Model;
@@ -38,5 +40,7 @@ public interface MyPageService{
 	public void deleteUser(User_table user);
 
 	public Paging getPaging(HttpServletRequest req, int i);
+
+	public List getLikeList(Paging paging, User_table user, int i);
 
 }
