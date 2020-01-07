@@ -3,6 +3,9 @@ package artboard.dto;
 
 public class Board {
 	
+	//마이페이지 게시글 번호
+	private int rnum;
+	
 	// Board
 	private int boardno;
 	private String title;
@@ -42,20 +45,27 @@ public class Board {
 	private int sociallogin;
 	
 
-	
 	@Override
 	public String toString() {
-		return "Board [boardno=" + boardno + ", title=" + title + ", writtendate=" + writtendate + ", contents="
-				+ contents + ", views=" + views + ", userno=" + userno + ", postno=" + postno + ", performno="
-				+ performno + ", performname=" + performname + ", performdate=" + performdate + ", writepermit="
-				+ writepermit + ", updatepermit=" + updatepermit + ", deletepermit=" + deletepermit + ", performday="
-				+ performday + ", userid=" + userid + ", userpw=" + userpw + ", username=" + username + ", usernick="
-				+ usernick + ", userphone=" + userphone + ", usergender=" + usergender + ", userbirth=" + userbirth
-				+ ", interest=" + interest + ", usertype=" + usertype + ", permit=" + permit + ", emailcheck="
-				+ emailcheck + ", originname=" + originname + ", storedname=" + storedname + ", follow=" + follow
-				+ ", prcnt=" + prcnt + ", sociallogin=" + sociallogin + "]";
+		return "Board [rnum=" + rnum + ", boardno=" + boardno + ", title=" + title + ", writtendate=" + writtendate
+				+ ", contents=" + contents + ", views=" + views + ", userno=" + userno + ", postno=" + postno
+				+ ", performno=" + performno + ", performname=" + performname + ", performdate=" + performdate
+				+ ", writepermit=" + writepermit + ", updatepermit=" + updatepermit + ", deletepermit=" + deletepermit
+				+ ", performday=" + performday + ", userid=" + userid + ", userpw=" + userpw + ", username=" + username
+				+ ", usernick=" + usernick + ", userphone=" + userphone + ", usergender=" + usergender + ", userbirth="
+				+ userbirth + ", interest=" + interest + ", usertype=" + usertype + ", permit=" + permit
+				+ ", emailcheck=" + emailcheck + ", originname=" + originname + ", storedname=" + storedname
+				+ ", follow=" + follow + ", prcnt=" + prcnt + ", sociallogin=" + sociallogin + "]";
 	}
 
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+	
 	public String getPerformday() {
 		return performday;
 	}

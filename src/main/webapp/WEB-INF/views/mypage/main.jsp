@@ -436,7 +436,7 @@ $(document).ready(function(){
 			내가 쓴 글
 			</button><br>
 			<button type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;"
-					onclick="location.href='/mypage/writereplylist';">
+					onclick="location.href='/mypage/replylist';">
 			<img id="mypageicon" src="/resources/img/pencil.png">
 			내가 쓴 댓글
 			</button><br>

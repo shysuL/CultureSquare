@@ -1,7 +1,7 @@
 package util;
 
-public class Paging {
-
+public class MyPaging {
+	
 	private int curPage; // 현재 페이지 번호(브라우저에서 선택한 페이지 번호)
 
 	private int totalCount; // 총 게시글 수(DB에서 조회된 전체 결과의 행 수)
@@ -16,30 +16,23 @@ public class Paging {
 	private int endNo; // 화면에 보이는 페이지의 게시글 끝 번호
 
 	private int userno;
-	
-	public int getUserno() {
-		return userno;
-	}
-	public void setUserno(int userno) {
-		this.userno = userno;
-	}
-
 	private String search;
 	
 	private String searchcategory; // 검색 조건
 	private String searchtarget; // 검색어
 
-	// Paging 기본 생성자
-	public Paging() {}
+// Paging 기본 생성자
+	public MyPaging() {}
+	
 // 총 게시글 수만 입력하는 생성자
-	public Paging(int totalCount) {
+	public MyPaging(int totalCount) {
 		this.setTotalCount(totalCount);
 
 		this.makePaging();
 	};
 
 // 총 게시글 수와 현재 페이지를 입력하는 생성자 V V V V V 
-	public Paging(int totalCount, int curPage) {
+	public MyPaging(int totalCount, int curPage) {
 		this.setTotalCount(totalCount);
 		this.setCurPage(curPage);
 
@@ -47,7 +40,7 @@ public class Paging {
 	}
 
 // 총 게시글 수와 현재 페이지, 보여질 게시글 수를 입력하는 생성자 V V V V  
-	public Paging(int totalCount, int curPage, int listCount) {
+	public MyPaging(int totalCount, int curPage, int listCount) {
 		this.setTotalCount(totalCount);
 		this.setCurPage(curPage);
 		this.setListCount(listCount);
@@ -56,7 +49,7 @@ public class Paging {
 	}
 
 // 총 게시글 수와 현재 페이지, 보여질 게시글 수, 보여질 페이지 수를 입력하는 생성자 V V V  
-	public Paging(int totalCount, int curPage, int listCount, int pageCount) {
+	public MyPaging(int totalCount, int curPage, int listCount, int pageCount) {
 		this.setTotalCount(totalCount);
 		this.setCurPage(curPage);
 		this.setListCount(listCount);
@@ -76,7 +69,7 @@ public class Paging {
 		if (pageCount == 0)
 			setPageCount(10); // 화면에 보여질 페이지수 기본값 세팅
 		if (listCount == 0)
-			setListCount(20); // 화면에 보여질 게시글수 기본값 세팅
+			setListCount(10); // 화면에 보여질 게시글수 기본값 세팅
 
 		// 총 페이지수 계산
 		totalPage = totalCount / listCount;
@@ -102,14 +95,14 @@ public class Paging {
 
 	}
 
-	
 	@Override
 	public String toString() {
-		return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
-				+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
-				+ ", startNo=" + startNo + ", endNo=" + endNo + ", userno=" + userno + ", search=" + search
+		return "MyPaging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount
+				+ ", totalPage=" + totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage="
+				+ endPage + ", startNo=" + startNo + ", endNo=" + endNo + ", userno=" + userno + ", search=" + search
 				+ ", searchcategory=" + searchcategory + ", searchtarget=" + searchtarget + "]";
 	}
+
 	public int getCurPage() {
 		return curPage;
 	}
@@ -182,6 +175,14 @@ public class Paging {
 		this.endNo = endNo;
 	}
 
+	public int getUserno() {
+		return userno;
+	}
+
+	public void setUserno(int userno) {
+		this.userno = userno;
+	}
+
 	public String getSearch() {
 		return search;
 	}
@@ -205,5 +206,7 @@ public class Paging {
 	public void setSearchtarget(String searchtarget) {
 		this.searchtarget = searchtarget;
 	}
+	
+	
 
 }

@@ -65,7 +65,7 @@ function checkedAll(){
 						<th style="width: 5%">
 							<input type="checkbox" id="checkAlls" name="checkAlls" onclick="checkedAll();"/>
 						</th>
-						<th style="width: 10%">글번호</th>
+						<th style="width: 10%">번호</th>
 						<th style="width: 45%">제목</th>					
 						<th style="width: 10%">작성자</th>
 						<th style="width: 10%">조회수</th>
@@ -78,7 +78,7 @@ function checkedAll(){
 <%-- 						/admin/freeboard?boardno=${fblist.boardno } --%>
 							<tr onclick="location.href='/board/freeview?boardno=${fblist.boardno }';" style="text-align: center;">
 								<td><input type="checkbox" name="checkRow" value="${fblist.boardno  }"/></td>
-								<td>${fblist.boardno }</td>
+								<td>${fblist.rnum }</td>
 								<td>${fblist.title }</td>
 								<td>${fblist.usernick }</td>
 								<td>${fblist.views }</td>

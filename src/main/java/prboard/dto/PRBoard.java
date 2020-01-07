@@ -5,6 +5,10 @@ import java.util.Arrays;
 import org.springframework.web.multipart.MultipartFile;
 
 public class PRBoard {
+	
+	//관리자, 마이 페이지 게시글 번호
+	private int rnum;	
+	
 	private int boardno;
 	private String title;
 	private String writtendate;
@@ -110,8 +114,18 @@ public class PRBoard {
 
 	@Override
 	public String toString() {
-		return "PRBoard [boardno=" + boardno + ", title=" + title + ", writtendate=" + writtendate + ", content="
-				+ content + ", views=" + views + ", userno=" + userno + ", postno=" + postno + ", prname=" + prname
-				+ ", usernick=" + usernick + ", blike=" + blike + ", replyCnt=" + replyCnt + "]";
+		return "PRBoard [rnum=" + rnum + ", boardno=" + boardno + ", title=" + title + ", writtendate=" + writtendate
+				+ ", content=" + content + ", views=" + views + ", userno=" + userno + ", postno=" + postno
+				+ ", prname=" + prname + ", usernick=" + usernick + ", blike=" + blike + ", replyCnt=" + replyCnt + "]";
 	}
+
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+
+	
 }
