@@ -241,7 +241,7 @@ $(document).ready(function(){
 			
 			
 			
-			<div class="cal_date eng bold help" style="font-size: 25px">${pdate }</div>
+			<div class="cal_date eng bold help" style="font-size: 25px; margin-top: 8px;">${pdate }</div>
 			<div class="cal_yoil help han " style=" margin-top: 5px;">${i.performday }<span class="mobile_hide">요일</span></div>
 		</div>
 		
