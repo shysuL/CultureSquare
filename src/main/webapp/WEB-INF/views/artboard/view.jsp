@@ -163,7 +163,7 @@ function deleteReply(replyno) {
 			if(data.success) {
 				console.log(replyno);
 				$("[data-replyno='"+replyno+"']").remove();
-				
+				getCommentList();
 			} else {
 				alert("댓글 삭제 실패");
 			}
@@ -198,6 +198,7 @@ function getCommentList(){
 	        data : {
 				//게시판 번호
 				boardno : '${view.boardno }',
+				userno : '${LoginUser.userno }'
 			},
 			dataType : "json",
 	        success : function(res){
@@ -209,7 +210,7 @@ function getCommentList(){
 	            if(res.reList.length > 0){
 	            	 
 	            	for(i=0; i<res.reList.length; i++){
-	                    html += "<div class='container container-fluid' style='mawrgin-bottom: 40px'>";
+// 	                    html += "<div class='container' style='mawrgin-bottom: 40px'>";
 	                    html += "<div class='row'>";
 	                    html += "<div id = 'reply_head' class='col-12'>";
 	                    html += "<span>" + res.reList[i].usernick + "</span>"
@@ -227,39 +228,51 @@ function getCommentList(){
 	                    html += "<div id = 'rereplyBtn'>";
 	                    html += "<a ><button id='rereply' class='btn bbc' type='button'>답글</button></a>";
 	                    html += "</div>";
+	                    html += "</div>";
 	                    
 	                    if(res.reList[i].usernick == "${usernick}"){
 	                    	html += "<div id = 'deleteReplyBtn'>";
 	                    	html += "<button class='btn bbc' onclick='deleteReply(" + res.reList[i].replyno + ");'>삭제</button>";
 	                    	html += "</div>";
-	                    	
-	                    	
 	                    }
                     	html += "</div>";
-
-	                    
-// 	       
-	                    html += "</div>";
-	                }
-	                
-	            } else {
-	                
-	                html += "<div>";
-	                html += "<h6><strong>등록된 댓글이 없습니다.</strong></h6>";
-	                html += "</div>";
-	                
+                    	
+                    	// 대댓글 입력
+                    	html += "<div id = 'rereplybody' class='form-inline text-center col-9' style = 'display: none;'>";
+                    	html += "<div class='row'> ";
+                    	html += "<div class='col-6'> ";
+                    	html += "<input type='hidden'  id='replyno' name='replyno' value=" + res.reList.replyno + " />";
+                		html += "<input type='hidden'  id='userno' name='userno' value=" + userno + " />";
+                		html += "<input type='hidden'  id='boardno' name='boardno' value=" + boardno + "/>";
+                		html += "<input type='hidden'  id='groupno' name='groupno' value=" + res.reList.groupno} + " />";
+                		html += "<input type='hidden'  id='replyorder' name='replyorder' value=" + res.reList.replyorder + " />";
+                		html += "<input type='hidden'  id='replydepth' name='replydepth' value=" + res.reList.replydepth +" />";
+                		html += "<textarea rows='2' cols='50' class='form-control' id = 'rerecontents' name = 'rerecontents'>";
+                		html += "</textarea> ";
+                    	html += "</div>";
+                    	html += "</div>";
+                    	html += "<div class='col-2'> ";
+                    	html += "<button class='btnrereplyInsert btn bbc' data-groupno=" + res.reList.groupno + "  >입력</button> ";
+//                     	<button class="btnrereplyInsert"  onclick="fn_rereco('${ view.boardno}','${ reply.groupno}')" class="btn bbc">입력</button>
+                    	html += "</div>";
+                    	html += "</div>";
 	            }
-	            
+// 	       
+	            	}  
 	            $("#cCnt").html(cCnt);
 	            $("#commentList").html(html);
+	        		}
+	            }); 
+	                
 	            
-	        },
-	        error:function(request,status,error){
 	            
-	       }	        	
-	 })
+	            
+// 	        error:function(request,status,error){
+	            
+// 	       }	        	
+	 };
 	
-}
+
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -581,7 +594,8 @@ $(document).ready(function() {
 			</a>
 		</div>
 		</div>
-	
+	</div>
+</div>
 
 
 <!-- 댓글 처리 -->
@@ -633,7 +647,7 @@ $(document).ready(function() {
 
 	<!-- 댓글view -->
 
-                            
+              <div  id="commentList" class='container' style='mawrgin-bottom: 40px'>              
          <div id="commentList">
         </div>                           
                             
@@ -697,8 +711,7 @@ $(document).ready(function() {
 <%-- </c:forEach> --%>
 
 
-</div>	<!-- 댓글 처리 end -->
-</div>
+</div><!--  댓글 처리 end --> 
 
 
 <div class="col-3">
