@@ -48,7 +48,7 @@ public class MyIdDeleteController {
 	public String deleteuser(HttpSession session, User_table user) {
 		
 		user.setUserid(session.getAttribute("userid").toString());
-		user.setUserno((int)session.getAttribute("userno"));
+		user.setUserno((Integer)session.getAttribute("userno"));
 //		user.setOriginname(session.getAttribute("originname").toString()); //사진 원본
 //		user.setStoredname(session.getAttribute("storedname").toString()); //사진 저장본
 		
