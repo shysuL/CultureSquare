@@ -23,4 +23,6 @@ public interface AdminDao {
 
 	public List<User_table> selectUserList(Paging userpaging);
 
+	public int deleteUser(User_table userlist);
+
 }

@@ -115,6 +115,9 @@ public class AdminBoardController {
 			
 			Paging userpaging = new Paging(totalUser, upaging.getCurPage());
 			
+			//사용자 검색
+			userpaging.setSearch(req.getParameter("search"));
+			
 			List<User_table> userlist = adminService.getUserList(userpaging);
 			
 			model.addAttribute("userpaging", userpaging);
