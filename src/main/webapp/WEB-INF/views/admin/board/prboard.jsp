@@ -71,7 +71,7 @@
 							<th style="width: 5%">
 								<input type="checkbox" id="checkAlls" name="checkAlls" onclick="checkedAll();"/>
 							</th>
-							<th style="width: 10%">글번호</th>
+							<th style="width: 10%">번호</th>
 							<th style="width: 45%">제목</th>					
 							<th style="width: 10%">작성자</th>
 							<th style="width: 10%">조회수</th>
@@ -85,7 +85,7 @@
 						
 							<tr onclick="location.href='/prboard/view?boardno=${prlist.boardno }';">
 								<td><input type="checkbox" name="checkRow" value="${prlist.boardno  }"/></td>
-								<td>${prlist.boardno }</td>
+								<td>${prlist.rnum }</td>
 								<td>${prlist.title }</td>
 								<td>${prlist.usernick }</td>
 								<td>${prlist.views }</td>
