@@ -4,7 +4,9 @@ import java.util.List;
 
 import artboard.dto.Board;
 import artboard.dto.Donation;
+import artboard.dto.PFUpFile;
 import artboard.dto.Reply;
+
 import util.Paging;
 
 public interface PFBoardDao {
@@ -161,6 +163,38 @@ public interface PFBoardDao {
 
 	public int selectPfCnt(Board pfboard);
 
+	
+	/**
+	 * 2020-01-07
+	 * 강성일
+	 * 
+	 * 첨부파일 삽입
+	 * 
+	 * @param upFile - 첨부파일 데이터가 들어있는 객체
+	 */
+	public void insertFile(PFUpFile upfile);
 
+	/**
+	 * 2020-01-07
+	 * 강성일
+	 * 
+	 * 게시글에 번호에 해당하는 파일 리스트를 가져온다.
+	 * 
+	 * boardno - 게시글 번호
+	 * @return List - 파일 리스트
+	 */
+	public List<PFUpFile> selectFileList(int boardno);
 
+	/**
+	 * 2020-01-07
+	 * 강성일
+	 * 
+	 * 파일정보를 가져온다.
+	 * 
+	 * @param fileno - 사용자가 클릭한 파일의 번호
+	 * @return UpFile - 파일정보가 담긴 객체
+	 */
+	public PFUpFile selectFileByFileno(int fileno);
+	
+	
 }

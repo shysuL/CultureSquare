@@ -39,7 +39,7 @@
 						<th style="width: 5%">
 							<input type="checkbox" id="checkAll"/>
 						</th>
-						<th style="width: 10%">글번호</th>
+						<th style="width: 10%">게시판 명</th>
 						<th style="width: 35%">제목</th>					
 						<th style="width: 15%">작성자</th>
 						<th style="width: 20%">작성일</th>
@@ -48,15 +48,18 @@
 				</thead>
 				
 				<tbody>
-<%-- 					<c:forEach items="${list }" var="comp"> --%>
-<!-- 					<tr> -->
-<%-- 						<td><input type="checkbox" name="checkRow" value="${comp.comp_no  }"/></td> --%>
-<%-- 						<td>${comp.comp_no }</td> --%>
-<%-- 						<td><a href="/mgr/compview?comp_no=${comp.comp_no}">${comp.comp_title }</a></td> --%>
-<%-- 						<td>${comp.userno }</td> --%>
-<%-- 						<td>${comp.comp_date }</td> --%>
-<!-- 					</tr> -->
-<%-- 					</c:forEach> --%>
+					<c:forEach items="${list }" var="comp">
+					<tr onclick="location.href=''">
+						<td>
+							<input type="checkbox" name="checkRow" value="${comp.comp_no  }"/>
+						</td>
+						<td>${comp.comp_no }</td>
+						<td>${comp.comp_no }</td>
+						<td><a href="/mgr/compview?comp_no=${comp.comp_no}">${comp.comp_title }</a></td>
+						<td>${comp.userno }</td>
+						<td>${comp.comp_date }</td>
+					</tr>
+					</c:forEach>
 				</tbody>
 				
 			</table>

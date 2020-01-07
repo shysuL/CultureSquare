@@ -52,8 +52,16 @@
 		WHERE userid = #{userid }
 	</delete>
 	
-	<select id="selectCntAll" resultType="int" parameterType="">
+<!-- 	<select id="selectCntAll" resultType="int" parameterType=""> -->
 	
-	</select>
+<!-- 	</select> -->
 
+<!-- 	<select id="selectLikePost" resultType="" parameterType=""> -->
+<!-- 		<if test=""> -->
+<!-- 			SELECT boardno  -->
+<!-- 			FROM blike -->
+<!-- 			WHERE userno = #{userno } -->
+<!-- 		</if>	 -->
+<!-- 	</select> -->
+	
 </mapper>

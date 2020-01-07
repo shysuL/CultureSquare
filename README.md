@@ -6,7 +6,8 @@
  - 개발도구 :  Eclipse
  - DBMS : oracle 11g Express Edition Release 11.2.0, SQL Developer
  - Server : Apache Tomcat 9.0.27
- - 프레임워크 : 스프링 프레임워크(Spring Tools 3 (Standalone Edition) 3.9.10 RELEASE), 마이바티스 프레임워크
+ - 프레임워크 : Spring Framework, MyBatis Framework
+ - Spring-Version : Spring Tools 3 (Standalone Edition) 3.9.10 RELEASE
  - Language : Java, HTML5, CSS, Javascript, jQuery, Servlet
  - 디자인 툴 : Bootstrap
 
