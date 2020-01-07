@@ -1,5 +1,7 @@
 package mypage.dao.face;
 
+import javax.servlet.http.HttpServletRequest;
+
 import user.dto.User_table;
 
 public interface MyPageDao {
@@ -42,5 +44,7 @@ public interface MyPageDao {
 	public int selectUserNick(String usernick);
 
 	public void deleteUserId(User_table user);
+
+	public int selectCntAll(HttpServletRequest req, int i);
 
 }
