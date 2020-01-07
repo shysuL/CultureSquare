@@ -182,7 +182,7 @@ public class ArtboardViewController {
 		mav.addObject("downFile", file);
 		
 		//viewName 지정하기
-		mav.setViewName("prdown");
+		mav.setViewName("pfdown");
 		
 		return mav;
 	}

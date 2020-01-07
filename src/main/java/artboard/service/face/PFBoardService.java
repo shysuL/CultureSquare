@@ -237,6 +237,18 @@ public interface PFBoardService {
 	 * 2020-01-07
 	 * 강성일
 	 * 
+	 * 처음 올리는 이미지인 경우 이미지 업로드
+	 * 
+	 * @param mFile - 멀티 파일 처리해줄 정보가 담긴 객체
+	 * @param boardno - 게시판 번호
+	 */
+	public void firstImageSave(MultipartFile mFile, int boardno);
+	
+	
+	/**
+	 * 2020-01-07
+	 * 강성일
+	 * 
 	 * 서버에 올라간 파일 삭제
 	 * 
 	 * @param list - 삭제할 파일이 담긴 리스트
