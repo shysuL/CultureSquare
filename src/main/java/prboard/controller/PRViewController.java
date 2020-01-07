@@ -371,12 +371,32 @@ public class PRViewController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/prboard/deletereReply", method=RequestMethod.POST)
+	public ModelAndView deleteReReplyPR(Model model, Reply reply, HttpSession session, ModelAndView mav) {
+		
+		logger.info("답글 삭제 테스트  : " + reply);
+
+		// 댓글 삭제
+		prBoardService.deleteReplyByNo(reply);
+
+		//viewName지정하기
+		mav.setViewName("jsonView");
+		
+		return mav;
+	}
+	
 	@RequestMapping(value="/prboard/deleteComment", method=RequestMethod.POST)
 	public ModelAndView deleteCommentPR(Model model, Reply reply, HttpSession session, ModelAndView mav) {
 		
 		logger.info("댓글 삭제 테스트  : " + reply);
 
-		//댓글 삭제
+		// 1. 댓글번호로 그룹번호 가져오기
+		int groupNo = prBoardService.getGroupNoByReplyNo(reply);
+		
+		// 2. 삭제할 댓글의 답글 삭제
+		prBoardService.deleteReReplyByGroupNo(groupNo);
+		
+		// 3.댓글 삭제
 		prBoardService.deleteReplyByNo(reply);
 
 		//viewName지정하기
@@ -402,7 +422,8 @@ public class PRViewController {
 	@RequestMapping(value="/prboard/ReReplyList", method=RequestMethod.POST)
 	public ModelAndView reReplyListPR(Model model, Reply reply, HttpSession session, ModelAndView mav) {
 		
-
+		int reReplyCnt = 0;
+		
 		ArrayList<HashMap> reReplyList = new ArrayList<HashMap>();
 		
 		// 1. 댓글번호로 그룹번호 가져오기
@@ -419,6 +440,11 @@ public class PRViewController {
                 hm.put("recontents", replyVO.get(i).getRecontents());
                 hm.put("usernick", replyVO.get(i).getUsernick());
                 hm.put("replydate", replyVO.get(i).getReplydate());
+                
+                //답글 갯수 구하기
+                reReplyCnt = prBoardService.getREreplyCnt(replyVO.get(i).getGroupno());
+                
+                hm.put("replyCnt", reReplyCnt);
                 
                 reReplyList.add(hm);
             }

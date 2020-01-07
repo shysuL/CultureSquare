@@ -371,5 +371,15 @@ public interface PRBoardService {
 	 * @return int - 답글 갯수
 	 */
 	public int getREreplyCnt(int groupno);
+
+	/**
+	 * 2020-01-07
+	 * 조홍철
+	 * 
+	 * 답글 삭제(댓글 삭제할때)
+	 *  
+	 * @param groupNo - 삭제될 답글의 그룹 번호
+	 */
+	public void deleteReReplyByGroupNo(int groupNo);
 	
 }
