@@ -21,6 +21,8 @@ var modifyCnt = 0;
 //답글 눌렀는지 판별여부 위한 배열
 var checkReReply = new Array(); //배열 선언
 
+var rCnt = 0;
+
 //댓글 삭제 클릭 -> 진짜로 삭제 할거냐는 모달 호출
 function deleteReply(replyno){
 	$("#prReplyDeleteModal").modal({backdrop: 'static', keyboard: false});
@@ -106,7 +108,7 @@ function getReReply(replyno){
 	
 	//기존 div 제거
 	$('#RereplyBox' + replyno).remove();
-		
+	
 	    $.ajax({
 	        type:'POST',
 	        url : "/prboard/ReReplyList",
@@ -116,7 +118,6 @@ function getReReply(replyno){
 			},
 	        dataType : "json",
 	        success : function(res){
-	            
 	    		var html = "";
 	            var cCnt = res.reReplyList.length;
 	            var html = "";
@@ -135,6 +136,8 @@ function getReReply(replyno){
 	    		html += '<span class="d-block">';
 	    	      if(res.reReplyList.length > 0){
 	    	      	
+	    	    	  rCnt = res.reReplyList[0].replyCnt;
+	    	    	  
 	    	      	for(i=0; i<res.reReplyList.length; i++){
 	    	      		  html += "<div class='reReplyBox" + res.reReplyList[i].replyno+ "'id='reReplyBox"+res.reReplyList[i].replyno+"'>";
 	    	              html += "<img style='margin-right: 5px;margin-left: 5px;margin-top: -60px;' src='/resources/img/replyarrow.png' />"
@@ -159,8 +162,8 @@ function getReReply(replyno){
 	    	      	
 	    	          
 	    	      } else {
-	    	          
-	    	          html += "<div>";
+	    	    	  rCnt = 0;
+	    	    	  html += "<div>";
 	    	          html += "<h6><strong>등록된 답글이 없습니다.</strong></h6>";
 	    	          html += "</div>";
 	    	          
@@ -187,7 +190,9 @@ function getReReply(replyno){
 				checkReReply[replyno] = 'undefined';
 				$('#RereplyBox' + replyno).remove();
 			}
-				
+	        	console.log("알 씨엔티 출력 : " +rCnt);
+	        	$('#rCnt' + replyno).html(rCnt);
+	        	
 	        },
 	        error:function(request,status,error){
 	            console.log("실패");
@@ -324,7 +329,7 @@ function getCommentList(){
                     html += res.reList[i].recontents + "&nbsp;<small>(" + res.reList[i].replydate + ")</small>";
 //                     html+= "<br><button style='height:25px; margin-right:5px' onClick=getReReply(" + res.reList[i].replyno + ",\'"+res.reList.length +"\')>답글</button>"
                     html+= "<br><button style='height:25px; margin-right:5px' onClick=getReReply(" + res.reList[i].replyno + ")>답글</button>"
-                    html += "<strong>"+res.reList[i].replyCnt+"</strong>"
+                    html += "<strong id='rCnt"+res.reList[i].replyno+"'>"+res.reList[i].replyCnt+"</strong>"
                     
                     //댓글 번호 삭제
                     html += "<h1 style='display:none;'>" + res.reList[i].replyno + "</h1>";
@@ -427,7 +432,7 @@ function getCommentList(){
 			
 			$.ajax({
 				type : "POST",
-				url : "/prboard/deleteComment",
+				url : "/prboard/deletereReply",
 				data : {
 					//댓글번호 넘겨줌
 					replyno : dreplyno,
