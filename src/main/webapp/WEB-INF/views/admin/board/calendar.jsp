@@ -26,21 +26,28 @@
 		});
 	});
 	
-	
-	$(document).ready(function(){
-		//최상단 체크박스 클릭
-	    $("#checkAll").click(function() {
-	       //클릭되었으면
-	       if ($("#checkAll").prop("checked")) {
-	          //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
-	          $("input[name=checkRow]").prop("checked", true);
-	          //클릭이 안되있으면
-	       } else {
-	          //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
-	          $("input[name=checkRow]").prop("checked", false);
-	       }
-	    });
-	});
+</script>
+
+<script type="text/javascript">
+function checkedAll(){
+	// checkbox들
+   var $checkboxes=$("input:checkbox[name='checkRow']");
+
+   // checkAll 체크상태 (true:전체선택, false:전체해제)
+   var check_status = $("#checkAlls").is(":checked");
+   
+   if( check_status ) {
+      // 전체 체크박스를 checked로 바꾸기
+      $checkboxes.each(function() {
+         this.checked = true;   
+      });
+   } else {
+      // 전체 체크박스를 checked 해제하기
+      $checkboxes.each(function() {
+         this.checked = false;   
+      });
+   }
+}
 </script>
 
     <div class="container" style="margin-top: 50px;">
@@ -57,7 +64,7 @@
 						<thead>
 							<tr class = "info" style="text-align: center;" >
 								<th style="width: 5%">
-									<input type="checkbox" id="checkAll" name="checkAll"/>
+									<input type="checkbox" id="checkAlls" name="checkAlls" onclick="checkedAll();"/>
 								</th>
 								<th style="width: 10%">글번호</th>
 								<th style="width: 10%">분야</th>					

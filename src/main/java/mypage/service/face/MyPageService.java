@@ -1,8 +1,13 @@
 package mypage.service.face;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.ui.Model;
 
 import user.dto.User_table;
+import util.Paging;
 
 public interface MyPageService{
 
@@ -33,5 +38,9 @@ public interface MyPageService{
 	public int userNickCheck(String usernick);
 	
 	public void deleteUser(User_table user);
+
+	public Paging getPaging(HttpServletRequest req, int i);
+
+	public List getLikeList(Paging paging, User_table user, int i);
 
 }

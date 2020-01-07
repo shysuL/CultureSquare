@@ -51,5 +51,17 @@
 		DELETE FROM User_table
 		WHERE userid = #{userid }
 	</delete>
+	
+<!-- 	<select id="selectCntAll" resultType="int" parameterType=""> -->
+	
+<!-- 	</select> -->
 
+<!-- 	<select id="selectLikePost" resultType="" parameterType=""> -->
+<!-- 		<if test=""> -->
+<!-- 			SELECT boardno  -->
+<!-- 			FROM blike -->
+<!-- 			WHERE userno = #{userno } -->
+<!-- 		</if>	 -->
+<!-- 	</select> -->
+	
 </mapper>

@@ -223,7 +223,7 @@ $(document).ready(function(){
 
 #profileImg{
 	width:200px;
-	height:200;
+	height:200px;
 	display: block;
 	margin: 0 auto;
 }

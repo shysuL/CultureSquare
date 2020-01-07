@@ -1,5 +1,9 @@
 package mypage.service.impl;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -7,6 +11,7 @@ import org.springframework.ui.Model;
 import mypage.dao.face.MyPageDao;
 import mypage.service.face.MyPageService;
 import user.dto.User_table;
+import util.Paging;
 
 @Service
 public class MyPageServiceImpl implements MyPageService{
@@ -92,5 +97,28 @@ public class MyPageServiceImpl implements MyPageService{
 	@Override
 	public void deleteUser(User_table user) {
 		mypageDao.deleteUserId(user);
+	}
+
+	@Override
+	public Paging getPaging(HttpServletRequest req, int i) {
+		
+		String cur = req.getParameter("curPage");
+		
+		int curPage = 0;
+		if(cur!=null && !"".equals(cur)) {
+			curPage = Integer.parseInt(cur);
+		}
+		
+		int totalCount = mypageDao.selectCntAll(req, i);
+		
+		Paging paging = new Paging(totalCount, curPage);
+		
+		return paging;
+	}
+	
+	@Override
+	public List getLikeList(Paging paging, User_table user, int i) {
+		
+		return mypageDao.selectLikePost(paging, user, i);
 	}
 }
