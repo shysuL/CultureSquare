@@ -52,16 +52,55 @@
 		WHERE userid = #{userid }
 	</delete>
 	
-<!-- 	<select id="selectCntAll" resultType="int" parameterType=""> -->
-	
-<!-- 	</select> -->
+	<select id="selectCntAll" resultType="int" parameterType="util.MyPaging">
+		SELECT count(*)
+		FROM user_table U, board B, posttype P, blike L
+		WHERE B.userno = U.userno
+			AND L.boardno = B.boardno
+			AND P.postno = B.postno
+			AND L.userno = #{userno }
+		
+	</select>
 
-<!-- 	<select id="selectLikePost" resultType="" parameterType=""> -->
-<!-- 		<if test=""> -->
-<!-- 			SELECT boardno  -->
-<!-- 			FROM blike -->
-<!-- 			WHERE userno = #{userno } -->
-<!-- 		</if>	 -->
-<!-- 	</select> -->
+	<select id="selectLikePost" resultType="hashMap" parameterType="util.MyPaging">
+		SELECT * FROM (
+		    SELECT rownum rnum, B.* FROM (
+			    SELECT U.usernick, B.writtendate, B.title, B.views, P.boardname, L.boardno
+				FROM user_table U, board B, posttype P, blike L
+				WHERE B.userno = U.userno
+				    AND L.boardno = B.boardno  
+				    AND p.postno = B.postno
+				    AND L.userno = #{userno }
+		    )B 
+		    ORDER BY rnum
+		 ) WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	<select id="selectWritePost" resultType="hashMap" parameterType="util.MyPaging">
+		SELECT * FROM (
+		    SELECT rownum rnum, B.* FROM (
+			    SELECT U.usernick, B.writtendate, B.title, B.views, P.boardname, B.boardno
+				FROM user_table U, board B, posttype P
+				WHERE B.userno = U.userno
+				    AND p.postno = B.postno
+				    AND U.userno = #{userno }
+		    )B 
+		    ORDER BY rnum
+		 ) WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	<select id="selectReplyPost" resultType="hashmap" parameterType="util.MyPaging">
+		SELECT * FROM (
+		    SELECT rownum rnum, B.* FROM (
+		        SELECT P.boardname, B.title, R.recontents, R.replydate, U.userno
+		        FROM reply R, board B, user_table U, posttype P
+		        WHERE R.userno = U.userno
+		            AND P.postno = B.postno
+		            AND R.boardno = B.boardno
+		            AND r.userno = #{userno}
+		        ) B 
+		        ORDER BY rnum
+		) WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
 	
 </mapper>

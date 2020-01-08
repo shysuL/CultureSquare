@@ -1,10 +1,10 @@
 package mypage.dao.face;
 
+import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import user.dto.User_table;
+import util.MyPaging;
 import util.Paging;
 
 public interface MyPageDao {
@@ -48,8 +48,12 @@ public interface MyPageDao {
 
 	public void deleteUserId(User_table user);
 
-	public int selectCntAll(HttpServletRequest req, int i);
+	public int selectCntAll(MyPaging paging);
 
-	public List selectLikePost(Paging paging, User_table user, int i);
+	public List<HashMap<String, Object>> selectLikePost(MyPaging paging);
+
+	public List<HashMap<String, Object>> selectWritePost(MyPaging paging);
+
+	public List<HashMap<String, Object>> selectReplyPost(MyPaging paging);
 
 }

@@ -228,6 +228,31 @@ public class PFBoardServiceImpl implements PFBoardService{
 		return pfboardDao.selectFileByFileno(fileno);
 	}
 
+	@Override
+	public void firstImageSave(MultipartFile mFile, int boardno) {
+		
+		//파일이 저장될 경로
+		String storedPath = context.getRealPath("pfImage");
+		
+		//UUID
+		String uid = UUID.randomUUID().toString().split("-")[4];
+		
+		//저장될 파일의 이름(원본명 + UUID)
+		String filename = boardno +"";
+		
+		//저장될 파일 객체
+		File dest = new File(storedPath, filename);
+		
+		try {	
+			mFile.transferTo(dest);			//실제 파일 저장
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
 
 	@Override
 	public void deleteServerFile(List<PFUpFile> list) {

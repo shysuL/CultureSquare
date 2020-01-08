@@ -459,6 +459,39 @@ public class PRViewController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="/prboard/addReReply", method=RequestMethod.POST)
+	public ModelAndView addReReplyPR(Model model, Reply reply, HttpSession session, ModelAndView mav) {
+		
+		//로그인 상태인 경우만 처리
+		if((String)session.getAttribute("usernick")!=null) {
+			// 1. 유저 번호 저장
+			reply.setUserno(prBoardService.getUserNoForReply((String)session.getAttribute("usernick")).getUserno());
+
+			// 2. 댓글번호를 이용해 그룹 번호 담기
+			reply.setGroupno(prBoardService.getGroupNoByReplyNo(reply));
+			
+			// 3. 그룹번호를 이용한 댓글 그룹의 최대 ReplyOrder + 1을 객체에 담기
+			reply.setMaxreplyorder(prBoardService.getMaxReplyOrder(reply) + 1);
+			
+			logger.info("답글 컨트롤러 테스트 : " + reply);
+			
+			
+			//답글 삽입
+			prBoardService.addReReply(reply);
+			
+			mav.addObject("insert", true);
+			//viewName지정하기
+			mav.setViewName("jsonView");
+		}
+		else {
+			mav.addObject("insert", false);
+			//viewName지정하기
+			mav.setViewName("jsonView");
+		}
+		return mav;
+	}
+	
 }
 	
 	
