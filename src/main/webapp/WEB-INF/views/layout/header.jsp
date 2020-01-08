@@ -3,8 +3,9 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page import="java.util.*"%>
-<%@ page import="java.text.*"%>
+<%@ page import="java.util.Calendar"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.text.SimpleDateFormat"%>
     
 <!DOCTYPE html>
 <html>
@@ -31,20 +32,80 @@ $(document).ready(function() {
 	
 	$("#findIdOkBtn").click(function(){
 		
-		var username = $("#idFindByUsername");
-		var userphone = $("#idFindByUserphone");
+		var username = $("#idFindByUsername").val();
+		var userphone = $("#idFindByUserphone").val();
 		
-		$.ajax({
-			type:"post",
-			url:"/user/findId",
-			data: {"username" : username, "userphone" : userphone},
-			success : function(res){
-				// ModelAndView - result
-				console.log("ㅁㄴㅇ");
+		// 아이디찾기 유효성
+		if( $("#idFindByUsername").val() == ""){
+			console.log(123);
+			$(".content").text("이름을 입력해주세요");
+			$("#searchId").modal({backdrop: 'static', keyboard: false});
+			$("#seachIdBtnOk").click(function(){
+				$("#idFindByUsername").focus();	
+			})			
+		} else if ($("#idFindByUserphone").val() == ""){
+			$(".content").text("핸드폰번호를 입력해주세요");
+			$("#searchId").modal({backdrop: 'static', keyboard: false});
+			$("#seachIdBtnOk").click(function(){
+				$("#idFindByUserphone").focus();	
+			})	
+		}
+			
+		else {
+						
+			$.ajax({
+				type:"post",
+				url:"/user/findId",
+				data: {"username" : username, "userphone" : userphone},
+				dataType: "json",
+				success : function(res){
+					// ModelAndView - findId
+	//				console.log("success");
+					console.log(res)
+					console.log(res.idList)
+					
+					if(res.idList == 0){
+						
+		 				$("#searchId").modal({backdrop: 'static', keyboard: false});
+		 				$(".content").text("해당하는 사용자가 존재하지 않습니다.");
+						$("#idFindByUsername").val("");
+		 				$("#idFindByUserphone").val("");
+						$("#seachIdBtnOk").click(function(){
+							$(".content").text("");
+						})
+
+										
+					} else {
+						
+					
+						var idList = res.idList					
+						for (var i=0; i<idList.length; i++){
+							
+			 				$(".content").append("***" + idList[i].userid.substring(3,idList[i].length));
+			 				$(".content").append("<br>");
+			 				
+						}
+						
+		 				$("#searchId").modal({backdrop: 'static', keyboard: false});
+						$("#idFindByUsername").val("");
+		 				$("#idFindByUserphone").val("");
+						$("#seachIdBtnOk").click(function(){
+							$(".content").text("");
+						})			
+	 				
+					}
+	 				
 				
-			}
-		})
+				}
+				,error: function(e) {
+					console.log("error");
+					console.log(e);
+				}
+			})
 		
+		}
+		
+
 		
 	})
 	
@@ -245,7 +306,7 @@ h5 {
 }
 
 /* 로고 애니메이션 */
-img{min-height: 100%; max-width: 100%; }
+img[class=culture]{min-height: 100%; max-width: 100%; }
 .imgHoverEvent{width: 300px; height: 220px; margin-top: 10px; position: relative; overflow: hidden; display: inline-block;}
 /* .imgHoverEvent .imgBox{width: 200px; height: 200px; text-align: center; background:url(http://gahyun.wooga.kr/portfolio/triple/resources/img/city00.jpg) no-repeat 50% 50%; background-size: auto 100%;} */
 .imgHoverEvent .hoverBox{position: absolute; top:0; left: 0; width: 250px; height: 250px;}
@@ -459,6 +520,7 @@ img{min-height: 100%; max-width: 100%; }
       
       <div class="modal-footer1">
         <button class="btn btn-dark"  id="findIdOkBtn">확인</button>
+        <button class="btn btn-dark" data-dismiss="modal">취소</button>
       </div>
       
       </div>
@@ -503,7 +565,7 @@ img{min-height: 100%; max-width: 100%; }
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">회원님의 아이디</h4>
+        <h4 class="modal-title">아이디 찾기</h4>
       </div>
 
       <!-- Modal body -->
@@ -512,7 +574,7 @@ img{min-height: 100%; max-width: 100%; }
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button class="btn btn-dark" data-dismiss="modal">확인</button>
+        <button class="btn btn-dark" data-dismiss="modal" id=seachIdBtnOk>확인</button>
       </div>
 
     </div>

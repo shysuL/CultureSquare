@@ -1,5 +1,7 @@
 package user.dao.face;
 
+import java.util.List;
+
 import user.dto.User_table;
 
 public interface UserDao {
@@ -184,5 +186,16 @@ public interface UserDao {
 	 * @return - 사용자 정보
 	 */
 	public User_table loginUserInfo(String userId);
+
+	/**
+	 * 2020-01-08
+	 * 이빈
+	 * 
+	 * 사용자 이름과 사용자 핸드폰번호로 아이디 찾기
+	 * 
+	 * @param user - username, userphone
+	 * @return List
+	 */
+	public List<User_table> selectUserIdByNamePhone(User_table user);
 
 }

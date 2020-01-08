@@ -1,5 +1,7 @@
 package user.service.face;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -55,5 +57,15 @@ public interface UserService {
 	 * @return 
 	 */
 	public User_table getUserSession(User_table user);
+
+	/**
+	 * 2020-01-08
+	 * 이빈
+	 * 이름과 핸드폰번호로 userid 찾기
+	 * @param user - username, userphone
+	 * @return - List<user_table> 
+	 */
+	public List<User_table> getUseridByNamePhone(User_table user);
+
 	
 }

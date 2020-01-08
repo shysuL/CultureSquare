@@ -122,4 +122,15 @@
 	    WHERE 1=1
 	   	AND userno = #{userno}
 	 </select>
+	 
+	 <!-- 아이디 찾기 -->
+	 <select id="selectUserIdByNamePhone" 
+	 	parameterType="user.dto.User_table" resultType="user.dto.User_table">
+	 	SELECT userid FROM User_table
+	 	WHERE 1=1
+	 	AND username = #{username}
+	 	AND userphone = #{userphone}	
+	 </select>
+	 
+	 
 </mapper>
