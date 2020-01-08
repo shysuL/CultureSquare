@@ -280,4 +280,42 @@
 		VALUES(reply_seq.nextval, #{groupno}, #{maxreplyorder}, 2, #{recontents}, sysdate, #{userno}, #{boardno})
 	</insert>
 	
+	 <select id="selectUserNoToReplyLike"
+    	parameterType="String" resultType="prboard.dto.Reply">
+	    SELECT userno FROM user_table
+	    WHERE 1=1
+	   	AND usernick = #{usernick}
+	 </select>
+	
+	<select id="selectReplyRecommend" resultType="int" parameterType="prboard.dto.Reply">
+		SELECT count(*) FROM relike
+		WHERE userno = #{userno}
+		AND replyno = #{replyno }
+	</select>
+	
+	<select id="selectReplyRecommendView" resultType="int" parameterType="prboard.dto.Reply">
+		SELECT COUNT(*) FROM relike 
+		WHERE replyno = #{replyno}
+	</select>
+	
+	<insert id="insertReplyRecommend"
+	 parameterType="prboard.dto.Reply">
+		INSERT INTO relike 
+		VALUES(relike_seq.nextval, #{userno}, #{replyno})
+	</insert>
+	
+	<delete id="deleteReLike"
+	 parameterType="prboard.dto.Reply">
+		DELETE relike
+		WHERE 1=1
+			AND userno = #{userno}
+			AND replyno = #{replyno }
+	</delete>
+	
+	<delete id="deleteReLikeForBoard"
+	 parameterType="int">
+		DELETE relike
+		WHERE 1=1
+			AND replyno = #{replyno }
+	</delete>
 </mapper>

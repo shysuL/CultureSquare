@@ -163,7 +163,7 @@ function deleteReply(replyno) {
 			if(data.success) {
 				console.log(replyno);
 				$("[data-replyno='"+replyno+"']").remove();
-				
+				getCommentList();
 			} else {
 				alert("댓글 삭제 실패");
 			}
@@ -198,6 +198,7 @@ function getCommentList(){
 	        data : {
 				//게시판 번호
 				boardno : '${view.boardno }',
+				userno : '${LoginUser.userno }'
 			},
 			dataType : "json",
 	        success : function(res){
@@ -209,7 +210,7 @@ function getCommentList(){
 	            if(res.reList.length > 0){
 	            	 
 	            	for(i=0; i<res.reList.length; i++){
-	                    html += "<div class='container container-fluid' style='mawrgin-bottom: 40px'>";
+// 	                    html += "<div class='container' style='mawrgin-bottom: 40px'>";
 	                    html += "<div class='row'>";
 	                    html += "<div id = 'reply_head' class='col-12'>";
 	                    html += "<span>" + res.reList[i].usernick + "</span>"
@@ -227,38 +228,30 @@ function getCommentList(){
 	                    html += "<div id = 'rereplyBtn'>";
 	                    html += "<a ><button id='rereply' class='btn bbc' type='button'>답글</button></a>";
 	                    html += "</div>";
+	                    html += "</div>";
 	                    
 	                    if(res.reList[i].usernick == "${usernick}"){
 	                    	html += "<div id = 'deleteReplyBtn'>";
 	                    	html += "<button class='btn bbc' onclick='deleteReply(" + res.reList[i].replyno + ");'>삭제</button>";
 	                    	html += "</div>";
-	                    	
-	                    	
 	                    }
                     	html += "</div>";
-
-	                    
-// 	       
-	                    html += "</div>";
-	                }
-	                
-	            } else {
-	                
-	                html += "<div>";
-	                html += "<h6><strong>등록된 댓글이 없습니다.</strong></h6>";
-	                html += "</div>";
-	                
+                    	
+                    	
 	            }
-	            
+	        } else{
+	        	html += "<div>";
+                html += "<h6><strong>등록된 댓글이 없습니다.</strong></h6>";
+                html += "</div>";
+	        }
 	            $("#cCnt").html(cCnt);
 	            $("#commentList").html(html);
 	            
-	        },
-	        error:function(request,status,error){
 	            
-	       }	        	
-	 })
-	
+	       }  , 
+	       error:function(request,status,error){
+	       }
+	});
 }
 </script>
 <script type="text/javascript">
@@ -524,6 +517,80 @@ $(document).ready(function() {
 });
 </script>
 
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		//추천버튼 동작
+		$("#recommendtd").on("click", "#recommend", function() {
+			//		$(location).attr("href", "/board/recommend?boardno=${viewBoard.boardno }");
+			console.log("추천버튼 눌림");
+			recommendAction();
+		});
+		
+		
+		function recommendAction() {
+			$.ajax({
+				type : "get",
+				url : "/artboard/recommend",
+				data : {
+					boardno : '${view.boardno }'
+				},
+				dataType : "html",
+				success : function(data) {
+					console.log("성공");
+					console.log(data);
+
+					$("#recommendtd").html(data)
+				},
+				error : function() {
+					$("#pfLikeLoginModal").modal({backdrop: 'static', keyboard: false});
+				}
+			});
+		}
+		
+		
+	});
+		function recommendAction() {
+			$.ajax({
+				type : "get",
+				url : "/artboard/recommend",
+				data : {
+					boardno : '${view.boardno }'
+				},
+				dataType : "html",
+				success : function(data) {
+					console.log("성공");
+					console.log(data);
+
+					$("#recommendtd").html(data)
+				},
+				error : function() {
+					$("#pfLikeLoginModal").modal({backdrop: 'static', keyboard: false});
+				}
+			});
+		}
+		function recheckAction() {
+			$.ajax({
+				type : "get",
+				url : "/artboard/recheck",
+				data : {
+					boardno : '${view.boardno }'
+				},
+				dataType : "html",
+				success : function(data) {
+					console.log("성공");
+					console.log(data);
+
+					$("#recommendtd").html(data)
+				},
+				error : function() {
+					console.log("실패연 하이하이");
+				}
+			});
+		}
+</script>
+
 <style type="text/css">
 
 
@@ -552,10 +619,12 @@ $(document).ready(function() {
 			<div id = "writer_nick" class="col-md-4">
 			${writer.usernick }
 			</div>
+			<div id="recommendtd">
 			<div id = "write_date"  class="col-md-4">
 			${view.writtendate }
 			<div id = "viewcount">
 			${view.views }
+			</div>
 			</div>
 			</div>
 		</div>
@@ -608,11 +677,11 @@ $(document).ready(function() {
 			</a>
 		</div>
 		</div>
-	
+
 
 
 <!-- 댓글 처리 -->
-<div>
+<div >
 
 
 	
@@ -660,7 +729,7 @@ $(document).ready(function() {
 
 	<!-- 댓글view -->
 
-                            
+              <div  id="commentList" class='container' style='mawrgin-bottom: 40px'>              
          <div id="commentList">
         </div>                           
                             
@@ -724,8 +793,12 @@ $(document).ready(function() {
 <%-- </c:forEach> --%>
 
 
-</div>	<!-- 댓글 처리 end -->
+</div><!--  댓글 처리 end --> 
+
+
+	</div>
 </div>
+
 
 
 <div class="col-3">
@@ -917,6 +990,31 @@ $(document).ready(function() {
       <!-- Modal footer -->
       <div class="modal-footer">
         <button type="submit" id="btnCommInsert"class="btn btn-info" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 로그인 부탁 모달-->
+<div class="modal fade" id="pfLikeLoginModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">로그인 필요!</h4>
+        <button id="pfLikeLoginX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	로그인 후 좋아요가 가능합니다.
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="pfLikeLoginModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
       </div>
 
     </div>

@@ -392,4 +392,68 @@ public interface PRBoardDao {
 	 * @param reply - 삽입할 답글 정보가 담긴 객체
 	 */
 	public void insertReReply(Reply reply);
+
+	/**
+	 * 2020-01-07
+	 * 조홍철
+	 * 
+	 * 댓글 좋아요를 위한 유저번호 조회
+	 * 
+	 * @param usernick - 유저 닉네임
+	 * @return Reply - 유저번호가 담긴 댓글 객체
+	 */
+	public Reply selectUserNoToReplyLike(String usernick);
+
+	/**
+	 * 2020-01-07
+	 * 조홍철
+	 * 
+	 * 추천 여부 조회
+	 * 
+	 * 
+	 * @param reply - 추천 여부 정보가 담긴 객체
+	 * @return int - 추천 여부
+	 */
+	public int selectReplyRecommend(Reply reply);
+
+	/**
+	 * 2020-01-07
+	 * 조홍철
+	 * 
+	 * 댓글의 추천 갯수를 센다
+	 * 
+	 * @param prBoard - 댓글 정보가 담긴 객체
+	 * @return int - 추천수
+	 */
+	public int selectReplyRecommendView(Reply reply);
+
+	/**
+	 * 2020-01-08
+	 * 조홍철
+	 * 
+	 * 댓글 추천을 한다.
+	 * 
+	 * @param reply - 댓글 추천 테이블에 삽입할 데이터 객체
+	 */
+	public void insertReplyRecommend(Reply reply);
+
+	/**
+	 * 2020-01-08
+	 * 조홍철
+	 * 
+	 * 댓글 추천 취소를 한다.
+	 * 
+	 * @param reply - 댓글 추천 테이블에 삭제할 데이터 객체
+	 */
+	public void deleteReLike(Reply reply);
+
+	/**
+	 * 2020-01-08
+	 * 조홍철
+	 * 
+	 * 댓글 좋아요 삭제
+	 * 
+	 * @param replyno - 삭제할 댓글 번호
+	 */
+	public void deleteReLikeForBoard(int replyno);
 }

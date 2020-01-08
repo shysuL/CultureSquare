@@ -1,5 +1,6 @@
 package prboard.controller;
 
+import java.io.Console;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -219,13 +220,30 @@ public class PRViewController {
 		//3. PR 타입 삭제
 		prBoardService.deletePRType(prBoard);
 		
-		//4.  좋아요 삭제
+		//4.  게시글 좋아요 삭제
 		prBoardService.deleteBlike(prBoard);
 		
-		//5. 댓글 대댓글 삭제
+		//5. 댓글 좋아요 삭제
+		//5-1 보드번호를 통한 댓글 리스트들의 댓글 번호 구해 삭제하기 
+		Reply reply = new Reply();
+		reply.setBoardno(prBoard.getBoardno());
+        List<Reply> replyVO = prBoardService.getReplyByboardNo(reply);
+        
+        logger.info("답 테스트 : "  + replyVO);
+        
+        if(replyVO.size() > 0){
+        	
+            for(int i=0; i<replyVO.size(); i++){
+            	//5-2댓글 좋아요 데이터 삭제
+            	prBoardService.deleteReLike(replyVO.get(i).getReplyno());
+            }
+        }
+        
+		
+		//6. 댓글 대댓글 삭제
 		prBoardService.deleteReplyToBoard(prBoard);
 		
-		//6. PR 게시글 삭제
+		//7. PR 게시글 삭제
 		prBoardService.deletePR(prBoard);
 
 		return "redirect:/prboard/prlist";
@@ -376,7 +394,7 @@ public class PRViewController {
 		
 		logger.info("답글 삭제 테스트  : " + reply);
 
-		// 댓글 삭제
+		// 1. 댓글 삭제
 		prBoardService.deleteReplyByNo(reply);
 
 		//viewName지정하기
@@ -390,13 +408,17 @@ public class PRViewController {
 		
 		logger.info("댓글 삭제 테스트  : " + reply);
 
-		// 1. 댓글번호로 그룹번호 가져오기
+		// 1.댓글 좋아요 삭제
+		prBoardService.deleteReLike(reply.getReplyno());
+		
+		// 2. 댓글번호로 그룹번호 가져오기
 		int groupNo = prBoardService.getGroupNoByReplyNo(reply);
 		
-		// 2. 삭제할 댓글의 답글 삭제
+		// 3. 삭제할 댓글의 답글 삭제
 		prBoardService.deleteReReplyByGroupNo(groupNo);
 		
-		// 3.댓글 삭제
+		
+		// 4.댓글 삭제
 		prBoardService.deleteReplyByNo(reply);
 
 		//viewName지정하기
@@ -490,6 +512,79 @@ public class PRViewController {
 			mav.setViewName("jsonView");
 		}
 		return mav;
+	}
+	
+	@RequestMapping(value="/prboard/replycheck", method=RequestMethod.GET)
+	public String replyCheckPR(Reply reply, Model model, HttpSession session) {
+		
+		
+		//댓글 번호 저장
+		int replyno = reply.getReplyno();
+		
+		// 1. 회원 번호 구하기
+		
+		//로그인 상태인 경우만 처리
+		if((String)session.getAttribute("usernick")!=null) {
+			reply = prBoardService.getUserNoForReplyLike((String)session.getAttribute("usernick"));
+		}
+		
+		reply.setReplyno(replyno);
+		
+		logger.info("댓글 좋아요 테스트 : " + reply.toString());
+		
+		int result = prBoardService.replyRecommendCheck(reply);
+		
+		logger.info("요건 댓글 첨에 : " + result);
+//		
+		int replyRecommendCnt = prBoardService.replyRecommendView(reply);
+//		
+		//	VIEW에 모델(MODEL)값 전달하기
+		model.addAttribute("result", result);
+		
+		model.addAttribute("replyno", replyno);
+		
+		model.addAttribute("replyRecommendCnt", replyRecommendCnt);
+		return "prboard/replycheck";
+	}
+	
+	@RequestMapping(value="/prboard/replyrecommend", method=RequestMethod.GET)
+	public String replyrecommendPR(Reply reply, Model model, HttpSession session, String boardno) {
+		
+		//댓글 번호 저장
+		int replyno = reply.getReplyno();
+		
+		//로그인 상태인 경우만 처리
+		if((String)session.getAttribute("usernick")!=null) {
+			// 1. 회원 번호 구하기
+			reply = prBoardService.getUserNoForReplyLike((String)session.getAttribute("usernick"));
+			reply.setReplyno(replyno);
+
+			int result = prBoardService.replyRecommendCheck(reply);
+
+			logger.info("댓글 추천 동작 테ㅡ트 : " + reply);
+
+			
+			//전에 추천한적이 없다면
+			if(result == 0) {
+				prBoardService.replyRecommend(reply);
+			}
+			else {
+				prBoardService.replyRecommendCancal(reply);
+			}
+
+			int replyRecommendCnt = prBoardService.replyRecommendView(reply);
+
+			//	VIEW에 모델(MODEL)값 전달하기
+			model.addAttribute("result", result);
+
+			model.addAttribute("replyRecommendCnt", replyRecommendCnt);
+			return "prboard/replyrecommend";
+		}
+		//로그아웃일 경우 실패를 받을수 있도록 다시 보냄
+		else {
+			return "/prboard/view?boardno="+boardno;
+		}
+		
 	}
 	
 }

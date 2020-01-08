@@ -105,6 +105,7 @@ public class ArtboardListController {
 		// 조회된 회원정보를 모델로 전달
 		model.addAttribute("LoginUser",LoginUser);
 		
+		
 	}
 	
 	

@@ -3,17 +3,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <style type="text/css">
-#recommend{
+#replyLike{
 	background-color:white;
 	border: none;
 }
 </style>
-${recommendCnt}
 <c:choose>
 <c:when test="${result eq 1 }">
-<button id ="recommend"><img src="/resources/img/nolike.png" /></button>
+<button id ="replyLike" class ="replyLike" name = "${replyno }"><img src="/resources/img/replyNo.png" /></button>
 </c:when>
 <c:when test="${result ne 1  }">
-<button id ="recommend"><img src="/resources/img/likeheart.png" /></button>
+<button id ="replyLike" class = "replyLike" name = "${replyno }"><img src="/resources/img/replyYes.png" /></button>
 </c:when>
 </c:choose>
+${replyRecommendCnt}
