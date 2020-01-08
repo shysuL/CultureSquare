@@ -465,5 +465,16 @@ public interface PRBoardService {
 	 * @param replyno - 삭제할 댓글 번호
 	 */
 	public void deleteReLike(int replyno);
+
+	/**
+	 * 2020-01-08
+	 * 조홍철
+	 * 
+	 * 베스트 댓글 리스트 조회
+	 * 
+	 * @param groupNo - 댓글 그룹 번호
+	 * @return List - 답글 리스트
+	 */
+	public List<Reply> getBestReplyByboardNo(Reply reply);
 	
 }

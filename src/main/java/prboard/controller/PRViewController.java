@@ -346,7 +346,7 @@ public class PRViewController {
 		}
 		return mav;
 	}
-	
+
 	@RequestMapping(value="/prboard/commentList", method=RequestMethod.POST)
 	public ModelAndView commentListPR(Model model, Reply reply, HttpSession session, ModelAndView mav) {
 		
@@ -587,6 +587,48 @@ public class PRViewController {
 		
 	}
 	
+	
+	@RequestMapping(value="/prboard/bestcommentList", method=RequestMethod.POST)
+	public ModelAndView bestcommentListPR(Model model, Reply reply, HttpSession session, ModelAndView mav) {
+		
+		int reReplyCnt = 0;
+		
+		ArrayList<HashMap> reList = new ArrayList<HashMap>();
+		
+        // 해당 게시물 댓글 리스트 불러오기
+        List<Reply> replyVO = prBoardService.getBestReplyByboardNo(reply);
+        
+        
+        logger.info("답 테스트 : "  + replyVO);
+        
+        if(replyVO.size() > 0){
+        	
+        	
+            for(int i=0; i<replyVO.size(); i++){
+                HashMap hm = new HashMap();
+                hm.put("replyno", replyVO.get(i).getReplyno());
+                hm.put("boardno", replyVO.get(i).getBoardno());
+                hm.put("recontents", replyVO.get(i).getRecontents());
+                hm.put("usernick", replyVO.get(i).getUsernick());
+                hm.put("replydate", replyVO.get(i).getReplydate());
+                
+                //댓글의 답글 갯수 구하기
+                reReplyCnt = prBoardService.getREreplyCnt(replyVO.get(i).getGroupno());
+                
+                hm.put("replyCnt", reReplyCnt);
+                
+                reList.add(hm);
+            }
+        }
+        
+        logger.info("베스트 리스트 수정: " + reList);
+		
+		mav.addObject("reList", reList);
+		//viewName지정하기
+		mav.setViewName("jsonView");
+		
+		return mav;
+	}
 }
 	
 	

@@ -11,10 +11,10 @@
 
 <c:choose>
 <c:when test="${result eq 0 }">
-<button id ="replyLike" class ="replyLike" name = "${replyno }"><img src="/resources/img/replyNo.png" /></button>
-</c:when>
+<button id ="replyLike" class ="replyLike" name = "${replyno }"><img style= 'margin-bottom: 12px;' src="/resources/img/replyNo.png" /></button>
+</c:when> 
 <c:when test="${result ne 0  }">
-<button id ="replyLike" class = "replyLike" name = "${replyno }"><img src="/resources/img/replyYes.png" /></button>
+<button id ="replyLike" class = "replyLike" name = "${replyno }"><img style= 'margin-bottom: 12px;' src="/resources/img/replyYes.png" /></button>
 </c:when>
 </c:choose>
 

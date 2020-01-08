@@ -223,7 +223,7 @@
 	<insert id="insertReply"
 	 parameterType="prboard.dto.Reply">
 		INSERT INTO reply 
-		VALUES(reply_seq.nextval, groupno_seq.nextval, 0, 1, #{recontents}, sysdate, #{userno}, #{boardno})
+		VALUES(reply_seq.nextval, groupno_seq.nextval, 0, 1, #{recontents}, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), #{userno}, #{boardno})
 	</insert>
 	
 	<delete id="deleteReplyByNo"
@@ -318,4 +318,14 @@
 		WHERE 1=1
 			AND replyno = #{replyno }
 	</delete>
+	
+	<select id="selectBestReplyList" resultType="prboard.dto.Reply" parameterType="prboard.dto.Reply">
+		select R.*, U.usernick, (SELECT COUNT(*) FROM RELIKE WHERE replyno = R.replyno) cnt
+        from reply R, user_table U
+		WHERE R.userno = U.userno
+		AND boardno = #{boardno}
+		AND replyorder = 0
+		ORDER BY cnt DESC, R.replyno DESC
+	</select>
+	
 </mapper>

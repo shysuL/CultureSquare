@@ -384,4 +384,10 @@ public class PRBoardServiceImpl implements PRBoardService {
 		prBoardDao.deleteReLikeForBoard(replyno);
 
 	}
+
+	@Override
+	public List<Reply> getBestReplyByboardNo(Reply reply) {
+		
+		return prBoardDao.selectBestReplyList(reply);
+	}
 }
