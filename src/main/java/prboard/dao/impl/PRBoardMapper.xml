@@ -297,4 +297,18 @@
 		SELECT COUNT(*) FROM relike 
 		WHERE replyno = #{replyno}
 	</select>
+	
+	<insert id="insertReplyRecommend"
+	 parameterType="prboard.dto.Reply">
+		INSERT INTO relike 
+		VALUES(relike_seq.nextval, #{userno}, #{replyno})
+	</insert>
+	
+	<delete id="deleteReLike"
+	 parameterType="prboard.dto.Reply">
+		DELETE relike
+		WHERE 1=1
+			AND userno = #{userno}
+			AND replyno = #{replyno }
+	</delete>
 </mapper>

@@ -8,14 +8,12 @@
 	border: none;
 }
 </style>
-
 <c:choose>
-<c:when test="${result eq 0 }">
+<c:when test="${result eq 1 }">
 <button id ="replyLike" class ="replyLike" name = "${replyno }"><img src="/resources/img/replyNo.png" /></button>
 </c:when>
-<c:when test="${result ne 0  }">
+<c:when test="${result ne 1  }">
 <button id ="replyLike" class = "replyLike" name = "${replyno }"><img src="/resources/img/replyYes.png" /></button>
 </c:when>
 </c:choose>
-
 ${replyRecommendCnt}

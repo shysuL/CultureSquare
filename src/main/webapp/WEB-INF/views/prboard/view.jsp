@@ -31,6 +31,7 @@ var rReCnt = new Array();
 var replyLike = new Array();
 var replyLen = 0;
 
+
 //댓글 삭제 클릭 -> 진짜로 삭제 할거냐는 모달 호출
 function deleteReply(replyno){
 	$("#prReplyDeleteModal").modal({backdrop: 'static', keyboard: false});
@@ -560,11 +561,15 @@ function getCommentList(){
 		});
 		
 		
-		//댓글 추천버튼 동작 왜안해....
-		$('#commentList').on("click", "#replyLike", function(){
-//	 		$(location).attr("href", "/board/recommend?boardno=${viewBoard.boardno }");
-			console.log("ㄷ버튼이 눌리긴 함");
-// 			recommendAction();
+		//댓글 추천버튼 동작 처리
+		$('#commentList').on("click", ".commentBox #replyLike", function(){
+
+			// 부모 div 아이디 얻기
+			var parentId = $(this).closest('div').attr('id');
+			//숫자만 추출
+			var replyno = parentId.replace(/[^0-9]/g,'');
+			
+			replyrecommendAction(replyno);
 		});
 		
 		//댓글 삭제모달에서 확인 버튼 클릭 - 댓글 삭제 동작 Ajax 처리
@@ -638,7 +643,30 @@ function getCommentList(){
 		});
 	}
 	
-	// 게시글 추천
+	//댓글 추천 동작
+	function replyrecommendAction(replyno) {
+		
+		$.ajax({
+			type : "get",
+			url : "/prboard/replyrecommend",
+			data : {
+				replyno : replyno,
+				boardno : '${viewBoard.boardno }'
+			},
+			dataType : "html",
+			success : function(data) {
+				console.log("성공")
+				console.log(data)
+
+				$('#replyRecommend'+replyno).html(data);
+			},
+			error : function() {
+				$("#prReplyLikeLoginModal").modal({backdrop: 'static', keyboard: false});
+			}
+		});
+	}
+	
+	// 처음에 게시글 추천 여부에 따른 이미지 출력
 	function recheckAction() {
 		$.ajax({
 			type : "get",
@@ -659,7 +687,7 @@ function getCommentList(){
 		});
 	}
 	
-	// 댓글 추천
+	// 처음 댓글 추천 여부에 따른 이미지 출력
 	function replycheckAction(replyno) {
 		
 		console.log("267 | 261 | 260 : " + replyno);
@@ -894,6 +922,31 @@ div[class*=reReplyBox]{
       <!-- Modal footer -->
       <div class="modal-footer">
         <button type="submit" id="prLikeLoginModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 로그인 부탁 모달-->
+<div class="modal fade" id="prReplyLikeLoginModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">로그인 필요!</h4>
+        <button id="prLikeLoginX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	로그인 후 댓글 좋아요가 가능합니다.
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="prReplyLikeLoginModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
       </div>
 
     </div>
