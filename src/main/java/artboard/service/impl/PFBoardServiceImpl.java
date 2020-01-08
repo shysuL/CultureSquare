@@ -22,9 +22,7 @@ import artboard.dto.Donation;
 import artboard.dto.PFUpFile;
 import artboard.dto.Reply;
 import artboard.service.face.PFBoardService;
-
-
-
+import prboard.dao.face.PRBoardDao;
 import util.Paging;
 
 
@@ -308,6 +306,42 @@ public class PFBoardServiceImpl implements PFBoardService{
 	@Override
 	public int recommendView(Board board) {
 		return pfboardDao.selectrecommendView(board);
+	}
+
+
+	@Override
+	public int getGroupNoByReplyNo(Reply reply) {
+		return pfboardDao.selectGroupNo(reply);
+	}
+
+
+	@Override
+	public List<Reply> getReReplyByNo(int groupNo) {
+		return pfboardDao.selectReReplyList(groupNo);
+	}
+
+
+	@Override
+	public int getREreplyCnt(int groupno) {
+		return pfboardDao.selectREreplyCnt(groupno);
+	}
+
+
+	@Override
+	public Reply getUserNoForReply(String usernick) {
+		return pfboardDao.selectUserNoToReply(usernick);
+	}
+
+
+	@Override
+	public int getMaxReplyOrder(Reply reply) {
+		return pfboardDao.selectMaxReplyOrder(reply);
+	}
+
+
+	@Override
+	public void addReReply(Reply reply) {
+		pfboardDao.insertReReply(reply);
 	}
 
 
