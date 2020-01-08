@@ -27,10 +27,6 @@ var checkReReply = new Array(); //배열 선언
 //답글 갯수 출력 위한 배열
 var rReCnt = new Array();
 
-//댓글 좋아요 위한 배열
-var replyLike = new Array();
-var replyLen = 0;
-
 
 //댓글 삭제 클릭 -> 진짜로 삭제 할거냐는 모달 호출
 function deleteReply(replyno){
@@ -446,6 +442,10 @@ $(function(){
  */
 function getCommentList(){
 	
+	//최신순, Best댓글 버튼 색 지정
+	$('#new').css('color', 'black');
+	$('#best').css('color', '#ccc');
+	
 	//댓글 수정에서 취소 눌렀을때 고려해서 카운트 초기화
 	modifyCnt = 0;
 	console.log('${viewBoard.boardno }');
@@ -466,9 +466,6 @@ function getCommentList(){
             var cCnt = res.reList.length;
             var html = "";
             
-            //댓글 길이 저장
-            replyLen = cCnt;
-            
             if(res.reList.length > 0){
             	
             	for(i=0; i<res.reList.length; i++){
@@ -483,7 +480,6 @@ function getCommentList(){
 //                     html += "<div style='margin-left: 150px; margin-bottom: -15px; margin-top: -34px;'><img src='/resources/img/replyYes.png' /></div>";
 					html += "<div style='margin-left: 150px; margin-bottom: -15px; margin-top: -34px;' id ='replyRecommend"+res.reList[i].replyno+"'></div>";
 // 					html += "<div style='margin-left: 150px; margin-bottom: -15px; margin-top: -34px;' id ='replyRecommend'></div>";
-					replyLike[i] = res.reList[i].replyno;
 //                     html+= "<br><button style='height:25px; margin-right:5px' onClick=getReReply(" + res.reList[i].replyno + ",\'"+res.reList.length +"\')>답글</button>"
                     html+= "<br><button style='height:25px; margin-right:5px' onClick=getReReply(" + res.reList[i].replyno + ")>답글</button>"
                     html += "<strong id='rCnt"+res.reList[i].replyno+"'>"+res.reList[i].replyCnt+"</strong>"
@@ -532,6 +528,21 @@ function getCommentList(){
 		
 		recheckAction();
 		
+		
+		//댓글 추천순 정렬
+		$("#best").click(function() {
+
+			//최신순, Best댓글 버튼 색 지정
+			$('#new').css('color', '#ccc');
+			$('#best').css('color', 'black');
+			
+			$("#commentList").html("꾸엙!");
+		});
+		
+		//댓글 최신순 정렬
+		$("#new").click(function() {
+			getCommentList();
+		});
 		
 		//목록버튼 동작
 		$("#btnList").click(function() {
@@ -788,6 +799,20 @@ div[class*=reReplyBox]{
 	min-height: 200px;
 }
 
+#replySort{
+	padding-left: 3px;
+    padding-bottom: 10px;
+}
+
+#new{
+	 cursor: pointer;
+}
+
+#best{
+	 padding: 20px;
+	 cursor: pointer;
+}
+
 </style>
 
 <div class="container">
@@ -874,7 +899,11 @@ div[class*=reReplyBox]{
                 </table>
             </div>
         </div>
-</div>
+        <div id = replySort>
+        	<a id = "new">최신순</a>
+	        <a id = "best">Best 댓글</a>
+        </div>
+</div> <!-- 컨테이너 -->
 
 
 <!-- 삭제 여부 확인 모달-->
