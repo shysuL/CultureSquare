@@ -446,4 +446,14 @@ public interface PRBoardDao {
 	 * @param reply - 댓글 추천 테이블에 삭제할 데이터 객체
 	 */
 	public void deleteReLike(Reply reply);
+
+	/**
+	 * 2020-01-08
+	 * 조홍철
+	 * 
+	 * 댓글 좋아요 삭제
+	 * 
+	 * @param replyno - 삭제할 댓글 번호
+	 */
+	public void deleteReLikeForBoard(int replyno);
 }

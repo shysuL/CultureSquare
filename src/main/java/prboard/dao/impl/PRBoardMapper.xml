@@ -311,4 +311,11 @@
 			AND userno = #{userno}
 			AND replyno = #{replyno }
 	</delete>
+	
+	<delete id="deleteReLikeForBoard"
+	 parameterType="int">
+		DELETE relike
+		WHERE 1=1
+			AND replyno = #{replyno }
+	</delete>
 </mapper>

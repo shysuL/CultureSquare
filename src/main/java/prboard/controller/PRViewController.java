@@ -220,13 +220,30 @@ public class PRViewController {
 		//3. PR 타입 삭제
 		prBoardService.deletePRType(prBoard);
 		
-		//4.  좋아요 삭제
+		//4.  게시글 좋아요 삭제
 		prBoardService.deleteBlike(prBoard);
 		
-		//5. 댓글 대댓글 삭제
+		//5. 댓글 좋아요 삭제
+		//5-1 보드번호를 통한 댓글 리스트들의 댓글 번호 구해 삭제하기 
+		Reply reply = new Reply();
+		reply.setBoardno(prBoard.getBoardno());
+        List<Reply> replyVO = prBoardService.getReplyByboardNo(reply);
+        
+        logger.info("답 테스트 : "  + replyVO);
+        
+        if(replyVO.size() > 0){
+        	
+            for(int i=0; i<replyVO.size(); i++){
+            	//5-2댓글 좋아요 데이터 삭제
+            	prBoardService.deleteReLike(replyVO.get(i).getReplyno());
+            }
+        }
+        
+		
+		//6. 댓글 대댓글 삭제
 		prBoardService.deleteReplyToBoard(prBoard);
 		
-		//6. PR 게시글 삭제
+		//7. PR 게시글 삭제
 		prBoardService.deletePR(prBoard);
 
 		return "redirect:/prboard/prlist";

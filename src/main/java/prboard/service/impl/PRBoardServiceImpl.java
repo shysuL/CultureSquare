@@ -377,4 +377,11 @@ public class PRBoardServiceImpl implements PRBoardService {
 
 		prBoardDao.deleteReLike(reply);
 	}
+
+	@Override
+	public void deleteReLike(int replyno) {
+
+		prBoardDao.deleteReLikeForBoard(replyno);
+
+	}
 }
