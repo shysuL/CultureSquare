@@ -8,7 +8,6 @@
 	border: none;
 }
 </style>
-
 ${recommendCnt}
 <c:choose>
 <c:when test="${result eq 1 }">

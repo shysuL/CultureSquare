@@ -27,6 +27,10 @@ var checkReReply = new Array(); //배열 선언
 //답글 갯수 출력 위한 배열
 var rReCnt = new Array();
 
+//댓글 좋아요 위한 배열
+var replyLike = new Array();
+var replyLen = 0;
+
 //댓글 삭제 클릭 -> 진짜로 삭제 할거냐는 모달 호출
 function deleteReply(replyno){
 	$("#prReplyDeleteModal").modal({backdrop: 'static', keyboard: false});
@@ -94,7 +98,7 @@ function modifyReply(replyno,recontents){
 	
 		//수정 가능하도록 textarea로 기존 댓글창을 치환
 		$('#commentBox' + replyno).replaceWith(html);
-		
+
 		//수정 textarea에 문자열 맨뒤로 포커스
 		$('#commentBox' + replyno + ' #editContent').focus().setCursorPosition(recontents.length);
 	}
@@ -460,12 +464,25 @@ function getCommentList(){
         	
             var cCnt = res.reList.length;
             var html = "";
+            
+            //댓글 길이 저장
+            replyLen = cCnt;
+            
             if(res.reList.length > 0){
             	
             	for(i=0; i<res.reList.length; i++){
+
+            		//처음 댓글 좋아요 출력 메서드 호출
+            		replycheckAction(res.reList[i].replyno);
+            		
                     html += "<div class='commentBox' id='commentBox"+res.reList[i].replyno+"'>";
                     html += "<h6><strong>"+res.reList[i].usernick+"</strong></h6>";
                     html += res.reList[i].recontents + "&nbsp;<small>(" + res.reList[i].replydate + ")</small>";
+//                     html += "<div style='margin-left: 150px; margin-bottom: -15px; margin-top: -28px;'><img src='/resources/img/replyNo.png' /></div>";
+//                     html += "<div style='margin-left: 150px; margin-bottom: -15px; margin-top: -34px;'><img src='/resources/img/replyYes.png' /></div>";
+					html += "<div style='margin-left: 150px; margin-bottom: -15px; margin-top: -34px;' id ='replyRecommend"+res.reList[i].replyno+"'></div>";
+// 					html += "<div style='margin-left: 150px; margin-bottom: -15px; margin-top: -34px;' id ='replyRecommend'></div>";
+					replyLike[i] = res.reList[i].replyno;
 //                     html+= "<br><button style='height:25px; margin-right:5px' onClick=getReReply(" + res.reList[i].replyno + ",\'"+res.reList.length +"\')>답글</button>"
                     html+= "<br><button style='height:25px; margin-right:5px' onClick=getReReply(" + res.reList[i].replyno + ")>답글</button>"
                     html += "<strong id='rCnt"+res.reList[i].replyno+"'>"+res.reList[i].replyCnt+"</strong>"
@@ -514,6 +531,7 @@ function getCommentList(){
 		
 		recheckAction();
 		
+		
 		//목록버튼 동작
 		$("#btnList").click(function() {
 			$(location).attr("href", "/prboard/prlist");
@@ -539,6 +557,14 @@ function getCommentList(){
 //	 		$(location).attr("href", "/board/recommend?boardno=${viewBoard.boardno }");
 			console.log("추천버튼 눌림");
 			recommendAction();
+		});
+		
+		
+		//댓글 추천버튼 동작 왜안해....
+		$('#commentList').on("click", "#replyLike", function(){
+//	 		$(location).attr("href", "/board/recommend?boardno=${viewBoard.boardno }");
+			console.log("ㄷ버튼이 눌리긴 함");
+// 			recommendAction();
 		});
 		
 		//댓글 삭제모달에서 확인 버튼 클릭 - 댓글 삭제 동작 Ajax 처리
@@ -612,6 +638,7 @@ function getCommentList(){
 		});
 	}
 	
+	// 게시글 추천
 	function recheckAction() {
 		$.ajax({
 			type : "get",
@@ -628,6 +655,29 @@ function getCommentList(){
 			},
 			error : function() {
 				console.log("실패연 하이하이");
+			}
+		});
+	}
+	
+	// 댓글 추천
+	function replycheckAction(replyno) {
+		
+		console.log("267 | 261 | 260 : " + replyno);
+		
+		$.ajax({
+			type : "get",
+			url : "/prboard/replycheck",
+			data : {
+				replyno : replyno
+			},
+			dataType : "html",
+			success : function(data) {
+				console.log(data);
+
+				$('#replyRecommend'+replyno).html(data);
+			},
+			error : function() {
+				console.log("댓글 실패연 하이하이");
 			}
 		});
 	}

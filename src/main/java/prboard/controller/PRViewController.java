@@ -492,6 +492,39 @@ public class PRViewController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/prboard/replycheck", method=RequestMethod.GET)
+	public String replyCheckPR(Reply reply, Model model, HttpSession session) {
+		
+		
+		//댓글 번호 저장
+		int replyno = reply.getReplyno();
+		
+		// 1. 회원 번호 구하기
+		
+		//로그인 상태인 경우만 처리
+		if((String)session.getAttribute("usernick")!=null) {
+			reply = prBoardService.getUserNoForReplyLike((String)session.getAttribute("usernick"));
+		}
+		
+		reply.setReplyno(replyno);
+		
+		logger.info("댓글 좋아요 테스트 : " + reply.toString());
+		
+		int result = prBoardService.replyRecommendCheck(reply);
+		
+		logger.info("요건 댓글 첨에 : " + result);
+//		
+		int replyRecommendCnt = prBoardService.replyRecommendView(reply);
+//		
+		//	VIEW에 모델(MODEL)값 전달하기
+		model.addAttribute("result", result);
+		
+		model.addAttribute("replyno", replyno);
+		
+		model.addAttribute("replyRecommendCnt", replyRecommendCnt);
+		return "prboard/replycheck";
+	}
+	
 }
 	
 	
