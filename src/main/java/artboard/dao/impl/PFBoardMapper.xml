@@ -159,4 +159,30 @@
 		WHERE fileno = #{fileno}
 	</select>
 	
+	
+	
+	<select id="selectRecommend" resultType="int" parameterType="artboard.dto.Board">
+		SELECT count(*) FROM blike
+		WHERE userno = #{userno}
+		AND boardno = #{boardno }
+	</select>
+	
+	<insert id="insertRecommend"  parameterType="artboard.dto.Board">
+	 	INSERT INTO blike 
+		VALUES(blike_seq.nextval, #{userno}, #{boardno})
+	 </insert>
+	
+	<delete id="deleteRecommend"
+	 parameterType="artboard.dto.Board">
+		DELETE blike
+		WHERE 1=1
+			AND userno = #{userno}
+			AND boardno = #{boardno }
+	</delete>
+	
+	<select id="selectrecommendView" resultType="int" parameterType="artboard.dto.Board">
+		SELECT COUNT(*) FROM blike 
+		WHERE boardno = #{boardno}
+	</select>
+	
 </mapper>

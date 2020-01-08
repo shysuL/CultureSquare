@@ -1,5 +1,9 @@
 package board.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import board.dto.FreeBoard;
+import board.service.face.NoticeBoardService;
 import user.bo.NaverLoginBO;
 import user.service.face.KakaoService;
+import util.Paging;
 
 @Controller
 public class NoticeListController {
@@ -40,8 +47,11 @@ public class NoticeListController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(NoticeListController.class);
 	
+	@Autowired NoticeBoardService noticeboardService;
+	
+	
 	@RequestMapping(value = "/noticeboard/noticelist", method = RequestMethod.GET)
-	public void noticeboardList(Model model, @RequestParam(defaultValue = "1") int curPage, HttpSession session) {
+	public void noticeboardList(Model model, @RequestParam(defaultValue = "1") int curPage, HttpSession session, String searchtarget, String searchcategory) {
 		logger.info("노티스 보드 리스트");
 		
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
@@ -68,5 +78,38 @@ public class NoticeListController {
 		
 		//구글
 		model.addAttribute("google_url", googleUrl);
+		
+		
+		//------------------------------------------------
+		logger.info(searchtarget);
+		logger.info(searchcategory);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("searchcategory", searchcategory);
+		map.put("searchtarget", searchtarget);
+		
+		Paging paging = new Paging(noticeboardService.getListCnt(map), curPage);
+		
+		paging.setSearchcategory(searchcategory);
+		
+		paging.setSearchtarget(searchtarget);
+				
+		model.addAttribute("paging", paging);
+		
+		logger.info(paging.toString());
+		
+		
+		List<FreeBoard> list = noticeboardService.getList(paging);
+
+		logger.info(list.toString());
+		
+
+		model.addAttribute("boardlist", list);
+		
+		List<FreeBoard> viewsList = noticeboardService.getViewsList();
+		logger.info(viewsList.toString());
+		
+		model.addAttribute("viewslist", viewsList);
 	}
 }
