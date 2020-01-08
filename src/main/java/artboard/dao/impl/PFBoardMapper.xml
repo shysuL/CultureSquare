@@ -38,14 +38,17 @@
 	<select id="selectAll2" parameterType="String"
 		resultType="artboard.dto.Board">
 		SELECT
-		b.boardno, b.title, b.writtendate, b.contents, b.views, b.userno, b.postno,
+		b.boardno, b.title, b.writtendate, b.contents,
+		b.views, b.userno, b.postno,
 		p.performno, p.performname, p.performdate
 		FROM board b, perform_add p
 		WHERE b.boardno = p.boardno
-		AND substr(p.performdate, 1, 6) =
+		AND
+		substr(p.performdate, 1, 6) =
 		#{searchMonth }
 		AND b.postno = 1
-		ORDER BY p.performdate DESC
+		ORDER BY
+		p.performdate DESC
 	</select>
 
 
@@ -104,59 +107,145 @@
 		SELECT
 		board_seq.nextval FROM dual
 	</select>
-	
+
 	<select id="selectUserByNo" parameterType="artboard.dto.Board"
 		resultType="artboard.dto.Board">
 		SELECT * FROM user_table
 		WHERE userno = #{userno}
 	</select>
-	
+
 	<update id="updateViews" parameterType="artboard.dto.Board">
-		UPDATE board SET views = views+1
+		UPDATE board SET views =
+		views+1
 		WHERE boardno = #{boardno}
 	</update>
-	
-	<select id="selectUsernoByUsernick" parameterType="artboard.dto.Board"
-		resultType="int">
-		SELECT userno FROM user_table
+
+	<select id="selectUsernoByUsernick"
+		parameterType="artboard.dto.Board" resultType="int">
+		SELECT userno FROM
+		user_table
 		WHERE usernick = #{usernick}
 	</select>
-	
-	<select id="selectNoForDonation" parameterType="artboard.dto.Donation"
-		resultType="int">
-		SELECT userno FROM user_table
+
+	<select id="selectNoForDonation"
+		parameterType="artboard.dto.Donation" resultType="int">
+		SELECT userno FROM
+		user_table
 		WHERE usernick = #{usernick}
 	</select>
-	
-	<insert id="insertDonation" parameterType="artboard.dto.Donation">
+
+	<insert id="insertDonation"
+		parameterType="artboard.dto.Donation">
 		INSERT INTO donation
 		VALUES
 		(donation_seq.nextval,#{donprice},#{userno},#{boardno})
 	</insert>
 
-	<select id="selectPfCnt" resultType="int" parameterType="artboard.dto.Board">
+	<select id="selectPfCnt" resultType="int"
+		parameterType="artboard.dto.Board">
 		SELECT count(*) FROM board
 		WHERE postno = 1
 	</select>
-	
 
- 	<insert id="insertFile" parameterType="artboard.dto.PFUpFile">
-		<selectKey order="BEFORE" resultType="int" keyProperty="fileno">
+
+	<insert id="insertFile" parameterType="artboard.dto.PFUpFile">
+		<selectKey order="BEFORE" resultType="int"
+			keyProperty="fileno">
 			SELECT upfile_seq.nextval FROM dual
 		</selectKey>
 		INSERT INTO upfile
-		VALUES ( #{fileno}, #{originname }, #{storedname }, #{filesize }, #{boardno} )
+		VALUES ( #{fileno}, #{originname }, #{storedname },
+		#{filesize }, #{boardno} )
 	</insert>
-	
-	<select id="selectFileList" resultType="artboard.dto.PFUpFile" parameterType="int">
-		SELECT fileno, originname, storedname, filesize, boardno FROM upfile
+
+	<select id="selectFileList" resultType="artboard.dto.PFUpFile"
+		parameterType="int">
+		SELECT fileno, originname, storedname, filesize, boardno
+		FROM upfile
 		WHERE boardno = ${value}
 		ORDER BY fileno
 	</select>
-	
-		<select id="selectFileByFileno" resultType="artboard.dto.PFUpFile" parameterType="int">
-		SELECT fileno, originname, storedname, filesize, boardno FROM upfile
-		WHERE fileno = #{fileno}
+
+	<select id="selectFileByFileno"
+		resultType="artboard.dto.PFUpFile" parameterType="int">
+		SELECT fileno,
+		originname, storedname, filesize, boardno FROM upfile
+		WHERE fileno =
+		#{fileno}
+	</select>
+
+
+
+	<select id="selectRecommend" resultType="int"
+		parameterType="artboard.dto.Board">
+		SELECT count(*) FROM blike
+		WHERE userno = #{userno}
+		AND
+		boardno = #{boardno }
+	</select>
+
+	<insert id="insertRecommend" parameterType="artboard.dto.Board">
+		INSERT INTO blike
+		VALUES(blike_seq.nextval, #{userno}, #{boardno})
+	</insert>
+
+	<delete id="deleteRecommend" parameterType="artboard.dto.Board">
+		DELETE blike
+		WHERE 1=1
+		AND userno = #{userno}
+		AND boardno = #{boardno }
+	</delete>
+
+	<select id="selectrecommendView" resultType="int"
+		parameterType="artboard.dto.Board">
+		SELECT COUNT(*) FROM blike
+		WHERE boardno = #{boardno}
+	</select>
+
+
+	<select id="selectGroupNo" parameterType="artboard.dto.Reply"
+		resultType="int">
+		SELECT groupno FROM reply
+		WHERE 1=1
+		AND replyno = #{replyno}
+	</select>
+
+	<select id="selectReReplyList" resultType="artboard.dto.Reply"
+		parameterType="int">
+		select R.*, U.usernick from reply R, user_table U
+		WHERE
+		R.userno = U.userno
+		AND groupno = #{groupno}
+		AND replyorder != 0
+		ORDER BY
+		replyorder DESC
+	</select>
+
+	<select id="selectREreplyCnt" resultType="int"
+		parameterType="int">
+		SELECT count(*) FROM reply WHERE groupno = #{groupno}
+		AND replyorder != 0
+	</select>
+
+	<select id="selectUserNoToReply" parameterType="String"
+		resultType="artboard.dto.Reply">
+		SELECT userno FROM user_table
+		WHERE 1=1
+		AND usernick =
+		#{usernick}
+	</select>
+
+	<select id="selectMaxReplyOrder"
+		parameterType="artboard.dto.Reply" resultType="int">
+		SELECT max(replyorder) FROM reply
+		WHERE 1=1
+		AND groupno = #{groupno}
 	</select>
 	
+	<insert id="insertReReply"
+	 	parameterType="artboard.dto.Reply">
+		INSERT INTO reply 
+		VALUES(reply_seq.nextval, #{groupno}, #{maxreplyorder}, 2, #{recontents}, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), #{userno}, #{boardno})
+	</insert>
+
 </mapper>

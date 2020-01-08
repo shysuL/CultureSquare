@@ -223,7 +223,7 @@
 	<insert id="insertReply"
 	 parameterType="prboard.dto.Reply">
 		INSERT INTO reply 
-		VALUES(reply_seq.nextval, groupno_seq.nextval, 0, 1, #{recontents}, sysdate, #{userno}, #{boardno})
+		VALUES(reply_seq.nextval, groupno_seq.nextval, 0, 1, #{recontents}, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), #{userno}, #{boardno})
 	</insert>
 	
 	<delete id="deleteReplyByNo"
@@ -277,7 +277,64 @@
 	 <insert id="insertReReply"
 	 	parameterType="prboard.dto.Reply">
 		INSERT INTO reply 
-		VALUES(reply_seq.nextval, #{groupno}, #{maxreplyorder}, 2, #{recontents}, sysdate, #{userno}, #{boardno})
+		VALUES(reply_seq.nextval, #{groupno}, #{maxreplyorder}, 2, #{recontents}, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), #{userno}, #{boardno})
 	</insert>
+	
+	 <select id="selectUserNoToReplyLike"
+    	parameterType="String" resultType="prboard.dto.Reply">
+	    SELECT userno FROM user_table
+	    WHERE 1=1
+	   	AND usernick = #{usernick}
+	 </select>
+	
+	<select id="selectReplyRecommend" resultType="int" parameterType="prboard.dto.Reply">
+		SELECT count(*) FROM relike
+		WHERE userno = #{userno}
+		AND replyno = #{replyno }
+	</select>
+	
+	<select id="selectReplyRecommendView" resultType="int" parameterType="prboard.dto.Reply">
+		SELECT COUNT(*) FROM relike 
+		WHERE replyno = #{replyno}
+	</select>
+	
+	<insert id="insertReplyRecommend"
+	 parameterType="prboard.dto.Reply">
+		INSERT INTO relike 
+		VALUES(relike_seq.nextval, #{userno}, #{replyno})
+	</insert>
+	
+	<delete id="deleteReLike"
+	 parameterType="prboard.dto.Reply">
+		DELETE relike
+		WHERE 1=1
+			AND userno = #{userno}
+			AND replyno = #{replyno }
+	</delete>
+	
+	<delete id="deleteReLikeForBoard"
+	 parameterType="int">
+		DELETE relike
+		WHERE 1=1
+			AND replyno = #{replyno }
+	</delete>
+	
+	<select id="selectBestReplyList" resultType="prboard.dto.Reply" parameterType="prboard.dto.Reply">
+		select R.*, U.usernick, (SELECT COUNT(*) FROM RELIKE WHERE replyno = R.replyno) cnt
+        from reply R, user_table U
+		WHERE R.userno = U.userno
+		AND boardno = #{boardno}
+		AND replyorder = 0
+		ORDER BY cnt DESC, R.replyno DESC
+	</select>
+	
+	<select id="selectMostReplyList" resultType="prboard.dto.Reply" parameterType="prboard.dto.Reply">
+		select R.*, U.usernick, (SELECT count(*) FROM reply where groupno = R.groupno and replyorder!=0) cnt
+        from reply R, user_table U
+		WHERE R.userno = U.userno
+		AND boardno = #{boardno}
+		AND replyorder = 0
+		ORDER BY cnt DESC, R.replyno DESC
+	</select>
 	
 </mapper>

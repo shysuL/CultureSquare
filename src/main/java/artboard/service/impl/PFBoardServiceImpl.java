@@ -22,9 +22,7 @@ import artboard.dto.Donation;
 import artboard.dto.PFUpFile;
 import artboard.dto.Reply;
 import artboard.service.face.PFBoardService;
-
-
-
+import prboard.dao.face.PRBoardDao;
 import util.Paging;
 
 
@@ -35,10 +33,10 @@ public class PFBoardServiceImpl implements PFBoardService{
 	@Autowired ServletContext context;
 	@Autowired PFBoardDao pfboardDao;
 	@Autowired ReplyDao replyDao;
-	
+
 	@Override
 	public List<Board> getList(String searchMonth) {
-		
+
 		List<Board> list = pfboardDao.selectAll3(searchMonth);
 		for (int i = 0; i < list.size(); i++) {
 			Board board = list.get(i);
@@ -46,13 +44,13 @@ public class PFBoardServiceImpl implements PFBoardService{
 		}
 		return list;
 	}
-	
+
 
 	@Override
 	public Board view(Board bno) {
 		//게시글 조회수 +1
 		pfboardDao.updateViews(bno);
-		
+
 		return pfboardDao.view(bno);
 	}
 
@@ -65,7 +63,7 @@ public class PFBoardServiceImpl implements PFBoardService{
 	public void write(Board board) {
 		// boardno - board_seq.nextval
 		board.setBoardno(pfboardDao.selectSeqNextval());
-		
+
 		pfboardDao.insertBoard(board);
 		pfboardDao.insertPerform(board);
 	}
@@ -73,47 +71,47 @@ public class PFBoardServiceImpl implements PFBoardService{
 	@Override
 	public String getDateDay(String date, String dateType){
 		String day = "" ;
-	     
-	    SimpleDateFormat dateFormat = new SimpleDateFormat(dateType) ;
-	    Date nDate = null;
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat(dateType) ;
+		Date nDate = null;
 		try {
 			nDate = dateFormat.parse(date);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-	     
-	    Calendar cal = Calendar.getInstance() ;
-	    cal.setTime(nDate);
-	     
-	    int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
-	     
-	     
-	     
-	    switch(dayNum){
-	        case 1:
-	            day = "일";
-	            break ;
-	        case 2:
-	            day = "월";
-	            break ;
-	        case 3:
-	            day = "화";
-	            break ;
-	        case 4:
-	            day = "수";
-	            break ;
-	        case 5:
-	            day = "목";
-	            break ;
-	        case 6:
-	            day = "금";
-	            break ;
-	        case 7:
-	            day = "토";
-	            break ;
-	             
-	    }
-	    return day ;
+
+		Calendar cal = Calendar.getInstance() ;
+		cal.setTime(nDate);
+
+		int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
+
+
+
+		switch(dayNum){
+		case 1:
+			day = "일";
+			break ;
+		case 2:
+			day = "월";
+			break ;
+		case 3:
+			day = "화";
+			break ;
+		case 4:
+			day = "수";
+			break ;
+		case 5:
+			day = "목";
+			break ;
+		case 6:
+			day = "금";
+			break ;
+		case 7:
+			day = "토";
+			break ;
+
+		}
+		return day ;
 	}
 
 
@@ -144,7 +142,7 @@ public class PFBoardServiceImpl implements PFBoardService{
 	@Override
 	public boolean deleteReply(Reply reply) {
 		replyDao.deleteReply(reply);
-		
+
 		if(replyDao.countReply(reply) > 0) {
 			return false;
 		}else {
@@ -176,26 +174,26 @@ public class PFBoardServiceImpl implements PFBoardService{
 	public List<Reply> getReplyByboardNo(Reply reply) {
 		return replyDao.selectReplyList(reply);
 	}
-	
+
 	@Override
 	public void fileSave(MultipartFile mFile, int boardNo) {
 		//파일이 저장될 경로
 		String storedPath = context.getRealPath("upload");
-		
+
 		//UUID
 		String uid = UUID.randomUUID().toString().split("-")[4];
-		
+
 		//저장될 파일의 이름(원본명 + UUID)
 		String filename = mFile.getOriginalFilename() + "_" + uid;
-		
+
 		//저장될 파일 객체
 		File dest = new File(storedPath, filename);
-		
+
 		//저장될 이미지 파일 객체
-//				File imgDest = new File(storedPath2, filename);
+		//				File imgDest = new File(storedPath2, filename);
 		try {	
 			mFile.transferTo(dest);			//실제 파일 저장
-//					mFile.transferTo(imgDest);		//이미지 파일 저장
+			//					mFile.transferTo(imgDest);		//이미지 파일 저장
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -203,16 +201,16 @@ public class PFBoardServiceImpl implements PFBoardService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
-		
+
 		// DB에 저장 (업로드된 파일의 정보를 기록)
 		PFUpFile upfile = new PFUpFile();
 		upfile.setOriginname(mFile.getOriginalFilename());
 		upfile.setStoredname(filename);
 		upfile.setFilesize((int)mFile.getSize());
 		upfile.setBoardno(boardNo);
-		
+
 		pfboardDao.insertFile(upfile);
-		
+
 	}
 
 
@@ -256,7 +254,7 @@ public class PFBoardServiceImpl implements PFBoardService{
 
 	@Override
 	public void deleteServerFile(List<PFUpFile> list) {
-		
+
 	}
 
 
@@ -277,6 +275,74 @@ public class PFBoardServiceImpl implements PFBoardService{
 	}
 
 
-	
+	@Override
+	public int recommendCheck(Board board) {
+
+		int check = pfboardDao.selectRecommend(board);
+
+		//전에 추천한적이 없다면
+		if(check == 0) {
+
+			return check; //추천
+		}
+		else {
+			return check; //추천 취소
+		}
+	}
+
+
+	@Override
+	public void recommend(Board board) {
+		pfboardDao.insertRecommend(board);
+	}
+
+
+	@Override
+	public void recommendCancel(Board board) {
+		pfboardDao.deleteRecommend(board);
+	}
+
+
+	@Override
+	public int recommendView(Board board) {
+		return pfboardDao.selectrecommendView(board);
+	}
+
+
+	@Override
+	public int getGroupNoByReplyNo(Reply reply) {
+		return pfboardDao.selectGroupNo(reply);
+	}
+
+
+	@Override
+	public List<Reply> getReReplyByNo(int groupNo) {
+		return pfboardDao.selectReReplyList(groupNo);
+	}
+
+
+	@Override
+	public int getREreplyCnt(int groupno) {
+		return pfboardDao.selectREreplyCnt(groupno);
+	}
+
+
+	@Override
+	public Reply getUserNoForReply(String usernick) {
+		return pfboardDao.selectUserNoToReply(usernick);
+	}
+
+
+	@Override
+	public int getMaxReplyOrder(Reply reply) {
+		return pfboardDao.selectMaxReplyOrder(reply);
+	}
+
+
+	@Override
+	public void addReReply(Reply reply) {
+		pfboardDao.insertReReply(reply);
+	}
+
 
 }

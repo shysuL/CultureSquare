@@ -278,5 +278,114 @@ public interface PFBoardService {
 
 
 
+	/**
+	 * 2020-01-07
+	 * 이수현
+	 * 
+	 * 추천 여부 조회
+	 * 
+	 * @param Board - 추천 여부 조회할 정보가 담긴 객체
+	 * @return int - 추천 여부
+	 */
+	public int recommendCheck(Board board);
+
+	/**
+	 * 2020-01-07
+	 * 이수현
+	 * 
+	 * 추천을 한다.
+	 * 
+	 * @param Board - 추천 테이블에 삽입할 데이터 객체
+	 */
+	public void recommend(Board board);
+
+	/**
+	 * 2020-01-07
+	 * 이수현
+	 * 
+	 * 추천 취소를 한다..
+	 * 
+	 * @param Board - 추천 테이블에서 삭제할 데이터 객체
+	 */
+	public void recommendCancel(Board board);
+
+	/**
+	 * 2020-01-07
+	 * 이수현
+	 * 
+	 * 게시글의 추천 갯수를 센다
+	 * 
+	 * @param Board - 게시글 정보가 담긴 객체
+	 * @return int - 추천수
+	 */
+	public int recommendView(Board board);
+
+	/**
+	 * 2020-01-08
+	 * 이수현
+	 * 
+	 * 댓글번호를 이용해 그룹번호 가져오기
+	 * 
+	 * @param reply - 댓글번호가 담긴 객체
+	 * @return int - 그룹번호
+	 */
+	public int getGroupNoByReplyNo(Reply reply);
+
+	/**
+	 * 2020-01-08
+	 * 이수현
+	 * 
+	 * 댓글번호를 이용해 그룹번호 가져오기
+	 * 
+	 * @param reply - 댓글번호가 담긴 객체
+	 * @return int - 그룹번호
+	 */
+	public List<Reply> getReReplyByNo(int groupNo);
+
+	/**
+	 * 2020-01-08
+	 * 이수현
+	 * 
+	 * 댓글의 답글 갯수 조회
+	 * 
+	 * @param groupno - 댓글의 그룹 번호
+	 * @return int - 답글 갯수
+	 */
+	public int getREreplyCnt(int groupno);
+
+	/**
+	 * 2020-01-08
+	 * 이수현
+	 * 
+	 * 유저 번호 조회
+	 * 
+	 * @param usernick - 유저 닉네임
+	 * @return Reply - 유저 번호가 담긴 객체
+	 */
+	public Reply getUserNoForReply(String usernick);
+
+	/**
+	 * 2020-01-08
+	 * 이수현
+	 * 
+	 * 최대 그룹번호 값을 가져온다.
+	 * 
+	 * @param reply - 그룹번호가 담긴 객체
+	 * @return int - 최대 그룹번호
+	 */
+	public int getMaxReplyOrder(Reply reply);
+
+	/**
+	 * 2020-01-08
+	 * 이수현
+	 * 
+	 * 답글 삽입
+	 * 
+	 * @param reply - 삽입할 답글정보가 담긴 객체
+	 */
+	public void addReReply(Reply reply);
+
+
+
 
 }
