@@ -338,4 +338,31 @@ public class PRBoardServiceImpl implements PRBoardService {
 
 		prBoardDao.insertReReply(reply);
 	}
+
+	@Override
+	public Reply getUserNoForReplyLike(String usernick) {
+
+		return prBoardDao.selectUserNoToReplyLike(usernick);
+	}
+
+	@Override
+	public int replyRecommendCheck(Reply reply) {
+		
+		int check = prBoardDao.selectReplyRecommend(reply);
+
+		//전에 추천한적이 없다면
+		if(check == 0) {
+			
+			return check; //추천
+		}
+		else {
+			return check; //추천 취소
+		}
+	}
+
+	@Override
+	public int replyRecommendView(Reply reply) {
+		
+		return prBoardDao.selectReplyRecommendView(reply);
+	}
 }
