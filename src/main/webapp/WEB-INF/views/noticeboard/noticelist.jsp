@@ -67,10 +67,7 @@ color: #343a40;
 </style>
 
 
-<div class="container" style="
-    padding-left: 200px;
-    padding-right: 200px;
-">
+<div class="container" >
 <hr>
 <h2>공지사항</h2>
 
@@ -131,7 +128,7 @@ color: #343a40;
 	<select name="searchcategory" style="
     height: 30px;">
 	<option value="title">제목</option>
-	<option value="usernick">닉네임</option>
+<!-- 	<option value="usernick">닉네임</option> -->
 <!-- 	<option value="prname">게시판 유형</option> -->
 </select>
 	<input id=search name="searchtarget" type="text" placeholder = "검색어 입력">
