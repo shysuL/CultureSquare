@@ -394,7 +394,7 @@ public class PRViewController {
 		
 		logger.info("답글 삭제 테스트  : " + reply);
 
-		// 댓글 삭제
+		// 1. 댓글 삭제
 		prBoardService.deleteReplyByNo(reply);
 
 		//viewName지정하기
@@ -408,13 +408,17 @@ public class PRViewController {
 		
 		logger.info("댓글 삭제 테스트  : " + reply);
 
-		// 1. 댓글번호로 그룹번호 가져오기
+		// 1.댓글 좋아요 삭제
+		prBoardService.deleteReLike(reply.getReplyno());
+		
+		// 2. 댓글번호로 그룹번호 가져오기
 		int groupNo = prBoardService.getGroupNoByReplyNo(reply);
 		
-		// 2. 삭제할 댓글의 답글 삭제
+		// 3. 삭제할 댓글의 답글 삭제
 		prBoardService.deleteReReplyByGroupNo(groupNo);
 		
-		// 3.댓글 삭제
+		
+		// 4.댓글 삭제
 		prBoardService.deleteReplyByNo(reply);
 
 		//viewName지정하기
