@@ -155,6 +155,11 @@ function fn_fileAdd(){
 				</span>&nbsp;
 				<span class="radio">
 					<label>
+						<input type="radio" name="performname"  value="콘서트">콘서트
+					</label>
+				</span>&nbsp;
+				<span class="radio">
+					<label>
 						<input type="radio" name="performname"  value="행사">행사
 					</label>
 				</span>&nbsp;

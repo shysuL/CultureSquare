@@ -220,13 +220,30 @@ public class PRViewController {
 		//3. PR 타입 삭제
 		prBoardService.deletePRType(prBoard);
 		
-		//4.  좋아요 삭제
+		//4.  게시글 좋아요 삭제
 		prBoardService.deleteBlike(prBoard);
 		
-		//5. 댓글 대댓글 삭제
+		//5. 댓글 좋아요 삭제
+		//5-1 보드번호를 통한 댓글 리스트들의 댓글 번호 구해 삭제하기 
+		Reply reply = new Reply();
+		reply.setBoardno(prBoard.getBoardno());
+        List<Reply> replyVO = prBoardService.getReplyByboardNo(reply);
+        
+        logger.info("답 테스트 : "  + replyVO);
+        
+        if(replyVO.size() > 0){
+        	
+            for(int i=0; i<replyVO.size(); i++){
+            	//5-2댓글 좋아요 데이터 삭제
+            	prBoardService.deleteReLike(replyVO.get(i).getReplyno());
+            }
+        }
+        
+		
+		//6. 댓글 대댓글 삭제
 		prBoardService.deleteReplyToBoard(prBoard);
 		
-		//6. PR 게시글 삭제
+		//7. PR 게시글 삭제
 		prBoardService.deletePR(prBoard);
 
 		return "redirect:/prboard/prlist";
@@ -329,7 +346,7 @@ public class PRViewController {
 		}
 		return mav;
 	}
-	
+
 	@RequestMapping(value="/prboard/commentList", method=RequestMethod.POST)
 	public ModelAndView commentListPR(Model model, Reply reply, HttpSession session, ModelAndView mav) {
 		
@@ -377,7 +394,7 @@ public class PRViewController {
 		
 		logger.info("답글 삭제 테스트  : " + reply);
 
-		// 댓글 삭제
+		// 1. 댓글 삭제
 		prBoardService.deleteReplyByNo(reply);
 
 		//viewName지정하기
@@ -391,13 +408,17 @@ public class PRViewController {
 		
 		logger.info("댓글 삭제 테스트  : " + reply);
 
-		// 1. 댓글번호로 그룹번호 가져오기
+		// 1.댓글 좋아요 삭제
+		prBoardService.deleteReLike(reply.getReplyno());
+		
+		// 2. 댓글번호로 그룹번호 가져오기
 		int groupNo = prBoardService.getGroupNoByReplyNo(reply);
 		
-		// 2. 삭제할 댓글의 답글 삭제
+		// 3. 삭제할 댓글의 답글 삭제
 		prBoardService.deleteReReplyByGroupNo(groupNo);
 		
-		// 3.댓글 삭제
+		
+		// 4.댓글 삭제
 		prBoardService.deleteReplyByNo(reply);
 
 		//viewName지정하기
@@ -566,6 +587,48 @@ public class PRViewController {
 		
 	}
 	
+	
+	@RequestMapping(value="/prboard/bestcommentList", method=RequestMethod.POST)
+	public ModelAndView bestcommentListPR(Model model, Reply reply, HttpSession session, ModelAndView mav) {
+		
+		int reReplyCnt = 0;
+		
+		ArrayList<HashMap> reList = new ArrayList<HashMap>();
+		
+        // 해당 게시물 댓글 리스트 불러오기
+        List<Reply> replyVO = prBoardService.getBestReplyByboardNo(reply);
+        
+        
+        logger.info("답 테스트 : "  + replyVO);
+        
+        if(replyVO.size() > 0){
+        	
+        	
+            for(int i=0; i<replyVO.size(); i++){
+                HashMap hm = new HashMap();
+                hm.put("replyno", replyVO.get(i).getReplyno());
+                hm.put("boardno", replyVO.get(i).getBoardno());
+                hm.put("recontents", replyVO.get(i).getRecontents());
+                hm.put("usernick", replyVO.get(i).getUsernick());
+                hm.put("replydate", replyVO.get(i).getReplydate());
+                
+                //댓글의 답글 갯수 구하기
+                reReplyCnt = prBoardService.getREreplyCnt(replyVO.get(i).getGroupno());
+                
+                hm.put("replyCnt", reReplyCnt);
+                
+                reList.add(hm);
+            }
+        }
+        
+        logger.info("베스트 리스트 수정: " + reList);
+		
+		mav.addObject("reList", reList);
+		//viewName지정하기
+		mav.setViewName("jsonView");
+		
+		return mav;
+	}
 }
 	
 	
