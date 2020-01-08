@@ -13,7 +13,7 @@ public class Reply {
 	private int boardno;
 	
 	private String usernick;
-
+	private int maxreplyorder;
 	
 	
 
@@ -21,7 +21,15 @@ public class Reply {
 	public String toString() {
 		return "Reply [rnum=" + rnum + ", replyno=" + replyno + ", groupno=" + groupno + ", replyorder=" + replyorder
 				+ ", replydepth=" + replydepth + ", recontents=" + recontents + ", replydate=" + replydate + ", userno="
-				+ userno + ", boardno=" + boardno + ", usernick=" + usernick + "]";
+				+ userno + ", boardno=" + boardno + ", usernick=" + usernick + ", maxreplyorder=" + maxreplyorder + "]";
+	}
+
+	public int getMaxreplyorder() {
+		return maxreplyorder;
+	}
+
+	public void setMaxreplyorder(int maxreplyorder) {
+		this.maxreplyorder = maxreplyorder;
 	}
 
 	public String getUsernick() {

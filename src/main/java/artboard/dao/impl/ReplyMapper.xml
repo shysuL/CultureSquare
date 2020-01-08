@@ -19,6 +19,7 @@
 				FROM reply r, user_table u
 				WHERE boardno = #{boardno}
 				AND r.userno = u.userno
+				AND r.replyorder = 0
 				ORDER BY replydate
 				) B
 		 ORDER BY rnum DESC
@@ -45,6 +46,7 @@
 		select R.*, U.usernick from reply R, user_table U
 		WHERE R.userno = U.userno
 		AND boardno = #{boardno}
+		AND R.replyorder = 0
 		ORDER BY replyno DESC		
 	</select>
 	
