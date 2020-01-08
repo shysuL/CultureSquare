@@ -237,25 +237,7 @@ function getCommentList(){
 	                    }
                     	html += "</div>";
                     	
-                    	// 대댓글 입력
-//                     	html += "<div id = 'rereplybody' class='form-inline text-center col-9' style = 'display: none;'>";
-//                     	html += "<div class='row'> ";
-//                     	html += "<div class='col-6'> ";
-//                     	html += "<input type='hidden'  id='replyno' name='replyno' value=" + res.reList.replyno + " />";
-//                 		html += "<input type='hidden'  id='userno' name='userno' value=" + userno + " />";
-//                 		html += "<input type='hidden'  id='boardno' name='boardno' value=" + boardno + "/>";
-//                 		html += "<input type='hidden'  id='groupno' name='groupno' value=" + res.reList.groupno} + " />";
-//                 		html += "<input type='hidden'  id='replyorder' name='replyorder' value=" + res.reList.replyorder + " />";
-//                 		html += "<input type='hidden'  id='replydepth' name='replydepth' value=" + res.reList.replydepth +" />";
-//                 		html += "<textarea rows='2' cols='50' class='form-control' id = 'rerecontents' name = 'rerecontents'>";
-//                 		html += "</textarea> ";
-//                     	html += "</div>";
-//                     	html += "</div>";
-//                     	html += "<div class='col-2'> ";
-//                     	html += "<button class='btnrereplyInsert btn bbc' data-groupno=" + res.reList.groupno + "  >입력</button> ";
-// //                     	<button class="btnrereplyInsert"  onclick="fn_rereco('${ view.boardno}','${ reply.groupno}')" class="btn bbc">입력</button>
-//                     	html += "</div>";
-//                     	html += "</div>";
+                    	
 	            }
 	        } else{
 	        	html += "<div>";
@@ -266,20 +248,11 @@ function getCommentList(){
 	            $("#commentList").html(html);
 	            
 	            
-	            	}  , 
-	            	error:function(request,status,error){
-	            	}
-	        	});
-	         }; 
-	                
-	            
-	            
-	            
-// 	        error:function(request,status,error){
-	            
-// 	       }	        	
-	
-
+	       }  , 
+	       error:function(request,status,error){
+	       }
+	});
+}
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -704,12 +677,11 @@ $(document).ready(function() {
 			</a>
 		</div>
 		</div>
-	</div>
-</div>
+
 
 
 <!-- 댓글 처리 -->
-<div>
+<div >
 
 
 	
@@ -822,6 +794,11 @@ $(document).ready(function() {
 
 
 </div><!--  댓글 처리 end --> 
+
+
+	</div>
+</div>
+
 
 
 <div class="col-3">

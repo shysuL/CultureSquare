@@ -177,12 +177,13 @@ public class ArtboardViewController {
 		PFUpFile file = pfboardService.getFile(fileno);
 		
 		logger.info("조회된 파일 : " + file);
-		
 		//파일 정보를 MODEL 값으로 지정하기
 		mav.addObject("downFile", file);
 		
+		logger.info("1");
 		//viewName 지정하기
 		mav.setViewName("pfdown");
+		logger.info("2");
 		
 		return mav;
 	}
