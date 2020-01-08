@@ -390,4 +390,10 @@ public class PRBoardServiceImpl implements PRBoardService {
 		
 		return prBoardDao.selectBestReplyList(reply);
 	}
+
+	@Override
+	public List<Reply> getMostReplyByboardNo(Reply reply) {
+
+		return prBoardDao.selectMostReplyList(reply);
+	}
 }

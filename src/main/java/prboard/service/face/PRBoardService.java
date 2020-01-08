@@ -472,9 +472,20 @@ public interface PRBoardService {
 	 * 
 	 * 베스트 댓글 리스트 조회
 	 * 
-	 * @param groupNo - 댓글 그룹 번호
+	 * @param reply - 댓글 정보 담긴 객체
 	 * @return List - 답글 리스트
 	 */
 	public List<Reply> getBestReplyByboardNo(Reply reply);
+
+	/**
+	 * 2020-01-08
+	 * 조홍철
+	 * 
+	 * 답글 많은 순 댓글 리스트 조회
+	 * 
+	 * @param reply - 댓글 정보 담긴 객체
+	 * @return List - 답글 리스트
+	 */
+	public List<Reply> getMostReplyByboardNo(Reply reply);
 	
 }

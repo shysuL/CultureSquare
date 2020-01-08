@@ -277,7 +277,7 @@
 	 <insert id="insertReReply"
 	 	parameterType="prboard.dto.Reply">
 		INSERT INTO reply 
-		VALUES(reply_seq.nextval, #{groupno}, #{maxreplyorder}, 2, #{recontents}, sysdate, #{userno}, #{boardno})
+		VALUES(reply_seq.nextval, #{groupno}, #{maxreplyorder}, 2, #{recontents}, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), #{userno}, #{boardno})
 	</insert>
 	
 	 <select id="selectUserNoToReplyLike"
@@ -321,6 +321,15 @@
 	
 	<select id="selectBestReplyList" resultType="prboard.dto.Reply" parameterType="prboard.dto.Reply">
 		select R.*, U.usernick, (SELECT COUNT(*) FROM RELIKE WHERE replyno = R.replyno) cnt
+        from reply R, user_table U
+		WHERE R.userno = U.userno
+		AND boardno = #{boardno}
+		AND replyorder = 0
+		ORDER BY cnt DESC, R.replyno DESC
+	</select>
+	
+	<select id="selectMostReplyList" resultType="prboard.dto.Reply" parameterType="prboard.dto.Reply">
+		select R.*, U.usernick, (SELECT count(*) FROM reply where groupno = R.groupno and replyorder!=0) cnt
         from reply R, user_table U
 		WHERE R.userno = U.userno
 		AND boardno = #{boardno}
