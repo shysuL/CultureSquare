@@ -1,5 +1,6 @@
 package prboard.controller;
 
+import java.io.Console;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -523,6 +524,46 @@ public class PRViewController {
 		
 		model.addAttribute("replyRecommendCnt", replyRecommendCnt);
 		return "prboard/replycheck";
+	}
+	
+	@RequestMapping(value="/prboard/replyrecommend", method=RequestMethod.GET)
+	public String replyrecommendPR(Reply reply, Model model, HttpSession session, String boardno) {
+		
+		//댓글 번호 저장
+		int replyno = reply.getReplyno();
+		
+		//로그인 상태인 경우만 처리
+		if((String)session.getAttribute("usernick")!=null) {
+			// 1. 회원 번호 구하기
+			reply = prBoardService.getUserNoForReplyLike((String)session.getAttribute("usernick"));
+			reply.setReplyno(replyno);
+
+			int result = prBoardService.replyRecommendCheck(reply);
+
+			logger.info("댓글 추천 동작 테ㅡ트 : " + reply);
+
+			
+			//전에 추천한적이 없다면
+			if(result == 0) {
+				prBoardService.replyRecommend(reply);
+			}
+			else {
+				prBoardService.replyRecommendCancal(reply);
+			}
+
+			int replyRecommendCnt = prBoardService.replyRecommendView(reply);
+
+			//	VIEW에 모델(MODEL)값 전달하기
+			model.addAttribute("result", result);
+
+			model.addAttribute("replyRecommendCnt", replyRecommendCnt);
+			return "prboard/replyrecommend";
+		}
+		//로그아웃일 경우 실패를 받을수 있도록 다시 보냄
+		else {
+			return "/prboard/view?boardno="+boardno;
+		}
+		
 	}
 	
 }

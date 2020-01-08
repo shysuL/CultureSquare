@@ -426,4 +426,24 @@ public interface PRBoardDao {
 	 * @return int - 추천수
 	 */
 	public int selectReplyRecommendView(Reply reply);
+
+	/**
+	 * 2020-01-08
+	 * 조홍철
+	 * 
+	 * 댓글 추천을 한다.
+	 * 
+	 * @param reply - 댓글 추천 테이블에 삽입할 데이터 객체
+	 */
+	public void insertReplyRecommend(Reply reply);
+
+	/**
+	 * 2020-01-08
+	 * 조홍철
+	 * 
+	 * 댓글 추천 취소를 한다.
+	 * 
+	 * @param reply - 댓글 추천 테이블에 삭제할 데이터 객체
+	 */
+	public void deleteReLike(Reply reply);
 }

@@ -365,4 +365,16 @@ public class PRBoardServiceImpl implements PRBoardService {
 		
 		return prBoardDao.selectReplyRecommendView(reply);
 	}
+
+	@Override
+	public void replyRecommend(Reply reply) {
+
+		prBoardDao.insertReplyRecommend(reply);
+	}
+
+	@Override
+	public void replyRecommendCancal(Reply reply) {
+
+		prBoardDao.deleteReLike(reply);
+	}
 }
