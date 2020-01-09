@@ -37,8 +37,8 @@
 	<!-- 회원가입 -->
 	<insert id="insertJoin"
 	 parameterType="user.dto.User_table">
-		INSERT into user_table (userno, userid, userpw, username, usernick, userphone, usergender, userbirth, interest, usertype, sociallogin)
-		VALUES(user_table_seq.nextval, #{userid}, #{userpw}, #{username}, #{usernick}, #{userphone}, #{usergender}, #{userbirth}, #{interest}, #{usertype}, 0)
+		INSERT into user_table (userno, userid, userpw, username, usernick, userphone, usergender, userbirth, interest, usertype, permit, sociallogin)
+		VALUES(user_table_seq.nextval, #{userid}, #{userpw}, #{username}, #{usernick}, #{userphone}, #{usergender}, #{userbirth}, #{interest}, 0, #{permit}, 0)
 	 </insert>
 	 
 	 <!-- 아이디 중복체크 -->
