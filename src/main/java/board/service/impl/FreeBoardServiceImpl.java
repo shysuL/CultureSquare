@@ -227,8 +227,87 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 	@Override
 	public int getGroupNoByReplyNo(Reply reply) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return freeboardDao.selectGroupNo(reply);
+	}
+
+	@Override
+	public void updateReplyByNo(Reply reply) {
+		
+		freeboardDao.updateReplyByNo(reply);
+		
+	}
+
+	@Override
+	public List<Reply> getReReplyByNo(int groupNo) {
+		
+		return freeboardDao.selectReReplyList(groupNo);
+	}
+
+	@Override
+	public int getMaxReplyOrder(Reply reply) {
+		
+		return freeboardDao.selectMaxReplyOrder(reply);
+	}
+
+	@Override
+	public void addReReply(Reply reply) {
+
+		freeboardDao.insertReReply(reply);
+		
+	}
+
+	@Override
+	public Reply getUserNoForReplyLike(String usernick) {
+		
+		return freeboardDao.selectUserNoToReplyLike(usernick);
+	}
+
+	@Override
+	public int replyRecommendCheck(Reply reply) {
+		
+		int check = freeboardDao.selectReplyRecommend(reply);
+
+		//전에 추천한적이 없다면
+		if(check == 0) {
+			
+			return check; //추천
+		}
+		else {
+			return check; //추천 취소
+		}
+	}
+
+	@Override
+	public int replyRecommendView(Reply reply) {
+		
+		return freeboardDao.selectReplyRecommendView(reply);
+	}
+
+	@Override
+	public void replyRecommend(Reply reply) {
+		
+		freeboardDao.insertReplyRecommend(reply);
+		
+	}
+
+	@Override
+	public void replyRecommendCancal(Reply reply) {
+		
+		freeboardDao.deleteReLike(reply);
+		
+	}
+
+	@Override
+	public List<Reply> getBestReplyByboardNo(Reply reply) {
+		
+		return freeboardDao.selectBestReplyList(reply);
+	}
+
+	@Override
+	public List<Reply> getMostReplyByboardNo(Reply reply) {
+		
+		return freeboardDao.selectMostReplyList(reply);
 	}
 
 

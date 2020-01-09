@@ -8,15 +8,12 @@
 	border: none;
 }
 </style>
-
 ${recommendCnt}
 <c:choose>
 <c:when test="${result eq 1 }">
-<button id ="recommend"><img src="/resources/img/nolike.png" style="
-    width: 20px;" /></button>
+<button id ="recommend"><img src="/resources/img/nolike.png" style="width: 20px;" /></button>
 </c:when>
 <c:when test="${result ne 1  }">
-<button id ="recommend"><img src="/resources/img/likeheart.png" style="
-    width: 20px;" /></button>
+<button id ="recommend"><img src="/resources/img/likeheart.png" style="width: 20px;" /></button>
 </c:when>
 </c:choose>

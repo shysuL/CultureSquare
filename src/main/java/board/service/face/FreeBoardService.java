@@ -244,7 +244,132 @@ public interface FreeBoardService {
 	 */
 	public int getREreplyCnt(int groupno);
 
-	
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 댓글번호를 이용해 그룹번호 가져오기
+	 * 
+	 * @param reply - 댓글번호가 담긴 객체
+	 * @return int - 그룹번호
+	 */
 	public int getGroupNoByReplyNo(Reply reply);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 댓글 수정
+	 * 
+	 * @param reply - 댓글 번호가 담긴 객체
+	 */
+	public void updateReplyByNo(Reply reply);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 답글 리스트 조회
+	 * 
+	 * @param groupNo - 댓글 그룹 번호
+	 * @return List - 답글 리스트
+	 */
+	public List<Reply> getReReplyByNo(int groupNo);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 최대 그룹번호 값을 가져온다.
+	 * 
+	 * @param reply - 그룹번호가 담긴 객체
+	 * @return int - 최대 그룹번호
+	 */
+	public int getMaxReplyOrder(Reply reply);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 답글 삽입
+	 * 
+	 * @param reply - 삽입할 답글정보가 담긴 객체
+	 */
+	public void addReReply(Reply reply);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 댓글 좋아요를 위한 유저번호 조회
+	 * 
+	 * @param usernick - 유저 닉네임
+	 * @return Reply - 유저번호가 담긴 댓글 객체
+	 */
+	public Reply getUserNoForReplyLike(String attribute);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 댓글 추천 여부 조회
+	 * 
+	 * @param reply - 추천 여부 조회할 정보가 담긴 객체
+	 * @return int - 추천 여부
+	 */
+	public int replyRecommendCheck(Reply reply);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 댓글의 추천 갯수를 센다
+	 * 
+	 * @param reply - 댓글 정보가 담긴 객체
+	 * @return int - 추천수
+	 */
+	public int replyRecommendView(Reply reply);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 댓글 추천을 한다.
+	 * 
+	 * @param reply - 댓글 추천 테이블에 삽입할 데이터 객체
+	 */
+	public void replyRecommend(Reply reply);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 댓글 추천 취소를 한다.
+	 * 
+	 * @param reply - 댓글 추천 테이블에 삭제할 데이터 객체
+	 */
+	public void replyRecommendCancal(Reply reply);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 베스트 댓글 리스트 조회
+	 * 
+	 * @param reply - 댓글 정보 담긴 객체
+	 * @return List - 답글 리스트
+	 */
+	public List<Reply> getBestReplyByboardNo(Reply reply);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 답글 많은 순 댓글 리스트 조회
+	 * 
+	 * @param reply - 댓글 정보 담긴 객체
+	 * @return List - 답글 리스트
+	 */
+	public List<Reply> getMostReplyByboardNo(Reply reply);
 
 }

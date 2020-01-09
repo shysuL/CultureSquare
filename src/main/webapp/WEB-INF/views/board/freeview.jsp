@@ -1038,8 +1038,131 @@ function getBestCommentList(){
 
 <style type="text/css">
 
-#recommendtd{
-	font-size: 18px;
+<style type="text/css">
+#content {
+	width: 95%;
+}
+
+#h3title {
+	text-align: center;
+	padding: 20px;
+}
+
+
+#btnList{
+	background-color:#343a40;
+}
+
+#fileTitle{
+	padding-bottom: 20px;
+}
+#fileContent{
+	background-color:#343a40; 
+	color:white;
+}
+.commentBox {
+	position: relative;
+	padding: 5px;
+}
+.btnBox {
+	position: absolute;
+	right: 5px;
+	bottom: 5px;
+}
+/*  .commentBox:first-child {  */
+/*  	border-top: 1px solid #ccc; */
+/*  }  */
+.commentBox {
+	border-bottom: 1px solid #ccc;
+}
+
+.reReplyBox{
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+}
+
+
+
+/*RereplyBox라는 이름을 id가 포함하는 div 태그*/
+div[id*=RereplyBox]{
+	border-top: 1px solid;
+    border-bottom: 1px solid;
+	margin-top: 15px;
+    margin-bottom: 10px;
+    background-color: rgb(240,240,240);
+}
+
+div[class*=reReplyBox]{
+	position: relative;
+	border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}
+
+.reReplyDelete{
+	position: absolute;
+	bottom: 0;
+    right: 3px;
+}
+
+.reReplyModify{
+	  position: absolute;
+	  bottom: 0;
+	  right: 45px;
+}
+
+.RereplyBox {
+	min-height: 200px;
+}
+
+#replySort{
+	padding-left: 3px;
+    padding-bottom: 10px;
+}
+
+#new{
+	 cursor: pointer;
+}
+
+#reMost{
+	 padding: 20px;
+	 cursor: pointer;
+}
+
+#best{
+	 cursor: pointer;
+}
+
+span[class=more] {
+  display:block;
+  width: 55px;
+  height: 16px;
+  background-image:url('https://s.pstatic.net/static/www/img/2017/sp_nav_v170523.png');
+  background-position: 0 -78px;
+}
+
+span[class=blind] {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  width: 1px;
+  height: 1px;
+}
+
+.more:hover, .close:hover {
+  cursor:pointer;
+}
+
+span[class=close] {
+  display:block;
+  background-image:url('https://s.pstatic.net/static/www/img/2017/sp_nav_v170523.png');
+  width: 42px;
+  height: 16px;
+  background-position: -166px -78px;
+}
+
+.reply{
+	display:none;
 }
 
 </style>
@@ -1089,7 +1212,7 @@ function getBestCommentList(){
                 <table class="table">                    
                     <tr>
                         <td style="border-top: none;">
-                            <textarea style="margin-left: -15px;width: 1110px; resize:none;" rows="3" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
+                            <textarea style="margin-left: -15px; width: 714px; resize:none;" rows="3" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
                             <br>
                             <div style="text-align: right;">
                                 <a style="color:white" onClick="fn_comment('${board.boardno }')" class="btn pull-right btn-success">등록</a>

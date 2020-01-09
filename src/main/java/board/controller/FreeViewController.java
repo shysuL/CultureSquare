@@ -352,7 +352,7 @@ public class FreeViewController {
 	}
 	
 	@RequestMapping(value="/board/deletereReply", method=RequestMethod.POST)
-	public ModelAndView deleteReReplyPR(Model model, Reply reply, HttpSession session, ModelAndView mav) {
+	public ModelAndView deleteReReplyFree(Model model, Reply reply, HttpSession session, ModelAndView mav) {
 		
 		logger.info("답글 삭제 테스트  : " + reply);
 
@@ -366,7 +366,7 @@ public class FreeViewController {
 	}
 	
 	@RequestMapping(value="/board/deleteComment", method=RequestMethod.POST)
-	public ModelAndView deleteCommentPR(Model model, Reply reply, HttpSession session, ModelAndView mav) {
+	public ModelAndView deleteCommentFree(Model model, Reply reply, HttpSession session, ModelAndView mav) {
 		
 		logger.info("댓글 삭제 테스트  : " + reply);
 
@@ -389,8 +389,248 @@ public class FreeViewController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/board/modifyComment", method=RequestMethod.POST)
+	public ModelAndView modifyCommentFree(Model model, Reply reply, HttpSession session, ModelAndView mav) {
+		
+		logger.info("댓글 수정 테스트  : " + reply);
+
+		//댓글 수정
+		freeboardService.updateReplyByNo(reply);
+
+		//viewName지정하기
+		mav.setViewName("jsonView");
+		
+		return mav;
+	}
 	
+	@RequestMapping(value="/board/ReReplyList", method=RequestMethod.POST)
+	public ModelAndView reReplyListFree(Model model, Reply reply, HttpSession session, ModelAndView mav) {
+		
+		int reReplyCnt = 0;
+		
+		ArrayList<HashMap> reReplyList = new ArrayList<HashMap>();
+		
+		// 1. 댓글번호로 그룹번호 가져오기
+		int groupNo = freeboardService.getGroupNoByReplyNo(reply);
+		
+        // 해당 댓글 답글리스트 불러오기
+        List<Reply> replyVO = freeboardService.getReReplyByNo(groupNo);
+        
+        if(replyVO.size() > 0){
+            for(int i=0; i<replyVO.size(); i++){
+                HashMap hm = new HashMap();
+                hm.put("replyno", replyVO.get(i).getReplyno());
+                hm.put("boardno", replyVO.get(i).getBoardno());
+                hm.put("recontents", replyVO.get(i).getRecontents());
+                hm.put("usernick", replyVO.get(i).getUsernick());
+                hm.put("replydate", replyVO.get(i).getReplydate());
+                
+                //답글 갯수 구하기
+                reReplyCnt = freeboardService.getREreplyCnt(replyVO.get(i).getGroupno());
+                
+                hm.put("replyCnt", reReplyCnt);
+                
+                reReplyList.add(hm);
+            }
+        }
+        
+        logger.info("답글 테스트 : " + reReplyList);
+		
+        
+		mav.addObject("reReplyList", reReplyList);
+		//viewName지정하기
+		mav.setViewName("jsonView");
+		
+		return mav;
+	}
 	
+	@RequestMapping(value="/board/addReReply", method=RequestMethod.POST)
+	public ModelAndView addReReplyFree(Model model, Reply reply, HttpSession session, ModelAndView mav) {
+		
+		//로그인 상태인 경우만 처리
+		if((String)session.getAttribute("usernick")!=null) {
+			// 1. 유저 번호 저장
+			reply.setUserno(freeboardService.getUserNoByNick((String)session.getAttribute("usernick")).getUserno());
+
+			// 2. 댓글번호를 이용해 그룹 번호 담기
+			reply.setGroupno(freeboardService.getGroupNoByReplyNo(reply));
+			
+			// 3. 그룹번호를 이용한 댓글 그룹의 최대 ReplyOrder + 1을 객체에 담기
+			reply.setMaxreplyorder(freeboardService.getMaxReplyOrder(reply) + 1);
+			
+			logger.info("답글 컨트롤러 테스트 : " + reply);
+			
+			
+			//답글 삽입
+			freeboardService.addReReply(reply);
+			
+			mav.addObject("insert", true);
+			//viewName지정하기
+			mav.setViewName("jsonView");
+		}
+		else {
+			mav.addObject("insert", false);
+			//viewName지정하기
+			mav.setViewName("jsonView");
+		}
+		return mav;
+	}
 	
+	@RequestMapping(value="/board/replycheck", method=RequestMethod.GET)
+	public String replyCheckFree(Reply reply, Model model, HttpSession session) {
+		
+		
+		//댓글 번호 저장
+		int replyno = reply.getReplyno();
+		
+		// 1. 회원 번호 구하기
+		
+		//로그인 상태인 경우만 처리
+		if((String)session.getAttribute("usernick")!=null) {
+			reply = freeboardService.getUserNoForReplyLike((String)session.getAttribute("usernick"));
+		}
+		
+		reply.setReplyno(replyno);
+		
+		logger.info("댓글 좋아요 테스트 : " + reply.toString());
+		
+		int result = freeboardService.replyRecommendCheck(reply);
+		
+		logger.info("요건 댓글 첨에 : " + result);
+//		
+		int replyRecommendCnt = freeboardService.replyRecommendView(reply);
+//		
+		//	VIEW에 모델(MODEL)값 전달하기
+		model.addAttribute("result", result);
+		
+		model.addAttribute("replyno", replyno);
+		
+		model.addAttribute("replyRecommendCnt", replyRecommendCnt);
+		return "board/replycheck";
+	}
+	
+	@RequestMapping(value="/board/replyrecommend", method=RequestMethod.GET)
+	public String replyrecommendPR(Reply reply, Model model, HttpSession session, String boardno) {
+		
+		//댓글 번호 저장
+		int replyno = reply.getReplyno();
+		
+		//로그인 상태인 경우만 처리
+		if((String)session.getAttribute("usernick")!=null) {
+			// 1. 회원 번호 구하기
+			reply = freeboardService.getUserNoForReplyLike((String)session.getAttribute("usernick"));
+			reply.setReplyno(replyno);
+
+			int result = freeboardService.replyRecommendCheck(reply);
+
+			logger.info("댓글 추천 동작 테ㅡ트 : " + reply);
+
+			
+			//전에 추천한적이 없다면
+			if(result == 0) {
+				freeboardService.replyRecommend(reply);
+			}
+			else {
+				freeboardService.replyRecommendCancal(reply);
+			}
+
+			int replyRecommendCnt = freeboardService.replyRecommendView(reply);
+
+			//	VIEW에 모델(MODEL)값 전달하기
+			model.addAttribute("result", result);
+
+			model.addAttribute("replyRecommendCnt", replyRecommendCnt);
+			return "prboard/replyrecommend";
+		}
+		//로그아웃일 경우 실패를 받을수 있도록 다시 보냄
+		else {
+			return "/board/freeview?boardno="+boardno;
+		}
+		
+	}
+	
+	@RequestMapping(value="/board/bestcommentList", method=RequestMethod.POST)
+	public ModelAndView bestcommentListPR(Model model, Reply reply, HttpSession session, ModelAndView mav) {
+		
+		int reReplyCnt = 0;
+		
+		ArrayList<HashMap> reList = new ArrayList<HashMap>();
+		
+        // 해당 게시물 댓글 리스트 불러오기
+        List<Reply> replyVO = freeboardService.getBestReplyByboardNo(reply);
+        
+        
+        logger.info("답 테스트 : "  + replyVO);
+        
+        if(replyVO.size() > 0){
+        	
+        	
+            for(int i=0; i<replyVO.size(); i++){
+                HashMap hm = new HashMap();
+                hm.put("replyno", replyVO.get(i).getReplyno());
+                hm.put("boardno", replyVO.get(i).getBoardno());
+                hm.put("recontents", replyVO.get(i).getRecontents());
+                hm.put("usernick", replyVO.get(i).getUsernick());
+                hm.put("replydate", replyVO.get(i).getReplydate());
+                
+                //댓글의 답글 갯수 구하기
+                reReplyCnt = freeboardService.getREreplyCnt(replyVO.get(i).getGroupno());
+                
+                hm.put("replyCnt", reReplyCnt);
+                
+                reList.add(hm);
+            }
+        }
+        
+        logger.info("베스트 리스트 수정: " + reList);
+		
+		mav.addObject("reList", reList);
+		//viewName지정하기
+		mav.setViewName("jsonView");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/board/remostcommentList", method=RequestMethod.POST)
+	public ModelAndView remostcommentListPR(Model model, Reply reply, HttpSession session, ModelAndView mav) {
+		
+		int reReplyCnt = 0;
+		
+		ArrayList<HashMap> reList = new ArrayList<HashMap>();
+		
+        // 해당 게시물 댓글 리스트 불러오기
+        List<Reply> replyVO = freeboardService.getMostReplyByboardNo(reply);
+        
+        
+        logger.info("답 테스트 : "  + replyVO);
+        
+        if(replyVO.size() > 0){
+        	
+        	
+            for(int i=0; i<replyVO.size(); i++){
+                HashMap hm = new HashMap();
+                hm.put("replyno", replyVO.get(i).getReplyno());
+                hm.put("boardno", replyVO.get(i).getBoardno());
+                hm.put("recontents", replyVO.get(i).getRecontents());
+                hm.put("usernick", replyVO.get(i).getUsernick());
+                hm.put("replydate", replyVO.get(i).getReplydate());
+                
+                //댓글의 답글 갯수 구하기
+                reReplyCnt = freeboardService.getREreplyCnt(replyVO.get(i).getGroupno());
+                
+                hm.put("replyCnt", reReplyCnt);
+                
+                reList.add(hm);
+            }
+        }
+        
+        logger.info("답글 순 리스트 수정: " + reList);
+		
+		mav.addObject("reList", reList);
+		//viewName지정하기
+		mav.setViewName("jsonView");
+		
+		return mav;
+	}
 
 }

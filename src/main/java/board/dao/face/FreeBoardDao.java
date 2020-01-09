@@ -254,4 +254,134 @@ public interface FreeBoardDao {
 	 */
 	public int selectREreplyCnt(int groupno);
 
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 댓글번호를 통해 그룹 번호 가져오기
+	 * 
+	 * @param reply - 댓글 번호가 담긴 객체
+	 * @return int - 그룹번호
+	 * 
+	 */
+	public int selectGroupNo(Reply reply);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 댓글 수정
+	 * 
+	 * @param reply - 댓글 번호가 담긴 객체
+	 */
+	public void updateReplyByNo(Reply reply);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 답글 리스트 조회
+	 * 
+	 * @param reply - 그룹 번호
+	 * @return List - 답글 리스트
+	 */
+	public List<Reply> selectReReplyList(int groupNo);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 최대 그룹번호 값을 가져온다.
+	 * 
+	 * @param reply - 그룹번호가 담긴 객체
+	 * @return int - 최대 그룹번호
+	 */
+	public int selectMaxReplyOrder(Reply reply);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 답글 삽입
+	 * 
+	 * @param reply - 삽입할 답글 정보가 담긴 객체
+	 */
+	public void insertReReply(Reply reply);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 댓글 좋아요를 위한 유저번호 조회
+	 * 
+	 * @param usernick - 유저 닉네임
+	 * @return Reply - 유저번호가 담긴 댓글 객체
+	 */
+	public Reply selectUserNoToReplyLike(String usernick);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 추천 여부 조회
+	 * 
+	 * 
+	 * @param reply - 추천 여부 정보가 담긴 객체
+	 * @return int - 추천 여부
+	 */
+	public int selectReplyRecommend(Reply reply);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 댓글의 추천 갯수를 센다
+	 * 
+	 * @param prBoard - 댓글 정보가 담긴 객체
+	 * @return int - 추천수
+	 */
+	public int selectReplyRecommendView(Reply reply);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 댓글 추천을 한다.
+	 * 
+	 * @param reply - 댓글 추천 테이블에 삽입할 데이터 객체
+	 */
+	public void insertReplyRecommend(Reply reply);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 댓글 추천 취소를 한다.
+	 * 
+	 * @param reply - 댓글 추천 테이블에 삭제할 데이터 객체
+	 */
+	public void deleteReLike(Reply reply);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 베스트 댓글 리스트 조회
+	 * 
+	 * @param reply - 댓글 정보 객체
+	 * @return List - 답글 리스트
+	 */
+	public List<Reply> selectBestReplyList(Reply reply);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 답글 많은 순 댓글 리스트 조회
+	 * 
+	 * @param reply - 댓글 정보 객체
+	 * @return List - 답글 리스트
+	 */
+	public List<Reply> selectMostReplyList(Reply reply);
+
 }
