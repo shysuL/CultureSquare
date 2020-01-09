@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import user.dto.User_table;
-import user.service.face.JoinSendMailService;
+import user.service.face.UserSendMailService;
 import user.service.face.UserService;
 import util.PwSha256;
 
@@ -24,7 +24,7 @@ public class JoinController {
 	private static final Logger logger = LoggerFactory.getLogger(JoinController.class);
 	
 	@Autowired UserService userService;
-	@Autowired JoinSendMailService joinSendMailService;
+	@Autowired UserSendMailService joinSendMailService;
 	
 	// 회원가입 폼만 띄우기
 	@RequestMapping(value="/user/joinForm")
