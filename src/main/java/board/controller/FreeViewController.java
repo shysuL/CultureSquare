@@ -112,8 +112,8 @@ public class FreeViewController {
 		
 	}
 	
-	@RequestMapping(value = "/board/freemodifiy", method = RequestMethod.GET)
-	public void modifiyFree(Model model, HttpSession session, @RequestParam("boardno") int boardno) {
+	@RequestMapping(value = "/board/freemodify", method = RequestMethod.GET)
+	public void modifyFree(Model model, HttpSession session, @RequestParam("boardno") int boardno) {
 		
 		FreeBoard boardDetail = freeboardService.freeDetail(boardno);	
 		UpFile fileinfo = freeboardService.getFile(boardno);
@@ -123,8 +123,8 @@ public class FreeViewController {
 		model.addAttribute("file", fileinfo);
 	}
 	
-	@RequestMapping(value = "/board/freemodifiy", method = RequestMethod.POST)
-	public String modifiyFree(Model model, HttpSession session, FreeBoard freeboard, UpFile file) {
+	@RequestMapping(value = "/board/freemodify", method = RequestMethod.POST)
+	public String modifyFree(Model model, HttpSession session, FreeBoard freeboard, UpFile file) {
 		
 		logger.info(freeboard.toString());
 		
@@ -248,7 +248,7 @@ public class FreeViewController {
 	}
 	
 	@RequestMapping(value="/board/recheck", method=RequestMethod.GET)
-	public String reCheckPR(FreeBoard freeBoard, Model model, HttpSession session) {
+	public String reCheckFree(FreeBoard freeBoard, Model model, HttpSession session) {
 		
 		
 		//보드 번호 저장

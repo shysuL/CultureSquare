@@ -725,7 +725,7 @@ function getBestCommentList(){
 
 		//삭제버튼 동작
 		$("#btnDelete").click(function() {
-			$("#prdeleteModal").modal({backdrop: 'static', keyboard: false});
+			$("#freedeleteModal").modal({backdrop: 'static', keyboard: false});
 		});
 		
 		//삭제모달 확인 버튼 눌렀을때
@@ -752,7 +752,7 @@ function getBestCommentList(){
 		});
 		
 		//댓글 삭제모달에서 확인 버튼 클릭 - 댓글 삭제 동작 Ajax 처리
-		$("#prReplyDeleteModalBtn").click(function() {
+		$("#freeReplyDeleteModalBtn").click(function() {
 			console.log(dreplyno + "입니다.");
 			
 			$.ajax({
@@ -777,7 +777,7 @@ function getBestCommentList(){
 		});
 		
 		//답글 삭제모달에서 확인 버튼 클릭 - 답글 삭제 동작 Ajax 처리
-		$("#prReReplyDeleteModalBtn").click(function() {
+		$("#freeReReplyDeleteModalBtn").click(function() {
 			
 			$.ajax({
 				type : "POST",
@@ -890,153 +890,6 @@ function getBestCommentList(){
 	}
 	
 </script>
-
-<script type="text/javascript">
-// $(document).ready(function() {
-	
-// 	recheckAction();
-	
-// 	//목록버튼 동작
-// 	$("#btnList").click(function() {
-// 		$(location).attr("href", "/board/freelist");
-// 	});
-		
-// 	$("#deleteWrite").click(function() {
-// 		$(".content").text('삭제 하시겠습니까?') 
-// 		$("#deleteWriteModal").modal({
-// 			backdrop : 'static',
-// 			keyboard : false			
-// 		});
-		
-// 		return false;
-// 	});
-	
-// 	//추천버튼 동작
-// 	$("#recommendtd").on("click", "#recommend", function() {
-// // 		$(location).attr("href", "/board/recommend?boardno=${viewBoard.boardno }");
-// 		console.log("추천버튼 눌림");
-// 		recommendAction();
-// 	});
-
-// });
-
-// function recommendAction() {
-// 	$.ajax({
-// 		type : "get",
-// 		url : "/board/recommend",
-// 		data : {
-// 			boardno : '${board.boardno }'
-// 		},
-// 		dataType : "html",
-// 		success : function(data) {
-// 			console.log("성공")
-// 			console.log(data)
-
-// 			$("#recommendtd").html(data)
-// 		},
-// 		error : function() {
-// 			$("#freeLikeLoginModal").modal({backdrop: 'static', keyboard: false});
-// 		}
-// 	});
-// }
-
-// function recheckAction() {
-// 	$.ajax({
-// 		type : "get",
-// 		url : "/board/recheck",
-// 		data : {
-// 			boardno : '${board.boardno }'
-// 		},
-// 		dataType : "html",
-// 		success : function(data) {
-// 			console.log("성공")
-// 			console.log(data)
-
-// 			$("#recommendtd").html(data)
-// 		},
-// 		error : function() {
-// 			console.log("실패연 하이하이");
-// 		}
-// 	});
-// }
-
-// //댓글 슬라이드토글
-// $(document).ready(function(){
-// 	$('#writereply').click(function() {
-// 		$('#replyinputbody').slideToggle("fast");
-// 	});
-// });
-
-// //대댓글 슬라이드토글
-// $(document).ready(function(){
-// 	$('#rereply').click(function() {
-// 		$('#rereplybody').slideToggle("fast");
-// 	});
-// });
-// $(document).ready(function() {
-// 	// 댓글 입력
-// 	$("#btnCommInsert").click(function() {
-
-// 		if($('#recontents').val() == ''){
-// 			$("#replyerror").modal({backdrop: 'static', keyboard: false});
-// 		}else{
-			
-		
-		
-// 		$form = $("<form>").attr({
-// 			action: "/freereply/insert",
-// 			method: "post"
-// 		}).append(
-// 			$("<input>").attr({
-// 				type:"hidden",
-// 				name:"boardno",
-// 				value:"${board.boardno }"
-// 			})
-// 		).append(
-// 			$("<input>").attr({
-// 				type:"hidden",
-// 				name:"userno",
-// 				value:"${LoginUser.userno }"
-// 			})
-// 		).append(
-// 			$("<textarea>")
-// 				.attr("name", "recontents")
-// 				.css("display", "none")
-// 				.text($("#recontents").val())
-// 		);
-// 		$(document.body).append($form);
-// 		$form.submit();
-// 		}
-// 	});
-// });
-	
-// //댓글 삭제
-// function deleteReply(replyno) {
-// 	$.ajax({
-// 		type: "post"
-// 		, url: "/freereply/delete"
-// 		, dataType: "json"
-// 		, data: {
-// 			replyno: replyno
-// 		}
-// 		, success: function(data){
-// 			if(data.success) {
-// 				console.log(replyno);
-// 				$("[data-replyno='"+replyno+"']").remove();
-				
-// 			} else {
-// 				alert("댓글 삭제 실패");
-// 			}
-// 		}
-// 		, error: function() {
-// 			console.log("error");
-// 		}
-// 	});
-// }
-
-</script>
-
-<style type="text/css">
 
 <style type="text/css">
 #content {
@@ -1191,7 +1044,7 @@ span[class=close] {
 <!-- 			<td colspan="1" style="width: 15%">[ 1203 ]</td> -->
 <!-- 			<td class="info">조회수</td> -->
 			<td colspan="1" style="width: 15%; padding-top: 16px;"><i class="fas fa-eye" style="padding-right: 5px; width: 3.125em;"></i>${board.views }</td>
-			<td colspan="1" style="width: 15%" id="recommendtd" ></td>
+			<td colspan="1" style="width: 15%; padding-top: 14px; padding-left: 28px;" id="recommendtd"  ></td>
 		</tr>
 <!-- 		<tr><td class="info"  colspan="4">본문</td></tr> -->
 	
@@ -1205,14 +1058,20 @@ span[class=close] {
 </table>
 
 <div>
+
             <div>
                 <span><strong>Comments</strong></span> <span id="cCnt"></span>
+                 <span class="more" style = "margin-top: 7px;">
+  					<span class="blind">댓글보기 V</span>
+				</span>
             </div>
+              <div class="reply">
+<!--           <dib class = "reply">   -->
             <div>
                 <table class="table">                    
                     <tr>
                         <td style="border-top: none;">
-                            <textarea style="margin-left: -15px; width: 714px; resize:none;" rows="3" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
+                            <textarea style="margin-left: -15px;width: 714px; resize:none;" rows="3" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
                             <br>
                             <div style="text-align: right;">
                                 <a style="color:white" onClick="fn_comment('${board.boardno }')" class="btn pull-right btn-success">등록</a>
@@ -1221,23 +1080,31 @@ span[class=close] {
                     </tr>
                 </table>
             </div>
-        </div>
-        <div id = replySort>
+                <div id = replySort>
         	<a id = "new">최신순</a>
         	<a id = "reMost">답글순</a>
 	        <a id = "best">Best 댓글</a>
         </div>
 
+<!--     <form id="commentListForm" name="commentListForm" method="post"> -->
+        <div id="commentList" class = "commentList">
+        </div>
+        </div>
+        
+<!--     </form> -->
+</div>
+<br>
+
 	<div class="text-center" >
 		<button id="btnList" class="btn btn-default" style="float: left; background-color: #343a40; color: white;">목록</button>
 		<c:if test="${usernick eq board.usernick}"> 
-		<a id="deleteWrite" class="btn btn-default" style="float: right; background-color: #343a40; color: white;" role="button">삭제</a>
-		<a class="btn btn-default" style="float: right; background-color: #343a40; color: white; white;margin-right: 1px;" href="/board/freemodifiy?boardno=${board.boardno }" role="button">수정</a>
+		<button id="btnDelete" class="btn btn-default" style="float: right; background-color: #343a40; color: white;">삭제</button>
+		<button id="btnUpdate" class="btn btn-default" style="float: right; background-color: #343a40; color: white;">수정</button>
 		</c:if>
 	</div>	
 </div>
 <!-- 게시글 삭제 모달창 -->
-<div class="modal fade" id="deleteWriteModal">
+<div class="modal fade" id="freedeleteModal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
 
