@@ -56,21 +56,24 @@ $(document).ready(function() {
 			
 		} else {
 			
+			$('#findPwOkBtn').attr("disabled", "true"); // 비밀번호 찾기 버튼 비활성화
+			$('#findPwOkBtn').html('<span class="spinner-border spinner-border-sm"></span>'); // 비밀번호 찾기 버튼 비활성화
 			$.ajax({
 				type:"post",
 				url:"/user/findPw",
 				data: {"userid" : userid, "username" : username},					
 				dataType: "json",
 				success : function(res){
+					$('#findPwOkBtn').html('확인'); // 비밀번호 찾기 버튼 비활성화
 					console.log(res.result);
+					$('#findPwOkBtn').attr('disabled', false); // 비밀번호 찾기 버튼 활성화
 					if(res.result == 1 ){
-						$('#findPwOkBtn').attr('disabled', true); // 비밀번호 찾기 버튼 비활성화
+// 						$('#findPwOkBtn').attr('disabled', true); // 비밀번호 찾기 버튼 비활성화
 						$(".content").text("입력하신 메일로 임시비밀번호를 발급해드렸습니다.");
 						$("#searchIdPw2").modal({backdrop: 'static', keyboard: false});
 						$("#searchIdPwBtnOk2").click(function(){
 							$("#pwFindByUserid").val("");
 							$("#pwFindByUsername").val("");
-							$('#findPwOkBtn').attr('disabled', false); // 비밀번호 찾기 버튼 활성화
 						})
 					} else {
 						$(".content").text("존재하지 않는 사용자 입니다.");
