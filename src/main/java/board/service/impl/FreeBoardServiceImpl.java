@@ -219,5 +219,17 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 			
 	}
 
+	@Override
+	public int getREreplyCnt(int groupno) {
+		
+		return freeboardDao.selectREreplyCnt(groupno);
+	}
+
+	@Override
+	public int getGroupNoByReplyNo(Reply reply) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }

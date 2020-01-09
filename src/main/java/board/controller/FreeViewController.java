@@ -3,6 +3,8 @@ package board.controller;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -20,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 
 import board.dto.FreeBoard;
 import board.dto.Reply;
@@ -241,7 +242,7 @@ public class FreeViewController {
 		}
 		//로그아웃일 경우 실패를 받을수 있도록 다시 보냄
 		else {
-			return "/board/view?boardno="+boardno;
+			return "/board/freeview?boardno="+boardno;
 		}
 		
 	}
@@ -277,39 +278,119 @@ public class FreeViewController {
 		return "/board/recheck";
 	}
 	
-	@RequestMapping(value = "/freereply/insert", method = RequestMethod.GET)
-	public void replyInsert(Reply reply) {	
-		replyInsertProc(reply);
+//	@RequestMapping(value = "/freereply/insert", method = RequestMethod.GET)
+//	public void replyInsert(Reply reply) {	
+//		replyInsertProc(reply);
+//	
+//	}
 	
-	}
-	
-	@RequestMapping(value = "/freereply/insert", method = RequestMethod.POST)
-	public String replyInsertProc(Reply reply) {
+	@RequestMapping(value="/board/addComment", method=RequestMethod.POST)
+	public ModelAndView addCommentFree(Model model, Reply reply, HttpSession session, ModelAndView mav) {
 		
-		logger.info(reply.toString());
-		// 전달받은 댓글 내용을 입력
-		freeboardService.insertReply(reply);
-		
-		return "redirect:/board/freeview?boardno="+reply.getBoardno();
-	}
-	
-	@RequestMapping(value = "/freereply/delete", method = RequestMethod.GET)
-	public void replyDelete(Reply reply, Writer out) {
-		replyDeleteProc(reply, out);
-	}
-	
-	
-	@RequestMapping(value = "/freereply/delete", method = RequestMethod.POST)
-	public void replyDeleteProc(Reply reply, Writer out) {
-		
-		boolean success = freeboardService.deleteReply(reply);
-		
-		
-		try {
-			out.write("{\"success\":"+success+"}");
-		} catch (IOException e) {
-			e.printStackTrace();
+		//로그인 상태인 경우만 처리
+		if((String)session.getAttribute("usernick")!=null) {
+			logger.info("댓글 등록 테스트  : " + reply);
+			//유저 번호 저장
+			reply.setUserno(freeboardService.getUserNoByNick((String)session.getAttribute("usernick")).getUserno());
+			logger.info("서비스 후  : " + reply);
+			
+			//댓글 삽입
+			freeboardService.insertReply(reply);
+			
+			mav.addObject("insert", true);
+			//viewName지정하기
+			mav.setViewName("jsonView");
 		}
+		else {
+			mav.addObject("insert", false);
+			//viewName지정하기
+			mav.setViewName("jsonView");
+		}
+		return mav;
 	}
+	
+	@RequestMapping(value="/board/commentList", method=RequestMethod.POST)
+	public ModelAndView commentListFree(Model model, Reply reply, HttpSession session, ModelAndView mav) {
+		
+		int reReplyCnt = 0;
+		
+		ArrayList<HashMap> reList = new ArrayList<HashMap>();
+		
+        // 해당 게시물 댓글 리스트 불러오기
+        List<Reply> replyVO = freeboardService.getReplyList(reply.getBoardno());
+        
+        
+        logger.info("답 테스트 : "  + replyVO);
+        
+        if(replyVO.size() > 0){
+        	
+        	
+            for(int i=0; i<replyVO.size(); i++){
+                HashMap hm = new HashMap();
+                hm.put("replyno", replyVO.get(i).getReplyno());
+                hm.put("boardno", replyVO.get(i).getBoardno());
+                hm.put("recontents", replyVO.get(i).getRecontents());
+                hm.put("usernick", replyVO.get(i).getUsernick());
+                hm.put("replydate", replyVO.get(i).getReplydate());
+                
+                //댓글의 답글 갯수 구하기
+                reReplyCnt = freeboardService.getREreplyCnt(replyVO.get(i).getGroupno());
+                
+                hm.put("replyCnt", reReplyCnt);
+                
+                reList.add(hm);
+            }
+        }
+        
+        logger.info("리스트 테스트 수정: " + reList);
+		
+		mav.addObject("reList", reList);
+		//viewName지정하기
+		mav.setViewName("jsonView");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/board/deletereReply", method=RequestMethod.POST)
+	public ModelAndView deleteReReplyPR(Model model, Reply reply, HttpSession session, ModelAndView mav) {
+		
+		logger.info("답글 삭제 테스트  : " + reply);
+
+		// 1. 댓글 삭제
+		freeboardService.deleteReply(reply);
+
+		//viewName지정하기
+		mav.setViewName("jsonView");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/board/deleteComment", method=RequestMethod.POST)
+	public ModelAndView deleteCommentPR(Model model, Reply reply, HttpSession session, ModelAndView mav) {
+		
+		logger.info("댓글 삭제 테스트  : " + reply);
+
+		// 1.댓글 좋아요 삭제
+		freeboardService.deleteBlike(reply.getReplyno());
+		
+		// 2. 댓글번호로 그룹번호 가져오기
+		int groupNo = freeboardService.getGroupNoByReplyNo(reply);
+		
+		// 3. 삭제할 댓글의 답글 삭제
+//		freeboardService.deleteReReplyByGroupNo(groupNo);
+		
+		
+		// 4.댓글 삭제
+		freeboardService.deleteReply(reply);
+
+		//viewName지정하기
+		mav.setViewName("jsonView");
+		
+		return mav;
+	}
+	
+	
+	
+	
 
 }

@@ -233,4 +233,18 @@ public interface FreeBoardService {
 	 */
 	public boolean deleteReply(Reply reply);
 
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 댓글의 답글 갯수 조회
+	 * 
+	 * @param groupno - 댓글의 그룹 번호
+	 * @return int - 답글 갯수
+	 */
+	public int getREreplyCnt(int groupno);
+
+	
+	public int getGroupNoByReplyNo(Reply reply);
+
 }

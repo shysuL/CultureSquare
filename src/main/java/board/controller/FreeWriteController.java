@@ -40,15 +40,14 @@ public class FreeWriteController {
 	public String freeWrite(Model model, FreeBoard freeboard, HttpSession session, UpFile upfile) {
 		
 		logger.info(upfile.toString());
+		logger.info(freeboard.toString());
 		
 		//로그인한 유저 정보 조회 
-		freeboard = freeboardService.getUserNoByNick(session.getAttribute("usernick"));
+		FreeBoard user = freeboardService.getUserNoByNick(session.getAttribute("usernick"));
 		
+		freeboard.setUsernick(user.getUsernick());
+		freeboard.setUserno(user.getUserno());
 //		logger.info(user.toString());
-		
-//		freeboard.setUserid(user.getUserid());
-//		freeboard.setUsernick(user.getUsernick());
-//		freeboard.setUserno(user.getUserno());
 		
 		//게시글 작성 날짜
 		SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd");
@@ -60,7 +59,7 @@ public class FreeWriteController {
 		
 		logger.info(upfile.toString());
 		
-		if(!upfile.getFile().isEmpty()) {
+		if(upfile.getFile().isEmpty()) {
 			
 			freeboardService.writeFree(freeboard);
 			
