@@ -683,6 +683,18 @@ function getBestCommentList(){
 
 	$(document).ready(function() {
 		
+		
+		  $('.more').click(function(){
+			    if($('.more').hasClass('more')){
+			       $('.more').addClass('close').removeClass('more');
+			       $('.reply').css('display', 'block');
+			    }else if($('.close').hasClass('close')){
+			       $('.close').addClass('more').removeClass('close');  
+			       $('.reply').css('display', 'none');
+			    }
+			  });
+		
+		
 		recheckAction();
 		
 		//댓글 추천순 정렬
@@ -990,6 +1002,39 @@ div[class*=reReplyBox]{
 	 cursor: pointer;
 }
 
+.more {
+  display:block;
+  width: 55px;
+  height: 16px;
+  background-image:url('https://s.pstatic.net/static/www/img/2017/sp_nav_v170523.png');
+  background-position: 0 -78px;
+}
+
+.blind {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  width: 1px;
+  height: 1px;
+}
+
+.more:hover, .close:hover {
+  cursor:pointer;
+}
+
+.close {
+  display:block;
+  background-image:url('https://s.pstatic.net/static/www/img/2017/sp_nav_v170523.png');
+  width: 42px;
+  height: 16px;
+  background-position: -166px -78px;
+}
+
+.reply{
+	display:none;
+}
+
 </style>
 
 <div class="container">
@@ -1057,30 +1102,6 @@ div[class*=reReplyBox]{
 				</c:forEach>
 			</div>
 	</div>	
-	
-        <div>
-            <div>
-                <span><strong>Comments</strong></span> <span id="cCnt"></span>
-            </div>
-            <div>
-                <table class="table">                    
-                    <tr>
-                        <td style="border-top: none;">
-                            <textarea style="margin-left: -15px;width: 1110px; resize:none;" rows="3" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
-                            <br>
-                            <div style="text-align: right;">
-                                <a style="color:white" onClick="fn_comment('${viewBoard.boardno }')" class="btn pull-right btn-success">등록</a>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div id = replySort>
-        	<a id = "new">최신순</a>
-        	<a id = "reMost">답글순</a>
-	        <a id = "best">Best 댓글</a>
-        </div>
 </div> <!-- 컨테이너 -->
 
 
@@ -1311,9 +1332,39 @@ div[class*=reReplyBox]{
 <!-- 컨테이너 -->
 
 <div class="container">
-<!--     <form id="commentListForm" name="commentListForm" method="post"> -->
-        <div id="commentList">
+
+            <div>
+                <span><strong>Comments</strong></span> <span id="cCnt"></span>
+                 <span class="more" style = "margin-top: 7px;">
+  					<span class="blind">댓글보기 V</span>
+				</span>
+            </div>
+              <div class="reply">
+<!--           <dib class = "reply">   -->
+            <div>
+                <table class="table">                    
+                    <tr>
+                        <td style="border-top: none;">
+                            <textarea style="margin-left: -15px;width: 1110px; resize:none;" rows="3" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
+                            <br>
+                            <div style="text-align: right;">
+                                <a style="color:white" onClick="fn_comment('${viewBoard.boardno }')" class="btn pull-right btn-success">등록</a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+                <div id = replySort>
+        	<a id = "new">최신순</a>
+        	<a id = "reMost">답글순</a>
+	        <a id = "best">Best 댓글</a>
         </div>
+
+<!--     <form id="commentListForm" name="commentListForm" method="post"> -->
+        <div id="commentList" class = "commentList">
+        </div>
+        </div>
+        
 <!--     </form> -->
 </div>
 <div class="container" style ="margin-top: 15px;">
