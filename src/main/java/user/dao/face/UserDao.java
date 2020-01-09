@@ -197,5 +197,28 @@ public interface UserDao {
 	 * @return List
 	 */
 	public List<User_table> selectUserIdByNamePhone(User_table user);
+	
+	/**
+	 * 2020-01-09
+	 * 이빈
+	 * 
+	 * 암호화된 임시 비밀번호 DB에 저장 
+	 * 
+	 * @param userid - 이메일
+	 * @param username - 이름
+	 * @param key - 암호화된 임시 비밀번호
+	 */
+	public void updatePw(String userid, String username, String key);
+	
+	/**
+	 * 2020-01-09
+	 * 이빈
+	 * 
+	 * 입력받은 아이디, 이름 일치 확인
+	 * 
+	 * @param userid - 이메일
+	 * @param username  - 이름
+	 */
+	public int selectCntUserIdUserName(String userid, String username);
 
 }

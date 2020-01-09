@@ -125,6 +125,13 @@ public class UserServiceImpl implements UserService{
 		return userDao.selectUserIdByNamePhone(user);
 	}
 
+	@Override
+	public int userIdNameCheck(String userid, String username) {
+
+		return userDao.selectCntUserIdUserName(userid, username);
+	}
+
+
 
 
 

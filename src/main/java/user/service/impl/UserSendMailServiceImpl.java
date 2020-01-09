@@ -15,17 +15,18 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import user.dao.face.UserDao;
-import user.service.face.JoinSendMailService;
+import user.service.face.UserSendMailService;
+import util.PwSha256;
 
 @Service
-public class JoinSendMailServiceImpl implements JoinSendMailService{
+public class UserSendMailServiceImpl implements UserSendMailService{
 
 	@Autowired
 	private JavaMailSender mailSender;
 	@Autowired
 	private UserDao userDao;
 	
-	private static final Logger logger = LoggerFactory.getLogger(JoinSendMailServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserSendMailServiceImpl.class);
 	
 	// 이메일 인증
 	private boolean lowerCheck;
@@ -104,6 +105,35 @@ public class JoinSendMailServiceImpl implements JoinSendMailService{
 		logger.info("메일인증 Y로바꿔주고 결과값 : " + resultCnt);
 		
 		return resultCnt;
+	}
+
+
+	@Override
+	public void mailSendWithPassword(String userid, String username, HttpServletRequest req) {
+
+		// 비밀번호 8자리 
+		String key = getKey(false, 8);
+		
+		MimeMessage mail = mailSender.createMimeMessage();
+		String htmlStr = "<h2>안녕하세요 '" + username +"' 님</h2><br><br>"
+				+ "<p>비밀번호 찾기를 신청 해주셔서 임시 비밀번호를 발급해드렸습니다.</p>"
+				+ "<p>임시 비밀번호는 <h2 style='color :blue'>'" + key + "'</h2>이며 로그인 후 마이 페이지에서 비밀번호를 변경해주세요.</p><br>"
+				+ "<h3><a href='https://localhost:8443/main/main'> Culture Square 홈페이지 접속하기 </a></h3><br><br>";
+		
+		try {
+			mail.setSubject("Culture Square 임시 비밀번호가 발급 되었습니다.", "utf-8");
+			mail.setText(htmlStr, "utf-8", "html");
+			mail.addRecipient(RecipientType.TO, new InternetAddress(userid));
+			mailSender.send(mail);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		
+		// 임시 비밀번호 암호화
+		key = PwSha256.userPwEncSHA256(key);
+		
+		// 데이터 베이스에 암호화된 임시 비밀번호 저장
+		userDao.updatePw(userid, username, key);
 	}
 	
 	
