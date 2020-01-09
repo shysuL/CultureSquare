@@ -78,7 +78,6 @@ $(document).ready(function() {
 
 #prRankTitle{
 	width: 220px;
-	text-align:center;
 }
 
 #prIntroduceContent{
@@ -114,7 +113,6 @@ $(document).ready(function() {
 
 .tit{
 	color: #343a40;
-	text-align: center;
 }
 
 </style>
