@@ -402,4 +402,10 @@ public class PRBoardServiceImpl implements PRBoardService {
 		List list = prBoardDao.selectAllByViews(paging);
 		return list;
 	}
+
+	@Override
+	public List getLikeList(PRPaging paging) {
+		List list = prBoardDao.selectAllByLike(paging);
+		return list;
+	}
 }

@@ -498,5 +498,16 @@ public interface PRBoardService {
 	 * @return List - 조회수로 정렬 된 PR 게시글 리스트
 	 */
 	public List getMoreList(PRPaging paging);
+
+	/**
+	 * 2020-01-09
+	 * 조홍철
+	 * 
+	 * PR 게시판 리스트를 좋아요 별로 가져온다
+	 * 
+	 * @param paging - 페이징 객체
+	 * @return List - 좋아요로 정렬 된 PR 게시글 리스트
+	 */
+	public List getLikeList(PRPaging paging);
 	
 }

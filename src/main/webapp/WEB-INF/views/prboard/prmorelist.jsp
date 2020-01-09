@@ -119,7 +119,7 @@ $(document).ready(function() {
   <h1 class="my-4"><a href="/prboard/prlist" style="color: black; text-decoration: none;">PR</a>
   </h1>
 
-<form action="/prboard/prlist" method="get">
+<form action="/prboard/prmorelist" method="get">
 <div style="margin: 1%">
 <select name="searchType">
 	<option value="title">제목</option>
@@ -135,7 +135,7 @@ $(document).ready(function() {
 <span >
 		<a href="/prboard/prlist"> <img src="/resources/img/time.png" /></a>
 		<a href="/prboard/prmorelist"> <img src="/resources/img/view.png" style="padding-left: 10px;"/></a>
-		<a href="#"> <img src="/resources/img/nolike.png" style="padding-left: 10px;"/></a>
+		<a href="/prboard/prlikelist"> <img src="/resources/img/nolike.png" style="padding-left: 10px;"/></a>
 </span>
 <span>
 		<c:choose>
@@ -226,7 +226,7 @@ $(document).ready(function() {
   <a class="list-group-item" id="prIntroduceContent">
    PR 소개
   </a>
-  <p class="list-group-item">개인이 여러 사람들에게 자신이 속한 집단 혹은 자신에게 좋은 이미지를 갖게 만드는 것을 목적으로 홍보하는 게시판</p>
+  <p class="list-group-item">여러 사람들에게 앨범, 공연, 전시회 등을 <br> 홍보하는 공간입니다.</p>
 </div>
 <div class="list-group" id="prRankTitle">
   <a class="list-group-item" id="prRankContent">
