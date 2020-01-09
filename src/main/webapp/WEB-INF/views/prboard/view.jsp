@@ -1002,7 +1002,7 @@ div[class*=reReplyBox]{
 	 cursor: pointer;
 }
 
-.more {
+span[class=more] {
   display:block;
   width: 55px;
   height: 16px;
@@ -1010,7 +1010,7 @@ div[class*=reReplyBox]{
   background-position: 0 -78px;
 }
 
-.blind {
+span[class=blind] {
   position: absolute;
   overflow: hidden;
   clip: rect(0 0 0 0);
@@ -1023,7 +1023,7 @@ div[class*=reReplyBox]{
   cursor:pointer;
 }
 
-.close {
+span[class=close] {
   display:block;
   background-image:url('https://s.pstatic.net/static/www/img/2017/sp_nav_v170523.png');
   width: 42px;
@@ -1097,9 +1097,16 @@ div[class*=reReplyBox]{
 				  <a class="list-group-item" id="fileContent">
 				   첨부파일
 				  </a>
-				<c:forEach items="${fileList }" var="fileList">
- 					<a href="/prboard/download?fileno=${fileList.fileno}" class="list-group-item">${fileList.originname}</a>					
-				</c:forEach>
+				  <c:choose>
+					<c:when test="${!empty fileList}">
+						<c:forEach items="${fileList }" var="fileList">
+							<a href="/prboard/download?fileno=${fileList.fileno}" class="list-group-item">${fileList.originname}</a>
+						</c:forEach>
+	 				</c:when>	
+	 				<c:otherwise>
+	 					<strong style="padding: 5px;">첨부파일이 없습니다.</strong>
+	 				</c:otherwise>
+ 				</c:choose>		
 			</div>
 	</div>	
 </div> <!-- 컨테이너 -->
