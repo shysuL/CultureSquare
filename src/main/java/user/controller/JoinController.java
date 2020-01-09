@@ -40,7 +40,7 @@ public class JoinController {
 //		logger.info(user.toString()); // form 입력 값 잘 받아오는지 -완료-
 		
 		//비밀번호 확인
-		logger.info("사용자가 입력한  비밀번호 : " + user.getUserpw());
+//		logger.info("사용자가 입력한  비밀번호 : " + user.getUserpw());
 		
 		// 비밀번호 암호화 SHA256
 		String encPw = PwSha256.userPwEncSHA256(user.getUserpw());

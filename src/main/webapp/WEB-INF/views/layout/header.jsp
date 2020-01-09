@@ -30,6 +30,14 @@
 
 $(document).ready(function() {
 	
+	// 로그아웃 버튼 눌렀을 때
+	$("#logout").click(function(){
+		$(".content").text("로그아웃 하시겠습니까?");
+		$("#logoutModal").modal({backdrop: 'static', keyboard: false});
+		
+	});
+	
+	
 	// 비밀번호 찾기에서 확인 버튼 눌렀을 때
 	$("#findPwOkBtn").click(function(){
 		
@@ -455,7 +463,7 @@ img[class=culture] {min-height: 100%; max-width: 100%; }
 	         <h5>${usernick}님 할라븅~!</h5>
 	    	 <div class="dropdown-divider"></div>
 				<input id="mypage" class="btn btn" onclick="location.href='/mypage/main'" value="마이페이지">
-				<input id="logout" class="btn btn-danger  logt"  onclick="location.href='/logout'" value="로그아웃">
+				<input id="logout" class="btn btn-danger  logt" value="로그아웃">
 	       </div>
 	    </c:if>
 	    
@@ -661,6 +669,28 @@ img[class=culture] {min-height: 100%; max-width: 100%; }
       <!-- Modal footer -->
       <div class="modal-footer">
         <button class="btn btn-dark" data-dismiss="modal" id=searchIdPwBtnOk2>확인</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 로그아웃 버튼 누르면 나오는 모달 -->
+<div class="modal fade" id="logoutModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">알림</h4>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content"></div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button class="btn btn-dark" data-dismiss="modal" id=logoutBtnOk onclick="location.href='/logout'">확인</button>
+        <button class="btn btn-dark" data-dismiss="modal">취소</button>
       </div>
     </div>
   </div>
