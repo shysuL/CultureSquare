@@ -60,7 +60,7 @@ public class FreeWriteController {
 		
 		logger.info(upfile.toString());
 		
-		if(upfile.equals(null)) {
+		if(!upfile.getFile().isEmpty()) {
 			
 			freeboardService.writeFree(freeboard);
 			

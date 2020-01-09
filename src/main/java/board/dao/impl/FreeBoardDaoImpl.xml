@@ -154,5 +154,15 @@
 				) B
 		 ORDER BY rnum DESC
 	</select>
+	
+	<delete id="deleteReply" parameterType="board.dto.Reply">
+		DELETE reply
+		WHERE replyno = #{replyno}
+	</delete>
+	
+	<select id="countReply" parameterType="board.dto.Reply"
+		resultType="int">
+		SELECT count(*) FROM reply WHERE replyno = #{replyno}
+	</select>
 		
 </mapper>

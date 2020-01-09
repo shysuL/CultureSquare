@@ -222,4 +222,15 @@ public interface FreeBoardService {
 	 */
 	public List<Reply> getReplyList(int boardno);
 
+	/**
+	 * 2020 - 01 - 09
+	 * 고인호
+	 * 
+	 * 댓글 삭제
+	 * 
+	 * @param reply - 삭제할 댓글
+	 * @return boolean - 삭제 성공 여부
+	 */
+	public boolean deleteReply(Reply reply);
+
 }

@@ -221,4 +221,26 @@ public interface FreeBoardDao {
 	 */
 	public List<Reply> selectReply(int boardno);
 
+	/**
+	 * 2020 - 01 - 09
+	 * 고인호
+	 * 
+	 * 댓글 삭제
+	 * 
+	 * @param reply - 삭제할 댓글
+	 * @return boolean - 삭제 성공 여부
+	 */
+	public void deleteReply(Reply reply);
+
+	/**
+	 * 2020 - 01 - 09
+	 * 고인호
+	 * 
+	 * 댓글 카운트 - 댓글 존재 여부 확인
+	 * 
+	 * @param reply - 존재 여부 체크 대상 댓글
+	 * @return int - 댓글 갯수
+	 */
+	public int countReply(Reply reply);
+
 }

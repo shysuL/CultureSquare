@@ -207,5 +207,17 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		
 	}
 
+	@Override
+	public boolean deleteReply(Reply reply) {
+		freeboardDao.deleteReply(reply);
+		
+		if(freeboardDao.countReply(reply) > 0) {
+			return false;
+		}else {
+			return true;
+		}
+			
+	}
+
 
 }

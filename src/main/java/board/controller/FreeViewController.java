@@ -293,23 +293,23 @@ public class FreeViewController {
 		return "redirect:/board/freeview?boardno="+reply.getBoardno();
 	}
 	
-//	@RequestMapping(value = "/reply/delete", method = RequestMethod.GET)
-//	public void replyDelete(Reply reply, Writer out) {
-//		replyDeleteProc(reply, out);
-//	}
-//	
-//	
-//	@RequestMapping(value = "/reply/delete", method = RequestMethod.POST)
-//	public void replyDeleteProc(Reply reply, Writer out) {
-//		
-//		boolean success = pfboardService.deleteReply(reply);
-//		
-//		
-//		try {
-//			out.write("{\"success\":"+success+"}");
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	@RequestMapping(value = "/freereply/delete", method = RequestMethod.GET)
+	public void replyDelete(Reply reply, Writer out) {
+		replyDeleteProc(reply, out);
+	}
+	
+	
+	@RequestMapping(value = "/freereply/delete", method = RequestMethod.POST)
+	public void replyDeleteProc(Reply reply, Writer out) {
+		
+		boolean success = freeboardService.deleteReply(reply);
+		
+		
+		try {
+			out.write("{\"success\":"+success+"}");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
