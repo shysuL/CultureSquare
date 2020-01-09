@@ -119,7 +119,7 @@ $(document).ready(function() {
   <h1 class="my-4"><a href="/prboard/prlist" style="color: black; text-decoration: none;">PR</a>
   </h1>
 
-<form action="/prboard/prlist" method="get">
+<form action="/prboard/prlikelist" method="get">
 <div style="margin: 1%">
 <select name="searchType">
 	<option value="title">제목</option>
@@ -170,7 +170,7 @@ $(document).ready(function() {
  </div> <!-- row -->
 
   <ul class="pagination justify-content-center">
-  	<jsp:include page="/WEB-INF/views/layout/prpaging.jsp" />
+  	<jsp:include page="/WEB-INF/views/layout/prlikepaging.jsp" />
   </ul>
 
 <!-- 로그인 실패시 모달창 -->
