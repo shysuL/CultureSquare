@@ -48,7 +48,10 @@ public class JoinController {
 		// SHA256암호화 후 비밀번호 확인
 //		logger.info("SHA256암호화 후 비밀번호 : " + user.getUserpw());
 		
-		// 회원가입처리 
+		// 회원가입처리 // usertype = 예술인일 때 permit을 1로 준다.
+		if(user.getUsertype()==1) {
+			user.setPermit(1);
+		}
 		userService.joinProc(user);
 				
 		// 메일 인증 발송

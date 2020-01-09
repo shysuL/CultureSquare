@@ -214,10 +214,11 @@ $(document).ready(function(){
 				// idCheck는 ModelAndView에서 지정해준 이름			
 //				console.log("res")
 //				console.log(res)
-//				console.log("res.idCheck")
-//				console.log(res.idCheck)
+				console.log("res.idCheck")
+				console.log(res.idCheck)
 				
 				if(res.idCheck>0){
+					console.log(3);
 					// 1 : 아이디가 중복되는 문구
 					$("#id_check").text("사용중인 이메일입니다");
 					$("#id_check").css("color", "red");
@@ -226,8 +227,9 @@ $(document).ready(function(){
 					
 				
 				} else {
-					
+					console.log(1);
 					if(idJ.test(userid)){
+						console.log(2);
 						// 0 : 아이디길이 / 문자열 검사
 						$("#id_check").text("사용 가능한 이메일입니다");
 						$("#id_check").css("color", "green");
@@ -379,6 +381,8 @@ $(document).ready(function(){
            <div class="form-group">
              <label for="userid">아이디</label>
              <input type="text" class="form-control" id="userid" placeholder="이메일 입력" name="userid" required>
+             <div class="valid-feedback">Valid.</div>
+             <div class="invalid-feedback">Please fill out this field.</div>
              <div class="check_font" id="id_check"></div>
            </div>
            
@@ -480,7 +484,7 @@ $(document).ready(function(){
            <div class="form-group2">
            	 <div class="custom-control custom-check">
 	              <input type="checkbox" class="custom-control-input" id="agree" name="agree">
-	              <label class="custom-control-label" for="agree"><a href="https://localhost:8443/layout/fotter/clause">이용약관</a> 및 <a href="https://localhost:8443/layout/fotter/personal">개인정보처리방침에 동의</a></label>
+	              <label class="custom-control-label" for="agree"><a href="https://localhost:8443/layout/fotter/clause">이용약관</a> 및 <a href="https://localhost:8443/layout/fotter/personal">개인정보처리방침</a>에 동의</label>
 	         </div>           
            </div>
 		</div> <!-- col-4 -->

@@ -74,6 +74,7 @@ $(document).ready(function() {
 						$("#searchIdPwBtnOk2").click(function(){
 							$("#pwFindByUserid").val("");
 							$("#pwFindByUsername").val("");
+							$('#findPwOkBtn').attr('disabled', false); // 비밀번호 찾기 버튼 활성화
 						})
 					} else {
 						$(".content").text("존재하지 않는 사용자 입니다.");
@@ -576,12 +577,10 @@ img[class=culture] {min-height: 100%; max-width: 100%; }
        <div class="form-group">
         <label for="idFindByUsername">이름</label>
         <input type="text" class="form-control" id="idFindByUsername" placeholder="이름 입력" name="idFindByUsername" required>
-        <div class="check_font" id="name_check"></div>           
        </div>
        <div class="form-group">
         <label for="idFindByUserphone">휴대전화</label>
         <input type="tel" class="form-control" id="idFindByUserphone" placeholder="'-'없이 번호만 입력해주세요" name="idFindByUserphone" required>
-        <div class="check_font" id="phone_check"></div>         
       </div>
       
       <div class="modal-footer1">
@@ -602,12 +601,10 @@ img[class=culture] {min-height: 100%; max-width: 100%; }
             <div class="form-group">
 	             <label for="pwFindByUserid">이메일주소</label>
 	             <input type="text" class="form-control" id="pwFindByUserid" placeholder="이메일을 입력해주세요" name="pwFindByUserid" required>
-	             <div class="check_font" id="id_check"></div>           
             </div>
             <div class="form-group">
 	             <label for="pwFindByUsername">이름</label>
 	             <input type="text" class="form-control" id="pwFindByUsername" placeholder="이름을 입력해주세요" name="pwFindByUsername" required>
-	             <div class="check_font" id="name_check"></div>         
             </div>
 
       
