@@ -73,7 +73,7 @@ $(document).ready(function() {
 <h2>자유게시판</h2>
 
 <div>
-<form action="/board/freemodifiy" method="post"
+<form action="/board/freemodify" method="post"
 enctype="multipart/form-data">
 <table class="table table-bordered">
 <tr><td hidden=""><input type="text" name="boardno" value="${board.boardno }"></td></tr>

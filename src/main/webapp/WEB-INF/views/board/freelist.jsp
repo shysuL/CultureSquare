@@ -171,8 +171,8 @@ color: #343a40;
 	
 	<div class="list-group" id="freeRankTitle">
 	  <a class="list-group-item" id="freeRankContent">자유게시판 최다 조회글</a>
-	<c:forEach items = "${viewslist }" var = "views" varStatus="status">
-	  <a href="/board/freeview?boardno=${views.boardno }" class="list-group-item tit"> ${views.title }</a>
+	<c:forEach items = "${viewslist }" var = "view" varStatus="status">
+	  <a href="/board/freeview?boardno=${view.boardno }" class="list-group-item tit"> ${view.title } (${view.views })</a>
 	  </c:forEach>
 	 </div>
 

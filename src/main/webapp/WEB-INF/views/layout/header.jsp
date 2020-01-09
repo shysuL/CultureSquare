@@ -30,6 +30,14 @@
 
 $(document).ready(function() {
 	
+	// 로그아웃 버튼 눌렀을 때
+	$("#logout").click(function(){
+		$(".content").text("로그아웃 하시겠습니까?");
+		$("#logoutModal").modal({backdrop: 'static', keyboard: false});
+		
+	});
+	
+	
 	// 비밀번호 찾기에서 확인 버튼 눌렀을 때
 	$("#findPwOkBtn").click(function(){
 		
@@ -74,6 +82,7 @@ $(document).ready(function() {
 						$("#searchIdPwBtnOk2").click(function(){
 							$("#pwFindByUserid").val("");
 							$("#pwFindByUsername").val("");
+							$('#findPwOkBtn').attr('disabled', false); // 비밀번호 찾기 버튼 활성화
 						})
 					} else {
 						$(".content").text("존재하지 않는 사용자 입니다.");
@@ -454,7 +463,7 @@ img[class=culture] {min-height: 100%; max-width: 100%; }
 	         <h5>${usernick}님 할라븅~!</h5>
 	    	 <div class="dropdown-divider"></div>
 				<input id="mypage" class="btn btn" onclick="location.href='/mypage/main'" value="마이페이지">
-				<input id="logout" class="btn btn-danger  logt"  onclick="location.href='/logout'" value="로그아웃">
+				<input id="logout" class="btn btn-danger  logt" value="로그아웃">
 	       </div>
 	    </c:if>
 	    
@@ -576,12 +585,10 @@ img[class=culture] {min-height: 100%; max-width: 100%; }
        <div class="form-group">
         <label for="idFindByUsername">이름</label>
         <input type="text" class="form-control" id="idFindByUsername" placeholder="이름 입력" name="idFindByUsername" required>
-        <div class="check_font" id="name_check"></div>           
        </div>
        <div class="form-group">
         <label for="idFindByUserphone">휴대전화</label>
         <input type="tel" class="form-control" id="idFindByUserphone" placeholder="'-'없이 번호만 입력해주세요" name="idFindByUserphone" required>
-        <div class="check_font" id="phone_check"></div>         
       </div>
       
       <div class="modal-footer1">
@@ -602,12 +609,10 @@ img[class=culture] {min-height: 100%; max-width: 100%; }
             <div class="form-group">
 	             <label for="pwFindByUserid">이메일주소</label>
 	             <input type="text" class="form-control" id="pwFindByUserid" placeholder="이메일을 입력해주세요" name="pwFindByUserid" required>
-	             <div class="check_font" id="id_check"></div>           
             </div>
             <div class="form-group">
 	             <label for="pwFindByUsername">이름</label>
 	             <input type="text" class="form-control" id="pwFindByUsername" placeholder="이름을 입력해주세요" name="pwFindByUsername" required>
-	             <div class="check_font" id="name_check"></div>         
             </div>
 
       
@@ -664,6 +669,28 @@ img[class=culture] {min-height: 100%; max-width: 100%; }
       <!-- Modal footer -->
       <div class="modal-footer">
         <button class="btn btn-dark" data-dismiss="modal" id=searchIdPwBtnOk2>확인</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 로그아웃 버튼 누르면 나오는 모달 -->
+<div class="modal fade" id="logoutModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">알림</h4>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content"></div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button class="btn btn-dark" data-dismiss="modal" id=logoutBtnOk onclick="location.href='/logout'">확인</button>
+        <button class="btn btn-dark" data-dismiss="modal">취소</button>
       </div>
     </div>
   </div>

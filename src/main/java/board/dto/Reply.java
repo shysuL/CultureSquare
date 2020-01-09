@@ -13,23 +13,13 @@ public class Reply {
 	private int boardno;
 	
 	private String usernick;
-
+	private int maxreplyorder;
 	
-	
-
 	@Override
 	public String toString() {
 		return "Reply [rnum=" + rnum + ", replyno=" + replyno + ", groupno=" + groupno + ", replyorder=" + replyorder
 				+ ", replydepth=" + replydepth + ", recontents=" + recontents + ", replydate=" + replydate + ", userno="
-				+ userno + ", boardno=" + boardno + ", usernick=" + usernick + "]";
-	}
-
-	public String getUsernick() {
-		return usernick;
-	}
-
-	public void setUsernick(String usernick) {
-		this.usernick = usernick;
+				+ userno + ", boardno=" + boardno + ", usernick=" + usernick + ", maxreplyorder=" + maxreplyorder + "]";
 	}
 
 	public int getRnum() {
@@ -103,8 +93,21 @@ public class Reply {
 	public void setBoardno(int boardno) {
 		this.boardno = boardno;
 	}
-	
-	
-	
+
+	public String getUsernick() {
+		return usernick;
+	}
+
+	public void setUsernick(String usernick) {
+		this.usernick = usernick;
+	}
+
+	public int getMaxreplyorder() {
+		return maxreplyorder;
+	}
+
+	public void setMaxreplyorder(int maxreplyorder) {
+		this.maxreplyorder = maxreplyorder;
+	}
 
 }
