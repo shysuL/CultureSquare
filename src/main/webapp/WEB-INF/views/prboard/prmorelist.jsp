@@ -170,7 +170,7 @@ $(document).ready(function() {
  </div> <!-- row -->
 
   <ul class="pagination justify-content-center">
-  	<jsp:include page="/WEB-INF/views/layout/prpaging.jsp" />
+  	<jsp:include page="/WEB-INF/views/layout/prmorepaging.jsp" />
   </ul>
 
 <!-- 로그인 실패시 모달창 -->
