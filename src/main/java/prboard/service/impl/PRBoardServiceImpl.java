@@ -396,4 +396,16 @@ public class PRBoardServiceImpl implements PRBoardService {
 
 		return prBoardDao.selectMostReplyList(reply);
 	}
+
+	@Override
+	public List getMoreList(PRPaging paging) {
+		List list = prBoardDao.selectAllByViews(paging);
+		return list;
+	}
+
+	@Override
+	public List getLikeList(PRPaging paging) {
+		List list = prBoardDao.selectAllByLike(paging);
+		return list;
+	}
 }

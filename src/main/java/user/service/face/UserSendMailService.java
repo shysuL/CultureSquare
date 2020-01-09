@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface JoinSendMailService {
+public interface UserSendMailService {
 	
 	/**
 	 * 메일 인증
@@ -36,6 +36,16 @@ public interface JoinSendMailService {
 	 * @return int - 0 : 실패, 1 : 성공
 	 */
 	public int emailCheckComplete(String userid, String key);
+
+	/**
+	 * 2020-01-09
+	 * 이빈
+	 * 패스워 찾기 이메일 발송
+	 * @param userid - 이메일
+	 * @param username - 이름
+	 * @param req
+	 */
+	public void mailSendWithPassword(String userid, String username, HttpServletRequest req);
 
 	
 }

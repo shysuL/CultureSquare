@@ -30,6 +30,67 @@
 
 $(document).ready(function() {
 	
+	// 비밀번호 찾기에서 확인 버튼 눌렀을 때
+	$("#findPwOkBtn").click(function(){
+		
+		var userid = $("#pwFindByUserid").val();
+		var username = $("#pwFindByUsername").val();
+		
+		console.log(userid);
+		console.log(username);
+		
+		// 비밀번호 찾기 유효성 
+		if ( $("#pwFindByUserid").val() == "" ){
+			$(".content").text("이메일을 입력해주세요");
+			$("#searchIdPw2").modal({backdrop: 'static', keyboard: false});
+			$("#searchIdPwBtnOk2").click(function(){
+				$("#pwFindByUserid").focus();
+			})
+
+		} else if ($("#pwFindByUsername").val() == ""){
+			$(".content").text("이름을 입력해주세요");
+			$("#searchIdPw2").modal({backdrop: 'static', keyboard: false});
+			$("#searchIdPwBtnOk2").click(function(){
+				$("#pwFindByUsername").focus();	
+			})
+			
+		} else {
+			
+			$('#findPwOkBtn').attr("disabled", "true"); // 비밀번호 찾기 버튼 비활성화
+			$('#findPwOkBtn').html('<span class="spinner-border spinner-border-sm"></span>'); // 비밀번호 찾기 버튼 비활성화
+			$.ajax({
+				type:"post",
+				url:"/user/findPw",
+				data: {"userid" : userid, "username" : username},					
+				dataType: "json",
+				success : function(res){
+					$('#findPwOkBtn').html('확인'); // 비밀번호 찾기 버튼 비활성화
+					console.log(res.result);
+					$('#findPwOkBtn').attr('disabled', false); // 비밀번호 찾기 버튼 활성화
+					if(res.result == 1 ){
+// 						$('#findPwOkBtn').attr('disabled', true); // 비밀번호 찾기 버튼 비활성화
+						$(".content").text("입력하신 메일로 임시비밀번호를 발급해드렸습니다.");
+						$("#searchIdPw2").modal({backdrop: 'static', keyboard: false});
+						$("#searchIdPwBtnOk2").click(function(){
+							$("#pwFindByUserid").val("");
+							$("#pwFindByUsername").val("");
+						})
+					} else {
+						$(".content").text("존재하지 않는 사용자 입니다.");
+						$("#searchIdPw2").modal({backdrop: 'static', keyboard: false});
+					}
+					
+					
+					
+				}
+			})
+			
+		}
+		
+		
+	})
+	
+	// 아이디 찾기에서 확인 버튼 눌렀을 때
 	$("#findIdOkBtn").click(function(){
 		
 		var username = $("#idFindByUsername").val();
@@ -39,16 +100,16 @@ $(document).ready(function() {
 		if( $("#idFindByUsername").val() == ""){
 			console.log(123);
 			$(".content").text("이름을 입력해주세요");
-			$("#searchId").modal({backdrop: 'static', keyboard: false});
-			$("#seachIdBtnOk").click(function(){
-				$("#idFindByUsername").focus();	
-			})			
+			$("#searchIdPw").modal({backdrop: 'static', keyboard: false});
+			$("#searchIdPwBtnOk").click(function(){
+				$("#idFindByUsername").focus();
+			})
 		} else if ($("#idFindByUserphone").val() == ""){
 			$(".content").text("핸드폰번호를 입력해주세요");
-			$("#searchId").modal({backdrop: 'static', keyboard: false});
-			$("#seachIdBtnOk").click(function(){
+			$("#searchIdPw").modal({backdrop: 'static', keyboard: false});
+			$("#searchIdPwBtnOk").click(function(){
 				$("#idFindByUserphone").focus();	
-			})	
+			})
 		}
 			
 		else {
@@ -66,11 +127,11 @@ $(document).ready(function() {
 					
 					if(res.idList == 0){
 						
-		 				$("#searchId").modal({backdrop: 'static', keyboard: false});
+		 				$("#searchIdPw").modal({backdrop: 'static', keyboard: false});
 		 				$(".content").text("해당하는 사용자가 존재하지 않습니다.");
 						$("#idFindByUsername").val("");
 		 				$("#idFindByUserphone").val("");
-						$("#seachIdBtnOk").click(function(){
+						$("#searchIdPwBtnOk").click(function(){
 							$(".content").text("");
 						})
 
@@ -78,7 +139,8 @@ $(document).ready(function() {
 					} else {
 						
 					
-						var idList = res.idList					
+						var idList = res.idList		
+						$(".content").text(""); // 유효성 검사 남아있는 (.content).text 지워 주기
 						for (var i=0; i<idList.length; i++){
 							
 			 				$(".content").append("***" + idList[i].userid.substring(3,idList[i].length));
@@ -86,10 +148,10 @@ $(document).ready(function() {
 			 				
 						}
 						
-		 				$("#searchId").modal({backdrop: 'static', keyboard: false});
+		 				$("#searchIdPw").modal({backdrop: 'static', keyboard: false});
 						$("#idFindByUsername").val("");
 		 				$("#idFindByUserphone").val("");
-						$("#seachIdBtnOk").click(function(){
+						$("#searchIdPwBtnOk").click(function(){
 							$(".content").text("");
 						})			
 	 				
@@ -505,7 +567,7 @@ img[class=culture] {min-height: 100%; max-width: 100%; }
 
       <!-- Modal Header1 -->
       <div class="modal-header1">
-        <h4 class="modal-title">아이디 찾기</h4>
+        <h4 class="modal-title" style="text-align: center;margin-top: 5%;">아이디 찾기</h4>
       </div>
 
       <!-- Modal body1 -->
@@ -531,30 +593,30 @@ img[class=culture] {min-height: 100%; max-width: 100%; }
       
       <!-- Modal Header2 -->
       <div class="modal-header2">
-       		<h4 class="modal-title">비밀번호 찾기</h4>
+       		<h4 class="modal-title" style="text-align: center;">비밀번호 찾기</h4>
       </div>
        
       <!-- Modal body2 -->
-      <div class="modal-body content2">
+      <div class="modal-body content2" style="padding-bottom: 0%;">
  
             <div class="form-group">
 	             <label for="pwFindByUserid">이메일주소</label>
-	             <input type="text" class="form-control" id="usernameFind" placeholder="이메일을 입력해주세요" name="pwFindByUserid" required>
-	             <div class="check_font" id="name_check"></div>           
+	             <input type="text" class="form-control" id="pwFindByUserid" placeholder="이메일을 입력해주세요" name="pwFindByUserid" required>
+	             <div class="check_font" id="id_check"></div>           
             </div>
             <div class="form-group">
 	             <label for="pwFindByUsername">이름</label>
-	             <input type="tel" class="form-control" id="userphoneFind" placeholder="이름을 입력해주세요" name="pwFindByUsername" required>
-	             <div class="check_font" id="phone_check"></div>         
+	             <input type="text" class="form-control" id="pwFindByUsername" placeholder="이름을 입력해주세요" name="pwFindByUsername" required>
+	             <div class="check_font" id="name_check"></div>         
             </div>
-            <div class="form-group" id="findId">
-            </div>
+
       
       </div>
      
       <!-- Modal footer2 -->
       <div class="modal-footer2">
-        <button class="btn btn-dark" data-dismiss="modal">확인</button>
+        <button class="btn btn-dark" id="findPwOkBtn" style="margin-left: 3%; margin-bottom: 3%">확인</button>
+        <button class="btn btn-dark" data-dismiss="modal" style="margin-bottom: 3%;">취소</button>
       </div>
 
     </div>
@@ -562,8 +624,8 @@ img[class=culture] {min-height: 100%; max-width: 100%; }
 </div>
 
 
-<!-- 아이디 찾기 완료되면 나오는 모달 -->
-<div class="modal fade" id="searchId">
+<!-- 아이디 찾기 확인버튼 누르면 나오는 모달 -->
+<div class="modal fade" id="searchIdPw">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
 
@@ -578,10 +640,31 @@ img[class=culture] {min-height: 100%; max-width: 100%; }
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button class="btn btn-dark" data-dismiss="modal" id=seachIdBtnOk>확인</button>
+        <button class="btn btn-dark" data-dismiss="modal" id=seachIdPwBtnOk>확인</button>
       </div>
 
     </div>
   </div>
 </div>
 
+<!-- 비밀번호찾기 버튼 누르면 나오는 모달 -->
+<div class="modal fade" id="searchIdPw2">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">비밀번호 찾기</h4>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button class="btn btn-dark" data-dismiss="modal" id=searchIdPwBtnOk2>확인</button>
+      </div>
+    </div>
+  </div>
+</div>

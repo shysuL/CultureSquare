@@ -337,4 +337,44 @@
 		ORDER BY cnt DESC, R.replyno DESC
 	</select>
 	
+	<select id="selectAllByViews" resultMap="PRBoard" parameterType="util.PRPaging">
+		SELECT * FROM (
+		   SELECT rownum rnum, B.* FROM (
+		       SELECT
+		            BO.boardno, BO.title, BO.writtendate, BO.contents,
+		           BO.views, BO.userno, BO.postno, P.prname, U.usernick, (SELECT COUNT(*) FROM blike WHERE BO.boardno = boardno) AS blike, (SELECT COUNT(*) FROM reply WHERE BO.boardno = boardno) AS replyCnt
+		       FROM board BO, prtype P, user_table U
+               WHERE BO.boardno = P.boardno
+               AND BO.userno = U.userno
+               AND BO.postno = 2
+          <if test="!search2.isEmpty() and search2.searthType != null, search2.search != null">
+   			 AND ${search2.searchType} LIKE '%'||#{search2.search}||'%'
+ 		 </if>
+              ORDER BY views DESC, boardno DESC
+		    ) B
+		    ORDER BY rnum
+		 ) BOARD
+		 WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	<select id="selectAllByLike" resultMap="PRBoard" parameterType="util.PRPaging">
+		SELECT * FROM (
+		   SELECT rownum rnum, B.* FROM (
+		       SELECT
+		            BO.boardno, BO.title, BO.writtendate, BO.contents,
+		           BO.views, BO.userno, BO.postno, P.prname, U.usernick, (SELECT COUNT(*) FROM blike WHERE BO.boardno = boardno) AS blike, (SELECT COUNT(*) FROM reply WHERE BO.boardno = boardno) AS replyCnt
+		       FROM board BO, prtype P, user_table U
+               WHERE BO.boardno = P.boardno
+               AND BO.userno = U.userno
+               AND BO.postno = 2
+          <if test="!search2.isEmpty() and search2.searthType != null, search2.search != null">
+   			 AND ${search2.searchType} LIKE '%'||#{search2.search}||'%'
+ 		 </if>
+              ORDER BY blike DESC, boardno DESC
+		    ) B
+		    ORDER BY rnum
+		 ) BOARD
+		 WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
 </mapper>

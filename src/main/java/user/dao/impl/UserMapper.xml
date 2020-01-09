@@ -132,5 +132,21 @@
 	 	AND userphone = #{userphone}	
 	 </select>
 	 
+	 <!-- 비밀번호  찾기 -->
+	 <update id="updatePw"
+	  parameterType="Map">
+	  	UPDATE User_table 
+	  	SET userpw = #{param3} 
+	  	WHERE userid = #{param1}
+	  	AND username = #{param2} 
+	  </update>
+	 
+	 <!-- 사용자 아이디로 이름찾기 -->
+	 <select id="selectCntUserIdUserName" parameterType="String" resultType="int">
+	 	select count(*) from user_table 
+	 	WHERE 1=1
+	 	AND userid = #{param1}
+	 	AND username = #{param2} 
+	 </select>
 	 
 </mapper>

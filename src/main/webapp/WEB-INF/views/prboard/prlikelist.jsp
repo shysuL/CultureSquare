@@ -123,7 +123,7 @@ $(document).ready(function() {
   <h1 class="my-4"><a href="/prboard/prlist" style="color: black; text-decoration: none;">PR</a>
   </h1>
 
-<form action="/prboard/prlist" method="get">
+<form action="/prboard/prlikelist" method="get">
 <div style="margin: 1%">
 <select name="searchType">
 	<option value="title">제목</option>
@@ -174,7 +174,7 @@ $(document).ready(function() {
  </div> <!-- row -->
 
   <ul class="pagination justify-content-center">
-  	<jsp:include page="/WEB-INF/views/layout/prpaging.jsp" />
+  	<jsp:include page="/WEB-INF/views/layout/prlikepaging.jsp" />
   </ul>
 
 <!-- 로그인 실패시 모달창 -->
@@ -234,7 +234,7 @@ $(document).ready(function() {
 </div>
 <div class="list-group" id="prRankTitle">
   <a class="list-group-item" id="prRankContent">
-   PR 게시판 최근 게시글
+   PR 게시판 Best 게시글
   </a>
 	<c:forEach items = "${list }" var = "prboard" begin="0" end="4" varStatus="status">
 	 	<a href="/prboard/view?boardno=${prboard.boardno }" class="list-group-item tit">${status.count}. ${prboard.title } <small><strong>(${prboard.usernick})</strong></small></a>
