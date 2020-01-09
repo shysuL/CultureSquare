@@ -33,6 +33,8 @@ var replyListLen = 0;
 //댓글 번호 배열
 var replyarray = new Array();
 
+//현재 보여진 댓글 수
+var currentCnt = 0;
 
 //댓글 삭제 클릭 -> 진짜로 삭제 할거냐는 모달 호출
 function deleteReply(replyno){
@@ -447,6 +449,9 @@ $(function(){
  */
 function getCommentList(){
 	
+	//초기화
+	currentCnt = 0;
+	
 	//최신순, 답글순, Best댓글 버튼 색 지정
 	$('#new').css('color', 'black');
 	$('#reMost').css('color', '#ccc');
@@ -478,10 +483,24 @@ function getCommentList(){
             	
             	for(i=0; i<res.reList.length; i++){
 
+            		
             		//처음 댓글 좋아요 출력 메서드 호출
             		replycheckAction(res.reList[i].replyno);
             		
-                    html += "<div class='commentBox' id='commentBox"+res.reList[i].replyno+"'>";
+            		//5개 까지만 댓글 보여줌
+            		if(i < 5){
+            			currentCnt++;
+            			 html += "<div class='commentBox' id='commentBox"+res.reList[i].replyno+"'>";
+                   		
+            		}
+            		
+            		//5개 이후 댓글은 숨김
+            		else{
+            			 html += "<div class='commentBox' style = 'display:none' id='commentBox"+res.reList[i].replyno+"'>";
+            		}
+            		
+//             		html += "<div class='commentBox' id='commentBox"+res.reList[i].replyno+"'>";
+            		
                     html += "<strong>"+res.reList[i].usernick+"</strong>";
                     html += "<span id ='replyRecommend"+res.reList[i].replyno+"'></span><br>";
                     html += res.reList[i].recontents + "&nbsp;<small>(" + res.reList[i].replydate + ")</small>";
@@ -502,7 +521,10 @@ function getCommentList(){
                     }
                     html += "</div>";
                 }
-                
+            	
+			html += '<span class="more" style = "margin-top: 7px;">';
+			html += '<span class="blind">댓글보기 V</span></span>';
+            		
             } else {
                 
                 html += "<div>";
@@ -680,18 +702,57 @@ function getBestCommentList(){
 
 <script type="text/javascript">
 
+
 	$(document).ready(function() {
 		
 		
-		  $('.more').click(function(){
-			    if($('.more').hasClass('more')){
-			       $('.more').addClass('close').removeClass('more');
-			       $('.reply').css('display', 'block');
-			    }else if($('.close').hasClass('close')){
-			       $('.close').addClass('more').removeClass('close');  
-			       $('.reply').css('display', 'none');
-			    }
-			  });
+		
+		$('#commentList').on("click", ".more", function(){
+			
+			
+// 		    if($('.more').hasClass('more')){
+// 			       $('.more').addClass('close').removeClass('more');
+// //			       $('.reply').css('display', 'block');
+// 			       $('.reply').show(800);
+// 			    }else if($('.close').hasClass('close')){
+// 			       $('.close').addClass('more').removeClass('close');  
+// //			       $('.reply').css('display', 'none');
+// // 			       $('.reply').hide(800);
+// 			    }
+			
+			console.log("현재까지 표시된 댓글은 : " + currentCnt);
+			
+			var endno = currentCnt + 5;
+			
+			//남은 댓글 아직 있으면
+			if(currentCnt <replyListLen){
+				console.log("몇개 나왔ㄴ; ?" + currentCnt);
+				for(var i = currentCnt; i<endno; i++){
+					console.log(replyListLen + "전체 길이");
+					console.log(currentCnt + "표시된 길이");
+					console.log(endno + "끝 길이");
+					currentCnt ++;
+						
+					 $('#commentBox' + replyarray[i]).show(800);
+				}
+			}
+			
+			//모든 댓글 다 나왔으면
+			else{
+				console.log("12개 다 나왔니?");
+				  $('.more').addClass('close').removeClass('more');
+					for(var i = 0; i<replyListLen; i++){
+						console.log(replyListLen + "전체 길이");
+						console.log(currentCnt + "표시된 길이");
+						console.log(endno + "끝 길이");
+						currentCnt ++;
+							
+						 $('#commentBox' + replyarray[i]).hide(800);
+					}
+			}
+		
+		});
+		
 		
 		
 		recheckAction();
@@ -1002,11 +1063,11 @@ div[class*=reReplyBox]{
 }
 
 span[class=more] {
-  display:block;
+  display:block; 
   width: 55px;
   height: 16px;
   background-image:url('https://s.pstatic.net/static/www/img/2017/sp_nav_v170523.png');
-  background-position: 0 -78px;
+  background-position: 0px -78px;
 }
 
 span[class=blind] {
@@ -1341,11 +1402,7 @@ span[class=close] {
 
             <div>
                 <span><strong>Comments</strong></span> <span id="cCnt"></span>
-                 <span class="more" style = "margin-top: 7px;">
-  					<span class="blind">댓글보기 V</span>
-				</span>
             </div>
-              <div class="reply">
 <!--           <dib class = "reply">   -->
             <div>
                 <table class="table">                    
@@ -1368,7 +1425,6 @@ span[class=close] {
 
 <!--     <form id="commentListForm" name="commentListForm" method="post"> -->
         <div id="commentList" class = "commentList">
-        </div>
         </div>
         
 <!--     </form> -->
