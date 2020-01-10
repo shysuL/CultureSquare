@@ -208,14 +208,9 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 
 	@Override
-	public boolean deleteReply(Reply reply) {
-		freeboardDao.deleteReply(reply);
+	public void deleteReply(Reply reply) {
 		
-		if(freeboardDao.countReply(reply) > 0) {
-			return false;
-		}else {
-			return true;
-		}
+		freeboardDao.deleteReply(reply);
 			
 	}
 
@@ -308,6 +303,26 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	public List<Reply> getMostReplyByboardNo(Reply reply) {
 		
 		return freeboardDao.selectMostReplyList(reply);
+	}
+
+	@Override
+	public void deleteReLike(int replyno) {
+		
+		freeboardDao.deleteReLikeForBoard(replyno);
+		
+	}
+
+	@Override
+	public List<Reply> getReplyByboardNo(Reply reply) {
+		
+		return freeboardDao.selectReplyList(reply);
+	}
+
+	@Override
+	public void deleteReplyToBoard(int boardno) {
+		
+		freeboardDao.deleteReplyToBoard(boardno);
+		
 	}
 
 
