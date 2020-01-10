@@ -44,6 +44,31 @@ public class AdminBoardViewController {
 		model.addAttribute("replyList", replyList);
 	}
 	
-	
+	@RequestMapping(value="/admin/board/view/pfview/delete", method=RequestMethod.GET)
+	public String deletepf(Board board) {
+		
+		// 1. 대표 이미지 삭제
+		pfboardService.deleteThumbnail(board.getBoardno());
+		
+		//게시글 첨부파일 조회
+		List<PFUpFile> list = pfboardService.getFileList(board.getBoardno());
+		
+		logger.info("기존 파일 : " + list);
+
+		//2. 파일 삭제(기존 파일 삭제) 첨부파일이 있을때만 삭제
+		if(!list.isEmpty()) {
+			//서버에 있는 파일 삭제
+			pfboardService.deleteServerFile(list);
+
+			//DB 파일 삭제
+			pfboardService.deleteFile(list);
+		}
+		
+		// 게시글 삭제( 삭제된 게시글로 UPDATE ) 
+		pfboardService.deletePF(board);
+		
+		return "redirect:/admin/main";
+		
+	}
 
 }
