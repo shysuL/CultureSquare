@@ -42,8 +42,6 @@ public class ArtboardWriteController {
 	@RequestMapping(value = "/artboard/write", method=RequestMethod.POST)
 	public String writeProc(MultipartHttpServletRequest multi, Board board) {
 		
-		// 작성 수행
-		pfboardService.write(board);
 		
 		// 리다이렉트 시 게시판 리스트 쿼리스트링 날짜 계산
 		// -------------------------------------------------------
@@ -63,6 +61,9 @@ public class ArtboardWriteController {
 		int i = 1;
 		
 		boolean firsImage = true;
+		
+		// 작성 수행
+		pfboardService.write(board);
 		
 		Iterator<String> files = multi.getFileNames();
 		

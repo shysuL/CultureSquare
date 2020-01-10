@@ -17,19 +17,19 @@
 		p.updatepermit, p.deletepermit
 		FROM board B, perform_add P
 		WHERE B.boardno = P.boardno
-		AND substr(p.performdate, 1, 6) =
+		AND substr(p.performdate, 1, 7) =
 		#{searchMonth }
 		ORDER BY
 		(
 		SELECT performdate FROM perform_add PA
 		WHERE pa.performno = p.performno
-		AND performdate >= to_char(sysdate, 'yyyymmdd')
+		AND performdate >= to_char(sysdate, 'yyyy-mm-dd')
 		)
 		,
 		(
 		SELECT performdate FROM perform_add PA
 		WHERE pa.performno = p.performno
-		AND performdate < to_char(sysdate, 'yyyymmdd')
+		AND performdate < to_char(sysdate, 'yyyy-mm-dd')
 		)
 		, boardno
 		]]>
@@ -248,4 +248,32 @@
 		VALUES(reply_seq.nextval, #{groupno}, #{maxreplyorder}, 2, #{recontents}, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), #{userno}, #{boardno})
 	</insert>
 
+
+	<update id="updatePF"
+	 parameterType="artboard.dto.Board">
+		UPDATE board set title = #{title}, contents = #{contents}
+		WHERE 1=1
+			AND boardno = #{boardno}
+	</update>
+	
+	<update id="updatePFAdd"
+	 parameterType="artboard.dto.Board">
+		UPDATE perform_add SET performname = #{performname}, performdate = #{performdate}
+		WHERE 1=1
+			AND boardno = #{boardno}
+	</update>
+	
+	<delete id="deleteFile"
+	 parameterType="int">
+		DELETE upfile
+		WHERE 1=1
+			AND boardno = #{boardno }
+	</delete>
+	
+	<update id="updatePFbyDelete"
+		parameterType="artboard.dto.Board">
+		UPDATE board SET  contents = '이 일정은 취소되었습니다.', userno = null
+		WHERE 1=1
+			AND boardno = #{boardno}	
+	</update>
 </mapper>

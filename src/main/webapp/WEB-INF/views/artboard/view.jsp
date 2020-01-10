@@ -637,7 +637,20 @@ $(document).ready(function() {
 			console.log("추천버튼 눌림");
 			recommendAction();
 		});
-		
+		//수정버튼 동작
+		$("#btnUpdate").click(function() {
+			console.log("수정버튼클릭");
+			$(location).attr("href", "/artboard/modify?boardno=${view.boardno }");
+		});
+
+		//삭제버튼 동작
+		$("#btnDelete").click(function() {
+			$("#pfdeleteModal").modal({backdrop: 'static', keyboard: false});
+		});	
+		//삭제모달 확인 버튼 눌렀을때
+		$("#pfDeleteCheckBtn").click(function() {
+			$(location).attr("href", "/artboard/delete?boardno=${view.boardno }");
+		});
 		
 		function recommendAction() {
 			$.ajax({
@@ -699,7 +712,10 @@ $(document).ready(function() {
 				}
 			});
 		}
+			
+			
 </script>
+
 
 <style type="text/css">
 
@@ -744,16 +760,16 @@ $(document).ready(function() {
 			<c:forEach items="${fileList }" var="fileList">
 				<c:set var="image" value="${fileList.storedname}" />
 				<c:if test="${fn:contains(image, '.jpg')}">
-					<img src="/upload/${fn:trim(image)}" style="width: 1080px; padding-bottom: 50px;">
+					<img src="/upload/${fn:trim(image)}" style="width: 725px; padding-bottom: 50px;">
 				</c:if>
 				<c:if test="${fn:contains(image, '.png')}">
-					<img src="/upload/${fn:trim(image)}" style="width: 1080px; padding-bottom: 50px;">
+					<img src="/upload/${fn:trim(image)}" style="width: 725px; padding-bottom: 50px;">
 				</c:if>
 				<c:if test="${fn:contains(image, '.JPG')}">
-					<img src="/upload/${fn:trim(image)}" style="width: 1080px; padding-bottom: 50px;">
+					<img src="/upload/${fn:trim(image)}" style="width: 725px; padding-bottom: 50px;">
 				</c:if>
 				<c:if test="${fn:contains(image, '.PNG')}">
-					<img src="/upload/${fn:trim(image)}" style="width: 1080px; padding-bottom: 50px;">
+					<img src="/upload/${fn:trim(image)}" style="width: 725px; padding-bottom: 50px;">
 				</c:if>
 			</c:forEach>
 			<!-- 내용 보여줌 -->
@@ -772,6 +788,10 @@ $(document).ready(function() {
 		<!-- 버튼 -->
 		<div id = "view_buttonarea" class="btn col-md-4" role="group">
 		
+		<c:if test="${writer.userno eq userno}">
+			<button type = "button" id="btnUpdate" class="btn btn-info">수정</button>
+			<button id="btnDelete" class="btn btn-danger">삭제</button>
+		</c:if>
 <!-- 		로그인 여부 처리 -->
 		<c:choose>
 			<c:when test="${not login}">
@@ -1252,6 +1272,33 @@ $(document).ready(function() {
     </div>
   </div>
 </div>
+
+<!-- 삭제 여부 확인 모달-->
+<div class="modal fade" id="pfdeleteModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">PF 게시글 삭제</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+     	 정말 게시글을 삭제하시겠습니까?
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="pfDeleteCheckBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
 
 

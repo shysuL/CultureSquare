@@ -76,7 +76,7 @@ public class ArtboardListController {
 		
 		
 		// 년도 + 월로 게시글리스트 조회
-		String searchMonth = cal_year+cal_month;
+		String searchMonth = cal_year+"-"+cal_month;
 		
 //		logger.info("searchMonth : " + searchMonth);
 		

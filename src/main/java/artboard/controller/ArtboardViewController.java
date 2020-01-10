@@ -1,7 +1,10 @@
 package artboard.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -17,6 +20,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import artboard.dto.Board;
@@ -24,7 +29,7 @@ import artboard.dto.Donation;
 import artboard.dto.PFUpFile;
 import artboard.dto.Reply;
 import artboard.service.face.PFBoardService;
-import prboard.service.face.PRBoardService;
+import prboard.dto.UpFile;
 import user.bo.NaverLoginBO;
 import user.service.face.KakaoService;
 
@@ -81,14 +86,14 @@ public class ArtboardViewController {
 		model.addAttribute("google_url", googleUrl);
 
 		// 전달받은 파라미터 (boardno)에 해당하는 게시글 상세보기
-		Board viewboard = pfboardService.view(bno);
+		Board viewBoard = pfboardService.view(bno);
 
 		// 조회된 게시글 모델로 전달
-		model.addAttribute("view", viewboard);
+		model.addAttribute("view", viewBoard);
 		//		logger.info(viewboard.toString());
 
 		//게시글 첨부파일 조회
-		List<PFUpFile> list = pfboardService.getFileList(viewboard.getBoardno());
+		List<PFUpFile> list = pfboardService.getFileList(viewBoard.getBoardno());
 
 		model.addAttribute("fileList", list);
 
@@ -96,13 +101,11 @@ public class ArtboardViewController {
 
 		// 전달받은 파라미터(boardno)에 해당하는 게시글 작성자(userno)로 작성자 정보 조회
 		Board userno = new Board();
-		userno.setUserno(viewboard.getUserno());
+		userno.setUserno(viewBoard.getUserno());
 		//		System.out.println(userno.getUserno());
 
 		Board writer = pfboardService.getWriter(userno);
-
-		//		System.out.println("test : " + writer.toString());
-
+		
 		// 작성자 정보 모델로 전달
 		model.addAttribute("writer", writer);
 
@@ -270,7 +273,8 @@ public class ArtboardViewController {
 		if((String)session.getAttribute("usernick")!= null) {
 			// 1. 회원 번호 구하기
 			board.setBoardno(boardno);
-			board.setUserno((int) session.getAttribute("userno"));
+			board.setUserno((Integer) session.getAttribute("userno"));
+
 
 			int result = pfboardService.recommendCheck(board);
 
@@ -298,6 +302,126 @@ public class ArtboardViewController {
 			return "/artboard/view?boardno="+boardno;
 		}
 	}
+	
+	@RequestMapping(value = "/artboard/modify", method = RequestMethod.GET)
+	public void modifyPF(Model model, Board bno) {
+		
+		//게시글 세부정보 조회
+		Board viewBoard = pfboardService.view(bno);
+		model.addAttribute("view",viewBoard);
+		
+		//게시글 첨부파일 조회
+		List<PFUpFile> list = pfboardService.getFileList(viewBoard.getBoardno());
+		model.addAttribute("fileList", list);
 
+		logger.info("수정 게시판 : " + viewBoard);
+		logger.info("수정 테스트 : " + list);
+	}
+
+	@RequestMapping(value = "/artboard/modifyProc", method = RequestMethod.POST)
+	public String modifyPFProc(MultipartHttpServletRequest multi, Board board,	HttpSession session) {
+		
+		// 리다이렉트 시 게시판 리스트 쿼리스트링 날짜 계산
+		// -------------------------------------------------------
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy");
+		SimpleDateFormat format2 = new SimpleDateFormat ( "MM");
+				
+		Date time = new Date();
+				
+		String nowYear = format1.format(time);
+		String nowMonth = format2.format(time);
+		// -------------------------------------------------------
+		
+		String originName="";
+		int i = 1;
+		boolean firsImage = true;
+		
+		logger.info("수정 : " + board);
+		
+		// 1. 게시글 내용 수정
+		pfboardService.modifyPF(board);
+		
+		// 2. 대표 이미지 삭제
+		pfboardService.deleteThumbnail(board.getBoardno());
+		
+		//게시글 첨부파일 조회
+		List<PFUpFile> list = pfboardService.getFileList(board.getBoardno());
+		
+		logger.info("기존 파일 : " + list);
+		
+		//3. 파일 삭제(기존 파일 삭제) 첨부파일이 있을때만 삭제
+		if(!list.isEmpty()) {
+			//서버에 있는 파일 삭제
+			pfboardService.deleteServerFile(list);
+
+			//DB 파일 삭제
+			pfboardService.deleteFile(list);
+		}
+		
+		Iterator<String> files = multi.getFileNames();
+		
+		while(files.hasNext()) {
+			String uploadFile = files.next();
+			MultipartFile mFile = multi.getFile(uploadFile);
+			originName = mFile.getOriginalFilename();
+			// 빈파일 처리
+			if(originName == null || originName.equals("")) {
+				logger.info("빈파일있음");
+			}else {
+				pfboardService.fileSave(mFile, board.getBoardno());
+				
+				if( "image".equals(mFile.getContentType().split("/")[0]) ) {
+					
+					//처음 이미지인 경우 이미지 파일에 업로드
+					if(firsImage) {
+						pfboardService.firstImageSave(mFile, board.getBoardno());
+						firsImage = false;
+					}
+				}
+				logger.info(i + ". 실제 파일 이름 : " + originName);
+				i++;
+			}
+			
+		}
+		return "redirect:/artboard/list?bo_table=calendar&cal_year="+nowYear+"&cal_month="+nowMonth;
+	}
+	
+	@RequestMapping(value = "/artboard/delete", method = RequestMethod.GET)
+	public String deletePF(Board board, HttpSession session) {
+		
+		// 리다이렉트 시 게시판 리스트 쿼리스트링 날짜 계산
+		// -------------------------------------------------------
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy");
+		SimpleDateFormat format2 = new SimpleDateFormat ( "MM");
+				
+		Date time = new Date();
+				
+		String nowYear = format1.format(time);
+		String nowMonth = format2.format(time);
+		// -------------------------------------------------------
+		
+		// 1. 대표 이미지 삭제
+		pfboardService.deleteThumbnail(board.getBoardno());
+		
+		//게시글 첨부파일 조회
+		List<PFUpFile> list = pfboardService.getFileList(board.getBoardno());
+		
+		logger.info("기존 파일 : " + list);
+
+		//2. 파일 삭제(기존 파일 삭제) 첨부파일이 있을때만 삭제
+		if(!list.isEmpty()) {
+			//서버에 있는 파일 삭제
+			pfboardService.deleteServerFile(list);
+
+			//DB 파일 삭제
+			pfboardService.deleteFile(list);
+		}
+		
+		
+		// 게시글 삭제( 삭제된 게시글로 UPDATE ) 
+		pfboardService.deletePF(board);
+		
+		return "redirect:/artboard/list?bo_table=calendar&cal_year="+nowYear+"&cal_month="+nowMonth;
+	}
 
 }

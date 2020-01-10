@@ -17,19 +17,15 @@
 var g_count =1;
 $(document).ready(function() {
 
-	$("#btnWrite").click(function() {
+	$("#btnModify").click(function() {
 
-		console.log("작성작성");
-		
-		if($('#title').val() == ''){
-			$("#writeTitleModal").modal({backdrop: 'static', keyboard: false});
-		}
+		console.log("수정수정");
+
 
 		
-		else{
+		
 		//form submit
 		$("form").submit();
-		}
 	});
 	//취소버튼 동작
 	$("#btnCancel").click(function() {
@@ -112,7 +108,7 @@ function fn_fileAdd(){
 
 <div class="container container-fluid" style="margin-bottom: 300px">
 <br>
-<h1>WRITE</h1>
+<h1>MODIFY</h1>
 <hr>
 
 <div class="row">
@@ -120,16 +116,16 @@ function fn_fileAdd(){
 		<div id = "write_head" class="col-xs-12 col-sm-6 col-md-8">
 			<span>필수 입력 사항</span>
 		</div>
-		<form action="/artboard/write" method="post" enctype="multipart/form-data">
+		<form action="/artboard/modifyProc?boardno=${view.boardno }" method="post" enctype="multipart/form-data">
 		<br>
 			<div>
 				<label for="title"><b> 제목 </b></label><br>
-				<input id="title" name="title" type="text" size="100%"  placeholder=" 제목을 입력하세요."/>
+				<input id="title" name="title" type="text" size="100%"  value="${view.title }"/>
 			</div>
 			<br>
 			<div>
 				<label for="performdate"> <b>일시 </b></label><br>
-				<input id="performdate" name="performdate" type="date" size="25%"  placeholder=" 입력 양식 : 20201221"/>
+				<input id="performdate" name="performdate" type="date" size="25%"  value="${view.performdate}"/>
 			</div>
 			<br>
 			<div>
@@ -178,7 +174,7 @@ function fn_fileAdd(){
 			<label for="contents"> <b>상세내용 </b></label><br>
 		
 			<div id = "contentsarea">
-				<textarea id="contents" name="contents"></textarea>
+				<textarea id="contents" name="contents">${view.contents }</textarea>
 				<script type="text/javascript">
 					 CKEDITOR.replace('contents', {height: 400,toolbar: 'Full'})
 				</script>
@@ -190,8 +186,19 @@ function fn_fileAdd(){
 				</p> 
 			</div>
 		
-			<input type="hidden" id = "userno" name = "userno" value = "${userno.userno }"/>
+			<input type="hidden" id = "userno" name = "userno" value = "${view.userno }"/>
 		</form>
+		
+				<div class="list-group" id="fileTitle">
+				  <a class="list-group-item" id="fileContent">
+				   기존 첨부파일
+				  </a>
+				<c:forEach items="${fileList }" var="fileList">
+ 					<p class="list-group-item">${fileList.originname}</p>					
+				</c:forEach>
+		</div>
+		
+		
 	</div>
 
 	<div class="col-3">
@@ -209,8 +216,8 @@ function fn_fileAdd(){
 	<div class="col-9">
 		<div style="text-align: right;">
 			<button type="button" id="add" class="btn btn-info">파일 추가하기</button>
-			<button type="button" id="btnWrite" class="btn bbc" >작성완료</button>
-			<button type="button" id="btnCancel" class="btn bbc">작성취소</button>
+			<button type="button" id="btnModify" class="btn bbc" >수정완료</button>
+			<button type="button" id="btnCancel" class="btn bbc">수정취소</button>
 		</div>
 	</div>
 	</div>
@@ -221,31 +228,4 @@ function fn_fileAdd(){
 
 </div> <!-- div_container -->
 
-
-
-<!-- 제목 작성 여부 확인 모달-->
-<div class="modal fade" id="writeTitleModal">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">게시글 작성</h4>
-        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body content">
-     	 제목을 입력하세요
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="submit" id="pfWriteErrorModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
-      </div>
-
-    </div>
-  </div>
-</div>
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
-
