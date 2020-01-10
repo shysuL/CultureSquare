@@ -38,4 +38,7 @@ CKEDITOR.editorConfig = function( config ) {
 	
 	// 구글맵
 	config.extraPlugins = 'locationmap';
+	
+	// wenzgmap
+//	config.extraPlugins = 'wenzgmap';
 };
