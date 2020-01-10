@@ -21,6 +21,7 @@ import artboard.dto.Board;
 import artboard.service.face.PFBoardService;
 import board.dto.FreeBoard;
 import board.service.face.FreeBoardService;
+import board.service.face.NoticeBoardService;
 import prboard.service.face.PRBoardService;
 import user.dto.User_table;
 import util.PRPaging;
@@ -33,6 +34,7 @@ public class AdminBoardController {
 	@Autowired private FreeBoardService freeboardService;
 	@Autowired private PRBoardService prBoardService;
 	@Autowired private PFBoardService pfboardService;
+	@Autowired private NoticeBoardService noticeboardService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdminBoardController.class);
 	
@@ -40,7 +42,7 @@ public class AdminBoardController {
 	public String board(Model model, @RequestParam(defaultValue="1") int curPage, String searchtarget, 
 							String searchcategory, HttpServletRequest req, HttpSession session,
 							String searchType, String search, PRPaging prpaging,
-							Paging pfpaging, Paging upaging) {
+							Paging pfpaging, Paging upaging, Paging nopaging) {
 		
 		if( session.getAttribute("adminLogin") == null ) {
 			
@@ -108,6 +110,26 @@ public class AdminBoardController {
 			model.addAttribute("pflist", list);
 			
 //--------------------------------------------------------------------------------------------
+			//FAQ
+			
+//--------------------------------------------------------------------------------------------
+			//공지사항
+			FreeBoard noticeboard = new FreeBoard();
+			
+			int noticeCnt = noticeboardService.getListCnt(noticeboard);
+			
+			Paging noticePaging = new Paging(noticeCnt, nopaging.getCurPage());
+			
+			List<FreeBoard> noticelist = noticeboardService.getList(noticePaging);
+			
+			System.out.println(noticeCnt);
+			System.out.println(noticelist);
+			
+			model.addAttribute("noticePaging", noticePaging);
+			model.addAttribute("noticelist", noticelist);
+			
+			
+//--------------------------------------------------------------------------------------------
 			//사용자
 			User_table user = new User_table();
 			
@@ -132,7 +154,8 @@ public class AdminBoardController {
 	@RequestMapping(value="/admin/main", method=RequestMethod.POST)
 	public String board(int category, String searchcategory, String searchtarget, @RequestParam(defaultValue="1") int curPage, 
 						Model model, HttpServletRequest req, String searchType, String search, PRPaging prpaging,
-						HttpSession session, Paging pfpaging, Paging upaging) {
+						HttpSession session, Paging pfpaging, Paging upaging,
+						Paging nopaging) {
 		
 		if (category == 1) {
 			//자유게시판
@@ -201,8 +224,29 @@ public class AdminBoardController {
 			return "/admin/board/calendar";
 			
 		} else if (category == 4) {
+			//FAQ
+			
+			return "/admin/board/faq";
 			
 		} else if (category == 5) {
+			//공지사항
+			
+			FreeBoard noticeboard = new FreeBoard();
+			
+			int noticeCnt = noticeboardService.getListCnt(noticeboard);
+			
+			Paging noticePaging = new Paging(noticeCnt, nopaging.getCurPage());
+			
+			List<FreeBoard> noticelist = noticeboardService.getList(noticePaging);
+			
+			System.out.println("밑" + noticeCnt);
+			System.out.println("밑" + noticelist);
+			
+			model.addAttribute("noticePaging", noticePaging);
+			model.addAttribute("noticelist", noticelist);
+			
+			return "/admin/board/notice";
+			
 			
 		} else if (category == 6) {
 			//사용자

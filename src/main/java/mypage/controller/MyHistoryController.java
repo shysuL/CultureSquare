@@ -37,7 +37,7 @@ public class MyHistoryController {
 		
 		MyPaging result = mypageService.getLikePaging(paging);
 		
-		List likelist = new ArrayList<>();
+		List<HashMap<String, Object>> likelist = new ArrayList<>();
 		
 		likelist = mypageService.getLikeList(result);
 		

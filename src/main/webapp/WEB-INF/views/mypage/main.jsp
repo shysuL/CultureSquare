@@ -298,7 +298,7 @@ $(document).ready(function(){
 				<p class="font-weight-bold" style="font-size: 17px; text-align: left; margin-left: 5%;">
 					이름 : ${getUser.username } <br>
 					<c:choose>
-						<c:when test="${getUser.usertype == 1 }">
+						<c:when test="${getUser.usertype == 1}">
 							<small>"예술인"으로 등록된 사용자입니다.</small>
 						</c:when>
 						<c:otherwise>

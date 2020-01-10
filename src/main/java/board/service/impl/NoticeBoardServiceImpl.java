@@ -31,8 +31,13 @@ public class NoticeBoardServiceImpl implements NoticeBoardService{
 	}
 
 	@Override
-	public int getListCnt(Map<String, String> map) {
+	public int getListCnt(FreeBoard noticeboard) {
 		
+		return noticeboardDao.selectNoticeCnt(noticeboard);
+	}
+	
+	@Override
+	public int getListCnt(Map<String, String> map) {
 		return noticeboardDao.selectCnt(map);
 	}
 

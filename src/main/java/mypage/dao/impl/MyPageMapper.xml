@@ -57,9 +57,9 @@
 		FROM user_table U, board B, posttype P, blike L
 		WHERE B.userno = U.userno
 			AND P.postno = B.postno
-			<if test="">
+<!-- 			<if test=""> -->
 				AND L.boardno = B.boardno
-			</if>
+<!-- 			</if> -->
 			AND B.userno = #{userno }
 		
 	</select>
