@@ -105,9 +105,7 @@ public class ArtboardViewController {
 		//		System.out.println(userno.getUserno());
 
 		Board writer = pfboardService.getWriter(userno);
-
-		//		System.out.println("test : " + writer.toString());
-
+		
 		// 작성자 정보 모델로 전달
 		model.addAttribute("writer", writer);
 
@@ -385,6 +383,44 @@ public class ArtboardViewController {
 			}
 			
 		}
+		return "redirect:/artboard/list?bo_table=calendar&cal_year="+nowYear+"&cal_month="+nowMonth;
+	}
+	
+	@RequestMapping(value = "/artboard/delete", method = RequestMethod.GET)
+	public String deletePF(Board board, HttpSession session) {
+		
+		// 리다이렉트 시 게시판 리스트 쿼리스트링 날짜 계산
+		// -------------------------------------------------------
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy");
+		SimpleDateFormat format2 = new SimpleDateFormat ( "MM");
+				
+		Date time = new Date();
+				
+		String nowYear = format1.format(time);
+		String nowMonth = format2.format(time);
+		// -------------------------------------------------------
+		
+		// 1. 대표 이미지 삭제
+		pfboardService.deleteThumbnail(board.getBoardno());
+		
+		//게시글 첨부파일 조회
+		List<PFUpFile> list = pfboardService.getFileList(board.getBoardno());
+		
+		logger.info("기존 파일 : " + list);
+
+		//2. 파일 삭제(기존 파일 삭제) 첨부파일이 있을때만 삭제
+		if(!list.isEmpty()) {
+			//서버에 있는 파일 삭제
+			pfboardService.deleteServerFile(list);
+
+			//DB 파일 삭제
+			pfboardService.deleteFile(list);
+		}
+		
+		
+		// 게시글 삭제( 삭제된 게시글로 UPDATE ) 
+		pfboardService.deletePF(board);
+		
 		return "redirect:/artboard/list?bo_table=calendar&cal_year="+nowYear+"&cal_month="+nowMonth;
 	}
 

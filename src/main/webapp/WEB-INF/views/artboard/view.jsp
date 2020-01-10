@@ -645,8 +645,12 @@ $(document).ready(function() {
 
 		//삭제버튼 동작
 		$("#btnDelete").click(function() {
-			$("#prdeleteModal").modal({backdrop: 'static', keyboard: false});
+			$("#pfdeleteModal").modal({backdrop: 'static', keyboard: false});
 		});	
+		//삭제모달 확인 버튼 눌렀을때
+		$("#pfDeleteCheckBtn").click(function() {
+			$(location).attr("href", "/artboard/delete?boardno=${view.boardno }");
+		});
 		
 		function recommendAction() {
 			$.ajax({
@@ -784,7 +788,7 @@ $(document).ready(function() {
 		<!-- 버튼 -->
 		<div id = "view_buttonarea" class="btn col-md-4" role="group">
 		
-		<c:if test="${writer.usernick eq usernick}">
+		<c:if test="${writer.userno eq userno}">
 			<button type = "button" id="btnUpdate" class="btn btn-info">수정</button>
 			<button id="btnDelete" class="btn btn-danger">삭제</button>
 		</c:if>
@@ -1270,13 +1274,13 @@ $(document).ready(function() {
 </div>
 
 <!-- 삭제 여부 확인 모달-->
-<div class="modal fade" id="prdeleteModal">
+<div class="modal fade" id="pfdeleteModal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">PR 게시글 삭제</h4>
+        <h4 class="modal-title">PF 게시글 삭제</h4>
         <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -1287,7 +1291,7 @@ $(document).ready(function() {
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="submit" id="prDeleteCheckBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+        <button type="submit" id="pfDeleteCheckBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
       </div>
 
     </div>

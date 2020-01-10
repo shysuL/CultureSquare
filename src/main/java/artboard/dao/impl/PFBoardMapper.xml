@@ -269,4 +269,11 @@
 		WHERE 1=1
 			AND boardno = #{boardno }
 	</delete>
+	
+	<update id="updatePFbyDelete"
+		parameterType="artboard.dto.Board">
+		UPDATE board SET  contents = '이 일정은 취소되었습니다.', userno = null
+		WHERE 1=1
+			AND boardno = #{boardno}	
+	</update>
 </mapper>

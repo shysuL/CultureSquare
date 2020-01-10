@@ -389,4 +389,10 @@ public class PFBoardServiceImpl implements PFBoardService{
 	}
 
 
+	@Override
+	public void deletePF(Board board) {
+		pfboardDao.updatePFbyDelete(board);
+	}
+
+
 }

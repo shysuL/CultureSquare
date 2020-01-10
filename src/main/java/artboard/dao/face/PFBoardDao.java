@@ -334,6 +334,16 @@ public interface PFBoardDao {
 	 * @param boardno - 게시글 번호
 	 */
 	public void deleteFile(int boardno);
+
+	/**
+	 * 2020-01-10
+	 * 이수현
+	 * 
+	 * 게시글 삭제( 삭제된 게시글로 UPDATE )
+	 * 
+	 * @param prBoard - 삭제할 게시글 정보가 담긴 객체
+	 */	
+	public void updatePFbyDelete(Board board);
 	
 	
 }
