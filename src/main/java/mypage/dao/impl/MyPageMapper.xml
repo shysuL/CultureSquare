@@ -56,9 +56,11 @@
 		SELECT count(*)
 		FROM user_table U, board B, posttype P, blike L
 		WHERE B.userno = U.userno
-			AND L.boardno = B.boardno
 			AND P.postno = B.postno
-			AND L.userno = #{userno }
+			<if test="">
+				AND L.boardno = B.boardno
+			</if>
+			AND B.userno = #{userno }
 		
 	</select>
 

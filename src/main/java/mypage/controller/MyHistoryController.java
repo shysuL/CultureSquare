@@ -35,7 +35,7 @@ public class MyHistoryController {
 		//세션에서 userno 꺼내기
 		paging.setUserno((Integer)session.getAttribute("userno"));
 		
-		MyPaging result = mypageService.getPaging(paging);
+		MyPaging result = mypageService.getLikePaging(paging);
 		
 		List likelist = new ArrayList<>();
 		
@@ -60,6 +60,8 @@ public class MyHistoryController {
 		MyPaging result = mypageService.getPaging(paging);
 		
 		List writelist = new ArrayList<>();
+		
+		System.out.println(result);
 		
 		writelist = mypageService.getWriteList(result);
 		

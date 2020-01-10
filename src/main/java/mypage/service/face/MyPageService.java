@@ -48,4 +48,6 @@ public interface MyPageService{
 
 	public List getReplyList(MyPaging result);
 
+	public MyPaging getLikePaging(MyPaging paging);
+
 }
