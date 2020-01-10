@@ -384,4 +384,35 @@ public interface FreeBoardDao {
 	 */
 	public List<Reply> selectMostReplyList(Reply reply);
 
+	/**
+	 * 2020-01-10
+	 * 고인호
+	 * 
+	 * 댓글 좋아요 삭제
+	 * 
+	 * @param replyno - 삭제할 댓글 번호
+	 */
+	public void deleteReLikeForBoard(int replyno);
+
+	/**
+	 * 2020-01-10
+	 * 고인호
+	 * 
+	 * 댓글 리스트 조회
+	 * 
+	 * @param reply - 게시판 번호가 담긴 객체
+	 * @return List - 댓글 리스트
+	 */
+	public List<Reply> selectReplyList(Reply reply);
+
+	/**
+	 * 2020-01-10
+	 * 고인호
+	 * 
+	 * 댓글 삭제(게시판 삭제될때)
+	 * 
+	 * @param prBoard - 게시판 번호
+	 */
+	public void deleteReplyToBoard(int boardno);
+
 }

@@ -183,6 +183,26 @@ public class FreeViewController {
 		
 		freeboardService.deleteBlike(boardno);
 		
+		//5. 댓글 좋아요 삭제
+		//5-1 보드번호를 통한 댓글 리스트들의 댓글 번호 구해 삭제하기 
+		Reply reply = new Reply();
+		reply.setBoardno(boardno);
+		List<Reply> replyVO = freeboardService.getReplyByboardNo(reply);
+
+		logger.info("답 테스트 : "  + replyVO);
+
+		if(replyVO.size() > 0){
+
+			for(int i=0; i<replyVO.size(); i++){
+				//5-2댓글 좋아요 데이터 삭제
+				freeboardService.deleteReLike(replyVO.get(i).getReplyno());
+			}
+		}
+
+
+		//6. 댓글 대댓글 삭제
+		freeboardService.deleteReplyToBoard(boardno);
+		
 		freeboardService.freeDelete(boardno);
 		
 		return "redirect:/board/freelist";
