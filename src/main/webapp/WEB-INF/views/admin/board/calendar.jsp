@@ -59,7 +59,7 @@ function checkedAll(){
 					</form>
 				</div>
 				<br>
-				<form action="" method="get">
+				<form action="/admin/pfboard/delete" method="get">
 					<table class="table table-hover">
 						<thead>
 							<tr class = "info" style="text-align: center;" >

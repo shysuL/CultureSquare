@@ -46,6 +46,7 @@ public class MypageMainController {
 		
 		model.addAttribute("userinfo", userInfo);
 		
+//		System.out.println(getUser);
 //		System.out.println(userInfo);
 	}
 	
