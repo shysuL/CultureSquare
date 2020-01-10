@@ -695,6 +695,10 @@ function getReMostCommentList(){
  * 좋아요순(Best) 댓글 불러오기(Ajax)
  */
 function getBestCommentList(){
+	
+	//초기화
+	currentCnt = 0;
+	
 	//최신순, 답글순, Best댓글 버튼 색 지정
 	$('#new').css('color', '#ccc');
 	$('#reMost').css('color', '#ccc');
@@ -727,7 +731,27 @@ function getBestCommentList(){
             		//처음 댓글 좋아요 출력 메서드 호출
             		replycheckAction(res.reList[i].replyno);
             		
-                    html += "<div class='commentBox' id='commentBox"+res.reList[i].replyno+"'>";
+            		//5개 까지만 댓글 보여줌
+            		if(i < 5){
+            			currentCnt++;
+            			 html += "<div class='commentBox' id='commentBox"+res.reList[i].replyno+"'>";
+                   		
+            		}
+            		
+            		//5개 이후 댓글은 숨김
+            		else{
+            			 html += "<div class='commentBox' style = 'display:none' id='commentBox"+res.reList[i].replyno+"'>";
+            		}
+            		
+        			//댓글 보기 버튼 출력
+        			replyshow = "";
+        			replyshow += "<div id ='replyShowDiv' style='border: 1px solid; padding: 10px; margin:auto; width:30%' class='text-center'>";
+        			replyshow += "<button class = 'showReply' style ='background-color:white; border: none;'>";
+        			replyshow += "댓글 보기";
+        			replyshow += "<img style ='width:23px; padding-left:5px;' src='/resources/img/showReply.png' />";
+        			replyshow += "</button>";
+        			replyshow += "</div>";
+            		
                     html += "<strong>"+res.reList[i].usernick+"</strong>";
                     html += "<span id ='replyRecommend"+res.reList[i].replyno+"'></span><br>";
                     html += res.reList[i].recontents + "&nbsp;<small>(" + res.reList[i].replydate + ")</small>";
@@ -749,7 +773,19 @@ function getBestCommentList(){
                     }
                     html += "</div>";
                 }
-                
+    		    if(res.reList.length <= 5){
+    		        html += '<span class="close" style = "margin-top: 7px;">';
+    				html += '<span class="blind">댓글보기 V</span>';
+    				html += '</span>';
+                }
+    		    else{
+    		    	html += '<span class="more" style = "margin-top: 7px;">';
+    				html += '<span class="blind">댓글보기 V</span>';
+    				html += '</span>';
+    		    	
+    		    }
+    			html += "<div class ='moreCnt' id='moreCnt'>("+currentCnt+"/"+cCnt+")</div>";
+    			
             } else {
                 
                 html += "<div>";
@@ -846,10 +882,16 @@ function getBestCommentList(){
 		//댓글 추천순 정렬
 		$("#best").click(function() {
 			
+			//현재 보여준 댓글 초기화
+			currentCnt = 0;
+			
 			//답글 눌렀는지 변수 초기화
 	        for(var i=0; i<replyListLen; i++){
 	        	checkReReply[replyarray[i]] = 'undefined';
 	         }
+			
+	      	//댓글 보기 버튼 숨김
+	        $('#replyShowDiv').hide();
 			getBestCommentList();
 		});
 		
