@@ -1,5 +1,6 @@
 package mypage.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -123,7 +124,7 @@ public class MyPageServiceImpl implements MyPageService{
 	}
 	
 	@Override
-	public List getLikeList(MyPaging paging) {
+	public List<HashMap<String, Object>> getLikeList(MyPaging paging) {
 		
 		return mypageDao.selectLikePost(paging);
 	}

@@ -10,8 +10,10 @@ public interface NoticeBoardDao {
 
 	public List<FreeBoard> selectAll(Paging paging);
 
-	public int selectCnt(Map<String, String> map);
+	public int selectNoticeCnt(FreeBoard noticeboard);
 
+	public int selectCnt(Map<String, String> map);
+	
 	public FreeBoard selectnoticeDetail(int boardno);
 
 	public void insertnoticeBoard(FreeBoard noticeboard);

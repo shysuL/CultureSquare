@@ -24,6 +24,7 @@
 			SELECT rownum rnum, B.* FROM (
 				SELECT userno, usertype, username, userid, usernick, userphone, permit, follow, sociallogin
 				FROM user_table
+				WHERE userno >=1
 				ORDER BY userno
 			) B
 			ORDER BY rnum

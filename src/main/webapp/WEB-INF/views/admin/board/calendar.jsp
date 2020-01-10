@@ -78,7 +78,7 @@ function checkedAll(){
 						<tbody>
 							<c:forEach items="${pflist }" var="pflist">
 <%-- 							onclick="location.href='/admin/pfboard?boardno=${pflist.boardno }';" --%>
-								<tr onclick="location.href='/artboard/view?boardno=${pflist.boardno}';" style="text-align: center;">
+								<tr onclick="location.href='/admin/board/view/pfview?boardno=${pflist.boardno}';" style="text-align: center;">
 									<td>
 										<input type="checkbox" name="checkRow" id="checkRow" value="${pflist.boardno  }"/>
 									</td>

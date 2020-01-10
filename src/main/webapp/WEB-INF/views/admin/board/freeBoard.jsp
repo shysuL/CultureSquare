@@ -77,7 +77,9 @@ function checkedAll(){
 						<c:forEach items="${fblist }" var="fblist">
 <%-- 						/admin/freeboard?boardno=${fblist.boardno } --%>
 							<tr onclick="location.href='/board/freeview?boardno=${fblist.boardno }';" style="text-align: center;">
-								<td><input type="checkbox" name="checkRow" value="${fblist.boardno  }"/></td>
+								<td>
+									<input type="checkbox" name="checkRow" value="${fblist.boardno  }"/>
+								</td>
 								<td>${fblist.rnum }</td>
 								<td>${fblist.title }</td>
 								<td>${fblist.usernick }</td>

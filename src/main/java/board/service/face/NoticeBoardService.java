@@ -19,8 +19,9 @@ public interface NoticeBoardService {
 	 * @param searchtarget - 검색어
 	 * 
 	 */
-	public int getListCnt(Map<String, String> map);
+	public int getListCnt(FreeBoard noticeboard);
 	
+	public int getListCnt(Map<String, String> map);
 	
 	/** 
 	 * 2020 - 01 - 07

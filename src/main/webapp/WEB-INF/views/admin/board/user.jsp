@@ -60,7 +60,7 @@
 			</form>
 		</div>
 		<br>
-		<form action="/admin/user/delete" method="get">
+		<form action="" method="get">
 			<table class="table table-hover">
 				<thead>
 					<tr class = "info" style="text-align: center;">
