@@ -37,6 +37,26 @@ $(document).ready(function() {
 		
 	});
 	
+	// 로그아웃 모달에서 확인 누를떄
+	$("#logoutBtnOk").click(function(){
+		
+		var socialType = '${socialType}';
+		
+		//구글 로그인일 경우
+		if(socialType == 'Google'){
+			var child = window.open('https://accounts.google.com/logout','popup', 'z-lock=yes',);
+			
+			setTimeout(function() {
+				child.close();
+				location.href="/logout";
+				}, 1000); // 1000ms(3초)가 경과하면 이 함수가 실행됩니다.
+		}
+		else{
+			location.href="/logout";
+		}
+		
+	});
+	
 	
 	// 비밀번호 찾기에서 확인 버튼 눌렀을 때
 	$("#findPwOkBtn").click(function(){
@@ -689,7 +709,7 @@ img[class=culture] {min-height: 100%; max-width: 100%; }
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button class="btn btn-dark" data-dismiss="modal" id=logoutBtnOk onclick="location.href='/logout'">확인</button>
+        <button class="btn btn-dark" data-dismiss="modal" id=logoutBtnOk>확인</button>
         <button class="btn btn-dark" data-dismiss="modal">취소</button>
       </div>
     </div>

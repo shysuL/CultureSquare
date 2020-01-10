@@ -112,6 +112,17 @@ public class MyPageServiceImpl implements MyPageService{
 	}
 	
 	@Override
+	public MyPaging getLikePaging(MyPaging paging) {
+		
+		int totalCount = mypageDao.selectCntAll(paging);
+		
+		MyPaging result = new MyPaging(totalCount, paging.getCurPage());
+		result.setUserno(paging.getUserno());
+		
+		return result;
+	}
+	
+	@Override
 	public List getLikeList(MyPaging paging) {
 		
 		return mypageDao.selectLikePost(paging);

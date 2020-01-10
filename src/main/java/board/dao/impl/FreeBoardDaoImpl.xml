@@ -144,15 +144,11 @@
 	
 	<select id="selectReply" parameterType="int"
 		resultType="board.dto.Reply">
-		SELECT rownum rnum, B.* FROM (
-				SELECT 
-					r.replyno, r.groupno, r.replyorder, r.replydepth, r.recontents, r.replydate, r.userno, r.boardno, u.usernick
-				FROM reply r, user_table u
-				WHERE boardno = #{boardno}
-				AND r.userno = u.userno
-				ORDER BY replydate
-				) B
-		 ORDER BY rnum DESC
+		select R.*, U.usernick from reply R, user_table U
+		WHERE R.userno = U.userno
+		AND boardno = #{boardno}
+		AND replyorder = 0
+		ORDER BY replyno DESC
 	</select>
 	
 	<delete id="deleteReply" parameterType="board.dto.Reply">
@@ -231,6 +227,28 @@
 			AND userno = #{userno}
 			AND replyno = #{replyno }
 	</delete>
+	
+	<delete id="deleteReLikeForBoard"
+	 parameterType="int">
+		DELETE relike
+		WHERE 1=1
+			AND replyno = #{replyno }
+	</delete>
+	
+	<delete id="deleteReplyToBoard"
+	 parameterType="board.dto.FreeBoard">
+		DELETE reply
+		WHERE 1=1
+			AND boardno = #{boardno }
+	</delete>
+	
+	<select id="selectReplyList" resultType="board.dto.Reply" parameterType="board.dto.Reply">
+		select R.*, U.usernick from reply R, user_table U
+		WHERE R.userno = U.userno
+		AND boardno = #{boardno}
+		AND replyorder = 0
+		ORDER BY replyno DESC
+	</select>
 	
 	<select id="selectBestReplyList" resultType="board.dto.Reply" parameterType="board.dto.Reply">
 		select R.*, U.usernick, (SELECT COUNT(*) FROM RELIKE WHERE replyno = R.replyno) cnt
