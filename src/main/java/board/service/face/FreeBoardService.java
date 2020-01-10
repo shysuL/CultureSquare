@@ -231,7 +231,7 @@ public interface FreeBoardService {
 	 * @param reply - 삭제할 댓글
 	 * @return boolean - 삭제 성공 여부
 	 */
-	public boolean deleteReply(Reply reply);
+	public void deleteReply(Reply reply);
 
 	/**
 	 * 2020-01-09
@@ -371,5 +371,36 @@ public interface FreeBoardService {
 	 * @return List - 답글 리스트
 	 */
 	public List<Reply> getMostReplyByboardNo(Reply reply);
+
+	/**
+	 * 2020-01-09
+	 * 고인호
+	 * 
+	 * 댓글 좋아요 삭제
+	 * 
+	 * @param replyno - 삭제할 댓글 번호
+	 */
+	public void deleteReLike(int replyno);
+
+	/**
+	 * 2020-01-10
+	 * 고인호
+	 * 
+	 * 댓글 리스트 조회
+	 * 
+	 * @param reply - 게시판 번호가 담긴 객체
+	 * @return List - 댓글 리스트
+	 */
+	public List<Reply> getReplyByboardNo(Reply reply);
+
+	/**
+	 * 2020-01-10
+	 * 고인호
+	 * 
+	 * 댓글 삭제(게시판 삭제될때)
+	 * 
+	 * @param boardno - 게시판 번호가 담긴 객체
+	 */
+	public void deleteReplyToBoard(int boardno);
 
 }
