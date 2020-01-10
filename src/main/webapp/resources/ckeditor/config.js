@@ -42,6 +42,9 @@ CKEDITOR.editorConfig = function( config ) {
 	
 	// 구글맵
 	config.extraPlugins = 'locationmap';
+	
+	// wenzgmap
+//	config.extraPlugins = 'wenzgmap';
 //	config.locationMapPath = '/resources/ckeditor/locationmap';
 	config.locationMapPath = '/';
 

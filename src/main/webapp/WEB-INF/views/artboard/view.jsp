@@ -220,7 +220,7 @@ function getReReply(replyno){
 	        	//전역 변수에 값 저장
 	        	selectReply = replyno;
 	        		
-	    		html += '<div class = "RereplyBox" id="RereplyBox' + replyno + '">';
+	    		html += '<div class = "RereplyBox  col-11" id="RereplyBox' + replyno + '">';
 	    		html += '<strong class="text-gray-dark">' + '답글의 댓글 번호 : ' + replyno + '</strong>';
 	    		html += '<title>Placeholder</title>';
 	    		html += '<rect width="100%" height="100%" fill="#007bff"></rect>';
@@ -231,10 +231,18 @@ function getReReply(replyno){
 	    	      	for(i=0; i<res.reReplyList.length; i++){
 	    	      		rReCnt[i] = res.reReplyList[i].replyCnt;
 	    	      		  html += "<div class='reReplyBox" + res.reReplyList[i].replyno+ "'id='reReplyBox"+res.reReplyList[i].replyno+"'>";
-	    	              html += "<img style='margin-right: 5px;margin-left: 5px;margin-top: -60px;' src='/resources/img/replyarrow.png' />"
 	    	              html += "<div style=' display: inline-block;'>"
-	    	              html += "<h6 style='padding-top: 10px; padding-left: 15px;' ><strong style='margin-left: -15px;'><strong>"+res.reReplyList[i].usernick+"</strong></h6>";
-	    	              html += "</strong>" + res.reReplyList[i].recontents + "&nbsp;<small>(" + res.reReplyList[i].replydate + ")</small>";
+	    	              html += "<div id = 'rereply_head' style = 'width: 680px !important;'>";
+	    	              html += "<span><h5>" + res.reReplyList[i].usernick + "</h5></span>"
+// 	    	              html += "<h6 style='padding-top: 10px; padding-left: 15px;' ><strong style='margin-left: -15px;'><strong>"+res.reReplyList[i].usernick+"</strong></h6>";
+// 	    	              html += "</strong>";
+	    	              html += "<div id = 'reply_date'  style='font-size: 13px;'>" + res.reReplyList[i].replydate + "</div></div>";
+// 	    	              html += res.reReplyList[i].recontents ;
+		                    html += "<div class='col-12' style = 'padding: 0px;'>";
+		                    html += "<div id = 'view_rerecontents' >";
+		                    html += "<div id = 'recontents' class='col-12'>" + res.reReplyList[i].recontents + "</div>";
+		                    html += "</div>";
+		                    html += "</div>";
 	    	              
 	    	              //답글 번호 삭제
 	    	              html += "<h1 style='display:none;'>" + res.reReplyList[i].replyno + "</h1>";
@@ -265,7 +273,7 @@ function getReReply(replyno){
 	    		html += '</span>';
 	    		html += '</span>';	
 	    		html += '<div style="position: relative; min-height: 90px;">';
-	    		html += '<textarea style="height: auto; width: 1057px; margin-left:15px; resize: none;" id="rreText'+replyno+'" name="editContent" id="editContent" class="form-control" style= "resize:none;">';
+	    		html += '<textarea style="height: auto; width: 100%; margin-left:15px; resize: none;" id="rreText'+replyno+'" name="editContent" id="editContent" class="form-control" style= "resize:none;">';
 	    		html += '</textarea>';
 	    		html += '<button id="rreaddBtn'+replyno+'" onClick="addReReply('+replyno +','+boardno +')" >등록</button>';
 	    		html += '</div>';
@@ -321,12 +329,12 @@ function getCommentList(){
 	            	for(i=0; i<res.reList.length; i++){
 // 	                    html += "<div class='container' style='mawrgin-bottom: 40px'>";
 	                    html += "<div class='row commentBox' id = 'commentBox"+res.reList[i].replyno+"'>";
-	                    html += "<div id = 'reply_head' class='col-12'>";
+	                    html += "<div id = 'reply_head' class = 'col-12' >";
 	                    html += "<span>" + res.reList[i].usernick + "</span>"
 	                    html += "<div id = 'reply_date' class='col-md-4' style='font-size: 13px;'>" + res.reList[i].replydate + "</div>";
 	                    html += "</div>";
 	                    
-	                    html += "<div class='col-9'>";
+	                    html += "<div class='col-9' style = 'padding: 0px;'>";
 	                    html += "<div id = 'view_recontents' >";
 	                    html += "<div id = 'recontents' class='col-12'>" + res.reList[i].recontents + "</div>";
 	                    html += "</div>";
@@ -345,7 +353,7 @@ function getCommentList(){
 	                    	html += "<button class='btn bbc' onclick='deleteReply(" + res.reList[i].replyno + ");'>삭제</button>";
 	                    	html += "</div>";
 	                    }
-                    	html += "</div>";
+                    	html += "</div><br>";
                     	
                     	
 	            }
@@ -718,7 +726,22 @@ $(document).ready(function() {
 
 
 <style type="text/css">
-
+#rereply_head{
+	background-color: #6c757d;
+/*     border: 1px solid black; */
+    max-width: 95%;
+    height: 45px;
+    color: white;
+    padding: 6px;
+    font-size: 25px;
+}
+#view_rerecontents{
+	background-color: #f7f7f7;
+    max-width: 95%;
+    height: 80px;
+    padding: 6px;
+	
+}
 
 </style>
 <%
@@ -731,7 +754,7 @@ $(document).ready(function() {
 %>
 <div class="container list-container">
 
-<div class="h2"><h2> CALLENDAR </h2></div>
+<div class="h2"><h2> CALENDAR </h2></div>
 <hr>
 <h3>VIEWVIEW</h3>
 <br>
@@ -760,16 +783,16 @@ $(document).ready(function() {
 			<c:forEach items="${fileList }" var="fileList">
 				<c:set var="image" value="${fileList.storedname}" />
 				<c:if test="${fn:contains(image, '.jpg')}">
-					<img src="/upload/${fn:trim(image)}" style="width: 725px; padding-bottom: 50px;">
+					<img src="/upload/${fn:trim(image)}" style="width: 100%; padding-bottom: 50px;">
 				</c:if>
 				<c:if test="${fn:contains(image, '.png')}">
-					<img src="/upload/${fn:trim(image)}" style="width: 725px; padding-bottom: 50px;">
+					<img src="/upload/${fn:trim(image)}" style="width: 100%; padding-bottom: 50px;">
 				</c:if>
 				<c:if test="${fn:contains(image, '.JPG')}">
-					<img src="/upload/${fn:trim(image)}" style="width: 725px; padding-bottom: 50px;">
+					<img src="/upload/${fn:trim(image)}" style="width: 100%; padding-bottom: 50px;">
 				</c:if>
 				<c:if test="${fn:contains(image, '.PNG')}">
-					<img src="/upload/${fn:trim(image)}" style="width: 725px; padding-bottom: 50px;">
+					<img src="/upload/${fn:trim(image)}" style="width: 100%; padding-bottom: 50px;">
 				</c:if>
 			</c:forEach>
 			<!-- 내용 보여줌 -->

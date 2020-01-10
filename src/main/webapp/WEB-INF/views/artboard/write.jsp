@@ -24,6 +24,9 @@ $(document).ready(function() {
 		if($('#title').val() == ''){
 			$("#writeTitleModal").modal({backdrop: 'static', keyboard: false});
 		}
+		else if($('#performdate').val() == ''){
+			$("#writeDateModal").modal({backdrop: 'static', keyboard: false});
+		}
 
 		
 		else{
@@ -237,6 +240,31 @@ function fn_fileAdd(){
       <!-- Modal body -->
       <div class="modal-body content">
      	 제목을 입력하세요
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="pfWriteErrorModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 일시 작성 여부 확인 모달-->
+<div class="modal fade" id="writeDateModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">게시글 작성</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+     	 일정을 입력하세요
       </div>
 
       <!-- Modal footer -->
