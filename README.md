@@ -11,7 +11,6 @@
  - Language : Java, HTML5, CSS, Javascript, jQuery, Servlet
  - 디자인 툴 : Bootstrap
 
-
 ## 기획
  - [정의서 & 명세서](https://docs.google.com/spreadsheets/d/167e-6j4eUluj4cIkcDfRDHG3Jqw5w-OQQ9IDYHTfay8/edit?usp=sharing)
  - [유스케이스](https://drive.google.com/file/d/1p7VGLQkTUHz9xV_W4lKUR9R4I5M2Qm2l/view?usp=sharing)

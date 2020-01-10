@@ -1,8 +1,10 @@
 package user.service.impl;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -117,5 +119,20 @@ public class UserServiceImpl implements UserService{
 		return userDao.selectUserInfoById(user);
 		
 	}
+
+	@Override
+	public List<User_table> getUseridByNamePhone(User_table user) {
+		return userDao.selectUserIdByNamePhone(user);
+	}
+
+	@Override
+	public int userIdNameCheck(String userid, String username) {
+
+		return userDao.selectCntUserIdUserName(userid, username);
+	}
+
+
+
+
 
 }

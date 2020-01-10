@@ -76,7 +76,7 @@ public class ArtboardListController {
 		
 		
 		// 년도 + 월로 게시글리스트 조회
-		String searchMonth = cal_year+cal_month;
+		String searchMonth = cal_year+"-"+cal_month;
 		
 //		logger.info("searchMonth : " + searchMonth);
 		
@@ -84,8 +84,7 @@ public class ArtboardListController {
 		
 		model.addAttribute("list", list);
 		
-		logger.info("ㅌㅅㅌ" + list);
-		
+				
 //		logger.info(list.toString());
 				
 		// 모델값으로 cal_year, cal_month를 전달
@@ -105,6 +104,7 @@ public class ArtboardListController {
 		
 		// 조회된 회원정보를 모델로 전달
 		model.addAttribute("LoginUser",LoginUser);
+		
 		
 	}
 	

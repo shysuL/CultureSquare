@@ -338,4 +338,74 @@ public class PRBoardServiceImpl implements PRBoardService {
 
 		prBoardDao.insertReReply(reply);
 	}
+
+	@Override
+	public Reply getUserNoForReplyLike(String usernick) {
+
+		return prBoardDao.selectUserNoToReplyLike(usernick);
+	}
+
+	@Override
+	public int replyRecommendCheck(Reply reply) {
+		
+		int check = prBoardDao.selectReplyRecommend(reply);
+
+		//전에 추천한적이 없다면
+		if(check == 0) {
+			
+			return check; //추천
+		}
+		else {
+			return check; //추천 취소
+		}
+	}
+
+	@Override
+	public int replyRecommendView(Reply reply) {
+		
+		return prBoardDao.selectReplyRecommendView(reply);
+	}
+
+	@Override
+	public void replyRecommend(Reply reply) {
+
+		prBoardDao.insertReplyRecommend(reply);
+	}
+
+	@Override
+	public void replyRecommendCancal(Reply reply) {
+
+		prBoardDao.deleteReLike(reply);
+	}
+
+	@Override
+	public void deleteReLike(int replyno) {
+
+		prBoardDao.deleteReLikeForBoard(replyno);
+
+	}
+
+	@Override
+	public List<Reply> getBestReplyByboardNo(Reply reply) {
+		
+		return prBoardDao.selectBestReplyList(reply);
+	}
+
+	@Override
+	public List<Reply> getMostReplyByboardNo(Reply reply) {
+
+		return prBoardDao.selectMostReplyList(reply);
+	}
+
+	@Override
+	public List getMoreList(PRPaging paging) {
+		List list = prBoardDao.selectAllByViews(paging);
+		return list;
+	}
+
+	@Override
+	public List getLikeList(PRPaging paging) {
+		List list = prBoardDao.selectAllByLike(paging);
+		return list;
+	}
 }

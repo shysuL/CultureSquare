@@ -49,6 +49,7 @@ http://www.springframework.org/schema/task/spring-task.xsd">
 	<resources mapping="/prImage/**" location="/prImage/" />
 	<resources mapping="/upload/**" location="/upload/" />
 	<resources mapping="/pfImage/**" location="/pfImage/" />
+	<resources mapping="/**" location="/googlemap/" />
 <!-- 	<resources mapping="/img/**" location="/resources/img/" /> -->
 
 	

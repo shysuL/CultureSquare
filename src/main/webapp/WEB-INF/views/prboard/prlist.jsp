@@ -70,13 +70,14 @@ $(document).ready(function() {
 }
 
 #prIntroduceTitle{
-	width: 340px;
+	width: 220px;
     padding-top: 120px;
     padding-bottom: 50px;
+    text-align:center;
 }
 
 #prRankTitle{
-	width: 340px;
+	width: 220px;
 }
 
 #prIntroduceContent{
@@ -92,7 +93,7 @@ $(document).ready(function() {
 #side{
 	position:absolute;
 	top: 0;
-	right: -355px;
+	right: -275px;
 }
 
 #cardview{
@@ -110,6 +111,9 @@ $(document).ready(function() {
 	font-size:1.0em;
 }
 
+.tit{
+	color: #343a40;
+}
 
 </style>
 <br><br>
@@ -133,9 +137,9 @@ $(document).ready(function() {
 
 <div style="margin-top:20px; margin-bottom: 20px;">
 <span >
-		<a href="#"> <img src="/resources/img/time.png" /></a>
-		<a href="#"> <img src="/resources/img/view.png" style="padding-left: 10px;"/></a>
-		<a href="#"> <img src="/resources/img/nolike.png" style="padding-left: 10px;"/></a>
+		<a href="/prboard/prlist"> <img src="/resources/img/time.png" /></a>
+		<a href="/prboard/prmorelist"> <img src="/resources/img/view.png" style="padding-left: 10px;"/></a>
+		<a href="/prboard/prlikelist"> <img src="/resources/img/nolike.png" style="padding-left: 10px;"/></a>
 </span>
 <span>
 		<c:choose>
@@ -170,7 +174,7 @@ $(document).ready(function() {
  </div> <!-- row -->
 
   <ul class="pagination justify-content-center">
-  <jsp:include page="/WEB-INF/views/layout/prpaging.jsp" />
+  	<jsp:include page="/WEB-INF/views/layout/prpaging.jsp" />
   </ul>
 
 <!-- 로그인 실패시 모달창 -->
@@ -226,17 +230,15 @@ $(document).ready(function() {
   <a class="list-group-item" id="prIntroduceContent">
    PR 소개
   </a>
-  <p class="list-group-item">개인이 여러 사람들에게 자신이 속한 집단 혹은 자신에게 좋은 이미지를 갖게 만드는 것을 목적으로 홍보하는 게시판</p>
+  <p class="list-group-item">앨범, 공연, 전시회 등을<br>홍보하는 공간입니다.</p>
 </div>
 <div class="list-group" id="prRankTitle">
   <a class="list-group-item" id="prRankContent">
-   PR 순위
+   PR 게시판 최근 게시글
   </a>
-  <a href="#" class="list-group-item">1등</a>
-  <a href="#" class="list-group-item">2등</a>
-  <a href="#" class="list-group-item">3등</a>
-  <a href="#" class="list-group-item">4등</a>
-  <a href="#" class="list-group-item">5등</a>
+	<c:forEach items = "${list }" var = "prboard" begin="0" end="4" varStatus="status">
+	 	<a href="/prboard/view?boardno=${prboard.boardno }" class="list-group-item tit">${status.count}. ${prboard.title } <small><strong>(${prboard.usernick})</strong></small></a>
+	</c:forEach>
 <!-- </div> -->
 </div>
 </div>

@@ -1,5 +1,7 @@
 package user.service.face;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -36,7 +38,7 @@ public interface UserService {
 	 */
 	public int userNickCheck(String usernick);
 
-	/** 수정중 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	/** 
 	 * 2019-12-27
 	 * 이빈
 	 * 로그인
@@ -55,5 +57,24 @@ public interface UserService {
 	 * @return 
 	 */
 	public User_table getUserSession(User_table user);
+
+	/**
+	 * 2020-01-08
+	 * 이빈
+	 * 이름과 핸드폰번호로 userid 찾기
+	 * @param user - username, userphone
+	 * @return - List<user_table> 
+	 */
+	public List<User_table> getUseridByNamePhone(User_table user);
+
+	/**
+	 * 2020-01-09
+	 * 이빈
+	 * 이메일과 이름 일치여부 확인
+	 * @param userid
+	 * @param username 
+	 */
+	public int userIdNameCheck(String userid, String username);
+
 	
 }

@@ -37,8 +37,8 @@
 	<!-- 회원가입 -->
 	<insert id="insertJoin"
 	 parameterType="user.dto.User_table">
-		INSERT into user_table (userno, userid, userpw, username, usernick, userphone, usergender, userbirth, interest, usertype, sociallogin)
-		VALUES(user_table_seq.nextval, #{userid}, #{userpw}, #{username}, #{usernick}, #{userphone}, #{usergender}, #{userbirth}, #{interest}, #{usertype}, 0)
+		INSERT into user_table (userno, userid, userpw, username, usernick, userphone, usergender, userbirth, interest, usertype, permit, sociallogin)
+		VALUES(user_table_seq.nextval, #{userid}, #{userpw}, #{username}, #{usernick}, #{userphone}, #{usergender}, #{userbirth}, #{interest}, 0, #{permit}, 0)
 	 </insert>
 	 
 	 <!-- 아이디 중복체크 -->
@@ -122,4 +122,31 @@
 	    WHERE 1=1
 	   	AND userno = #{userno}
 	 </select>
+	 
+	 <!-- 아이디 찾기 -->
+	 <select id="selectUserIdByNamePhone" 
+	 	parameterType="user.dto.User_table" resultType="user.dto.User_table">
+	 	SELECT userid FROM User_table
+	 	WHERE 1=1
+	 	AND username = #{username}
+	 	AND userphone = #{userphone}	
+	 </select>
+	 
+	 <!-- 비밀번호  찾기 -->
+	 <update id="updatePw"
+	  parameterType="Map">
+	  	UPDATE User_table 
+	  	SET userpw = #{param3} 
+	  	WHERE userid = #{param1}
+	  	AND username = #{param2} 
+	  </update>
+	 
+	 <!-- 사용자 아이디로 이름찾기 -->
+	 <select id="selectCntUserIdUserName" parameterType="String" resultType="int">
+	 	select count(*) from user_table 
+	 	WHERE 1=1
+	 	AND userid = #{param1}
+	 	AND username = #{param2} 
+	 </select>
+	 
 </mapper>

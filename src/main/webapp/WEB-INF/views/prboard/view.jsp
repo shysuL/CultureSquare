@@ -27,6 +27,18 @@ var checkReReply = new Array(); //배열 선언
 //답글 갯수 출력 위한 배열
 var rReCnt = new Array();
 
+//댓글 길이 전역 변수
+var replyListLen = 0;
+
+//댓글 번호 배열
+var replyarray = new Array();
+
+//현재 보여진 댓글 수
+var currentCnt = 0;
+
+// 댓글 더보기 눌렀는지 여부 판단
+var newFirst = true;
+
 //댓글 삭제 클릭 -> 진짜로 삭제 할거냐는 모달 호출
 function deleteReply(replyno){
 	$("#prReplyDeleteModal").modal({backdrop: 'static', keyboard: false});
@@ -94,7 +106,7 @@ function modifyReply(replyno,recontents){
 	
 		//수정 가능하도록 textarea로 기존 댓글창을 치환
 		$('#commentBox' + replyno).replaceWith(html);
-		
+
 		//수정 textarea에 문자열 맨뒤로 포커스
 		$('#commentBox' + replyno + ' #editContent').focus().setCursorPosition(recontents.length);
 	}
@@ -112,21 +124,21 @@ function modifyReReply(replyno,recontents){
 	console.log("답글 내용 : " + recontents);
 	
 	reModifyCnt++;
-	
+
 	//하나만 수정 시도 할 경우
 	if(reModifyCnt == 1){
 		console.log("수정하고 있는 갯수당 : " + reModifyCnt);
 		
 	
 		var html = "";
-		html += '<div id="commentBox' + replyno + '">';
+		html += '<div id="reReplyBox' + replyno + '">';
 		html += '<title>Placeholder</title>';
 		html += '<rect width="100%" height="100%" fill="#007bff"></rect>';
 		html += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
 		html += '<span class="d-block">';
 		html += '<strong class="text-gray-dark">' + replyno + '</strong>';
 		html += '<span style="padding-left: 7px; font-size: 9pt">';
-		html += '<a href="javascript:void(0)" onClick="modifyReplyAjax('+replyno +')" style="padding-right:5px">수정<a>';
+		html += '<a href="javascript:void(0)" onClick="modifyReReplyAjax('+replyno +')" style="padding-right:5px">수정<a>';
 		html += '<a href="javascript:void(0)" onClick="getReReply('+selectReply+');" style="color:red;">취소<a>';
 		
 		//이전 답글리스트로 돌아가도록
@@ -157,6 +169,9 @@ function modifyReReply(replyno,recontents){
 function getReReply(replyno){
 	console.log("답글 테스트 번호: " + replyno);
 	var boardno = '${viewBoard.boardno}';
+
+	//답글 수정에서 취소 눌렀을때 고려해서 카운트 초기화
+	reModifyCnt = 0;
 	
 	//기존 div 제거
 	$('#RereplyBox' + replyno).remove();
@@ -181,7 +196,6 @@ function getReReply(replyno){
 	        	selectReply = replyno;
 	        		
 	    		html += '<div class = "RereplyBox" id="RereplyBox' + replyno + '">';
-	    		html += '<strong class="text-gray-dark">' + '답글의 댓글 번호 : ' + replyno + '</strong>';
 	    		html += '<title>Placeholder</title>';
 	    		html += '<rect width="100%" height="100%" fill="#007bff"></rect>';
 	    		html += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
@@ -218,6 +232,7 @@ function getReReply(replyno){
 	    	    	  html += "<div>";
 	    	          html += "<h6><strong>등록된 답글이 없습니다.</strong></h6>";
 	    	          html += "</div>";
+	    	          $('#rCnt' + replyno).html(0);
 	    	          
 	    	      }
 	    		html += '<span style="padding-left: 7px; font-size: 9pt">';
@@ -256,6 +271,9 @@ function getReReply(replyno){
  */
 function fn_comment(boardno){
     
+	//댓글 보기 버튼 있으면 지우기
+	$('#replyShowDiv').hide();
+	
 	//입력한 댓글 내용 저장
 	var recontents = $('#reply').val();
 	
@@ -266,6 +284,7 @@ function fn_comment(boardno){
 	
 	//제대로 입력한 경우
 	else{
+		
 		$.ajax({
 			type : "POST",
 			url : "/prboard/addComment",
@@ -396,9 +415,54 @@ $(function(){
 }
  
 /**
- * 댓글 불러오기(Ajax)
+ * 답글 수정 처리 (Ajax)
+ */
+ function modifyReReplyAjax(replyno){
+	
+	//수정한 답글 내용
+	 var updateReContents = $('#editReContent').val();
+	
+	console.log("답글 수정 내용 : " + updateReContents);
+	console.log("수정할 답글 번호 : " + replyno);
+	
+	//빈칸 입력한 경우
+	if(updateReContents==""){
+		$("#prReplyErrorModal").modal({backdrop: 'static', keyboard: false});
+	}
+	//내용 입력한 경우
+	else{
+		$.ajax({
+			type : "POST",
+			url : "/prboard/modifyComment",
+			data : {
+				//댓글 번호, 수정 댓글 내용 넘겨줌
+				replyno : replyno,
+				recontents : updateReContents
+			},
+			dataType : "json",
+			success : function(res) {
+				checkReReply[selectReply] = 'undefined';
+				getReReply(selectReply);
+			},
+			error : function() {
+				console.log("실패");
+			}
+		});
+	}
+} 
+
+/**
+ * 최신순 댓글 불러오기(Ajax)
  */
 function getCommentList(){
+	
+	//초기화
+	currentCnt = 0;
+	
+	//최신순, 답글순, Best댓글 버튼 색 지정
+	$('#new').css('color', 'black');
+	$('#reMost').css('color', '#ccc');
+	$('#best').css('color', '#ccc');
 	
 	//댓글 수정에서 취소 눌렀을때 고려해서 카운트 초기화
 	modifyCnt = 0;
@@ -419,14 +483,50 @@ function getCommentList(){
         	
             var cCnt = res.reList.length;
             var html = "";
+            
+            replyListLen = cCnt;
+            
             if(res.reList.length > 0){
             	
             	for(i=0; i<res.reList.length; i++){
-                    html += "<div class='commentBox' id='commentBox"+res.reList[i].replyno+"'>";
-                    html += "<h6><strong>"+res.reList[i].usernick+"</strong></h6>";
+
+            		
+            		//처음 댓글 좋아요 출력 메서드 호출
+            		replycheckAction(res.reList[i].replyno);
+            		
+            		//5개 까지만 댓글 보여줌
+            		if(i < 5){
+            			currentCnt++;
+            			 html += "<div class='commentBox' id='commentBox"+res.reList[i].replyno+"'>";
+                   		
+            		}
+            		
+            		//5개 이후 댓글은 숨김
+            		else{
+            			 html += "<div class='commentBox' style = 'display:none' id='commentBox"+res.reList[i].replyno+"'>";
+            		}
+            		
+//             		html += "<div class='commentBox' style = 'display:none' id='commentBox"+res.reList[i].replyno+"'>";
+            		
+        			//댓글 보기 버튼 출력
+        			replyshow = "";
+        			replyshow += "<div id ='replyShowDiv' style='border: 1px solid; padding: 10px; margin:auto; width:30%' class='text-center'>";
+        			replyshow += "<button class = 'showReply' style ='background-color:white; border: none;'>";
+        			replyshow += "댓글 보기";
+        			replyshow += "<img style ='width:23px; padding-left:5px;' src='/resources/img/showReply.png' />";
+        			replyshow += "</button>";
+        			replyshow += "</div>";
+        			
+            		
+//             		html += "<div class='commentBox' id='commentBox"+res.reList[i].replyno+"'>";
+            		
+                    html += "<strong>"+res.reList[i].usernick+"</strong>";
+                    html += "<span id ='replyRecommend"+res.reList[i].replyno+"'></span><br>";
                     html += res.reList[i].recontents + "&nbsp;<small>(" + res.reList[i].replydate + ")</small>";
-//                     html+= "<br><button style='height:25px; margin-right:5px' onClick=getReReply(" + res.reList[i].replyno + ",\'"+res.reList.length +"\')>답글</button>"
-                    html+= "<br><button style='height:25px; margin-right:5px' onClick=getReReply(" + res.reList[i].replyno + ")>답글</button>"
+                    
+                    replyarray[i] = res.reList[i].replyno;
+                    
+                    html+= "<br><button style='height:25px; margin-right:5px; margin-top: 7px;' onClick=getReReply(" + res.reList[i].replyno + ")>답글</button>"
                     html += "<strong id='rCnt"+res.reList[i].replyno+"'>"+res.reList[i].replyCnt+"</strong>"
                     
                     //댓글 번호 삭제
@@ -434,16 +534,30 @@ function getCommentList(){
                     
                     //자기가 작성한 댓글만 수정 삭제 출력
                     if(res.reList[i].usernick == "${usernick}") {
-//                     	html += "<div class='btnBox'>"
                     	html += "<button style = 'float:right;' class ='btn-danger' onClick=deleteReply(" + res.reList[i].replyno + ")>삭제</button>&nbsp";
                     	//.replace 메서드로 빈칸 에러 해결 => 정규식 / /gi 이 모든 빈칸을 뜻함
                     	html += "<button style = 'float:right; margin-right: 10px;' class = 'btn-info' onClick=modifyReply(" + res.reList[i].replyno + ",\'"+res.reList[i].recontents.replace(/ /gi, "&nbsp;") +"\')>수정</button>&nbsp";
-//                     	html += "</div>";
-                    	
                     }
                     html += "</div>";
                 }
-                
+            
+        
+        
+		
+		    if(res.reList.length <= 5){
+		        html += '<span class="close" style = "margin-top: 7px;">';
+				html += '<span class="blind">댓글보기 V</span>';
+				html += '</span>';
+            }
+		    else{
+		    	html += '<span class="more" style = "margin-top: 7px;">';
+				html += '<span class="blind">댓글보기 V</span>';
+				html += '</span>';
+		    	
+		    }
+			html += "<div class ='moreCnt' id='moreCnt'>("+currentCnt+"/"+cCnt+")</div>";
+			
+            		
             } else {
                 
                 html += "<div>";
@@ -454,12 +568,238 @@ function getCommentList(){
             
             $("#cCnt").html(cCnt);
             $("#commentList").html(html);
+//   			$("#replyShow").html(replyshow );
             
         },
         error:function(request,status,error){
             
        }
         
+    });
+}
+
+/**
+ * 답글순 댓글 불러오기(Ajax)
+ */
+function getReMostCommentList(){
+	
+	//초기화
+	currentCnt = 0;
+	
+	//최신순, 답글순, Best댓글 버튼 색 지정
+	$('#new').css('color', '#ccc');
+	$('#reMost').css('color', 'black');
+	$('#best').css('color', '#ccc');
+	
+	//댓글 수정에서 취소 눌렀을때 고려해서 카운트 초기화
+	modifyCnt = 0;
+	console.log('${viewBoard.boardno }');
+	
+    $.ajax({
+        type:'POST',
+        url : "/prboard/remostcommentList",
+        data : {
+			//게시판 번호
+			boardno : '${viewBoard.boardno }',
+		},
+        dataType : "json",
+        success : function(res){
+            
+        	console.log("리스트 : ");
+        	console.log(res.reList);
+        	
+            var cCnt = res.reList.length;
+            var html = "";
+            
+            if(res.reList.length > 0){
+            	
+            	for(i=0; i<res.reList.length; i++){
+
+            		//처음 댓글 좋아요 출력 메서드 호출
+            		replycheckAction(res.reList[i].replyno);
+            		
+            		//5개 까지만 댓글 보여줌
+            		if(i < 5){
+            			currentCnt++;
+            			 html += "<div class='commentBox' id='commentBox"+res.reList[i].replyno+"'>";
+                   		
+            		}
+            		
+            		//5개 이후 댓글은 숨김
+            		else{
+            			 html += "<div class='commentBox' style = 'display:none' id='commentBox"+res.reList[i].replyno+"'>";
+            		}
+            		
+        			//댓글 보기 버튼 출력
+        			replyshow = "";
+        			replyshow += "<div id ='replyShowDiv' style='border: 1px solid; padding: 10px; margin:auto; width:30%' class='text-center'>";
+        			replyshow += "<button class = 'showReply' style ='background-color:white; border: none;'>";
+        			replyshow += "댓글 보기";
+        			replyshow += "<img style ='width:23px; padding-left:5px;' src='/resources/img/showReply.png' />";
+        			replyshow += "</button>";
+        			replyshow += "</div>";
+                    
+                    html += "<strong>"+res.reList[i].usernick+"</strong>";
+                    html += "<span id ='replyRecommend"+res.reList[i].replyno+"'></span><br>";
+                    html += res.reList[i].recontents + "&nbsp;<small>(" + res.reList[i].replydate + ")</small>";
+                    
+                    replyarray[i] = res.reList[i].replyno;
+                    
+                    html+= "<br><button style='height:25px; margin-right:5px; margin-top: 7px;' onClick=getReReply(" + res.reList[i].replyno + ")>답글</button>"
+                    html += "<strong id='rCnt"+res.reList[i].replyno+"'>"+res.reList[i].replyCnt+"</strong>"
+                    
+                    //댓글 번호 삭제
+                    html += "<h1 style='display:none;'>" + res.reList[i].replyno + "</h1>";
+                    
+                    //자기가 작성한 댓글만 수정 삭제 출력
+                    if(res.reList[i].usernick == "${usernick}") {
+                    	html += "<button style = 'float:right;' class ='btn-danger' onClick=deleteReply(" + res.reList[i].replyno + ")>삭제</button>&nbsp";
+                    	//.replace 메서드로 빈칸 에러 해결 => 정규식 / /gi 이 모든 빈칸을 뜻함
+                    	html += "<button style = 'float:right; margin-right: 10px;' class = 'btn-info' onClick=modifyReply(" + res.reList[i].replyno + ",\'"+res.reList[i].recontents.replace(/ /gi, "&nbsp;") +"\')>수정</button>&nbsp";
+                    	
+                    }
+                    html += "</div>";
+                }
+        		
+    		    if(res.reList.length <= 5){
+    		        html += '<span class="close" style = "margin-top: 7px;">';
+    				html += '<span class="blind">댓글보기 V</span>';
+    				html += '</span>';
+                }
+    		    else{
+    		    	html += '<span class="more" style = "margin-top: 7px;">';
+    				html += '<span class="blind">댓글보기 V</span>';
+    				html += '</span>';
+    		    	
+    		    }
+    			html += "<div class ='moreCnt' id='moreCnt'>("+currentCnt+"/"+cCnt+")</div>";
+    			
+            } else {
+                
+                html += "<div>";
+                html += "<h6><strong>등록된 댓글이 없습니다.</strong></h6>";
+                html += "</div>";
+            }
+            
+            $("#cCnt").html(cCnt);
+            $("#commentList").html(html);
+            
+        },
+        error:function(request,status,error){
+            
+       }
+    });
+}
+
+/**
+ * 좋아요순(Best) 댓글 불러오기(Ajax)
+ */
+function getBestCommentList(){
+	
+	//초기화
+	currentCnt = 0;
+	
+	//최신순, 답글순, Best댓글 버튼 색 지정
+	$('#new').css('color', '#ccc');
+	$('#reMost').css('color', '#ccc');
+	$('#best').css('color', 'black');
+	
+	//댓글 수정에서 취소 눌렀을때 고려해서 카운트 초기화
+	modifyCnt = 0;
+	console.log('${viewBoard.boardno }');
+	
+    $.ajax({
+        type:'POST',
+        url : "/prboard/bestcommentList",
+        data : {
+			//게시판 번호
+			boardno : '${viewBoard.boardno }',
+		},
+        dataType : "json",
+        success : function(res){
+            
+        	console.log("리스트 : ");
+        	console.log(res.reList);
+        	
+            var cCnt = res.reList.length;
+            var html = "";
+            
+            if(res.reList.length > 0){
+            	
+            	for(i=0; i<res.reList.length; i++){
+
+            		//처음 댓글 좋아요 출력 메서드 호출
+            		replycheckAction(res.reList[i].replyno);
+            		
+            		//5개 까지만 댓글 보여줌
+            		if(i < 5){
+            			currentCnt++;
+            			 html += "<div class='commentBox' id='commentBox"+res.reList[i].replyno+"'>";
+                   		
+            		}
+            		
+            		//5개 이후 댓글은 숨김
+            		else{
+            			 html += "<div class='commentBox' style = 'display:none' id='commentBox"+res.reList[i].replyno+"'>";
+            		}
+            		
+        			//댓글 보기 버튼 출력
+        			replyshow = "";
+        			replyshow += "<div id ='replyShowDiv' style='border: 1px solid; padding: 10px; margin:auto; width:30%' class='text-center'>";
+        			replyshow += "<button class = 'showReply' style ='background-color:white; border: none;'>";
+        			replyshow += "댓글 보기";
+        			replyshow += "<img style ='width:23px; padding-left:5px;' src='/resources/img/showReply.png' />";
+        			replyshow += "</button>";
+        			replyshow += "</div>";
+            		
+                    html += "<strong>"+res.reList[i].usernick+"</strong>";
+                    html += "<span id ='replyRecommend"+res.reList[i].replyno+"'></span><br>";
+                    html += res.reList[i].recontents + "&nbsp;<small>(" + res.reList[i].replydate + ")</small>";
+                    
+                    replyarray[i] = res.reList[i].replyno;
+                    
+                    html+= "<br><button style='height:25px; margin-right:5px; margin-top: 7px;' onClick=getReReply(" + res.reList[i].replyno + ")>답글</button>"
+                    html += "<strong id='rCnt"+res.reList[i].replyno+"'>"+res.reList[i].replyCnt+"</strong>"
+                    
+                    //댓글 번호 삭제
+                    html += "<h1 style='display:none;'>" + res.reList[i].replyno + "</h1>";
+                    
+                    //자기가 작성한 댓글만 수정 삭제 출력
+                    if(res.reList[i].usernick == "${usernick}") {
+                    	html += "<button style = 'float:right;' class ='btn-danger' onClick=deleteReply(" + res.reList[i].replyno + ")>삭제</button>&nbsp";
+                    	//.replace 메서드로 빈칸 에러 해결 => 정규식 / /gi 이 모든 빈칸을 뜻함
+                    	html += "<button style = 'float:right; margin-right: 10px;' class = 'btn-info' onClick=modifyReply(" + res.reList[i].replyno + ",\'"+res.reList[i].recontents.replace(/ /gi, "&nbsp;") +"\')>수정</button>&nbsp";
+                    	
+                    }
+                    html += "</div>";
+                }
+    		    if(res.reList.length <= 5){
+    		        html += '<span class="close" style = "margin-top: 7px;">';
+    				html += '<span class="blind">댓글보기 V</span>';
+    				html += '</span>';
+                }
+    		    else{
+    		    	html += '<span class="more" style = "margin-top: 7px;">';
+    				html += '<span class="blind">댓글보기 V</span>';
+    				html += '</span>';
+    		    	
+    		    }
+    			html += "<div class ='moreCnt' id='moreCnt'>("+currentCnt+"/"+cCnt+")</div>";
+    			
+            } else {
+                
+                html += "<div>";
+                html += "<h6><strong>등록된 댓글이 없습니다.</strong></h6>";
+                html += "</div>";
+            }
+            
+            $("#cCnt").html(cCnt);
+            $("#commentList").html(html);
+            
+        },
+        error:function(request,status,error){
+            
+       }
     });
 }
  
@@ -469,9 +809,123 @@ function getCommentList(){
 
 <script type="text/javascript">
 
+
 	$(document).ready(function() {
 		
+		// 댓글 더보기 버튼 클릭시
+		$('#commentList').on("click", ".more", function(){
+			
+			newFirst = false;
+			
+			// 5개씩 보여주기 위한 변수 초기화
+			var endno = currentCnt + 5;
+			
+			//남은 댓글 아직 있으면 (현재 보여진 댓글 수가 전체 댓글보다 작으면)
+			if(currentCnt <replyListLen){
+				for(var i = currentCnt; i<endno; i++){
+					currentCnt ++;
+					
+					//현재 보여진 댓글이 전체 댓글과 같거나 초과할 경우
+					if(currentCnt >= replyListLen){
+						//더보기 버튼 지우고 접기 버튼 추가
+						$('.more').addClass('close').removeClass('more');
+						currentCnt = replyListLen;
+					}
+					//보여준 댓글 갯수/ 전체 댓글 갯수 표시 및 다음 5개 댓글 보여줌			
+					$('#moreCnt').html("("+currentCnt +"/" + replyListLen +")");
+					$('#commentBox' + replyarray[i]).show(800);
+				}
+			}
+		});
+
+		// 접기 버튼 클릭
+		$('#commentList').on("click", ".close", function(){
+			
+			// 보여준 댓글 갯수/ 전체댓글 갯수 지우기
+			$('#moreCnt').hide();
+			
+			//접기 버튼 지우고 더보기 버튼 추가
+			$('.close').addClass('more').removeClass('close');
+			// 더보기 버튼 지우기
+			$('.more').hide();
+			
+			
+			//초기화
+			currentCnt = 0;
+			
+			// 모든 댓글 숨기기
+			for(var i = 0; i<replyListLen; i++){
+				 $('#commentBox' + replyarray[i]).hide(800);
+			}
+			
+			//댓글 보기 버튼 출력
+			html = "";
+			html += "<div id ='replyShowDiv' style='border: 1px solid; padding: 10px; margin:auto; width:30%' class='text-center'>";
+			html += "<button class = 'showReply' style ='background-color:white; border: none;'>";
+			html += "댓글 보기";
+			html += "<img style ='width:23px; padding-left:5px;' src='/resources/img/showReply.png' />";
+			html += "</button>";
+			html += "</div>";
+			
+			$("#replyShow").html(html);
+		});
+		
+		
+		// 댓글 보기 버튼 클릭 - 댓글 5개 보여줌
+		$('#replyShow').on("click", ".showReply", function(){
+
+			showFirstReply();
+		});
+		
 		recheckAction();
+		
+		//댓글 추천순 정렬
+		$("#best").click(function() {
+			
+			//현재 보여준 댓글 초기화
+			currentCnt = 0;
+			
+			//답글 눌렀는지 변수 초기화
+	        for(var i=0; i<replyListLen; i++){
+	        	checkReReply[replyarray[i]] = 'undefined';
+	         }
+			
+	      	//댓글 보기 버튼 숨김
+	        $('#replyShowDiv').hide();
+			getBestCommentList();
+		});
+		
+		//댓글 답글순 정렬
+		$("#reMost").click(function() {
+			
+			//현재 보여준 댓글 초기화
+			currentCnt = 0;
+			
+			//답글 눌렀는지 변수 초기화
+	        for(var i=0; i<replyListLen; i++){
+	        	checkReReply[replyarray[i]] = 'undefined';
+	         }
+			
+	      	//댓글 보기 버튼 숨김
+	        $('#replyShowDiv').hide();
+			getReMostCommentList();
+		});
+		
+		//댓글 최신순 정렬
+		$("#new").click(function() {
+			
+			//현재 보여준 댓글 초기화
+			currentCnt = 0;
+			
+			//답글 눌렀는지 변수 초기화
+	        for(var i=0; i<replyListLen; i++){
+	        	checkReReply[replyarray[i]] = 'undefined';
+	         }
+			
+			//댓글 보기 버튼 숨김
+	        $('#replyShowDiv').hide();
+	        getCommentList();
+		});
 		
 		//목록버튼 동작
 		$("#btnList").click(function() {
@@ -495,9 +949,20 @@ function getCommentList(){
 
 		//추천버튼 동작
 		$("#recommendtd").on("click", "#recommend", function() {
-//	 		$(location).attr("href", "/board/recommend?boardno=${viewBoard.boardno }");
 			console.log("추천버튼 눌림");
 			recommendAction();
+		});
+		
+		
+		//댓글 추천버튼 동작 처리
+		$('#commentList').on("click", ".commentBox #replyLike", function(){
+
+			// 부모 div 아이디 얻기
+			var parentId = $(this).closest('div').attr('id');
+			//숫자만 추출
+			var replyno = parentId.replace(/[^0-9]/g,'');
+			
+			replyrecommendAction(replyno);
 		});
 		
 		//댓글 삭제모달에서 확인 버튼 클릭 - 댓글 삭제 동작 Ajax 처리
@@ -551,6 +1016,43 @@ function getCommentList(){
 		
 	})
 	
+	function showFirstReply() {
+		//초기화
+		currentCnt = 0;
+		
+		//댓글 보기 버튼 숨기기
+		$('#replyShowDiv').hide();
+		
+		//보여진 댓글 갯수 표시 
+		$('#moreCnt').show();
+		// 더보기 버튼 추가
+		$('.more').show();
+		
+		//댓글 갯수가 5개보다 작으면
+	    if(replyListLen <= 5){
+			//더보기 버튼 지우고 접기 버튼 추가
+			$('.more').addClass('close').removeClass('more');
+			
+			//댓글  보여주기
+			for(var i = 0; i<replyListLen; i++){
+				currentCnt ++;
+				//보여준 댓글 갯수/ 전체 댓글 갯수 표시 및 다음 5개 댓글 보여줌			
+				$('#moreCnt').html("("+currentCnt +"/" + replyListLen +")");
+				$('#commentBox' + replyarray[i]).show(800);
+			}
+        }
+	    else{
+	    	$('.more').show();
+			for(var i = 0; i<5; i++){
+				currentCnt ++;
+				//보여준 댓글 갯수/ 전체 댓글 갯수 표시 및 다음 5개 댓글 보여줌			
+				$('#moreCnt').html("("+currentCnt +"/" + replyListLen +")");
+				$('#commentBox' + replyarray[i]).show(800);
+			}
+	    }
+		
+	}
+	
 	function recommendAction() {
 		$.ajax({
 			type : "get",
@@ -571,6 +1073,30 @@ function getCommentList(){
 		});
 	}
 	
+	//댓글 추천 동작
+	function replyrecommendAction(replyno) {
+		
+		$.ajax({
+			type : "get",
+			url : "/prboard/replyrecommend",
+			data : {
+				replyno : replyno,
+				boardno : '${viewBoard.boardno }'
+			},
+			dataType : "html",
+			success : function(data) {
+				console.log("성공")
+				console.log(data)
+
+				$('#replyRecommend'+replyno).html(data);
+			},
+			error : function() {
+				$("#prReplyLikeLoginModal").modal({backdrop: 'static', keyboard: false});
+			}
+		});
+	}
+	
+	// 처음에 게시글 추천 여부에 따른 이미지 출력
 	function recheckAction() {
 		$.ajax({
 			type : "get",
@@ -587,6 +1113,29 @@ function getCommentList(){
 			},
 			error : function() {
 				console.log("실패연 하이하이");
+			}
+		});
+	}
+	
+	// 처음 댓글 추천 여부에 따른 이미지 출력
+	function replycheckAction(replyno) {
+		
+		console.log("267 | 261 | 260 : " + replyno);
+		
+		$.ajax({
+			type : "get",
+			url : "/prboard/replycheck",
+			data : {
+				replyno : replyno
+			},
+			dataType : "html",
+			success : function(data) {
+				console.log(data);
+
+				$('#replyRecommend'+replyno).html(data);
+			},
+			error : function() {
+				console.log("댓글 실패연 하이하이");
 			}
 		});
 	}
@@ -669,6 +1218,57 @@ div[class*=reReplyBox]{
 	min-height: 200px;
 }
 
+#replySort{
+	padding-left: 3px;
+    padding-bottom: 10px;
+}
+
+#new{
+	 cursor: pointer;
+}
+
+#reMost{
+	 padding: 20px;
+	 cursor: pointer;
+}
+
+#best{
+	 cursor: pointer;
+}
+
+span[class=more] {
+  display:block; 
+  width: 55px;
+  height: 16px;
+  background-image:url('https://s.pstatic.net/static/www/img/2017/sp_nav_v170523.png');
+  background-position: 0px -78px;
+}
+
+span[class=blind] {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  width: 1px;
+  height: 1px;
+}
+
+.more:hover, .close:hover {
+  cursor:pointer;
+}
+
+span[class=close] {
+  display:block;
+  background-image:url('https://s.pstatic.net/static/www/img/2017/sp_nav_v170523.png');
+  width: 42px;
+  height: 16px;
+  background-position: -166px -78px;
+}
+
+.reply{
+	display:none;
+}
+
 </style>
 
 <div class="container">
@@ -731,31 +1331,19 @@ div[class*=reReplyBox]{
 				  <a class="list-group-item" id="fileContent">
 				   첨부파일
 				  </a>
-				<c:forEach items="${fileList }" var="fileList">
- 					<a href="/prboard/download?fileno=${fileList.fileno}" class="list-group-item">${fileList.originname}</a>					
-				</c:forEach>
+				  <c:choose>
+					<c:when test="${!empty fileList}">
+						<c:forEach items="${fileList }" var="fileList">
+							<a href="/prboard/download?fileno=${fileList.fileno}" class="list-group-item">${fileList.originname}</a>
+						</c:forEach>
+	 				</c:when>	
+	 				<c:otherwise>
+	 					<strong style="padding: 5px;">첨부파일이 없습니다.</strong>
+	 				</c:otherwise>
+ 				</c:choose>		
 			</div>
 	</div>	
-	
-        <div>
-            <div>
-                <span><strong>Comments</strong></span> <span id="cCnt"></span>
-            </div>
-            <div>
-                <table class="table">                    
-                    <tr>
-                        <td style="border-top: none;">
-                            <textarea style="margin-left: -15px;width: 1110px; resize:none;" rows="3" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
-                            <br>
-                            <div style="text-align: right;">
-                                <a style="color:white" onClick="fn_comment('${viewBoard.boardno }')" class="btn pull-right btn-success">등록</a>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-</div>
+</div> <!-- 컨테이너 -->
 
 
 <!-- 삭제 여부 확인 모달-->
@@ -803,6 +1391,31 @@ div[class*=reReplyBox]{
       <!-- Modal footer -->
       <div class="modal-footer">
         <button type="submit" id="prLikeLoginModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 로그인 부탁 모달-->
+<div class="modal fade" id="prReplyLikeLoginModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">로그인 필요!</h4>
+        <button id="prLikeLoginX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	로그인 후 댓글 좋아요가 가능합니다.
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="prReplyLikeLoginModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
       </div>
 
     </div>
@@ -960,9 +1573,37 @@ div[class*=reReplyBox]{
 <!-- 컨테이너 -->
 
 <div class="container">
+
+            <div id ="replyComment">
+                <span><strong>Comments</strong></span> <span id="cCnt"></span>
+            </div>
+<!--           <dib class = "reply">   -->
+            <div id = "replyText">
+                <table class="table">                    
+                    <tr>
+                        <td style="border-top: none;">
+                            <textarea style="margin-left: -15px;width: 1110px; resize:none;" rows="3" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
+                            <br>
+                            <div style="text-align: right;">
+                                <a style="color:white" onClick="fn_comment('${viewBoard.boardno }')" class="btn pull-right btn-success">등록</a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id = replySort>
+	        	<a id = "new">최신순</a>
+	        	<a id = "reMost">답글순</a>
+		        <a id = "best">Best 댓글</a>
+       		</div>
+       		<div id = "replyShow">
+       		</div>
+       		
+
 <!--     <form id="commentListForm" name="commentListForm" method="post"> -->
-        <div id="commentList">
+        <div id="commentList" class = "commentList">
         </div>
+        
 <!--     </form> -->
 </div>
 <div class="container" style ="margin-top: 15px;">

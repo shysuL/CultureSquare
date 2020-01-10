@@ -3,8 +3,9 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page import="java.util.*"%>
-<%@ page import="java.text.*"%>
+<%@ page import="java.util.Calendar"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.text.SimpleDateFormat"%>
     
 <!DOCTYPE html>
 <html>
@@ -29,22 +30,173 @@
 
 $(document).ready(function() {
 	
+	// 로그아웃 버튼 눌렀을 때
+	$("#logout").click(function(){
+		$(".content").text("로그아웃 하시겠습니까?");
+		$("#logoutModal").modal({backdrop: 'static', keyboard: false});
+		
+	});
+	
+	// 로그아웃 모달에서 확인 누를떄
+	$("#logoutBtnOk").click(function(){
+		
+		var socialType = '${socialType}';
+		
+		//구글 로그인일 경우
+		if(socialType == 'Google'){
+			var child = window.open('https://accounts.google.com/logout','popup', 'z-lock=yes',);
+			
+			setTimeout(function() {
+				child.close();
+				location.href="/logout";
+				}, 1000); // 1000ms(3초)가 경과하면 이 함수가 실행됩니다.
+		}
+		else{
+			location.href="/logout";
+		}
+		
+	});
+	
+	
+	// 비밀번호 찾기에서 확인 버튼 눌렀을 때
+	$("#findPwOkBtn").click(function(){
+		
+		var userid = $("#pwFindByUserid").val();
+		var username = $("#pwFindByUsername").val();
+		
+		console.log(userid);
+		console.log(username);
+		
+		// 비밀번호 찾기 유효성 
+		if ( $("#pwFindByUserid").val() == "" ){
+			$(".content").text("이메일을 입력해주세요");
+			$("#searchIdPw2").modal({backdrop: 'static', keyboard: false});
+			$("#searchIdPwBtnOk2").click(function(){
+				$("#pwFindByUserid").focus();
+			})
+
+		} else if ($("#pwFindByUsername").val() == ""){
+			$(".content").text("이름을 입력해주세요");
+			$("#searchIdPw2").modal({backdrop: 'static', keyboard: false});
+			$("#searchIdPwBtnOk2").click(function(){
+				$("#pwFindByUsername").focus();	
+			})
+			
+		} else {
+			
+			$('#findPwOkBtn').attr("disabled", "true"); // 비밀번호 찾기 버튼 비활성화
+			$('#findPwOkBtn').html('<span class="spinner-border spinner-border-sm"></span>'); // 비밀번호 찾기 버튼 비활성화
+			$.ajax({
+				type:"post",
+				url:"/user/findPw",
+				data: {"userid" : userid, "username" : username},					
+				dataType: "json",
+				success : function(res){
+					$('#findPwOkBtn').html('확인'); // 비밀번호 찾기 버튼 비활성화
+					console.log(res.result);
+					$('#findPwOkBtn').attr('disabled', false); // 비밀번호 찾기 버튼 활성화
+					if(res.result == 1 ){
+// 						$('#findPwOkBtn').attr('disabled', true); // 비밀번호 찾기 버튼 비활성화
+						$(".content").text("입력하신 메일로 임시비밀번호를 발급해드렸습니다.");
+						$("#searchIdPw2").modal({backdrop: 'static', keyboard: false});
+						$("#searchIdPwBtnOk2").click(function(){
+							$("#pwFindByUserid").val("");
+							$("#pwFindByUsername").val("");
+							$('#findPwOkBtn').attr('disabled', false); // 비밀번호 찾기 버튼 활성화
+						})
+					} else {
+						$(".content").text("존재하지 않는 사용자 입니다.");
+						$("#searchIdPw2").modal({backdrop: 'static', keyboard: false});
+					}
+					
+					
+					
+				}
+			})
+			
+		}
+		
+		
+	})
+	
+	// 아이디 찾기에서 확인 버튼 눌렀을 때
 	$("#findIdOkBtn").click(function(){
 		
-		var username = $("#idFindByUsername");
-		var userphone = $("#idFindByUserphone");
+		var username = $("#idFindByUsername").val();
+		var userphone = $("#idFindByUserphone").val();
 		
-		$.ajax({
-			type:"post",
-			url:"/user/findId",
-			data: {"username" : username, "userphone" : userphone},
-			success : function(res){
-				// ModelAndView - result
-				console.log("ㅁㄴㅇ");
+		// 아이디찾기 유효성
+		if( $("#idFindByUsername").val() == ""){
+			console.log(123);
+			$(".content").text("이름을 입력해주세요");
+			$("#searchIdPw").modal({backdrop: 'static', keyboard: false});
+			$("#searchIdPwBtnOk").click(function(){
+				$("#idFindByUsername").focus();
+			})
+		} else if ($("#idFindByUserphone").val() == ""){
+			$(".content").text("핸드폰번호를 입력해주세요");
+			$("#searchIdPw").modal({backdrop: 'static', keyboard: false});
+			$("#searchIdPwBtnOk").click(function(){
+				$("#idFindByUserphone").focus();	
+			})
+		}
+			
+		else {
+						
+			$.ajax({
+				type:"post",
+				url:"/user/findId",
+				data: {"username" : username, "userphone" : userphone},
+				dataType: "json",
+				success : function(res){
+					// ModelAndView - findId
+	//				console.log("success");
+					console.log(res)
+					console.log(res.idList)
+					
+					if(res.idList == 0){
+						
+		 				$("#searchIdPw").modal({backdrop: 'static', keyboard: false});
+		 				$(".content").text("해당하는 사용자가 존재하지 않습니다.");
+						$("#idFindByUsername").val("");
+		 				$("#idFindByUserphone").val("");
+						$("#searchIdPwBtnOk").click(function(){
+							$(".content").text("");
+						})
+
+										
+					} else {
+						
+					
+						var idList = res.idList		
+						$(".content").text(""); // 유효성 검사 남아있는 (.content).text 지워 주기
+						for (var i=0; i<idList.length; i++){
+							
+			 				$(".content").append("***" + idList[i].userid.substring(3,idList[i].length));
+			 				$(".content").append("<br>");
+			 				
+						}
+						
+		 				$("#searchIdPw").modal({backdrop: 'static', keyboard: false});
+						$("#idFindByUsername").val("");
+		 				$("#idFindByUserphone").val("");
+						$("#searchIdPwBtnOk").click(function(){
+							$(".content").text("");
+						})			
+	 				
+					}
+	 				
 				
-			}
-		})
+				}
+				,error: function(e) {
+					console.log("error");
+					console.log(e);
+				}
+			})
 		
+		}
+		
+
 		
 	})
 	
@@ -245,7 +397,11 @@ h5 {
 }
 
 /* 로고 애니메이션 */
-img{min-height: 100%; max-width: 100%; }
+<<<<<<< HEAD
+img[class=culture]{min-height: 100%; max-width: 100%; }
+=======
+img[class=culture] {min-height: 100%; max-width: 100%; }
+>>>>>>> refs/remotes/origin/develop
 .imgHoverEvent{width: 300px; height: 220px; margin-top: 10px; position: relative; overflow: hidden; display: inline-block;}
 /* .imgHoverEvent .imgBox{width: 200px; height: 200px; text-align: center; background:url(http://gahyun.wooga.kr/portfolio/triple/resources/img/city00.jpg) no-repeat 50% 50%; background-size: auto 100%;} */
 .imgHoverEvent .hoverBox{position: absolute; top:0; left: 0; width: 250px; height: 250px;}
@@ -327,7 +483,7 @@ img{min-height: 100%; max-width: 100%; }
 	         <h5>${usernick}님 할라븅~!</h5>
 	    	 <div class="dropdown-divider"></div>
 				<input id="mypage" class="btn btn" onclick="location.href='/mypage/main'" value="마이페이지">
-				<input id="logout" class="btn btn-danger  logt"  onclick="location.href='/logout'" value="로그아웃">
+				<input id="logout" class="btn btn-danger  logt" value="로그아웃">
 	       </div>
 	    </c:if>
 	    
@@ -440,7 +596,7 @@ img{min-height: 100%; max-width: 100%; }
 
       <!-- Modal Header1 -->
       <div class="modal-header1">
-        <h4 class="modal-title">아이디 찾기</h4>
+        <h4 class="modal-title" style="text-align: center;margin-top: 5%;">아이디 찾기</h4>
       </div>
 
       <!-- Modal body1 -->
@@ -449,46 +605,43 @@ img{min-height: 100%; max-width: 100%; }
        <div class="form-group">
         <label for="idFindByUsername">이름</label>
         <input type="text" class="form-control" id="idFindByUsername" placeholder="이름 입력" name="idFindByUsername" required>
-        <div class="check_font" id="name_check"></div>           
        </div>
        <div class="form-group">
         <label for="idFindByUserphone">휴대전화</label>
         <input type="tel" class="form-control" id="idFindByUserphone" placeholder="'-'없이 번호만 입력해주세요" name="idFindByUserphone" required>
-        <div class="check_font" id="phone_check"></div>         
       </div>
       
       <div class="modal-footer1">
         <button class="btn btn-dark"  id="findIdOkBtn">확인</button>
+        <button class="btn btn-dark" data-dismiss="modal">취소</button>
       </div>
       
       </div>
       
       <!-- Modal Header2 -->
       <div class="modal-header2">
-       		<h4 class="modal-title">비밀번호 찾기</h4>
+       		<h4 class="modal-title" style="text-align: center;">비밀번호 찾기</h4>
       </div>
        
       <!-- Modal body2 -->
-      <div class="modal-body content2">
+      <div class="modal-body content2" style="padding-bottom: 0%;">
  
             <div class="form-group">
 	             <label for="pwFindByUserid">이메일주소</label>
-	             <input type="text" class="form-control" id="usernameFind" placeholder="이메일을 입력해주세요" name="pwFindByUserid" required>
-	             <div class="check_font" id="name_check"></div>           
+	             <input type="text" class="form-control" id="pwFindByUserid" placeholder="이메일을 입력해주세요" name="pwFindByUserid" required>
             </div>
             <div class="form-group">
 	             <label for="pwFindByUsername">이름</label>
-	             <input type="tel" class="form-control" id="userphoneFind" placeholder="이름을 입력해주세요" name="pwFindByUsername" required>
-	             <div class="check_font" id="phone_check"></div>         
+	             <input type="text" class="form-control" id="pwFindByUsername" placeholder="이름을 입력해주세요" name="pwFindByUsername" required>
             </div>
-            <div class="form-group" id="findId">
-            </div>
+
       
       </div>
      
       <!-- Modal footer2 -->
       <div class="modal-footer2">
-        <button class="btn btn-dark" data-dismiss="modal">확인</button>
+        <button class="btn btn-dark" id="findPwOkBtn" style="margin-left: 3%; margin-bottom: 3%">확인</button>
+        <button class="btn btn-dark" data-dismiss="modal" style="margin-bottom: 3%;">취소</button>
       </div>
 
     </div>
@@ -496,14 +649,14 @@ img{min-height: 100%; max-width: 100%; }
 </div>
 
 
-<!-- 아이디 찾기 완료되면 나오는 모달 -->
-<div class="modal fade" id="searchId">
+<!-- 아이디 찾기 확인버튼 누르면 나오는 모달 -->
+<div class="modal fade" id="searchIdPw">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">회원님의 아이디</h4>
+        <h4 class="modal-title">아이디 찾기</h4>
       </div>
 
       <!-- Modal body -->
@@ -512,10 +665,53 @@ img{min-height: 100%; max-width: 100%; }
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button class="btn btn-dark" data-dismiss="modal">확인</button>
+        <button class="btn btn-dark" data-dismiss="modal" id=seachIdPwBtnOk>확인</button>
       </div>
 
     </div>
   </div>
 </div>
 
+<!-- 비밀번호찾기 버튼 누르면 나오는 모달 -->
+<div class="modal fade" id="searchIdPw2">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">비밀번호 찾기</h4>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button class="btn btn-dark" data-dismiss="modal" id=searchIdPwBtnOk2>확인</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 로그아웃 버튼 누르면 나오는 모달 -->
+<div class="modal fade" id="logoutModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">알림</h4>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content"></div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button class="btn btn-dark" data-dismiss="modal" id=logoutBtnOk>확인</button>
+        <button class="btn btn-dark" data-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>

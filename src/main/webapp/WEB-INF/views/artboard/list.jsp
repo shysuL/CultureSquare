@@ -173,6 +173,8 @@ $(document).ready(function(){
 	  </a>
 	</div>
 	<!-- 캐러셀영역 END -->	
+	
+	<!-- 상단 글작성 버튼 -->
 	<div class="b">
 	<c:choose>
 		<c:when test="${not login}">
@@ -201,9 +203,7 @@ $(document).ready(function(){
 	</div> 
 
 
-
-
-	
+	<!-- 월 이동 -->
 	<div id="list_table" class="width_660 box_shadow_3 text-center">
 		<div class="list_cal_row_title relative">
 			<div class="cal_header_div eng">
@@ -233,24 +233,18 @@ $(document).ready(function(){
 
 	<c:forEach items="${list }" var="i">
 	<div class = "list">
-	
+		<!-- 공연 날짜 표기 -->
 		<div class="perdate cal_col0 relative float_left center theme_key2" data-hasqtip="31" oldtitle="아직 출시 전인 제품입니다." title="" aria-describedby="qtip-31">
 			<c:set var = "string1" value = "${i.performdate }"/>
 	   	 	<c:set var = "length" value = "${fn:length(string1)}"/>
 	    	<c:set var = "pdate" value = "${fn:substring(string1, length -2, length)}" />
-			
-			
-			
 			<div class="cal_date eng bold help" style="font-size: 25px; margin-top: 8px;">${pdate }</div>
 			<div class="cal_yoil help han " style=" margin-top: 5px;">${i.performday }<span class="mobile_hide">요일</span></div>
 		</div>
-		
-		
-		
-
+		<!-- 리스트 사진, 제목 -->
 		<div class="media float_right">
 			<div class="media-left media-middle">
-				<a href="#">
+				<a href="/artboard/view?boardno=${i.boardno }">
 				<img class="media-object" onerror="this.src='/resources/img/NoImage.gif';" src="/pfImage/${i.boardno }" style="width: 80px; height: 80px;">
 				</a>
 			</div>
@@ -303,6 +297,36 @@ $(document).ready(function(){
 <!-- 			</div> -->
 <!-- 		</div> -->
 <!-- 	</div> -->
+
+	<!-- 하단 글작성 버튼 -->
+	<div class="b">
+	<c:choose>
+		<c:when test="${not login}">
+		<div>
+			<button id="notLoginWrite" class="btn bbc">글작성</button>
+		</div>
+		</c:when>
+		<%--  예술인일 때 작성 가능한 조건 추가 필요 --%>
+	 <c:otherwise> 
+     <c:choose> 
+			<c:when test = "${LoginUser.usertype ne 1}">
+			<div>
+			<button id="notArtistWrite" class="btn bbc">글작성</button>
+			</div>
+			</c:when>
+			<c:otherwise>
+			<div>
+			<a href="/artboard/write">
+			<button id="LoginWrite"class="btn bbc">글작성</button>
+			</a>
+			</div>
+			</c:otherwise>
+		</c:choose>
+		</c:otherwise>
+	</c:choose>
+	</div> 
+
+
 	
 	</div>
 	
@@ -325,17 +349,17 @@ $(document).ready(function(){
 	  		</tr>
 	  		
 	  		<tr>
-	  		<td><a href="#" ><input class="list-group-item action cate" type="submit" value="전체" /></a></td>
-	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="공연" /></a></td>
-	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="버스킹" /></a></td>
+	  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>" ><input class="list-group-item action cate" type="submit" value="전체" /></a></td>
+	  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>" ><input class="list-group-item cate" type="submit" value="버스킹" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="전시회" /></a></td>
 	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="연극" /></a></td>
 	  		</tr>
 	  		
 	  		<tr>
 	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="콘서트" /></a></td>
-	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="축제" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="뮤지컬" /></a></td>
 	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="행사" /></a></td>
-	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="기타" /></a></td>
+	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="축제" /></a></td>
 	  		</tr>
 	  		</table>
 

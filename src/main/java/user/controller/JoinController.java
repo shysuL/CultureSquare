@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import user.dto.User_table;
-import user.service.face.JoinSendMailService;
+import user.service.face.UserSendMailService;
 import user.service.face.UserService;
 import util.PwSha256;
 
@@ -24,7 +24,7 @@ public class JoinController {
 	private static final Logger logger = LoggerFactory.getLogger(JoinController.class);
 	
 	@Autowired UserService userService;
-	@Autowired JoinSendMailService joinSendMailService;
+	@Autowired UserSendMailService joinSendMailService;
 	
 	// 회원가입 폼만 띄우기
 	@RequestMapping(value="/user/joinForm")
@@ -40,7 +40,7 @@ public class JoinController {
 //		logger.info(user.toString()); // form 입력 값 잘 받아오는지 -완료-
 		
 		//비밀번호 확인
-		logger.info("사용자가 입력한  비밀번호 : " + user.getUserpw());
+//		logger.info("사용자가 입력한  비밀번호 : " + user.getUserpw());
 		
 		// 비밀번호 암호화 SHA256
 		String encPw = PwSha256.userPwEncSHA256(user.getUserpw());
@@ -48,7 +48,10 @@ public class JoinController {
 		// SHA256암호화 후 비밀번호 확인
 //		logger.info("SHA256암호화 후 비밀번호 : " + user.getUserpw());
 		
-		// 회원가입처리 
+		// 회원가입처리 // usertype = 예술인일 때 permit을 1로 준다.
+		if(user.getUsertype()==1) {
+			user.setPermit(1);
+		}
 		userService.joinProc(user);
 				
 		// 메일 인증 발송

@@ -9,6 +9,15 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <script type="text/javascript">
+
+//답글 눌렀는지 판별여부 위한 배열
+var checkReReply = new Array(); //배열 선언
+//선택된 댓글 번호
+var selectReply;
+
+//답글 갯수 출력 위한 배열
+var rReCnt = new Array();
+
 //댓글 슬라이드토글
 $(document).ready(function(){
 	$('#writereply').click(function() {
@@ -19,7 +28,8 @@ $(document).ready(function(){
 //대댓글 슬라이드토글
 $(document).ready(function(){
 	$('#rereply').click(function() {
-		$('#rereplybody').slideToggle("fast");
+		$('#RereplyBox').slideToggle("fast"); 
+// 		getReReply
 	});
 });
 $(document).ready(function() {
@@ -59,97 +69,90 @@ $(document).ready(function() {
 		}
 	});
 });
-	
-// 	$('.btnreplyInsert').click(function() {
-// //1	
-		
-// 		var groupno = $(this).attr("data-groupno")
-		
-// 	if($('#rerecontents').val() == ''){
-// 		$("#replyerror").modal({backdrop: 'static', keyboard: false});
-// 	}else{
-		
-	
-	
-// 	$form = $("<form>").attr({
-// 		action: "/reply/reinsert",
-// 		method: "post"
-// 	}).append(
-// 		$("<input>").attr({
-// 			type:"hidden",
-// 			name:"boardno",
-// 			value:"${view.boardno }"
-// 		})
-// 	).append(
-// 		$("<input>").attr({
-// 			type:"hidden",
-// 			name:"userno",
-// 			value:"${LoginUser.userno }"
-// 		})
-// 	)
-// 	.append(
-// 		$("<input>").attr({
-// 			type:"hidden",
-// 			name:"groupno",
-// 			value: groupno
-// 		})
-// 	)
-// // 	.append(
-// // 		$("<input>").attr({
-// // 			type:"hidden",
-// // 			name:"replyorder",
-// // 			value:"${reply.replyorder }"
-// // 		})
-// // 	).append(
-// // 		$("<input>").attr({
-// // 			type:"hidden",
-// // 			name:"replydepth",
-// // 			value:"${reply.replydepth }"
-// // 		})
-// // 	)
-// 	.append(
-// 		$("<textarea>")
-// 			.attr("name", "rerecontents")
-// 			.css("display", "none")
-// 			.text($("#rerecontents").val())
-// 		);
-// 		$(document.body).append($form);
-// 		$form.submit();
-// 		}
-// 	});
-// });
+
 
 //2
 // 대댓글 등록하기
-function fn_rereco(boardno, groupno) {
-	//빈칸 입력한 경우
-	if($('#rerecontents').val() == ''){
-		$("#replyerror").modal({backdrop: 'static', keyboard: false});
+
+ function addReReply(replyno, boardno){
+	    
+		console.log("답글 등록 테스트 -> 댓글 번호는? " + replyno);
+		//입력한 답글 내용 저장
+		var rrecontents = $('#rreText'+replyno).val();
+		console.log("입력한 내용은?" + rrecontents);
+		
+		//빈칸 입력한 경우
+		if(rrecontents==""){
+			$("#prReReplyErrorModal").modal({backdrop: 'static', keyboard: false});
+		}
+		
+		//제대로 입력한 경우
+		else{
+			$.ajax({
+				type : "POST",
+				url : "/artboard/addReReply",
+				data : {
+					//게시판 번호, 부모 댓글 번호, 답글 내용 넘겨줌
+					boardno : boardno,
+					replyno : replyno,
+					recontents : rrecontents
+				},
+				dataType : "json",
+				success : function(res) {
+					
+					// 로그인 후 답글 작성일때 처리 - 답글 리스트 보여줌
+		            if(res.insert)
+		            {
+		            	console.log("로그인 상태");
+		            	checkReReply[replyno] = 'undefined';
+						getReReply(replyno);
+		            	$('#rreText'+replyno).val("");
+		            }
+		            
+					//로그아웃 상태에서 답글 작성 처리 - 모달 호출
+		            else{
+		            	$('#rreText'+replyno).val("");
+		            	$("#prReReplyErrorModal").modal({backdrop: 'static', keyboard: false});
+		            }
+				},
+				error : function() {
+					console.log("실패");
+				}
+			});
+		}
 	}
+
+
+
+// function fn_rereco(boardno, groupno) {
+// 	//빈칸 입력한 경우
+// 	if($('#rerecontents').val() == ''){
+// 		$("#replyerror").modal({backdrop: 'static', keyboard: false});
+// 	}
 	
-	else{
-		$.ajax({
-			type : "POST",
-			url : "/reply/reinsert",
-			data: {
-				//게시판 번호, 그룹번호, 댓글 내용
-				boardno : boardno,
-				groupno : groupno,
-				rerecontents : rerecontents
-			},
-			dataType : "json",
-			success : function(res){
-				console.log("로그인상태 -> 댓글입력");
-				$("#rerecontents").val("");
+// 	else{
+// 		$.ajax({
+// 			type : "POST",
+// 			url : "/reply/reinsert",
+// 			data: {
+// 				//게시판 번호, 그룹번호, 댓글 내용
+// 				boardno : boardno,
+// 				groupno : groupno,
+// 				rerecontents : rerecontents
+// 			},
+// 			dataType : "json",
+// 			success : function(res){
+// 				console.log("로그인상태 -> 댓글입력");
+// 				$("#rerecontents").val("");
 				
-			},
-			error : function(){
-				console.log("실패실패");
-			}
-		});
-	}
+// 			},
+// 			error : function(){
+// 				console.log("실패실패");
+// 			}
+// 		});
+// 	}
 	
-}	
+// }	
 //댓글 삭제
 function deleteReply(replyno) {
 	$.ajax({
@@ -163,7 +166,7 @@ function deleteReply(replyno) {
 			if(data.success) {
 				console.log(replyno);
 				$("[data-replyno='"+replyno+"']").remove();
-				
+				getCommentList();
 			} else {
 				alert("댓글 삭제 실패");
 			}
@@ -183,6 +186,112 @@ $(function(){
     
 });
 
+//답글 리스트 출력 메서드
+function getReReply(replyno){
+	console.log("답글 테스트 번호: " + replyno);
+	var boardno = '${view.boardno}';
+	
+	if($('#rreaddBtn22').click)
+	console.log('$(#rreaddBtn22)');
+	//답글 수정에서 취소 눌렀을때 고려해서 카운트 초기화
+	reModifyCnt = 0;
+	
+	//기존 div 제거
+	$('#RereplyBox' + replyno).remove();
+	
+	    $.ajax({
+	        type:'POST',
+	        url : "/artboard/ReReplyList",
+	        data : {
+				//댓글 번호
+				replyno : replyno,
+			},
+	        dataType : "json",
+	        success : function(res){
+	    		var html = "";
+	            var cCnt = res.reReplyList.length;
+	            var html = "";
+	            
+	        	//답글 버튼을 처음 누른다면 답글 리스트 출력하도록
+	        	if(
+	        			checkReReply[replyno] == undefined || checkReReply[replyno]=='undefined'
+	        			){
+	        	
+	        	//전역 변수에 값 저장
+	        	selectReply = replyno;
+	        		
+	    		html += '<div class = "RereplyBox" id="RereplyBox' + replyno + '">';
+	    		html += '<strong class="text-gray-dark">' + '답글의 댓글 번호 : ' + replyno + '</strong>';
+	    		html += '<title>Placeholder</title>';
+	    		html += '<rect width="100%" height="100%" fill="#007bff"></rect>';
+	    		html += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
+	    		html += '<span class="d-block">';
+	    	      if(res.reReplyList.length > 0){
+	    	      	
+	    	      	for(i=0; i<res.reReplyList.length; i++){
+	    	      		rReCnt[i] = res.reReplyList[i].replyCnt;
+	    	      		  html += "<div class='reReplyBox" + res.reReplyList[i].replyno+ "'id='reReplyBox"+res.reReplyList[i].replyno+"'>";
+	    	              html += "<img style='margin-right: 5px;margin-left: 5px;margin-top: -60px;' src='/resources/img/replyarrow.png' />"
+	    	              html += "<div style=' display: inline-block;'>"
+	    	              html += "<h6 style='padding-top: 10px; padding-left: 15px;' ><strong style='margin-left: -15px;'><strong>"+res.reReplyList[i].usernick+"</strong></h6>";
+	    	              html += "</strong>" + res.reReplyList[i].recontents + "&nbsp;<small>(" + res.reReplyList[i].replydate + ")</small>";
+	    	              
+	    	              //답글 번호 삭제
+	    	              html += "<h1 style='display:none;'>" + res.reReplyList[i].replyno + "</h1>";
+	    	              html += "</div>";
+						 
+						//자기가 작성한 답글만 수정 삭제 출력
+						  if(res.reReplyList[i].usernick == "${usernick}") {
+		    	              html += "<div><a style = 'color: red; cursor: pointer;'class='reReplyDelete' onClick=deleteReReply(" + res.reReplyList[i].replyno + ")>삭제</a>";
+		    	          	//.replace 메서드로 빈칸 에러 해결 => 정규식 / /gi 이 모든 빈칸을 뜻함
+		    	              html+= "<a style = 'color: #007bff; cursor: pointer;' class='reReplyModify' onClick=modifyReReply(" + res.reReplyList[i].replyno + ",\'"+res.reReplyList[i].recontents.replace(/ /gi, "&nbsp;") +"\')>수정</a>";
+		    	              html +="</div>";
+						  }
+		    	              
+	    	              html +="</div>";
+	    	              
+	    	              $('#rCnt' + replyno).html(rReCnt[i]);
+	    	          }
+	    	      	
+	    	          
+	    	      } else {
+	    	    	  html += "<div>";
+	    	          html += "<h6><strong>등록된 답글이 없습니다.</strong></h6>";
+	    	          html += "</div>";
+	    	          $('#rCnt' + replyno).html(0);
+	    	          
+	    	      }
+	    		html += '<span style="padding-left: 7px; font-size: 9pt">';
+	    		html += '</span>';
+	    		html += '</span>';	
+	    		html += '<div style="position: relative; min-height: 90px;">';
+	    		html += '<textarea style="height: auto; width: 1057px; margin-left:15px; resize: none;" id="rreText'+replyno+'" name="editContent" id="editContent" class="form-control" style= "resize:none;">';
+	    		html += '</textarea>';
+	    		html += '<button id="rreaddBtn'+replyno+'" onClick="addReReply('+replyno +','+boardno +')" >등록</button>';
+	    		html += '</div>';
+	    		html += '</p>';
+	    		html += '</div>';
+	    		
+	    		$('#commentBox' + replyno).append(html);
+
+	    		//twice 상태면 답글 버튼을 한번 누른 상태
+	    		checkReReply[replyno] = 'twice';
+	    	}
+			
+			//답글 버튼을 두번째 누르는 상황 => 답글이 닫히도록 => remove();
+			else{
+				checkReReply[replyno] = 'undefined';
+				$('#RereplyBox' + replyno).remove();
+			}
+	        	
+	        },
+	        error:function(request,status,error){
+	            console.log("실패");
+	       }
+	    });
+}
+
+
 // 댓글 불러오기
 function getCommentList(){
 	
@@ -198,6 +307,7 @@ function getCommentList(){
 	        data : {
 				//게시판 번호
 				boardno : '${view.boardno }',
+				userno : '${LoginUser.userno }'
 			},
 			dataType : "json",
 	        success : function(res){
@@ -209,8 +319,8 @@ function getCommentList(){
 	            if(res.reList.length > 0){
 	            	 
 	            	for(i=0; i<res.reList.length; i++){
-	                    html += "<div class='container container-fluid' style='mawrgin-bottom: 40px'>";
-	                    html += "<div class='row'>";
+// 	                    html += "<div class='container' style='mawrgin-bottom: 40px'>";
+	                    html += "<div class='row commentBox' id = 'commentBox"+res.reList[i].replyno+"'>";
 	                    html += "<div id = 'reply_head' class='col-12'>";
 	                    html += "<span>" + res.reList[i].usernick + "</span>"
 	                    html += "<div id = 'reply_date' class='col-md-4' style='font-size: 13px;'>" + res.reList[i].replydate + "</div>";
@@ -225,40 +335,33 @@ function getCommentList(){
 	                    html += "<div class='col-1.5'>";
 
 	                    html += "<div id = 'rereplyBtn'>";
-	                    html += "<a ><button id='rereply' class='btn bbc' type='button'>답글</button></a>";
+	                    html += "<a ><button id='rereply' class='btn bbc' type='button' onClick=getReReply(" + res.reList[i].replyno + ")>답글</button></a>";
+// 	                    html += "<strong id='rCnt"+res.reList[i].replyno+"'>"+res.reList[i].replyCnt+"</strong>";
+	                    html += "</div>";
 	                    html += "</div>";
 	                    
 	                    if(res.reList[i].usernick == "${usernick}"){
 	                    	html += "<div id = 'deleteReplyBtn'>";
 	                    	html += "<button class='btn bbc' onclick='deleteReply(" + res.reList[i].replyno + ");'>삭제</button>";
 	                    	html += "</div>";
-	                    	
-	                    	
 	                    }
                     	html += "</div>";
-
-	                    
-// 	       
-	                    html += "</div>";
-	                }
-	                
-	            } else {
-	                
-	                html += "<div>";
-	                html += "<h6><strong>등록된 댓글이 없습니다.</strong></h6>";
-	                html += "</div>";
-	                
+                    	
+                    	
 	            }
-	            
+	        } else{
+	        	html += "<div>";
+                html += "<h6><strong>등록된 댓글이 없습니다.</strong></h6>";
+                html += "</div>";
+	        }
 	            $("#cCnt").html(cCnt);
 	            $("#commentList").html(html);
 	            
-	        },
-	        error:function(request,status,error){
 	            
-	       }	        	
-	 })
-	
+	       }  , 
+	       error:function(request,status,error){
+	       }
+	});
 }
 </script>
 <script type="text/javascript">
@@ -524,6 +627,96 @@ $(document).ready(function() {
 });
 </script>
 
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		//추천버튼 동작
+		$("#recommendtd").on("click", "#recommend", function() {
+			//		$(location).attr("href", "/board/recommend?boardno=${viewBoard.boardno }");
+			console.log("추천버튼 눌림");
+			recommendAction();
+		});
+		//수정버튼 동작
+		$("#btnUpdate").click(function() {
+			console.log("수정버튼클릭");
+			$(location).attr("href", "/artboard/modify?boardno=${view.boardno }");
+		});
+
+		//삭제버튼 동작
+		$("#btnDelete").click(function() {
+			$("#pfdeleteModal").modal({backdrop: 'static', keyboard: false});
+		});	
+		//삭제모달 확인 버튼 눌렀을때
+		$("#pfDeleteCheckBtn").click(function() {
+			$(location).attr("href", "/artboard/delete?boardno=${view.boardno }");
+		});
+		
+		function recommendAction() {
+			$.ajax({
+				type : "get",
+				url : "/artboard/recommend",
+				data : {
+					boardno : '${view.boardno }'
+				},
+				dataType : "html",
+				success : function(data) {
+					console.log("성공");
+					console.log(data);
+
+					$("#recommendtd").html(data)
+				},
+				error : function() {
+					$("#pfLikeLoginModal").modal({backdrop: 'static', keyboard: false});
+				}
+			});
+		}
+		
+		
+	});
+		function recommendAction() {
+			$.ajax({
+				type : "get",
+				url : "/artboard/recommend",
+				data : {
+					boardno : '${view.boardno }'
+				},
+				dataType : "html",
+				success : function(data) {
+					console.log("성공");
+					console.log(data);
+
+					$("#recommendtd").html(data)
+				},
+				error : function() {
+					$("#pfLikeLoginModal").modal({backdrop: 'static', keyboard: false});
+				}
+			});
+		}
+		function recheckAction() {
+			$.ajax({
+				type : "get",
+				url : "/artboard/recheck",
+				data : {
+					boardno : '${view.boardno }'
+				},
+				dataType : "html",
+				success : function(data) {
+					console.log("성공");
+					console.log(data);
+
+					$("#recommendtd").html(data)
+				},
+				error : function() {
+					console.log("실패연 하이하이");
+				}
+			});
+		}
+			
+			
+</script>
+
+
 <style type="text/css">
 
 
@@ -552,10 +745,12 @@ $(document).ready(function() {
 			<div id = "writer_nick" class="col-md-4">
 			${writer.usernick }
 			</div>
+			<div id="recommendtd">
 			<div id = "write_date"  class="col-md-4">
 			${view.writtendate }
 			<div id = "viewcount">
 			${view.views }
+			</div>
 			</div>
 			</div>
 		</div>
@@ -565,16 +760,16 @@ $(document).ready(function() {
 			<c:forEach items="${fileList }" var="fileList">
 				<c:set var="image" value="${fileList.storedname}" />
 				<c:if test="${fn:contains(image, '.jpg')}">
-					<img src="/upload/${fn:trim(image)}" style="width: 1080px; padding-bottom: 50px;">
+					<img src="/upload/${fn:trim(image)}" style="width: 725px; padding-bottom: 50px;">
 				</c:if>
 				<c:if test="${fn:contains(image, '.png')}">
-					<img src="/upload/${fn:trim(image)}" style="width: 1080px; padding-bottom: 50px;">
+					<img src="/upload/${fn:trim(image)}" style="width: 725px; padding-bottom: 50px;">
 				</c:if>
 				<c:if test="${fn:contains(image, '.JPG')}">
-					<img src="/upload/${fn:trim(image)}" style="width: 1080px; padding-bottom: 50px;">
+					<img src="/upload/${fn:trim(image)}" style="width: 725px; padding-bottom: 50px;">
 				</c:if>
 				<c:if test="${fn:contains(image, '.PNG')}">
-					<img src="/upload/${fn:trim(image)}" style="width: 1080px; padding-bottom: 50px;">
+					<img src="/upload/${fn:trim(image)}" style="width: 725px; padding-bottom: 50px;">
 				</c:if>
 			</c:forEach>
 			<!-- 내용 보여줌 -->
@@ -593,6 +788,10 @@ $(document).ready(function() {
 		<!-- 버튼 -->
 		<div id = "view_buttonarea" class="btn col-md-4" role="group">
 		
+		<c:if test="${writer.userno eq userno}">
+			<button type = "button" id="btnUpdate" class="btn btn-info">수정</button>
+			<button id="btnDelete" class="btn btn-danger">삭제</button>
+		</c:if>
 <!-- 		로그인 여부 처리 -->
 		<c:choose>
 			<c:when test="${not login}">
@@ -608,11 +807,11 @@ $(document).ready(function() {
 			</a>
 		</div>
 		</div>
-	
+
 
 
 <!-- 댓글 처리 -->
-<div>
+<div >
 
 
 	
@@ -660,9 +859,7 @@ $(document).ready(function() {
 
 	<!-- 댓글view -->
 
-                            
-         <div id="commentList">
-        </div>                           
+     <div  id="commentList" class='container' style='mawrgin-bottom: 40px'>              
                             
 <%-- <c:forEach items="${replyList }" var="reply"> --%>
 	
@@ -724,8 +921,12 @@ $(document).ready(function() {
 <%-- </c:forEach> --%>
 
 
-</div>	<!-- 댓글 처리 end -->
+</div><!--  댓글 처리 end --> 
+
+
+	</div>
 </div>
+
 
 
 <div class="col-3">
@@ -922,6 +1123,181 @@ $(document).ready(function() {
     </div>
   </div>
 </div>
+
+<!-- 로그인 부탁 모달-->
+<div class="modal fade" id="pfLikeLoginModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">로그인 필요!</h4>
+        <button id="pfLikeLoginX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	로그인 후 좋아요가 가능합니다.
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="pfLikeLoginModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 댓글 오류 모달-->
+<div class="modal fade" id="prReplyErrorModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">댓글 오류</h4>
+        <button id="prLikeLoginX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	내용을 입력해주세요!
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="prReplyErrorModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 댓글 삭제 확인 모달-->
+<div class="modal fade" id="prReplyDeleteModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">댓글 삭제</h4>
+        <button id="prLikeLoginX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	댓글을 삭제하시겠습니까?
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="prReplyDeleteModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 답글 삭제 확인 모달-->
+<div class="modal fade" id="prReReplyDeleteModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">답글 삭제</h4>
+        <button id="prLikeLoginX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	답글을 삭제하시겠습니까?
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="prReReplyDeleteModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 댓글 수정 여러개 시도 에러  모달-->
+<div class="modal fade" id="prModifyDupleModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">수정 오류</h4>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	기존 댓글 수정 작업을 완료해 주세요!
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="prModifyDupleModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 답글 오류 모달-->
+<div class="modal fade" id="prReReplyErrorModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">답글 오류</h4>
+        <button id="prLikeLoginX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	내용을 입력해주세요!
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="prReReplyErrorModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 삭제 여부 확인 모달-->
+<div class="modal fade" id="pfdeleteModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">PF 게시글 삭제</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+     	 정말 게시글을 삭제하시겠습니까?
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="pfDeleteCheckBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
 

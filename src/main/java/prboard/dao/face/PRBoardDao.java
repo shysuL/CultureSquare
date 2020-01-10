@@ -392,4 +392,112 @@ public interface PRBoardDao {
 	 * @param reply - 삽입할 답글 정보가 담긴 객체
 	 */
 	public void insertReReply(Reply reply);
+
+	/**
+	 * 2020-01-07
+	 * 조홍철
+	 * 
+	 * 댓글 좋아요를 위한 유저번호 조회
+	 * 
+	 * @param usernick - 유저 닉네임
+	 * @return Reply - 유저번호가 담긴 댓글 객체
+	 */
+	public Reply selectUserNoToReplyLike(String usernick);
+
+	/**
+	 * 2020-01-07
+	 * 조홍철
+	 * 
+	 * 추천 여부 조회
+	 * 
+	 * 
+	 * @param reply - 추천 여부 정보가 담긴 객체
+	 * @return int - 추천 여부
+	 */
+	public int selectReplyRecommend(Reply reply);
+
+	/**
+	 * 2020-01-07
+	 * 조홍철
+	 * 
+	 * 댓글의 추천 갯수를 센다
+	 * 
+	 * @param prBoard - 댓글 정보가 담긴 객체
+	 * @return int - 추천수
+	 */
+	public int selectReplyRecommendView(Reply reply);
+
+	/**
+	 * 2020-01-08
+	 * 조홍철
+	 * 
+	 * 댓글 추천을 한다.
+	 * 
+	 * @param reply - 댓글 추천 테이블에 삽입할 데이터 객체
+	 */
+	public void insertReplyRecommend(Reply reply);
+
+	/**
+	 * 2020-01-08
+	 * 조홍철
+	 * 
+	 * 댓글 추천 취소를 한다.
+	 * 
+	 * @param reply - 댓글 추천 테이블에 삭제할 데이터 객체
+	 */
+	public void deleteReLike(Reply reply);
+
+	/**
+	 * 2020-01-08
+	 * 조홍철
+	 * 
+	 * 댓글 좋아요 삭제
+	 * 
+	 * @param replyno - 삭제할 댓글 번호
+	 */
+	public void deleteReLikeForBoard(int replyno);
+
+	/**
+	 * 2020-01-08
+	 * 조홍철
+	 * 
+	 * 베스트 댓글 리스트 조회
+	 * 
+	 * @param reply - 댓글 정보 객체
+	 * @return List - 답글 리스트
+	 */
+	public List<Reply> selectBestReplyList(Reply reply);
+
+	/**
+	 * 2020-01-08
+	 * 조홍철
+	 * 
+	 * 답글 많은 순 댓글 리스트 조회
+	 * 
+	 * @param reply - 댓글 정보 객체
+	 * @return List - 답글 리스트
+	 */
+	public List<Reply> selectMostReplyList(Reply reply);
+
+	/**
+	 * 2019-01-09
+	 * 조홍철
+	 * 
+	 * PR 게시글 리스트를 조회수로 정렬해서 구한다.
+	 * 
+	 * @param paging - 페이징 객체
+	 * @return List - 조회수로 정렬 된 PR 게시글 리스트
+	 */
+	public List selectAllByViews(PRPaging paging);
+
+	/**
+	 * 2019-01-09
+	 * 조홍철
+	 * 
+	 * PR 게시글 리스트를 좋아요로 정렬해서 구한다.
+	 * 
+	 * @param paging - 페이징 객체
+	 * @return List - 좋아요로 정렬 된 PR 게시글 리스트
+	 */
+	public List selectAllByLike(PRPaging paging);
 }
