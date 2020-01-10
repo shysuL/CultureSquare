@@ -125,7 +125,7 @@ function fn_fileAdd(){
 			<br>
 			<div>
 				<label for="performdate"> <b>일시 </b></label><br>
-				<input id="performdate" name="performdate" type="text" size="25%"  value="${view.performdate}"/>
+				<input id="performdate" name="performdate" type="date" size="25%"  value="${view.performdate}"/>
 			</div>
 			<br>
 			<div>

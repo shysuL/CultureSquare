@@ -20,12 +20,16 @@ $(document).ready(function() {
 	$("#btnWrite").click(function() {
 
 		console.log("작성작성");
-
+		
+		if($('#title').val() == ''){
+			$("#writeTitleModal").modal({backdrop: 'static', keyboard: false});
+		}
 
 		
-		
+		else{
 		//form submit
 		$("form").submit();
+		}
 	});
 	//취소버튼 동작
 	$("#btnCancel").click(function() {
@@ -125,7 +129,7 @@ function fn_fileAdd(){
 			<br>
 			<div>
 				<label for="performdate"> <b>일시 </b></label><br>
-				<input id="performdate" name="performdate" type="text" size="25%"  placeholder=" 입력 양식 : 20201221"/>
+				<input id="performdate" name="performdate" type="date" size="25%"  placeholder=" 입력 양식 : 20201221"/>
 			</div>
 			<br>
 			<div>
@@ -217,5 +221,31 @@ function fn_fileAdd(){
 
 </div> <!-- div_container -->
 
+
+
+<!-- 제목 작성 여부 확인 모달-->
+<div class="modal fade" id="writeTitleModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">게시글 작성</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+     	 제목을 입력하세요
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="pfWriteErrorModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
 

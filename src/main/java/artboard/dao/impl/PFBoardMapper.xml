@@ -17,19 +17,19 @@
 		p.updatepermit, p.deletepermit
 		FROM board B, perform_add P
 		WHERE B.boardno = P.boardno
-		AND substr(p.performdate, 1, 6) =
+		AND substr(p.performdate, 1, 7) =
 		#{searchMonth }
 		ORDER BY
 		(
 		SELECT performdate FROM perform_add PA
 		WHERE pa.performno = p.performno
-		AND performdate >= to_char(sysdate, 'yyyymmdd')
+		AND performdate >= to_char(sysdate, 'yyyy-mm-dd')
 		)
 		,
 		(
 		SELECT performdate FROM perform_add PA
 		WHERE pa.performno = p.performno
-		AND performdate < to_char(sysdate, 'yyyymmdd')
+		AND performdate < to_char(sysdate, 'yyyy-mm-dd')
 		)
 		, boardno
 		]]>
