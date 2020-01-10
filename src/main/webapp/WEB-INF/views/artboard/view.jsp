@@ -334,7 +334,7 @@ function getCommentList(){
 	                    html += "<div id = 'reply_date' class='col-md-4' style='font-size: 13px;'>" + res.reList[i].replydate + "</div>";
 	                    html += "</div>";
 	                    
-	                    html += "<div class='col-9' style = 'padding: 0px;'>";
+	                    html += "<div class='col-12' style = 'padding: 0px;'>";
 	                    html += "<div id = 'view_recontents' >";
 	                    html += "<div id = 'recontents' class='col-12'>" + res.reList[i].recontents + "</div>";
 	                    html += "</div>";
@@ -349,9 +349,14 @@ function getCommentList(){
 	                    html += "</div>";
 	                    
 	                    if(res.reList[i].usernick == "${usernick}"){
+	                    	html += "<div class='col-1.5'>";
+	                    	html += "<div id = 'updateReplyBtn'>";
+	                    	html += "<button class='btn bbc' onclick='updateReply(" + res.reList[i].replyno + ");'>수정</button>";
+	                    	html += "</div></div>";
+	                    	html += "<div class='col-1.5'>";
 	                    	html += "<div id = 'deleteReplyBtn'>";
 	                    	html += "<button class='btn bbc' onclick='deleteReply(" + res.reList[i].replyno + ");'>삭제</button>";
-	                    	html += "</div>";
+	                    	html += "</div></div>";
 	                    }
                     	html += "</div><br>";
                     	
@@ -726,9 +731,14 @@ $(document).ready(function() {
 
 
 <style type="text/css">
+#view_recontents{
+	background-color: #f7f7f7;
+    max-width: 95%;
+    height: 80px;
+    padding: 6px;
+}
 #rereply_head{
 	background-color: #6c757d;
-/*     border: 1px solid black; */
     max-width: 95%;
     height: 45px;
     color: white;
@@ -879,72 +889,9 @@ $(document).ready(function() {
 </c:if>
 
 <br>
-
-	<!-- 댓글view -->
-
-     <div  id="commentList" class='container' style='mawrgin-bottom: 40px'>              
-                            
-<%-- <c:forEach items="${replyList }" var="reply"> --%>
-	
-<!-- 		<div class="container container-fluid" style="mawrgin-bottom: 40px"> -->
-<!-- 		<div class="row"> -->
-		
-<!-- 			<div id = "reply_head" class="col-12"> -->
-<%-- 				<span>${reply.usernick }</span> --%>
-<!-- 				<div id = "reply_date" class="col-md-4" style="font-size: 13px;"> -->
-<%-- 					${reply.replydate} --%>
-<!-- 				</div> -->
-<!-- 			</div> -->
-			
-<!-- 			<div class="col-9"> -->
-<!-- 			<div id = "view_recontents" > -->
-<%-- 				<div id = "recontents" class="col-12">${reply.recontents }</div> --%>
-<!-- 			</div> -->
-<!-- 			</div> -->
-<!-- 			<div class="col-1.5"> -->
-<%-- 				<c:if test="${login }"> --%>
-<!-- 				<div id = "rereplyBtn"> -->
-<!-- 					<a ><button id="rereply" class="btn bbc" type="button">답글</button></a> -->
-<!-- 				</div> -->
-<%-- 				</c:if> --%>
-<!-- 			</div> -->
-<!-- 			<div class="col-1.5"> -->
-<%-- 				<c:if test="${LoginUser.userno eq reply.userno }"> --%>
-<!-- 				<div id = "deleteReplyBtn"> -->
-<%-- 					<button class="btn bbc" onclick="deleteReply(${reply.replyno });">삭제</button> --%>
-<!-- 				</div> -->
-<%-- 				</c:if> --%>
-<!-- 			</div> -->
-			
-			<!-- 대댓글 입력 -->
-<!-- 				<div id = "rereplybody" class="form-inline text-center col-9" style = "display: none;"> -->
-<!-- 				<div class="row"> -->
-<!-- 				<div class="col-6"> -->
-<%-- 					<input type="hidden"  id="replyno" name="replyno" value="${reply.replyno }" /> --%>
-<%-- 					<input type="hidden"  id="userno" name="userno" value="${LoginUser.userno }" /> --%>
-<%-- 					<input type="hidden"  id="boardno" name="boardno" value="${ view.boardno}" />	 --%>
-<%-- 					<input type="hidden"  id="groupno" name="groupno" value="${ reply.groupno}" />	 --%>
-<%-- 					<input type="hidden"  id="replyorder" name="replyorder" value="${ reply.replyorder}" />	 --%>
-<%-- 					<input type="hidden"  id="replydepth" name="replydepth" value="${ reply.replydepth}" />	 --%>
-<!-- 					<textarea rows="2" cols="50" class="form-control" id = "rerecontents" name = "rerecontents"> -->
-<%-- 						${reply.replyno } /  ${ reply.groupno} /  ${ reply.replyorder} / ${ reply.replydepth} --%>
-<!-- 					</textarea> -->
-<!-- 				</div> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-2"> -->
-<%-- <%-- 					<button class="btnrereplyInsert btn bbc" data-groupno="${ reply.groupno}"  >입력</button> --%> 
-<%-- 					<button class="btnrereplyInsert"  onclick="fn_rereco('${ view.boardno}','${ reply.groupno}')" class="btn bbc">입력</button> --%>
-<!-- 				</div> -->
-<!-- 				</div> -->
-
-		<!-- 글내용 -->
-		<!-- 버튼 -->
-		
-		
-<%-- </c:forEach> --%>
-
-
-</div><!--  댓글 처리 end --> 
+<!-- 댓글view -->
+		<div  id="commentList" class='container' style='mawrgin-bottom: 40px'>              
+		</div><!--  댓글 처리 end --> 
 
 
 	</div>
