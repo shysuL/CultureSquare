@@ -304,6 +304,36 @@ public interface PFBoardDao {
 	 * @param reply - 삽입할 답글 정보가 담긴 객체
 	 */
 	public void insertReReply(Reply reply);
+
+	/**
+	 * 2020-01-10
+	 * 이수현
+	 * 
+	 * artboard 게시판 내용을 수정한다
+	 * 
+	 * @param board - 수정 내용이 담긴 객체
+	 */
+	public void updatePF(Board board);
+
+	/**
+	 * 2020-01-10
+	 * 이수현
+	 * 
+	 * artboard게시판 내용을 수정한다
+	 * 
+	 * @param board - 수정 내용이 담긴 객체
+	 */
+	public void updatePFAdd(Board board);
+
+	/**
+	 * 2020-01-10
+	 * 이수현
+	 * 
+	 * PR 게시판 첨부파일을 삭제한다
+	 * 
+	 * @param boardno - 게시글 번호
+	 */
+	public void deleteFile(int boardno);
 	
 	
 }

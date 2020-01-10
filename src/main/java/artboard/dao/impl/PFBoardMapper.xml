@@ -248,4 +248,25 @@
 		VALUES(reply_seq.nextval, #{groupno}, #{maxreplyorder}, 2, #{recontents}, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), #{userno}, #{boardno})
 	</insert>
 
+
+	<update id="updatePF"
+	 parameterType="artboard.dto.Board">
+		UPDATE board set title = #{title}, contents = #{contents}
+		WHERE 1=1
+			AND boardno = #{boardno}
+	</update>
+	
+	<update id="updatePFAdd"
+	 parameterType="artboard.dto.Board">
+		UPDATE perform_add SET performname = #{performname}, performdate = #{performdate}
+		WHERE 1=1
+			AND boardno = #{boardno}
+	</update>
+	
+	<delete id="deleteFile"
+	 parameterType="int">
+		DELETE upfile
+		WHERE 1=1
+			AND boardno = #{boardno }
+	</delete>
 </mapper>

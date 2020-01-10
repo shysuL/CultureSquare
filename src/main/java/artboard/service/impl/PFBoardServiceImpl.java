@@ -11,6 +11,8 @@ import java.util.UUID;
 
 import javax.servlet.ServletContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +25,7 @@ import artboard.dto.PFUpFile;
 import artboard.dto.Reply;
 import artboard.service.face.PFBoardService;
 import prboard.dao.face.PRBoardDao;
+import prboard.service.impl.PRBoardServiceImpl;
 import util.Paging;
 
 
@@ -30,6 +33,7 @@ import util.Paging;
 @Service
 public class PFBoardServiceImpl implements PFBoardService{
 
+	private static final Logger logger = LoggerFactory.getLogger(PFBoardServiceImpl.class);
 	@Autowired ServletContext context;
 	@Autowired PFBoardDao pfboardDao;
 	@Autowired ReplyDao replyDao;
@@ -254,12 +258,28 @@ public class PFBoardServiceImpl implements PFBoardService{
 
 	@Override
 	public void deleteServerFile(List<PFUpFile> list) {
-
+		String storedPath = context.getRealPath("upload");
+		String path = "";
+		
+		// 서버에 있는 파일 삭제
+		for (int i=0; i<list.size(); i++) {
+			// 삭제할 파일의 경로
+			path = storedPath+"\\"+list.get(i).getStoredname(); 
+			
+			File file = new File(path);
+			if(file.exists() == true){
+				file.delete();
+			}
+		}
 	}
 
 
 	@Override
 	public void deleteFile(List<PFUpFile> list) {
+		// DB에 있는 파일 삭제
+		for (int i=0; i<list.size(); i++) {
+			pfboardDao.deleteFile(list.get(i).getBoardno());
+		}
 	}
 
 	@Override
@@ -342,6 +362,30 @@ public class PFBoardServiceImpl implements PFBoardService{
 	@Override
 	public void addReReply(Reply reply) {
 		pfboardDao.insertReReply(reply);
+	}
+
+
+	@Override
+	public void modifyPF(Board board) {
+		// 1. 게시글 내용 변경
+		pfboardDao.updatePF(board);
+		// 2. PF 추가정보(날짜, 유형) 변경
+		pfboardDao.updatePFAdd(board);
+	}
+
+
+	@Override
+	public void deleteThumbnail(int boardno) {
+		//파일이 저장될 경로
+		String storedPath = context.getRealPath("pfImage");
+		
+		String path = storedPath+"\\" +boardno;
+		
+		File file = new File(path);
+		if(file.exists() == true){
+			file.delete();
+//			logger.info("삭제 성공임니당!");
+		}
 	}
 
 

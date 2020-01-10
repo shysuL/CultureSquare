@@ -385,6 +385,31 @@ public interface PFBoardService {
 	 */
 	public void addReReply(Reply reply);
 
+	
+	/**
+	 * 2020-01-10
+	 * 이수현
+	 * 
+	 * 게시글 내용 수정
+	 * 
+	 * @param prBoard - 게시글 내용이 담긴 객체
+	 */
+	public void modifyPF(Board board);
+
+	/**
+	 * 2020-01-10
+	 * 이수현
+	 * 
+	 * 대표 이미지 삭제
+	 * 
+	 * @param boardno - 게시글 번호
+	 */
+	public void deleteThumbnail(int boardno);
+
+
+
+
+
 
 
 

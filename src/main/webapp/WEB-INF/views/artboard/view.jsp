@@ -637,7 +637,16 @@ $(document).ready(function() {
 			console.log("추천버튼 눌림");
 			recommendAction();
 		});
-		
+		//수정버튼 동작
+		$("#btnUpdate").click(function() {
+			console.log("수정버튼클릭");
+			$(location).attr("href", "/artboard/modify?boardno=${view.boardno }");
+		});
+
+		//삭제버튼 동작
+		$("#btnDelete").click(function() {
+			$("#prdeleteModal").modal({backdrop: 'static', keyboard: false});
+		});	
 		
 		function recommendAction() {
 			$.ajax({
@@ -701,18 +710,8 @@ $(document).ready(function() {
 		}
 			
 			
-		$(document).ready(function() {	
-			//수정버튼 동작
-			$("#btnUpdate").click(function() {
-				$(location).attr("href", "/artboard/modify?boardno=${view.boardno }");
-			});
-
-			//삭제버튼 동작
-			$("#btnDelete").click(function() {
-				$("#prdeleteModal").modal({backdrop: 'static', keyboard: false});
-			});	
-		}
 </script>
+
 
 <style type="text/css">
 
@@ -786,7 +785,7 @@ $(document).ready(function() {
 		<div id = "view_buttonarea" class="btn col-md-4" role="group">
 		
 		<c:if test="${writer.usernick eq usernick}">
-			<button id="btnUpdate" class="btn btn-info">수정</button>
+			<button type = "button" id="btnUpdate" class="btn btn-info">수정</button>
 			<button id="btnDelete" class="btn btn-danger">삭제</button>
 		</c:if>
 <!-- 		로그인 여부 처리 -->
