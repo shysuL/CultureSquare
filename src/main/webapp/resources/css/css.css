@@ -206,11 +206,9 @@
 	float:right;
 }
 #view_recontents{
-	border: 1px solid black;
 	max-width: 95%;
     height: 80px;
 	padding: 6px;
-/*     overflow: scroll; */
 }
 #recontents{
 	float: left;
@@ -224,8 +222,11 @@
 }
 #deleteReplyBtn{
 	margin-top: 15px;
-    
-	
+    margin-right: 10px;
+}
+#updateReplyBtn{
+	margin-top: 15px;
+    margin-right: 10px;
 }
 
 #replyinputheader{

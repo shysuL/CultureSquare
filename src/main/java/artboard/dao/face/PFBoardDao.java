@@ -344,6 +344,26 @@ public interface PFBoardDao {
 	 * @param prBoard - 삭제할 게시글 정보가 담긴 객체
 	 */	
 	public void updatePFbyDelete(Board board);
+
+	/**
+	 * 2020-01-11
+	 * 이수현
+	 * 
+	 * 댓글 수정
+	 * 
+	 * @param reply - 댓글 번호가 담긴 객체
+	 */
+	public void updateReplyByNo(Reply reply);
+
+	/**
+	 * 2020-01-11
+	 * 이수현
+	 * 
+	 * 답글 삭제(댓글 삭제할때)
+	 *  
+	 * @param groupNo - 삭제될 답글의 그룹 번호
+	 */
+	public void deleteReReplyByGroupNo(int groupNo);
 	
 	
 }
