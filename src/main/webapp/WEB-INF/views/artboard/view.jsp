@@ -54,6 +54,13 @@ $(document).ready(function(){
 // 		getReReply
 	});
 });
+
+function deleteReply(replyno){
+	$("#pfReplyDeleteModal").modal({backdrop: 'static', keyboard: false});
+	console.log("댓글 삭제 번호당: " + replyno);
+	dreplyno = replyno;
+}
+
 $(document).ready(function() {
 	
 	// 댓글 입력
@@ -176,28 +183,28 @@ $(document).ready(function() {
 	
 // }	
 //댓글 삭제
-function deleteReply(replyno) {
-	$.ajax({
-		type: "post"
-		, url: "/reply/delete"
-		, dataType: "json"
-		, data: {
-			replyno: replyno
-		}
-		, success: function(data){
-			if(data.success) {
-				console.log(replyno);
-				$("[data-replyno='"+replyno+"']").remove();
-				getCommentList();
-			} else {
-				alert("댓글 삭제 실패");
-			}
-		}
-		, error: function() {
-			console.log("error");
-		}
-	});
-}
+// function deleteReply(replyno) {
+// 	$.ajax({
+// 		type: "post"
+// 		, url: "/reply/delete"
+// 		, dataType: "json"
+// 		, data: {
+// 			replyno: replyno
+// 		}
+// 		, success: function(data){
+// 			if(data.success) {
+// 				console.log(replyno);
+// 				$("[data-replyno='"+replyno+"']").remove();
+// 				getCommentList();
+// 			} else {
+// 				alert("댓글 삭제 실패");
+// 			}
+// 		}
+// 		, error: function() {
+// 			console.log("error");
+// 		}
+// 	});
+// }
 
 /**
  * 초기 페이지 로딩시 댓글 불러오기
@@ -853,6 +860,29 @@ $(document).ready(function() {
 			});
 		}
 		
+		//댓글 삭제모달에서 확인 버튼 클릭 - 댓글 삭제 동작 Ajax 처리
+		$("#pfReplyDeleteModalBtn").click(function() {
+			console.log(dreplyno + "입니다.");
+			
+			$.ajax({
+				type: "post"
+				, url: "/reply/delete"
+				, dataType: "json"
+				, data: {
+					replyno: dreplyno
+				}
+				, success: function(data){
+						console.log("삭제 요청 성공");
+						getCommentList();
+					
+				}
+				, error: function() {
+					console.log("error : 댓글삭제 실패");
+				}
+			});
+			
+		});
+		
 		
 	});
 		function recommendAction() {
@@ -1313,7 +1343,7 @@ $(document).ready(function() {
 </div>
 
 <!-- 댓글 삭제 확인 모달-->
-<div class="modal fade" id="prReplyDeleteModal">
+<div class="modal fade" id="pfReplyDeleteModal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
 
@@ -1330,7 +1360,7 @@ $(document).ready(function() {
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="submit" id="prReplyDeleteModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+        <button type="submit" id="pfReplyDeleteModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
       </div>
 
     </div>
@@ -1430,6 +1460,31 @@ $(document).ready(function() {
       <!-- Modal footer -->
       <div class="modal-footer">
         <button type="submit" id="pfDeleteCheckBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 댓글 삭제 확인 모달-->
+<div class="modal fade" id="prReplyDeleteModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">댓글 삭제</h4>
+        <button id="prLikeLoginX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	댓글을 삭제하시겠습니까?
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="pfReplyDeleteModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
       </div>
 
     </div>

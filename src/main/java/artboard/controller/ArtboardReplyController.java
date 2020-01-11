@@ -2,15 +2,18 @@ package artboard.controller;
 
 
 import java.io.IOException;
-import java.io.Writer;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import artboard.dto.Reply;
 import artboard.service.face.PFBoardService;
@@ -37,23 +40,31 @@ public class ArtboardReplyController {
 		return "redirect:/artboard/view?boardno="+reply.getBoardno();
 	}
 	
-	@RequestMapping(value = "/reply/delete", method = RequestMethod.GET)
-	public void replyDelete(Reply reply, Writer out) {
-		replyDeleteProc(reply, out);
-	}
+//	@RequestMapping(value = "/reply/delete", method = RequestMethod.GET)
+//	public void replyDelete(Reply reply, Writer out) {
+//		replyDeleteProc(reply, out);
+//	}
 	
 	
 	@RequestMapping(value = "/reply/delete", method = RequestMethod.POST)
-	public void replyDeleteProc(Reply reply, Writer out) {
+	public ModelAndView replyDeleteProc(Model model, Reply reply, HttpSession session, ModelAndView mav) {
 		
-		boolean success = pfboardService.deleteReply(reply);
+		logger.info("댓글 삭제 테스트  : " + reply);
 		
+		// 1.댓글 좋아요 삭제
 		
-		try {
-			out.write("{\"success\":"+success+"}");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		// 2. 댓글번호로 그룹번호 가져오기
+		int groupNo = pfboardService.getGroupNoByReplyNo(reply);
+		
+		// 3. 삭제할 댓글의 답글 삭제
+		
+		// 4. 댓글 삭제
+		pfboardService.deleteReply(reply);
+		
+		//viewName지정하기
+		mav.setViewName("jsonView");
+				
+		return mav;
 	}
 	
 	@RequestMapping(value = "/reply/reinsert", method = RequestMethod.GET)
