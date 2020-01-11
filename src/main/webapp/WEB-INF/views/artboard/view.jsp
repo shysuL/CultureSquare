@@ -305,7 +305,42 @@ function modifyReReply(replyno,recontents){
 	}
 	
 }
-
+/**
+ * 답글 수정 처리 (Ajax)
+ */
+ function modifyReReplyAjax(replyno){
+	
+	//수정한 답글 내용
+	 var updateReContents = $('#editReContent').val();
+	
+	console.log("답글 수정 내용 : " + updateReContents);
+	console.log("수정할 답글 번호 : " + replyno);
+	
+	//빈칸 입력한 경우
+	if(updateReContents==""){
+		$("#prReplyErrorModal").modal({backdrop: 'static', keyboard: false});
+	}
+	//내용 입력한 경우
+	else{
+		$.ajax({
+			type : "POST",
+			url : "/artboard/modifyComment",
+			data : {
+				//댓글 번호, 수정 댓글 내용 넘겨줌
+				replyno : replyno,
+				recontents : updateReContents
+			},
+			dataType : "json",
+			success : function(res) {
+				checkReReply[selectReply] = 'undefined';
+				getReReply(selectReply);
+			},
+			error : function() {
+				console.log("실패");
+			}
+		});
+	}
+} 
 
 //답글 리스트 출력 메서드
 function getReReply(replyno){
