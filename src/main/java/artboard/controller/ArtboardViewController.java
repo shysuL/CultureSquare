@@ -303,6 +303,38 @@ public class ArtboardViewController {
 		}
 	}
 	
+	@RequestMapping(value = "/artboard/recheck", method = RequestMethod.GET)
+	public String reCheckPF(Board board, Model model, HttpSession session) {
+		
+		//보드 번호 저장
+		int boardno = board.getBoardno();
+		Board loginUser = new Board();
+		loginUser.setUsernick((String)session.getAttribute("usernick"));
+		
+		if((String)session.getAttribute("usernick")!=null) {
+			int userno = pfboardService.getUsernoByUsernick(loginUser);
+			
+			board.setUserno(userno);
+		}
+		
+		board.setBoardno(boardno);
+		
+		logger.info(board.toString());
+		
+		int result = pfboardService.recommendCheck(board);
+		
+		logger.info("요건 첨에 나올 : " + result);
+		
+		int recommendCnt = pfboardService.recommendView(board);
+		
+		//	VIEW에 모델(MODEL)값 전달하기
+		model.addAttribute("result", result);	
+		
+		model.addAttribute("recommendCnt", recommendCnt);
+		return "artboard/recheck";
+	}
+	
+	
 	@RequestMapping(value = "/artboard/modify", method = RequestMethod.GET)
 	public void modifyPF(Model model, Board bno) {
 		

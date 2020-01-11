@@ -287,7 +287,7 @@ function modifyReReply(replyno,recontents){
 		
 		html += '</span>';
 		html += '</span>';		
-		html += '<textarea style ="resize:none; height: auto; width: 1065px;" name="editReContent" id="editReContent" class="form-control">';
+		html += '<textarea style ="resize:none; height: auto; width: 100%;" name="editReContent" id="editReContent" class="form-control">';
 		html += recontents;
 		html += '</textarea>';
 		html += '</p>';
@@ -802,7 +802,6 @@ $(document).ready(function() {
 	$(document).ready(function() {
 		//추천버튼 동작
 		$("#recommendtd").on("click", "#recommend", function() {
-			//		$(location).attr("href", "/board/recommend?boardno=${viewBoard.boardno }");
 			console.log("추천버튼 눌림");
 			recommendAction();
 		});
@@ -821,25 +820,6 @@ $(document).ready(function() {
 			$(location).attr("href", "/artboard/delete?boardno=${view.boardno }");
 		});
 		
-		function recommendAction() {
-			$.ajax({
-				type : "get",
-				url : "/artboard/recommend",
-				data : {
-					boardno : '${view.boardno }'
-				},
-				dataType : "html",
-				success : function(data) {
-					console.log("성공");
-					console.log(data);
-
-					$("#recommendtd").html(data)
-				},
-				error : function() {
-					$("#pfLikeLoginModal").modal({backdrop: 'static', keyboard: false});
-				}
-			});
-		}
 		
 		//댓글 삭제모달에서 확인 버튼 클릭 - 댓글 삭제 동작 Ajax 처리
 		$("#pfReplyDeleteModalBtn").click(function() {
@@ -888,26 +868,29 @@ $(document).ready(function() {
 			
 		});
 		
-	});
-		function recommendAction() {
-			$.ajax({
-				type : "get",
-				url : "/artboard/recommend",
-				data : {
-					boardno : '${view.boardno }'
-				},
-				dataType : "html",
-				success : function(data) {
-					console.log("성공");
-					console.log(data);
+	})
+	
+	function recommendAction() {
+		$.ajax({
+			type : "get",
+			url : "/artboard/recommend",
+			data : {
+				boardno : '${view.boardno }'
+			},
+			dataType : "html",
+			success : function(data) {
+				console.log("성공");
+				console.log(data);
 
-					$("#recommendtd").html(data)
-				},
-				error : function() {
-					$("#pfLikeLoginModal").modal({backdrop: 'static', keyboard: false});
-				}
-			});
-		}
+				$("#recommendtd").html(data)
+			},
+			error : function() {
+				$("#pfLikeLoginModal").modal({backdrop: 'static', keyboard: false});
+			}
+		});
+	}
+	
+	// 처음에 게시글 추천 여부에 따른 이미지 출력
 		function recheckAction() {
 			$.ajax({
 				type : "get",
@@ -952,7 +935,11 @@ $(document).ready(function() {
     max-width: 95%;
     height: 80px;
     padding: 6px;
-	
+}
+#editReContent{
+	resize: none;
+    height: auto;
+    width: 100%;
 }
 
 </style>
@@ -980,16 +967,22 @@ $(document).ready(function() {
 			<div id = "writer_nick" class="col-md-4">
 			${writer.usernick }
 			</div>
-			<div id="recommendtd">
+<!-- 			<div id="recommendtd"> 좋아요 -->
 			<div id = "write_date"  class="col-md-4">
 			${view.writtendate }
 			<div id = "viewcount">
 			${view.views }
 			</div>
 			</div>
-			</div>
+<!-- 			</div> -->
 		</div>
 		<!-- 글내용 -->
+		<table>
+		<tr>
+			<td>좋아요</td>
+			<td id="recommendtd"></td>
+		</tr>
+		</table>
 		<div id = view_content class="col-xs-12 col-sm-6 col-md-8">
 			<!-- 이미지 파일인 경우 내용에서 보여줌 -->
 			<c:forEach items="${fileList }" var="fileList">
