@@ -57,6 +57,7 @@ public class ArtboardReplyController {
 		int groupNo = pfboardService.getGroupNoByReplyNo(reply);
 		
 		// 3. 삭제할 댓글의 답글 삭제
+		pfboardService.deleteRereplyByGroupNo(groupNo);
 		
 		// 4. 댓글 삭제
 		pfboardService.deleteReply(reply);
@@ -83,6 +84,20 @@ public class ArtboardReplyController {
 //		pfboardService.insertRereply(reply);
 		
 		return "redirect:/artboard/view?boardno="+reply.getBoardno();
+	}
+	
+	
+	@RequestMapping(value = "/artboard/deletereReply", method = RequestMethod.POST)
+	public ModelAndView deleteRereplyPF(Model model, Reply reply, HttpSession session, ModelAndView mav) {
+		
+		logger.info("답글 삭제 테스트  : " + reply);
+		
+		pfboardService.deleteReply(reply);
+		
+		//viewName지정하기
+		mav.setViewName("jsonView");
+				
+		return mav;
 	}
 	
 	

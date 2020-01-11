@@ -401,4 +401,10 @@ public class PFBoardServiceImpl implements PFBoardService{
 	}
 
 
+	@Override
+	public void deleteRereplyByGroupNo(int groupNo) {
+		pfboardDao.deleteReReplyByGroupNo(groupNo);
+	}
+
+
 }

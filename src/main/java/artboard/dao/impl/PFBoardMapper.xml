@@ -283,5 +283,13 @@
 		UPDATE reply SET recontents = #{recontents}
 		WHERE 1=1
 			AND replyno = #{replyno}
-	</update>	
+	</update>
+	
+	
+	<delete id="deleteReReplyByGroupNo"
+	 parameterType="int">
+		DELETE reply
+		WHERE 1=1
+			AND groupno = #{groupNo }
+	</delete>	
 </mapper>

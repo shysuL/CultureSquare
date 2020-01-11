@@ -47,17 +47,17 @@ $(document).ready(function(){
 	});
 });
 
-//대댓글 슬라이드토글
-$(document).ready(function(){
-	$('#rereply').click(function() {
-		$('#RereplyBox').slideToggle("fast"); 
-// 		getReReply
-	});
-});
-
+//댓글 삭제 클릭 -> 진짜로 삭제 할거냐는 모달 호출
 function deleteReply(replyno){
 	$("#pfReplyDeleteModal").modal({backdrop: 'static', keyboard: false});
 	console.log("댓글 삭제 번호당: " + replyno);
+	dreplyno = replyno;
+}
+
+//답글 삭제 클릭 -> 진짜로 삭제 할거냐는 모달 호출
+function deleteReReply(replyno){
+	$("#pfReReplyDeleteModal").modal({backdrop: 'static', keyboard: false});
+	console.log(checkReReply[replyno] + "답글 입니다.");
 	dreplyno = replyno;
 }
 
@@ -151,60 +151,6 @@ $(document).ready(function() {
 		}
 	}
 
-
-
-// function fn_rereco(boardno, groupno) {
-// 	//빈칸 입력한 경우
-// 	if($('#rerecontents').val() == ''){
-// 		$("#replyerror").modal({backdrop: 'static', keyboard: false});
-// 	}
-	
-// 	else{
-// 		$.ajax({
-// 			type : "POST",
-// 			url : "/reply/reinsert",
-// 			data: {
-// 				//게시판 번호, 그룹번호, 댓글 내용
-// 				boardno : boardno,
-// 				groupno : groupno,
-// 				rerecontents : rerecontents
-// 			},
-// 			dataType : "json",
-// 			success : function(res){
-// 				console.log("로그인상태 -> 댓글입력");
-// 				$("#rerecontents").val("");
-				
-// 			},
-// 			error : function(){
-// 				console.log("실패실패");
-// 			}
-// 		});
-// 	}
-	
-// }	
-//댓글 삭제
-// function deleteReply(replyno) {
-// 	$.ajax({
-// 		type: "post"
-// 		, url: "/reply/delete"
-// 		, dataType: "json"
-// 		, data: {
-// 			replyno: replyno
-// 		}
-// 		, success: function(data){
-// 			if(data.success) {
-// 				console.log(replyno);
-// 				$("[data-replyno='"+replyno+"']").remove();
-// 				getCommentList();
-// 			} else {
-// 				alert("댓글 삭제 실패");
-// 			}
-// 		}
-// 		, error: function() {
-// 			console.log("error");
-// 		}
-// 	});
-// }
 
 /**
  * 초기 페이지 로딩시 댓글 불러오기
@@ -883,6 +829,29 @@ $(document).ready(function() {
 			
 		});
 		
+		//답글 삭제모달에서 확인 버튼 클릭 - 답글 삭제 동작 Ajax 처리
+		$("#pfReReplyDeleteModalBtn").click(function() {
+			
+			$.ajax({
+				type : "POST",
+				url : "/artboard/deletereReply",
+				data : {
+					//댓글번호 넘겨줌
+					replyno : dreplyno,
+				},
+				dataType : "json",
+				success : function(res) {
+
+					checkReReply[selectReply] = 'undefined';
+					getReReply(selectReply);
+		            
+				},
+				error : function() {
+					console.log("실패");
+				}
+			});
+			
+		});
 		
 	});
 		function recommendAction() {
@@ -1368,7 +1337,7 @@ $(document).ready(function() {
 </div>
 
 <!-- 답글 삭제 확인 모달-->
-<div class="modal fade" id="prReReplyDeleteModal">
+<div class="modal fade" id="pfReReplyDeleteModal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
 
@@ -1385,7 +1354,7 @@ $(document).ready(function() {
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="submit" id="prReReplyDeleteModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+        <button type="submit" id="pfReReplyDeleteModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
       </div>
 
     </div>
