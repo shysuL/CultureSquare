@@ -10,13 +10,35 @@
 
 <script type="text/javascript">
 
-//답글 눌렀는지 판별여부 위한 배열
-var checkReReply = new Array(); //배열 선언
+//지울 댓글 번호
+var dreplyno;
+
 //선택된 댓글 번호
 var selectReply;
 
+//한번에 여러개 수정 못하게 하는 체크 변후
+var modifyCnt = 0;
+
+////한번에 여러개 수정 못하게 하는 체크 변후 - 답글
+var reModifyCnt = 0;
+
+//답글 눌렀는지 판별여부 위한 배열
+var checkReReply = new Array(); //배열 선언
+
 //답글 갯수 출력 위한 배열
 var rReCnt = new Array();
+
+//댓글 길이 전역 변수
+var replyListLen = 0;
+
+//댓글 번호 배열
+var replyarray = new Array();
+
+//현재 보여진 댓글 수
+var currentCnt = 0;
+
+// 댓글 더보기 눌렀는지 여부 판단
+var newFirst = true;
 
 //댓글 슬라이드토글
 $(document).ready(function(){
@@ -204,7 +226,7 @@ $(function(){
 	else{
 		$.ajax({
 			type : "POST",
-			url : "/prboard/modifyComment",
+			url : "/artboard/modifyComment",
 			data : {
 				//댓글 번호, 수정 댓글 내용 넘겨줌
 				replyno : replyno,
@@ -220,6 +242,24 @@ $(function(){
 		});
 	}
 }
+
+//댓글 수정 버튼 클릭시, 기존댓글에서 커서 맨 뒤로 이동시키기 위한 메서드 추가
+ $.fn.setCursorPosition = function( pos )
+ {
+     this.each( function( index, elem ) {
+         if( elem.setSelectionRange ) {
+             elem.setSelectionRange(pos, pos);
+         } else if( elem.createTextRange ) {
+             var range = elem.createTextRange();
+             range.collapse(true);
+             range.moveEnd('character', pos);
+             range.moveStart('character', pos);
+             range.select();
+         }
+     });
+     
+     return this;
+ };
 
 //댓글 수정 클릭
 //댓글 번호, 댓글 내용 매개변수로 받음
@@ -479,7 +519,7 @@ function getCommentList(){
 	                    if(res.reList[i].usernick == "${usernick}"){
 	                    	html += "<div class='col-1.5'>";
 	                    	html += "<div id = 'updateReplyBtn'>";
-	                    	html += "<button class='btn bbc' onclick='modifyReply(" + res.reList[i].replyno + ",\'"+res.reList[i].recontents.replace(/ /gi, "&nbsp;") +"\')>수정</button>";
+	                    	html += "<button class='btn bbc' onClick=modifyReply(" + res.reList[i].replyno + ",\'"+res.reList[i].recontents.replace(/ /gi, "&nbsp;") +"\')>수정</button>";
 	                    	html += "</div></div>";
 	                    	html += "<div class='col-1.5'>";
 	                    	html += "<div id = 'deleteReplyBtn'>";
