@@ -423,5 +423,19 @@ public class ArtboardViewController {
 		
 		return "redirect:/artboard/list?bo_table=calendar&cal_year="+nowYear+"&cal_month="+nowMonth;
 	}
+	
+	@RequestMapping(value = "/artboard/modifyComment", method = RequestMethod.POST)
+	public ModelAndView modifyCommentPF(Model model, Reply reply, HttpSession session, ModelAndView mav) {
+		
+		logger.info("댓글 수정 테스트  : " + reply);
+
+		//댓글 수정
+		pfboardService.updateReplyByNo(reply);
+		
+		//viewName지정하기
+		mav.setViewName("jsonView");
+		
+		return mav;
+	}
 
 }

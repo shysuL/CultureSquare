@@ -395,4 +395,10 @@ public class PFBoardServiceImpl implements PFBoardService{
 	}
 
 
+	@Override
+	public void updateReplyByNo(Reply reply) {
+		pfboardDao.updateReplyByNo(reply);
+	}
+
+
 }

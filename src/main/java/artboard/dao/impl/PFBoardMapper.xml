@@ -276,4 +276,12 @@
 		WHERE 1=1
 			AND boardno = #{boardno}	
 	</update>
+	
+	
+	<update id="updateReplyByNo"
+		 parameterType="artboard.dto.Reply">
+		UPDATE reply SET recontents = #{recontents}
+		WHERE 1=1
+			AND replyno = #{replyno}
+	</update>	
 </mapper>

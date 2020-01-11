@@ -185,6 +185,134 @@ $(function(){
     getCommentList();
     
 });
+/**
+ * 댓글 수정 처리 (Ajax)
+ */
+ function modifyReplyAjax(replyno){
+	
+	//수정한 댓글 내용
+	 var updateReContents = $('#editContent').val();
+	
+	console.log("댓글수정하ㅗㄱ 버튼 클릭 : " + replyno);
+	console.log("댓글수정내용: " + updateReContents);
+	
+	//빈칸 입력한 경우
+	if(updateReContents==""){
+		$("#prReplyErrorModal").modal({backdrop: 'static', keyboard: false});
+	}
+	//내용 입력한 경우
+	else{
+		$.ajax({
+			type : "POST",
+			url : "/prboard/modifyComment",
+			data : {
+				//댓글 번호, 수정 댓글 내용 넘겨줌
+				replyno : replyno,
+				recontents : updateReContents
+			},
+			dataType : "json",
+			success : function(res) {
+	            getCommentList();
+			},
+			error : function() {
+				console.log("실패");
+			}
+		});
+	}
+}
+
+//댓글 수정 클릭
+//댓글 번호, 댓글 내용 매개변수로 받음
+function modifyReply(replyno,recontents){
+	
+	modifyCnt++;
+	
+	//하나만 수정 시도 할 경우
+	if(modifyCnt == 1){
+		console.log("댓글 수정 번호당: " + replyno);
+		console.log("댓글 내용이당 : " + recontents);
+		console.log("수정하고 있는 갯수당 : " + modifyCnt);
+		
+		var html = "";
+	
+		html += '<div id="commentBox' + replyno + '">';
+		html += '<title>Placeholder</title>';
+		html += '<rect width="100%" height="100%" fill="#007bff"></rect>';
+		html += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
+		html += '<span class="d-block">';
+		html += '<strong class="text-gray-dark">' + replyno + '</strong>';
+		html += '<span style="padding-left: 7px; font-size: 9pt">';
+		html += '<a href="javascript:void(0)" onClick="modifyReplyAjax('+replyno +')" style="padding-right:5px">수정<a>';
+		html += '<a href="javascript:void(0)" onClick="getCommentList()" style="color:red;">취소<a>';
+		html += '</span>';
+		html += '</span>';		
+		html += '<textarea name="editContent" id="editContent" class="form-control">';
+		html += recontents;
+		html += '</textarea>';
+		html += '</p>';
+		html += '</div>';
+	
+		//수정 가능하도록 textarea로 기존 댓글창을 치환
+		$('#commentBox' + replyno).replaceWith(html);
+
+		//수정 textarea에 문자열 맨뒤로 포커스
+		$('#commentBox' + replyno + ' #editContent').focus().setCursorPosition(recontents.length);
+	}
+	//여러개 수정 시도
+	else{
+		$("#prModifyDupleModal").modal({backdrop: 'static', keyboard: false});
+	}
+	
+}
+
+//답글 수정 클릭 처리 메서드
+function modifyReReply(replyno,recontents){
+	
+	console.log("답글 번호 : " + replyno);
+	console.log("답글 내용 : " + recontents);
+	
+	reModifyCnt++;
+
+	//하나만 수정 시도 할 경우
+	if(reModifyCnt == 1){
+		console.log("수정하고 있는 갯수당 : " + reModifyCnt);
+		
+	
+		var html = "";
+		html += '<div id="reReplyBox' + replyno + '">';
+		html += '<title>Placeholder</title>';
+		html += '<rect width="100%" height="100%" fill="#007bff"></rect>';
+		html += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
+		html += '<span class="d-block">';
+		html += '<strong class="text-gray-dark">' + replyno + '</strong>';
+		html += '<span style="padding-left: 7px; font-size: 9pt">';
+		html += '<a href="javascript:void(0)" onClick="modifyReReplyAjax('+replyno +')" style="padding-right:5px">수정<a>';
+		html += '<a href="javascript:void(0)" onClick="getReReply('+selectReply+');" style="color:red;">취소<a>';
+		
+		//이전 답글리스트로 돌아가도록
+		checkReReply[selectReply] = 'undefined';
+		
+		html += '</span>';
+		html += '</span>';		
+		html += '<textarea style ="resize:none; height: auto; width: 1065px;" name="editReContent" id="editReContent" class="form-control">';
+		html += recontents;
+		html += '</textarea>';
+		html += '</p>';
+		html += '</div>';
+	
+		//수정 가능하도록 textarea로 기존 댓글창을 치환
+		$('#reReplyBox' + replyno).replaceWith(html);
+		
+		//수정 textarea에 문자열 맨뒤로 포커스
+		$('#reReplyBox' + replyno + ' #editReContent').focus().setCursorPosition(recontents.length);
+	}
+	//여러개 수정 시도
+	else{
+		$("#prModifyDupleModal").modal({backdrop: 'static', keyboard: false});
+	}
+	
+}
+
 
 //답글 리스트 출력 메서드
 function getReReply(replyno){
@@ -351,7 +479,7 @@ function getCommentList(){
 	                    if(res.reList[i].usernick == "${usernick}"){
 	                    	html += "<div class='col-1.5'>";
 	                    	html += "<div id = 'updateReplyBtn'>";
-	                    	html += "<button class='btn bbc' onclick='updateReply(" + res.reList[i].replyno + ");'>수정</button>";
+	                    	html += "<button class='btn bbc' onclick='modifyReply(" + res.reList[i].replyno + ",\'"+res.reList[i].recontents.replace(/ /gi, "&nbsp;") +"\')>수정</button>";
 	                    	html += "</div></div>";
 	                    	html += "<div class='col-1.5'>";
 	                    	html += "<div id = 'deleteReplyBtn'>";
