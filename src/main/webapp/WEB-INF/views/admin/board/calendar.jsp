@@ -81,7 +81,6 @@
 				
 			</table>
 		</form>
-		<button id="btnDelete" class="btn btn-secondary">삭제</button>
 	</div>
 	
 	<jsp:include page = "/WEB-INF/views/admin/layout/pfpaging.jsp" />

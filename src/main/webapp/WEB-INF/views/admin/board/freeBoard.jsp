@@ -51,6 +51,7 @@ function checkedAll(){
 <!-- 자유게시판 -->
 	<div class="container" style="margin-top: 50px;">
 		<div class="innercon2">
+			<h3 style="text-align: center;">자유게시판</h3>
 			<div class="src" style="text-align: right;">
 				<form action="" method="get">
 				<input type="text" name="search" id="search"/>
@@ -61,10 +62,10 @@ function checkedAll(){
 			<form action="" method="get">
 				<table class="table table-hover">
 					<thead>
-					<tr class="info" style="text-align: center;">
-						<th style="width: 5%">
-							<input type="checkbox" id="checkAlls" name="checkAlls" onclick="checkedAll();"/>
-						</th>
+					<tr class="info" style="text-align: center; background-color: #4b5055;color: #fff;">
+<!-- 						<th style="width: 5%"> -->
+<!-- 							<input type="checkbox" id="checkAlls" name="checkAlls" onclick="checkedAll();"/> -->
+<!-- 						</th> -->
 						<th style="width: 10%">번호</th>
 						<th style="width: 45%">제목</th>					
 						<th style="width: 10%">작성자</th>
@@ -76,10 +77,10 @@ function checkedAll(){
 					<tbody style="text-align: center;">
 						<c:forEach items="${fblist }" var="fblist">
 <%-- 						/admin/freeboard?boardno=${fblist.boardno } --%>
-							<tr onclick="location.href='/board/freeview?boardno=${fblist.boardno }';" style="text-align: center;">
-								<td>
-									<input type="checkbox" name="checkRow" value="${fblist.boardno  }"/>
-								</td>
+							<tr onclick="location.href='/admin/board/view/freeview?boardno=${fblist.boardno }';" style="text-align: center;">
+<!-- 								<td> -->
+<%-- 									<input type="checkbox" name="checkRow" value="${fblist.boardno  }"/> --%>
+<!-- 								</td> -->
 								<td>${fblist.rnum }</td>
 								<td>${fblist.title }</td>
 								<td>${fblist.usernick }</td>

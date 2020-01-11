@@ -68,9 +68,9 @@
 				<table class="table table-hover">
 					<thead> 
 						<tr class = "info" style="text-align: center;" >
-							<th style="width: 5%">
-								<input type="checkbox" id="checkAlls" name="checkAlls" onclick="checkedAll();"/>
-							</th>
+<!-- 							<th style="width: 5%"> -->
+<!-- 								<input type="checkbox" id="checkAlls" name="checkAlls" onclick="checkedAll();"/> -->
+<!-- 							</th> -->
 							<th style="width: 10%">번호</th>
 							<th style="width: 45%">제목</th>					
 							<th style="width: 10%">작성자</th>
@@ -83,10 +83,21 @@
 						<c:forEach items="${prlist }" var="prlist">
 <%-- 						/admin/prboard?boardno=${prlist.boardno } --%>
 						
-							<tr onclick="location.href='/prboard/view?boardno=${prlist.boardno }';">
-								<td><input type="checkbox" name="checkRow" value="${prlist.boardno  }"/></td>
+							<tr onclick="location.href='/admin/board/view/prview?boardno=${prlist.boardno }';">
+<!-- 								<td> -->
+<%-- 									<input type="checkbox" name="checkRow" value="${prlist.boardno  }"/> --%>
+<!-- 								</td> -->
 								<td>${prlist.rnum }</td>
-								<td>${prlist.title }</td>
+								<td>
+									<c:choose>
+										<c:when test="${prlist.userno == 0 }">
+											삭제된 게시물
+										</c:when>
+										<c:otherwise>
+											${prlist.title }
+										</c:otherwise>
+									</c:choose>
+								</td>
 								<td>${prlist.usernick }</td>
 								<td>${prlist.views }</td>
 								<td>${prlist.writtendate }</td>
@@ -95,7 +106,6 @@
 					</tbody>
 					
 				</table>
-				<button class="btn btn-secondary">삭제</button>
 			</form>
 		</div>
 		

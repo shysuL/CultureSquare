@@ -138,32 +138,32 @@ $(document).ready(function() {
 	</div>
 	
 	<!-- 예술정보게시판 -->
-	<div class="tab-pane fade" id="artboard" role="tabpanel" aria-labelledby="artboard-tab">
+	<div class="tab-pane fade" id="artboard" role="tabpanel" aria-labelledby="artboard-tab" style="margin-bottom: 100px;">
 
 	</div>
 	
 	<!-- pr게시판 -->
-	<div class="tab-pane fade" id="prboard" role="tabpanel" aria-labelledby="prboard-tab">
+	<div class="tab-pane fade" id="prboard" role="tabpanel" aria-labelledby="prboard-tab" style="margin-bottom: 100px;">
 	
 	</div>
 	
 	<!-- 자유게시판 -->
-	<div class="tab-pane fade" id="freeboard" role="tabpanel" aria-labelledby="freeboard-tab">
+	<div class="tab-pane fade" id="freeboard" role="tabpanel" aria-labelledby="freeboard-tab" style="margin-bottom: 100px;">
 	
 	</div>
 	
 	<!-- FAQ 게시판 -->
-	<div class="tab-pane fade" id="faqboard" role="tabpanel" aria-labelledby="faqboard-tab">
+	<div class="tab-pane fade" id="faqboard" role="tabpanel" aria-labelledby="faqboard-tab" style="margin-bottom: 100px;">
 		
 	</div>
 	
 	<!-- 공지사항 -->
-	<div class="tab-pane fade" id="noticeboard" role="tabpanel" aria-labelledby="noticeboard-tab">
+	<div class="tab-pane fade" id="noticeboard" role="tabpanel" aria-labelledby="noticeboard-tab" style="margin-bottom: 100px;">
 		
 	</div>
 	
 	<!-- user리스트 -->
-	<div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="user-tab">
+	<div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="user-tab" style="margin-bottom: 100px;">
 	
 	</div>
 	
