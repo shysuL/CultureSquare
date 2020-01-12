@@ -1,5 +1,10 @@
 package main.controller;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import main.service.face.WeatherService;
 import prboard.service.face.PRBoardService;
 import user.bo.NaverLoginBO;
 import user.dto.User_table;
@@ -34,6 +40,7 @@ public class MainController {
 	}
 	
 	@Autowired private PRBoardService prBoardService;
+	@Autowired private WeatherService weatherService;
 	
 	/* GoogleLogin */
 	@Autowired
@@ -67,6 +74,22 @@ public class MainController {
 		
 		//구글
 		model.addAttribute("google_url", googleUrl);
+		
+		weatherService.getDate();
+		try {
+			ArrayList<HashMap> list = (ArrayList<HashMap>) weatherService.getWeather();
+			
+			for(int i = 0; i <list.size(); i++) {
+				System.out.println("컨트롤러! :" + list.get(i));
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
