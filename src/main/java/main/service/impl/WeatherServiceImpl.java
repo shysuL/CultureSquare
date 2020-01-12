@@ -20,6 +20,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Service;
 
+import main.dto.Weather;
 import main.service.face.WeatherService;
 
 @Service
@@ -65,7 +66,7 @@ public class WeatherServiceImpl implements WeatherService{
 		// 홈페이지에서 받은 키
 		String serviceKey = SERVICEKEY;
 		String nx = "60";	//위도
-		String ny = "127";	//경도
+		String ny = "127";	//경도 => 서울로 설정
 		String baseDate = getYesterDate();	//조회하고싶은 날짜
 		String baseTime = "2300";	//조회하고싶은 시간 -> 5시에 발표
 		String type = "json";	//타입 xml, json 등등 ..
@@ -165,21 +166,35 @@ public class WeatherServiceImpl implements WeatherService{
 					 hm.put("T3H", fcstValue);
 					 list.add(hm);
 				 }
+				
 				 if(category.equals("SKY")) {
 					 hm.put("date", today);
 					 hm.put("time", time);
 					 hm.put("SKY", fcstValue);
 					 list.add(hm);
 				 }
-				
+				 
+				 if(category.equals("POP")) {
+					 hm.put("date", today);
+					 hm.put("time", time);
+					 hm.put("POP", fcstValue);
+					 list.add(hm);
+				 }
+				 
+				 if(category.equals("PTY")) {
+					 hm.put("date", today);
+					 hm.put("time", time);
+					 hm.put("PTY", fcstValue);
+					 list.add(hm);
+				 }
 			}
 		}
 		
 		
-//		for(int i = 0; i <list.size(); i++) {
-//				System.out.println("띠용 :" + list.get(i));
-//				
-//		}
+		for(int i = 0; i <list.size(); i++) {
+				System.out.println("띠용 :" + list.get(i));
+				
+		}
 
 		/*
 		 * 항목값	항목명	단위
@@ -202,5 +217,90 @@ public class WeatherServiceImpl implements WeatherService{
 		
 		return list;
 	        
+	}
+
+
+
+	@Override
+	public String getTime() {
+        
+        SimpleDateFormat todayDate = new SimpleDateFormat ( "HHmm");
+        Date time = new Date();
+        		
+        String today = todayDate.format(time);
+        
+
+        return today;
+	}
+
+
+
+	@Override
+	public Weather setTime() {
+		String time = getTime();
+
+		Weather weather = new Weather();
+		
+
+		String resultTime = "";
+		
+		try {
+			ArrayList<HashMap> list = (ArrayList<HashMap>) getWeather();
+			int min = Integer.parseInt(time) - Integer.parseInt(list.get(0).get("time").toString());
+			
+			int division;
+			
+			
+			for(int i = 0; i <list.size(); i++) {
+				
+				division = Integer.parseInt(time) - Integer.parseInt(list.get(i).get("time").toString());
+				
+				if(division < 0)
+					division *= -1;
+				
+				if(min > division) {
+					//min의 값보다 array[i]이 작으면 min = array[i]
+					resultTime = list.get(i).get("time").toString();
+					min = division;
+				}
+				
+
+				if(list.get(i).get("time").equals(resultTime)) {
+					
+					// 강수 확률 받음
+					if(i % 4 == 0) {
+						weather.setDate(list.get(i).get("date").toString());
+						weather.setTime(list.get(i).get("time").toString());
+						weather.setRainPercentage(list.get(i).get("POP").toString());
+
+					}
+					
+					// 강수 코드 받음
+					else if(i % 4 == 1) {
+						weather.setRainCode(list.get(i).get("PTY").toString());
+
+					}
+					
+					// 하늘 상태 받음
+					else if(i % 4 == 2) {
+						weather.setSky(list.get(i).get("SKY").toString());
+
+					}
+					// 3시간 전후 기온 받음
+					else {
+						weather.setHumidity(list.get(i).get("T3H").toString());
+					}
+				}
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return weather;
 	}
 }

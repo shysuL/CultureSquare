@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
+import main.dto.Weather;
+
 
 public interface WeatherService {
 	
@@ -37,4 +39,24 @@ public interface WeatherService {
 	    *  날씨 정보를 조회한다
 	    */
 	   public List getWeather() throws IOException, ParseException;
+	   
+	   /**
+	    * 2020-01-12
+	    * 조홍철
+	    * 
+	    * 현재 시간을 구한다
+	    * 
+	    * @return String - 현재 시간
+	    */
+	   public String getTime();
+	   
+	   /**
+	    * 2020-01-12
+	    * 조홍철
+	    * 
+	    * 관측 시간을 정한다.
+	    * 
+	    * @return String - 관측 시간이 담긴 객체
+	    */
+	   public Weather setTime();
 }

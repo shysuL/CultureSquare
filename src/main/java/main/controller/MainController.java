@@ -18,10 +18,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import main.dto.Weather;
 import main.service.face.WeatherService;
 import prboard.service.face.PRBoardService;
 import user.bo.NaverLoginBO;
-import user.dto.User_table;
 import user.service.face.KakaoService;
 
 @Controller
@@ -75,21 +75,13 @@ public class MainController {
 		//구글
 		model.addAttribute("google_url", googleUrl);
 		
-		weatherService.getDate();
-		try {
-			ArrayList<HashMap> list = (ArrayList<HashMap>) weatherService.getWeather();
-			
-			for(int i = 0; i <list.size(); i++) {
-				System.out.println("컨트롤러! :" + list.get(i));
-			}
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		Weather weather = weatherService.setTime();
+		
+		//구글
+		model.addAttribute("weather", weather);
+		
+		System.out.println(weather);
 		
 	}
 	
