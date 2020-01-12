@@ -882,7 +882,7 @@ $(document).ready(function() {
 				console.log("성공");
 				console.log(data);
 
-				$("#recommendtd").html(data)
+				$("#recommendtd").html(data);
 			},
 			error : function() {
 				$("#pfLikeLoginModal").modal({backdrop: 'static', keyboard: false});
@@ -903,7 +903,7 @@ $(document).ready(function() {
 					console.log("성공");
 					console.log(data);
 
-					$("#recommendtd").html(data)
+					$("#recommendtd").html(data);
 				},
 				error : function() {
 					console.log("실패연 하이하이");
@@ -967,22 +967,16 @@ $(document).ready(function() {
 			<div id = "writer_nick" class="col-md-4">
 			${writer.usernick }
 			</div>
-<!-- 			<div id="recommendtd"> 좋아요 -->
+			<div id="recommendtd"> 
 			<div id = "write_date"  class="col-md-4">
 			${view.writtendate }
 			<div id = "viewcount">
 			${view.views }
 			</div>
 			</div>
-<!-- 			</div> -->
+			</div>
 		</div>
 		<!-- 글내용 -->
-		<table>
-		<tr>
-			<td>좋아요</td>
-			<td id="recommendtd"></td>
-		</tr>
-		</table>
 		<div id = view_content class="col-xs-12 col-sm-6 col-md-8">
 			<!-- 이미지 파일인 경우 내용에서 보여줌 -->
 			<c:forEach items="${fileList }" var="fileList">

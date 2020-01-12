@@ -7,12 +7,44 @@
 
 
 <script type="text/javascript" src="/resources/ckeditor/ckeditor.js"></script>
+<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=955e62645517faafe40085ecec08d0c1"></script> -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=955e62645517faafe40085ecec08d0c1"></script>
+<script>
+	var container = document.getElementById('kakaomap');
+	var options = {
+		center : new kakao.maps.LatLng(33.450701, 126.570667),
+		level : 3
+	};
+
+	var map = new kakao.maps.Map(container, options);
+	function relayout() {    
+	    
+	    // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+	    // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
+	    // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+	    map.relayout();
+	}
+</script>
+<script  type="text/javascript">
+
+	
+$(document).ready(function() {
+	$("#addMap").on("click",function(){
+		console.log("click??????");
+		$("#addMapModal").modal({backdrop: 'static', keyboard: false});
+	});
+	$("#addMapModal").on('shown.bs.modal',function(){
+		map.relayout();
+	})
+	
+});
+</script>
+
 <script>
     window.onload = function(){
        ck = CKEDITOR.replace("contents");
     };
 </script>
-
 <script type="text/javascript">
 var g_count =1;
 $(document).ready(function() {
@@ -46,7 +78,7 @@ $(document).ready(function() {
 	$("#add").on("click",function(e){
 		e.preventDefault();
 		fn_fileAdd();
-	})	
+	});
 
 });
 
@@ -101,8 +133,7 @@ function fn_fileAdd(){
 
 #contentsarea{
 	width: 100%px;
-	height:600px;
-	border: 1px solid black;
+	height: 540px;
 }
 #fileup{
 	width: 800px;
@@ -185,6 +216,7 @@ function fn_fileAdd(){
 				<script type="text/javascript">
 					 CKEDITOR.replace('contents', {height: 400,toolbar: 'Full'})
 				</script>
+				<div><button type="button" id="addMap" name = "addMap" class="btn bbc">위치 추가</button></div>
 			</div>
 			<br>
 			<div id="fileDiv" style="text-align: right;">
@@ -275,5 +307,55 @@ function fn_fileAdd(){
     </div>
   </div>
 </div>
+
+
+
+
+<!-- 지도 추가  모달-->
+<div class="modal fade bd-example-modal-lg" id="addMapModal">
+  <div class="modal-dialog  modal-lg modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">위치정보 추가</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+     	 위치추가
+		<div id="kakaomap" style="width:500px;height:400px;"></div>
+		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=955e62645517faafe40085ecec08d0c1"></script>
+		<script>
+			var container = document.getElementById('kakaomap');
+			var options = {
+			center : new kakao.maps.LatLng(37.499206, 127.032773),
+			level : 3
+			};
+
+			var map = new kakao.maps.Map(container, options);
+			function relayout() {    
+	    
+	  		  // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+	  		  // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
+	   		 // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+	  		  map.relayout();
+				}
+</script>
+	
+
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" id="addMapCancel" class="btn btn-secondary" data-dismiss="modal">취소</button>
+        <button type="submit" id="addMapSubmit"class="btn bbc" >추가</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
+
 
