@@ -25,9 +25,6 @@
 <link rel="stylesheet" href="/resources/css/css.css" />
 
 <script type="text/javascript">
-
-
-
 $(document).ready(function() {
 	
 	// 로그아웃 버튼 눌렀을 때
@@ -74,7 +71,6 @@ $(document).ready(function() {
 			$("#searchIdPwBtnOk2").click(function(){
 				$("#pwFindByUserid").focus();
 			})
-
 		} else if ($("#pwFindByUsername").val() == ""){
 			$(".content").text("이름을 입력해주세요");
 			$("#searchIdPw2").modal({backdrop: 'static', keyboard: false});
@@ -163,7 +159,6 @@ $(document).ready(function() {
 						$("#searchIdPwBtnOk").click(function(){
 							$(".content").text("");
 						})
-
 										
 					} else {
 						
@@ -196,7 +191,6 @@ $(document).ready(function() {
 		
 		}
 		
-
 		
 	})
 	
@@ -305,7 +299,6 @@ $(document).ready(function() {
 		}
 	})
 })
-
 $(document).ready(function() {
 	/**
 	 *    헤더에 적용할 JS active
@@ -338,11 +331,9 @@ $(document).ready(function() {
     } 
 	    
 });
-
 </script>
 
 <style type="text/css">
-
 /* 웹폰트 적용 */
 @font-face { 
    font-family: 'KHNPHU'; 
@@ -350,11 +341,9 @@ $(document).ready(function() {
    font-weight: normal; 
    font-style: normal; 
 }
-
 .sitefont {
    font-family:'KHNPHU';
 }
-
 .culture { 
    width: 300px;
    height:250px;
@@ -382,7 +371,6 @@ $(document).ready(function() {
 .rpadding {
     padding-right: 50px;
 }
-
 .center {
 	text-align: center;
 }
@@ -393,9 +381,8 @@ h5 {
 	margin-top: 10px;
 }
 .loginwidth{
-    padding-left: 80px;
+    padding-left: 20px;
 }
-
 /* 로고 애니메이션 */
 img[class=culture]{min-height: 100%; max-width: 100%; }
 .imgHoverEvent{width: 300px; height: 220px; margin-top: 10px; position: relative; overflow: hidden; display: inline-block;}
@@ -454,20 +441,36 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 	        <a class="nav-link" id="faqboard" href="/faqboard/faqlist">FAQ</a>
 	      </li>
 	    </ul>
-	<!-- 우측 상단 아이콘 -->
-	<div class="btn-group rpadding loginwidth" >
-		<!-- 상단 날씨 아이콘 -->  
-		<a href="#">
-		   <button type="button" class="btn btn-secondary " >
+	    
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+<!--       <h4 class="panel-title"> -->
+        <a data-toggle="collapse" href="#collapse1"> <button class="btn btn-secondary">
 		      <span class="fas fa-cloud" ></span>
-		   </button>
-		</a>&nbsp;&nbsp;
-		<!-- 상단 알림 아이콘 -->  
+		   </button></a>
+<!--       </h4> -->
+    </div>
+    <div id="collapse1" class="panel-collapse collapse">
+      <ul class="list-group">
+        <li class="list-group-item">${login}</li>
+        <li class="list-group-item">Two</li>
+        <li class="list-group-item">Three</li>
+      </ul>
+    </div>
+  </div>
+</div>
+&nbsp;&nbsp;&nbsp;&nbsp;
+	<!-- 상단 알림 아이콘 -->  
 		<a href="#">
 		   <button type="button" class="btn btn-secondary ">
 		      <span class="fas fa-bell" ></span>
 		   </button>
-		</a>&nbsp;&nbsp;
+		</a>
+	    
+	<!-- 우측 상단 아이콘 -->
+	<div class="btn-group rpadding loginwidth" >
+	
 		<!-- 상단 로그인 아이콘 -->  
 		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		   <span class="fas fa-user"></span>
@@ -475,7 +478,7 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 		<!-- 로그인  드롭다운-->
 		<!-- 로그인 상태 -->
 	    <c:if test="${login}">
-	       <div class="dropdown-menu center">
+	       <div class="dropdown-menu center" style="margin-left: -115px;">
 	         <h5>${usernick}님 할라븅~!</h5>
 	    	 <div class="dropdown-divider"></div>
 				<input id="mypage" class="btn btn" onclick="location.href='/mypage/main'" value="마이페이지">
@@ -485,7 +488,7 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 	    
 	    <!-- 로그아웃 상태 -->
 	    <c:if test="${not login}">
-	       <div class="dropdown-menu " id="dpMenu">
+	       <div class="dropdown-menu " id="dpMenu" style="margin-left: -115px;">
 	       
 	          <form class="px-4 py-3" action="/login" method=post>
 	             <div class="form-group">
