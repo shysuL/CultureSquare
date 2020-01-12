@@ -38,7 +38,12 @@ $(document).ready(function(){
 				<table class="table table-bordered">
 					<tr>
 						<td class="info">제목</td>
-						<td colspan="4" style="width: 45%; padding-top: 16px;">${viewpf.title }</td>
+						<td colspan="4" style="width: 45%; padding-top: 16px;">
+							<c:if test="${writer.usernick == '관리자' }">
+								[ 삭제된 게시물 ]
+							</c:if>
+							${viewpf.title }
+						</td>
 						<td class="info">작성자</td>
 						<td colspan="4" style="width: 45%; padding-top: 16px;">
 							${writer.usernick }
@@ -84,21 +89,22 @@ $(document).ready(function(){
 					</tr>
 			
 					<tr>
-						<c:if test="${not empty fileList }">
 						<td colspan="12" class="info" id="fileContent">첨부파일</td>
 					</tr>
 					<tr>
 						<td colspan="12">
-							<c:forEach items="${fileList }" var="fileList">
-								<a href="/pfboard/download?fileno=${fileList.fileno}" class="list-group-item">${fileList.originname}</a>
-							</c:forEach>
-						</td>
+						<c:if test="${empty fileList }">
+							 첨부파일이 없습니다.
 						</c:if>
+						<c:forEach items="${fileList }" var="fileList">
+							<a href="/pfboard/download?fileno=${fileList.fileno}" class="list-group-item">${fileList.originname}</a>
+						</c:forEach>
+						</td>
 					</tr>
 				</table>
 
 			<div style="text-align: center;">
-				<button id="btnDelete" class="btn btn-danger">삭제</button>
+				<button id="btnDelete" class="btn btn-secondary">삭제</button>
 			</div>
 		</div>
 	</div>

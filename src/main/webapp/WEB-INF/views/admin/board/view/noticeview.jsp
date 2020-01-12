@@ -7,7 +7,12 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	
+		
+	//수정버튼 동작
+	$("#btnUpdate").click(function() {
+		$(location).attr("href", "/board/freemodify?boardno=${board.boardno }");
+	});
+
 	//삭제버튼 동작
 	$("#btnDelete").click(function() {
 		$("#freedeleteModal").modal({backdrop: 'static', keyboard: false});
@@ -17,8 +22,8 @@ $(document).ready(function() {
 	$("#freeDeleteCheckBtn").click(function() {
 		$(location).attr("href", "/board/freedelete?boardno=${board.boardno }");
 	});
-
-});	
+	
+});
 </script>
 
 <style type="text/css">
@@ -156,7 +161,7 @@ span[class=close] {
 
 <div class="container" style="margin-top: 40px; margin-bottom:40px;">
 
-<h2 style="text-align: center; margin-bottom:40px;">자유게시판</h2>
+<h2 style="text-align: center; margin-bottom:40px;">공지사항</h2>
 
 <div class="container">
 	<table class="table table-bordered">
@@ -198,11 +203,7 @@ span[class=close] {
 			</td>
 		</tr>
 </table>
-	
-	<div id ="replyComment">
-	    <span><strong>Comments</strong></span> <span id="cCnt"></span>
-	</div>
-            
+                   
 </div>
 <br>
 

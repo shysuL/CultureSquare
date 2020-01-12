@@ -30,6 +30,7 @@
 
 <div class="container" style="margin-top: 50px;">
 	<div class="innercon2">
+	<h3 style="text-align: center;">CALENDAR</h3>
 		<div class="src" style="text-align: right;">
 			<form action="" method="get">
 			<input type="text" name="search" id="search"/>
@@ -40,7 +41,7 @@
 		<form action="/admin/board/view/pfview/delete" method="get">
 			<table class="table table-hover">
 				<thead>
-					<tr class="info" style="text-align: center;" >
+					<tr class="info" style="text-align: center; background-color: #4b5055; color: #fff;" >
 <!-- 						<th style="width: 5%"> -->
 <!-- 							<input type="checkbox" id="checkAlls" name="checkAlls" onclick="checkedAll();"/> -->
 <!-- 						</th> -->
@@ -65,7 +66,7 @@
 							<td>
 								<c:choose>
 									<c:when test="${pflist.userno == 0 }">
-										삭제된 게시물
+										[ 공지 ] 삭제된 게시물
 									</c:when>
 									<c:otherwise>
 										${pflist.title }
@@ -73,7 +74,16 @@
 								</c:choose>
 							</td>
 							<td>${pflist.performdate }</td>
-							<td>${pflist.userno }</td>
+							<td>
+								<c:choose>
+									<c:when test="${pflist.userno == 0 }">
+										[ 관리자 ]
+									</c:when>
+									<c:otherwise>
+										${pflist.userno }
+									</c:otherwise>
+								</c:choose>
+							</td>
 							<td>${pflist.views }</td>
 						</tr>
 					</c:forEach>
@@ -82,6 +92,6 @@
 			</table>
 		</form>
 	</div>
-	
+	<br><br>
 	<jsp:include page = "/WEB-INF/views/admin/layout/pfpaging.jsp" />
 </div> <!-- container -->

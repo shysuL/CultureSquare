@@ -91,10 +91,9 @@ function checkedAll(){
 					</tbody>
 					
 				</table>
-				<button class="btn btn-secondary">삭제</button>
 			</form>
 		</div>
-		
+		<br><br>
 		<jsp:include page = "/WEB-INF/views/admin/layout/fbpaging.jsp" />
 		
 	</div> <!-- container -->

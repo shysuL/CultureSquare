@@ -52,6 +52,7 @@
 <!-- pr게시판 -->
 	<div class="container" style="margin-top: 50px;">
 		<div class="innercon2">
+		<h3 style="text-align: center;">PR 게시판</h3>
 			<div class="src" style="text-align: right;">
 				<form action="/admin/main" method="get">
 					<select name="searchType"  style="padding-top: 4px; padding-bottom: 5px;">
@@ -67,7 +68,7 @@
 			<form action="" method="get">
 				<table class="table table-hover">
 					<thead> 
-						<tr class = "info" style="text-align: center;" >
+						<tr class = "info" style="text-align: center; background-color: #4b5055; color: #fff;" >
 <!-- 							<th style="width: 5%"> -->
 <!-- 								<input type="checkbox" id="checkAlls" name="checkAlls" onclick="checkedAll();"/> -->
 <!-- 							</th> -->
@@ -109,5 +110,6 @@
 			</form>
 		</div>
 		
+		<br><br>
 		<jsp:include page="/WEB-INF/views/admin/layout/prpaging.jsp"/>
 	</div> <!-- container -->

@@ -1,5 +1,7 @@
 package admin.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import artboard.dto.Board;
 import artboard.dto.PFUpFile;
@@ -92,8 +95,13 @@ public class AdminBoardViewController {
 		List<UpFile> fileList = prBoardService.getFileList(viewPR.getBoardno());
 		model.addAttribute("fileList", fileList);
 		
+		prboard.dto.Reply reply = new prboard.dto.Reply();
+		List<prboard.dto.Reply> replyList = prBoardService.getReplyByboardNo(reply);
+		model.addAttribute("replyList", replyList);
+		
 		System.out.println("pr" + viewPR);
 		System.out.println("pr" + fileList);
+		System.out.println("pr" + replyList);
 	}
 	
 	@RequestMapping(value="/admin/board/view/prview/delete", method=RequestMethod.GET)
@@ -182,6 +190,11 @@ public class AdminBoardViewController {
 		freeboardService.freeDelete(boardno);
 
 		return "redirect:/admin/main";
+	}
+	
+	@RequestMapping(value="/admin/board/view/noticeview", method=RequestMethod.GET)
+	public void noticeview() {
+		
 	}
 	
 	
