@@ -42,6 +42,7 @@ public class ArtboardWriteController {
 	@RequestMapping(value = "/artboard/write", method=RequestMethod.POST)
 	public String writeProc(MultipartHttpServletRequest multi, Board board) {
 		
+		logger.info("위도경도나와랏 : " + board.toString());
 		
 		// 리다이렉트 시 게시판 리스트 쿼리스트링 날짜 계산
 		// -------------------------------------------------------

@@ -65,11 +65,31 @@ public class PFBoardServiceImpl implements PFBoardService{
 
 	@Override
 	public void write(Board board) {
-		// boardno - board_seq.nextval
-		board.setBoardno(pfboardDao.selectSeqNextval());
+		
+		if(board.getLon().equals("") && board.getLat().equals("")) {
+			
+			logger.info("지도 안넣엇을때 : " + 1);
+			
+			// boardno - board_seq.nextval
+			board.setBoardno(pfboardDao.selectSeqNextval());
 
-		pfboardDao.insertBoard(board);
-		pfboardDao.insertPerform(board);
+			pfboardDao.insertBoard(board);
+			pfboardDao.insertPerform(board);
+			
+		} else {
+			
+			logger.info("지도넣었을때 : " + 2 );
+			// boardno - board_seq.nextval
+			board.setBoardno(pfboardDao.selectSeqNextval());
+
+			pfboardDao.insertBoard(board);
+			pfboardDao.insertPerform(board);
+			pfboardDao.insertLocation(board);
+			
+			
+		}
+			
+		
 	}
 
 	@Override

@@ -13,8 +13,13 @@ public class Board {
 	private String views;
 	private int userno;
 	private int postno;
-
-	// Perform_add
+	
+	// location
+	private String lat;
+	private String lon;
+	
+	
+	//Perform_add
 	private int performno;
 	private String performname;
 	private String performdate;
@@ -53,15 +58,15 @@ public class Board {
 	@Override
 	public String toString() {
 		return "Board [rnum=" + rnum + ", boardno=" + boardno + ", title=" + title + ", writtendate=" + writtendate
-				+ ", contents=" + contents + ", views=" + views + ", userno=" + userno + ", postno=" + postno
-				+ ", performno=" + performno + ", performname=" + performname + ", performdate=" + performdate
-				+ ", writepermit=" + writepermit + ", updatepermit=" + updatepermit + ", deletepermit=" + deletepermit
-				+ ", performday=" + performday + ", userid=" + userid + ", userpw=" + userpw + ", username=" + username
-				+ ", usernick=" + usernick + ", userphone=" + userphone + ", usergender=" + usergender + ", userbirth="
-				+ userbirth + ", interest=" + interest + ", usertype=" + usertype + ", permit=" + permit
-				+ ", emailcheck=" + emailcheck + ", originname=" + originname + ", storedname=" + storedname
-				+ ", follow=" + follow + ", prcnt=" + prcnt + ", sociallogin=" + sociallogin + ", blike=" + blike
-				+ ", replyCnt=" + replyCnt + ", searchMonth=" + searchMonth + "]";
+				+ ", contents=" + contents + ", views=" + views + ", userno=" + userno + ", postno=" + postno + ", lat="
+				+ lat + ", lon=" + lon + ", performno=" + performno + ", performname=" + performname + ", performdate="
+				+ performdate + ", writepermit=" + writepermit + ", updatepermit=" + updatepermit + ", deletepermit="
+				+ deletepermit + ", performday=" + performday + ", userid=" + userid + ", userpw=" + userpw
+				+ ", username=" + username + ", usernick=" + usernick + ", userphone=" + userphone + ", usergender="
+				+ usergender + ", userbirth=" + userbirth + ", interest=" + interest + ", usertype=" + usertype
+				+ ", permit=" + permit + ", emailcheck=" + emailcheck + ", originname=" + originname + ", storedname="
+				+ storedname + ", follow=" + follow + ", prcnt=" + prcnt + ", sociallogin=" + sociallogin + ", blike="
+				+ blike + ", replyCnt=" + replyCnt + ", searchMonth=" + searchMonth + "]";
 	}
 
 	public int getRnum() {
@@ -126,6 +131,22 @@ public class Board {
 
 	public void setPostno(int postno) {
 		this.postno = postno;
+	}
+
+	public String getLat() {
+		return lat;
+	}
+
+	public void setLat(String lat) {
+		this.lat = lat;
+	}
+
+	public String getLon() {
+		return lon;
+	}
+
+	public void setLon(String lon) {
+		this.lon = lon;
 	}
 
 	public int getPerformno() {
@@ -335,5 +356,6 @@ public class Board {
 	public void setSearchMonth(String searchMonth) {
 		this.searchMonth = searchMonth;
 	}
+	
 
 }

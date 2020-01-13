@@ -129,8 +129,11 @@ $(document).ready(function() {
 							</td>
 							<td>
 								<c:choose>
-									<c:when test="${userlist.permit == 1 }">
+									<c:when test="${userlist.permit == 2 }">
 										예술인
+									</c:when>
+									<c:when test="${userlist.permit == 1 }">
+										관리자 승인 필요
 									</c:when>
 									<c:otherwise>
 										일반사용자
