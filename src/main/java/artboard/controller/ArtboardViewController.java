@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -269,11 +270,14 @@ public class ArtboardViewController {
 
 		//보드 번호 저장
 		int boardno = board.getBoardno();
+		Board loginUser = new Board();
+		
+		loginUser.setUsernick((String)session.getAttribute("usernick"));
 		//로그인 상태인 경우만 처리
 		if((String)session.getAttribute("usernick")!= null) {
 			// 1. 회원 번호 구하기
 			board.setBoardno(boardno);
-			board.setUserno((Integer) session.getAttribute("userno"));
+			board.setUserno(pfboardService.getUsernoByUsernick(loginUser));
 
 
 			int result = pfboardService.recommendCheck(board);
@@ -319,7 +323,7 @@ public class ArtboardViewController {
 		
 		board.setBoardno(boardno);
 		
-		logger.info(board.toString());
+		logger.info("recheck +++ : " + board.toString());
 		
 		int result = pfboardService.recommendCheck(board);
 		
