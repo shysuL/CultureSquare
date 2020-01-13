@@ -25,6 +25,7 @@ import main.dto.Weather;
 import main.service.face.WeatherService;
 import prboard.service.face.PRBoardService;
 import user.bo.NaverLoginBO;
+import user.dto.User_table;
 import user.service.face.KakaoService;
 import util.PRPaging;
 
@@ -134,7 +135,7 @@ public class MainController {
 		
 	}
 	
-	@RequestMapping(value="/main/showweather")
+	@RequestMapping(value="/alram/showweather")
 	public ModelAndView showweather(ModelAndView mav) {
 		
 		Weather weather = weatherService.setTime();

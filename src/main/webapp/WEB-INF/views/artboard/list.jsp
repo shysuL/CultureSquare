@@ -256,10 +256,10 @@ $(document).ready(function(){
 				<span id = "views">${i.views }</span>
 				<span id = "views_img"><img src="/resources/img/view.png" class="d-block w-100" alt="..."> </span>
 
-				<span id = "replies"> [미완] </span>
+				<span id = "replies"> ${i.replyCnt } </span>
 				<span id = "reply_img"><img src="/resources/img/note.png" class="d-block w-100" alt="..."></span>
 
-				<span id = "likes"> [미완] </span>
+				<span id = "likes"> ${i.blike } </span>
 				<span id = "like_img"><img src="/resources/img/like.png" class="d-block w-100" alt="..."></span> 
 				
 				
@@ -268,35 +268,6 @@ $(document).ready(function(){
 		</div>
 	</div>
 	</c:forEach>
-
-
-
-<!-- 	<div id="list_table" class="width_660 box_shadow_3 text-center"> -->
-<!-- 		<div class="list_cal_row_title relative"> -->
-<!-- 			<div class="cal_header_div eng"> -->
-<!-- 				<form method="get" action="/artboard/list"> -->
-<!-- 					<input type="hidden" name="bo_table" value="calendar"> -->
-<!-- 					<a href="#" id="movePrevMonth"> -->
-<!-- 						<span id="prevMonth" class="cal_tit"> -->
-<!-- 					<i class="fa fa-chevron-left goto" ></i> -->
-<!-- 					</span> -->
-<!-- 					</a> -->
-<!-- 					&nbsp;&nbsp; -->
-<%-- 					<input class="cal_header_year inputin" type="text" name="cal_year" id="cal_year" value="${nowYear }" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp; --%>
-<%-- 					<input class="cal_header_month inputin" type="text" name="cal_month" id="cal_month" value="${nowMonth }" maxlength="2" required="required"  data-hasqtip="24" oldtitle="월" title="">&nbsp; --%>
-<!-- 					<input class="btn inputbt" type="submit" value="이동" data-hasqtip="25" oldtitle="이동" title="">&nbsp;&nbsp; -->
-<!-- 					<a href="#" id="moveNextMonth"> -->
-<!-- 					<span id="nextMonth" class="cal_tit"> -->
-<!-- 					<i class="fa fa-chevron-right goto" > -->
-<!-- 					</i> -->
-<!-- 					</span> -->
-<!-- 					</a> -->
-					
-
-<!-- 				</form> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
 
 	<!-- 하단 글작성 버튼 -->
 	<div class="b">
