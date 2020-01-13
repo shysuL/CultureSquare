@@ -522,4 +522,14 @@ public interface PRBoardDao {
 	 * @param alram - 삽입할 알림 정보가 담긴 객체
 	 */
 	public void insertReplyAlram(Alram alram);
+
+	/**
+	 * 2020-01-13
+	 * 조홍철
+	 * 
+	 * 알람 데이터 삭제
+	 * 
+	 * @param reply - 댓글 번호
+	 */
+	public void deleteAlramReply(Reply reply);
 }

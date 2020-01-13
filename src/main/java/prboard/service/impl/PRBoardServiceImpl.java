@@ -420,4 +420,12 @@ public class PRBoardServiceImpl implements PRBoardService {
 
 		prBoardDao.insertReplyAlram(alram);
 	}
+
+
+	@Override
+	public void deleteAlramReply(Reply reply) {
+		
+		prBoardDao.deleteAlramReply(reply);
+		
+	}
 }

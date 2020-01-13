@@ -339,6 +339,8 @@ public class PRViewController {
 			alram.setAlramsender((String)session.getAttribute("usernick"));
 			alram.setUserno(prBoardService.getUserno(reply.getBoardno()));
 			alram.setBoardno(reply.getBoardno());
+			alram.setReplyno(reply.getReplyno());
+			
 			logger.info("알람 테스트 !" + alram.toString());
 			
 			prBoardService.insertReplyAlram(alram);
@@ -425,8 +427,12 @@ public class PRViewController {
 		// 3. 삭제할 댓글의 답글 삭제
 		prBoardService.deleteReReplyByGroupNo(groupNo);
 		
+		// 4. 알림 테이블 데이터 삭제
+		// 4.3 알람 테이블 데이터 삭제
+		prBoardService.deleteAlramReply(reply);
+	
 		
-		// 4.댓글 삭제
+		// 5.댓글 삭제
 		prBoardService.deleteReplyByNo(reply);
 
 		//viewName지정하기
