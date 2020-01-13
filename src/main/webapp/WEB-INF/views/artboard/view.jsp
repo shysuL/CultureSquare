@@ -1006,22 +1006,37 @@ $(document).ready(function() {
 			</c:forEach>
 			<!-- 내용 보여줌 -->
 			${view.contents }
+		<c:if test="${location.lat ne null}">
 			<hr>
+		<div class="map_wrap">
 			<div id="staticMap" style="width:500px;height:400px; margin-left: 107px;"></div>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=955e62645517faafe40085ecec08d0c1"></script>
+			<div class="hAddr">
+		        <span class="title">지도중심기준 행정동 주소정보</span>
+		        <span id="centerAddr"></span>
+    		</div>
+		</div>
+		</c:if>
+			
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=955e62645517faafe40085ecec08d0c1&libraries=services,clusterer,drawing"></script>
 <script>
+
+var lat = ${location.lat};
+var lon = ${location.lon};
+
+
+
 //이미지 지도에서 마커가 표시될 위치입니다 
-var markerPosition  = new kakao.maps.LatLng(37.499206, 127.032773); 
+var markerPosition  = new kakao.maps.LatLng(lat, lon); 
 
 // 이미지 지도에 표시할 마커입니다
 // 이미지 지도에 표시할 마커는 Object 형태입니다
 var marker = {
     position: markerPosition
-};
-33.450701, 126.570667
+}
+
 var staticMapContainer  = document.getElementById('staticMap'), // 이미지 지도를 표시할 div  
 staticMapOption = { 
-    center: new kakao.maps.LatLng(37.499206, 127.032773), // 이미지 지도의 중심좌표
+    center: new kakao.maps.LatLng(lat, lon), // 이미지 지도의 중심좌표
     level: 3, // 이미지 지도의 확대 레벨
     marker: marker // 이미지 지도에 표시할 마커 
 };
@@ -1029,7 +1044,35 @@ staticMapOption = {
 //이미지 지도를 생성합니다
 var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
 
+//주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
 
+
+function searchDetailAddrFromCoords(coords, callback) {
+    // 좌표로 법정동 상세 주소 정보를 요청합니다
+    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+}
+
+searchDetailAddrFromCoords(markerPosition,function(result,status) {
+	console.log(result[0]);
+	var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+        detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+        
+        var contentDe = '<div class="bAddr">' +
+                        '<span class="title">법정동 주소정보</span>' + 
+                        detailAddr + 
+                    '</div>';
+		console.log("주소값 "+detailAddr)
+		console.log("div 객체 정보"+contentDe)
+		
+		
+		// 인포윈도우를 생성합니다
+		var infowindow = new kakao.maps.InfoWindow({
+   			 position : new kakao.maps.LatLng(lat,lon), 
+    		content : contentDe 
+		});
+        infowindow.open(staticMap, marker);
+});
 </script>
 			<div class="list-group" id="fileTitle">
 				  <a class="list-group-item" id="fileContent">
