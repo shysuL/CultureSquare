@@ -83,12 +83,12 @@ public class MainController {
 		model.addAttribute("google_url", googleUrl);
 		
 
-		Weather weather = weatherService.setTime();
-		
-		//날씨
-		model.addAttribute("weather", weather);
-		
-		System.out.println(weather);
+//		Weather weather = weatherService.setTime();
+//		
+//		//날씨
+//		model.addAttribute("weather", weather);
+//		
+//		System.out.println(weather);
 
 		//PR게시판 자료 가져오기
 		Map<String, String> map = new HashMap<String, String>();

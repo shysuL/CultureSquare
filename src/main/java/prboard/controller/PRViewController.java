@@ -265,9 +265,25 @@ public class PRViewController {
 			//전에 추천한적이 없다면
 			if(result == 0) {
 				prBoardService.recommend(prBoard);
+				
+				//알람테이블 삽입
+				Alram alram = new Alram();
+				alram.setAlramsender((String)session.getAttribute("usernick"));
+				alram.setAlramcontents("PR 좋아요!");
+				alram.setUserno(prBoardService.getUserno(boardno));
+				alram.setBoardno(boardno);
+				alram.setLikeno(prBoardService.getLikeNo(prBoard));
+				
+				prBoardService.insertLikeAlram(alram);
+				
 			}
 			else {
+				int likeno = prBoardService.getLikeNo(prBoard);
+				//알람 데이터 삭제
+				prBoardService.deleteLikeAlram(likeno);
+				
 				prBoardService.recommendCancal(prBoard);
+				
 			}
 
 			logger.info("버튼 클릭 : " + result);
@@ -428,7 +444,6 @@ public class PRViewController {
 		prBoardService.deleteReReplyByGroupNo(groupNo);
 		
 		// 4. 알림 테이블 데이터 삭제
-		// 4.3 알람 테이블 데이터 삭제
 		prBoardService.deleteAlramReply(reply);
 	
 		
