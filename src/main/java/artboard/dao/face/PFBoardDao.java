@@ -365,5 +365,15 @@ public interface PFBoardDao {
 	 */
 	public void deleteReReplyByGroupNo(int groupNo);
 	
+	/**
+	 * 2020-01-13
+	 * 이빈
+	 * 
+	 * 공연 위치 정보 추가
+	 * 
+	 * @param board - 위도, 경도, 게시판번호
+	 */
+	public void insertLocation(Board board);
+	
 	
 }
