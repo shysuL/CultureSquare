@@ -194,5 +194,15 @@ public interface MyPageService{
 	 */
 	public void fileDelete(User_table userphoto);
 
+	/**
+	 * 2020-01-13
+	 * 채해원
+	 * 
+	 * 사용자가 예술인 신청 버튼을 눌렀을 때 관리자의 승인이 있기 전의 상태로 만들기
+	 * 
+	 * @param user
+	 */
+	public void userupdate(User_table user);
+
 
 }

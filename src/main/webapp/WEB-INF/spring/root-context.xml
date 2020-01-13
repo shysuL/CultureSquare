@@ -36,6 +36,7 @@
 			<array>
 				<value>classpath:/admin/dao/impl/**/*Mapper.xml</value>
 				<value>classpath:/artboard/dao/impl/**/*Mapper.xml</value>
+				<value>classpath:/alram/dao/impl/**/*Mapper.xml</value>
 				<value>classpath:/board/dao/impl/**/*DaoImpl.xml</value>
 				<value>classpath:/board/dao/impl/**/*Mapper.xml</value>
 				<value>classpath:/user/dao/impl/**/*Mapper.xml</value>

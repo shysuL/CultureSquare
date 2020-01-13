@@ -170,4 +170,6 @@ public interface MyPageDao {
 	 */
 	public void deleteFile(User_table userphoto);
 
+	public void updateUserPermit(User_table user);
+
 }

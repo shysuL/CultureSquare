@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
@@ -37,12 +36,6 @@ $(document).ready(function() {
 		var userpw = $('#userpw').val();
 		var changepw = $('#changepw').val();
 		var changepw2 = $('#changepw2').val();
-		console.log("1")
-		console.log(userpw)
-		console.log("2")
-		console.log(changepw)
-		console.log("3")
-		console.log(changepw2)
 	
 		$.ajax({
 			type: "post",
@@ -65,13 +58,6 @@ $(document).ready(function() {
 			$("#userpw").focus();
 			return false;
 		}
-		
-		//현재 비밀번호 오류
-// 		if(userpw != "${userpw }"){
-// 			warningModal('현재 비밀번호를 다시 입력해주세요.')
-// 			$("#userpw").focus();
-// 			return false;
-// 		}
 		
 		//변경할 비밀번호
 		if(changepw == ""){
@@ -181,8 +167,6 @@ $(document).ready(function(){
 		})
 	})
 })	
-		
-
 
 </script>
 
@@ -231,13 +215,6 @@ function FileReload(){
 
 <script type="text/javascript">
 
-//사용자 사진 업로드
-// function ajaxFileDelete() {
-	
-//  ajaxFileTansmit();
-
-// }
-
 function ajaxFileDelete() {
 
  $.ajax({
@@ -271,12 +248,10 @@ $(document).ready(function(){
 	box-sizing: border-box;
 	margin: 3%;
 	padding: 16px;
-	/*     border-radius: 40px; */
 }
 
 .inner_con2 {
 	float: right;
-/* 	background: #FFFFFF; */
 	width: 40%;
 	height: 430px;
 	padding: 16px;
@@ -287,7 +262,6 @@ $(document).ready(function(){
 
 .inner_con3 {
 	float: right;
-/* 	background: #FFFFFF; */
 	width: 40%;
 	height: 338px;
 	padding: 16px;
@@ -302,18 +276,6 @@ $(document).ready(function(){
 	display: block;
 	margin: 0 auto;
 }
-
-/* 웹폰트 적용 */
-/* @font-face {  */
-/* 	font-family: 'KHNPHU';  */
-/* 	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/KHNPHU.woff') format('woff');  */
-/* 	font-weight: normal;  */
-/* 	font-style: normal;  */
-/* } */
-
-/* #myPageContainer { */
-/* 	font-family: 'KHNPHU'; */
-/* } */
 
 #mypageheader {
 	margin-bottom: 3%; 
@@ -365,7 +327,7 @@ $(document).ready(function(){
 				<c:otherwise>
 					<p>
 						<img id="profileImg" src="/upload/${getUser.storedname }"
-							class="img-responsive img-circle" alt="Responsive image">
+							class="img-responsive img-circle" alt="Responsive image" style="border-radius: 100px;">
 					</p>
 				</c:otherwise>
 			</c:choose>
@@ -543,8 +505,8 @@ $(document).ready(function(){
 			일반 사용자가 예술인으로 변경을 원할 시에만 눌러주세요.<br>
 			공연, 연극, 버스킹등의 예술분야를 홍보할 수 있는<br>
 			CALENDAL게시판 이용이 가능합니다.</small><br><br>
-			<form action="/mypage/main" method="post">
-				<button type="button" class="btn btn-outline-dark" id="artistsapply" 
+			<form action="/mypage/main/updateartist" method="post">
+				<button type="submit" class="btn btn-outline-dark" id="artistsapply" 
 						style="width: 84%; display: block; margin: 0 auto;">예술인 신청하기</button>
 			</form>
 		</div>

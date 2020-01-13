@@ -135,7 +135,7 @@ public class MainController {
 		
 	}
 	
-	@RequestMapping(value="/alram/showweather")
+	@RequestMapping(value="/main/showweather")
 	public ModelAndView showweather(ModelAndView mav) {
 		
 		Weather weather = weatherService.setTime();
