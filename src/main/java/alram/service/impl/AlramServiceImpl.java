@@ -1,5 +1,7 @@
 package alram.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,11 @@ public class AlramServiceImpl implements AlramService{
 	public void readAlram(int userno) {
 		alramDao.updateAlramCheck(userno);
 		
+	}
+
+	@Override
+	public List<Alram> getAlramList(int userno) {
+		return alramDao.selectAlramList(userno);
 	}
 	
 }
