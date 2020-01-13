@@ -212,4 +212,31 @@ public class MyPageServiceImpl implements MyPageService{
 	public void userupdate(User_table user) {
 		mypageDao.updateUserPermit(user);
 	}
+
+	@Override
+	public MyPaging getPermitPaging(MyPaging paging) {
+		
+		int totalCount = mypageDao.selectPermitCntAll(paging);
+		
+		MyPaging result = new MyPaging(totalCount, paging.getCurPage());
+		result.setUserno(paging.getUserno());
+		
+		return result;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getPermitList(MyPaging paging) {
+		return mypageDao.selectPermitList(paging);
+	}
+	
+	@Override
+	public MyPaging getReplyPaging(MyPaging paging) {
+		
+		int totalCount = mypageDao.selectReplyCntAll(paging);
+		
+		MyPaging result = new MyPaging(totalCount, paging.getCurPage());
+		result.setUserno(paging.getUserno());
+		
+		return result;
+	}
 }

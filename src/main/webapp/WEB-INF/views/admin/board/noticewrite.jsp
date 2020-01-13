@@ -56,9 +56,9 @@ color: #343a40;
 }
 </style>
 
-<div class="container container-center" style="margin-bottom: 50px;">
-	<h3 style="text-align: center; margin-top: 40px;">공지사항</h3>
-	<div class="row" style="margin-top: 40px;">
+<div class="container container-center" style="margin-bottom: 50px; margin-top: 40px; padding-bottom: 30px; border: 1px solid #dee2e6;">
+	<h3 style="text-align: center; margin-top: 30px;">NOTICE WRITING</h3>
+	<div class="row" style="margin-top: 60px;">
 		<div class="col-8">
 			<form action="" method="post" enctype="multipart/form-data">
 				<table class="table table-bordered">
@@ -71,7 +71,7 @@ color: #343a40;
 					<tr>
 						<td class="info" colspan="2">공지사항 내용</td>
 					</tr>
-					<tr>
+					<tr style="height: 450px;">
 						<td colspan="2"><textarea id="content" name="contents"></textarea></td>
 					</tr>
 					<tr>
@@ -82,14 +82,12 @@ color: #343a40;
 			</form>
 		</div>
 		<div class="col-4">
-
-			<div class="list-group" id="noticeContent">
-				<a class="list-group-item" id="noticeContent">공지사항 안내</a> 
-				<a class="list-group-item tit" style="color: black;">
-				<i class="fas fa-exclamation-circle"></i> 
+			<div class="list-group" id="noticeContent" style="height: 67px;">
+				<p class="list-group-item" id="noticeContent">공지사항 안내</p> 
+				<p class="list-group-item tit" style="color: black;">
 					관리자가 본 사이트의 사용자들을 위한 공지사항을 작성하는 곳입니다. 사용자들의 편리한 사용을 위해 참고하시길 바랍니다.
 					타 사이트의 게시물을 옮겨오실 경우에는 저작권 보호를
-					위해 내용을 그대로 붙여넣지 마시고 내용 요약 및 원문링크(또는 출처)를 삽입해 주세요.</a>
+					위해 내용을 그대로 붙여넣지 마시고 내용 요약 및 원문링크(또는 출처)를 삽입해 주세요.</p>
 			</div>
 
 		</div>

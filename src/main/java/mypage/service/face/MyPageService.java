@@ -1,5 +1,6 @@
 package mypage.service.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -203,6 +204,39 @@ public interface MyPageService{
 	 * @param user
 	 */
 	public void userupdate(User_table user);
+
+	/**
+	 * 2020-01-13
+	 * 채해원
+	 * 
+	 * 사용자가 후원한 내역의 목록을 보이기 위한 페이징
+	 * 
+	 * @param paging
+	 * @return
+	 */
+	public MyPaging getPermitPaging(MyPaging paging);
+
+	/**
+	 * 2020-01-13
+	 * 채해원
+	 * 
+	 * 사용자가 후원한 내역 목록 가져오기
+	 * 
+	 * @param result
+	 * @return
+	 */
+	public List<HashMap<String, Object>> getPermitList(MyPaging paging);
+
+	/**
+	 * 2020-01-13
+	 * 채해원
+	 * 
+	 * 사용자가 작성한 댓글의 목록을 보이기위한 페이징
+	 * 
+	 * @param paging
+	 * @return
+	 */
+	public MyPaging getReplyPaging(MyPaging paging);
 
 
 }

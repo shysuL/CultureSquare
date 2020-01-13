@@ -5,28 +5,6 @@
 
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
 
-<script type="text/javascript">
-function checkedAll(){
-	// checkbox들
-   var $checkboxes=$("input:checkbox[name='checkRow']");
-
-   // checkAll 체크상태 (true:전체선택, false:전체해제)
-   var check_status = $("#checkAlls").is(":checked");
-   
-   if( check_status ) {
-      // 전체 체크박스를 checked로 바꾸기
-      $checkboxes.each(function() {
-         this.checked = true;   
-      });
-   } else {
-      // 전체 체크박스를 checked 해제하기
-      $checkboxes.each(function() {
-         this.checked = false;   
-      });
-   }
-}
-</script>
-
 <style type="text/css">
 #writereplylistheader {
 	margin-bottom: 3%; 
@@ -47,22 +25,19 @@ function checkedAll(){
 
 <div class="container" style="margin-top: 50px;">
 	<div class="innercon2">
-		<div class="src" style="text-align: right;">
-			<form action="" method="get">
-				<input type="text" name="search" id="search"/>
-				<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
-			</form>
-		</div>
+<!-- 		<div class="src" style="text-align: right;"> -->
+<!-- 			<form action="" method="get"> -->
+<!-- 				<input type="text" name="search" id="search"/> -->
+<!-- 				<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button> -->
+<!-- 			</form> -->
+<!-- 		</div> -->
 		<br>
 		<form action="/mypage/writelist" method="get">
 			<table class="table table-hover">
 				<thead>
 					<tr class = "info" style="text-align: center;" >
-						<th style="width: 5%">
-							<input type="checkbox" id="checkAlls" name="checkAlls" onclick="checkedAll();"/>
-						</th>
 						<th style="width: 10%">번호</th>
-						<th style="width: 15%">게시판 명</th>
+						<th style="width: 20%">게시판 명</th>
 						<th style="width: 15%">제목</th>
 						<th style="width: 35%">댓글내용</th>					
 						<th style="width: 20%">댓글 작성일</th>
@@ -80,9 +55,6 @@ function checkedAll(){
 					<c:if test="${replylist.BOARDNAME == '예술정보게시판'}">
 						<tr onclick="location.href='/artboard/view?boardno=${replylist.BOARDNO }';" style="text-align: center;">
 					</c:if>
-							<td>
-								<input type="checkbox" name="checkRow" id="checkRow" value="${replylist.BOARDNO  }"/>
-							</td>
 							<td>${replylist.RNUM }</td>
 							<td>${replylist.BOARDNAME }</td>
 							<td>${replylist.TITLE }</td>
@@ -93,7 +65,6 @@ function checkedAll(){
 				</tbody>
 				
 			</table>
-			<button class="btn btn-dark">삭제</button>
 		</form>
 	</div>
 	
