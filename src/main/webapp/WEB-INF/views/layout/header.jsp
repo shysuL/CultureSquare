@@ -525,13 +525,10 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 	    
 
     <div class="btn-group">
-<!--       <h4 class="panel-title"> -->
     
-<!--         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="ture" aria-expanded="false"> -->
         <button class="btn btn-secondary dropdown-toggle" type="button" onclick="weather();">
 		      <span class="fas fa-cloud" ></span>
 		   </button>
-<!--       </h4> -->
    
     <div  class="dropdown-menu weather" aria-labelledby="dropdownMenuButton">
      <ul class="list-group">
