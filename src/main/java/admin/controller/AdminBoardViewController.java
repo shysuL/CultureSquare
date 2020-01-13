@@ -47,7 +47,7 @@ public class AdminBoardViewController {
 		List<PFUpFile> fileList = pfboardService.getFileList(viewPF.getBoardno());
 		
 		model.addAttribute("fileList", fileList);
-//		System.out.println("PF파일" + fileList);
+		System.out.println("PF파일" + fileList);
 		
 		Board userno = new Board();
 		userno.setUserno(viewPF.getUserno());
@@ -212,6 +212,32 @@ public class AdminBoardViewController {
 	
 	@RequestMapping(value="/admin/board/view/userview/delete", method=RequestMethod.GET)
 	public String userdelete() {
+		
+		return "redirect:/admin/main";
+	}
+	
+	@RequestMapping(value="/admin/user/mgrpermit", method=RequestMethod.POST)
+	public String mgrpermit(HttpSession session, User_table user) {
+		
+		logger.info("되냐!?");
+		
+		user.setUserno((Integer)session.getAttribute("userno"));
+		
+		adminService.updatepermit(user);
+		
+		return "redirect:/admin/main";
+		
+	}
+	
+	@RequestMapping(value="/admin/user/downPermit", method=RequestMethod.POST)
+	public String downpermit(HttpSession session, User_table user) {
+		logger.info("다운되냐1");
+		
+		user.setUserno((Integer)session.getAttribute("userno"));
+		
+		adminService.downpermit(user);
+		
+		logger.info("다운되냐2");
 		
 		return "redirect:/admin/main";
 	}

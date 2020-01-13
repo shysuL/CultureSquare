@@ -500,15 +500,26 @@ $(document).ready(function(){
 				</li>
 			</ul>
 			<hr>
-			<small style="text-align: center; display: block; font-size: initial;">
-			<br>예술인으로 신청할 수 있는 버튼입니다.<br>
-			일반 사용자가 예술인으로 변경을 원할 시에만 눌러주세요.<br>
-			공연, 연극, 버스킹등의 예술분야를 홍보할 수 있는<br>
-			CALENDAL게시판 이용이 가능합니다.</small><br><br>
-<!-- 			<form action="/mypage/main/updateartist" method="post"> -->
+			
+			<c:if test="${getUser.permit == 0 }">
+				<small style="text-align: center; display: block; font-size: initial;">
+				<br>예술인으로 신청할 수 있는 버튼입니다.<br>
+				일반 사용자가 예술인으로 변경을 원할 시에만 눌러주세요.<br>
+				공연, 연극, 버스킹등의 예술분야를 홍보할 수 있는<br>
+				CALENDAL게시판 이용이 가능합니다.</small><br><br>
 				<button type="submit" class="btn btn-outline-dark" id="artistsapply" 
 						style="width: 84%; display: block; margin: 0 auto;">예술인 신청하기</button>
-<!-- 			</form> -->
+			</c:if>
+			<c:if test="${getUser.permit == 1 }">
+				<small style="text-align: center; display: block; font-size: initial;">
+				<br>이미 신청을 한 후, 관리자의 승인을 기다리는 중입니다.<br>
+					조금만 더 기다려주세요 :-)</small>
+			</c:if>
+			<c:if test="${getUser.permit == 2 }">
+				<small style="text-align: center; display: block; font-size: initial;">
+				<br>이미 예술인으로 등업이 완료되었습니다.<br></small>
+			</c:if>
+			
 		</div>
 		<div style="clear: both;"></div>
 	</div>
@@ -535,9 +546,7 @@ $(document).ready(function(){
 
       <!-- Modal footer -->
       <div class="modal-footer">
-	  	<form action="/mypage/main/updateartist" method="post">
-        	<button type="submit" id="inputPwCheckBtn"class="btn btn-dark">확인</button>
-	    </form>
+       	<button type="submit" id="inputPwCheckBtn"class="btn btn-dark" data-dismiss="modal">확인</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
       </div>
 
@@ -562,7 +571,9 @@ $(document).ready(function(){
       </div>
 <!--       Modal footer -->
       <div class="modal-footer">
-        <button type="submit" id="inputPwCheckBtn2"class="btn btn-danger" data-dismiss="modal">확인</button>
+      	<form action="/mypage/main/updateartist" method="post">
+        	<button type="submit" class="btn btn-danger">확인</button>
+      	</form>
       </div>
     </div>
   </div>
