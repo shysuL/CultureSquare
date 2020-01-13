@@ -47,6 +47,9 @@ public class Board {
 
 	// replyCnt
 	private int replyCnt;
+	
+	// follow
+	private int target_userno;
 
 	private String searchMonth;
 
@@ -61,7 +64,15 @@ public class Board {
 				+ userbirth + ", interest=" + interest + ", usertype=" + usertype + ", permit=" + permit
 				+ ", emailcheck=" + emailcheck + ", originname=" + originname + ", storedname=" + storedname
 				+ ", follow=" + follow + ", prcnt=" + prcnt + ", sociallogin=" + sociallogin + ", blike=" + blike
-				+ ", replyCnt=" + replyCnt + ", searchMonth=" + searchMonth + "]";
+				+ ", replyCnt=" + replyCnt + ", target_userno=" + target_userno + ", searchMonth=" + searchMonth + "]";
+	}
+
+	public int getTarget_userno() {
+		return target_userno;
+	}
+
+	public void setTarget_userno(int target_userno) {
+		this.target_userno = target_userno;
 	}
 
 	public int getRnum() {

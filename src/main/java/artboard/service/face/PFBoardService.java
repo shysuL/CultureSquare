@@ -437,6 +437,36 @@ public interface PFBoardService {
 	 */
 	public void deleteRereplyByGroupNo(int groupNo);
 
+	
+	
+	
+	
+	
+	/**
+	 * 2020-01-13
+	 * 이수현
+	 * 
+	 * 팔로우
+	 *  
+	 * @param board - 추천테이블에 들어갈 객체
+	 */
+	public void follow(Board board);
+
+
+
+
+	public void followCancel(Board board);
+
+
+
+
+	public int followView(Board board);
+
+
+
+
+	public int followCheck(Board board);
+
 
 
 
