@@ -52,8 +52,13 @@ public class Board {
 
 	// replyCnt
 	private int replyCnt;
+	
+	// follow
+	private int followno;
 
 	private String searchMonth;
+
+	
 
 	@Override
 	public String toString() {
@@ -66,8 +71,22 @@ public class Board {
 				+ usergender + ", userbirth=" + userbirth + ", interest=" + interest + ", usertype=" + usertype
 				+ ", permit=" + permit + ", emailcheck=" + emailcheck + ", originname=" + originname + ", storedname="
 				+ storedname + ", follow=" + follow + ", prcnt=" + prcnt + ", sociallogin=" + sociallogin + ", blike="
-				+ blike + ", replyCnt=" + replyCnt + ", searchMonth=" + searchMonth + "]";
+				+ blike + ", replyCnt=" + replyCnt + ", followno=" + followno + ", searchMonth=" + searchMonth + "]";
 	}
+
+	
+	
+	public int getFollowno() {
+		return followno;
+	}
+
+
+
+	public void setFollowno(int followno) {
+		this.followno = followno;
+	}
+
+
 
 	public int getRnum() {
 		return rnum;

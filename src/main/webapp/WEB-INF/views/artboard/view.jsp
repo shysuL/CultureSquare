@@ -44,6 +44,7 @@ var newFirst = true;
 $(document).ready(function(){
 	
 	recheckAction();
+	followchkAction();
 	$('#writereply').click(function() {
 		$('#replyinputbody').slideToggle("fast");
 	});
@@ -816,6 +817,11 @@ $(document).ready(function() {
 			console.log("추천버튼 눌림");
 			recommendAction();
 		});
+		//팔로우버튼 동작
+		$("#followtd").on("click", "#follow", function() {
+			console.log("추천버튼 눌림");
+			followAction();
+		});
 		//수정버튼 동작
 		$("#btnUpdate").click(function() {
 			console.log("수정버튼클릭");
@@ -922,7 +928,46 @@ $(document).ready(function() {
 			});
 		}
 			
-			
+		function followAction() {
+			$.ajax({
+				type : "get",
+				url : "/artboard/follow",
+				data : {
+					userno : '${writer.userno }'
+				},
+				dataType : "html",
+				success : function(data) {
+					console.log("성공");
+					console.log(data);
+
+					$("#followtd").html(data);
+				},
+				error : function() {
+					$("#followLoginModal").modal({backdrop: 'static', keyboard: false});
+				}
+			});
+		}
+		
+		// 처음에 게시글 추천 여부에 따른 이미지 출력
+			function followchkAction() {
+				$.ajax({
+					type : "get",
+					url : "/artboard/followchk",
+					data : {
+						userno : '${writer.userno }'
+					},
+					dataType : "html",
+					success : function(data) {
+						console.log("팔로우 성공");
+						console.log(data);
+
+						$("#followtd").html(data);
+					},
+					error : function() {
+						console.log("실패연 하이하이");
+					}
+				});
+			}			
 </script>
 
 
@@ -1031,6 +1076,8 @@ var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
 
 
 </script>
+
+			<br>
 			<div class="list-group" id="fileTitle">
 				  <a class="list-group-item" id="fileContent">
 				   첨부파일
@@ -1038,7 +1085,7 @@ var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
 				<c:forEach items="${fileList }" var="fileList">
  					<a href="/pfboard/download?fileno=${fileList.fileno}" class="list-group-item">${fileList.originname}</a>					
 				</c:forEach>
-			</div>
+			</div><br>
 		</div>
 		<!-- 버튼 -->
 		<div id = "view_buttonarea" class="btn col-md-4" role="group">
@@ -1131,9 +1178,9 @@ var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
 		</div>
   		<div id = "writer_info">${writer.usernick } 
   		<br>
-	  		<div> 
-	  		<button class="btn btn-default" style="background-color: #343a40 !important; 
-	  				color: white !important; margin-top: 15px;">팔로우</button>
+	  		<div id = "followtd"> 
+<!-- 	  		<button class="btn btn-default" style="background-color: #343a40 !important;  -->
+<!-- 	  				color: white !important; margin-top: 15px;">팔로우</button> -->
 	  		</div>
   		</div>
    </li>
@@ -1142,6 +1189,8 @@ var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
 </div>
 
 <br><br>
+
+</div> <!-- div_container -->
 
 <!-- 게시글 후원 모달창 -->
 <div class="modal fade" id="donationModal">
@@ -1287,9 +1336,6 @@ var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
   </div>
 </div>
 
-</div> <!-- div_container -->
-
-
 
 
 <!-- 댓글 입력이 비었을 때 모달 -->
@@ -1335,6 +1381,31 @@ var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
       <!-- Modal footer -->
       <div class="modal-footer">
         <button type="submit" id="pfLikeLoginModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 로그인 부탁 모달-->
+<div class="modal fade" id="followLoginModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">로그인 필요!</h4>
+        <button id="followLoginX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	로그인 후 팔로우가 가능합니다.
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="followModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
       </div>
 
     </div>
