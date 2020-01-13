@@ -516,20 +516,28 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 			</c:choose>
        </li>
       </ul>
- </div>
- </div>
+	</div>
+	</div>
 &nbsp;&nbsp;&nbsp;&nbsp;
 	<!-- 상단 알림 아이콘 -->  
-		<a href="#">
-		   <button type="button" class="btn btn-secondary ">
-		      <span class="fas fa-bell" ></span>
-		   </button>
-		</a>
+	<div class="btn-group" >
+
+	   <button  class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	      <span class="fas fa-bell" ></span>
+	   </button>
+
+
+		 <div class="dropdown-menu weather" aria-labelledby="dropdownMenuButton">
+		
+		 
+		 </div>
+		
+	</div>
 	    
-	<!-- 우측 상단 아이콘 -->
-	<div class="btn-group rpadding loginwidth" >
 	
 		<!-- 상단 로그인 아이콘 -->  
+	<div class="btn-group rpadding loginwidth" >
+	
 		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		   <span class="fas fa-user"></span>
 		</button>

@@ -161,6 +161,59 @@
 	height: 400px;
 }
 
+
+
+#carouselExampleFade img {
+	width: 800px;
+	height: 400px;
+}
+
+#prIntroduceTitle{
+	width: 220px;
+    padding-top: 120px;
+    padding-bottom: 50px;
+    text-align:center;
+}
+
+#prRankTitle{
+	width: 220px;
+}
+
+#prIntroduceContent{
+	background-color:#343a40; 
+	color:white;
+}
+
+#prRankContent{
+	background-color:#343a40; 
+	color:white;
+}
+
+#side{
+	position:absolute;
+	top: 0;
+	right: -275px;
+}
+
+#cardview{
+	padding-left: 36px;
+}
+
+#cardlike{
+	padding-left: 20px;
+    padding-bottom: 5px;
+}
+
+#replyShow{
+	position:absolute; 
+	z-index:1; 
+	font-size:1.0em;
+}
+
+.tit{
+	color: #343a40;
+}
+
 </style>
 <br><br>
 
@@ -225,29 +278,28 @@
 	
 	   
     
-	<div>
+	<div class="container">
         <!-- Three columns of text below the carousel -->
     <div class="row">
   
-      <div class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-        <h2>Heading</h2>
-        <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-        <h2>Heading</h2>
-        <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-        <h2>Heading</h2>
-        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-    </div><!-- /.row -->
+    <c:forEach items="${list }" var="prboard" begin="0" end="4" varStatus="status">
+	<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card h-100" onclick="location.href='/prboard/view?boardno=${prboard.boardno }';">
+        <a href="/prboard/view?boardno=${prboard.boardno }">
+       	 	<img class="card-img-top" onerror="this.src='/resources/img/NoImage.gif';"src="/prImage/${prboard.boardno }" style="height: 202px; padding: 10px;">
+        </a>
+        <div class="card-body">
+        	 <p class="card-text" style = "font-weight: bold;">${prboard.prname }</p>
+          <p class="card-title">
+            <a href="/prboard/view?boardno=${prboard.boardno }" style = "font-weight: bold;">${prboard.title }</a>&nbsp;&nbsp;<span class="badge badge-pill badge-danger" id ="replyShow">${prboard.replyCnt }</span>
+          </p>
+          <p class="card-text" id ="useFont">${prboard.usernick}&nbsp;(${prboard.writtendate})</p>
+          <img id ="cardview"src="/resources/img/view.png"/>&nbsp;${prboard.views}
+          <img id ="cardlike"src="/resources/img/likeheart.png" style="padding-top: 5px; padding-left: 7px;"/>&nbsp;${prboard.blike }
+        </div>
+      </div>
+    </div>
+	</c:forEach>
     
 	</div>
     <!-- /END THE FEATURETTES -->
