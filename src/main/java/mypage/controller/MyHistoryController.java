@@ -39,6 +39,8 @@ public class MyHistoryController {
 		
 		List<HashMap<String, Object>> likelist = new ArrayList<HashMap<String, Object>>();
 		
+		System.out.println("좋아요한 글" + result);
+
 		likelist = mypageService.getLikeList(result);
 		
 		model.addAttribute("url", req.getRequestURI());
@@ -61,7 +63,7 @@ public class MyHistoryController {
 		
 		List<HashMap<String, Object>> writelist = new ArrayList<HashMap<String, Object>>();
 		
-		System.out.println(result);
+		System.out.println("작성한 글" + result);
 		
 		writelist = mypageService.getWriteList(result);
 		
