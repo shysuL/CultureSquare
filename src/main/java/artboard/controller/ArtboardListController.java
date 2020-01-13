@@ -76,11 +76,11 @@ public class ArtboardListController {
 		
 		
 		// 년도 + 월로 게시글리스트 조회
-		String searchMonth = cal_year+"-"+cal_month;
-		
+//		String searchMonth = cal_year+"-"+cal_month;
+		userno.setSearchMonth(cal_year+"-"+cal_month);
 //		logger.info("searchMonth : " + searchMonth);
 		
-		List<Board> list = pfboardService.getList(searchMonth);
+		List<Board> list = pfboardService.getList(userno);
 		
 		model.addAttribute("list", list);
 		

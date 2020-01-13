@@ -23,7 +23,7 @@ public interface PFBoardDao {
 	 * @param searchMonth - 연 + 월 
 	 * @return List<Board> - 게시글 리스트
 	 */
-	public List<Board> selectAll3(String searchMonth);
+	public List<Board> selectAll3(Board board);
 	
 	public List<Board> selectAll2(String searchMonth);
 

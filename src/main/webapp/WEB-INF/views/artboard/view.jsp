@@ -1088,7 +1088,7 @@ $(document).ready(function() {
 </c:if>
 
 <br>
-<!-- 댓글view -->
+	<!-- 댓글view -->
 		<div  id="commentList" class='container' style='mawrgin-bottom: 40px'>              
 		</div><!--  댓글 처리 end --> 
 

@@ -26,7 +26,7 @@ public interface PFBoardService {
 	 * @param searchMonth - 연도 + 월  파라미터 값
 	 * @return List<Board> - artboardlist
 	 */
-	public List<Board> getList(String searchMonth);
+	public List<Board> getList(Board board);
 
 	
 

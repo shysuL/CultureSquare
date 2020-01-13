@@ -39,12 +39,12 @@ public class PFBoardServiceImpl implements PFBoardService{
 	@Autowired ReplyDao replyDao;
 
 	@Override
-	public List<Board> getList(String searchMonth) {
+	public List<Board> getList(Board board) {
 
-		List<Board> list = pfboardDao.selectAll3(searchMonth);
+		List<Board> list = pfboardDao.selectAll3(board);
 		for (int i = 0; i < list.size(); i++) {
-			Board board = list.get(i);
-			board.setPerformday(getDateDay(board.getPerformdate(),"yyyyMMdd"));
+			Board temp = list.get(i);
+			temp.setPerformday(getDateDay(temp.getPerformdate(),"yyyyMMdd"));
 		}
 		return list;
 	}
