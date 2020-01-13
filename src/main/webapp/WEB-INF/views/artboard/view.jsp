@@ -1031,6 +1031,8 @@ var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
 
 
 </script>
+
+			<br>
 			<div class="list-group" id="fileTitle">
 				  <a class="list-group-item" id="fileContent">
 				   첨부파일
@@ -1038,7 +1040,7 @@ var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
 				<c:forEach items="${fileList }" var="fileList">
  					<a href="/pfboard/download?fileno=${fileList.fileno}" class="list-group-item">${fileList.originname}</a>					
 				</c:forEach>
-			</div>
+			</div><br>
 		</div>
 		<!-- 버튼 -->
 		<div id = "view_buttonarea" class="btn col-md-4" role="group">
