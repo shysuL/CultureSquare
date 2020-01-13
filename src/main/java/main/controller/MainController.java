@@ -1,10 +1,5 @@
 package main.controller;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -17,6 +12,7 @@ import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import main.dto.Weather;
 import main.service.face.WeatherService;
@@ -78,10 +74,23 @@ public class MainController {
 
 		Weather weather = weatherService.setTime();
 		
-		//구글
+		//날씨
 		model.addAttribute("weather", weather);
 		
 		System.out.println(weather);
+		
+	}
+	
+	@RequestMapping(value="/main/showweather")
+	public ModelAndView showweather(ModelAndView mav) {
+		
+		Weather weather = weatherService.setTime();
+		
+		mav.addObject("weather", weather);
+		//viewName지정하기
+		mav.setViewName("jsonView");
+		
+		return mav;
 		
 	}
 	
