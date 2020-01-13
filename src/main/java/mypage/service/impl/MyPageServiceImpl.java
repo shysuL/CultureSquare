@@ -206,6 +206,10 @@ public class MyPageServiceImpl implements MyPageService{
 		}
 		
 		mypageDao.deleteFile(userphoto);
-		
+	}
+	
+	@Override
+	public void userupdate(User_table user) {
+		mypageDao.updateUserPermit(user);
 	}
 }
