@@ -1,19 +1,29 @@
 package alram.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import alram.dto.Alram;
+import alram.service.face.AlramService;
 import user.dto.User_table;
 
 @Controller
 public class AlramController {
+	
+	@Autowired private AlramService alramService;
+	
 	@RequestMapping(value="/alram/alarmcnt")
 	public ModelAndView alarmcnt(ModelAndView mav, User_table user) {
 		
-		System.out.println("알림 유저 테스트 : " + user);
+		//1. 사용자 번호 구하기
+		user.setUserno(alramService.getUserNoByUserNick(user.getUsernick()));
 		
-		mav.addObject("hi", "hi");
+		//2. 알람 갯수 구하기
+		int alramCnt = alramService.getAlramCnt(user.getUserno());
+		
+		mav.addObject("alramCnt", alramCnt);
 		//viewName지정하기
 		mav.setViewName("jsonView");
 		

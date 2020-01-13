@@ -410,12 +410,9 @@ function weather(){
 function alram(){
 	$(".alram").collapse('toggle');
 	console.log("알람!");
-	$("#alarmCnt").html("5");
 }
 
 function getAlramCnt(usernick){
-	$("#alarmCnt").html(usernick);
-	
 	$.ajax({
 		type : "POST",
 		url : "/alram/alarmcnt",
@@ -425,7 +422,7 @@ function getAlramCnt(usernick){
 		},
 		dataType : "json",
 		success : function(res) {
-			console.log("성공");
+			$("#alarmCnt").html(res.alramCnt);
 		},
 		error : function() {
 			console.log("실패");
@@ -592,7 +589,7 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 
 		<button class="btn btn-secondary dropdown-toggle" type="button" onclick="alram();">
 	      <span class="fas fa-bell" ></span>
-	      <span  class="badge badge-pill badge-danger" id = "alarmCnt"></span>
+	      <span  class="badge badge-pill badge-info" id = "alarmCnt"></span>
 	     
 	   </button>
 
