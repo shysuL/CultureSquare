@@ -180,6 +180,15 @@ public interface MyPageDao {
 	 */
 	public void deleteFile(User_table userphoto);
 
+	/**
+	 * 2020-01-13
+	 * 채해원
+	 * 
+	 * 사용자가 신청한 예술인등업의 관리자 승인전 단계로
+	 * permit을 1로 업데이트함.
+	 * 
+	 * @param user
+	 */
 	public void updateUserPermit(User_table user);
 
 }

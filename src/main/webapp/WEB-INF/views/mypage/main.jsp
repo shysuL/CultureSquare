@@ -505,10 +505,10 @@ $(document).ready(function(){
 			일반 사용자가 예술인으로 변경을 원할 시에만 눌러주세요.<br>
 			공연, 연극, 버스킹등의 예술분야를 홍보할 수 있는<br>
 			CALENDAL게시판 이용이 가능합니다.</small><br><br>
-			<form action="/mypage/main/updateartist" method="post">
+<!-- 			<form action="/mypage/main/updateartist" method="post"> -->
 				<button type="submit" class="btn btn-outline-dark" id="artistsapply" 
 						style="width: 84%; display: block; margin: 0 auto;">예술인 신청하기</button>
-			</form>
+<!-- 			</form> -->
 		</div>
 		<div style="clear: both;"></div>
 	</div>
@@ -530,13 +530,15 @@ $(document).ready(function(){
 
       <!-- Modal body -->
       <div class="modal-body content">
-		일반 사용자가 예술인으로 변경신청을 했을 경우 관리자의 승인이 필요합니다. 진행하시겠습니까?
+		일반 사용자가 예술인으로 변경신청을 했을 경우 관리자의 승인 후 정상적으로 변경됩니다.진행하시겠습니까:-o?
       </div>
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="submit" id="inputPwCheckBtn"class="btn btn-dark" data-dismiss="modal">확인</button>
-        <button type="cancel" class="btn btn-danger" data-dismiss="modal">취소</button>
+	  	<form action="/mypage/main/updateartist" method="post">
+        	<button type="submit" id="inputPwCheckBtn"class="btn btn-dark">확인</button>
+	    </form>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
       </div>
 
     </div>
@@ -555,6 +557,8 @@ $(document).ready(function(){
 <!--       Modal body -->
       <div class="modal-body content">
       	예술인으로 신청이 완료되었습니다.
+      	관리자의 승인 후 예술인으로 본 사이트를 이용하실 수 있습니다. 
+      	감사합니다 :-)
       </div>
 <!--       Modal footer -->
       <div class="modal-footer">
@@ -577,7 +581,7 @@ $(document).ready(function(){
 
       <!-- Modal body -->
       <div class="modal-body content">
-		회원 탈퇴를 하실 경우, Culture Square의 서비스를 이용하실 수 없습니다.
+		회원 탈퇴를 하실 경우, Culture Square의 서비스를 이용하실 수 없습니다 :-(
       </div>
 
       <!-- Modal footer -->
@@ -631,7 +635,7 @@ $(document).ready(function(){
       <!-- Modal body -->
       <div class="modal-body content">
       	프로필 사진을 정말 삭제하시겠습니까?<br>
-      	삭제 후에 다시 등록 하실 수 있습니다.
+      	삭제 후에 다시 등록 하실 수 있습니다 :-)
       </div>
 
       <!-- Modal footer -->
