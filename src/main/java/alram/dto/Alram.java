@@ -9,13 +9,13 @@ public class Alram {
 	private int alramtype;
 	private String alramsender;
 	private int userno;
-	
+
 	private int alramcnt;
 	private int boardno;
 	private String usernick;
 	private String title;
 	private int boardtype;
-	
+
 	@Override
 	public String toString() {
 		return "Alram [alramno=" + alramno + ", alramcontents=" + alramcontents + ", alramtime=" + alramtime
@@ -23,7 +23,7 @@ public class Alram {
 				+ ", userno=" + userno + ", alramcnt=" + alramcnt + ", boardno=" + boardno + ", usernick=" + usernick
 				+ ", title=" + title + ", boardtype=" + boardtype + "]";
 	}
-	
+
 	public int getAlramno() {
 		return alramno;
 	}

@@ -14,28 +14,28 @@ import user.dto.User_table;
 public class AlramServiceImpl implements AlramService{
 
 	@Autowired private AlramDao alramDao;
-	
+
 	@Override
 	public int getUserNoByUserNick(String usernick) {
-		
+
 		return alramDao.selectUserNo(usernick);
 	}
 
 	@Override
 	public int getAlramCnt(int userno) {
-		
+
 		return alramDao.selectAlramCnt(userno);
 	}
 
 	@Override
 	public void readAlram(Alram alram) {
 		alramDao.updateAlramCheck(alram);
-		
+
 	}
 
 	@Override
 	public List<Alram> getAlramList(int userno) {
 		return alramDao.selectAlramList(userno);
 	}
-	
+
 }
