@@ -445,4 +445,15 @@ public class PRBoardServiceImpl implements PRBoardService {
 		
 		prBoardDao.deleteLikeAlram(likeno);
 	}
+
+	@Override
+	public void insertReReplyAlram(Alram alram) {
+
+		prBoardDao.insertReReplyAlram(alram);
+	}
+
+	@Override
+	public int getUsernoByReplyNo(int replyno) {
+		return prBoardDao.selectUserNoByReplyNo(replyno);
+	}
 }

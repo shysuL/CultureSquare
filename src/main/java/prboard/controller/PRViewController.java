@@ -420,8 +420,12 @@ public class PRViewController {
 		
 		logger.info("답글 삭제 테스트  : " + reply);
 
-		// 1. 댓글 삭제
+		// 1. 알림 테이블 데이터 삭제
+		prBoardService.deleteAlramReply(reply);
+		
+		// 2. 댓글 삭제
 		prBoardService.deleteReplyByNo(reply);
+		
 
 		//viewName지정하기
 		mav.setViewName("jsonView");
@@ -519,6 +523,10 @@ public class PRViewController {
 			// 1. 유저 번호 저장
 			reply.setUserno(prBoardService.getUserNoForReply((String)session.getAttribute("usernick")).getUserno());
 
+			Alram alram = new Alram();
+			alram.setUserno(prBoardService.getUsernoByReplyNo(reply.getReplyno()));
+			//댓글번호 있을때 담기
+			
 			// 2. 댓글번호를 이용해 그룹 번호 담기
 			reply.setGroupno(prBoardService.getGroupNoByReplyNo(reply));
 			
@@ -530,6 +538,19 @@ public class PRViewController {
 			
 			//답글 삽입
 			prBoardService.addReReply(reply);
+			
+			//알람테이블 삽입
+			
+			alram.setAlramcontents(reply.getRecontents());
+			alram.setAlramsender((String)session.getAttribute("usernick"));
+			
+			alram.setBoardno(reply.getBoardno());
+			alram.setReplyno(reply.getReplyno());
+			
+			logger.info("알람 테스트 !" + alram.toString());
+			
+			prBoardService.insertReReplyAlram(alram);
+			
 			
 			mav.addObject("insert", true);
 			//viewName지정하기

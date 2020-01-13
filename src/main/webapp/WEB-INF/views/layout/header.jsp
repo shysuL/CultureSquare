@@ -435,18 +435,28 @@ function alramread(){
 						}
 						
 						html += "<strong>"+res.alramList[i].alramsender+"</strong>님이 "
-						html += "<br>회원님의  <strong>" + res.alramList[i].title +"</strong> 게시글에<br> "
 						// alramtype == 1 -> 댓글
 						if(res.alramList[i].alramtype == 1){
-							html += "댓글을 남겼습니다."
+							html += "<br>회원님의  <strong>" + res.alramList[i].title +"</strong> 게시글에<br> ";
+							html += "댓글을 남겼습니다.";
 						}
+						// alramtype == 2 -> 좋아요
 						else if(res.alramList[i].alramtype == 2){
-							html += "좋아요를 눌렀습니다."
+							html += "<br>회원님의  <strong>" + res.alramList[i].title +"</strong> 게시글에<br> ";
+							html += "좋아요를 눌렀습니다.";
 						}
+						// alramtype == 3 -> 답글
+						else if(res.alramList[i].alramtype == 3){
+							html += "<br><strong>" + res.alramList[i].title +"</strong> 게시글에 있는<br>";
+							html += "회원님의 댓글에  답글을 남겼습니다.";
+						}
+						
+						// alramtype == 4 -> 후원
 						else{
-							html +=  res.alramList[i].alramcontents + "원을 후원하였습니다."
+							html += "<br>회원님의  <strong>" + res.alramList[i].title +"</strong> 게시글에<br> ";
+							html +=  res.alramList[i].alramcontents + "원을 후원하였습니다.";
 						}
-						html += "<br><small>"+res.alramList[i].alramtime+"</small>"
+						html += "<br><small>"+res.alramList[i].alramtime+"</small>";
 						html += "</li>";
 						html += "</div>";
 					}

@@ -572,5 +572,26 @@ public interface PRBoardService {
 	 * @param likeno - 삭제할 좋아요 번호
 	 */
 	public void deleteLikeAlram(int likeno);
+
+	/**
+	 * 2020-01-14
+	 * 조홍철
+	 * 
+	 * 답글 알림 삽입
+	 * 
+	 * @param alram - 삽입할 알림 정보가 담긴 객체
+	 */
+	public void insertReReplyAlram(Alram alram);
+
+	/**
+	 * 2020-01-14
+	 * 조홍철
+	 * 
+	 * 댓글 번호를 통한 답글 번호 가져오기
+	 * 
+	 * @param replyno - 댓글 번호
+	 * @return int  - 유저번호
+	 */
+	public int getUsernoByReplyNo(int replyno);
 	
 }
