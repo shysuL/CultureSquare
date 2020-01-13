@@ -54,13 +54,17 @@
 	
 	<select id="selectCntAll" resultType="int" parameterType="util.MyPaging">
 		SELECT count(*)
-		FROM user_table U, board B, posttype P, blike L
+		FROM user_table U, board B
 		WHERE B.userno = U.userno
-			AND P.postno = B.postno
-<!-- 			<if test=""> -->
-				AND L.boardno = B.boardno
-<!-- 			</if> -->
-			AND B.userno = #{userno }
+			AND U.userno = #{userno } 
+		
+	</select>
+	
+	<select id="selectLikeCntAll" resultType="int" parameterType="util.MyPaging">
+		SELECT count(*) 
+		FROM user_table U, blike L
+    	WHERE L.userno = U.userno
+       		AND L.userno = #{userno }     
 		
 	</select>
 
