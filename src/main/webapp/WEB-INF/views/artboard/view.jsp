@@ -42,6 +42,8 @@ var newFirst = true;
 
 //댓글 슬라이드토글
 $(document).ready(function(){
+	
+	recheckAction();
 	$('#writereply').click(function() {
 		$('#replyinputbody').slideToggle("fast");
 	});
@@ -62,6 +64,7 @@ function deleteReReply(replyno){
 }
 
 $(document).ready(function() {
+	
 	
 	// 댓글 입력
 	$("#btnCommInsert").click(function() {
@@ -152,6 +155,14 @@ $(document).ready(function() {
 	}
 
 
+/**
+ * 초기 페이지 로딩시 좋아요 불러오기
+ */
+// $(function(){
+    
+// 	recheckAction();
+    
+// });
 /**
  * 초기 페이지 로딩시 댓글 불러오기
  */
@@ -429,9 +440,9 @@ function getReReply(replyno){
 	    		html += '</span>';
 	    		html += '</span>';	
 	    		html += '<div style="position: relative; min-height: 90px;">';
-	    		html += '<textarea style="height: auto; width: 100%; margin-left:15px; resize: none;" id="rreText'+replyno+'" name="editContent" id="editContent" class="form-control" style= "resize:none;">';
+	    		html += '<textarea style="height: auto; width: 100%; margin-left:2px; resize: none;" id="rreText'+replyno+'" name="editContent" id="editContent" class="form-control" style= "resize:none;">';
 	    		html += '</textarea>';
-	    		html += '<button id="rreaddBtn'+replyno+'" onClick="addReReply('+replyno +','+boardno +')" >등록</button>';
+	    		html += '<button class ="btn btn-secondary" id="rreaddBtn'+replyno+'" onClick="addReReply('+replyno +','+boardno +')" >등록</button>';
 	    		html += '</div>';
 	    		html += '</p>';
 	    		html += '</div>';
@@ -967,12 +978,11 @@ $(document).ready(function() {
 			<div id = "writer_nick" class="col-md-4">
 			${writer.usernick }
 			</div>
-			<div id="recommendtd"> 
+			<span id="recommendtd"> </span>
 			<div id = "write_date"  class="col-md-4">
 			${view.writtendate }
 			<div id = "viewcount">
 			${view.views }
-			</div>
 			</div>
 			</div>
 		</div>
