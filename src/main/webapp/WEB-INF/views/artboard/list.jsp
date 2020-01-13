@@ -144,6 +144,7 @@ $(document).ready(function(){
     bottom: 50px;
     z-index: 999;
     font-size: 20px;
+    text-decoration: none;
 }
 </style>
 
