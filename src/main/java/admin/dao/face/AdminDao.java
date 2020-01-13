@@ -1,5 +1,6 @@
 package admin.dao.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import admin.dto.Admin;
@@ -24,5 +25,7 @@ public interface AdminDao {
 	public List<User_table> selectUserList(Paging userpaging);
 
 	public int deleteUser(User_table userlist);
+
+	public User_table selectUserInfo(User_table user);
 
 }

@@ -105,4 +105,19 @@
 		) WHERE rnum BETWEEN #{startNo} AND #{endNo}
 	</select>
 	
+	<update id="insertPhoto" parameterType="user.dto.User_table">
+		UPDATE user_table SET originname = #{originname} , storedname = #{storedname}
+		WHERE userno = #{userno }
+	</update>
+	
+	<select id="selectFile" resultType="user.dto.User_table" parameterType="int">
+		SELECT originname, storedname 
+		FROM user_table
+		WHERE userno = #{userno }
+	</select>
+	
+	<update id="deleteFile" parameterType="user.dto.User_table">
+		UPDATE user_table SET originname = null, storedname = null
+		WHERE userno = #{userno}
+	</update>
 </mapper>
