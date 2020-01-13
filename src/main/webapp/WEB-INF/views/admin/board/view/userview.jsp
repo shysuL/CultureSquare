@@ -25,7 +25,7 @@ $(document).ready(function() {
 	
 	//승인모달 확인 버튼 눌렀을때
 	$("#userPermitOkBtn").click(function() {
-// 		$(location).attr("href", "/board/freedelete?boardno=${board.boardno }");
+		$("#userPermitSuccessModal").modal({backdrop: 'static', keyboard: false});
 	});
 	
 	//일반사용자로 강등 버튼 동작
@@ -35,7 +35,7 @@ $(document).ready(function() {
 	
 	//일반사용자로 강등 확인 버튼 눌렀을때
 	$("#userPermitDownBtn").click(function() {
-// 		$(location).attr("href", "/board/freedelete?boardno=${board.boardno }");
+		$("#userPermitDownOkModal").modal({backdrop: 'static', keyboard: false});
 	});
 	
 });
@@ -292,13 +292,13 @@ span[class=close] {
 							일반사용자로써 예술인 신청을 하지 않음.
 						</c:if>
 						<c:if test="${userinfo.permit == 1 }">
+							일반사용자 또는 회원가입 시 예술인으로 가입했으나 아직 관리자의 승인이 되지 않음<br><br>
+							<button id="btnPermit" class="btn btn-dark" >예술인으로 승인하기</button>
+						</c:if>
+						<c:if test="${userinfo.permit == 2 }">
 							예술인으로 신청완료<br><br>
 							<button id="btnPermitDown" class="btn btn-dark" >일반사용자로 강등시키기</button>
 							<small>일반 사용자로 강등은 해당 사용자의 불필요한 글 배포, 허위사실 유포 등 부적절한 경우에만 사용하시길 바랍니다.</small>
-						</c:if>
-						<c:if test="${userinfo.permit == 2 }">
-							일반사용자이거나 아직 관리자의 승인이 되지 않음<br><br>
-							<button id="btnPermit" class="btn btn-dark" >예술인 승인</button>
 						</c:if>
 						
 					</c:when>
@@ -360,14 +360,40 @@ span[class=close] {
 
       <!-- Modal body -->
       <div class="modal-body content">
-      	일반사용자인 ${userinfo.usernick }님이 예술인으로 등업신청하셨습니다.<br>
-      	승인하시겠습니까?
+      	일반사용자 또는 회원가입 시 예술인으로 가입한 ${userinfo.usernick }님을 예술인으로 등업을 승인하시겠습니까?<br>
       </div>
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="submit" id="userPermitOkBtn" class="btn btn-dark" style="float: right;" data-dismiss="modal" >확인</button>
-        <button type="submit" id="userPermitCancelBtn" class="btn btn-secondary" style="float: right;" data-dismiss="modal" >취소</button>
+       	<button type="submit" id="userPermitOkBtn" class="btn btn-dark" style="float: right;" data-dismiss="modal">확인</button>
+        <button type="button" class="btn btn-secondary" style="float: right;" data-dismiss="modal" >취소</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 유저 승인 확인 모달창 -->
+<div class="modal fade" id="userPermitSuccessModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">사용자 승인 완료</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	일반사용자인 ${userinfo.usernick }님의 예술인 등업신청을 승인 하셨습니다.<br>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      	<form action="/admin/user/mgrpermit" method="post">
+        	<button type="submit" class="btn btn-secondary" style="float: right;">확인</button>
+      	</form>
       </div>
 
     </div>
@@ -392,8 +418,35 @@ span[class=close] {
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="submit" id="userPermitDownBtn" class="btn btn-dark" style="float: right;" data-dismiss="modal" >확인</button>
-        <button type="submit" class="btn btn-secondary" style="float: right;" data-dismiss="modal" >취소</button>
+       	<button type="submit" id="userPermitDownBtn" class="btn btn-dark" style="float: right;" data-dismiss="modal">확인</button>
+        <button type="button" class="btn btn-secondary" style="float: right;" data-dismiss="modal" >취소</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 일반사용자로 강등 확인 모달창 -->
+<div class="modal fade" id="userPermitDownOkModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">사용자 강등</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	${userinfo.usernick }님이 일반사용자로 강등되었습니다.
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      	<form action="/admin/user/downPermit" method="post">
+        	<button type="submit" id="userPermitDownBtn" class="btn btn-dark" style="float: right;">확인</button>
+        </form>
       </div>
 
     </div>

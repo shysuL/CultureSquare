@@ -126,7 +126,8 @@
 	</update>
 	
 	<update id="updateUserPermit" parameterType="user.dto.User_table">
-		UPDATE user_table SET permit = 1
+		UPDATE user_table 
+		SET permit = 1
 		WHERE userno = #{userno }
 	</update>
 </mapper>

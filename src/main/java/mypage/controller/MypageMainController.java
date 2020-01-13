@@ -169,6 +169,8 @@ public class MypageMainController {
 	@RequestMapping(value="/mypage/main/updateartist", method=RequestMethod.POST)
 	public String UpdateArtists(HttpSession session, User_table user) {
 		
+		logger.info("외않되?");
+		
 		user.setUserno((Integer)session.getAttribute("userno"));
 		
 		mypageService.userupdate(user);
