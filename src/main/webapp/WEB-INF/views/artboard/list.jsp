@@ -137,12 +137,22 @@ $(document).ready(function(){
     float: right;
 	margin-right: 6px;
 }
+
+#top {
+    position: fixed;
+    right: 5%;
+    bottom: 50px;
+    z-index: 999;
+    font-size: 20px;
+}
 </style>
 
 <div class="container list-container">
 <div class="h2"><h2> CALENDAR </h2></div>
 <hr>
 <div class="row">
+
+	<a id="top" href="#">승리싫어하는 사람 눌러</a>
 	
 	<!-- 공연 게시판 -->
 	<!-- 캐러셀영역 -->
