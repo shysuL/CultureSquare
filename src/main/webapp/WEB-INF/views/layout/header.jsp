@@ -146,7 +146,7 @@ $(document).ready(function() {
             dataType: "json",
             success : function(res){
                // ModelAndView - findId
-   //            console.log("success");
+   //            console.log("success");  
                console.log(res)
                console.log(res.idList)
                
