@@ -1,5 +1,7 @@
 package alram.service.face;
 
+import java.util.List;
+
 import alram.dto.Alram;
 import user.dto.User_table;
 
@@ -36,5 +38,16 @@ public interface AlramService {
 	 * @param userno - 유저 번호
 	 */
 	public void readAlram(int userno);
+
+	/**
+	 * 2020-01-13
+	 * 조홍철
+	 * 
+	 * 알람 테이블 리스트를 가져온다.
+	 * 
+	 * @param userno - 로그인한 유저 번호
+	 * @return List - 알람 리스트
+	 */
+	public List<Alram> getAlramList(int userno);
 
 }
