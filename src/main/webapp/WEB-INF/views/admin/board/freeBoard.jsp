@@ -26,32 +26,10 @@
 	});
 </script>
 
-<script type="text/javascript">
-function checkedAll(){
-	// checkbox들
-   var $checkboxes=$("input:checkbox[name='checkRow']");
-
-   // checkAll 체크상태 (true:전체선택, false:전체해제)
-   var check_status = $("#checkAlls").is(":checked");
-   
-   if( check_status ) {
-      // 전체 체크박스를 checked로 바꾸기
-      $checkboxes.each(function() {
-         this.checked = true;   
-      });
-   } else {
-      // 전체 체크박스를 checked 해제하기
-      $checkboxes.each(function() {
-         this.checked = false;   
-      });
-   }
-}
-</script>
-
 <!-- 자유게시판 -->
 	<div class="container" style="margin-top: 50px;">
 		<div class="innercon2">
-			<h3 style="text-align: center;">자유게시판</h3>
+			<h3 style="text-align: center;">FREE BOARD</h3>
 			<div class="src" style="text-align: right;">
 				<form action="" method="get">
 				<input type="text" name="search" id="search"/>

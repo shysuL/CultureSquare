@@ -27,27 +27,6 @@
 	});
 </script>
 
-<script type="text/javascript">
-function checkedAll(){
-	// checkbox들
-   var $checkboxes=$("input:checkbox[name='checkRow']");
-
-   // checkAll 체크상태 (true:전체선택, false:전체해제)
-   var check_status = $("#checkAlls").is(":checked");
-   
-   if( check_status ) {
-      // 전체 체크박스를 checked로 바꾸기
-      $checkboxes.each(function() {
-         this.checked = true;   
-      });
-   } else {
-      // 전체 체크박스를 checked 해제하기
-      $checkboxes.each(function() {
-         this.checked = false;   
-      });
-   }
-}
-</script>    
 <div class="container" style="margin-top: 50px;">
 	<div class="innercon2">
 	<h3 style="text-align: center;">FAQ</h3>

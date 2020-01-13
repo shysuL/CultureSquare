@@ -3,6 +3,7 @@ package board.service.face;
 import java.util.List;
 import java.util.Map;
 
+import board.dto.Alram;
 import board.dto.FreeBoard;
 import board.dto.Reply;
 import board.dto.UpFile;
@@ -402,5 +403,36 @@ public interface FreeBoardService {
 	 * @param boardno - 게시판 번호가 담긴 객체
 	 */
 	public void deleteReplyToBoard(int boardno);
+
+	/**
+	 * 2020-01-13
+	 * 고인호
+	 * 
+	 * 게시글번호로 유저번호 가져오기
+	 * 
+	 * @param boardno - 게시글번호가 담긴 객체
+	 * @return 
+	 */
+	public Alram getUserno(int boardno);
+
+	/**
+	 * 2020-01-13
+	 * 고인호
+	 * 
+	 * 알람 삽입
+	 * 
+	 * @param alram - 알람에 등록될 정보가 담긴 객체
+	 */
+	public void insertReplyAlram(Alram alram);
+
+	/**
+	 * 2020-01-13
+	 * 고인호
+	 * 
+	 * 알람 삽입
+	 * 
+	 * @param alram - 알람에 등록될 정보가 담긴 객체
+	 */
+	public void insertRecommendAlram(Alram alram);
 
 }

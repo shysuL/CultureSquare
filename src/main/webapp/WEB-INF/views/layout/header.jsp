@@ -406,7 +406,6 @@ function weather(){
 		}
 	});
 }
-
 function alramread(){
 	//로그인 상태
 	if('${login}'){
@@ -424,7 +423,7 @@ function alramread(){
 				$(".alram").collapse('toggle'); 
 				
 				for(i=0; i<res.alramList.length; i++){
-					html += "<div id = 'alram"+res.alramList[i].boardno+"'>"
+					html += "<div style ='cursor: pointer;' id = 'alram"+res.alramList[i].boardno+"' class='alram"+res.alramList[i].alramno+"' data-role='alram"+res.alramList[i].boardtype+"'>"
 					html += "<li id = 'alramshow' class='list-group-item'>"
 					html += "<strong>"+res.alramList[i].alramsender+"</strong>님이 "
 					html += "회원님의 <br><strong>" + res.alramList[i].title +"</strong> 게시글에 "
@@ -447,34 +446,11 @@ function alramread(){
 				console.log("실패");
 			}
 		});
-		
-// 		$.ajax({
-// 			type : "POST",
-// 			url : "/alram/readalram",
-// 			data : {
-// 				//사용자 닉네임 넘겨줌
-// 				usernick : '${usernick}',
-// 			},
-// 			dataType : "json",
-// 			success : function(res) {
-// 				if(res.update){
-// 					console.log("나중 출력 되야지");
-// 				}
-// 				else{
-// 					console.log("업데이트 에러");
-// 				}
-// 			},
-// 			error : function() {
-// 				console.log("실패");
-// 			}
-// 		});
 	}
 	else{
 		console.log("로그인 안댐");
 	}
-	
 }
-
 function getAlramCnt(usernick){
 	$.ajax({
 		type : "POST",
@@ -499,14 +475,12 @@ function getAlramCnt(usernick){
 		}
 	});
 }
-
 function getInfiniteAlram(usernick){
 	setInterval(function() {
 			getAlramCnt(usernick);
 			
 	}, 1000);
 }
-
 </script>
 
 <script type="text/javascript">
@@ -521,12 +495,49 @@ function getInfiniteAlram(usernick){
 				// 부모 div 아이디 얻기
 				var parentId = $(this).closest('div').attr('id');
 				//숫자만 추출
-				var replyno = parentId.replace(/[^0-9]/g,'');
+				var boardno = parentId.replace(/[^0-9]/g,'');
 				
-				console.log("부모의 게시글 번호 : "+ replyno);
-			})
-			
-		});
+				// 부모 div 클래스 얻기
+				var parentclass = $(this).closest('div').attr('class');
+				//숫자만 추출
+				var alramno = parentclass.replace(/[^0-9]/g,'');
+				
+				// 부모 div data-role얻기
+				var parentType = $(this).closest('div').attr('data-role');
+				boardtype = parentType.replace(/[^0-9]/g,'');
+				
+		 		$.ajax({
+	 			type : "POST",
+	 			url : "/alram/readalram",
+	 			data : {
+	 				//게시판 번호, 알람번호 넘겨줌
+	 				boardno : boardno,
+	 				alramno : alramno
+	 			},
+	 			dataType : "json",
+	 			success : function(res) {
+	 				
+	 				// boardtype == 1 예술정보 게시판
+	 				if(boardtype == 1){
+	 					$(location).attr("href", "/artboard/view?boardno="+ boardno);
+	 				}
+	 				
+	 				// boardtype == 2 PR 게시판
+	 				else if(boardtype == 2){
+	 					$(location).attr("href", "/prboard/view?boardno="+ boardno);
+	 				}
+	 				
+	 				// 자유게시판
+	 				else{
+	 					$(location).attr("href", "/board/freeview?boardno="+ boardno);
+	 				}
+	 			},
+	 			error : function() {
+	 				console.log("실패");
+	 			}
+	 		});
+		})
+	});
 </script>
 
 <style type="text/css">
@@ -599,6 +610,12 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 .hoverBox p.p2{margin-top: 40px;}
 .event3 .hoverBox{background: linear-gradient(to right, rgba(0,0,0,0) ,rgba(255,255,255,1)); width: 50px; height:400px; transform: rotateZ(30deg);top: -100px; left:-130px; transition: 0.4s; opacity: 0.5;}
 .event3:hover .hoverBox{left: 400px; opacity: 1;}
+
+#alarmCnt {
+	top: -20px;
+	right: -43px;
+	height: 20px;
+}
 </style>
 
 </head>
@@ -606,8 +623,7 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 
 <!-- header --> 
 <div class="wrap">
-
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="margin-top: 10px;">
   <a class="navbar-brand" href="/main/main">CultureSquare</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -667,13 +683,13 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 	</div>
 &nbsp;&nbsp;&nbsp;&nbsp;
 	<!-- 상단 알림 아이콘 -->  
+<!-- 		   	<span  class="badge badge-pill badge-info" id = "alarmCnt"></span> -->
 	<div class="btn-group" >
 
 		<button class="btn btn-secondary dropdown-toggle" type="button" onclick="alramread();">
-	      <span class="fas fa-bell" ></span>
-	      <span  class="badge badge-pill badge-info" id = "alarmCnt"></span>
-	     
-	   </button>
+	        <span class="fas fa-bell" ></span>
+			<span  class="badge badge-pill badge-info" id = "alarmCnt"></span>
+	    </button>
 
 		 <div class="dropdown-menu alram" aria-labelledby="dropdownMenuButton">
 			<ul id = "alramList" class="list-group">
@@ -762,6 +778,7 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 	    </c:if>
 	</div>
 	</div>
+	
 </nav>
 
 

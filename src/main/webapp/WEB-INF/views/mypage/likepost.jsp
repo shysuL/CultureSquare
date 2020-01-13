@@ -47,6 +47,9 @@
 					<c:if test="${likelist.BOARDNAME == 'PR게시판'}">
 						<tr onclick="location.href='/prboard/view?boardno=${likelist.BOARDNO }';" style="text-align: center;">
 					</c:if>
+					<c:if test="${likelist.BOARDNAME == '예술정보게시판'}">
+						<tr onclick="location.href='/artboard/view?boardno=${likelist.BOARDNO }';" style="text-align: center;">
+					</c:if>
 							<td>${likelist.RNUM }</td>
 							<td>${likelist.BOARDNAME }</td>
 							<td>${likelist.TITLE }</td>

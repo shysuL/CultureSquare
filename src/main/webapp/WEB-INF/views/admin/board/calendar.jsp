@@ -30,7 +30,7 @@
 
 <div class="container" style="margin-top: 50px;">
 	<div class="innercon2">
-	<h3 style="text-align: center;">CALENDAR</h3>
+	<h3 style="text-align: center;">ART INFORMATION</h3>
 		<div class="src" style="text-align: right;">
 			<form action="" method="get">
 			<input type="text" name="search" id="search"/>

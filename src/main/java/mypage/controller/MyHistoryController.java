@@ -79,7 +79,7 @@ public class MyHistoryController {
 		
 		paging.setUserno((Integer)session.getAttribute("userno"));
 		
-		MyPaging result = mypageService.getPaging(paging);
+		MyPaging result = mypageService.getReplyPaging(paging);
 		
 		List<HashMap<String, Object>> replylist = new ArrayList<HashMap<String, Object>>();
 		
@@ -91,10 +91,24 @@ public class MyHistoryController {
 		
 	}
 	
-//	@RequestMapping(value="/mypage/permitslist", method=RequestMethod.GET)
-//	public void getUserPermit(Paging paging, User_table user) {
-//		
-//	}
+	@RequestMapping(value="/mypage/permitslist", method=RequestMethod.GET)
+	public void getUserPermit(User_table user, HttpSession session, Model model, HttpServletRequest req, MyPaging paging) {
+		
+		paging.setUserno((Integer)session.getAttribute("userno"));
+		
+		MyPaging result = mypageService.getPermitPaging(paging);
+		
+		List<HashMap<String, Object>> permitlist = new ArrayList<HashMap<String, Object>>();
+		
+		permitlist = mypageService.getPermitList(result);
+		
+		System.out.println("후원내역" + result);
+		
+		model.addAttribute("url", req.getRequestURI());
+		model.addAttribute("paging", result);
+		model.addAttribute("permitlist", permitlist);
+		
+	}
 			
 
 }

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -480,4 +481,71 @@ public class ArtboardViewController {
 		return mav;
 	}
 
+	
+	@RequestMapping(value = "/artboard/follow", method = RequestMethod.GET)
+	public String followPF(Board board, @RequestParam("userno") int userno,Model model,HttpSession session) {
+
+		//보드 번호 저장
+		int boardno = board.getBoardno();
+		
+		//로그인 상태인 경우만 처리
+		if((String)session.getAttribute("usernick")!= null) {
+			
+			board.setUsernick((String)session.getAttribute("usernick"));
+			board.setUserno(userno);
+			
+			int result = pfboardService.followCheck(board);
+			
+			//전에 추천한적이 없다면
+			if(result == 0) {
+				pfboardService.follow(board);
+			}else {
+				pfboardService.followCancel(board);
+			}
+
+			logger.info("버튼 클릭 : " + result);
+			logger.info("추천 보드 정보 : " + board);
+
+			int followCnt = pfboardService.followView(board);
+
+			// View에 모델 전달
+			model.addAttribute("result",result);
+
+			model.addAttribute("followCnt", followCnt);
+
+			return "artboard/follow";
+		}
+		//로그아웃일 경우 실패를 받을수 있도록 다시 보냄
+		else {
+			return "/artboard/view?boardno="+boardno;
+		}
+	}
+	
+	@RequestMapping(value = "/artboard/followchk", method = RequestMethod.GET)
+	public String followchkPF(Board board,@RequestParam("userno") int userno, Model model, HttpSession session) {
+		
+		//보드 번호 저장
+		int boardno = board.getBoardno();
+		
+		if((String)session.getAttribute("usernick")!=null) {
+			board.setUsernick((String)session.getAttribute("usernick"));
+			board.setUserno(userno);
+		}
+		
+		board.setBoardno(boardno);
+		
+		logger.info("followchk +++ : " + board.toString());      
+		
+		int result = pfboardService.followCheck(board);
+		
+		logger.info("요건 첨에 나올 : " + result);
+		
+		int followCnt = pfboardService.followView(board);
+		
+		//	VIEW에 모델(MODEL)값 전달하기
+		model.addAttribute("result", result);	
+		
+		model.addAttribute("followCnt", followCnt);
+		return "artboard/followchk";
+	}
 }

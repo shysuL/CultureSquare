@@ -65,7 +65,6 @@
 		FROM user_table U, blike L
     	WHERE L.userno = U.userno
        		AND L.userno = #{userno }     
-		
 	</select>
 
 	<select id="selectLikePost" resultType="hashMap" parameterType="util.MyPaging">
@@ -130,4 +129,32 @@
 		SET permit = 1
 		WHERE userno = #{userno }
 	</update>
+	
+	<select id="selectPermitCntAll" resultType="int" parameterType="util.MyPaging">
+		SELECT count(*)
+		FROM donation D, user_table U, board B
+		WHERE D.userno = U.userno
+    		AND B.boardno = D.boardno
+    		AND U.userno = #{userno }
+	</select>
+	
+	<select id="selectPermitList" resultType="hashmap" parameterType="util.MyPaging">
+		SELECT * FROM (
+        	SELECT rownum rnum, Q.* FROM (
+	            SELECT B.boardno, B.title, U.usernick, U.username, D.donprice
+	            FROM board B, user_table U, donation D
+	            WHERE D.userno = U.userno
+	                AND B.boardno = D.boardno
+	                AND U.userno = #{userno }
+        	) Q 
+        	ORDER BY rnum
+		) WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	<select id="selectReplyCntAll" resultType="int" parameterType="user.dto.User_table">
+		SELECT count(*) 
+		FROM user_table U, reply R
+		WHERE R.userno = U.userno
+    		AND R.userno = #{userno} 
+	</select>
 </mapper>

@@ -5,28 +5,6 @@
 
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
 
-<script type="text/javascript">
-function checkedAll(){
-	// checkbox들
-   var $checkboxes=$("input:checkbox[name='checkRow']");
-
-   // checkAll 체크상태 (true:전체선택, false:전체해제)
-   var check_status = $("#checkAlls").is(":checked");
-   
-   if( check_status ) {
-      // 전체 체크박스를 checked로 바꾸기
-      $checkboxes.each(function() {
-         this.checked = true;   
-      });
-   } else {
-      // 전체 체크박스를 checked 해제하기
-      $checkboxes.each(function() {
-         this.checked = false;   
-      });
-   }
-}
-</script>
-
 <style type="text/css">
 #writelistsheader {
 	margin-bottom: 3%; 
@@ -58,11 +36,8 @@ function checkedAll(){
 			<table class="table table-hover">
 				<thead>
 					<tr class = "info" style="text-align: center;" >
-						<th style="width: 5%">
-							<input type="checkbox" id="checkAlls" name="checkAlls" onclick="checkedAll();"/>
-						</th>
 						<th style="width: 10%">번호</th>
-						<th style="width: 15%">게시판 명</th>
+						<th style="width: 20%">게시판 명</th>
 						<th style="width: 35%">제목</th>					
 						<th style="width: 20%">작성일</th>
 						<th style="width: 15%">조회수</th>
@@ -80,9 +55,6 @@ function checkedAll(){
 					<c:if test="${writelist.BOARDNAME == '예술정보게시판'}">
 						<tr onclick="location.href='/artboard/view?boardno=${writelist.BOARDNO }';" style="text-align: center;">
 					</c:if>
-							<td>
-								<input type="checkbox" name="checkRow" id="checkRow" value="${writelist.BOARDNO  }"/>
-							</td>
 							<td>${writelist.RNUM }</td>
 							<td>${writelist.BOARDNAME }</td>
 							<td>${writelist.TITLE }</td>
@@ -93,7 +65,6 @@ function checkedAll(){
 				</tbody>
 				
 			</table>
-			<button class="btn btn-dark">삭제</button>
 		</form>
 	</div>
 	
