@@ -23,9 +23,18 @@
 	 </select>
 	 <!-- 알람 읽음 여부 1로 업데이트 -->
 	 <update id="updateAlramCheck"
-		 parameterType="int">
+		 parameterType="alram.dto.Alram">
 		UPDATE alram SET alramcheck = 1
 		WHERE 1=1
-			AND userno = #{userNo}
+		AND alramno = #{alramno}
 	</update>
+	
+	<!-- 알람 리스트 가져오기 -->
+	<select id="selectAlramList" resultType="alram.dto.Alram" parameterType="int">
+		select A.*, U.usernick, B.title from alram A, user_table U, board B
+		WHERE U.userno = A.userno
+		AND A.boardno = B.boardno
+		AND A.userno = #{userno}
+		order by alramno desc
+	</select>
 </mapper>

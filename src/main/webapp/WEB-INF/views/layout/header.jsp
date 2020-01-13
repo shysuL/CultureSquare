@@ -413,18 +413,34 @@ function alramread(){
 		
 		$.ajax({
 			type : "POST",
-			url : "/alram/readalram",
+			url : "/alram/getAlramList",
 			data : {
 				//사용자 닉네임 넘겨줌
 				usernick : '${usernick}',
 			},
 			dataType : "json",
 			success : function(res) {
-				if(res.update){
-					$(".alram").collapse('toggle'); 
-				}
-				else{
-					console.log("업데이트 에러");
+				var html ="";
+				$(".alram").collapse('toggle'); 
+				
+				for(i=0; i<res.alramList.length; i++){
+					html += "<div style ='cursor: pointer;' id = 'alram"+res.alramList[i].boardno+"' class='alram"+res.alramList[i].alramno+"' data-role='alram"+res.alramList[i].boardtype+"'>"
+					html += "<li id = 'alramshow' class='list-group-item'>"
+					html += "<strong>"+res.alramList[i].alramsender+"</strong>님이 "
+					html += "회원님의 <br><strong>" + res.alramList[i].title +"</strong> 게시글에 "
+					// alramtype == 1 -> 댓글
+					if(res.alramList[i].alramtype == 1){
+						html += "댓글을 <br>남겼습니다."
+					}
+					else if(res.alramList[i].alramtype == 2){
+						html += "좋아요를 <br>눌렀습니다."
+					}
+					else{
+						html +=  res.alramList[i].alramcontents + "원을 <br>후원하였습니다."
+					}
+					html += "</li>"
+					html += "</div>"
+					$("#alramList").html(html);
 				}
 			},
 			error : function() {
@@ -435,7 +451,6 @@ function alramread(){
 	else{
 		console.log("로그인 안댐");
 	}
-	
 }
 
 function getAlramCnt(usernick){
@@ -479,7 +494,54 @@ function getInfiniteAlram(usernick){
 				getInfiniteAlram('${usernick}');
 			}
 			
-		});
+			// 알람 보기 버튼 클릭 처리
+			$('#alramList').on("click", "#alramshow", function(){
+				// 부모 div 아이디 얻기
+				var parentId = $(this).closest('div').attr('id');
+				//숫자만 추출
+				var boardno = parentId.replace(/[^0-9]/g,'');
+				
+				// 부모 div 클래스 얻기
+				var parentclass = $(this).closest('div').attr('class');
+				//숫자만 추출
+				var alramno = parentclass.replace(/[^0-9]/g,'');
+				
+				// 부모 div data-role얻기
+				var parentType = $(this).closest('div').attr('data-role');
+				boardtype = parentType.replace(/[^0-9]/g,'');
+				
+		 		$.ajax({
+	 			type : "POST",
+	 			url : "/alram/readalram",
+	 			data : {
+	 				//게시판 번호, 알람번호 넘겨줌
+	 				boardno : boardno,
+	 				alramno : alramno
+	 			},
+	 			dataType : "json",
+	 			success : function(res) {
+	 				
+	 				// boardtype == 1 예술정보 게시판
+	 				if(boardtype == 1){
+	 					$(location).attr("href", "/artboard/view?boardno="+ boardno);
+	 				}
+	 				
+	 				// boardtype == 2 PR 게시판
+	 				else if(boardtype == 2){
+	 					$(location).attr("href", "/prboard/view?boardno="+ boardno);
+	 				}
+	 				
+	 				// 자유게시판
+	 				else{
+	 					$(location).attr("href", "/board/freeview?boardno="+ boardno);
+	 				}
+	 			},
+	 			error : function() {
+	 				console.log("실패");
+	 			}
+	 		});
+		})
+	});
 </script>
 
 <style type="text/css">
@@ -520,7 +582,9 @@ function getInfiniteAlram(usernick){
 }
 .alram {
     margin-left: -100px;
-    width: 220px;
+    width: 275px;
+    overflow: auto;
+    height: 200px;
 }
 /* 상단 아이콘 위치 */
 .right{
@@ -627,8 +691,8 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 	   </button>
 
 		 <div class="dropdown-menu alram" aria-labelledby="dropdownMenuButton">
-		
-		 
+			<ul id = "alramList" class="list-group">
+			</ul>
 		 </div>
 		
 	</div>

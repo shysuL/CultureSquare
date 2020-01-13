@@ -100,6 +100,14 @@ $(document).ready(function(){
 	});
 	
 });	
+$(document).ready(function(){
+	$("all").click(function(){
+		css("color", "darkgray");
+		css("background", "darkgray");
+	})
+	
+}
+
 </script>
 
 
@@ -320,7 +328,7 @@ $(document).ready(function(){
 	  		</tr>
 	  		
 	  		<tr>
-	  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>" ><input class="list-group-item action cate" type="submit" value="전체" /></a></td>
+	  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>" ><input id="all" class="list-group-item action cate" type="submit" value="전체" /></a></td>
 	  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>&performname=버스킹" ><input class="list-group-item cate" type="submit" value="버스킹" /></a></td>
 	  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>&performname=전시회" ><input class="list-group-item cate" type="submit" value="전시회" /></a></td>
 	  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>&performname=연극" ><input class="list-group-item cate" type="submit" value="연극" /></a></td>
