@@ -82,6 +82,7 @@ public class AlramController {
                 hm.put("boardno", alramVO.get(i).getBoardno());
                 hm.put("title", alramVO.get(i).getTitle());
                 hm.put("boardtype", alramVO.get(i).getBoardtype());
+                hm.put("alramcheck", alramVO.get(i).getAlramcheck());
 
                 alramList.add(hm);
             }
