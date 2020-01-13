@@ -267,5 +267,29 @@
 		AND replyorder = 0
 		ORDER BY cnt DESC, R.replyno DESC
 	</select>
+	
+	<select id="selectByUserNo" parameterType="int" resultType="board.dto.Alram">
+		SELECT userno FROM board
+		WHERE boardno = #{boardno }
+	</select>
+	
+	<insert id="insertReplyAlram" parameterType="board.dto.Alram">
+	
+		<selectKey order="BEFORE" resultType="int" keyProperty="alramno">
+		SELECT alram_seq.nextval FROM dual
+		</selectKey>
+	
+		INSERT INTO alram (alramno, alramcontents, alramtime, alramcheck, alramtype, alramsender, userno, boardno, boardtype)
+  		VALUES (#{alramno }, #{alramcontents }, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), 0, 1, #{alramsender }, #{userno }, #{boardno }, 3)
+	</insert>
 		
+	<insert id="insertRecommendAlram" parameterType="board.dto.Alram">
+	
+		<selectKey order="BEFORE" resultType="int" keyProperty="alramno">
+		SELECT alram_seq.nextval FROM dual
+		</selectKey>
+	
+		INSERT INTO alram (alramno, alramcontents, alramtime, alramcheck, alramtype, alramsender, userno, boardno, boardtype)
+  		VALUES (#{alramno }, '좋아요', TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), 0, 2, #{alramsender }, #{userno }, #{boardno }, 3)
+	</insert>
 </mapper>
