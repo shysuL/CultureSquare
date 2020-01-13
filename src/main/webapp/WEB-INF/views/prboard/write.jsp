@@ -14,7 +14,7 @@
 	// <form>이 submit되면
 	// 스마트 에디터 내용을 <textarea>반영해주는 함수
 	
-	qfunction submitContents(elClickedObj) {
+	function submitContents(elClickedObj) {
 		// 에디터의 내용이 textarea에 적용된다.
 		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
 

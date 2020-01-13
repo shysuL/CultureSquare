@@ -42,6 +42,8 @@ var newFirst = true;
 
 //댓글 슬라이드토글
 $(document).ready(function(){
+	
+	recheckAction();
 	$('#writereply').click(function() {
 		$('#replyinputbody').slideToggle("fast");
 	});
@@ -62,6 +64,7 @@ function deleteReReply(replyno){
 }
 
 $(document).ready(function() {
+	
 	
 	// 댓글 입력
 	$("#btnCommInsert").click(function() {
@@ -152,6 +155,14 @@ $(document).ready(function() {
 	}
 
 
+/**
+ * 초기 페이지 로딩시 좋아요 불러오기
+ */
+// $(function(){
+    
+// 	recheckAction();
+    
+// });
 /**
  * 초기 페이지 로딩시 댓글 불러오기
  */
@@ -287,7 +298,7 @@ function modifyReReply(replyno,recontents){
 		
 		html += '</span>';
 		html += '</span>';		
-		html += '<textarea style ="resize:none; height: auto; width: 1065px;" name="editReContent" id="editReContent" class="form-control">';
+		html += '<textarea style ="resize:none; height: auto; width: 100%;" name="editReContent" id="editReContent" class="form-control">';
 		html += recontents;
 		html += '</textarea>';
 		html += '</p>';
@@ -429,9 +440,9 @@ function getReReply(replyno){
 	    		html += '</span>';
 	    		html += '</span>';	
 	    		html += '<div style="position: relative; min-height: 90px;">';
-	    		html += '<textarea style="height: auto; width: 100%; margin-left:15px; resize: none;" id="rreText'+replyno+'" name="editContent" id="editContent" class="form-control" style= "resize:none;">';
+	    		html += '<textarea style="height: auto; width: 100%; margin-left:2px; resize: none;" id="rreText'+replyno+'" name="editContent" id="editContent" class="form-control" style= "resize:none;">';
 	    		html += '</textarea>';
-	    		html += '<button id="rreaddBtn'+replyno+'" onClick="addReReply('+replyno +','+boardno +')" >등록</button>';
+	    		html += '<button class ="btn btn-secondary" id="rreaddBtn'+replyno+'" onClick="addReReply('+replyno +','+boardno +')" >등록</button>';
 	    		html += '</div>';
 	    		html += '</p>';
 	    		html += '</div>';
@@ -802,7 +813,6 @@ $(document).ready(function() {
 	$(document).ready(function() {
 		//추천버튼 동작
 		$("#recommendtd").on("click", "#recommend", function() {
-			//		$(location).attr("href", "/board/recommend?boardno=${viewBoard.boardno }");
 			console.log("추천버튼 눌림");
 			recommendAction();
 		});
@@ -821,25 +831,6 @@ $(document).ready(function() {
 			$(location).attr("href", "/artboard/delete?boardno=${view.boardno }");
 		});
 		
-		function recommendAction() {
-			$.ajax({
-				type : "get",
-				url : "/artboard/recommend",
-				data : {
-					boardno : '${view.boardno }'
-				},
-				dataType : "html",
-				success : function(data) {
-					console.log("성공");
-					console.log(data);
-
-					$("#recommendtd").html(data)
-				},
-				error : function() {
-					$("#pfLikeLoginModal").modal({backdrop: 'static', keyboard: false});
-				}
-			});
-		}
 		
 		//댓글 삭제모달에서 확인 버튼 클릭 - 댓글 삭제 동작 Ajax 처리
 		$("#pfReplyDeleteModalBtn").click(function() {
@@ -888,26 +879,29 @@ $(document).ready(function() {
 			
 		});
 		
-	});
-		function recommendAction() {
-			$.ajax({
-				type : "get",
-				url : "/artboard/recommend",
-				data : {
-					boardno : '${view.boardno }'
-				},
-				dataType : "html",
-				success : function(data) {
-					console.log("성공");
-					console.log(data);
+	})
+	
+	function recommendAction() {
+		$.ajax({
+			type : "get",
+			url : "/artboard/recommend",
+			data : {
+				boardno : '${view.boardno }'
+			},
+			dataType : "html",
+			success : function(data) {
+				console.log("성공");
+				console.log(data);
 
-					$("#recommendtd").html(data)
-				},
-				error : function() {
-					$("#pfLikeLoginModal").modal({backdrop: 'static', keyboard: false});
-				}
-			});
-		}
+				$("#recommendtd").html(data);
+			},
+			error : function() {
+				$("#pfLikeLoginModal").modal({backdrop: 'static', keyboard: false});
+			}
+		});
+	}
+	
+	// 처음에 게시글 추천 여부에 따른 이미지 출력
 		function recheckAction() {
 			$.ajax({
 				type : "get",
@@ -920,7 +914,7 @@ $(document).ready(function() {
 					console.log("성공");
 					console.log(data);
 
-					$("#recommendtd").html(data)
+					$("#recommendtd").html(data);
 				},
 				error : function() {
 					console.log("실패연 하이하이");
@@ -952,7 +946,11 @@ $(document).ready(function() {
     max-width: 95%;
     height: 80px;
     padding: 6px;
-	
+}
+#editReContent{
+	resize: none;
+    height: auto;
+    width: 100%;
 }
 
 </style>
@@ -980,12 +978,11 @@ $(document).ready(function() {
 			<div id = "writer_nick" class="col-md-4">
 			${writer.usernick }
 			</div>
-			<div id="recommendtd">
+			<span id="recommendtd"> </span>
 			<div id = "write_date"  class="col-md-4">
 			${view.writtendate }
 			<div id = "viewcount">
 			${view.views }
-			</div>
 			</div>
 			</div>
 		</div>

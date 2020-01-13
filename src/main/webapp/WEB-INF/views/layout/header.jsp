@@ -25,9 +25,6 @@
 <link rel="stylesheet" href="/resources/css/css.css" />
 
 <script type="text/javascript">
-
-
-
 $(document).ready(function() {
 	
 	// 로그아웃 버튼 눌렀을 때
@@ -74,7 +71,6 @@ $(document).ready(function() {
 			$("#searchIdPwBtnOk2").click(function(){
 				$("#pwFindByUserid").focus();
 			})
-
 		} else if ($("#pwFindByUsername").val() == ""){
 			$(".content").text("이름을 입력해주세요");
 			$("#searchIdPw2").modal({backdrop: 'static', keyboard: false});
@@ -163,7 +159,6 @@ $(document).ready(function() {
 						$("#searchIdPwBtnOk").click(function(){
 							$(".content").text("");
 						})
-
 										
 					} else {
 						
@@ -196,7 +191,6 @@ $(document).ready(function() {
 		
 		}
 		
-
 		
 	})
 	
@@ -305,7 +299,6 @@ $(document).ready(function() {
 		}
 	})
 })
-
 $(document).ready(function() {
 	/**
 	 *    헤더에 적용할 JS active
@@ -338,11 +331,128 @@ $(document).ready(function() {
     } 
 	    
 });
+</script>
+
+<script type="text/javascript">
+function weather(){
+	var date ="";
+	var temperature ="";
+	var sky = "";
+	var rain = "";
+	$.ajax({
+		type : "POST",
+		url : "/main/showweather",
+		success : function(res) {
+			$(".weather").collapse('toggle'); 
+			
+			date += "<strong>현재 날짜 : </strong>"+res.weather.date+"<br><strong>측정 시간 : </strong>"+res.weather.time;
+			$("#date").html(date);
+			
+			temperature += "<strong>현재 기온 : </strong>"+res.weather.humidity+"℃";
+			$("#temperature").html(temperature);
+			
+			//하늘 상태
+			//1 -> 맑음
+			//2 -> 구름 조금
+			//3 -> 구름 많음
+			//4 -> 흐림
+			
+			if(res.weather.sky == 1){
+				sky += "<strong>하늘 상태 :</strong> 맑음<br>"+"<img src='/resources/img/fine.png' style ='display: block; margin-left: auto; margin-right: auto;'/>"
+				$("#sky").html(sky);
+			}
+			
+			else if(res.weather.sky == 2){
+				sky += "<strong>하늘 상태 :</strong> 구름 조금<br>"+"<img src='/resources/img/cloudsmall.png' style ='display: block; margin-left: auto; margin-right: auto;'/>"
+				$("#sky").html(sky);
+			}
+			
+			else if(res.weather.sky == 3){
+				sky += "<strong>하늘 상태 :</strong> 구름 많음<br>"+"<img src='/resources/img/cloudmany.png' style ='display: block; margin-left: auto; margin-right: auto;'/>"
+				$("#sky").html(sky);
+			}
+			else{
+				sky += "<strong>하늘 상태 :</strong> 흐림<br>"+"<img src='/resources/img/bad.png' style ='display: block; margin-left: auto; margin-right: auto;'/>"
+				$("#sky").html(sky);
+			}
+			
+			//강수 상태
+			//0-> 없음
+			//1-> 비
+			//2-> 비/눈
+			//3-> 눈
+			if(res.weather.rainCode == 0){
+				rain += "<strong>강수 상태<small>("+res.weather.rainPercentage+"%)</small> :</strong> 없음";
+				$("#rain").html(rain);
+			}
+			
+			else if(res.weather.rainCode == 1){
+				rain += "<strong>강수 상태<small>("+res.weather.rainPercentage+"%)</small> :</strong> 비<br>"+"<img src='/resources/img/rain.png' style ='display: block; margin-left: auto; margin-right: auto;'/>"
+				$("#rain").html(rain);
+			}
+			
+			else if(res.weather.rainCode == 2){
+				rain += "<strong>강수 상태<small>("+res.weather.rainPercentage+"%)</small> :</strong> 비/눈<br>"+"<img src='/resources/img/rainsnow.png' style ='display: block; margin-left: auto; margin-right: auto;'/>"
+				$("#rain").html(rain);
+			}
+			
+			else{
+				rain += "<strong>강수 상태<small>("+res.weather.rainPercentage+"%)</small> :</strong> 눈<br>"+"<img src='/resources/img/snow.png' style ='display: block; margin-left: auto; margin-right: auto;'/>"
+				$("#rain").html(rain);
+			}
+		},
+		error : function() {
+			console.log("실패");
+		}
+	});
+}
+
+function alram(){
+	$(".alram").collapse('toggle');
+	console.log("알람!");
+	$("#alarmCnt").html("5");
+}
+
+function getAlramCnt(usernick){
+	$("#alarmCnt").html(usernick);
+	
+	$.ajax({
+		type : "POST",
+		url : "/alram/alarmcnt",
+		data : {
+			//사용자 닉네임 넘겨줌
+			usernick : usernick,
+		},
+		dataType : "json",
+		success : function(res) {
+			console.log("성공");
+		},
+		error : function() {
+			console.log("실패");
+		}
+	});
+}
+
+function getInfiniteAlram(usernick){
+	setInterval(function() {
+			getAlramCnt(usernick);
+			
+	}, 1000);
+}
 
 </script>
 
-<style type="text/css">
+<script type="text/javascript">
+		$(document).ready(function() {
+			//로그인 상태
+			if('${login}'){
+				getInfiniteAlram('${usernick}');
+			}
+			
+		});
+</script>
 
+<style type="text/css">
 /* 웹폰트 적용 */
 @font-face { 
    font-family: 'KHNPHU'; 
@@ -350,11 +460,9 @@ $(document).ready(function() {
    font-weight: normal; 
    font-style: normal; 
 }
-
 .sitefont {
    font-family:'KHNPHU';
 }
-
 .culture { 
    width: 300px;
    height:250px;
@@ -375,6 +483,15 @@ $(document).ready(function() {
 	padding-left:200px;
     padding-right: 200px;
 }
+/* 날씨사이즈 */
+.weather {
+    margin-left: -100px;
+    width: 220px;
+}
+.alram {
+    margin-left: -100px;
+    width: 220px;
+}
 /* 상단 아이콘 위치 */
 .right{
 	place-content: flex-end;
@@ -382,7 +499,6 @@ $(document).ready(function() {
 .rpadding {
     padding-right: 50px;
 }
-
 .center {
 	text-align: center;
 }
@@ -393,9 +509,8 @@ h5 {
 	margin-top: 10px;
 }
 .loginwidth{
-    padding-left: 80px;
+    padding-left: 20px;
 }
-
 /* 로고 애니메이션 */
 img[class=culture]{min-height: 100%; max-width: 100%; }
 .imgHoverEvent{width: 300px; height: 220px; margin-top: 10px; position: relative; overflow: hidden; display: inline-block;}
@@ -454,28 +569,51 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 	        <a class="nav-link" id="faqboard" href="/faqboard/faqlist">FAQ</a>
 	      </li>
 	    </ul>
-	<!-- 우측 상단 아이콘 -->
-	<div class="btn-group rpadding loginwidth" >
-		<!-- 상단 날씨 아이콘 -->  
-		<a href="#">
-		   <button type="button" class="btn btn-secondary " >
+	    
+
+    <div class="btn-group">
+    
+        <button class="btn btn-secondary dropdown-toggle" type="button" onclick="weather();">
 		      <span class="fas fa-cloud" ></span>
 		   </button>
-		</a>&nbsp;&nbsp;
-		<!-- 상단 알림 아이콘 -->  
-		<a href="#">
-		   <button type="button" class="btn btn-secondary ">
-		      <span class="fas fa-bell" ></span>
-		   </button>
-		</a>&nbsp;&nbsp;
+   
+    <div  class="dropdown-menu weather" aria-labelledby="dropdownMenuButton">
+     <ul class="list-group">
+  		<li id = "date" class="list-group-item"></li>
+        <li id = "temperature"class="list-group-item"></li>
+        <li id = "sky"class="list-group-item"></li>
+        <li id="rain" class="list-group-item"></li>
+      </ul>
+	</div>
+	</div>
+&nbsp;&nbsp;&nbsp;&nbsp;
+	<!-- 상단 알림 아이콘 -->  
+	<div class="btn-group" >
+
+		<button class="btn btn-secondary dropdown-toggle" type="button" onclick="alram();">
+	      <span class="fas fa-bell" ></span>
+	      <span  class="badge badge-pill badge-danger" id = "alarmCnt"></span>
+	     
+	   </button>
+
+		 <div class="dropdown-menu alram" aria-labelledby="dropdownMenuButton">
+		
+		 
+		 </div>
+		
+	</div>
+	    
+	
 		<!-- 상단 로그인 아이콘 -->  
+	<div class="btn-group rpadding loginwidth" >
+	
 		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		   <span class="fas fa-user"></span>
 		</button>
 		<!-- 로그인  드롭다운-->
 		<!-- 로그인 상태 -->
 	    <c:if test="${login}">
-	       <div class="dropdown-menu center">
+	       <div class="dropdown-menu center" style="margin-left: -115px;">
 	         <h5>${usernick}님 할라븅~!</h5>
 	    	 <div class="dropdown-divider"></div>
 				<input id="mypage" class="btn btn" onclick="location.href='/mypage/main'" value="마이페이지">
@@ -485,7 +623,7 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 	    
 	    <!-- 로그아웃 상태 -->
 	    <c:if test="${not login}">
-	       <div class="dropdown-menu " id="dpMenu">
+	       <div class="dropdown-menu " id="dpMenu" style="margin-left: -115px;">
 	       
 	          <form class="px-4 py-3" action="/login" method=post>
 	             <div class="form-group">
