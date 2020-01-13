@@ -142,7 +142,7 @@ function fn_fileAdd(){
 		<br>
 			<div>
 				<label for="title"><b> 제목 </b></label><br>
-				<input id="title" name="title" type="text" size="100%"  placeholder=" 제목을 입력하세요."/>
+				<input id="title" name="title" type="text" style="width: 100%;" placeholder=" 제목을 입력하세요."/ >
 			</div>
 			<br>
 			<div>
