@@ -100,6 +100,8 @@ $(document).ready(function(){
 	});
 	
 });	
+
+
 </script>
 
 
@@ -256,10 +258,10 @@ $(document).ready(function(){
 				<span id = "views">${i.views }</span>
 				<span id = "views_img"><img src="/resources/img/view.png" class="d-block w-100" alt="..."> </span>
 
-				<span id = "replies"> [미완] </span>
+				<span id = "replies"> ${i.replyCnt } </span>
 				<span id = "reply_img"><img src="/resources/img/note.png" class="d-block w-100" alt="..."></span>
 
-				<span id = "likes"> [미완] </span>
+				<span id = "likes"> ${i.blike } </span>
 				<span id = "like_img"><img src="/resources/img/like.png" class="d-block w-100" alt="..."></span> 
 				
 				
@@ -268,35 +270,6 @@ $(document).ready(function(){
 		</div>
 	</div>
 	</c:forEach>
-
-
-
-<!-- 	<div id="list_table" class="width_660 box_shadow_3 text-center"> -->
-<!-- 		<div class="list_cal_row_title relative"> -->
-<!-- 			<div class="cal_header_div eng"> -->
-<!-- 				<form method="get" action="/artboard/list"> -->
-<!-- 					<input type="hidden" name="bo_table" value="calendar"> -->
-<!-- 					<a href="#" id="movePrevMonth"> -->
-<!-- 						<span id="prevMonth" class="cal_tit"> -->
-<!-- 					<i class="fa fa-chevron-left goto" ></i> -->
-<!-- 					</span> -->
-<!-- 					</a> -->
-<!-- 					&nbsp;&nbsp; -->
-<%-- 					<input class="cal_header_year inputin" type="text" name="cal_year" id="cal_year" value="${nowYear }" maxlength="4" required="required"  data-hasqtip="23" oldtitle="년도" title="">&nbsp;/&nbsp; --%>
-<%-- 					<input class="cal_header_month inputin" type="text" name="cal_month" id="cal_month" value="${nowMonth }" maxlength="2" required="required"  data-hasqtip="24" oldtitle="월" title="">&nbsp; --%>
-<!-- 					<input class="btn inputbt" type="submit" value="이동" data-hasqtip="25" oldtitle="이동" title="">&nbsp;&nbsp; -->
-<!-- 					<a href="#" id="moveNextMonth"> -->
-<!-- 					<span id="nextMonth" class="cal_tit"> -->
-<!-- 					<i class="fa fa-chevron-right goto" > -->
-<!-- 					</i> -->
-<!-- 					</span> -->
-<!-- 					</a> -->
-					
-
-<!-- 				</form> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
 
 	<!-- 하단 글작성 버튼 -->
 	<div class="b">
@@ -343,30 +316,51 @@ $(document).ready(function(){
 		<br>
 		<div>
 			<div>
-	  		<table class="list-group">
-	  		<tr>
-	  		<th colspan="4"><a class="list-group-item" id="pfIntroduceContent">카테고리 별 보기</a></th>
-	  		</tr>
-	  		
-	  		<tr>
-	  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>" ><input class="list-group-item action cate" type="submit" value="전체" /></a></td>
-	  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>" ><input class="list-group-item cate" type="submit" value="버스킹" /></a></td>
-	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="전시회" /></a></td>
-	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="연극" /></a></td>
-	  		</tr>
-	  		
-	  		<tr>
-	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="콘서트" /></a></td>
-	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="뮤지컬" /></a></td>
-	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="행사" /></a></td>
-	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="축제" /></a></td>
-	  		</tr>
-	  		</table>
-
-
+		  		<table class="list-group">
+		  		<tr>
+		  		<th colspan="4"><a class="list-group-item" id="pfIntroduceContent">카테고리 별 보기</a></th>
+		  		</tr>
+		  		
+		  		<tr>
+		  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>" ><input class="list-group-item action cate" type="submit" value="전체" /></a></td>
+		  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>&performname=버스킹" ><input class="list-group-item cate" type="submit" value="버스킹" /></a></td>
+		  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>&performname=전시회" ><input class="list-group-item cate" type="submit" value="전시회" /></a></td>
+		  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>&performname=연극" ><input class="list-group-item cate" type="submit" value="연극" /></a></td>
+		  		</tr>
+		  		
+		  		<tr>
+		  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>&performname=콘서트" ><input class="list-group-item cate" type="submit" value="콘서트" /></a></td>
+		  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>&performname=뮤지컬" ><input class="list-group-item cate" type="submit" value="뮤지컬" /></a></td>
+		  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>&performname=행사" ><input class="list-group-item cate" type="submit" value="행사" /></a></td>
+		  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>&performname=축제" ><input class="list-group-item cate" type="submit" value="축제" /></a></td>
+		  		</tr>
+		  		</table>
 			</div>
 		</div>
+		<br><br>
+		<!-- 유투브 -->
+		<div>
+		<h5>한국 비보이 외국 길거리 공연</h5>
+		<iframe  src="https://www.youtube.com/embed/pg3nlZx2gL8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</div>
+		<br>
+		<div>
+		<h5>[연극] 그남자 그여자</h5>
+		<iframe  src="https://www.youtube.com/embed/2VgVekCEjPY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</div>
+		<br>
+		<div>
+		<h5>[뮤지컬] 웃는남자</h5>
+		<iframe src="https://www.youtube.com/embed/WrFphwt29og" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</div>
+		<br>
+		<div>
+		<h5>한국 댄스팀 퍼포먼스</h5>
+		<iframe src="https://www.youtube.com/embed/GaJNVdJ_gBg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</div>
+		
 	</div>
+	
 </div>
 
 <!-- 비로그인 시 모달창 -->

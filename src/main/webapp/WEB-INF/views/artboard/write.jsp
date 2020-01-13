@@ -30,12 +30,12 @@
 
 
 <script type="text/javascript" src="/resources/ckeditor/ckeditor.js"></script>
+
 <script>
     window.onload = function(){
        ck = CKEDITOR.replace("contents");
     };
 </script>
-
 <script type="text/javascript">
 var g_count =1;
 $(document).ready(function() {
@@ -78,6 +78,9 @@ $(document).ready(function() {
 		if($('#title').val() == ''){
 			$("#writeTitleModal").modal({backdrop: 'static', keyboard: false});
 		}
+		else if($('#performdate').val() == ''){
+			$("#writeDateModal").modal({backdrop: 'static', keyboard: false});
+		}
 
 		
 		else{
@@ -97,7 +100,7 @@ $(document).ready(function() {
 	$("#add").on("click",function(e){
 		e.preventDefault();
 		fn_fileAdd();
-	})	
+	});
 
 });
 
@@ -152,8 +155,7 @@ function fn_fileAdd(){
 
 #contentsarea{
 	width: 100%px;
-	height:600px;
-	border: 1px solid black;
+	height: 540px;
 }
 #fileup{
 	width: 800px;
@@ -178,7 +180,7 @@ function fn_fileAdd(){
 		<br>
 			<div>
 				<label for="title"><b> 제목 </b></label><br>
-				<input id="title" name="title" type="text" size="100%"  placeholder=" 제목을 입력하세요."/>
+				<input id="title" name="title" type="text" style="width: 100%;" placeholder=" 제목을 입력하세요."/ >
 			</div>
 			<br>
 			<div>
@@ -492,4 +494,5 @@ function fn_fileAdd(){
 </div>
 
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
+
 

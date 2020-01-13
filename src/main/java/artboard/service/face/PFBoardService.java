@@ -26,7 +26,7 @@ public interface PFBoardService {
 	 * @param searchMonth - 연도 + 월  파라미터 값
 	 * @return List<Board> - artboardlist
 	 */
-	public List<Board> getList(String searchMonth);
+	public List<Board> getList(Board board);
 
 	
 
@@ -416,6 +416,56 @@ public interface PFBoardService {
 	 * @param prBoard - 삭제할 게시글 정보가 담긴 객체
 	 */
 	public void deletePF(Board board);
+	
+	/**
+	 * 2020-01-11
+	 * 이수현
+	 * 
+	 * 댓글 수정
+	 * 
+	 * @param reply - 댓글 번호가 담긴 객체
+	 */
+	public void updateReplyByNo(Reply reply);
+
+	/**
+	 * 2020-01-11
+	 * 이수현
+	 * 
+	 * 답글 삭제(댓글 삭제할때)
+	 *  
+	 * @param groupNo - 삭제될 답글의 그룹 번호
+	 */
+	public void deleteRereplyByGroupNo(int groupNo);
+
+	
+	
+	
+	
+	
+	/**
+	 * 2020-01-13
+	 * 이수현
+	 * 
+	 * 팔로우
+	 *  
+	 * @param board - 추천테이블에 들어갈 객체
+	 */
+	public void follow(Board board);
+
+
+
+
+	public void followCancel(Board board);
+
+
+
+
+	public int followView(Board board);
+
+
+
+
+	public int followCheck(Board board);
 
 
 

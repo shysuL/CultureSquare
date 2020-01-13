@@ -1,5 +1,6 @@
 package admin.dao.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import admin.dto.Admin;
@@ -19,10 +20,68 @@ public interface AdminDao {
 	 */
 	public int selectCnt(Admin admin);
 
+	/**
+	 * 2019-12
+	 * 채해원
+	 * 
+	 * 사용자 수 카운트
+	 * 
+	 * @param user
+	 * @return
+	 */
 	public int selectUserCnt(User_table user);
 
+	/**
+	 * 2019-12
+	 * 채해원
+	 * 
+	 * 사용자 목록 불러오기(페이징)
+	 * 
+	 * @param userpaging
+	 * @return
+	 */
 	public List<User_table> selectUserList(Paging userpaging);
 
+	/**
+	 * 2019-12
+	 * 채해원
+	 * 
+	 * 사용자 삭제
+	 * 
+	 * @param userlist
+	 * @return
+	 */
 	public int deleteUser(User_table userlist);
+
+	/**
+	 * 2020-01-12
+	 * 채해원
+	 * 
+	 * 사용자의 정보 가져오기.
+	 * 
+	 * @param user
+	 * @return
+	 */
+	public User_table selectUserInfo(User_table user);
+
+	/**
+	 * 2020-01-13 
+	 * 채해원
+	 * 
+	 * 관리자의 승인을 받아 사용자를 예술인으로 등업.
+	 * 
+	 * @param user
+	 */
+	public void updatePermit(User_table user);
+
+	/**
+	 * 2020-01-13
+	 * 채해원
+	 * 
+	 * 관리자의 자격으로 예술인을 일반사용자로 강등
+	 * 
+	 * @param user
+	 */
+	public void downPermit(User_table user);
 
 }

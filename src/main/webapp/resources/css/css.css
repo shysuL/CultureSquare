@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+/* main */
+
+
+
 /* artlist.jap */
 .cal_header_div{
 	background-color: #343a40;
@@ -140,7 +144,7 @@
 #view_writer{
 	border: 1px solid black;
 	max-width: 95%;
-    height: 35px;
+    height: 44px;
 	padding: 6px;
 
 }
@@ -206,11 +210,9 @@
 	float:right;
 }
 #view_recontents{
-	border: 1px solid black;
 	max-width: 95%;
     height: 80px;
 	padding: 6px;
-/*     overflow: scroll; */
 }
 #recontents{
 	float: left;
@@ -224,8 +226,11 @@
 }
 #deleteReplyBtn{
 	margin-top: 15px;
-    
-	
+    margin-right: 10px;
+}
+#updateReplyBtn{
+	margin-top: 15px;
+    margin-right: 10px;
 }
 
 #replyinputheader{

@@ -22,7 +22,15 @@
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
-	<select id="selectCnt" parameterType="map" resultType="int">
+	<select id="selectNoticeCnt" parameterType="hashmap" resultType="int">
+		SELECT count(*) FROM board 
+		WHERE postno = 4
+<!-- 		 <if test="searchcategory != null and searchcategory != '' and searchtarget != null and searchtarget != ''"> -->
+<!--    			 AND ${searchcategory} LIKE '%'||#{searchtarget}||'%' -->
+<!--  		 </if> -->
+	</select>
+	
+	<select id="selectCnt" parameterType="hashmap" resultType="int">
 		SELECT count(*) FROM board 
 		WHERE postno = 4
 		 <if test="searchcategory != null and searchcategory != '' and searchtarget != null and searchtarget != ''">
@@ -37,14 +45,14 @@
 		AND fb.boardno = #{boardno }
 	</select>
 	
-	<insert id="insertFreeBoard" parameterType="board.dto.FreeBoard">
+	<insert id="insertnoticeBoard" parameterType="board.dto.FreeBoard">
 		
 		<selectKey order="BEFORE" resultType="int" keyProperty="boardno">
 		SELECT board_seq.nextval FROM dual
 		</selectKey>
 	
 		INSERT INTO board ( boardno, title, writtendate, contents, views, userno, postno )
-		VALUES ( #{boardno }, #{title }, #{writtendate } , #{contents }, 0, #{userno }, 4 )
+		VALUES ( board_seq.nextval, #{title }, TO_CHAR(sysdate, 'yyyy-mm-dd' ), #{contents }, 0, 0, 4 )
 	</insert>
 	
 	<update id="updateViews" parameterType="int">

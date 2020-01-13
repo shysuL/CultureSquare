@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
@@ -37,12 +36,6 @@ $(document).ready(function() {
 		var userpw = $('#userpw').val();
 		var changepw = $('#changepw').val();
 		var changepw2 = $('#changepw2').val();
-		console.log("1")
-		console.log(userpw)
-		console.log("2")
-		console.log(changepw)
-		console.log("3")
-		console.log(changepw2)
 	
 		$.ajax({
 			type: "post",
@@ -65,13 +58,6 @@ $(document).ready(function() {
 			$("#userpw").focus();
 			return false;
 		}
-		
-		//현재 비밀번호 오류
-// 		if(userpw != "${userpw }"){
-// 			warningModal('현재 비밀번호를 다시 입력해주세요.')
-// 			$("#userpw").focus();
-// 			return false;
-// 		}
 		
 		//변경할 비밀번호
 		if(changepw == ""){
@@ -106,7 +92,6 @@ $(document).ready(function() {
 				success: function(res){
 					
 					console.log(res.userInfo)
-					
 				}
 			})
 
@@ -182,8 +167,75 @@ $(document).ready(function(){
 		})
 	})
 })	
-		
 
+</script>
+
+<script type="text/javascript">
+
+//사용자 사진 업로드
+function ajaxFileUpload() {
+	
+ // 업로드 버튼이 클릭되면 파일 찾기 창을 띄운다.
+ jQuery("#ajaxFile").click();
+}
+
+function ajaxFileChange() {
+ // 파일이 선택되면 업로드를 진행한다.
+ ajaxFileTransmit();
+}
+
+function ajaxFileTransmit() {
+ var form = jQuery("ajaxFrom")[0];
+ var formData = new FormData(form);
+ formData.append("message", "파일 확인 창 숨기기");
+ formData.append("file", jQuery("#ajaxFile")[0].files[0]);
+
+ jQuery.ajax({
+       url : "/mypage/main/profile"
+     , type : "POST"
+     , processData : false
+     , contentType : false
+     , data : formData
+     , dataType : "text"
+     , success:function(data) {
+     	$("#profileImg").attr("src", "/upload/" + data);
+     	$("#headeruserimg").attr("src", "/upload/" + data);
+     	console.log(data)
+     	
+     	FileReload();
+     }
+ });
+}
+
+//새로고침
+function FileReload(){
+	location.reload();
+}
+</script>
+
+<script type="text/javascript">
+
+function ajaxFileDelete() {
+
+ $.ajax({
+       url : "/mypage/main/photodelete"
+     , type : "POST"
+     , dataType : "text"
+     , success:function(data) {
+     	$("#profileImg").attr("src", "/resources/img/userdefaultprofile.png");
+     	console.log(data)
+     }
+ 	, error : function (e) {
+ 		console.log(e);
+ 	}
+ });
+}
+
+$(document).ready(function(){
+	$("#photodelete").on("click", function(){
+		$("#checkUserPhotoModal").modal({backdrop: 'static', keyboard: false});
+	})
+})
 
 </script>
 
@@ -196,12 +248,10 @@ $(document).ready(function(){
 	box-sizing: border-box;
 	margin: 3%;
 	padding: 16px;
-	/*     border-radius: 40px; */
 }
 
 .inner_con2 {
 	float: right;
-/* 	background: #FFFFFF; */
 	width: 40%;
 	height: 430px;
 	padding: 16px;
@@ -212,7 +262,6 @@ $(document).ready(function(){
 
 .inner_con3 {
 	float: right;
-/* 	background: #FFFFFF; */
 	width: 40%;
 	height: 338px;
 	padding: 16px;
@@ -227,18 +276,6 @@ $(document).ready(function(){
 	display: block;
 	margin: 0 auto;
 }
-
-/* 웹폰트 적용 */
-/* @font-face {  */
-/* 	font-family: 'KHNPHU';  */
-/* 	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/KHNPHU.woff') format('woff');  */
-/* 	font-weight: normal;  */
-/* 	font-style: normal;  */
-/* } */
-
-/* #myPageContainer { */
-/* 	font-family: 'KHNPHU'; */
-/* } */
 
 #mypageheader {
 	margin-bottom: 3%; 
@@ -281,7 +318,7 @@ $(document).ready(function(){
 			<hr>
 			<!-- 프로필 사진 -->
 			<c:choose>
-				<c:when test="${storedname eq null }">
+				<c:when test="${getUser.storedname eq null }">
 					<p>
 						<img id="profileImg" src="/resources/img/userdefaultprofile.png" class="img-responsive img-circle"
 							alt="Responsive image">
@@ -289,15 +326,23 @@ $(document).ready(function(){
 				</c:when>
 				<c:otherwise>
 					<p>
-						<img id="profileImg" src="/upload/${storedname }"
-							class="img-responsive img-circle" alt="Responsive image">
+						<img id="profileImg" src="/upload/${getUser.storedname }"
+							class="img-responsive img-circle" alt="Responsive image" style="border-radius: 100px;">
 					</p>
 				</c:otherwise>
 			</c:choose>
 			
 			<div class="userinformation">
 				<p class="font-weight-bold" style="font-size: 17px; text-align: left; margin-left: 5%;">
-					이름 : ${getUser.username }
+					이름 : ${getUser.username } <br>
+					<c:choose>
+						<c:when test="${getUser.usertype == 1}">
+							<small>"예술인"으로 등록된 사용자입니다.</small>
+						</c:when>
+						<c:otherwise>
+							<small>"일반 사용자"로 등록된 사용자입니다.</small>
+						</c:otherwise>
+					</c:choose>
 				</p>
 				<p class="font-weight-bold" style="font-size: 17px; text-align: left; margin-left: 5%;">
 					아이디 : ${getUser.userid }
@@ -320,8 +365,9 @@ $(document).ready(function(){
 				value="프로필사진 변경" style="width: 84%; display: block; margin: 0 auto;" />
 			<br>
 			<!-- <input type="text" id="ajaxFile" onChange="ajaxFileChange();" style="display:none";/> -->
-			<input class="btn btn-outline-dark" type="button"
-				onClick="ajaxFileDelete();" value="프로필사진 삭제" style="width: 84%; display: block; margin: 0 auto;" />
+			<input class="btn btn-outline-dark" type="button" id="photodelete"
+				value="프로필사진 삭제" style="width: 84%; display: block; margin: 0 auto;" />
+<!-- 				onClick="ajaxFileDelete();" -->
 
 			<!-- 비밀번호 수정 -->
 			<br>
@@ -428,7 +474,7 @@ $(document).ready(function(){
 			<button type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;"
 					onclick="location.href='/mypage/likeartists';">
 			<img id="mypageicon" src="/resources/img/person.png"> 
-			구독한 예술인
+			팔로우한 예술인
 			</button><br>
 			<button type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;"
 					onclick="location.href='/mypage/writelist';">
@@ -454,15 +500,26 @@ $(document).ready(function(){
 				</li>
 			</ul>
 			<hr>
-			<small style="text-align: center; display: block; font-size: initial;">
-			<br>예술인으로 신청할 수 있는 버튼입니다.<br>
-			일반 사용자가 예술인으로 변경을 원할 시에만 눌러주세요.<br>
-			공연, 연극, 버스킹등의 예술분야를 홍보할 수 있는<br>
-			CALENDAL게시판 이용이 가능합니다.</small><br><br>
-			<form action="/mypage/main" method="post">
-				<button type="button" class="btn btn-outline-dark" id="artistsapply" 
+			
+			<c:if test="${getUser.permit == 0 }">
+				<small style="text-align: center; display: block; font-size: initial;">
+				<br>예술인으로 신청할 수 있는 버튼입니다.<br>
+				일반 사용자가 예술인으로 변경을 원할 시에만 눌러주세요.<br>
+				공연, 연극, 버스킹등의 예술분야를 홍보할 수 있는<br>
+				CALENDAL게시판 이용이 가능합니다.</small><br><br>
+				<button type="submit" class="btn btn-outline-dark" id="artistsapply" 
 						style="width: 84%; display: block; margin: 0 auto;">예술인 신청하기</button>
-			</form>
+			</c:if>
+			<c:if test="${getUser.permit == 1 }">
+				<small style="text-align: center; display: block; font-size: initial;">
+				<br>이미 신청을 한 후, 관리자의 승인을 기다리는 중입니다.<br>
+					조금만 더 기다려주세요 :-)</small>
+			</c:if>
+			<c:if test="${getUser.permit == 2 }">
+				<small style="text-align: center; display: block; font-size: initial;">
+				<br>이미 예술인으로 등업이 완료되었습니다.<br></small>
+			</c:if>
+			
 		</div>
 		<div style="clear: both;"></div>
 	</div>
@@ -484,13 +541,13 @@ $(document).ready(function(){
 
       <!-- Modal body -->
       <div class="modal-body content">
-		일반 사용자가 예술인으로 변경신청을 했을 경우 관리자의 승인이 필요합니다. 진행하시겠습니까?
+		일반 사용자가 예술인으로 변경신청을 했을 경우 관리자의 승인 후 정상적으로 변경됩니다.진행하시겠습니까:-o?
       </div>
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="submit" id="inputPwCheckBtn"class="btn btn-dark" data-dismiss="modal">확인</button>
-        <button type="cancel" class="btn btn-danger" data-dismiss="modal">취소</button>
+       	<button type="submit" id="inputPwCheckBtn"class="btn btn-dark" data-dismiss="modal">확인</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
       </div>
 
     </div>
@@ -509,10 +566,14 @@ $(document).ready(function(){
 <!--       Modal body -->
       <div class="modal-body content">
       	예술인으로 신청이 완료되었습니다.
+      	관리자의 승인 후 예술인으로 본 사이트를 이용하실 수 있습니다. 
+      	감사합니다 :-)
       </div>
 <!--       Modal footer -->
       <div class="modal-footer">
-        <button type="submit" id="inputPwCheckBtn2"class="btn btn-danger" data-dismiss="modal">확인</button>
+      	<form action="/mypage/main/updateartist" method="post">
+        	<button type="submit" class="btn btn-danger">확인</button>
+      	</form>
       </div>
     </div>
   </div>
@@ -531,7 +592,7 @@ $(document).ready(function(){
 
       <!-- Modal body -->
       <div class="modal-body content">
-		회원 탈퇴를 하실 경우, Culture Square의 서비스를 이용하실 수 없습니다.
+		회원 탈퇴를 하실 경우, Culture Square의 서비스를 이용하실 수 없습니다 :-(
       </div>
 
       <!-- Modal footer -->
@@ -565,6 +626,33 @@ $(document).ready(function(){
       <div class="modal-footer">
         <button type="submit" id="deleteUserCheckBtn2"class="btn btn-dark" data-dismiss="modal">탈퇴하기</button>
         <button type="cancel" class="btn btn-danger" data-dismiss="modal">탈퇴취소</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 프로필 사진 삭제를 눌렀을 떄 확인 모달 -->
+<div class="modal fade" id="checkUserPhotoModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">프로필 사진 삭제</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	프로필 사진을 정말 삭제하시겠습니까?<br>
+      	삭제 후에 다시 등록 하실 수 있습니다 :-)
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="userPhotoDelete" onclick="ajaxFileDelete();" class="btn btn-dark" data-dismiss="modal">삭제하기</button>
+        <button type="submit" class="btn btn-secondary" data-dismiss="modal">취소</button>
       </div>
 
     </div>

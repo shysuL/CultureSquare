@@ -28,74 +28,70 @@
 	
 </script>
 
-<script type="text/javascript">
-function checkedAll(){
-	// checkbox들
-   var $checkboxes=$("input:checkbox[name='checkRow']");
-
-   // checkAll 체크상태 (true:전체선택, false:전체해제)
-   var check_status = $("#checkAlls").is(":checked");
-   
-   if( check_status ) {
-      // 전체 체크박스를 checked로 바꾸기
-      $checkboxes.each(function() {
-         this.checked = true;   
-      });
-   } else {
-      // 전체 체크박스를 checked 해제하기
-      $checkboxes.each(function() {
-         this.checked = false;   
-      });
-   }
-}
-</script>
-
-    <div class="container" style="margin-top: 50px;">
-			<div class="innercon2">
-				<div class="src" style="text-align: right;">
-					<form action="" method="get">
-					<input type="text" name="search" id="search"/>
-					<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
-					</form>
-				</div>
-				<br>
-				<form action="" method="get">
-					<table class="table table-hover">
-						<thead>
-							<tr class = "info" style="text-align: center;" >
-								<th style="width: 5%">
-									<input type="checkbox" id="checkAlls" name="checkAlls" onclick="checkedAll();"/>
-								</th>
-								<th style="width: 10%">번호</th>
-								<th style="width: 10%">분야</th>					
-								<th style="width: 35%">제목</th>					
-								<th style="width: 15%">날짜</th>
-								<th style="width: 15%">작성자번호</th>
-								<th style="width: 10%">조회수</th>
-							</tr>
-						</thead>
-						
-						<tbody>
-							<c:forEach items="${pflist }" var="pflist">
+<div class="container" style="margin-top: 50px;">
+	<div class="innercon2">
+	<h3 style="text-align: center;">CALENDAR</h3>
+		<div class="src" style="text-align: right;">
+			<form action="" method="get">
+			<input type="text" name="search" id="search"/>
+			<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
+			</form>
+		</div>
+		<br>
+		<form action="/admin/board/view/pfview/delete" method="get">
+			<table class="table table-hover">
+				<thead>
+					<tr class="info" style="text-align: center; background-color: #4b5055; color: #fff;" >
+<!-- 						<th style="width: 5%"> -->
+<!-- 							<input type="checkbox" id="checkAlls" name="checkAlls" onclick="checkedAll();"/> -->
+<!-- 						</th> -->
+						<th style="width: 10%">번호</th>
+						<th style="width: 10%">분야</th>					
+						<th style="width: 35%">제목</th>					
+						<th style="width: 15%">날짜</th>
+						<th style="width: 15%">작성자번호</th>
+						<th style="width: 10%">조회수</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<c:forEach items="${pflist }" var="pflist">
 <%-- 							onclick="location.href='/admin/pfboard?boardno=${pflist.boardno }';" --%>
-								<tr onclick="location.href='/artboard/view?boardno=${pflist.boardno}';" style="text-align: center;">
-									<td>
-										<input type="checkbox" name="checkRow" id="checkRow" value="${pflist.boardno  }"/>
-									</td>
-									<td>${pflist.rnum }</td>
-									<td>${pflist.performname }</td>
-									<td>${pflist.title }</td>
-									<td>${pflist.performdate }</td>
-									<td>${pflist.userno }</td>
-									<td>${pflist.views }</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-						
-					</table>
-					<button class="btn btn-secondary">삭제</button>
-				</form>
-			</div>
-			
-			<jsp:include page = "/WEB-INF/views/admin/layout/pfpaging.jsp" />
-		</div> <!-- container -->
+						<tr onclick="location.href='/admin/board/view/pfview?boardno=${pflist.boardno}';" style="text-align: center;">
+<!-- 							<td> -->
+<%-- 								<input type="checkbox" name="checkRow" id="checkRow" value="${pflist.boardno  }"/> --%>
+<!-- 							</td> -->
+							<td>${pflist.rnum }</td>
+							<td>${pflist.performname }</td>
+							<td>
+								<c:choose>
+									<c:when test="${pflist.userno == 0 }">
+										[ 공지 ] 삭제된 게시물
+									</c:when>
+									<c:otherwise>
+										${pflist.title }
+									</c:otherwise>
+								</c:choose>
+							</td>
+							<td>${pflist.performdate }</td>
+							<td>
+								<c:choose>
+									<c:when test="${pflist.userno == 0 }">
+										[ 관리자 ]
+									</c:when>
+									<c:otherwise>
+										${pflist.userno }
+									</c:otherwise>
+								</c:choose>
+							</td>
+							<td>${pflist.views }</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+				
+			</table>
+		</form>
+	</div>
+	<br><br>
+	<jsp:include page = "/WEB-INF/views/admin/layout/pfpaging.jsp" />
+</div> <!-- container -->

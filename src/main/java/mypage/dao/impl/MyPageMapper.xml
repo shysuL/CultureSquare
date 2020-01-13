@@ -54,11 +54,17 @@
 	
 	<select id="selectCntAll" resultType="int" parameterType="util.MyPaging">
 		SELECT count(*)
-		FROM user_table U, board B, posttype P, blike L
+		FROM user_table U, board B
 		WHERE B.userno = U.userno
-			AND L.boardno = B.boardno
-			AND P.postno = B.postno
-			AND L.userno = #{userno }
+			AND U.userno = #{userno } 
+		
+	</select>
+	
+	<select id="selectLikeCntAll" resultType="int" parameterType="util.MyPaging">
+		SELECT count(*) 
+		FROM user_table U, blike L
+    	WHERE L.userno = U.userno
+       		AND L.userno = #{userno }     
 		
 	</select>
 
@@ -103,4 +109,25 @@
 		) WHERE rnum BETWEEN #{startNo} AND #{endNo}
 	</select>
 	
+	<update id="insertPhoto" parameterType="user.dto.User_table">
+		UPDATE user_table SET originname = #{originname} , storedname = #{storedname}
+		WHERE userno = #{userno }
+	</update>
+	
+	<select id="selectFile" resultType="user.dto.User_table" parameterType="int">
+		SELECT originname, storedname 
+		FROM user_table
+		WHERE userno = #{userno }
+	</select>
+	
+	<update id="deleteFile" parameterType="user.dto.User_table">
+		UPDATE user_table SET originname = null, storedname = null
+		WHERE userno = #{userno}
+	</update>
+	
+	<update id="updateUserPermit" parameterType="user.dto.User_table">
+		UPDATE user_table 
+		SET permit = 1
+		WHERE userno = #{userno }
+	</update>
 </mapper>

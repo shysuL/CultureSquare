@@ -64,6 +64,44 @@ $(document).ready(function() {
 		});
 	});
 
+	//pf게시판
+	$("#faqboard-tab").on("click", function() {
+		$.ajax({
+			type:"post",
+			url:"/admin/main",
+			data: {
+				"category" : 4,
+			},
+			datatype: "html",
+			success : function(res){
+				console.log(res);
+				$("#faqboard").html(res);
+			},
+			error: function(e){
+			console.log(e);
+			}
+		});
+	});
+
+	//공지사항
+	$("#noticeboard-tab").on("click", function() {
+		$.ajax({
+			type:"post",
+			url:"/admin/main",
+			data: {
+				"category" : 5,
+			},
+			datatype: "html",
+			success : function(res){
+				console.log(res);
+				$("#noticeboard").html(res);
+			},
+			error: function(e){
+			console.log(e);
+			}
+		});
+	});
+	
 	//사용자목록
 	$("#user-tab").on("click", function() {
 		$.ajax({
@@ -100,146 +138,33 @@ $(document).ready(function() {
 	</div>
 	
 	<!-- 예술정보게시판 -->
-	<div class="tab-pane fade" id="artboard" role="tabpanel" aria-labelledby="artboard-tab">
+	<div class="tab-pane fade" id="artboard" role="tabpanel" aria-labelledby="artboard-tab" style="margin-bottom: 100px;">
 
 	</div>
 	
 	<!-- pr게시판 -->
-	<div class="tab-pane fade" id="prboard" role="tabpanel" aria-labelledby="prboard-tab">
+	<div class="tab-pane fade" id="prboard" role="tabpanel" aria-labelledby="prboard-tab" style="margin-bottom: 100px;">
 	
 	</div>
 	
 	<!-- 자유게시판 -->
-	<div class="tab-pane fade" id="freeboard" role="tabpanel" aria-labelledby="freeboard-tab">
+	<div class="tab-pane fade" id="freeboard" role="tabpanel" aria-labelledby="freeboard-tab" style="margin-bottom: 100px;">
 	
 	</div>
 	
 	<!-- FAQ 게시판 -->
-	<div class="tab-pane fade" id="faqboard" role="tabpanel" aria-labelledby="faqboard-tab">
-		<div class="container" style="margin-top: 50px;">
-			<div class="innercon2">
-				<div class="src" style="text-align: right;">
-					<form action="" method="get">
-					<input type="text" name="search" id="search"/>
-					<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
-					</form>
-				</div>
-				<br>
-				<form action="" method="get">
-					<table class="table table-hover">
-						<thead>
-						<tr class = "info"  >
-							<th style="width: 5%"><input type="checkbox" id="checkAll"/></th>
-							<th style="width: 10%">글번호</th>
-							<th style="width: 50%">제목</th>					
-							<th style="width: 15%">작성자</th>
-							<th style="width: 20%">작성일</th>
-						</tr>
-						</thead>
-						
-						<tbody>
-	<%-- 					<c:forEach items="${list }" var="comp"> --%>
-	<!-- 					<tr> -->
-	<%-- 						<td><input type="checkbox" name="checkRow" value="${comp.comp_no  }"/></td> --%>
-	<%-- 						<td>${comp.comp_no }</td> --%>
-	<%-- 						<td><a href="/mgr/compview?comp_no=${comp.comp_no}">${comp.comp_title }</a></td> --%>
-	<%-- 						<td>${comp.userno }</td> --%>
-	<%-- 						<td>${comp.comp_date }</td> --%>
-	<!-- 					</tr> -->
-	<%-- 					</c:forEach> --%>
-						</tbody>
-						
-					</table>
-					<button class="btn btn-secondary">삭제</button>
-				</form>
-			</div>
-		</div> <!-- container -->
+	<div class="tab-pane fade" id="faqboard" role="tabpanel" aria-labelledby="faqboard-tab" style="margin-bottom: 100px;">
+		
 	</div>
 	
 	<!-- 공지사항 -->
-	<div class="tab-pane fade" id="noticeboard" role="tabpanel" aria-labelledby="noticeboard-tab">
-		<div class="container" style="margin-top: 50px;">
-			<div class="innercon2">
-				<div class="src" style="text-align: right;">
-					<form action="" method="get">
-					<input type="text" name="search" id="search"/>
-					<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
-					</form>
-				</div>
-				<br>
-				<form action="" method="get">
-					<table class="table table-hover">
-						<thead>
-						<tr class = "info"  >
-							<th style="width: 5%"><input type="checkbox" id="checkAll"/></th>
-							<th style="width: 10%">글번호</th>
-							<th style="width: 50%">제목</th>					
-							<th style="width: 15%">작성자</th>
-							<th style="width: 20%">작성일</th>
-						</tr>
-						</thead>
-						
-						<tbody>
-	<%-- 					<c:forEach items="${list }" var="comp"> --%>
-	<!-- 					<tr> -->
-	<%-- 						<td><input type="checkbox" name="checkRow" value="${comp.comp_no  }"/></td> --%>
-	<%-- 						<td>${comp.comp_no }</td> --%>
-	<%-- 						<td><a href="/mgr/compview?comp_no=${comp.comp_no}">${comp.comp_title }</a></td> --%>
-	<%-- 						<td>${comp.userno }</td> --%>
-	<%-- 						<td>${comp.comp_date }</td> --%>
-	<!-- 					</tr> -->
-	<%-- 					</c:forEach> --%>
-						</tbody>
-						
-					</table>
-					<button class="btn btn-secondary">삭제</button>
-					<button type="button" class="btn btn-secondary">작성</button>
-				</form>
-					
-			</div>
-		</div> <!-- container -->
+	<div class="tab-pane fade" id="noticeboard" role="tabpanel" aria-labelledby="noticeboard-tab" style="margin-bottom: 100px;">
+		
 	</div>
 	
 	<!-- user리스트 -->
-	<div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="user-tab">
-<!-- 		<div class="container" style="margin-top: 50px;"> -->
-<!-- 			<div class="innercon2"> -->
-<!-- 				<div class="src" style="text-align: right;"> -->
-<!-- 					<form action="" method="get"> -->
-<!-- 					<input type="text" name="search" id="search"/> -->
-<!-- 					<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button> -->
-<!-- 					</form> -->
-<!-- 				</div> -->
-<!-- 				<br> -->
-<!-- 				<form action="" method="get"> -->
-<!-- 					<table class="table table-hover"> -->
-<!-- 						<thead> -->
-<!-- 						<tr class = "info"> -->
-<!-- 							<th style="width: 5%"><input type="checkbox" id="checkAll"/></th> -->
-<!-- 							<th style="width: 10%">사용자 번호</th> -->
-<!-- 							<th style="width: 50%">사용자 이름</th>					 -->
-<!-- 							<th style="width: 15%">닉네임</th> -->
-<!-- 							<th style="width: 20%">회원구분</th> -->
-<!-- 						</tr> -->
-<!-- 						</thead> -->
-						
-<!-- 						<tbody> -->
-	<%-- 					<c:forEach items="${list }" var="comp"> --%>
-	<!-- 					<tr> -->
-	<%-- 						<td><input type="checkbox" name="checkRow" value="${comp.comp_no  }"/></td> --%>
-	<%-- 						<td>${comp.comp_no }</td> --%>
-	<%-- 						<td><a href="/mgr/compview?comp_no=${comp.comp_no}">${comp.comp_title }</a></td> --%>
-	<%-- 						<td>${comp.userno }</td> --%>
-	<%-- 						<td>${comp.comp_date }</td> --%>
-	<!-- 					</tr> -->
-	<%-- 					</c:forEach> --%>
-<!-- 						</tbody> -->
-						
-<!-- 					</table> -->
-<!-- 					<button class="btn btn-secondary">삭제</button> -->
-<!-- 				</form> -->
-<!-- 			</div> -->
-<!-- 		</div> container	 -->
+	<div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="user-tab" style="margin-bottom: 100px;">
+	
 	</div>
 	
 </div>

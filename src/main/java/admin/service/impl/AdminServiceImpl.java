@@ -1,5 +1,6 @@
 package admin.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,4 +50,18 @@ public class AdminServiceImpl implements AdminService {
 		}
 	}
 
+	@Override
+	public User_table getUserInfo(User_table user) {
+		return adminDao.selectUserInfo(user);
+	}
+	
+	@Override
+	public void updatepermit(User_table user) {
+		adminDao.updatePermit(user);
+	}
+
+	@Override
+	public void downpermit(User_table user) {
+		adminDao.downPermit(user);
+	}
 }

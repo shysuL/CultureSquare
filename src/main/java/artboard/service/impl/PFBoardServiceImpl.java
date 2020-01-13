@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import artboard.dao.face.FollowDao;
 import artboard.dao.face.PFBoardDao;
 import artboard.dao.face.ReplyDao;
 import artboard.dto.Board;
@@ -24,8 +25,6 @@ import artboard.dto.Donation;
 import artboard.dto.PFUpFile;
 import artboard.dto.Reply;
 import artboard.service.face.PFBoardService;
-import prboard.dao.face.PRBoardDao;
-import prboard.service.impl.PRBoardServiceImpl;
 import util.Paging;
 
 
@@ -37,14 +36,15 @@ public class PFBoardServiceImpl implements PFBoardService{
 	@Autowired ServletContext context;
 	@Autowired PFBoardDao pfboardDao;
 	@Autowired ReplyDao replyDao;
+	@Autowired FollowDao followDao;
 
 	@Override
-	public List<Board> getList(String searchMonth) {
+	public List<Board> getList(Board board) {
 
-		List<Board> list = pfboardDao.selectAll3(searchMonth);
+		List<Board> list = pfboardDao.selectAll3(board);
 		for (int i = 0; i < list.size(); i++) {
-			Board board = list.get(i);
-			board.setPerformday(getDateDay(board.getPerformdate(),"yyyyMMdd"));
+			Board temp = list.get(i);
+			temp.setPerformday(getDateDay(temp.getPerformdate(),"yyyyMMdd"));
 		}
 		return list;
 	}
@@ -412,6 +412,51 @@ public class PFBoardServiceImpl implements PFBoardService{
 	@Override
 	public void deletePF(Board board) {
 		pfboardDao.updatePFbyDelete(board);
+	}
+
+
+	@Override
+	public void updateReplyByNo(Reply reply) {
+		pfboardDao.updateReplyByNo(reply);
+	}
+
+
+	@Override
+	public void deleteRereplyByGroupNo(int groupNo) {
+		pfboardDao.deleteReReplyByGroupNo(groupNo);
+	}
+
+
+	@Override
+	public void follow(Board board) {
+		followDao.insertFollow(board);
+	}
+
+
+	@Override
+	public void followCancel(Board board) {
+		followDao.deleteFollow(board);
+	}
+
+
+	@Override
+	public int followView(Board board) {
+		return followDao.selectFollowView(board);
+	}
+
+
+	@Override
+	public int followCheck(Board board) {
+		int check = followDao.selectFollow(board);
+
+		//전에 추천한적이 없다면
+		if(check == 0) {
+
+			return check; //추천
+		}
+		else {
+			return check; //추천 취소
+		}
 	}
 
 

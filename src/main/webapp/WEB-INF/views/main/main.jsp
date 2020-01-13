@@ -160,6 +160,10 @@
 	width: 800px;
 	height: 400px;
 }
+#freeRankContent{
+	background-color:#343a40; 
+	color:white;
+} 
 
 </style>
 <br><br>
@@ -202,57 +206,72 @@
 	    <span class="sr-only">Next</span>
 	  </a>
 	</div>
-
-	
 	<!-- 캐러셀영역 END -->
 
-
-
-
-	<div class="container">
-	<hr class="featurette-divider">
 	<!-- 크롤링  -->
-	<div id="culture"></div>
+	<div class="container">
+		<hr class="featurette-divider">
+		<div id="culture"></div>
+		<div style="clear: both; margin: 10px 0; height: 10px;"></div>
+		<hr>
+	</div>
     <!-- 크롤링 END -->
-    
-	<div style="clear: both; margin: 10px 0; height: 10px;"></div>
-	<hr>
-	</div>
 	
- 
- 
-
 	
-	   
-    
-<div>
-        <!-- Three columns of text below the carousel -->
+    <!-- PRBoard 최신글 가져오기 -->
+	<div>
+	<h5>PR 최신글</h5>
     <div class="row">
-  
-      <div class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-        <h2>Heading</h2>
-        <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-        <h2>Heading</h2>
-        <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-        <h2>Heading</h2>
-        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
+	  	<c:forEach items="${list }" var="prboard" begin="0" end="3" varStatus="status">
+		<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+	      <div class="card h-100" onclick="location.href='/prboard/view?boardno=${prboard.boardno }';">
+	        <a href="/prboard/view?boardno=${prboard.boardno }">
+	       	 	<img class="card-img-top" onerror="this.src='/resources/img/NoImage.gif';"src="/prImage/${prboard.boardno }" style="height: 202px; padding: 10px;">
+	        </a>
+	        <div class="card-body">
+	        	 <p class="card-text" style = "font-weight: bold;">${prboard.prname }</p>
+	          <p class="card-title">
+	            <a href="/prboard/view?boardno=${prboard.boardno }" style = "font-weight: bold;">${prboard.title }</a>&nbsp;&nbsp;<span class="badge badge-pill badge-danger" id ="replyShow">${prboard.replyCnt }</span>
+	          </p>
+	          <p class="card-text" id ="useFont">${prboard.usernick}&nbsp;(${prboard.writtendate})</p>
+	          <img id ="cardview"src="/resources/img/view.png"/>&nbsp;${prboard.views}
+	          <img id ="cardlike"src="/resources/img/likeheart.png" style="padding-top: 5px; padding-left: 7px;"/>&nbsp;${prboard.blike }
+	        </div>
+	      </div>
+	    </div>
+		</c:forEach>
     </div><!-- /.row -->
-    
-    
-    
 	</div>
-    <!-- /END THE FEATURETTES -->
+    <!-- /END PRBoard 최신글 가져오기 -->
+    
+    <div>
+    <hr class="featurette-divider">
+	    <div class="row">
+		
+	    <div class="col-6">
+	   		<div class="list-group" id="freeRankTitle">
+				<a class="list-group-item" id="freeRankContent">공지사항</a>
+ 				<c:forEach items = "${viewslist1 }" var = "vie" varStatus="status"> 
+ 	 			<a href="/board/freeview?boardno=${vie.boardno }" class="list-group-item tit"> ${vie.title }</a> 
+ 	 			</c:forEach> 
+			</div>
+	    </div>
+	    
+	    
+	    <div class="col-6">
+		    <div class="list-group" id="freeRankTitle">
+				<a class="list-group-item" id="freeRankContent">자유게시판 최다 조회글</a>
+				<c:forEach items = "${viewslist }" var = "view" varStatus="status">
+			    <a href="/board/freeview?boardno=${view.boardno }" class="list-group-item tit"> ${view.title } (${view.views })</a>
+				</c:forEach>
+			</div>
+	    </div>
+	    
+	    </div>
+    </div>
+    
+    
+    
     
 <!-- 묻는 모달 -->
 <div class="modal fade" id="notifyModal">

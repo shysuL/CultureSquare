@@ -35,10 +35,12 @@ public class MyHistoryController {
 		//세션에서 userno 꺼내기
 		paging.setUserno((Integer)session.getAttribute("userno"));
 		
-		MyPaging result = mypageService.getPaging(paging);
+		MyPaging result = mypageService.getLikePaging(paging);
 		
-		List likelist = new ArrayList<>();
+		List<HashMap<String, Object>> likelist = new ArrayList<HashMap<String, Object>>();
 		
+		System.out.println("좋아요한 글" + result);
+
 		likelist = mypageService.getLikeList(result);
 		
 		model.addAttribute("url", req.getRequestURI());
@@ -59,7 +61,9 @@ public class MyHistoryController {
 		
 		MyPaging result = mypageService.getPaging(paging);
 		
-		List writelist = new ArrayList<>();
+		List<HashMap<String, Object>> writelist = new ArrayList<HashMap<String, Object>>();
+		
+		System.out.println("작성한 글" + result);
 		
 		writelist = mypageService.getWriteList(result);
 		
@@ -77,7 +81,7 @@ public class MyHistoryController {
 		
 		MyPaging result = mypageService.getPaging(paging);
 		
-		List replylist = new ArrayList<>();
+		List<HashMap<String, Object>> replylist = new ArrayList<HashMap<String, Object>>();
 		
 		replylist = mypageService.getReplyList(result);
 		
