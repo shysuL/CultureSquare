@@ -614,6 +614,12 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 .hoverBox p.p2{margin-top: 40px;}
 .event3 .hoverBox{background: linear-gradient(to right, rgba(0,0,0,0) ,rgba(255,255,255,1)); width: 50px; height:400px; transform: rotateZ(30deg);top: -100px; left:-130px; transition: 0.4s; opacity: 0.5;}
 .event3:hover .hoverBox{left: 400px; opacity: 1;}
+
+#alarmCnt {
+	top: -20px;
+	right: -43px;
+	height: 20px;
+}
 </style>
 
 </head>
@@ -621,8 +627,7 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 
 <!-- header --> 
 <div class="wrap">
-
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="margin-top: 10px;">
   <a class="navbar-brand" href="/main/main">CultureSquare</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -682,13 +687,13 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 	</div>
 &nbsp;&nbsp;&nbsp;&nbsp;
 	<!-- 상단 알림 아이콘 -->  
+<!-- 		   	<span  class="badge badge-pill badge-info" id = "alarmCnt"></span> -->
 	<div class="btn-group" >
 
 		<button class="btn btn-secondary dropdown-toggle" type="button" onclick="alramread();">
-	      <span class="fas fa-bell" ></span>
-	      <span  class="badge badge-pill badge-info" id = "alarmCnt"></span>
-	     
-	   </button>
+	        <span class="fas fa-bell" ></span>
+			<span  class="badge badge-pill badge-info" id = "alarmCnt"></span>
+	    </button>
 
 		 <div class="dropdown-menu alram" aria-labelledby="dropdownMenuButton">
 			<ul id = "alramList" class="list-group">
@@ -777,6 +782,7 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 	    </c:if>
 	</div>
 	</div>
+	
 </nav>
 
 
