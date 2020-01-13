@@ -54,7 +54,7 @@ public class Board {
 	private int replyCnt;
 	
 	// follow
-	private int target_userno;
+	private int followno;
 
 	private String searchMonth;
 
@@ -71,20 +71,19 @@ public class Board {
 				+ usergender + ", userbirth=" + userbirth + ", interest=" + interest + ", usertype=" + usertype
 				+ ", permit=" + permit + ", emailcheck=" + emailcheck + ", originname=" + originname + ", storedname="
 				+ storedname + ", follow=" + follow + ", prcnt=" + prcnt + ", sociallogin=" + sociallogin + ", blike="
-				+ blike + ", replyCnt=" + replyCnt + ", target_userno=" + target_userno + ", searchMonth=" + searchMonth
-				+ "]";
+				+ blike + ", replyCnt=" + replyCnt + ", followno=" + followno + ", searchMonth=" + searchMonth + "]";
 	}
 
 	
 	
-	public int getTarget_userno() {
-		return target_userno;
+	public int getFollowno() {
+		return followno;
 	}
 
 
 
-	public void setTarget_userno(int target_userno) {
-		this.target_userno = target_userno;
+	public void setFollowno(int followno) {
+		this.followno = followno;
 	}
 
 

@@ -12,9 +12,11 @@
 ${followCnt}
 <c:choose>
 <c:when test="${result eq 0 }">
-<button id ="follow"><img src="/resources/img/nolike.png" /></button>
+<button id ="follow"><img src="/resources/img/starblank.png" 
+style = "width: 32px; height: 32px;"/></button>
 </c:when>
 <c:when test="${result ne 0  }">
-<button id ="follow"><img src="/resources/img/likeheart.png" /></button>
+<button id ="follow"><img src="/resources/img/starfill.png" 
+style = "width: 32px; height: 32px;"/></button>
 </c:when>
 </c:choose>

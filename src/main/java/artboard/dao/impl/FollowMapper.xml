@@ -7,27 +7,26 @@
   <mapper namespace="artboard.dao.face.FollowDao">
 	<insert id="insertFollow" parameterType="artboard.dto.Board">
 		INSERT INTO follow
-		VALUES(follow_seq.nextval, #{userno}, #{target_userno})
+		VALUES(follow_seq.nextval, #{usernick}, #{userno})
 	</insert>  
 	
 	<delete id="deleteFollow" parameterType="artboard.dto.Board">
 		DELETE follow
 		WHERE 1=1
 		AND userno = #{userno}
-		AND boardno = #{target_userno }
+		AND usernick = #{usernick }
 	</delete>
 	
 	<select id="selectFollowView" resultType="int"
 		parameterType="artboard.dto.Board">
 		SELECT COUNT(*) FROM follow
-		WHERE target_userno = #{target_userno}
+		WHERE userno = #{userno}
 	</select>
 	
 	<select id="selectFollow" resultType="int"
 		parameterType="artboard.dto.Board">
 		SELECT count(*) FROM follow
-		WHERE userno = #{userno}
-		AND
-		target_userno = #{target_userno }
+		WHERE usernick = #{usernick}
+		AND userno = #{userno }
 	</select>
   </mapper>

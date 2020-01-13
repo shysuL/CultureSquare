@@ -44,6 +44,7 @@ var newFirst = true;
 $(document).ready(function(){
 	
 	recheckAction();
+	followchkAction();
 	$('#writereply').click(function() {
 		$('#replyinputbody').slideToggle("fast");
 	});
@@ -932,7 +933,7 @@ $(document).ready(function() {
 				type : "get",
 				url : "/artboard/follow",
 				data : {
-					target_userno : '${writer.userno }'
+					userno : '${writer.userno }'
 				},
 				dataType : "html",
 				success : function(data) {
@@ -953,7 +954,7 @@ $(document).ready(function() {
 					type : "get",
 					url : "/artboard/followchk",
 					data : {
-						target_userno : '${writer.userno }'
+						userno : '${writer.userno }'
 					},
 					dataType : "html",
 					success : function(data) {
@@ -1176,8 +1177,8 @@ var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
   		<div id = "writer_info">${writer.usernick } 
   		<br>
 	  		<div id = "followtd"> 
-	  		<button class="btn btn-default" style="background-color: #343a40 !important; 
-	  				color: white !important; margin-top: 15px;">팔로우</button>
+<!-- 	  		<button class="btn btn-default" style="background-color: #343a40 !important;  -->
+<!-- 	  				color: white !important; margin-top: 15px;">팔로우</button> -->
 	  		</div>
   		</div>
    </li>

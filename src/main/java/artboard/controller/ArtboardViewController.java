@@ -477,22 +477,19 @@ public class ArtboardViewController {
 
 	
 	@RequestMapping(value = "/artboard/follow", method = RequestMethod.GET)
-	public String followPF(Board board, @RequestParam("target_userno") int target_userno,Model model,HttpSession session) {
+	public String followPF(Board board, @RequestParam("userno") int userno,Model model,HttpSession session) {
 
 		//보드 번호 저장
 		int boardno = board.getBoardno();
-		Board loginUser = new Board();
 		
-		loginUser.setUsernick((String)session.getAttribute("usernick"));
 		//로그인 상태인 경우만 처리
 		if((String)session.getAttribute("usernick")!= null) {
-			// 1. 회원 번호 구하기
-			board.setBoardno(boardno);
-			board.setUserno(pfboardService.getUsernoByUsernick(loginUser));
-			board.setTarget_userno(target_userno);
-
+			
+			board.setUsernick((String)session.getAttribute("usernick"));
+			board.setUserno(userno);
+			
 			int result = pfboardService.followCheck(board);
-
+			
 			//전에 추천한적이 없다면
 			if(result == 0) {
 				pfboardService.follow(board);
@@ -519,22 +516,19 @@ public class ArtboardViewController {
 	}
 	
 	@RequestMapping(value = "/artboard/followchk", method = RequestMethod.GET)
-	public String followchkPF(Board board, Model model, HttpSession session) {
+	public String followchkPF(Board board,@RequestParam("userno") int userno, Model model, HttpSession session) {
 		
 		//보드 번호 저장
 		int boardno = board.getBoardno();
-		Board loginUser = new Board();
-		loginUser.setUsernick((String)session.getAttribute("usernick"));
 		
 		if((String)session.getAttribute("usernick")!=null) {
-			int userno = pfboardService.getUsernoByUsernick(loginUser);
-			
+			board.setUsernick((String)session.getAttribute("usernick"));
 			board.setUserno(userno);
 		}
 		
 		board.setBoardno(boardno);
 		
-		logger.info("recheck +++ : " + board.toString());
+		logger.info("followchk +++ : " + board.toString());
 		
 		int result = pfboardService.followCheck(board);
 		
