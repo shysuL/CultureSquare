@@ -446,6 +446,7 @@ function alramread(){
 						else{
 							html +=  res.alramList[i].alramcontents + "원을 후원하였습니다."
 						}
+						html += "<br><small>"+res.alramList[i].alramtime+"</small>"
 						html += "</li>";
 						html += "</div>";
 					}

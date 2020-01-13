@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import prboard.dto.Alram;
 import prboard.dto.PRBoard;
 import prboard.dto.PRType;
 import prboard.dto.Reply;
@@ -509,5 +510,26 @@ public interface PRBoardService {
 	 * @return List - 좋아요로 정렬 된 PR 게시글 리스트
 	 */
 	public List getLikeList(PRPaging paging);
+
+	/**
+	 * 2020-01-13
+	 * 조홍철
+	 * 
+	 * 댓글 알림 삽입을 위해 글 작성자 번호를 가져온다.
+	 * 
+	 * @param boardno -게시판 번호
+	 * @return int - 글 작성자 번호
+	 */
+	public int getUserno(int boardno);
+
+	/**
+	 * 2020-01-13
+	 * 조홍철
+	 * 
+	 * 댓글 알림 삽입
+	 * 
+	 * @param alram - 삽입할 알림 정보가 담긴 객체
+	 */
+	public void insertReplyAlram(Alram alram);
 	
 }

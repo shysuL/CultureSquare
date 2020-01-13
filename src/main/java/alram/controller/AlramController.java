@@ -75,7 +75,7 @@ public class AlramController {
                 HashMap hm = new HashMap();
                 hm.put("alramno", alramVO.get(i).getAlramno());
                 hm.put("alramcontents", alramVO.get(i).getAlramcontents());
-                hm.put("alramtime", alramVO.get(i).getAlramcheck());
+                hm.put("alramtime", alramVO.get(i).getAlramtime());
                 hm.put("alramtype", alramVO.get(i).getAlramtype());
                 hm.put("alramsender", alramVO.get(i).getAlramsender());
                 hm.put("usernick", alramVO.get(i).getUsernick());
