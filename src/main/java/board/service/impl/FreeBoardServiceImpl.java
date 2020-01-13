@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import board.controller.FreeWriteController;
 import board.dao.face.FreeBoardDao;
+import board.dto.Alram;
 import board.dto.FreeBoard;
 import board.dto.Reply;
 import board.dto.UpFile;
@@ -324,6 +325,29 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		freeboardDao.deleteReplyToBoard(boardno);
 		
 	}
+
+	@Override
+	public Alram getUserno(int boardno) {
+
+		return freeboardDao.selectByUserNo(boardno);
+		
+	}
+
+	@Override
+	public void insertReplyAlram(Alram alram) {
+		
+		freeboardDao.insertReplyAlram(alram);
+		
+	}
+
+	@Override
+	public void insertRecommendAlram(Alram alram) {
+		
+		freeboardDao.insertRecommendAlram(alram);
+		
+	}
+
+	
 
 
 }

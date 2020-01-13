@@ -1,8 +1,5 @@
 package prboard.controller;
 
-import java.io.Console;
-import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -25,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import prboard.dto.Alram;
 import prboard.dto.PRBoard;
 import prboard.dto.Reply;
 import prboard.dto.UpFile;
@@ -335,6 +333,18 @@ public class PRViewController {
 			//댓글 삽입
 			prBoardService.addReply(reply);
 			
+			//알람테이블 삽입
+			Alram alram = new Alram();
+			alram.setAlramcontents(reply.getRecontents());
+			alram.setAlramsender((String)session.getAttribute("usernick"));
+			alram.setUserno(prBoardService.getUserno(reply.getBoardno()));
+			alram.setBoardno(reply.getBoardno());
+			alram.setReplyno(reply.getReplyno());
+			
+			logger.info("알람 테스트 !" + alram.toString());
+			
+			prBoardService.insertReplyAlram(alram);
+			
 			mav.addObject("insert", true);
 			//viewName지정하기
 			mav.setViewName("jsonView");
@@ -417,8 +427,12 @@ public class PRViewController {
 		// 3. 삭제할 댓글의 답글 삭제
 		prBoardService.deleteReReplyByGroupNo(groupNo);
 		
+		// 4. 알림 테이블 데이터 삭제
+		// 4.3 알람 테이블 데이터 삭제
+		prBoardService.deleteAlramReply(reply);
+	
 		
-		// 4.댓글 삭제
+		// 5.댓글 삭제
 		prBoardService.deleteReplyByNo(reply);
 
 		//viewName지정하기

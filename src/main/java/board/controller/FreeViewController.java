@@ -1,8 +1,6 @@
 package board.controller;
 
 
-import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import board.dto.Alram;
 import board.dto.FreeBoard;
 import board.dto.Reply;
 import board.dto.UpFile;
@@ -244,6 +243,16 @@ public class FreeViewController {
 			//전에 추천한적이 없다면
 			if(result == 0) {
 				freeboardService.recommend(freeBoard);
+				
+				Alram alram = new Alram();
+//				alram.setAlramcontents(reply.getRecontents());
+				alram.setAlramsender(freeboardService.getUserNoByNick((String)session.getAttribute("usernick")).getUsernick());
+				alram.setUserno(freeboardService.getUserno(freeBoard.getBoardno()).getUserno());
+				alram.setBoardno(freeBoard.getBoardno());
+				logger.info(alram.toString());
+				freeboardService.insertRecommendAlram(alram);
+				
+				
 			}
 			else {
 				freeboardService.recommendCancal(freeBoard);
@@ -298,12 +307,6 @@ public class FreeViewController {
 		return "/board/recheck";
 	}
 	
-//	@RequestMapping(value = "/freereply/insert", method = RequestMethod.GET)
-//	public void replyInsert(Reply reply) {	
-//		replyInsertProc(reply);
-//	
-//	}
-	
 	@RequestMapping(value="/board/addComment", method=RequestMethod.POST)
 	public ModelAndView addCommentFree(Model model, Reply reply, HttpSession session, ModelAndView mav) {
 		
@@ -316,6 +319,14 @@ public class FreeViewController {
 			
 			//댓글 삽입
 			freeboardService.insertReply(reply);
+			
+			Alram alram = new Alram();
+			alram.setAlramcontents(reply.getRecontents());
+			alram.setAlramsender(freeboardService.getUserNoByNick((String)session.getAttribute("usernick")).getUsernick());
+			alram.setUserno(freeboardService.getUserno(reply.getBoardno()).getUserno());
+			alram.setBoardno(reply.getBoardno());
+			logger.info(alram.toString());
+			freeboardService.insertReplyAlram(alram);
 			
 			mav.addObject("insert", true);
 			//viewName지정하기

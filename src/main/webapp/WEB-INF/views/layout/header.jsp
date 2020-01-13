@@ -406,7 +406,6 @@ function weather(){
 		}
 	});
 }
-
 function alramread(){
 	//로그인 상태
 	if('${login}'){
@@ -423,25 +422,43 @@ function alramread(){
 				var html ="";
 				$(".alram").collapse('toggle'); 
 				
-				for(i=0; i<res.alramList.length; i++){
-					html += "<div style ='cursor: pointer;' id = 'alram"+res.alramList[i].boardno+"' class='alram"+res.alramList[i].alramno+"' data-role='alram"+res.alramList[i].boardtype+"'>"
-					html += "<li id = 'alramshow' class='list-group-item'>"
-					html += "<strong>"+res.alramList[i].alramsender+"</strong>님이 "
-					html += "회원님의 <br><strong>" + res.alramList[i].title +"</strong> 게시글에 "
-					// alramtype == 1 -> 댓글
-					if(res.alramList[i].alramtype == 1){
-						html += "댓글을 <br>남겼습니다."
+				if(res.alramList.length > 0){
+					
+					for(i=0; i<res.alramList.length; i++){
+						html += "<div style ='cursor: pointer;' id = 'alram"+res.alramList[i].boardno+"' class='alram"+res.alramList[i].alramno+"' data-role='alram"+res.alramList[i].boardtype+"'>"
+						
+						if(res.alramList[i].alramcheck == 0){
+							html += "<li id = 'alramshow' class='list-group-item' style ='background-color: #ECF2FE;'>"
+						}
+						else{
+							html += "<li id = 'alramshow' class='list-group-item'>"
+						}
+						
+						html += "<strong>"+res.alramList[i].alramsender+"</strong>님이 "
+						html += "<br>회원님의  <strong>" + res.alramList[i].title +"</strong> 게시글에<br> "
+						// alramtype == 1 -> 댓글
+						if(res.alramList[i].alramtype == 1){
+							html += "댓글을 남겼습니다."
+						}
+						else if(res.alramList[i].alramtype == 2){
+							html += "좋아요를 눌렀습니다."
+						}
+						else{
+							html +=  res.alramList[i].alramcontents + "원을 후원하였습니다."
+						}
+						html += "<br><small>"+res.alramList[i].alramtime+"</small>"
+						html += "</li>";
+						html += "</div>";
 					}
-					else if(res.alramList[i].alramtype == 2){
-						html += "좋아요를 <br>눌렀습니다."
-					}
-					else{
-						html +=  res.alramList[i].alramcontents + "원을 <br>후원하였습니다."
-					}
-					html += "</li>"
-					html += "</div>"
-					$("#alramList").html(html);
 				}
+				else{
+					html += "<div>"
+					html += "<li id = 'alramshow' class='list-group-item'>"
+					html += "<strong>알림 내용이 없습니다.</strong>"
+					html += "</li>";
+					html += "</div>";
+				}
+				$("#alramList").html(html);
 			},
 			error : function() {
 				console.log("실패");
@@ -452,7 +469,6 @@ function alramread(){
 		console.log("로그인 안댐");
 	}
 }
-
 function getAlramCnt(usernick){
 	$.ajax({
 		type : "POST",
@@ -477,14 +493,12 @@ function getAlramCnt(usernick){
 		}
 	});
 }
-
 function getInfiniteAlram(usernick){
 	setInterval(function() {
 			getAlramCnt(usernick);
 			
 	}, 1000);
 }
-
 </script>
 
 <script type="text/javascript">
@@ -581,10 +595,10 @@ function getInfiniteAlram(usernick){
     width: 220px;
 }
 .alram {
-    margin-left: -100px;
-    width: 275px;
+    margin-left: -145px;
+    width: 356px;
     overflow: auto;
-    height: 200px;
+    height: 215px;
 }
 /* 상단 아이콘 위치 */
 .right{
