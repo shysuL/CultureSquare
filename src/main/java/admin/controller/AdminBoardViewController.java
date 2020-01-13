@@ -14,8 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
+import admin.service.face.AdminService;
 import artboard.dto.Board;
 import artboard.dto.PFUpFile;
 import artboard.dto.Reply;
@@ -25,6 +25,7 @@ import board.service.face.FreeBoardService;
 import prboard.dto.PRBoard;
 import prboard.dto.UpFile;
 import prboard.service.face.PRBoardService;
+import user.dto.User_table;
 
 @Controller
 public class AdminBoardViewController {
@@ -32,6 +33,7 @@ public class AdminBoardViewController {
 	@Autowired private PFBoardService pfboardService;
 	@Autowired private PRBoardService prBoardService;
 	@Autowired private FreeBoardService freeboardService;
+	@Autowired private AdminService adminService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdminBoardViewController.class);
 	
@@ -45,7 +47,7 @@ public class AdminBoardViewController {
 		List<PFUpFile> fileList = pfboardService.getFileList(viewPF.getBoardno());
 		
 		model.addAttribute("fileList", fileList);
-		System.out.println("PF파일" + fileList);
+//		System.out.println("PF파일" + fileList);
 		
 		Board userno = new Board();
 		userno.setUserno(viewPF.getUserno());
@@ -67,7 +69,7 @@ public class AdminBoardViewController {
 		//게시글 첨부파일 조회
 		List<PFUpFile> list = pfboardService.getFileList(board.getBoardno());
 		
-		logger.info("PF 기존 파일 : " + list);
+//		logger.info("PF 기존 파일 : " + list);
 
 		//2. 파일 삭제(기존 파일 삭제) 첨부파일이 있을때만 삭제
 		if(!list.isEmpty()) {
@@ -99,9 +101,9 @@ public class AdminBoardViewController {
 		List<prboard.dto.Reply> replyList = prBoardService.getReplyByboardNo(reply);
 		model.addAttribute("replyList", replyList);
 		
-		System.out.println("pr" + viewPR);
-		System.out.println("pr" + fileList);
-		System.out.println("pr" + replyList);
+//		System.out.println("pr" + viewPR);
+//		System.out.println("pr" + fileList);
+//		System.out.println("pr" + replyList);
 	}
 	
 	@RequestMapping(value="/admin/board/view/prview/delete", method=RequestMethod.GET)
@@ -129,7 +131,7 @@ public class AdminBoardViewController {
 		prReply.setBoardno(prboard.getBoardno());
 		List<prboard.dto.Reply> replyVO = prBoardService.getReplyByboardNo(prReply);
         
-        logger.info("답 테스트 : "  + replyVO);
+//        logger.info("답 테스트 : "  + replyVO);
         
         if(replyVO.size() > 0){
             for(int i=0; i<replyVO.size(); i++){
@@ -162,7 +164,7 @@ public class AdminBoardViewController {
 		List<board.dto.Reply> replyList = freeboardService.getReplyList(boardno);
 		model.addAttribute("replyList", replyList);
 		
-		System.out.println(boardno);
+//		System.out.println(boardno);
 	}
 	
 	@RequestMapping(value="/admin/board/view/freeview/delete", method=RequestMethod.GET)
@@ -195,6 +197,23 @@ public class AdminBoardViewController {
 	@RequestMapping(value="/admin/board/view/noticeview", method=RequestMethod.GET)
 	public void noticeview() {
 		
+	}
+	
+	@RequestMapping(value="/admin/board/view/userview", method=RequestMethod.GET)
+	public void userview(Model model, User_table user) {
+		
+		
+		User_table userinfo = adminService.getUserInfo(user);
+		
+		model.addAttribute("userinfo", userinfo);
+		
+		logger.info("userinfo" + userinfo);
+	}
+	
+	@RequestMapping(value="/admin/board/view/userview/delete", method=RequestMethod.GET)
+	public String userdelete() {
+		
+		return "redirect:/admin/main";
 	}
 	
 	

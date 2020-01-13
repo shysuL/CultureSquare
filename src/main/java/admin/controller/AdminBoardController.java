@@ -122,9 +122,6 @@ public class AdminBoardController {
 			
 			List<FreeBoard> noticelist = noticeboardService.getList(noticePaging);
 			
-			System.out.println(noticeCnt);
-			System.out.println(noticelist);
-			
 			model.addAttribute("noticePaging", noticePaging);
 			model.addAttribute("noticelist", noticelist);
 			
@@ -238,9 +235,6 @@ public class AdminBoardController {
 			Paging noticePaging = new Paging(noticeCnt, nopaging.getCurPage());
 			
 			List<FreeBoard> noticelist = noticeboardService.getList(noticePaging);
-			
-			System.out.println("밑" + noticeCnt);
-			System.out.println("밑" + noticelist);
 			
 			model.addAttribute("noticePaging", noticePaging);
 			model.addAttribute("noticelist", noticelist);

@@ -160,59 +160,10 @@
 	width: 800px;
 	height: 400px;
 }
-
-
-
-#carouselExampleFade img {
-	width: 800px;
-	height: 400px;
-}
-
-#prIntroduceTitle{
-	width: 220px;
-    padding-top: 120px;
-    padding-bottom: 50px;
-    text-align:center;
-}
-
-#prRankTitle{
-	width: 220px;
-}
-
-#prIntroduceContent{
+#freeRankContent{
 	background-color:#343a40; 
 	color:white;
-}
-
-#prRankContent{
-	background-color:#343a40; 
-	color:white;
-}
-
-#side{
-	position:absolute;
-	top: 0;
-	right: -275px;
-}
-
-#cardview{
-	padding-left: 36px;
-}
-
-#cardlike{
-	padding-left: 20px;
-    padding-bottom: 5px;
-}
-
-#replyShow{
-	position:absolute; 
-	z-index:1; 
-	font-size:1.0em;
-}
-
-.tit{
-	color: #343a40;
-}
+} 
 
 </style>
 <br><br>
@@ -255,54 +206,72 @@
 	    <span class="sr-only">Next</span>
 	  </a>
 	</div>
-
-	
 	<!-- 캐러셀영역 END -->
 
-
-
-
-	<div class="container">
-	<hr class="featurette-divider">
 	<!-- 크롤링  -->
-	<div id="culture"></div>
-    <!-- 크롤링 END -->
-    
-	<div style="clear: both; margin: 10px 0; height: 10px;"></div>
-	<hr>
-	</div>
-	
- 
- 
-
-	
-	   
-    
 	<div class="container">
-        <!-- Three columns of text below the carousel -->
-    <div class="row">
-  
-    <c:forEach items="${list }" var="prboard" begin="0" end="4" varStatus="status">
-	<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-      <div class="card h-100" onclick="location.href='/prboard/view?boardno=${prboard.boardno }';">
-        <a href="/prboard/view?boardno=${prboard.boardno }">
-       	 	<img class="card-img-top" onerror="this.src='/resources/img/NoImage.gif';"src="/prImage/${prboard.boardno }" style="height: 202px; padding: 10px;">
-        </a>
-        <div class="card-body">
-        	 <p class="card-text" style = "font-weight: bold;">${prboard.prname }</p>
-          <p class="card-title">
-            <a href="/prboard/view?boardno=${prboard.boardno }" style = "font-weight: bold;">${prboard.title }</a>&nbsp;&nbsp;<span class="badge badge-pill badge-danger" id ="replyShow">${prboard.replyCnt }</span>
-          </p>
-          <p class="card-text" id ="useFont">${prboard.usernick}&nbsp;(${prboard.writtendate})</p>
-          <img id ="cardview"src="/resources/img/view.png"/>&nbsp;${prboard.views}
-          <img id ="cardlike"src="/resources/img/likeheart.png" style="padding-top: 5px; padding-left: 7px;"/>&nbsp;${prboard.blike }
-        </div>
-      </div>
-    </div>
-	</c:forEach>
-    
+		<hr class="featurette-divider">
+		<div id="culture"></div>
+		<div style="clear: both; margin: 10px 0; height: 10px;"></div>
+		<hr>
 	</div>
-    <!-- /END THE FEATURETTES -->
+    <!-- 크롤링 END -->
+	
+	
+    <!-- PRBoard 최신글 가져오기 -->
+	<div>
+	<h5>PR 최신글</h5>
+    <div class="row">
+	  	<c:forEach items="${list }" var="prboard" begin="0" end="3" varStatus="status">
+		<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+	      <div class="card h-100" onclick="location.href='/prboard/view?boardno=${prboard.boardno }';">
+	        <a href="/prboard/view?boardno=${prboard.boardno }">
+	       	 	<img class="card-img-top" onerror="this.src='/resources/img/NoImage.gif';"src="/prImage/${prboard.boardno }" style="height: 202px; padding: 10px;">
+	        </a>
+	        <div class="card-body">
+	        	 <p class="card-text" style = "font-weight: bold;">${prboard.prname }</p>
+	          <p class="card-title">
+	            <a href="/prboard/view?boardno=${prboard.boardno }" style = "font-weight: bold;">${prboard.title }</a>&nbsp;&nbsp;<span class="badge badge-pill badge-danger" id ="replyShow">${prboard.replyCnt }</span>
+	          </p>
+	          <p class="card-text" id ="useFont">${prboard.usernick}&nbsp;(${prboard.writtendate})</p>
+	          <img id ="cardview"src="/resources/img/view.png"/>&nbsp;${prboard.views}
+	          <img id ="cardlike"src="/resources/img/likeheart.png" style="padding-top: 5px; padding-left: 7px;"/>&nbsp;${prboard.blike }
+	        </div>
+	      </div>
+	    </div>
+		</c:forEach>
+    </div><!-- /.row -->
+	</div>
+    <!-- /END PRBoard 최신글 가져오기 -->
+    
+    <div>
+    <hr class="featurette-divider">
+	    <div class="row">
+		
+	    <div class="col-6">
+	   		<div class="list-group" id="freeRankTitle">
+				<a class="list-group-item" id="freeRankContent">공지사항</a>
+ 				<c:forEach items = "${viewslist1 }" var = "vie" varStatus="status"> 
+ 	 			<a href="/board/freeview?boardno=${vie.boardno }" class="list-group-item tit"> ${vie.title }</a> 
+ 	 			</c:forEach> 
+			</div>
+	    </div>
+	    
+	    
+	    <div class="col-6">
+		    <div class="list-group" id="freeRankTitle">
+				<a class="list-group-item" id="freeRankContent">자유게시판 최다 조회글</a>
+				<c:forEach items = "${viewslist }" var = "view" varStatus="status">
+			    <a href="/board/freeview?boardno=${view.boardno }" class="list-group-item tit"> ${view.title } (${view.views })</a>
+				</c:forEach>
+			</div>
+	    </div>
+	    
+	    </div>
+    </div>
+    
+    
+    
     
 <!-- 묻는 모달 -->
 <div class="modal fade" id="notifyModal">

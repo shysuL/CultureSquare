@@ -1,5 +1,6 @@
 package admin.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,11 @@ public class AdminServiceImpl implements AdminService {
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public User_table getUserInfo(User_table user) {
+		return adminDao.selectUserInfo(user);
 	}
 
 }
