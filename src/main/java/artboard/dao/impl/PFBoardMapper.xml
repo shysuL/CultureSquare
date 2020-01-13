@@ -276,4 +276,11 @@
 		WHERE 1=1
 			AND boardno = #{boardno}	
 	</update>
+	
+	<select id="insertLocation" parameterType="artboard.dto.Board">
+		INSERT INTO pfloc
+		(location, lat, lon, boardno)
+		VALUES
+		(pfloc_seq.nextval,#{lat}, #{lon}, #{boardno})
+	</select>
 </mapper>
