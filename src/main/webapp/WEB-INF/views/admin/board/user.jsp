@@ -85,15 +85,14 @@ $(document).ready(function() {
 						<th style="width: 15%">이름</th>
 						<th style="width: 25%">아이디</th>
 						<th style="width: 20%">전화번호</th>					
-						<th style="width: 15%">승인여부</th>
+						<th style="width: 20%">승인여부</th>
 						<th style="width: 10%">소셜로그인</th>
-						<th style="width: 5%">삭제</th>
 					</tr>
 				</thead>
 				
 				<tbody>
 					<c:forEach items="${userlist }" var="userlist">
-						<tr style="text-align: center;">
+						<tr style="text-align: center;" onclick="location.href='/admin/board/view/userview?userno=${userlist.userno }'">
 							<td>${userlist.userno }</td>
 							<td>${userlist.username }</td>
 							<td>
@@ -139,9 +138,6 @@ $(document).ready(function() {
 								</c:choose>
 							</td>
 							<td>${userlist.sociallogin }</td>
-							<td>
-								<input type="button" name="btnUserDelete" id="btnUserDelete" value="유저삭제"/>
-							</td>
 						</tr>
 					</c:forEach>
 				</tbody>

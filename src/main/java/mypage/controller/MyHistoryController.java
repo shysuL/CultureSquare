@@ -37,7 +37,7 @@ public class MyHistoryController {
 		
 		MyPaging result = mypageService.getLikePaging(paging);
 		
-		List<HashMap<String, Object>> likelist = new ArrayList<>();
+		List<HashMap<String, Object>> likelist = new ArrayList<HashMap<String, Object>>();
 		
 		likelist = mypageService.getLikeList(result);
 		
@@ -59,7 +59,7 @@ public class MyHistoryController {
 		
 		MyPaging result = mypageService.getPaging(paging);
 		
-		List writelist = new ArrayList<>();
+		List<HashMap<String, Object>> writelist = new ArrayList<HashMap<String, Object>>();
 		
 		System.out.println(result);
 		
@@ -79,7 +79,7 @@ public class MyHistoryController {
 		
 		MyPaging result = mypageService.getPaging(paging);
 		
-		List replylist = new ArrayList<>();
+		List<HashMap<String, Object>> replylist = new ArrayList<HashMap<String, Object>>();
 		
 		replylist = mypageService.getReplyList(result);
 		

@@ -36,5 +36,11 @@
 		DELETE FROM User_table
 		WHERE userno = #{userno }
 	</delete>
+	
+	<select id="selectUserInfo" resultType="user.dto.User_table" parameterType="user.dto.User_table"> 
+		SELECT *
+		FROM User_table
+		WHERE userno = #{userno } 
+	</select>
 
 </mapper>

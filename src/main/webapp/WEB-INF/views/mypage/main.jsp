@@ -186,6 +186,82 @@ $(document).ready(function(){
 
 </script>
 
+<script type="text/javascript">
+
+//사용자 사진 업로드
+function ajaxFileUpload() {
+	
+ // 업로드 버튼이 클릭되면 파일 찾기 창을 띄운다.
+ jQuery("#ajaxFile").click();
+}
+
+function ajaxFileChange() {
+ // 파일이 선택되면 업로드를 진행한다.
+ ajaxFileTransmit();
+}
+
+function ajaxFileTransmit() {
+ var form = jQuery("ajaxFrom")[0];
+ var formData = new FormData(form);
+ formData.append("message", "파일 확인 창 숨기기");
+ formData.append("file", jQuery("#ajaxFile")[0].files[0]);
+
+ jQuery.ajax({
+       url : "/mypage/main/profile"
+     , type : "POST"
+     , processData : false
+     , contentType : false
+     , data : formData
+     , dataType : "text"
+     , success:function(data) {
+     	$("#profileImg").attr("src", "/upload/" + data);
+     	$("#headeruserimg").attr("src", "/upload/" + data);
+     	console.log(data)
+     	
+     	FileReload();
+     }
+ });
+}
+
+//새로고침
+function FileReload(){
+	location.reload();
+}
+</script>
+
+<script type="text/javascript">
+
+//사용자 사진 업로드
+// function ajaxFileDelete() {
+	
+//  ajaxFileTansmit();
+
+// }
+
+function ajaxFileDelete() {
+
+ $.ajax({
+       url : "/mypage/main/photodelete"
+     , type : "POST"
+     , dataType : "text"
+     , success:function(data) {
+     	$("#profileImg").attr("src", "/resources/img/userdefaultprofile.png");
+     	console.log(data)
+     }
+ 	, error : function (e) {
+ 		console.log(e);
+ 	}
+ });
+}
+
+$(document).ready(function(){
+	$("#photodelete").on("click", function(){
+		$("#checkUserPhotoModal").modal({backdrop: 'static', keyboard: false});
+	})
+})
+
+</script>
+
 <style type="text/css">
 .inner_con1 {
 	float: left;
@@ -280,7 +356,7 @@ $(document).ready(function(){
 			<hr>
 			<!-- 프로필 사진 -->
 			<c:choose>
-				<c:when test="${storedname eq null }">
+				<c:when test="${getUser.storedname eq null }">
 					<p>
 						<img id="profileImg" src="/resources/img/userdefaultprofile.png" class="img-responsive img-circle"
 							alt="Responsive image">
@@ -288,7 +364,7 @@ $(document).ready(function(){
 				</c:when>
 				<c:otherwise>
 					<p>
-						<img id="profileImg" src="/upload/${storedname }"
+						<img id="profileImg" src="/upload/${getUser.storedname }"
 							class="img-responsive img-circle" alt="Responsive image">
 					</p>
 				</c:otherwise>
@@ -327,8 +403,9 @@ $(document).ready(function(){
 				value="프로필사진 변경" style="width: 84%; display: block; margin: 0 auto;" />
 			<br>
 			<!-- <input type="text" id="ajaxFile" onChange="ajaxFileChange();" style="display:none";/> -->
-			<input class="btn btn-outline-dark" type="button"
-				onClick="ajaxFileDelete();" value="프로필사진 삭제" style="width: 84%; display: block; margin: 0 auto;" />
+			<input class="btn btn-outline-dark" type="button" id="photodelete"
+				value="프로필사진 삭제" style="width: 84%; display: block; margin: 0 auto;" />
+<!-- 				onClick="ajaxFileDelete();" -->
 
 			<!-- 비밀번호 수정 -->
 			<br>
@@ -435,7 +512,7 @@ $(document).ready(function(){
 			<button type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;"
 					onclick="location.href='/mypage/likeartists';">
 			<img id="mypageicon" src="/resources/img/person.png"> 
-			구독한 예술인
+			팔로우한 예술인
 			</button><br>
 			<button type="button" class="btn btn-outline-dark" style="width: 84%; display: block; margin: 0 auto;"
 					onclick="location.href='/mypage/writelist';">
@@ -572,6 +649,33 @@ $(document).ready(function(){
       <div class="modal-footer">
         <button type="submit" id="deleteUserCheckBtn2"class="btn btn-dark" data-dismiss="modal">탈퇴하기</button>
         <button type="cancel" class="btn btn-danger" data-dismiss="modal">탈퇴취소</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 프로필 사진 삭제를 눌렀을 떄 확인 모달 -->
+<div class="modal fade" id="checkUserPhotoModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">프로필 사진 삭제</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	프로필 사진을 정말 삭제하시겠습니까?<br>
+      	삭제 후에 다시 등록 하실 수 있습니다.
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="userPhotoDelete" onclick="ajaxFileDelete();" class="btn btn-dark" data-dismiss="modal">삭제하기</button>
+        <button type="submit" class="btn btn-secondary" data-dismiss="modal">취소</button>
       </div>
 
     </div>

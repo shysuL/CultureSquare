@@ -1,16 +1,22 @@
 package mypage.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import mypage.dao.face.MyPageDao;
 import mypage.service.face.MyPageService;
+import prboard.dto.UpFile;
 import user.dto.User_table;
 import util.MyPaging;
 import util.Paging;
@@ -18,6 +24,7 @@ import util.Paging;
 @Service
 public class MyPageServiceImpl implements MyPageService{
 	
+	@Autowired ServletContext context;
 	@Autowired MyPageDao mypageDao;
 
 	@Override
@@ -137,5 +144,68 @@ public class MyPageServiceImpl implements MyPageService{
 	@Override
 	public List getReplyList(MyPaging paging) {
 		return mypageDao.selectReplyPost(paging);
+	}
+	
+	@Override
+	public User_table fileSave(MultipartFile mFile, int userno) {
+		
+		String storedPath = context.getRealPath("upload");
+		String uuid = UUID.randomUUID().toString().split("-")[4];
+		String filename = mFile.getOriginalFilename() + "_" + uuid;
+		File dest = new File(storedPath, filename);
+		
+		try {
+			mFile.transferTo(dest);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		//DB에 저장
+		User_table userFile = new User_table();
+		userFile.setOriginname(mFile.getOriginalFilename());
+		userFile.setStoredname(filename);
+		userFile.setUserno(userno);
+		
+		mypageDao.insertPhoto(userFile);
+		
+		return userFile;
+		
+	}
+	
+	@Override
+	public void firstImageSave(MultipartFile mFile, int userno) {
+		
+		String storedPath = context.getRealPath("mypageImage");
+		String uuid = UUID.randomUUID().toString().split("-")[4];
+		String filename = userno + "";
+		File dest = new File(storedPath, filename);
+		
+		try {
+			mFile.transferTo(dest);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public User_table getFile(int userno) {
+		
+		return mypageDao.selectFile(userno);
+	}
+	
+	@Override
+	public void fileDelete(User_table userphoto) {
+		File file = new File(context.getRealPath("upload\\" + userphoto.getStoredname()));
+		
+		if(file.exists() == true) {
+			file.delete();
+		}
+		
+		mypageDao.deleteFile(userphoto);
+		
 	}
 }

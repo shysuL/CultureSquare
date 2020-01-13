@@ -1,5 +1,6 @@
 package admin.service.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import admin.dto.Admin;
@@ -25,5 +26,7 @@ public interface AdminService {
 	public List<User_table> getUserList(Paging userpaging);
 
 	public boolean userDelete(User_table userlist);
+
+	public User_table getUserInfo(User_table user);
 
 }

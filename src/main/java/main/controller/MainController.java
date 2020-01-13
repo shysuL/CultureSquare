@@ -1,5 +1,9 @@
 package main.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,12 +18,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import board.dto.FreeBoard;
+import board.service.face.FreeBoardService;
+import board.service.face.NoticeBoardService;
 import main.dto.Weather;
 import main.service.face.WeatherService;
 import prboard.service.face.PRBoardService;
 import user.bo.NaverLoginBO;
 import user.dto.User_table;
 import user.service.face.KakaoService;
+import util.PRPaging;
 
 @Controller
 public class MainController {
@@ -36,6 +44,8 @@ public class MainController {
 		this.naverLoginBO = naverLoginBO;
 	}
 	
+	@Autowired NoticeBoardService noticeboardService;
+	@Autowired FreeBoardService freeboardService;
 	@Autowired private PRBoardService prBoardService;
 	@Autowired private WeatherService weatherService;
 	
@@ -46,7 +56,7 @@ public class MainController {
 	private OAuth2Parameters googleOAuth2Parameters;
 	
 	@RequestMapping(value="/main/main")
-	public void main(Model model, HttpSession session) {
+	public void main(Model model, HttpSession session, String searchType, String search, PRPaging paging) {
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 		//https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
@@ -79,6 +89,49 @@ public class MainController {
 		model.addAttribute("weather", weather);
 		
 		System.out.println(weather);
+
+		//PR게시판 자료 가져오기
+		Map<String, String> map = new HashMap<String, String>();
+		logger.info("여긴ㅅ ㅣㄹ행 되나");
+		
+		
+		if(searchType!=null && !"".equals(searchType)) {
+			map.put("searchType",searchType);
+		}
+
+		if(search!=null && !"".equals(search)) {
+			map.put("search", search);
+		}
+		
+		int totalCount = prBoardService.getCntAll(map);
+		
+		
+		PRPaging paging2 = new PRPaging(totalCount, paging.getCurPage());
+		
+		paging2.setsearch2(map);
+		
+		logger.info("맵 : " + map.toString());
+		
+		logger.info("paging2 : " + paging2.toString());
+		
+		model.addAttribute("paging", paging2);
+		List list = prBoardService.getList(paging2);
+		model.addAttribute("list",list);
+		
+		//정렬 타입을 최신순으로
+		model.addAttribute("sort", "new");
+		
+		//자유게시판 최신글 불러오기
+		List<FreeBoard> viewsList = freeboardService.getViewsList();
+		logger.info(viewsList.toString());
+		
+		model.addAttribute("viewslist", viewsList);
+		
+		//공자사항 최신글 불러오기
+		List<FreeBoard> viewsList1 = noticeboardService.getViewsList();
+		logger.info(viewsList.toString());
+		
+		model.addAttribute("viewslist1", viewsList1);
 		
 	}
 	
