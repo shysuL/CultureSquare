@@ -49,7 +49,7 @@
 		WHERE userno = #{userno }
 	</update>
 	
-	<update id="downPermit" parameterType="user.dto.User_tabla">
+	<update id="downPermit" parameterType="user.dto.User_table">
 		UPDATE user_table
 		SET permit = 0, usertype = 0
 		WHERE userno = #{userno }
