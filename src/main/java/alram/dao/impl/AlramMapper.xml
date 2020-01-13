@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="alram.dao.face.AlramDao">
+	<!-- 유저번호 가져오기 -->
+	<select id="selectUserNo"
+    	parameterType="String" resultType="int">
+	    SELECT userno FROM user_table
+	    WHERE 1=1
+	   	AND usernick = #{usernick}
+	 </select>
+	 
+	 <!-- 알람 갯수 얻기 -->
+	<select id="selectAlramCnt"
+    	parameterType="int" resultType="int">
+	    SELECT count(*) FROM alram
+	    WHERE 1=1
+	   	AND userno = #{userno}
+	 </select>
+</mapper>
