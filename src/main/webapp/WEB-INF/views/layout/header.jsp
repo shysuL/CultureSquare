@@ -333,6 +333,81 @@ $(document).ready(function() {
 });
 </script>
 
+<script type="text/javascript">
+function weather(){
+	var date ="";
+	var temperature ="";
+	var sky = "";
+	var rain = "";
+	$.ajax({
+		type : "POST",
+		url : "/main/showweather",
+		success : function(res) {
+			$(".weather").collapse('toggle'); 
+			
+			date += "<strong>현재 날짜 : </strong>"+res.weather.date+"<br><strong>측정 시간 : </strong>"+res.weather.time;
+			$("#date").html(date);
+			
+			temperature += "<strong>현재 기온 : </strong>"+res.weather.humidity+"℃";
+			$("#temperature").html(temperature);
+			
+			//하늘 상태
+			//1 -> 맑음
+			//2 -> 구름 조금
+			//3 -> 구름 많음
+			//4 -> 흐림
+			
+			if(res.weather.sky == 1){
+				sky += "<strong>하늘 상태 :</strong> 맑음<br>"+"<img src='/resources/img/fine.png' style ='display: block; margin-left: auto; margin-right: auto;'/>"
+				$("#sky").html(sky);
+			}
+			
+			else if(res.weather.sky == 2){
+				sky += "<strong>하늘 상태 :</strong> 구름 조금<br>"+"<img src='/resources/img/cloudsmall.png' style ='display: block; margin-left: auto; margin-right: auto;'/>"
+				$("#sky").html(sky);
+			}
+			
+			else if(res.weather.sky == 3){
+				sky += "<strong>하늘 상태 :</strong> 구름 많음<br>"+"<img src='/resources/img/cloudmany.png' style ='display: block; margin-left: auto; margin-right: auto;'/>"
+				$("#sky").html(sky);
+			}
+			else{
+				sky += "<strong>하늘 상태 :</strong> 흐림<br>"+"<img src='/resources/img/bad.png' style ='display: block; margin-left: auto; margin-right: auto;'/>"
+				$("#sky").html(sky);
+			}
+			
+			//강수 상태
+			//0-> 없음
+			//1-> 비
+			//2-> 비/눈
+			//3-> 눈
+			if(res.weather.rainCode == 0){
+				rain += "<strong>강수 상태<small>("+res.weather.rainPercentage+"%)</small> :</strong> 없음";
+				$("#rain").html(rain);
+			}
+			
+			else if(res.weather.rainCode == 1){
+				rain += "<strong>강수 상태<small>("+res.weather.rainPercentage+"%)</small> :</strong> 비<br>"+"<img src='/resources/img/rain.png' style ='display: block; margin-left: auto; margin-right: auto;'/>"
+				$("#rain").html(rain);
+			}
+			
+			else if(res.weather.rainCode == 2){
+				rain += "<strong>강수 상태<small>("+res.weather.rainPercentage+"%)</small> :</strong> 비/눈<br>"+"<img src='/resources/img/rainsnow.png' style ='display: block; margin-left: auto; margin-right: auto;'/>"
+				$("#rain").html(rain);
+			}
+			
+			else{
+				rain += "<strong>강수 상태<small>("+res.weather.rainPercentage+"%)</small> :</strong> 눈<br>"+"<img src='/resources/img/snow.png' style ='display: block; margin-left: auto; margin-right: auto;'/>"
+				$("#rain").html(rain);
+			}
+		},
+		error : function() {
+			console.log("실패");
+		}
+	});
+}
+</script>
+
 <style type="text/css">
 /* 웹폰트 적용 */
 @font-face { 
@@ -369,6 +444,9 @@ $(document).ready(function() {
     margin-left: -100px;
     width: 220px;
 }
+.alram {
+    margin-left: -100px;
+    width: 220px;
 }
 /* 상단 아이콘 위치 */
 .right{
@@ -452,84 +530,41 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
     <div class="btn-group">
 <!--       <h4 class="panel-title"> -->
     
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="ture" aria-expanded="false">
+<!--         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="ture" aria-expanded="false"> -->
+        <button class="btn btn-secondary dropdown-toggle" type="button" onclick="weather();">
 		      <span class="fas fa-cloud" ></span>
 		   </button>
 <!--       </h4> -->
    
     <div  class="dropdown-menu weather" aria-labelledby="dropdownMenuButton">
      <ul class="list-group">
-        <li class="list-group-item"><strong>현재 날짜 : </strong>${weather.date}<br><strong>측정 시간 : </strong>${weather.time}</li>
-        <li class="list-group-item"><strong>현재 기온 :</strong> ${weather.humidity}℃</li>
-        <li class="list-group-item">
-<!--         	1 -> 맑음 -->
-<!--         	2 -> 구름 조금 -->
-<!--         	3 -> 구름 많음 -->
-<!--         	4 -> 흐림 -->
-			<c:choose>
-				<c:when test="${weather.sky eq 1}">
-					<strong>하늘 상태 :</strong> 맑음
-					<br>
-					<img src="/resources/img/fine.png" style ="display: block; margin-left: auto; margin-right: auto;"/>
-				</c:when>
-				<c:when test="${weather.sky eq 2}">
-					<strong>하늘 상태 :</strong> 구름 조금
-					<br>
-					<img src="/resources/img/cloudsmall.png" style ="display: block; margin-left: auto; margin-right: auto;"/>
-				</c:when>
-				<c:when test="${weather.sky eq 3}">
-					<strong>하늘 상태 :</strong> 구름 많음
-					<br>
-					<img src="/resources/img/cloudmany.png" style ="display: block; margin-left: auto; margin-right: auto;"/>
-				</c:when>
-				<c:otherwise>
-					<strong>하늘 상태 :</strong> 흐림
-					<br>
-					<img src="/resources/img/bad.png" style ="display: block; margin-left: auto; margin-right: auto;"/>
-				</c:otherwise>
-			</c:choose>
-       </li>
-              <li class="list-group-item">
-<!--         	0 -> 없음 -->
-<!--         	1 -> 비 -->
-<!--         	2 -> 비/눈 -->
-<!--         	3 -> 눈 -->
-			<c:choose>
-				<c:when test="${weather.rainCode eq 0}">
-					<strong>강수 상태<small> (${weather.rainPercentage}%)</small> :</strong> 없음
-				</c:when>
-				<c:when test="${weather.rainCode eq 1}">
-					<strong>강수 상태<small> (${weather.rainPercentage}%)</small> :</strong> 비
-					<br>
-					<img src="/resources/img/rain.png" style ="display: block; margin-left: auto; margin-right: auto;"/>
-				</c:when>
-				<c:when test="${weather.rainCode eq 2}">
-					<strong>강수 상태<small> (${weather.rainPercentage}%)</small> :</strong> 비/눈
-					<br>
-					<img src="/resources/img/rainsnow.png" style ="display: block; margin-left: auto; margin-right: auto;"/>
-				</c:when>
-				<c:otherwise>
-					<strong>강수 상태<small> (${weather.rainPercentage}%)</small> :</strong> 눈
-					<br>
-					<img src="/resources/img/snow.png" style ="display: block; margin-left: auto; margin-right: auto;"/>
-				</c:otherwise>
-			</c:choose>
-       </li>
+  		<li id = "date" class="list-group-item"></li>
+        <li id = "temperature"class="list-group-item"></li>
+        <li id = "sky"class="list-group-item"></li>
+        <li id="rain" class="list-group-item"></li>
       </ul>
- </div>
- </div>
+	</div>
+	</div>
 &nbsp;&nbsp;&nbsp;&nbsp;
 	<!-- 상단 알림 아이콘 -->  
-		<a href="#">
-		   <button type="button" class="btn btn-secondary ">
-		      <span class="fas fa-bell" ></span>
-		   </button>
-		</a>
+	<div class="btn-group" >
+
+	   <button  class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	      <span class="fas fa-bell" ></span>
+	   </button>
+
+
+		 <div class="dropdown-menu alram" aria-labelledby="dropdownMenuButton">
+		
+		 
+		 </div>
+		
+	</div>
 	    
-	<!-- 우측 상단 아이콘 -->
-	<div class="btn-group rpadding loginwidth" >
 	
 		<!-- 상단 로그인 아이콘 -->  
+	<div class="btn-group rpadding loginwidth" >
+	
 		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		   <span class="fas fa-user"></span>
 		</button>
