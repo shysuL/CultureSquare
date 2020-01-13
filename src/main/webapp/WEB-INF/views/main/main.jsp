@@ -225,7 +225,7 @@
 	
 	   
     
-<div>
+	<div>
         <!-- Three columns of text below the carousel -->
     <div class="row">
   
@@ -248,8 +248,6 @@
         <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
       </div><!-- /.col-lg-4 -->
     </div><!-- /.row -->
-    
-    
     
 	</div>
     <!-- /END THE FEATURETTES -->

@@ -364,6 +364,12 @@ $(document).ready(function() {
 	padding-left:200px;
     padding-right: 200px;
 }
+/* 날씨사이즈 */
+.weather {
+    margin-left: -100px;
+    width: 220px;
+}
+}
 /* 상단 아이콘 위치 */
 .right{
 	place-content: flex-end;
@@ -442,17 +448,17 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 	      </li>
 	    </ul>
 	    
-<div class="panel-group">
-  <div class="panel panel-default">
-    <div class="panel-heading">
+
+    <div class="btn-group">
 <!--       <h4 class="panel-title"> -->
-        <a data-toggle="collapse" href="#collapse1"> <button class="btn btn-secondary">
+    
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="ture" aria-expanded="false">
 		      <span class="fas fa-cloud" ></span>
-		   </button></a>
+		   </button>
 <!--       </h4> -->
-    </div>
-    <div id="collapse1" class="panel-collapse collapse">
-      <ul class="list-group">
+   
+    <div  class="dropdown-menu weather" aria-labelledby="dropdownMenuButton">
+     <ul class="list-group">
         <li class="list-group-item"><strong>현재 날짜 : </strong>${weather.date}<br><strong>측정 시간 : </strong>${weather.time}</li>
         <li class="list-group-item"><strong>현재 기온 :</strong> ${weather.humidity}℃</li>
         <li class="list-group-item">
@@ -510,9 +516,8 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 			</c:choose>
        </li>
       </ul>
-    </div>
-  </div>
-</div>
+ </div>
+ </div>
 &nbsp;&nbsp;&nbsp;&nbsp;
 	<!-- 상단 알림 아이콘 -->  
 		<a href="#">
