@@ -28,8 +28,8 @@ public class AlramServiceImpl implements AlramService{
 	}
 
 	@Override
-	public void readAlram(Alram alram) {
-		alramDao.updateAlramCheck(alram);
+	public void readAlram(int userno) {
+		alramDao.updateAlramCheck(userno);
 		
 	}
 

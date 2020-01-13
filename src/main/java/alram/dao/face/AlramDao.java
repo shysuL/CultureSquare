@@ -35,9 +35,9 @@ public interface AlramDao {
 	 * 
 	 * 알람테이블 alramcheck를 1로 업데이트
 	 * 
-	 * @param alram - 알람 번호를 가진 객체
+	 * @param userno - 유저 번호
 	 */
-	public void updateAlramCheck(Alram alram);
+	public void updateAlramCheck(int userno);
 
 	/**
 	 * 2020-01-13
