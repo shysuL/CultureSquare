@@ -444,6 +444,9 @@ function weather(){
     margin-left: -100px;
     width: 220px;
 }
+.alram {
+    margin-left: -100px;
+    width: 220px;
 }
 /* 상단 아이콘 위치 */
 .right{
@@ -548,7 +551,7 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 	   </button>
 
 
-		 <div class="dropdown-menu weather" aria-labelledby="dropdownMenuButton">
+		 <div class="dropdown-menu alram" aria-labelledby="dropdownMenuButton">
 		
 		 
 		 </div>
