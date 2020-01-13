@@ -377,11 +377,7 @@ h5 {
 }
 
 /* 로고 애니메이션 */
-<<<<<<< HEAD
-img[class=culture]{min-height: 100%; max-width: 100%; }
-=======
 img[class=culture] {min-height: 100%; max-width: 100%; }
->>>>>>> refs/remotes/origin/develop
 .imgHoverEvent{width: 300px; height: 220px; margin-top: 10px; position: relative; overflow: hidden; display: inline-block;}
 /* .imgHoverEvent .imgBox{width: 200px; height: 200px; text-align: center; background:url(http://gahyun.wooga.kr/portfolio/triple/resources/img/city00.jpg) no-repeat 50% 50%; background-size: auto 100%;} */
 .imgHoverEvent .hoverBox{position: absolute; top:0; left: 0; width: 250px; height: 250px;}
