@@ -327,12 +327,13 @@ $(document).ready(function() {
 	       $("#faqboard").addClass("active");
        
        } 
+       
     } 
+	    
 });
 </script>
 
 <script type="text/javascript">
-
 function weather(){
 	var date ="";
 	var temperature ="";
@@ -342,8 +343,7 @@ function weather(){
 		type : "POST",
 		url : "/main/showweather",
 		success : function(res) {
-			console.log(res.weather.date)
-			$("#collapse1").collapse('toggle'); 
+			$(".weather").collapse('toggle'); 
 			
 			date += "<strong>현재 날짜 : </strong>"+res.weather.date+"<br><strong>측정 시간 : </strong>"+res.weather.time;
 			$("#date").html(date);
@@ -400,17 +400,12 @@ function weather(){
 				rain += "<strong>강수 상태<small>("+res.weather.rainPercentage+"%)</small> :</strong> 눈<br>"+"<img src='/resources/img/snow.png' style ='display: block; margin-left: auto; margin-right: auto;'/>"
 				$("#rain").html(rain);
 			}
-			
-			
-			
 		},
 		error : function() {
 			console.log("실패");
 		}
 	});
-	
 }
-	
 </script>
 
 <style type="text/css">
@@ -443,6 +438,12 @@ function weather(){
 .iconpadding {
 	padding-left:200px;
     padding-right: 200px;
+}
+/* 날씨사이즈 */
+.weather {
+    margin-left: -100px;
+    width: 220px;
+}
 }
 /* 상단 아이콘 위치 */
 .right{
@@ -522,25 +523,25 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 	      </li>
 	    </ul>
 	    
-<div class="panel-group">
-  <div class="panel panel-default">
-    <div class="panel-heading">
+
+    <div class="btn-group">
 <!--       <h4 class="panel-title"> -->
-        <button class="btn btn-secondary" onclick ="weather();">
+    
+<!--         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="ture" aria-expanded="false"> -->
+        <button class="btn btn-secondary dropdown-toggle" type="button" onclick="weather();">
 		      <span class="fas fa-cloud" ></span>
 		   </button>
 <!--       </h4> -->
-    </div>
-    <div id="collapse1" class="panel-collapse collapse">
-      <ul class="list-group">
-        <li id = "date" class="list-group-item"></li>
+   
+    <div  class="dropdown-menu weather" aria-labelledby="dropdownMenuButton">
+     <ul class="list-group">
+  		<li id = "date" class="list-group-item"></li>
         <li id = "temperature"class="list-group-item"></li>
         <li id = "sky"class="list-group-item"></li>
         <li id="rain" class="list-group-item"></li>
       </ul>
-    </div>
-  </div>
-</div>
+ </div>
+ </div>
 &nbsp;&nbsp;&nbsp;&nbsp;
 	<!-- 상단 알림 아이콘 -->  
 		<a href="#">
