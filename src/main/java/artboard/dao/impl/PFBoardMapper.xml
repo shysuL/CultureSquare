@@ -14,9 +14,11 @@
 		, B.contents
 		, B.views, B.userno, b.postno
 		, p.performno, p.performname, p.performdate, p.writepermit,
-		p.updatepermit, p.deletepermit
+		p.updatepermit, p.deletepermit, (SELECT COUNT(*) FROM blike WHERE B.boardno = boardno) AS blike,
+		(SELECT COUNT(*) FROM reply WHERE B.boardno = boardno) AS replyCnt
 		FROM board B, perform_add P
 		WHERE B.boardno = P.boardno
+		AND B.postno = 1
 		AND substr(p.performdate, 1, 7) =
 		#{searchMonth }
 		ORDER BY

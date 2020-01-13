@@ -44,7 +44,12 @@ public class Board {
 	private int prcnt;
 	private int sociallogin;
 	
-
+	// BLike
+	private int blike;
+	
+	// replyCnt
+	private int replyCnt;
+	
 	@Override
 	public String toString() {
 		return "Board [rnum=" + rnum + ", boardno=" + boardno + ", title=" + title + ", writtendate=" + writtendate
@@ -55,7 +60,24 @@ public class Board {
 				+ ", usernick=" + usernick + ", userphone=" + userphone + ", usergender=" + usergender + ", userbirth="
 				+ userbirth + ", interest=" + interest + ", usertype=" + usertype + ", permit=" + permit
 				+ ", emailcheck=" + emailcheck + ", originname=" + originname + ", storedname=" + storedname
-				+ ", follow=" + follow + ", prcnt=" + prcnt + ", sociallogin=" + sociallogin + "]";
+				+ ", follow=" + follow + ", prcnt=" + prcnt + ", sociallogin=" + sociallogin + ", blike=" + blike
+				+ ", replyCnt=" + replyCnt + "]";
+	}
+	
+	public int getReplyCnt() {
+		return replyCnt;
+	}
+
+	public void setReplyCnt(int replyCnt) {
+		this.replyCnt = replyCnt;
+	}
+
+	public int getBlike() {
+		return blike;
+	}
+
+	public void setBlike(int blike) {
+		this.blike = blike;
 	}
 
 	public int getRnum() {
