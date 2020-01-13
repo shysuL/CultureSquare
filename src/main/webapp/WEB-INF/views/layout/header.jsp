@@ -406,6 +406,50 @@ function weather(){
 		}
 	});
 }
+
+function alram(){
+	$(".alram").collapse('toggle');
+	console.log("알람!");
+	$("#alarmCnt").html("5");
+}
+
+function getAlramCnt(usernick){
+	$("#alarmCnt").html(usernick);
+	
+	$.ajax({
+		type : "POST",
+		url : "/alram/alarmcnt",
+		data : {
+			//사용자 닉네임 넘겨줌
+			usernick : usernick,
+		},
+		dataType : "json",
+		success : function(res) {
+			console.log("성공");
+		},
+		error : function() {
+			console.log("실패");
+		}
+	});
+}
+
+function getInfiniteAlram(usernick){
+	setInterval(function() {
+			getAlramCnt(usernick);
+			
+	}, 1000);
+}
+
+</script>
+
+<script type="text/javascript">
+		$(document).ready(function() {
+			//로그인 상태
+			if('${login}'){
+				getInfiniteAlram('${usernick}');
+			}
+			
+		});
 </script>
 
 <style type="text/css">
@@ -546,10 +590,11 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 	<!-- 상단 알림 아이콘 -->  
 	<div class="btn-group" >
 
-	   <button  class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<button class="btn btn-secondary dropdown-toggle" type="button" onclick="alram();">
 	      <span class="fas fa-bell" ></span>
+	      <span  class="badge badge-pill badge-danger" id = "alarmCnt"></span>
+	     
 	   </button>
-
 
 		 <div class="dropdown-menu alram" aria-labelledby="dropdownMenuButton">
 		
