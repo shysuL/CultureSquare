@@ -14,13 +14,14 @@ public class Alram {
 	private int boardno;
 	private String usernick;
 	private String title;
+	private int boardtype;
 	
 	@Override
 	public String toString() {
 		return "Alram [alramno=" + alramno + ", alramcontents=" + alramcontents + ", alramtime=" + alramtime
 				+ ", alramcheck=" + alramcheck + ", alramtype=" + alramtype + ", alramsender=" + alramsender
 				+ ", userno=" + userno + ", alramcnt=" + alramcnt + ", boardno=" + boardno + ", usernick=" + usernick
-				+ ", title=" + title + "]";
+				+ ", title=" + title + ", boardtype=" + boardtype + "]";
 	}
 	
 	public int getAlramno() {
@@ -89,5 +90,10 @@ public class Alram {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+	public int getBoardtype() {
+		return boardtype;
+	}
+	public void setBoardtype(int boardtype) {
+		this.boardtype = boardtype;
+	}
 }

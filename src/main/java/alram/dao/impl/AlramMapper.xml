@@ -23,10 +23,10 @@
 	 </select>
 	 <!-- 알람 읽음 여부 1로 업데이트 -->
 	 <update id="updateAlramCheck"
-		 parameterType="int">
+		 parameterType="alram.dto.Alram">
 		UPDATE alram SET alramcheck = 1
 		WHERE 1=1
-		AND userno = #{userno}
+		AND alramno = #{alramno}
 	</update>
 	
 	<!-- 알람 리스트 가져오기 -->

@@ -41,13 +41,10 @@ public class AlramController {
 	}
 	
 	@RequestMapping(value="/alram/readalram")
-	public ModelAndView readalram(ModelAndView mav, User_table user) {
-		
-		//1. 사용자 번호 구하기
-		user.setUserno(alramService.getUserNoByUserNick(user.getUsernick()));
+	public ModelAndView readalram(ModelAndView mav, Alram alram) {
 		
 		//2. 알림 읽음 표시 1로 업데이트
-		alramService.readAlram(user.getUserno());
+		alramService.readAlram(alram);
 		
 		mav.addObject("update", true);
 		//viewName지정하기
@@ -84,6 +81,7 @@ public class AlramController {
                 hm.put("usernick", alramVO.get(i).getUsernick());
                 hm.put("boardno", alramVO.get(i).getBoardno());
                 hm.put("title", alramVO.get(i).getTitle());
+                hm.put("boardtype", alramVO.get(i).getBoardtype());
                 
                 alramList.add(hm);
             }
