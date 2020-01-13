@@ -21,6 +21,12 @@ $(document).ready(function(){
 $(document).ready(function() {
 	console.log("비밀번호 ${userinfo.userpw}")
 	
+	//비밀번호 정규식 - 암호길이 8자 이상 16 이하, 영문숫자특수문자조합
+	var pwJ = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;
+	var cur_Check = true;
+	var pw_Check = true;
+	var pw_Check2 = true;
+	
 	//경고 모달 호출 메서드
     function warningModal(content) {
        $(".modal-contents").text(content);
@@ -32,11 +38,47 @@ $(document).ready(function() {
 		$("#updateUserPwModal").modal({backdrop: 'static', keyboard: false});
 	})
 	
+	$("#changepw").blur(function(){
+		if(pwJ.test($('#changepw').val())){
+			console.log("특수문쟈");
+			$('#pw_check').text('사용가능한 비밀번호입니다.');
+			$('#pw_check').css('color', 'green');
+			pw_Check = true;
+			
+		} else {
+			console.log("다시입력");
+			$('#pw_check').text('숫자, 문자, 특수문자를 이용해 8~16자리를 입력해주세요. ');
+			$('#pw_check').css('color', 'red');
+			pw_Check = false;
+		}
+	});
+		
+	$("#changepw2").blur(function(){
+		
+		if(!pwJ.test($('#changepw2').val())){
+			$('#pw_check2').text('숫자, 문자, 특수문자를 이용해 8~16자리를 입력해주세요.');
+			$('#pw_check2').css('color', 'red');
+			pw_Check2 = false;
+			
+		} else if ($('#changepw').val() != $(this).val()){
+			$('#pw_check2').text('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
+			$('#pw_check2').css('color', 'red');
+			pw_Check2 = false;
+			
+		} else {
+			$('#pw_check2').text('비밀번호가 일치합니다.');
+			$('#pw_check2').css('color', 'green');
+			pw_Check2 = true;
+		}
+	});
+	
+	
 	$("#updatePw").click(function(){
+
 		var userpw = $('#userpw').val();
 		var changepw = $('#changepw').val();
 		var changepw2 = $('#changepw2').val();
-	
+		
 		$.ajax({
 			type: "post",
 			url: "/mypage/curpwCheck",
@@ -44,7 +86,7 @@ $(document).ready(function() {
 			datatype: "json",
 			success: function(res){
 				
-				if(!res.lock){
+				if(!res.lock){ 
 					warningModal('현재 비밀번호를 다시 입력해주세요.')
 					$("#userpw").focus();
 					return false;
@@ -92,9 +134,11 @@ $(document).ready(function() {
 				success: function(res){
 					
 					console.log(res.userInfo)
+					
 				}
 			})
 
+			$("#pwAuthenticationModal3").modal({backdrop: 'static', keyboard: false});
 		})
 			
 });
@@ -392,11 +436,14 @@ $(document).ready(function(){
 								<input type="hidden" value="${userid }" id="userid" name="userid"/>
 								
 								현재 비밀번호
-								<input type="password" name="userpw" id="userpw" placeholder="현재 비밀번호 입력"/><br><br>
+								<input type="password" name="userpw" id="userpw" placeholder="현재 비밀번호 입력"/><br>
+									<div class="check_font" id="cur_check"></div><br>
 								변경할 비밀번호
-								<input type="password" name="changepw" id="changepw" placeholder="변경할 비밀번호 입력"/><br><br>
+								<input type="password" name="changepw" id="changepw" placeholder="변경할 비밀번호 입력"/><br>
+									<div class="check_font" id="pw_check"></div><br>
 								비밀번호 확인
-								<input type="password" name="changepw2" id="changepw2" placeholder="변경할 비밀번호 재입력"/><br><br>
+								<input type="password" name="changepw2" id="changepw2" placeholder="변경할 비밀번호 재입력"/><br>
+									<div class="check_font" id="pw_check2"></div><br>
 							</div>
 	
 							<!-- Modal footer -->
@@ -430,6 +477,30 @@ $(document).ready(function(){
 			</div>
 			<!-- /.modal -->
 			
+			<!-- 비밀번호 변경 완료를 눌렀을 떄 확인 모달 -->
+			<div class="modal fade" id="pwAuthenticationModal3">
+			  <div class="modal-dialog modal-dialog-centered">
+			    <div class="modal-content">
+			
+			      <!-- Modal Header -->
+			      <div class="modal-header">
+			        <h4 class="modal-title">비밀번호 변경 완료</h4>
+			      </div>
+			
+			      <!-- Modal body -->
+			      <div class="modal-body content">
+			      	비밀번호 변경이 완료되었습니다.
+			      </div>
+			
+			      <!-- Modal footer -->
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
+			      </div>
+			
+			    </div>
+			  </div>
+			</div>
+						
 			<!--모달창 -->
 			<div class="modal fade" id="defaultModal2">
 				<div class="modal-dialog">
@@ -658,5 +729,6 @@ $(document).ready(function(){
     </div>
   </div>
 </div>
+
 
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />

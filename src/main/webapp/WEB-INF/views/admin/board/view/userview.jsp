@@ -181,7 +181,7 @@ span[class=close] {
 <div class="container">
 
 	<div style="text-align: right; margin-bottom: 40px;">
-		<button id="btnUserDelete" class="btn btn-secondary" >삭제</button>
+		<button id="btnUserDelete" class="btn btn-secondary" >사용자 삭제</button>
 	</div>	
 	
 	

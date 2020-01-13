@@ -130,17 +130,24 @@ $(document).ready(function() {
 							<td>
 								<c:choose>
 									<c:when test="${userlist.permit == 2 }">
-										예술인
+										<strong>예술인</strong>
 									</c:when>
 									<c:when test="${userlist.permit == 1 }">
-										관리자 승인 필요
+										<strong>[ 관리자 승인 필요 ]</strong>
 									</c:when>
 									<c:otherwise>
-										일반사용자
+										<strong>일반 사용자</strong>
 									</c:otherwise>
 								</c:choose>
 							</td>
-							<td>${userlist.sociallogin }</td>
+							<td>
+								<c:if test="${userlist.sociallogin == 1}">
+									Y
+								</c:if>
+								<c:if test="${userlist.sociallogin == 0}">
+									N
+								</c:if>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>

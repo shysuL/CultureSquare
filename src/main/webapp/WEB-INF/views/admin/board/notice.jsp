@@ -30,7 +30,7 @@
 
 <div class="container" style="margin-top: 50px;">
 	<div class="innercon2">
-	<h3 style="text-align: center;">공지사항</h3>
+	<h3 style="text-align: center;">NOTICE</h3>
 	
 	<div style="text-align: right; margin-top: 30px;">
 		<button type="button" class="btn btn-secondary" 

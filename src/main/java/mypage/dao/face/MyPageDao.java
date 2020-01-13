@@ -191,4 +191,38 @@ public interface MyPageDao {
 	 */
 	public void updateUserPermit(User_table user);
 
+	/**
+	 * 2020-01-13
+	 * 채해원
+	 * 
+	 * 마이페이지의 후원한 내역의 페이징을 위한 내역 개수
+	 * 
+	 * @param paging
+	 * @return
+	 */
+	public int selectPermitCntAll(MyPaging paging);
+
+	/**
+	 * 2020-01-13
+	 * 채해원
+	 * 
+	 * 후원한 내역의 목록 가져오기
+	 * 
+	 * @param paging
+	 * @return
+	 */
+	public List<HashMap<String, Object>> selectPermitList(MyPaging paging);
+
+	/**
+	 * 2020-01-13
+	 * 채해원
+	 * 
+	 * 마이페이지의 작성한 댓글 목록의 페이징을 위한 내역 개수
+	 * 
+	 * @param paging
+	 * @return
+	 */
+	public int selectReplyCntAll(MyPaging paging);
+
+
 }
