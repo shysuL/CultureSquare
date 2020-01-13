@@ -321,16 +321,16 @@ $(document).ready(function(){
 	  		
 	  		<tr>
 	  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>" ><input class="list-group-item action cate" type="submit" value="전체" /></a></td>
-	  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>" ><input class="list-group-item cate" type="submit" value="버스킹" /></a></td>
-	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="전시회" /></a></td>
-	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="연극" /></a></td>
+	  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>&performname=버스킹" ><input class="list-group-item cate" type="submit" value="버스킹" /></a></td>
+	  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>&performname=전시회" ><input class="list-group-item cate" type="submit" value="전시회" /></a></td>
+	  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>&performname=연극" ><input class="list-group-item cate" type="submit" value="연극" /></a></td>
 	  		</tr>
 	  		
 	  		<tr>
-	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="콘서트" /></a></td>
-	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="뮤지컬" /></a></td>
-	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="행사" /></a></td>
-	  		<td><a href="#" ><input class="list-group-item cate" type="submit" value="축제" /></a></td>
+	  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>&performname=콘서트" ><input class="list-group-item cate" type="submit" value="콘서트" /></a></td>
+	  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>&performname=뮤지컬" ><input class="list-group-item cate" type="submit" value="뮤지컬" /></a></td>
+	  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>&performname=행사" ><input class="list-group-item cate" type="submit" value="행사" /></a></td>
+	  		<td><a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>&performname=축제" ><input class="list-group-item cate" type="submit" value="축제" /></a></td>
 	  		</tr>
 	  		</table>
 

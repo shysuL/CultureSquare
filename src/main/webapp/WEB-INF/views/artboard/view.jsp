@@ -1006,8 +1006,31 @@ $(document).ready(function() {
 			</c:forEach>
 			<!-- 내용 보여줌 -->
 			${view.contents }
-			
 			<hr>
+			<div id="staticMap" style="width:500px;height:400px; margin-left: 107px;"></div>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=955e62645517faafe40085ecec08d0c1"></script>
+<script>
+//이미지 지도에서 마커가 표시될 위치입니다 
+var markerPosition  = new kakao.maps.LatLng(37.499206, 127.032773); 
+
+// 이미지 지도에 표시할 마커입니다
+// 이미지 지도에 표시할 마커는 Object 형태입니다
+var marker = {
+    position: markerPosition
+};
+33.450701, 126.570667
+var staticMapContainer  = document.getElementById('staticMap'), // 이미지 지도를 표시할 div  
+staticMapOption = { 
+    center: new kakao.maps.LatLng(37.499206, 127.032773), // 이미지 지도의 중심좌표
+    level: 3, // 이미지 지도의 확대 레벨
+    marker: marker // 이미지 지도에 표시할 마커 
+};
+
+//이미지 지도를 생성합니다
+var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
+
+
+</script>
 			<div class="list-group" id="fileTitle">
 				  <a class="list-group-item" id="fileContent">
 				   첨부파일
@@ -1088,7 +1111,7 @@ $(document).ready(function() {
 </c:if>
 
 <br>
-<!-- 댓글view -->
+	<!-- 댓글view -->
 		<div  id="commentList" class='container' style='mawrgin-bottom: 40px'>              
 		</div><!--  댓글 처리 end --> 
 
