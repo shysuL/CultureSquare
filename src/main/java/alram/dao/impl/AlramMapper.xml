@@ -19,5 +19,13 @@
 	    SELECT count(*) FROM alram
 	    WHERE 1=1
 	   	AND userno = #{userno}
+	   	AND alramcheck = 0
 	 </select>
+	 <!-- 알람 읽음 여부 1로 업데이트 -->
+	 <update id="updateAlramCheck"
+		 parameterType="int">
+		UPDATE alram SET alramcheck = 1
+		WHERE 1=1
+			AND userno = #{userNo}
+	</update>
 </mapper>

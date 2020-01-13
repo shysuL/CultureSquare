@@ -24,5 +24,11 @@ public class AlramServiceImpl implements AlramService{
 		
 		return alramDao.selectAlramCnt(userno);
 	}
+
+	@Override
+	public void readAlram(int userno) {
+		alramDao.updateAlramCheck(userno);
+		
+	}
 	
 }

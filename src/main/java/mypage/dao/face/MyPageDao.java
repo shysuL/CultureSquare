@@ -104,6 +104,16 @@ public interface MyPageDao {
 	 * @return
 	 */
 	public int selectCntAll(MyPaging paging);
+	
+	/**
+	 * 2020-01-13
+	 * 채해원
+	 * 
+	 * 마이페이지 내가 좋아요한 개수의 페이징을 위한 게시글 개수
+	 * @param paging
+	 * @return
+	 */
+	public int selectLikeCntAll(MyPaging paging);
 
 	/**
 	 * 2020-01

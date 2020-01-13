@@ -122,7 +122,7 @@ public class MyPageServiceImpl implements MyPageService{
 	@Override
 	public MyPaging getLikePaging(MyPaging paging) {
 		
-		int totalCount = mypageDao.selectCntAll(paging);
+		int totalCount = mypageDao.selectLikeCntAll(paging);
 		
 		MyPaging result = new MyPaging(totalCount, paging.getCurPage());
 		result.setUserno(paging.getUserno());
@@ -137,12 +137,12 @@ public class MyPageServiceImpl implements MyPageService{
 	}
 
 	@Override
-	public List getWriteList(MyPaging paging) {
+	public List<HashMap<String, Object>> getWriteList(MyPaging paging) {
 		return mypageDao.selectWritePost(paging);
 	}
 	
 	@Override
-	public List getReplyList(MyPaging paging) {
+	public List<HashMap<String, Object>> getReplyList(MyPaging paging) {
 		return mypageDao.selectReplyPost(paging);
 	}
 	

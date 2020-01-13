@@ -407,9 +407,35 @@ function weather(){
 	});
 }
 
-function alram(){
-	$(".alram").collapse('toggle');
-	console.log("알람!");
+function alramread(){
+	//로그인 상태
+	if('${login}'){
+		
+		$.ajax({
+			type : "POST",
+			url : "/alram/readalram",
+			data : {
+				//사용자 닉네임 넘겨줌
+				usernick : '${usernick}',
+			},
+			dataType : "json",
+			success : function(res) {
+				if(res.update){
+					$(".alram").collapse('toggle'); 
+				}
+				else{
+					console.log("업데이트 에러");
+				}
+			},
+			error : function() {
+				console.log("실패");
+			}
+		});
+	}
+	else{
+		console.log("로그인 안댐");
+	}
+	
 }
 
 function getAlramCnt(usernick){
@@ -422,7 +448,14 @@ function getAlramCnt(usernick){
 		},
 		dataType : "json",
 		success : function(res) {
-			$("#alarmCnt").html(res.alramCnt);
+			if(res.alramCnt != 0){
+				console.log("알람 갯수 : " + res.alramCnt);
+				$("#alarmCnt").html(res.alramCnt);
+			}
+			else{
+				console.log("알람 0개(다읽음): " + res.alramCnt);
+				$("#alarmCnt").html("");
+			}
 		},
 		error : function() {
 			console.log("실패");
@@ -587,7 +620,7 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 	<!-- 상단 알림 아이콘 -->  
 	<div class="btn-group" >
 
-		<button class="btn btn-secondary dropdown-toggle" type="button" onclick="alram();">
+		<button class="btn btn-secondary dropdown-toggle" type="button" onclick="alramread();">
 	      <span class="fas fa-bell" ></span>
 	      <span  class="badge badge-pill badge-info" id = "alarmCnt"></span>
 	     
