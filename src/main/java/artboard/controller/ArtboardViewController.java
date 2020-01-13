@@ -528,7 +528,7 @@ public class ArtboardViewController {
 		
 		board.setBoardno(boardno);
 		
-		logger.info("followchk +++ : " + board.toString());
+		logger.info("followchk +++ : " + board.toString());      
 		
 		int result = pfboardService.followCheck(board);
 		
