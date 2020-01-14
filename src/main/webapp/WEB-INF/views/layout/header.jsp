@@ -752,7 +752,17 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 	       <div class="dropdown-menu center" style="margin-left: -115px;">
 	         <h5>${usernick}님 할라븅~!</h5>
 	    	 <div class="dropdown-divider"></div>
-				<input id="mypage" class="btn btn" onclick="location.href='/mypage/main'" value="마이페이지">
+	    	 <c:choose>
+		    	 	<c:when test="${socialType eq 'Google'}">
+		    	 	</c:when>
+		    	 	<c:when test="${socialType eq 'Kakao'}">
+		    	 	</c:when>
+		    	 	<c:when test="${socialType eq 'Naver'}">
+		    	 	</c:when>
+		    	 	<c:otherwise>
+		    	 		<input id="mypage" class="btn btn" onclick="location.href='/mypage/main'" value="마이페이지">
+		    	 	</c:otherwise>
+	    	 	 </c:choose>
 				<input id="logout" class="btn btn-danger  logt" value="로그아웃">
 	       </div>
 	    </c:if>

@@ -86,7 +86,7 @@ color: #343a40;
 
 
 <c:forEach items = "${boardlist }" var = "noticelist">
-	<tr>
+	<tr onclick="location.href='/noticeboard/noticeview?boardno=${noticelist.boardno }';">
 <%-- 	<td><input type="checkbox" name="checkRow" value="${list.boardno }"/></td> --%>
 		<td style="color: #1a3a5a; width: 5%;">${noticelist.rnum }</td>
 		<c:choose>
@@ -97,7 +97,7 @@ color: #343a40;
 				<td style="color: #1a3a5a; width: 5%;">${noticelist.blike }</td>
 			</c:otherwise>
 		</c:choose>
-		<td style="color: #1a3a5a; width: 40%;"><a class="tit" href="/noticeboard/noticeview?boardno=${noticelist.boardno }">${noticelist.title }</a></td>
+		<td style="color: #1a3a5a; width: 40%;">${noticelist.title }</td>
 		<td style="color: #1a3a5a; width: 20%;">관리자</td>
 		<td style="color: #1a3a5a; width: 10%;">${noticelist.views }</td>
 		<td style="color: #1a3a5a; width: 20%;">${noticelist.writtendate }</td>

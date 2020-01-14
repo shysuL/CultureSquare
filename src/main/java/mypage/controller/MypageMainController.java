@@ -32,7 +32,10 @@ public class MypageMainController {
 	@RequestMapping(value="/mypage/main", method=RequestMethod.GET)
 	public void mypage(HttpSession session, User_table user, Model model) {
 		
-		user.setUserid(session.getAttribute("userid").toString());
+		if(session.getAttribute("userid") != null) {
+			user.setUserid(session.getAttribute("userid").toString());
+		}
+		
 		user.setUsernick(session.getAttribute("usernick").toString());
 		
 		if(session.getAttribute("userno") != null) {
