@@ -129,7 +129,7 @@ public class MainController {
 		
 		//공자사항 최신글 불러오기
 		List<FreeBoard> viewsList1 = noticeboardService.getViewsList();
-		logger.info(viewsList.toString());
+		logger.info(viewsList1.toString());
 		
 		model.addAttribute("viewslist1", viewsList1);
 		

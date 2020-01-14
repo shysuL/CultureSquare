@@ -10,12 +10,16 @@ public class Alram {
 	private String alramsender;
 	private int userno;
 	private int boardno;
+	private int replyno;
+	private int likeno;
+	private int donno;
 	
 	@Override
 	public String toString() {
 		return "Alram [alramno=" + alramno + ", alramcontents=" + alramcontents + ", alramtime=" + alramtime
 				+ ", alramcheck=" + alramcheck + ", alramtype=" + alramtype + ", alramsender=" + alramsender
-				+ ", userno=" + userno + ", boardno=" + boardno + "]";
+				+ ", userno=" + userno + ", boardno=" + boardno + ", replyno=" + replyno + ", likeno=" + likeno
+				+ ", donno=" + donno + "]";
 	}
 
 	public int getAlramno() {
@@ -82,4 +86,28 @@ public class Alram {
 		this.boardno = boardno;
 	}
 
+	public int getReplyno() {
+		return replyno;
+	}
+
+	public void setReplyno(int replyno) {
+		this.replyno = replyno;
+	}
+
+	public int getLikeno() {
+		return likeno;
+	}
+
+	public void setLikeno(int likeno) {
+		this.likeno = likeno;
+	}
+
+	public int getDonno() {
+		return donno;
+	}
+
+	public void setDonno(int donno) {
+		this.donno = donno;
+	}	
+	
 }
