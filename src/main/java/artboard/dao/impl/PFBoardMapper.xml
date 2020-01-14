@@ -171,9 +171,14 @@
 
 	<insert id="insertDonation"
 		parameterType="artboard.dto.Donation">
+		
+		<selectKey order="BEFORE" resultType="int"
+			keyProperty="donno">
+			SELECT donation_seq.nextval FROM dual
+		</selectKey>
 		INSERT INTO donation
 		VALUES
-		(donation_seq.nextval,#{donprice},#{userno},#{boardno})
+		(#{donno},#{donprice},#{userno},#{boardno})
 	</insert>
 
 	<select id="selectPfCnt" resultType="int"
@@ -415,5 +420,15 @@
 	
 		INSERT INTO alram (alramno, alramcontents, alramtime, alramcheck, alramtype, alramsender, userno, boardno, boardtype, replyno, likeno, donno)
   		VALUES (#{alramno }, #{alramcontents }, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), 0, 3, #{alramsender }, #{userno }, #{boardno }, 1, #{replyno}, null, null)
+	</insert>
+	
+	<insert id="insertDonAlram"
+	 	parameterType="artboard.dto.Alram">
+		<selectKey order="BEFORE" resultType="int" keyProperty="alramno">
+			SELECT alram_seq.nextval FROM dual
+		</selectKey>
+	
+		INSERT INTO alram (alramno, alramcontents, alramtime, alramcheck, alramtype, alramsender, userno, boardno, boardtype, replyno, likeno, donno)
+  		VALUES (#{alramno }, #{alramcontents }, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), 0, 4, #{alramsender }, #{userno }, #{boardno }, 1, null, null, #{donno})
 	</insert>
 </mapper>

@@ -522,4 +522,10 @@ public class PFBoardServiceImpl implements PFBoardService{
 		pfboardDao.insertReReplyAlram(alram);
 	}
 
+
+	@Override
+	public void insertDonAlram(Alram alram) {
+		pfboardDao.insertDonAlram(alram);
+	}
+
 }
