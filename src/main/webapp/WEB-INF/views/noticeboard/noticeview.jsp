@@ -42,10 +42,8 @@
 
 <div class="container">
 
-<h1></h1>
-<hr>
 <h2>공지 게시판</h2>
-
+<hr>
 <div class="container">
 	<table class="table table-bordered">
 		<tr>

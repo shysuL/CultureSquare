@@ -50,7 +50,7 @@ public class NoticeViewController {
 	
 	@RequestMapping(value = "/noticeboard/noticeview", method = RequestMethod.GET)
 	public void noticeboardList(Model model, @RequestParam("boardno") int boardno, HttpSession session) {
-		logger.info("노티스 보드 리스트");
+		
 		
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
@@ -82,9 +82,9 @@ public class NoticeViewController {
 		
 		noticeboardService.increaseViews(boardno);
 		
-		FreeBoard boardDetail = noticeboardService.noticeDetail(boardno);
+		FreeBoard ntboardDetail = noticeboardService.noticeDetail(boardno);
 		
-		model.addAttribute("ntboard", boardDetail);
+		model.addAttribute("ntboard", ntboardDetail);
 		
 	}
 	
