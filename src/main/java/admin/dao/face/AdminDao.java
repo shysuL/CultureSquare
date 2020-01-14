@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import admin.dto.Admin;
+import artboard.dto.Board;
 import user.dto.User_table;
 import util.Paging;
 
@@ -83,5 +84,16 @@ public interface AdminDao {
 	 * @param user
 	 */
 	public void downPermit(User_table user);
+	
+	/**
+	 * 2020-01-14
+	 * 채해원
+	 * 
+	 * 공지사항의 상세보기를 위한 정보 가져오기
+	 * 
+	 * @param board
+	 * @return
+	 */
+	public Board selectNotice(Board board);
 
 }

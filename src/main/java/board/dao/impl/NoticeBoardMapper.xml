@@ -38,11 +38,11 @@
  		 </if>
 	</select>
 	
-	<select id="selectFreeDetail" parameterType="int" resultType="board.dto.FreeBoard">
-		SELECT fb.boardno, fb.title, fb.writtendate, fb.contents, fb.views, up.originname 
-		FROM board fb, upfile up
-		WHERE  boardno = up.boardno(+)
-		AND fb.boardno = #{boardno }
+	<select id="selectnoticeDetail" parameterType="int" resultType="board.dto.FreeBoard">
+		SELECT boardno, title, writtendate, contents, views
+		FROM board 
+		WHERE  boardno = #{boardno }
+
 	</select>
 	
 	<insert id="insertnoticeBoard" parameterType="board.dto.FreeBoard">
@@ -52,7 +52,7 @@
 		</selectKey>
 	
 		INSERT INTO board ( boardno, title, writtendate, contents, views, userno, postno )
-		VALUES ( board_seq.nextval, #{title }, TO_CHAR(sysdate, 'yyyy-mm-dd' ), #{contents }, 0, 0, 4 )
+		VALUES ( #{boardno}, #{title }, TO_CHAR(sysdate, 'yyyy-mm-dd' ), #{contents }, 0, 0, 4 )
 	</insert>
 	
 	<update id="updateViews" parameterType="int">
@@ -76,5 +76,25 @@
 		) BOARD
 		WHERE rnum BETWEEN 1 AND 5
 	</select>
+	
+
+	<insert id="insertFile" parameterType="board.dto.UpFile">
+		<selectKey order="BEFORE" resultType="int" keyProperty="fileno">
+			SELECT upfile_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO upfile
+		VALUES ( upfile_seq.nextval, #{originname}, #{storedname}, #{filesize}, #{boardno})
+	</insert>
+
+	<select id="selectFile" parameterType="int" resultType="board.dto.UpFile">
+		SELECT * FROM upfile
+		WHERE boardno = #{boardno }
+	</select>
+	
+	<select id="selectFileNo" parameterType="int" resultType="board.dto.UpFile">
+		SELECT * FROM upfile
+		WHERE fileno = #{fileno }
+	</select>
+
   
   </mapper>

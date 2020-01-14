@@ -19,7 +19,7 @@
 
 <div class="container">
 	<div class="container text-center">
-		<h4 id="writereplylistheader">"${usernick }"님이 쓴 댓글 </h4>
+		<h4 id="writereplylistheader">${usernick } 님이 쓴 댓글 </h4>
 	</div>
 </div>
 

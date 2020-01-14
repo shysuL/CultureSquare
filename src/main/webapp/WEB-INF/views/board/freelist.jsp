@@ -87,10 +87,10 @@ color: #343a40;
 
 <!-- </script> -->
 
-<div class="container" >
-<hr>
-<h2>자유게시판</h2>
+<div class="container list-container">
 
+<div class="h2"><h2> 자유게시판 </h2></div>
+<hr>
 <div class="row">
 <!-- 게시판 리스트 -->
 <div class="col-8">

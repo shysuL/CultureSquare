@@ -1254,10 +1254,10 @@ span[class=close] {
     padding-right: 200px;
 ">
 
-<h1></h1>
-<hr>
-<h2>자유게시판</h2>
+<div class="container list-container">
 
+<div class="h2"><h2> 자유게시판 </h2></div>
+<hr>
 <div class="container">
 	<table class="table table-bordered">
 		<tr>

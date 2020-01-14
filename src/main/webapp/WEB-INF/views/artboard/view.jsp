@@ -33,37 +33,26 @@
 </style>
 
 <script type="text/javascript">
-
 //지울 댓글 번호
 var dreplyno;
-
 //선택된 댓글 번호
 var selectReply;
-
 //한번에 여러개 수정 못하게 하는 체크 변후
 var modifyCnt = 0;
-
 ////한번에 여러개 수정 못하게 하는 체크 변후 - 답글
 var reModifyCnt = 0;
-
 //답글 눌렀는지 판별여부 위한 배열
 var checkReReply = new Array(); //배열 선언
-
 //답글 갯수 출력 위한 배열
 var rReCnt = new Array();
-
 //댓글 길이 전역 변수
 var replyListLen = 0;
-
 //댓글 번호 배열
 var replyarray = new Array();
-
 //현재 보여진 댓글 수
 var currentCnt = 0;
-
 // 댓글 더보기 눌렀는지 여부 판단
 var newFirst = true;
-
 //댓글 슬라이드토글
 $(document).ready(function(){
 	
@@ -73,27 +62,23 @@ $(document).ready(function(){
 		$('#replyinputbody').slideToggle("fast");
 	});
 });
-
 //댓글 삭제 클릭 -> 진짜로 삭제 할거냐는 모달 호출
 function deleteReply(replyno){
 	$("#pfReplyDeleteModal").modal({backdrop: 'static', keyboard: false});
 	console.log("댓글 삭제 번호당: " + replyno);
 	dreplyno = replyno;
 }
-
 //답글 삭제 클릭 -> 진짜로 삭제 할거냐는 모달 호출
 function deleteReReply(replyno){
 	$("#pfReReplyDeleteModal").modal({backdrop: 'static', keyboard: false});
 	console.log(checkReReply[replyno] + "답글 입니다.");
 	dreplyno = replyno;
 }
-
 $(document).ready(function() {
 	
 	
 	// 댓글 입력
 	$("#btnCommInsert").click(function() {
-
 		if($('#recontents').val() == ''){
 			$("#replyerror").modal({backdrop: 'static', keyboard: false});
 		}else{
@@ -126,11 +111,8 @@ $(document).ready(function() {
 		}
 	});
 });
-
-
 //2
 // 대댓글 등록하기
-
  function addReReply(replyno, boardno){
 	    
 		console.log("답글 등록 테스트 -> 댓글 번호는? " + replyno);
@@ -178,8 +160,6 @@ $(document).ready(function() {
 			});
 		}
 	}
-
-
 /**
  * 초기 페이지 로딩시 좋아요 불러오기
  */
@@ -231,7 +211,6 @@ $(function(){
 		});
 	}
 }
-
 //댓글 수정 버튼 클릭시, 기존댓글에서 커서 맨 뒤로 이동시키기 위한 메서드 추가
  $.fn.setCursorPosition = function( pos )
  {
@@ -249,7 +228,6 @@ $(function(){
      
      return this;
  };
-
 //댓글 수정 클릭
 //댓글 번호, 댓글 내용 매개변수로 받음
 function modifyReply(replyno,recontents){
@@ -283,7 +261,6 @@ function modifyReply(replyno,recontents){
 	
 		//수정 가능하도록 textarea로 기존 댓글창을 치환
 		$('#commentBox' + replyno).replaceWith(html);
-
 		//수정 textarea에 문자열 맨뒤로 포커스
 		$('#commentBox' + replyno + ' #editContent').focus().setCursorPosition(recontents.length);
 	}
@@ -293,7 +270,6 @@ function modifyReply(replyno,recontents){
 	}
 	
 }
-
 //답글 수정 클릭 처리 메서드
 function modifyReReply(replyno,recontents){
 	
@@ -301,7 +277,6 @@ function modifyReReply(replyno,recontents){
 	console.log("답글 내용 : " + recontents);
 	
 	reModifyCnt++;
-
 	//하나만 수정 시도 할 경우
 	if(reModifyCnt == 1){
 		console.log("수정하고 있는 갯수당 : " + reModifyCnt);
@@ -377,7 +352,6 @@ function modifyReReply(replyno,recontents){
 		});
 	}
 } 
-
 //답글 리스트 출력 메서드
 function getReReply(replyno){
 	console.log("답글 테스트 번호: " + replyno);
@@ -473,7 +447,6 @@ function getReReply(replyno){
 	    		html += '</div>';
 	    		
 	    		$('#commentBox' + replyno).append(html);
-
 	    		//twice 상태면 답글 버튼을 한번 누른 상태
 	    		checkReReply[replyno] = 'twice';
 	    	}
@@ -490,8 +463,6 @@ function getReReply(replyno){
 	       }
 	    });
 }
-
-
 // 댓글 불러오기
 function getCommentList(){
 	
@@ -500,7 +471,6 @@ function getCommentList(){
 	console.log('${view.boardno}');
 //     console.log("세션 : " + session.getAttribute("login"));
 	console.log('${userno}');
-
 	 $.ajax({
 	        type:'POST',
 	        url : "/artboard/commentList",
@@ -533,7 +503,6 @@ function getCommentList(){
 	                    html += "</div>";
 	                    
 	                    html += "<div class='col-1.5'>";
-
 	                    html += "<div id = 'rereplyBtn'>";
 	                    html += "<a ><button id='rereply' class='btn bbc' type='button' onClick=getReReply(" + res.reList[i].replyno + ")>답글</button></a>";
 // 	                    html += "<strong id='rCnt"+res.reList[i].replyno+"'>"+res.reList[i].replyCnt+"</strong>";
@@ -821,7 +790,6 @@ $(document).ready(function() {
 	   
 	   //후원 하고 확인 버튼 눌렀을때 DB에 저장
 	   $("#donationSuccessModalBtn").click(function() {
-
 		 //후원 처리 컨트롤러로 이동
 		 location.href="/artboard/donation?donprice="+money+"&usernick=${usernick}&boardno=${ view.boardno}";
 		   
@@ -834,7 +802,6 @@ $(document).ready(function() {
 
 
 <script type="text/javascript">
-
 	$(document).ready(function() {
 		//추천버튼 동작
 		$("#recommendtd").on("click", "#recommend", function() {
@@ -851,7 +818,6 @@ $(document).ready(function() {
 			console.log("수정버튼클릭");
 			$(location).attr("href", "/artboard/modify?boardno=${view.boardno }");
 		});
-
 		//삭제버튼 동작
 		$("#btnDelete").click(function() {
 			$("#pfdeleteModal").modal({backdrop: 'static', keyboard: false});
@@ -897,7 +863,6 @@ $(document).ready(function() {
 				},
 				dataType : "json",
 				success : function(res) {
-
 					checkReReply[selectReply] = 'undefined';
 					getReReply(selectReply);
 		            
@@ -922,7 +887,6 @@ $(document).ready(function() {
 			success : function(data) {
 				console.log("성공");
 				console.log(data);
-
 				$("#recommendtd").html(data);
 			},
 			error : function() {
@@ -943,7 +907,6 @@ $(document).ready(function() {
 				success : function(data) {
 					console.log("성공");
 					console.log(data);
-
 					$("#recommendtd").html(data);
 				},
 				error : function() {
@@ -963,7 +926,6 @@ $(document).ready(function() {
 				success : function(data) {
 					console.log("성공");
 					console.log(data);
-
 					$("#followtd").html(data);
 				},
 				error : function() {
@@ -984,7 +946,6 @@ $(document).ready(function() {
 					success : function(data) {
 						console.log("팔로우 성공");
 						console.log(data);
-
 						$("#followtd").html(data);
 					},
 					error : function() {
@@ -1021,7 +982,6 @@ $(document).ready(function() {
     height: auto;
     width: 100%;
 }
-
 </style>
 <%
 	Date date = new Date();
@@ -1703,5 +1663,3 @@ if (status === kakao.maps.services.Status.OK) {
 
 
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
-
-

@@ -31,6 +31,7 @@ import artboard.dto.Donation;
 import artboard.dto.PFUpFile;
 import artboard.dto.Reply;
 import artboard.service.face.PFBoardService;
+import artboard.dto.Alram;
 import prboard.dto.UpFile;
 import user.bo.NaverLoginBO;
 import user.service.face.KakaoService;
@@ -230,6 +231,10 @@ public class ArtboardViewController {
 			// 1. 유저 번호 저장
 			reply.setUserno(pfboardService.getUserNoForReply((String)session.getAttribute("usernick")).getUserno());
 			
+			Alram alram = new Alram();
+			alram.setUserno(pfboardService.getUsernoByReplyNo(reply.getReplyno()));
+			//댓글번호 있을때 담기
+			
 			// 2. 댓글번호를 이용해 그룹 번호 담기
 			reply.setGroupno(pfboardService.getGroupNoByReplyNo(reply));
 			
@@ -237,6 +242,18 @@ public class ArtboardViewController {
 			reply.setMaxreplyorder(pfboardService.getMaxReplyOrder(reply) + 1);
 			
 			pfboardService.addReReply(reply);
+			
+			//알람테이블 삽입
+			
+			alram.setAlramcontents(reply.getRecontents());
+			alram.setAlramsender((String)session.getAttribute("usernick"));
+			
+			alram.setBoardno(reply.getBoardno());
+			alram.setReplyno(reply.getReplyno());
+			
+			logger.info("알람 테스트 !" + alram.toString());
+			
+			pfboardService.insertReReplyAlram(alram);
 
 			mav.addObject("insert", true);
 			//viewName지정하기
@@ -292,7 +309,23 @@ public class ArtboardViewController {
 			//전에 추천한적이 없다면
 			if(result == 0) {
 				pfboardService.recommend(board);
+				
+				//알람테이블 삽입
+				Alram alram = new Alram();
+				alram.setAlramsender((String)session.getAttribute("usernick"));
+				alram.setAlramcontents("예술 좋아요!");
+				alram.setUserno(pfboardService.getUserno(boardno));
+				alram.setBoardno(boardno);
+				alram.setLikeno(pfboardService.getLikeNo(board));
+				
+				pfboardService.insertLikeAlram(alram);
+				
 			}else {
+				
+				int likeno = pfboardService.getLikeNo(board);
+				//알람 데이터 삭제
+				pfboardService.deleteLikeAlram(likeno);
+				
 				pfboardService.recommendCancel(board);
 			}
 
@@ -551,8 +584,8 @@ public class ArtboardViewController {
 		if((String)session.getAttribute("usernick")!=null) {
 			board.setUsernick((String)session.getAttribute("usernick"));
 			board.setUserno(userno);
-		}
 		
+		}
 		board.setBoardno(boardno);
 		
 		logger.info("followchk +++ : " + board.toString());      
@@ -567,6 +600,7 @@ public class ArtboardViewController {
 		model.addAttribute("result", result);	
 		
 		model.addAttribute("followCnt", followCnt);
+
 		return "artboard/followchk";
 	}
 }
