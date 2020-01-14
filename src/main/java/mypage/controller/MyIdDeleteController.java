@@ -86,7 +86,7 @@ public class MyIdDeleteController {
 		}
 		
 		
-		return "/redirect:/main/main";
+		return "redirect:/main/main";
 		
 	}
 
