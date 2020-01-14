@@ -164,6 +164,13 @@
 		 AND replyorder != 0
 	</select>
 	
+	<delete id="deleteReReplyByGroupNo"
+	 parameterType="int">
+		DELETE reply
+		WHERE 1=1
+			AND groupno = #{groupNo }
+	</delete>
+	
 	<select id="selectGroupNo"
     	parameterType="board.dto.Reply" resultType="int">
 	    SELECT groupno FROM reply
@@ -195,8 +202,13 @@
 	 
 	 <insert id="insertReReply"
 	 	parameterType="board.dto.Reply">
+	 	
+	 	<selectKey order="BEFORE" resultType="int" keyProperty="replyno">
+		SELECT reply_seq.nextval FROM dual
+		</selectKey>
+	 	
 		INSERT INTO reply 
-		VALUES(reply_seq.nextval, #{groupno}, #{maxreplyorder}, 2, #{recontents}, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), #{userno}, #{boardno})
+		VALUES(#{replyno }, #{groupno}, #{maxreplyorder}, 2, #{recontents}, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), #{userno}, #{boardno})
 	</insert>
 	
 	<select id="selectUserNoToReplyLike"
@@ -299,7 +311,36 @@
 		SELECT alram_seq.nextval FROM dual
 		</selectKey>
 	
-		INSERT INTO alram (alramno, alramcontents, alramtime, alramcheck, alramtype, alramsender, userno, boardno, boardtype)
-  		VALUES (#{alramno }, '좋아요', TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), 0, 2, #{alramsender }, #{userno }, #{boardno }, 3)
+		INSERT INTO alram (alramno, alramcontents, alramtime, alramcheck, alramtype, alramsender, userno, boardno, boardtype, replyno, likeno, donno)
+  		VALUES (#{alramno }, '좋아요', TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), 0, 2, #{alramsender }, #{userno }, #{boardno }, 3, null, #{likeno }, null)
 	</insert>
+	
+	<select id="selectLikeNo" resultType="int" parameterType="board.dto.FreeBoard">
+		SELECT likeno FROM blike 
+		WHERE userno = #{userno}
+		AND boardno = #{boardno}
+	</select>
+	
+	<delete id="deleteLikeAlram"
+	 	parameterType="int">
+		DELETE alram
+		WHERE 1=1
+			AND likeno = #{likeno }
+	</delete>
+	
+	<select id="selectUserNoByReplyNo" resultType="int" parameterType="int">
+		SELECT userno FROM reply 
+		WHERE replyno = #{replyno}
+	</select>
+	
+	<insert id="insertReReplyAlram"
+	 	parameterType="board.dto.Alram">
+		<selectKey order="BEFORE" resultType="int" keyProperty="alramno">
+			SELECT alram_seq.nextval FROM dual
+		</selectKey>
+	
+		INSERT INTO alram (alramno, alramcontents, alramtime, alramcheck, alramtype, alramsender, userno, boardno, boardtype, replyno, likeno, donno)
+  		VALUES (#{alramno }, #{alramcontents }, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), 0, 3, #{alramsender }, #{userno }, #{boardno }, 3, #{replyno}, null, null)
+	</insert>
+	
 </mapper>
