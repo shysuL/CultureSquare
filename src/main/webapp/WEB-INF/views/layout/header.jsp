@@ -298,6 +298,22 @@ $(document).ready(function() {
 			})
 		}
 	})
+	
+	//아이디 입력 후 엔터 키 눌렀을 떄 로그인 버튼과 같은 동작하게 하기
+	$('#userid1').keypress(function(event){
+		if(event.which==13){
+			$('#loginBtn').click();
+			return false;
+		}
+	})
+	
+	//아이디 입력 후 엔터 키 눌렀을 떄 로그인 버튼과 같은 동작하게 하기
+	$('#userpw1').keypress(function(event){
+		if(event.which==13){
+			$('#loginBtn').click();
+			return false;
+		}
+	})
 })
 $(document).ready(function() {
 	/**
