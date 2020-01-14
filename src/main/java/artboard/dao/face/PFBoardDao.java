@@ -2,6 +2,7 @@ package artboard.dao.face;
 
 import java.util.List;
 
+import artboard.dto.Alram;
 import artboard.dto.Board;
 import artboard.dto.Donation;
 import artboard.dto.PFUpFile;
@@ -385,6 +386,38 @@ public interface PFBoardDao {
 	 * @return - Board - 위도, 경도
 	 */
 	public Board selectLoc(Board bno);
+
+
+	/**
+	 * 2020-01-14
+	 * 조홍철
+	 * 
+	 * 유저 번호 가져오기
+	 * 
+	 * @param boardno - 보드번호
+	 * @return int - 유저 번호
+	 */
+	public int selectUserNoByBoardNo(int boardno);
+
+	
+	/**
+	 * 2020-01-14
+	 * 조홍철
+	 * 
+	 * 댓글 알림 삽입
+	 * 
+	 * @param alram - 삽입할 알림 정보가 담긴 객체
+	 */
+	public void insertReplyAlram(Alram alram);
+
+	/**
+	 * 2020-01-14
+	 * 조홍철
+	 * 
+	 * 댓글 알람 삭제
+	 * @param reply - 삭제할 알림 정보가 담긴 객체
+	 */
+	public void deleteAlramReply(Reply reply);
 	
 	
 }
