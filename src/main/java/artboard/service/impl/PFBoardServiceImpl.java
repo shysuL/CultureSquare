@@ -528,4 +528,10 @@ public class PFBoardServiceImpl implements PFBoardService{
 		pfboardDao.insertDonAlram(alram);
 	}
 
+
+	@Override
+	public void deleteLoc(Board board) {
+		pfboardDao.deleteLoc(board);
+	}
+
 }

@@ -494,5 +494,15 @@ public interface PFBoardDao {
 	 */
 	public void updateLoc(Board board);
 	
+	/**
+	 * 2020 - 01 - 14
+	 * 이수현
+	 * 
+	 * 게시글 삭제 시 위치 정보 삭제
+	 * 
+	 * @param board - 게시글 정보가 담긴 객체
+	 */
+	public void deleteLoc(Board board);
+	
 	
 }
