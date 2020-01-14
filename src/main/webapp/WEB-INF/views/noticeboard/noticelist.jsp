@@ -98,7 +98,7 @@ color: #343a40;
 				<td style="color: #1a3a5a; width: 5%;">${list.blike }</td>
 			</c:otherwise>
 		</c:choose>
-		<td style="color: #1a3a5a; width: 40%;"><a class="tit" href="/board/freeview?boardno=${list.boardno }">${list.title }</a></td>
+		<td style="color: #1a3a5a; width: 40%;"><a class="tit" href="/noticeboard/noticeview?boardno=${list.boardno }">${list.title }</a></td>
 		<td style="color: #1a3a5a; width: 20%;">관리자</td>
 		<td style="color: #1a3a5a; width: 10%;">${list.views }</td>
 		<td style="color: #1a3a5a; width: 20%;">${list.writtendate }</td>
@@ -124,7 +124,7 @@ color: #343a40;
 <jsp:include page = "/WEB-INF/views/layout/freepaging.jsp" />
 
 <div class="src" >
-	<form action="/board/noticelist" method="get">
+	<form action="/noticeboard/noticelist" method="get">
 	<select name="searchcategory" style="
     height: 30px;">
 	<option value="title">제목</option>
