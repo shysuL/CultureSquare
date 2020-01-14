@@ -236,7 +236,7 @@ function getReReply(replyno){
 	    		html += '</span>';
 	    		html += '</span>';	
 	    		html += '<div style="position: relative; min-height: 90px;">';
-	    		html += '<textarea style="height: auto; width: 673px; margin-left:15px; resize: none;" id="rreText'+replyno+'" name="editContent" id="editContent" class="form-control" style= "resize:none;">';
+	    		html += '<textarea style="height: auto; width: 625px; margin-left:15px; resize: none;" id="rreText'+replyno+'" name="editContent" id="editContent" class="form-control" style= "resize:none;">';
 	    		html += '</textarea>';
 	    		html += '<button id="rreaddBtn'+replyno+'" onClick="addReReply('+replyno +','+boardno +')" style="margin-top: 5px; position: absolute; right: 28px;">등록</button>';
 	    		html += '</div>';
@@ -1294,7 +1294,7 @@ span[class=close] {
                 <table class="table">                    
                     <tr>
                         <td style="border-top: none;">
-                            <textarea style="margin-left: -15px;width: 714px; resize:none;" rows="3" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
+                            <textarea style="margin-left: -15px;width: 685px; resize:none;" rows="3" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
                             <br>
                             <div style="text-align: right;">
                                 <a style="color:white" onClick="fn_comment('${board.boardno }')" class="btn pull-right btn-success">등록</a>
