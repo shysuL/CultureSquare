@@ -469,6 +469,19 @@ public interface PFBoardService {
 
 
 
+	/**
+	 * 2020-01-13
+	 * 이빈
+	 * 
+	 * 위치 공연 정보 가져오기
+	 * 
+	 * @param bno - 게시판번호
+	 * @return - 위도, 경도
+	 */
+	public Board viewLoc(Board bno);
+
+
+
 
 
 

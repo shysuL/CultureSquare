@@ -157,4 +157,23 @@
 		WHERE R.userno = U.userno
     		AND R.userno = #{userno} 
 	</select>
+	
+	<select id="selectFollowCntAll" resultType="int" parameterType="util.MyPaging">
+		SELECT count(*) 
+		FROM user_table U, follow F
+		WHERE U.userno = F.userno
+		    AND U.userno = #{userno}
+	</select>
+	
+	<select id="selectFollowList" resultType="hashmap" parameterType="util.MyPaging">
+		SELECT * FROM (
+        	SELECT rownum rnum, Q.* FROM (
+	            SELECT U.userno, U.userid, F.usernick sender
+	            FROM user_table U, follow F
+	            WHERE U.userno = F.userno
+                    AND U.userno = #{userno }
+        	) Q 
+        	ORDER BY rnum
+		) WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
 </mapper>

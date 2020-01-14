@@ -94,6 +94,12 @@ public class ArtboardViewController {
 		model.addAttribute("view", viewBoard);
 		//		logger.info(viewboard.toString());
 
+		// 위치정보공연 정보 가져오기
+		Board viewLocation = pfboardService.viewLoc(bno);
+		logger.info("지도 : " + viewLocation);
+		// 조회된 위도, 경도 모델로전달
+		model.addAttribute("location", viewLocation);
+		
 		//게시글 첨부파일 조회
 		List<PFUpFile> list = pfboardService.getFileList(viewBoard.getBoardno());
 

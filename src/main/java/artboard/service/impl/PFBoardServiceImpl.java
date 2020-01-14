@@ -426,6 +426,12 @@ public class PFBoardServiceImpl implements PFBoardService{
 		pfboardDao.deleteReReplyByGroupNo(groupNo);
 	}
 
+	
+	@Override
+	public Board viewLoc(Board bno) {
+		return pfboardDao.selectLoc(bno);
+	}
+
 
 	@Override
 	public void follow(Board board) {
