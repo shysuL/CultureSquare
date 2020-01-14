@@ -466,4 +466,10 @@ public class PFBoardServiceImpl implements PFBoardService{
 	}
 
 
+	@Override
+	public void modifyLoc(Board board) {
+		 pfboardDao.updateLoc(board);
+	}
+
+
 }

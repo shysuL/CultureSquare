@@ -81,7 +81,17 @@ $(document).ready(function() {
 		else if($('#performdate').val() == ''){
 			$("#writeDateModal").modal({backdrop: 'static', keyboard: false});
 		}
+		else if($('#lat').val() == '' ){
+			$("#locWtriteModal").modal({backdrop: 'static', keyboard: false});
+			$("#locWriteModalBtn").click(function(){			
+				$('#addMap').focus();
+			}) 
 
+			
+		}
+		else if($('#lon').val() == '' ){
+			$("#locWtriteModal").modal({backdrop: 'static', keyboard: false});
+		}
 		
 		else{
 		//form submit
@@ -305,6 +315,32 @@ function fn_fileAdd(){
   </div>
 </div>
 
+<!-- 지도 작성 여부 확인 모달-->
+<div class="modal fade" id="locWtriteModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">게시글 작성</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+     	위치 정보는 필수 입력 정보 입니다
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" id="locWriteModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
 <!-- 지도  모달창 -->
 <div class="modal fade bd-example-modal-lg" id="mapModal">
   <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -486,7 +522,6 @@ function fn_fileAdd(){
       <!-- Modal footer -->
       <div class="modal-footer">
         <button type="submit" id="mapAddBtn"class="btn btn-dark" data-dismiss="modal">추가</button>
-        <button type="submit" id="mapAddBtn"class="btn btn-dark" data-dismiss="modal">삭제</button>
       </div>
 
     </div>

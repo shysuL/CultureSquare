@@ -10,7 +10,7 @@
 
 
 <style>
-.map_wrap {position:relative;overflow:hidden;width:100%;height:350px;}
+.map_wrap {position:relative;overflow:hidden;width:100%;}
 .radius_border{border:1px solid #919191;border-radius:5px;}     
 .custom_typecontrol {position:absolute;top:10px;right:10px;overflow:hidden;width:104px;height:33	px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;     margin-top: 2%;
     margin-right: 2%;
@@ -1092,24 +1092,11 @@ $(document).ready(function() {
 var lat = "${location.lat}";
 var lon = "${location.lon}";
 
-// var detailaddress
-// var latitude
-// var longitude
-
-// if(${location.lat} != null){
-// 	var lat = ${location.lat};
-// 	var lon = ${location.lon};	
-// } else {
-// 	var lat = 37.499206;
-// 	var lon = 127.032773;
-// }
-
-
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 
 mapOption = {
     center: new kakao.maps.LatLng(lat, lon), // 지도의 중심좌표
-    level: 1 // 지도의 확대 레벨
+    level: 3 // 지도의 확대 레벨
 };  
 
 //지도를 생성합니다    
@@ -1129,12 +1116,17 @@ marker.setMap(map);
 //주소-좌표 변환 객체를 생성합니다
 var geocoder = new kakao.maps.services.Geocoder();
 
-infowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+infowindow = new kakao.maps.InfoWindow({zindex:1}); // 마커 위치에 대한 주소를 표시할 인포윈도우
 
 //현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
 searchAddrFromCoords(map.getCenter(), displayCenterInfo);
 
 var latlng = new kakao.maps.LatLng(lat, lon);
+
+// 주소정보 나오게하는 방법
+searchDetailAddrFromCoords(latlng, function(result, status) {
+	console.log(result[0].address.address_name);
+});
 
 searchDetailAddrFromCoords(latlng, function(result, status) {
 	if (status === kakao.maps.services.Status.OK) {
@@ -1146,9 +1138,6 @@ searchDetailAddrFromCoords(latlng, function(result, status) {
                         detailAddr + 
                     '</div>';
 
-        // 마커를 클릭한 위치에 표시합니다 
-//         marker.setPosition(mouseEvent.latLng);
-//         marker.setMap(map);
 
         // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
         infowindow.setContent(content);

@@ -357,6 +357,13 @@ public class ArtboardViewController {
 		List<PFUpFile> list = pfboardService.getFileList(viewBoard.getBoardno());
 		model.addAttribute("fileList", list);
 
+		// 공연 위치 정보 정보 가져오기
+		Board viewLoc = pfboardService.viewLoc(bno);
+		logger.info("지도 : " + viewLoc);
+		// 조회된 위도, 경도 모델로전달
+		model.addAttribute("viewLoc", viewLoc);
+
+		
 		logger.info("수정 게시판 : " + viewBoard);
 		logger.info("수정 테스트 : " + list);
 	}
@@ -364,6 +371,20 @@ public class ArtboardViewController {
 	@RequestMapping(value = "/artboard/modifyProc", method = RequestMethod.POST)
 	public String modifyPFProc(MultipartHttpServletRequest multi, Board board,	HttpSession session) {
 		
+		// 공연 위치 정보 정보 가져오기
+		Board viewLoc = pfboardService.viewLoc(board);
+		
+		logger.info("수정완료 시 board객체의 정보 : " + board);
+		
+		// 지도 수정
+		// 받아온 위도 경도와 DB에 들어있는 위도 경도가 다르다면
+		if (!(board.getLat().equals(viewLoc.getLat())&& board.getLon().equals(viewLoc.getLon()))) {
+			
+			pfboardService.modifyLoc(board);
+			
+		}
+		
+			
 		// 리다이렉트 시 게시판 리스트 쿼리스트링 날짜 계산
 		// -------------------------------------------------------
 		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy");

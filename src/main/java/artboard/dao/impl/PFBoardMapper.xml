@@ -343,4 +343,13 @@
 		AND boardno =
 		#{boardno}	
 	</select>
+	
+	<!-- 공연 위치 정보  수정 -->
+	<select id="updateLoc"
+	 parameterType="artboard.dto.Board">
+	  UPDATE pfloc SET lat = #{lat}, lon = #{lon}
+	  WHERE 1=1 
+	  AND boardno = #{boardno}
+	 </select>
+	 
 </mapper>
