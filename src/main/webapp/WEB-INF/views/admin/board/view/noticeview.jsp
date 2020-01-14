@@ -10,7 +10,7 @@ $(document).ready(function() {
 		
 	//수정버튼 동작
 	$("#btnUpdate").click(function() {
-		$(location).attr("href", "/board/freemodify?boardno=${board.boardno }");
+		$(location).attr("href", "/admin/board/view/noticeupdate?boardno=${notice.boardno }");
 	});
 
 	//삭제버튼 동작
@@ -20,7 +20,7 @@ $(document).ready(function() {
 	
 	//삭제모달 확인 버튼 눌렀을때
 	$("#freeDeleteCheckBtn").click(function() {
-		$(location).attr("href", "/board/freedelete?boardno=${board.boardno }");
+		$(location).attr("href", "/admin/board/view/userview/delete?boardno=${notice.boardno }");
 	});
 	
 });
@@ -195,11 +195,11 @@ span[class=close] {
 		</tr>
 		<tr>
 			<td colspan="12">
-					<c:if test="${empty fileList}">
+					<c:if test="${empty fileinfo}">
 	 					<strong style="padding: 5px;">첨부파일이 없습니다.</strong>
 	 				</c:if>	
 
-					<a href="/board/download?fileno=${fileList.fileno}">${fileList.originname}</a>
+					<a href="/noticeboard/download?fileno=${fileinfo.fileno}">${fileinfo.originname}</a>
 			</td>
 		</tr>
 </table>
@@ -208,6 +208,7 @@ span[class=close] {
 <br>
 
 	<div style="text-align: center;">
+		<button id="btnUpdate" class="btn btn-dark" >수정</button>
 		<button id="btnDelete" class="btn btn-secondary" >삭제</button>
 	</div>	
 </div>
@@ -232,14 +233,14 @@ span[class=close] {
       <!-- Modal footer -->
       <div class="modal-footer">
       <c:choose>
-      	<c:when test="${fileList.fileno eq null }">
-      	<a href="/admin/board/view/freeview/delete?boardno=${notice.boardno }" class="btn btn-default" style="float: right; background-color: #343a40; color: white;" role="button">확인</a>
+      	<c:when test="${fileinfo.fileno eq null }">
+      	<p onclick="location.href='/admin/board/view/noticeview/delete?boardno=${notice.boardno }';" class="btn btn-dark" >확인</p>
       	</c:when>
       	<c:otherwise>
-        <a href="/admin/board/view/freeview/delete?boardno=${notice.boardno }&fileno=${fileList.fileno }" class="btn btn-default" style="float: right; background-color: #343a40; color: white;" role="button">확인</a>
+        <p onclick="location.href='/admin/board/view/noticeview/delete?boardno=${notice.boardno }&fileno=${fileinfo.fileno }';" class="btn btn-dark">확인</p>
       	</c:otherwise>
       </c:choose>
-        <button type="submit" id="freeCancelBtn"class="btn btn-default" style="float: right; background-color: #343a40; color: white;" data-dismiss="modal" >취소</button>
+        <button type="submit" id="freeCancelBtn"class="btn btn-secondary" data-dismiss="modal" >취소</button>
       </div>
 
     </div>

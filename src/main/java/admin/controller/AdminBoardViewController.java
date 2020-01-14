@@ -22,6 +22,7 @@ import artboard.dto.Reply;
 import artboard.service.face.PFBoardService;
 import board.dto.FreeBoard;
 import board.service.face.FreeBoardService;
+import board.service.face.NoticeBoardService;
 import prboard.dto.PRBoard;
 import prboard.dto.UpFile;
 import prboard.service.face.PRBoardService;
@@ -34,6 +35,7 @@ public class AdminBoardViewController {
 	@Autowired private PRBoardService prBoardService;
 	@Autowired private FreeBoardService freeboardService;
 	@Autowired private AdminService adminService;
+	@Autowired private NoticeBoardService noticeboardService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdminBoardViewController.class);
 	
@@ -195,18 +197,31 @@ public class AdminBoardViewController {
 	}
 	
 	@RequestMapping(value="/admin/board/view/noticeview", method=RequestMethod.GET)
-	public void noticeview(Model model, Board board) {
+	public void noticeview(Model model, Board board, @RequestParam("boardno") int boardno) {
 		
 		Board notice = adminService.getView(board);
 		
 		model.addAttribute("notice", notice);
 		
+		board.dto.UpFile fileinfo = noticeboardService.getFile(boardno);
+		
+		model.addAttribute("fileinfo", fileinfo);
 		
 	}
 	
-	@RequestMapping(value="/admin/board/view/noticeupdate", method=RequestMethod.GET)
-	public void updateNotice() {
+	@RequestMapping(value="/admin/board/view/noticeview/delete", method=RequestMethod.GET)
+	public String deletenotice(@RequestParam("boardno") int boardno, board.dto.UpFile file) {
 		
+		board.dto.UpFile fileinfo = noticeboardService.getFile(boardno);
+		
+		if(file.getFileno() != 0) {
+			noticeboardService.fileDelete(fileinfo);
+			
+		}
+		
+		noticeboardService.noticeDelete(boardno);
+		
+		return "redirect:/admin/main";
 	}
 	
 	@RequestMapping(value="/admin/board/view/userview", method=RequestMethod.GET)
