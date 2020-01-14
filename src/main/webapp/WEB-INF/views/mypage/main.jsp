@@ -152,86 +152,87 @@ $(document).ready(function(){
        console.log("나는 경고모달창2");
     }		
 	
-// 	var pwdCheck1 = true;
-// 	var pwdCheck2 = true;
+	var pwdCheck1 = true;
+	var pwdCheck2 = true;
 	
 	//회원 탈퇴 모달
 	$("#deleteuser").click(function(){
+		console.log("회원탈퇴!! ${userinfo.userpw}")
 		$("#deleteUserIdModal").modal({backdrop: 'static', keyboard: false});
 	})
 	
 	$("#deleteUserCheckBtn1").click(function(){
 		$("#checkUserPwModal").modal({backdrop: 'static', keyboard: false});
-// 	})
-		$("#deleteUserCheckBtn2").click(function(){
-			
-			var userpw = $('#pw1').val();
-			var userpw2 = $('#pw2').val();
-			
-			console.log("1")
-			console.log(userpw)
-			console.log("2")
-			console.log(userpw2)
-			
-			$.ajax({
-				type: "post",
-				url: "/mypage/deleteuser",
-				data: {"userpw" : userpw, "userpw2" : userpw2},
-				datatype: "json",
-				success: function(res){
-					
-					console.log("userpw나와")
-					console.log(userpw)
-					
-					if(!res.lock){
-						warningModal1('비밀번호를 다시 입력해주세요.')
-						$("#pw1").focus();
-						return false;
-					}
-					
-// 					$("#pw1").blur(function(){
-						
-// 						if(userpw != res){
-// 							$('#pwdcheck1').text('현재 비밀번호가 올바르지 않습니다.');
-// 							$('#pwdcheck1').css('color', 'red');
-// 							pwdCheck1 = false;
-							
-// 						} else if (userpw != userpw2){
-// 							$('#pwdcheck2').text('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
-// 							$('#pwdcheck2').css('color', 'red');
-// 							pwdCheck1 = false;
-							
-// 						} else {
-// 							$('#pwdcheck2').text('비밀번호가 일치합니다.');
-// 							$('#pwdcheck2').css('color', 'green');
-// 							pwdCheck1 = true;
-// 						}
-// 					});
-					
-					
+	})
+	
+	$("#pw1").blur(function(){
+		
+		$.ajax({
+			type: "post",
+			url: "/mypage/curpwCheck",
+			data: {"userpw" : userpw},
+			datatype: "json",
+			success: function(){
+				
+				if(res != $('#pw1').val()){
+					console.log("같지않아");
+					$('#pwdcheck1').text('비밀번호가 올바르지 않습니다. 다시입력해주세요.');
+					$('#pwdcheck1').css('color', 'red');
+					pwdCheck1 = false;
 				}
-			})
-			
-			//현재 비밀번호 입력
-			if(pw1 == ""){
-				warningModal1('현재 비밀번호를 입력해주세요.')
-				$("#pw1").focus();
-				return false;
 			}
-			
-			if(pw2 == ""){
-				warningModal1('비밀번호 확인을 입력해주세요.')
-				$("#pw2").focus();
-				return false;
-			}
-			
-			if(pw1 != pw2){
-		    	warningModal1('비밀번호가 일치하지 않습니다');
-		    	return false;
-			}
-			
-			$("#userdeleteform").submit();
 		})
+		
+	})
+	
+	$("#deleteUserCheckBtn2").click(function(){
+			
+		var userpw = $('#pw1').val();
+		var userpw2 = $('#pw2').val();
+		
+		console.log("1")
+		console.log(userpw)
+		console.log("2")
+		console.log(userpw2)
+		
+		$.ajax({
+			type: "post",
+			url: "/mypage/deleteuser",
+			data: {"userpw" : userpw, "userpw2" : userpw2},
+			datatype: "json",
+			success: function(res){
+				
+				console.log("userpw나와")
+				console.log(userpw)
+				
+				if(!res.lock){
+					warningModal1('비밀번호를 다시 입력해주세요.')
+					$("#pw1").focus();
+					return false;
+				}
+				
+			}
+		})
+			
+		//현재 비밀번호 입력
+		if(pw1 == ""){
+			warningModal1('현재 비밀번호를 입력해주세요.')
+			$("#pw1").focus();
+			return false;
+		}
+		
+		if(pw2 == ""){
+			warningModal1('비밀번호 확인을 입력해주세요.')
+			$("#pw2").focus();
+			return false;
+		}
+		
+		if(pw1 != pw2){
+	    	warningModal1('비밀번호가 일치하지 않습니다');
+	    	return false;
+		}
+		
+// 		$("#userdeleteform").submit();
 	})
 })	
 
@@ -700,8 +701,8 @@ $(document).ready(function(){
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="submit" id="deleteUserCheckBtn1"class="btn btn-dark" data-dismiss="modal">확인</button>
-        <button type="cancel" class="btn btn-danger" data-dismiss="modal">취소</button>
+        <button type="submit" id="deleteUserCheckBtn1" class="btn btn-dark" data-dismiss="modal">확인</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
       </div>
 
     </div>
@@ -729,8 +730,8 @@ $(document).ready(function(){
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="submit" id="deleteUserCheckBtn2"class="btn btn-dark" data-dismiss="modal">탈퇴하기</button>
-        <button type="cancel" class="btn btn-danger" data-dismiss="modal">탈퇴취소</button>
+        <button type="submit" id="deleteUserCheckBtn2" class="btn btn-dark" data-dismiss="modal">탈퇴하기</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">탈퇴취소</button>
       </div>
 
     </div>
