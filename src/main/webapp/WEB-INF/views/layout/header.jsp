@@ -651,7 +651,7 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 
 <!-- header --> 
 <div class="wrap">
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="margin-top: 10px;">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" >
   <a class="navbar-brand" href="/main/main">CultureSquare</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

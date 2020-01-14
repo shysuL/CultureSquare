@@ -6,8 +6,7 @@
 
 <div class="container" style="
     padding-left: 200px;
-    padding-right: 200px;
-">
+    padding-right: 200px;">
 
 
 </div><!-- .container -->
