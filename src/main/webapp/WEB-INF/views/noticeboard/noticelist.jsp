@@ -144,9 +144,14 @@ color: #343a40;
 
 	<div class="list-group" id="freeIntroduceTitle">
 	  <a class="list-group-item" id="freeIntroduceContent">공지사항</a>
-	  <a class="list-group-item tit">공지사항공지사항</a>
+	  <a class="list-group-item tit">
+	  	본 사이트 관리자가 방문해주신 여러분께 알려드립니다.<br>
+	  	저희 사이트를 이용하시기 전에 공지사항을 충분히 숙지하신 후 이용해주시길 바랍니다.
+	  	궁금하신 점이나 문의사항은 FAQ 또는 본 사이트의 관리자와 상담채팅을 통해 친절히 답변해드리겠습니다.
+	  	감사합니다.
+	  </a>
 	</div>
-	<br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br>
 	
 	<div class="list-group" id="freeRankTitle">
 	  <a class="list-group-item" id="freeRankContent">공지사항 최다 조회글</a>

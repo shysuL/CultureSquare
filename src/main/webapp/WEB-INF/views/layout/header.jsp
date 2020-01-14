@@ -701,7 +701,7 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 					%>
 					
 <%-- 					<c:if test = "${<%= cal.get(Calendar.MONTH)+1%> < 10 }"> --%>
-	        <a class="nav-link" id="artboard" href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>">CALENDAL </a>
+	        <a class="nav-link" id="artboard" href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>">CALENDAR </a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" id="prboard" href="/prboard/prlist">PR</a>
