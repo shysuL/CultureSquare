@@ -297,7 +297,7 @@ public class ArtboardViewController {
 				//알람테이블 삽입
 				Alram alram = new Alram();
 				alram.setAlramsender((String)session.getAttribute("usernick"));
-				alram.setAlramcontents("PR 좋아요!");
+				alram.setAlramcontents("예술 좋아요!");
 				alram.setUserno(pfboardService.getUserno(boardno));
 				alram.setBoardno(boardno);
 				alram.setLikeno(pfboardService.getLikeNo(board));
