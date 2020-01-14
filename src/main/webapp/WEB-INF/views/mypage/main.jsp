@@ -169,10 +169,10 @@ $(document).ready(function(){
 		
 		$.ajax({
 			type: "post",
-			url: "/mypage/curpwCheck",
+			url: "/mypage/deletePwCheck",
 			data: {"userpw" : userpw},
 			datatype: "json",
-			success: function(){
+			success: function(res){
 				
 				if(res != $('#pw1').val()){
 					console.log("같지않아");
@@ -232,7 +232,7 @@ $(document).ready(function(){
 	    	return false;
 		}
 		
-// 		$("#userdeleteform").submit();
+		$("#userdeleteform").submit();
 	})
 })	
 

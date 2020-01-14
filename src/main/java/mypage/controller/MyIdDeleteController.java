@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import mypage.service.face.MyPageService;
 import user.dto.User_table;
@@ -90,4 +91,23 @@ public class MyIdDeleteController {
 		
 	}
 
+	@RequestMapping(value="/mypage/deletePwCheck", method=RequestMethod.POST)
+	public ModelAndView currentPwCheck(ModelAndView mav, HttpSession session, User_table user) {
+		
+		//세션에서 로그인한 사용자의 userno와 userid, usernick 가져와서 user객체에 담기
+		user.setUserno((Integer)session.getAttribute("userno"));
+		
+		//암호화
+		String encPw = user.getUserpw();
+		user.setUserpw(PwSha256.userPwEncSHA256(encPw)); // 현재비밀번호를 암호화 한거
+		
+		boolean lock = mypageService.comparedPw(user);
+		
+		mav.addObject("lock", lock);
+		//viewName지정하기
+		mav.setViewName("jsonView");
+		 
+		return mav;
+	}
+	
 }
