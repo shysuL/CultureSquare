@@ -125,11 +125,11 @@ $(document).ready(function(){
 }
 
 #joinName{
-    height: 70px;
+
     text-align: center;
     padding: 1.5%;
-    margin-bottom: 5%;
-    color: rgba(255,255,255,.75);
+   
+    color:  #343a40;
 }
 
 .container{
@@ -144,17 +144,22 @@ $(document).ready(function(){
 }
 </style>
 
-<div class="container">
+<div class="container" style=" width: 900px;">
 	
 	<form action="/mypage/updateform" method="post" id="updateinfoform">
+		<br>
+		<div style="border: 1px solid #ddd;" >
+         	<h2  id="joinName">개인정보 수정</h2>
+        </div>
+		<br><br>
 		
-		<div style="background-color: #343a40!important;">
-         <h2 id="joinName">개인정보 수정</h2>
-      </div>
-	
 	<div class="row">
-	<div class="col-1"></div>
-      <div class="col-10" >	
+
+	
+	
+	
+	
+      <div class="col-8" >	
 	
 		<div class="container container-center" id="updateform2" style="font-size: 20px;">
 			<input type="hidden" name = "userno" value="${getUser.userno }"/>
@@ -234,16 +239,30 @@ $(document).ready(function(){
 <%-- 			                </c:if> --%>
 <%-- 				</c:forEach>       		 --%>
 <!-- 			</div> -->
-			<br><br>
+			
+		</div>
+		</div>
+		
+		<div class="col-4">
+			<div>
+				<div class="list-group" >
+		  		<a class="list-group-item" id="pfIntroduceContent">개인정보 수정 안내</a>
+		  		<a class="list-group-item tit" style="font-size: 14px">
+		  			Culture Square의 대표 닉네임과<br>
+		 		  	전화번호를 수정하실 수 있습니다.</a>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		</div>
+	</form>
+		<br><br>
 			<div style="text-align: center;">
 				<button type="button" id="updatesuccess" class="btn btn-dark">수정 완료</button>
 				<button type="button" id="updatecancel" class="btn btn-danger" >수정 취소</button>
 			</div>
-		</div>
-		</div>
-		<div class="col-1"></div>
-		</div>
-	</form>
 	<br>
 	
 	
