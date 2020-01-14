@@ -19,7 +19,7 @@
 
 <div class="container">
 	<div class="container text-center">
-		<h4 id="likepostheader">"${usernick }"님이  좋아요한 글</h4>
+		<h4 id="likepostheader">${usernick } 님이  좋아요한 글</h4>
 	</div>
 </div>
 

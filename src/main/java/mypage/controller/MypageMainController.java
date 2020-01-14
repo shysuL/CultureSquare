@@ -179,5 +179,4 @@ public class MypageMainController {
 		
 		return "redirect:/mypage/main";
 	}
-	
 }

@@ -343,4 +343,48 @@
 		AND boardno =
 		#{boardno}	
 	</select>
+	
+	<select id="selectUserNoByBoardNo" resultType="int" parameterType="int">
+		SELECT userno FROM board 
+		WHERE boardno = #{boardno}
+	</select>
+	
+	<insert id="insertReplyAlram"
+	 	parameterType="prboard.dto.Alram">
+		<selectKey order="BEFORE" resultType="int" keyProperty="alramno">
+			SELECT alram_seq.nextval FROM dual
+		</selectKey>
+	
+		INSERT INTO alram (alramno, alramcontents, alramtime, alramcheck, alramtype, alramsender, userno, boardno, boardtype, replyno, likeno, donno)
+  		VALUES (#{alramno }, #{alramcontents }, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), 0, 1, #{alramsender }, #{userno }, #{boardno }, 1, #{replyno}, null, null)
+	</insert>
+	
+	<delete id="deleteAlramReply"
+	 	parameterType="prboard.dto.Reply">
+		DELETE alram
+		WHERE 1=1
+			AND replyno = #{replyno }
+	</delete>
+	
+	<select id="selectLikeNo" resultType="int" parameterType="artboard.dto.Board">
+		SELECT likeno FROM blike 
+		WHERE userno = #{userno}
+		AND boardno = #{boardno}
+	</select>
+	
+	<insert id="insertLikeAlram"
+	 	parameterType="prboard.dto.Alram">
+		<selectKey order="BEFORE" resultType="int" keyProperty="alramno">
+			SELECT alram_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO alram (alramno, alramcontents, alramtime, alramcheck, alramtype, alramsender, userno, boardno, boardtype, replyno, likeno, donno)
+  		VALUES (#{alramno }, #{alramcontents }, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), 0, 2, #{alramsender }, #{userno }, #{boardno }, 1, null, ${likeno}, null)
+	</insert>
+	
+	<delete id="deleteLikeAlram"
+	 	parameterType="int">
+		DELETE alram
+		WHERE 1=1
+			AND likeno = #{likeno }
+	</delete>
 </mapper>

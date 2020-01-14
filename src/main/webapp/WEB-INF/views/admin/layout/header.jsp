@@ -91,10 +91,6 @@ a {
 			aria-selected="false">&emsp;&emsp;Free Board&emsp;&emsp;</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="faqboard-tab" data-toggle="tab" href="#faqboard" role="tab" aria-controls="faqboard"
-			aria-selected="false">&emsp;&emsp;FAQ Board&emsp;&emsp;</a>
-	</li>
-	<li class="nav-item">
 		<a class="nav-link" id="noticeboard-tab" data-toggle="tab" href="#noticeboard" role="tab" aria-controls="noticeboard"
 			aria-selected="false">&emsp;&emsp;Notice Board&emsp;&emsp;</a>
 	</li>

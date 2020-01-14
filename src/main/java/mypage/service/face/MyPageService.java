@@ -247,7 +247,7 @@ public interface MyPageService{
 	 * @param paging
 	 * @return
 	 */
-	public MyPaging getFollowPaing(MyPaging paging);
+	public MyPaging getFollowPaging(MyPaging paging);
 
 	/**
 	 * 2020-01-14
@@ -259,6 +259,7 @@ public interface MyPageService{
 	 * @return
 	 */
 	public List<HashMap<String, Object>> getFollowList(MyPaging paging);
+
 
 
 }

@@ -7,8 +7,13 @@
 <mapper namespace="artboard.dao.face.ReplyDao">
 	
 	<insert id="insertReply" parameterType="artboard.dto.Reply">
+	
+		<selectKey order="BEFORE" resultType="int" keyProperty="replyno">
+			SELECT reply_seq.nextval FROM dual
+		</selectKey>
+		
 		INSERT INTO reply (replyno, groupno,replyorder,replydepth,recontents,replydate,userno,boardno)
-		VALUES(reply_seq.nextval, groupno_seq.nextval,0,1,#{recontents} ,TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), #{userno},#{boardno})
+		VALUES(#{replyno}, groupno_seq.nextval,0,1,#{recontents} ,TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), #{userno},#{boardno})
 	</insert>
 	
 	<select id="selectReply" parameterType="artboard.dto.Board"
@@ -49,5 +54,4 @@
 		AND R.replyorder = 0
 		ORDER BY replyno DESC		
 	</select>
-	
 </mapper>
