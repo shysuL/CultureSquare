@@ -347,8 +347,6 @@ $(document).ready(function(){
 #mypageheader {
 	margin-bottom: 3%; 
 	margin-top: 3%; 
-	margin-left: 30%;
-	margin-right: 30%;
 	border: 1px solid #ccc;
 	padding-top: 2%;
 	padding-bottom: 2%;
@@ -382,8 +380,8 @@ $(document).ready(function(){
 		
 
 <div class="container myPageContainer" id="myPageContainer">
-	<div class="container text-center" style="background-color: #343a40!important;">
-		<h2 id="joinName">${getUser.usernick } 님의 마이페이지</h2>
+	<div class="container text-center" >
+		<h2 id="mypageheader" >${getUser.usernick } 님의 마이페이지</h2>
 	</div>
 	<div class="container box" style="margin-bottom: 1%;">
 		<!-- 나의 정보 -->
