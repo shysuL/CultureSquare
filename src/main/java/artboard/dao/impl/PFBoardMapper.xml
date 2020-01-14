@@ -278,8 +278,11 @@
 	
 	<insert id="insertReReply"
 	 	parameterType="artboard.dto.Reply">
+	 	<selectKey order="BEFORE" resultType="int" keyProperty="replyno">
+			SELECT reply_seq.nextval FROM dual
+		</selectKey>
 		INSERT INTO reply 
-		VALUES(reply_seq.nextval, #{groupno}, #{maxreplyorder}, 2, #{recontents}, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), #{userno}, #{boardno})
+		VALUES(#{replyno}, #{groupno}, #{maxreplyorder}, 2, #{recontents}, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), #{userno}, #{boardno})
 	</insert>
 
 
@@ -387,4 +390,19 @@
 		WHERE 1=1
 			AND likeno = #{likeno }
 	</delete>
+	
+	<select id="selectUserNoByReplyNo" resultType="int" parameterType="int">
+		SELECT userno FROM reply 
+		WHERE replyno = #{replyno}
+	</select>
+	
+	<insert id="insertReReplyAlram"
+	 	parameterType="artboard.dto.Alram">
+		<selectKey order="BEFORE" resultType="int" keyProperty="alramno">
+			SELECT alram_seq.nextval FROM dual
+		</selectKey>
+	
+		INSERT INTO alram (alramno, alramcontents, alramtime, alramcheck, alramtype, alramsender, userno, boardno, boardtype, replyno, likeno, donno)
+  		VALUES (#{alramno }, #{alramcontents }, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), 0, 3, #{alramsender }, #{userno }, #{boardno }, 1, #{replyno}, null, null)
+	</insert>
 </mapper>

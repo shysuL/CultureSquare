@@ -231,6 +231,10 @@ public class ArtboardViewController {
 			// 1. 유저 번호 저장
 			reply.setUserno(pfboardService.getUserNoForReply((String)session.getAttribute("usernick")).getUserno());
 			
+			Alram alram = new Alram();
+			alram.setUserno(pfboardService.getUsernoByReplyNo(reply.getReplyno()));
+			//댓글번호 있을때 담기
+			
 			// 2. 댓글번호를 이용해 그룹 번호 담기
 			reply.setGroupno(pfboardService.getGroupNoByReplyNo(reply));
 			
@@ -238,6 +242,18 @@ public class ArtboardViewController {
 			reply.setMaxreplyorder(pfboardService.getMaxReplyOrder(reply) + 1);
 			
 			pfboardService.addReReply(reply);
+			
+			//알람테이블 삽입
+			
+			alram.setAlramcontents(reply.getRecontents());
+			alram.setAlramsender((String)session.getAttribute("usernick"));
+			
+			alram.setBoardno(reply.getBoardno());
+			alram.setReplyno(reply.getReplyno());
+			
+			logger.info("알람 테스트 !" + alram.toString());
+			
+			pfboardService.insertReReplyAlram(alram);
 
 			mav.addObject("insert", true);
 			//viewName지정하기

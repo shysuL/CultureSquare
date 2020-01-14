@@ -106,6 +106,9 @@ public class ArtboardReplyController {
 		
 		logger.info("답글 삭제 테스트  : " + reply);
 		
+		// 1. 알림 테이블 데이터 삭제
+		pfboardService.deleteAlramReply(reply);
+		
 		pfboardService.deleteReply(reply);
 		
 		//viewName지정하기

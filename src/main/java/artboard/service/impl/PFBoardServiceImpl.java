@@ -506,4 +506,17 @@ public class PFBoardServiceImpl implements PFBoardService{
 		pfboardDao.deleteLikeAlram(likeno);
 	}
 
+
+	@Override
+	public int getUsernoByReplyNo(int replyno) {
+		return pfboardDao.selectUserNoByReplyNo(replyno);
+	}
+
+
+	@Override
+	public void insertReReplyAlram(Alram alram) {
+
+		pfboardDao.insertReReplyAlram(alram);
+	}
+
 }
