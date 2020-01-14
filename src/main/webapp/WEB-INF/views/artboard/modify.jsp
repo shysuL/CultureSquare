@@ -4,6 +4,28 @@
     <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />  
 
+<style>
+.map_wrap {position:relative;overflow:hidden;width:100%;height:350px;}
+.radius_border{border:1px solid #919191;border-radius:5px;}     
+.custom_typecontrol {position:absolute;top:10px;right:10px;overflow:hidden;width:104px;height:33	px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;     margin-top: 2%;
+    margin-right: 2%;
+}
+.custom_typecontrol span {display:block;width:65px;height:30px;float:left;text-align:center;line-height:30px;cursor:pointer;}
+.custom_typecontrol .btn {background:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+.custom_typecontrol .btn:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+.custom_typecontrol .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
+.custom_typecontrol .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+.custom_typecontrol .selected_btn:hover {color:#fff;}   
+.custom_zoomcontrol {position:absolute;top:50px;right:10px;width:36px;height:80px;overflow:hidden;z-index:1;background-color:#f5f5f5; margin-top: 6%;
+    margin-right: 2%;} 
+.custom_zoomcontrol span {display:block;width:36px;height:40px;text-align:center;cursor:pointer;}     
+.custom_zoomcontrol span img {width:15px;height:15px;padding:12px 0;border:none;}             
+.custom_zoomcontrol span:first-child{border-bottom:1px solid #bfbfbf;}  
+.title {font-weight:bold;display:block;}
+.hAddr {position:absolute;left:10px;top:10px;border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
+#centerAddr {display:block;margin-top:2px;font-weight: normal;}
+.bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+</style>
 
 
 <script type="text/javascript" src="/resources/ckeditor/ckeditor.js"></script>
@@ -15,8 +37,72 @@
 
 <script type="text/javascript">
 var g_count =1;
+var storedadd = "";
+
 $(document).ready(function() {
 
+	var storedlat = "${viewLoc.lat}";
+	var storedlon = "${viewLoc.lon}";
+    // input tag에 넣어주기
+    $('#lat').val(storedlat);
+    $('#lon').val(storedlon);
+	var storedlatlng = new kakao.maps.LatLng(storedlat, storedlon);
+	
+	searchDetailAddrFromCoords(storedlatlng, function(result, status) {
+// 		console.log(1);
+// 		console.log(result[0]);
+// 		console.log("---result[0].address.address_name---");
+// 		console.log(result[0].address.address_name);
+		storedadd = result[0].address.address_name;
+		console.log("---storedadd---");
+		console.log(storedadd);
+		
+		var html = "";
+		html += "공연 위치 정보 ";
+		html += "<br> ";
+		html += storedadd;		
+		$("#perLocIn").html(html)
+	});
+// 	console.log(2);
+// 	console.log("---storedadd---");
+// 	console.log(storedadd);
+
+	
+	// 페이지 로드 됐을 때  원래 갖고 있던 위도, 경도의 위치 정보 없으면 없고 있다면 나오게
+//	$("#perLocIn").html(html)
+	
+	
+	// 지도모달창에서 추가 버튼 눌렀을 때
+	$("#mapAddBtn").click(function(){
+		
+		var html = "";
+		html += "공연 위치 정보";
+		html += detailaddress;		
+		$("#perLocIn").html(html)
+		console.log(detailaddress);
+		
+		console.log("위도")
+		console.log(latitude)
+		console.log("경도")
+		console.log(longitude)
+
+	    // input tag에 넣어주기
+	    $('#lat').val(latitude);
+	    $('#lon').val(longitude);
+
+	})
+	
+	// 공연 위치 정보 추가하기
+	$('#addMap').on("click",function(){
+		console.log(1);
+		$("#mapModal").modal({backdrop: 'static', keyboard: false});
+	});
+	
+	$("#mapModal").on('shown.bs.modal',function(){
+		map.relayout();
+	})
+
+	
 	$("#btnModify").click(function() {
 
 		console.log("수정수정");
@@ -187,6 +273,9 @@ function fn_fileAdd(){
 			</div>
 		
 			<input type="hidden" id = "userno" name = "userno" value = "${view.userno }"/>
+			<input type="hidden" id = "lat" name="lat" />
+			<input type="hidden" id = "lon" name="lon" />
+			
 		</form>
 		
 				<div class="list-group" id="fileTitle">
@@ -215,7 +304,9 @@ function fn_fileAdd(){
 	<div class="row">
 	<div class="col-9">
 		<div style="text-align: right;">
+			<div id="perLocIn"></div>
 			<button type="button" id="add" class="btn btn-info">파일 추가하기</button>
+			<button type="button" id="addMap" class="btn btn-info">공연 위치 정보 변경</button>
 			<button type="button" id="btnModify" class="btn bbc" >수정완료</button>
 			<button type="button" id="btnCancel" class="btn bbc">수정취소</button>
 		</div>
@@ -223,8 +314,195 @@ function fn_fileAdd(){
 	</div>
 
 
+<!-- 지도  모달창 -->
+<div class="modal fade bd-example-modal-lg" id="mapModal">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">공연 위치 정보 변경</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      
+      <div class="map_wrap">
+   		<div id="map" style="width:100%;height:400px;position:relative;overflow:hidden;z-index-0"></div>
+	    <div class="hAddr">
+	        <span class="title">지도중심기준 행정동 주소정보</span>
+	        <span id="centerAddr"></span>
+	    </div>
+	    <div class="custom_typecontrol radius_border">
+	        <span id="btnRoadmap" class="selected_btn" onclick="setMapType('roadmap')" style="width: 104px;">지도</span>
+	        <span id="btnSkyview" class="btn" onclick="setMapType('skyview')" style="width: 104px;">스카이뷰</span>
+	    </div>
+	    <!-- 지도 확대, 축소 컨트롤 div 입니다 -->
+	    <div class="custom_zoomcontrol radius_border"> 
+	        <span onclick="zoomIn()">+</span>  
+	        <span onclick="zoomOut()">-</span>
+	    </div>
+	    
+	  </div>
+      		
+	 </div>
+		<p id="result"></p>
+				
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=955e62645517faafe40085ecec08d0c1&libraries=services,clusterer,drawing"></script>
+<script>
+	
+var lat = "${viewLoc.lat}";
+var lon = "${viewLoc.lon}";
+	
+var detailaddress
+var latitude
+var longitude
+
+var container = document.getElementById('map');
+var options = {
+center : new kakao.maps.LatLng(lat, lon),
+level : 3
+};
+var map = new kakao.maps.Map(container, options);
 
 
+function relayout() {    
+
+	  // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+	  // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
+	 // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+	  map.relayout();
+	}
+
+// 지도타입 컨트롤의 지도 또는 스카이뷰 버튼을 클릭하면 호출되어 지도타입을 바꾸는 함수입니다
+function setMapType(maptype) { 
+    var roadmapControl = document.getElementById('btnRoadmap');
+    var skyviewControl = document.getElementById('btnSkyview'); 
+    if (maptype === 'roadmap') {
+        map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);    
+        roadmapControl.className = 'selected_btn';
+        skyviewControl.className = 'btn';
+    } else {
+        map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);    
+        skyviewControl.className = 'selected_btn';
+        roadmapControl.className = 'btn';
+    }
+}
+
+// 지도 확대, 축소 컨트롤에서 확대 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
+function zoomIn() {
+    map.setLevel(map.getLevel() - 1);
+}
+
+// 지도 확대, 축소 컨트롤에서 축소 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
+function zoomOut() {
+    map.setLevel(map.getLevel() + 1);
+}
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+var marker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
+    infowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+
+// 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
+searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+    
+// 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
+kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+    searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+            var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+            detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+            
+            var content = '<div class="bAddr">' +
+                            '<span class="title">법정동 주소정보</span>' + 
+                            detailAddr + 
+                        '</div>';
+
+            // 마커를 클릭한 위치에 표시합니다 
+            marker.setPosition(mouseEvent.latLng);
+            marker.setMap(map);
+
+            // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+            infowindow.setContent(content);
+            infowindow.open(map, marker);
+            detailaddress = detailAddr;
+            console.log(detailaddress);
+        }   
+    });
+});
+
+// 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
+kakao.maps.event.addListener(map, 'idle', function() {
+    searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+});
+
+function searchAddrFromCoords(coords, callback) {
+    // 좌표로 행정동 주소 정보를 요청합니다
+    geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
+}
+
+function searchDetailAddrFromCoords(coords, callback) {
+    // 좌표로 법정동 상세 주소 정보를 요청합니다
+    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+}
+
+// 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+function displayCenterInfo(result, status) {
+    if (status === kakao.maps.services.Status.OK) {
+        var infoDiv = document.getElementById('centerAddr');
+
+        for(var i = 0; i < result.length; i++) {
+            // 행정동의 region_type 값은 'H' 이므로
+            if (result[i].region_type === 'H') {
+                infoDiv.innerHTML = result[i].address_name;
+                break;
+            }
+        }
+    }    
+}
+
+
+// 지도에 클릭 이벤트를 등록합니다
+// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+    
+    // 클릭한 위도, 경도 정보를 가져옵니다 
+    var latlng = mouseEvent.latLng;
+    
+//	    var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+//	    message += '경도는 ' + latlng.getLng() + ' 입니다' + detailaddress;
+    
+    
+    var message = detailaddress;
+
+    var resultDiv = document.getElementById('result'); 
+    resultDiv.innerHTML = message;
+    
+    //위도
+    latitude=latlng.getLat()
+    //경도
+    longitude=latlng.getLng()
+	console.log(latitude);
+	console.log(longitude);
+
+    
+});
+
+
+	
+	
+</script>
+    <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="mapAddBtn"class="btn btn-dark" data-dismiss="modal">변경</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 </div> <!-- div_container -->
 
