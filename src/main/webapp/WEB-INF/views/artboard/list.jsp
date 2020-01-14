@@ -262,9 +262,18 @@ $(document).ready(function(){
 				</a>
 			</div>
 			<div class="media-body">
-				<span class="media-heading"><a href="/artboard/view?boardno=${i.boardno}">${i.title }</a></span>
+				<c:choose>
+					<c:when test="${i.userno == 0 }">
+						<span class="media-heading"><a href="/artboard/view?boardno=${i.boardno}"
+						style = "font-size: 23px; color: #343A40;">[삭제된 게시물 ] ${i.title }</a></span>
+					</c:when>
+					<c:otherwise>
+						<span class="media-heading"><a href="/artboard/view?boardno=${i.boardno}"
+						style = "font-size: 23px; color: #343A40;">${i.title }</a></span>
+					</c:otherwise>
+				</c:choose>
 				<br><br>
-				<span id = "category_name">${i.performname}</span>
+				<span id = "category_name" style = "color: #343A40;">${i.performname}</span>
 				
 				<span id = "views">${i.views }</span>
 				<span id = "views_img"><img src="/resources/img/view.png" class="d-block w-100" alt="..."> </span>
