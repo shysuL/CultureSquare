@@ -38,11 +38,11 @@
  		 </if>
 	</select>
 	
-	<select id="selectFreeDetail" parameterType="int" resultType="board.dto.FreeBoard">
-		SELECT fb.boardno, fb.title, fb.writtendate, fb.contents, fb.views, up.originname 
-		FROM board fb, upfile up
-		WHERE  boardno = up.boardno(+)
-		AND fb.boardno = #{boardno }
+	<select id="selectnoticeDetail" parameterType="int" resultType="board.dto.FreeBoard">
+		SELECT boardno, title, writtendate, contents, views
+		FROM board 
+		WHERE  boardno = #{boardno }
+
 	</select>
 	
 	<insert id="insertnoticeBoard" parameterType="board.dto.FreeBoard">

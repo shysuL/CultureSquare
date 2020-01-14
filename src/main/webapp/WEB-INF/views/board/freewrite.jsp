@@ -60,12 +60,10 @@ color: #343a40;
 }
 </style>
 
-<div class="container">
+<div class="container list-container">
 
-<h1></h1>
+<div class="h2"><h2> 자유게시판 </h2></div>
 <hr>
-<h2>자유게시판</h2>
-
 <div class="row">
 <div class="col-8">
 <form action="/board/freewrite" method="post"
