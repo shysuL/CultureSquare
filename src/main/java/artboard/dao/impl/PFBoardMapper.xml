@@ -20,6 +20,7 @@
 		FROM board B, perform_add P
 		WHERE B.boardno = P.boardno
 		AND B.postno = 1
+		AND p.writepermit = 1
 		AND substr(p.performdate, 1, 7) =
 		#{searchMonth }
 		AND performname = #{performname}
@@ -309,7 +310,9 @@
 	
 	<update id="updatePFbyDelete"
 		parameterType="artboard.dto.Board">
-		UPDATE board SET  contents = '이 일정은 취소되었습니다.', userno = null
+		UPDATE board SET  
+			 contents = '이 일정은 취소되었습니다.'
+			, userno = null
 		WHERE 1=1
 			AND boardno = #{boardno}	
 	</update>
