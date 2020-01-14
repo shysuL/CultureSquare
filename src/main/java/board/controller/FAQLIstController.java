@@ -68,5 +68,8 @@ public class FAQLIstController {
 		//구글
 		model.addAttribute("google_url", googleUrl);
 		
+		
+		
+		
 	}
 }
