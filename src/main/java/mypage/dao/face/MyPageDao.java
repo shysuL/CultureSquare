@@ -224,5 +224,27 @@ public interface MyPageDao {
 	 */
 	public int selectReplyCntAll(MyPaging paging);
 
+	/**
+	 * 2020-01-14
+	 * 채해원
+	 * 
+	 * 마이페이지의 팔로우한 예술인 목록의 페이징을 위한 개수를 센다.
+	 * 
+	 * @param paging
+	 * @return
+	 */
+	public int selectFollowCntAll(MyPaging paging);
+
+	/**
+	 * 2020-01-14
+	 * 채해원
+	 * 
+	 * 사용자가 팔로우한 예술인 목록 가져오기
+	 * 
+	 * @param paging
+	 * @return
+	 */
+	public List<HashMap<String, Object>> selectFollowList(MyPaging paging);
+
 
 }
