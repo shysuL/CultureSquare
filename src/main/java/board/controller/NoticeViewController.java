@@ -18,8 +18,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import board.dto.FreeBoard;
+import board.dto.UpFile;
 import board.service.face.NoticeBoardService;
 import user.bo.NaverLoginBO;
 import user.service.face.KakaoService;
@@ -86,6 +88,7 @@ public class NoticeViewController {
 		noticeboardService.increaseViews(boardno);
 		
 		FreeBoard ntboardDetail = noticeboardService.noticeDetail(boardno);
+		UpFile fileinfo = noticeboardService.getFile(boardno);
 		
 		if(session.getAttribute("usernick") != null) {
 			// 세션에 저장된 usernick를 모델로 전달
@@ -98,7 +101,25 @@ public class NoticeViewController {
 		}
 		
 		model.addAttribute("ntboard", ntboardDetail);
+		model.addAttribute("file", fileinfo);
 		
+	}
+	@RequestMapping(value = "/noticeboard/download")
+	public ModelAndView noticedownload(int fileno, ModelAndView mav) {
+		
+		//파일번호에 해당하는 파일 정보 가져오기
+		UpFile file = noticeboardService.getFileNo(fileno);
+		
+		logger.info(file.toString());
+
+		//파일정보를 MODEL 값으로 지정하기
+		mav.addObject("downFile", file);
+
+		//viewName 지정하기
+		mav.setViewName("down");
+
+		return mav;
+
 	}
 	
 }

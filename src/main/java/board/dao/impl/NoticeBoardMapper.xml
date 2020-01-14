@@ -76,5 +76,15 @@
 		) BOARD
 		WHERE rnum BETWEEN 1 AND 5
 	</select>
+	
+	<select id="selectFile" parameterType="int" resultType="board.dto.UpFile">
+		SELECT * FROM upfile
+		WHERE boardno = #{boardno }
+	</select>
+	
+	<select id="selectFileNo" parameterType="int" resultType="board.dto.UpFile">
+		SELECT * FROM upfile
+		WHERE fileno = #{fileno }
+	</select>
   
   </mapper>

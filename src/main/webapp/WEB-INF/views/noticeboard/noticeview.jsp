@@ -64,6 +64,11 @@
 			<td colspan="4" style="height: 500px;">${ntboard.contents }</td>
 		</tr>
 
+		<tr>
+			<c:if test="${not empty file }">
+			<td colspan="4"><a href="/board/download?fileno=${file.fileno }">${file.originname }</a></td>
+			</c:if>
+		</tr>
 
 	</table>
 
