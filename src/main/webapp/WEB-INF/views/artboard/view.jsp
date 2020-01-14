@@ -33,37 +33,26 @@
 </style>
 
 <script type="text/javascript">
-
 //지울 댓글 번호
 var dreplyno;
-
 //선택된 댓글 번호
 var selectReply;
-
 //한번에 여러개 수정 못하게 하는 체크 변후
 var modifyCnt = 0;
-
 ////한번에 여러개 수정 못하게 하는 체크 변후 - 답글
 var reModifyCnt = 0;
-
 //답글 눌렀는지 판별여부 위한 배열
 var checkReReply = new Array(); //배열 선언
-
 //답글 갯수 출력 위한 배열
 var rReCnt = new Array();
-
 //댓글 길이 전역 변수
 var replyListLen = 0;
-
 //댓글 번호 배열
 var replyarray = new Array();
-
 //현재 보여진 댓글 수
 var currentCnt = 0;
-
 // 댓글 더보기 눌렀는지 여부 판단
 var newFirst = true;
-
 //댓글 슬라이드토글
 $(document).ready(function(){
 	
@@ -73,27 +62,23 @@ $(document).ready(function(){
 		$('#replyinputbody').slideToggle("fast");
 	});
 });
-
 //댓글 삭제 클릭 -> 진짜로 삭제 할거냐는 모달 호출
 function deleteReply(replyno){
 	$("#pfReplyDeleteModal").modal({backdrop: 'static', keyboard: false});
 	console.log("댓글 삭제 번호당: " + replyno);
 	dreplyno = replyno;
 }
-
 //답글 삭제 클릭 -> 진짜로 삭제 할거냐는 모달 호출
 function deleteReReply(replyno){
 	$("#pfReReplyDeleteModal").modal({backdrop: 'static', keyboard: false});
 	console.log(checkReReply[replyno] + "답글 입니다.");
 	dreplyno = replyno;
 }
-
 $(document).ready(function() {
 	
 	
 	// 댓글 입력
 	$("#btnCommInsert").click(function() {
-
 		if($('#recontents').val() == ''){
 			$("#replyerror").modal({backdrop: 'static', keyboard: false});
 		}else{
@@ -126,11 +111,8 @@ $(document).ready(function() {
 		}
 	});
 });
-
-
 //2
 // 대댓글 등록하기
-
  function addReReply(replyno, boardno){
 	    
 		console.log("답글 등록 테스트 -> 댓글 번호는? " + replyno);
@@ -178,8 +160,6 @@ $(document).ready(function() {
 			});
 		}
 	}
-
-
 /**
  * 초기 페이지 로딩시 좋아요 불러오기
  */
@@ -231,7 +211,6 @@ $(function(){
 		});
 	}
 }
-
 //댓글 수정 버튼 클릭시, 기존댓글에서 커서 맨 뒤로 이동시키기 위한 메서드 추가
  $.fn.setCursorPosition = function( pos )
  {
@@ -249,7 +228,6 @@ $(function(){
      
      return this;
  };
-
 //댓글 수정 클릭
 //댓글 번호, 댓글 내용 매개변수로 받음
 function modifyReply(replyno,recontents){
@@ -283,7 +261,6 @@ function modifyReply(replyno,recontents){
 	
 		//수정 가능하도록 textarea로 기존 댓글창을 치환
 		$('#commentBox' + replyno).replaceWith(html);
-
 		//수정 textarea에 문자열 맨뒤로 포커스
 		$('#commentBox' + replyno + ' #editContent').focus().setCursorPosition(recontents.length);
 	}
@@ -293,7 +270,6 @@ function modifyReply(replyno,recontents){
 	}
 	
 }
-
 //답글 수정 클릭 처리 메서드
 function modifyReReply(replyno,recontents){
 	
@@ -301,7 +277,6 @@ function modifyReReply(replyno,recontents){
 	console.log("답글 내용 : " + recontents);
 	
 	reModifyCnt++;
-
 	//하나만 수정 시도 할 경우
 	if(reModifyCnt == 1){
 		console.log("수정하고 있는 갯수당 : " + reModifyCnt);
@@ -377,7 +352,6 @@ function modifyReReply(replyno,recontents){
 		});
 	}
 } 
-
 //답글 리스트 출력 메서드
 function getReReply(replyno){
 	console.log("답글 테스트 번호: " + replyno);
@@ -473,7 +447,6 @@ function getReReply(replyno){
 	    		html += '</div>';
 	    		
 	    		$('#commentBox' + replyno).append(html);
-
 	    		//twice 상태면 답글 버튼을 한번 누른 상태
 	    		checkReReply[replyno] = 'twice';
 	    	}
@@ -490,8 +463,6 @@ function getReReply(replyno){
 	       }
 	    });
 }
-
-
 // 댓글 불러오기
 function getCommentList(){
 	
@@ -500,7 +471,6 @@ function getCommentList(){
 	console.log('${view.boardno}');
 //     console.log("세션 : " + session.getAttribute("login"));
 	console.log('${userno}');
-
 	 $.ajax({
 	        type:'POST',
 	        url : "/artboard/commentList",
@@ -533,7 +503,6 @@ function getCommentList(){
 	                    html += "</div>";
 	                    
 	                    html += "<div class='col-1.5'>";
-
 	                    html += "<div id = 'rereplyBtn'>";
 	                    html += "<a ><button id='rereply' class='btn bbc' type='button' onClick=getReReply(" + res.reList[i].replyno + ")>답글</button></a>";
 // 	                    html += "<strong id='rCnt"+res.reList[i].replyno+"'>"+res.reList[i].replyCnt+"</strong>";
@@ -821,7 +790,6 @@ $(document).ready(function() {
 	   
 	   //후원 하고 확인 버튼 눌렀을때 DB에 저장
 	   $("#donationSuccessModalBtn").click(function() {
-
 		 //후원 처리 컨트롤러로 이동
 		 location.href="/artboard/donation?donprice="+money+"&usernick=${usernick}&boardno=${ view.boardno}";
 		   
@@ -834,7 +802,6 @@ $(document).ready(function() {
 
 
 <script type="text/javascript">
-
 	$(document).ready(function() {
 		//추천버튼 동작
 		$("#recommendtd").on("click", "#recommend", function() {
@@ -851,7 +818,6 @@ $(document).ready(function() {
 			console.log("수정버튼클릭");
 			$(location).attr("href", "/artboard/modify?boardno=${view.boardno }");
 		});
-
 		//삭제버튼 동작
 		$("#btnDelete").click(function() {
 			$("#pfdeleteModal").modal({backdrop: 'static', keyboard: false});
@@ -897,7 +863,6 @@ $(document).ready(function() {
 				},
 				dataType : "json",
 				success : function(res) {
-
 					checkReReply[selectReply] = 'undefined';
 					getReReply(selectReply);
 		            
@@ -922,7 +887,6 @@ $(document).ready(function() {
 			success : function(data) {
 				console.log("성공");
 				console.log(data);
-
 				$("#recommendtd").html(data);
 			},
 			error : function() {
@@ -943,7 +907,6 @@ $(document).ready(function() {
 				success : function(data) {
 					console.log("성공");
 					console.log(data);
-
 					$("#recommendtd").html(data);
 				},
 				error : function() {
@@ -963,7 +926,6 @@ $(document).ready(function() {
 				success : function(data) {
 					console.log("성공");
 					console.log(data);
-
 					$("#followtd").html(data);
 				},
 				error : function() {
@@ -984,7 +946,6 @@ $(document).ready(function() {
 					success : function(data) {
 						console.log("팔로우 성공");
 						console.log(data);
-
 						$("#followtd").html(data);
 					},
 					error : function() {
@@ -1021,7 +982,6 @@ $(document).ready(function() {
     height: auto;
     width: 100%;
 }
-
 </style>
 <%
 	Date date = new Date();
@@ -1088,250 +1048,81 @@ $(document).ready(function() {
 			
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=955e62645517faafe40085ecec08d0c1&libraries=services,clusterer,drawing"></script>
 <script>
-
-var lat = ${location.lat};
-var lon = ${location.lon};
-
-var detailaddress
-var latitude
-var longitude
-
-if(${location.lat} != null){
-	var lat = ${location.lat};
-	var lon = ${location.lon};	
-} else {
-	var lat = 37.499206;
-	var lon = 127.032773;
-}
-
-
-var locPosition = new kakao.maps.LatLng(lat,lon)
-
-var container = document.getElementById('map');
-var options = {
-center : new kakao.maps.LatLng(lat, lon),
-level : 3
-};
-var map = new kakao.maps.Map(container, options);
-	
-
-// 마커가 표시될 위치입니다 
+var lat = "${location.lat}";
+var lon = "${location.lon}";
+// var detailaddress
+// var latitude
+// var longitude
+// if(${location.lat} != null){
+// 	var lat = ${location.lat};
+// 	var lon = ${location.lon};	
+// } else {
+// 	var lat = 37.499206;
+// 	var lon = 127.032773;
+// }
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+mapOption = {
+    center: new kakao.maps.LatLng(lat, lon), // 지도의 중심좌표
+    level: 1 // 지도의 확대 레벨
+};  
+//지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+//마커가 표시될 위치입니다 
 var markerPosition  = new kakao.maps.LatLng(lat, lon); 
-	
 // 마커를 생성합니다
 var marker = new kakao.maps.Marker({
     position: markerPosition
 });
-
 // 마커가 지도 위에 표시되도록 설정합니다
 marker.setMap(map);
-
-
-function relayout() {    
-
-	  // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
-	  // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
-	 // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
-	  map.relayout();
-	}
-
-// 지도타입 컨트롤의 지도 또는 스카이뷰 버튼을 클릭하면 호출되어 지도타입을 바꾸는 함수입니다
-function setMapType(maptype) { 
-    var roadmapControl = document.getElementById('btnRoadmap');
-    var skyviewControl = document.getElementById('btnSkyview'); 
-    if (maptype === 'roadmap') {
-        map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);    
-        roadmapControl.className = 'selected_btn';
-        skyviewControl.className = 'btn';
-    } else {
-        map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);    
-        skyviewControl.className = 'selected_btn';
-        roadmapControl.className = 'btn';
-    }
-}
-
-// 지도 확대, 축소 컨트롤에서 확대 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
-function zoomIn() {
-    map.setLevel(map.getLevel() - 1);
-}
-
-// 지도 확대, 축소 컨트롤에서 축소 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
-function zoomOut() {
-    map.setLevel(map.getLevel() + 1);
-}
-
-// 주소-좌표 변환 객체를 생성합니다
+//주소-좌표 변환 객체를 생성합니다
 var geocoder = new kakao.maps.services.Geocoder();
-
-
-var markerPosition = new kakao.maps.LatLng(lat,lon)
-
-var marker = new kakao.maps.Marker({
-	map:map,
-	position : markerPosition
-}) // 클릭한 위치를 표시할 마커입니다
-
-// 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
+infowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+//현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
 searchAddrFromCoords(map.getCenter(), displayCenterInfo);
-    
-// 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
-// kakao.maps.event.addListener(marker, 'load', function(mouseEvent) {
-//     searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
-//         if (status === kakao.maps.services.Status.OK) {
-//             var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-//             detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
-            
-//             var content = '<div class="bAddr">' +
-//                             '<span class="title">법정동 주소정보</span>' + 
-//                             detailAddr + 
-//                         '</div>';
-			
-//                 iwRemoveable = true;
-//             // 마커를 클릭한 위치에 표시합니다 
-//             marker.setPosition(mouseEvent.latLng);
-//             marker.setMap(map);
-
-//             // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-//             infowindow.setContent(content);
-//             infowindow.open(map, marker);
-//             detailaddress = detailAddr;
-//             console.log(detailaddress);
-//         	console.log(result[0].road_address);
-//         }   
-//     });
-// });
-var iwcontent = '<div class="bAddr">' +
-'<span class="title">법정동 주소정보</span>' + 
-geocoder + 
-'</div>',
-iwPosition = new kakao.maps.LatLng(lat,lon)
-var infowindow = new kakao.maps.InfoWindow({
-	    	zindex:1,
-	    	map:map,
-	    	position: iwPosition,
-	    	content: iwcontent
-// 	    	,
-// 	    	removeable : iwRemoveable
-    }); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
-
-// 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
-kakao.maps.event.addListener(map, 'idle', function() {
-    searchAddrFromCoords(map.getCenter(), displayCenterInfo);
-});
-
-function searchAddrFromCoords(coords, callback) {
-    // 좌표로 행정동 주소 정보를 요청합니다
-    geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
-}
-
-function searchDetailAddrFromCoords(coords, callback) {
-    // 좌표로 법정동 상세 주소 정보를 요청합니다
-    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
-}
-
-// 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
-function displayCenterInfo(result, status) {
-    if (status === kakao.maps.services.Status.OK) {
-        var infoDiv = document.getElementById('centerAddr');
-
-        for(var i = 0; i < result.length; i++) {
-            // 행정동의 region_type 값은 'H' 이므로
-            if (result[i].region_type === 'H') {
-                infoDiv.innerHTML = result[i].address_name;
-                break;
-            }
-        }
-    }    
-}
-
-
-// 지도에 클릭 이벤트를 등록합니다
-// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-// kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
-    
-//     // 클릭한 위도, 경도 정보를 가져옵니다 
-//     var latlng = mouseEvent.latLng;
-    
-// //	    var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-// //	    message += '경도는 ' + latlng.getLng() + ' 입니다' + detailaddress;
-    
-    
-//     var message = detailaddress;
-
-//     var resultDiv = document.getElementById('result'); 
-//     resultDiv.innerHTML = message;
-    
-//     //위도
-//     latitude=latlng.getLat()
-//     //경도
-//     longitude=latlng.getLng()
-// 	console.log(latitude);
-// 	console.log(longitude);
-
-    
-// });
-
-
-
-
-
-
-// //이미지 지도에서 마커가 표시될 위치입니다 
-// var markerPosition  = new kakao.maps.LatLng(lat, lon); 
-
-// // 이미지 지도에 표시할 마커입니다
-// // 이미지 지도에 표시할 마커는 Object 형태입니다
-// var marker = {
-//     position: markerPosition
-// }
-
-// var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-// mapOption = {
-//     center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-//     level: 1 // 지도의 확대 레벨
-// };  
-
-
-// //지도를 생성합니다    
-// var map = new kakao.maps.Map(mapContainer, mapOption); 
-
-// //주소-좌표 변환 객체를 생성합니다
-// var geocoder = new kakao.maps.services.Geocoder();
-
-// //마커가 지도 위에 표시되도록 설정합니다
-// marker.setMap(map);
-// infowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
-
-
-// //현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
-// searchAddrFromCoords(map.getCenter(), displayCenterInfo);
-
-
-// function searchDetailAddrFromCoords(coords, callback) {
-//     // 좌표로 법정동 상세 주소 정보를 요청합니다
-//     geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
-// }
-
-// searchDetailAddrFromCoords(markerPosition,function(result,status) {
-// 	console.log(result[0]);
-// 	var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-//         detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+var latlng = new kakao.maps.LatLng(lat, lon);
+searchDetailAddrFromCoords(latlng, function(result, status) {
+	if (status === kakao.maps.services.Status.OK) {
+        var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+        detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
         
-//         var contentDe = '<div class="bAddr">' +
-//                         '<span class="title">법정동 주소정보</span>' + 
-//                         detailAddr + 
-//                     '</div>';
-// 		console.log("주소값 "+detailAddr)
-// 		console.log("div 객체 정보"+contentDe)
-		
-		
-// 		// 인포윈도우를 생성합니다
-// 		var infowindow = new kakao.maps.InfoWindow({
-//    			 position : new kakao.maps.LatLng(lat,lon), 
-//     		content : contentDe 
-// 		});
-//         infowindow.open(map, marker);
-// });
+        var content = '<div class="bAddr">' +
+                        '<span class="title">법정동 주소정보</span>' + 
+                        detailAddr + 
+                    '</div>';
+        // 마커를 클릭한 위치에 표시합니다 
+//         marker.setPosition(mouseEvent.latLng);
+//         marker.setMap(map);
+        // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+        infowindow.setContent(content);
+        infowindow.open(map, marker);
+    }   
+});
+//중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
+kakao.maps.event.addListener(map, 'idle', function() {
+searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+});
+function searchAddrFromCoords(coords, callback) {
+// 좌표로 행정동 주소 정보를 요청합니다
+geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
+}
+function searchDetailAddrFromCoords(coords, callback) {
+// 좌표로 법정동 상세 주소 정보를 요청합니다
+geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+}
+//지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+function displayCenterInfo(result, status) {
+if (status === kakao.maps.services.Status.OK) {
+    var infoDiv = document.getElementById('centerAddr');
+    for(var i = 0; i < result.length; i++) {
+        // 행정동의 region_type 값은 'H' 이므로
+        if (result[i].region_type === 'H') {
+            infoDiv.innerHTML = result[i].address_name;
+            break;
+        }
+    }
+}    
+}
 </script>
 
 			<br>
@@ -1860,5 +1651,3 @@ function displayCenterInfo(result, status) {
 
 
 <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
-
-

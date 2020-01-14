@@ -238,5 +238,27 @@ public interface MyPageService{
 	 */
 	public MyPaging getReplyPaging(MyPaging paging);
 
+	/**
+	 * 2020-01-14 
+	 * 채해원
+	 * 
+	 * 사용자가 팔로우한 목록을 보이기위한 페이징
+	 * 
+	 * @param paging
+	 * @return
+	 */
+	public MyPaging getFollowPaing(MyPaging paging);
+
+	/**
+	 * 2020-01-14
+	 * 채해원
+	 * 
+	 * 사용자가 팔로우한 예술인 목록 가져오기
+	 * 
+	 * @param result
+	 * @return
+	 */
+	public List<HashMap<String, Object>> getFollowList(MyPaging paging);
+
 
 }
