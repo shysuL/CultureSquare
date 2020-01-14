@@ -389,7 +389,7 @@ function getReReply(replyno){
 	        	selectReply = replyno;
 	        		
 	    		html += '<div class = "RereplyBox  col-11" id="RereplyBox' + replyno + '">';
-	    		html += '<strong class="text-gray-dark">' + '답글의 댓글 번호 : ' + replyno + '</strong>';
+// 	    		html += '<strong class="text-gray-dark">' + '답글의 댓글 번호 : ' + replyno + '</strong>';
 	    		html += '<title>Placeholder</title>';
 	    		html += '<rect width="100%" height="100%" fill="#007bff"></rect>';
 	    		html += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
