@@ -474,7 +474,7 @@ public interface PFBoardService {
 	 * 2020-01-13
 	 * 이빈
 	 * 
-	 * 위치 공연 정보 가져오기
+	 * 공연 위치 정보 가져오기
 	 * 
 	 * @param bno - 게시판번호
 	 * @return - 위도, 경도
@@ -485,6 +485,16 @@ public interface PFBoardService {
 
 	/**
 	 * 2020-01-14
+	 * 이빈
+	 * 
+	 * 공연 위치 정보 수정하기
+	 * 
+	 * @param board
+	 */
+	public void modifyLoc(Board board);
+
+
+	/**
 	 * 조홍철
 	 * 
 	 * 유저 번호 가져오기
@@ -570,4 +580,16 @@ public interface PFBoardService {
 	 * @param alram - 삽입할 알림 정보가 담긴 객체
 	 */
 	public void insertReReplyAlram(Alram alram);
+
+
+
+	/**
+	 * 2020-01-14
+	 * 조홍철
+	 * 
+	 * 후원 알림 삽입
+	 * 
+	 * @param alram - 삽입할 알림 정보가 담긴 객체
+	 */
+	public void insertDonAlram(Alram alram);
 }
