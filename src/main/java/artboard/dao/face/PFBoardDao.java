@@ -472,6 +472,16 @@ public interface PFBoardDao {
 	 * @param alram - 삽입할 알림 정보가 담긴 객체
 	 */
 	public void insertReReplyAlram(Alram alram);
+
+	/**
+	 * 2020-01-14
+	 * 조홍철
+	 * 
+	 * 후원 알림 삽입
+	 * 
+	 * @param alram - 삽입할 알림 정보가 담긴 객체
+	 */
+	public void insertDonAlram(Alram alram);
 	
 	
 }

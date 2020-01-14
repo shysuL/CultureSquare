@@ -147,8 +147,24 @@ public class ArtboardViewController {
 
 		// 2. 후원 테이블에 삽입
 		pfboardService.insertDonation(donation);
+		
+		//3. 후원 알림 데이터 삽입
+		//3-1 받는 유저번호 구하기
+		int userno = pfboardService.getUserno(donation.getBoardno());
+		
+		//3-2 알람 데이터 삽입
+		Alram alram = new Alram();
+		alram.setUserno(userno);
+		
+		alram.setAlramcontents(donation.getDonprice()+"");
+		alram.setAlramsender((String)session.getAttribute("usernick"));
+		
+		alram.setBoardno(donation.getBoardno());
+		alram.setDonno(donation.getDonno());
+		
+		pfboardService.insertDonAlram(alram);
 
-		// 3. 해당 글로 다시 이동
+		// 4. 해당 글로 다시 이동
 		return "redirect:/artboard/view?boardno=" + donation.getBoardno();
 	}
 
