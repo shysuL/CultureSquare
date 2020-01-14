@@ -107,7 +107,7 @@ color: #343a40;
 
 
 <c:forEach items = "${boardlist }" var = "list">
-	<tr>
+	<tr onclick="location.href='/board/freeview?boardno=${list.boardno }'";>
 <%-- 	<td><input type="checkbox" name="checkRow" value="${list.boardno }"/></td> --%>
 		<td style="color: #1a3a5a; width: 5%;">${list.boardno }</td>
 		<c:choose>
