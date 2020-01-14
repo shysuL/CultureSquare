@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import prboard.dao.face.PRBoardDao;
+import prboard.dto.Alram;
 import prboard.dto.PRBoard;
 import prboard.dto.PRType;
 import prboard.dto.Reply;
@@ -407,5 +408,52 @@ public class PRBoardServiceImpl implements PRBoardService {
 	public List getLikeList(PRPaging paging) {
 		List list = prBoardDao.selectAllByLike(paging);
 		return list;
+	}
+
+	@Override
+	public int getUserno(int boardno) {
+		return prBoardDao.selectUserNoByBoardNo(boardno);
+	}
+
+	@Override
+	public void insertReplyAlram(Alram alram) {
+
+		prBoardDao.insertReplyAlram(alram);
+	}
+
+
+	@Override
+	public void deleteAlramReply(Reply reply) {
+		
+		prBoardDao.deleteAlramReply(reply);
+		
+	}
+
+	@Override
+	public int getLikeNo(PRBoard prBoard) {
+		return prBoardDao.selectLikeNo(prBoard);
+	}
+
+	@Override
+	public void insertLikeAlram(Alram alram) {
+		prBoardDao.insertLikeAlram(alram);
+		
+	}
+
+	@Override
+	public void deleteLikeAlram(int likeno) {
+		
+		prBoardDao.deleteLikeAlram(likeno);
+	}
+
+	@Override
+	public void insertReReplyAlram(Alram alram) {
+
+		prBoardDao.insertReReplyAlram(alram);
+	}
+
+	@Override
+	public int getUsernoByReplyNo(int replyno) {
+		return prBoardDao.selectUserNoByReplyNo(replyno);
 	}
 }

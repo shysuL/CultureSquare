@@ -378,13 +378,13 @@ $(document).ready(function(){
 			
 			<div class="userinformation">
 				<p class="font-weight-bold" style="font-size: 17px; text-align: left; margin-left: 5%;">
-					이름 : ${getUser.username } <br>
+					이름 : ${getUser.username }
 					<c:choose>
 						<c:when test="${getUser.usertype == 1}">
-							<small>"예술인"으로 등록된 사용자입니다.</small>
+							<small>[ 예술인 ]</small>
 						</c:when>
 						<c:otherwise>
-							<small>"일반 사용자"로 등록된 사용자입니다.</small>
+							<small>[ 일반 사용자 ]</small>
 						</c:otherwise>
 					</c:choose>
 				</p>

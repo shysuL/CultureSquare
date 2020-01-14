@@ -1216,8 +1216,23 @@ searchDetailAddrFromCoords(markerPosition,function(result,status) {
 		<li id = "writer_title" class="list-group-item">작성자 프로필</li>
 	<li class="list-group-item">
 		<div id = "writer_photo">
-		<img id="profileImg" src="/resources/img/userdefaultprofile.png" class="img-responsive img-circle"
+<!-- 		<img id="profileImg" src="/resources/img/userdefaultprofile.png" class="img-responsive img-circle" -->
+<!-- 							alt="Responsive image"> -->
+						<!-- 프로필 사진 -->
+			<c:choose>
+				<c:when test="${writer.storedname eq null }">
+					<p>
+						<img id="profileImg" src="/resources/img/userdefaultprofile.png" class="img-responsive img-circle"
 							alt="Responsive image">
+					</p>
+				</c:when>
+				<c:otherwise>
+					<p>
+						<img id="profileImg" src="/upload/${writer.storedname }"
+							class="img-responsive img-circle" alt="Responsive image" style="border-radius: 100px;">
+					</p>
+				</c:otherwise>
+			</c:choose>
 		</div>
   		<div id = "writer_info">${writer.usernick } 
   		<br>
