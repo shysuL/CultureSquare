@@ -365,4 +365,26 @@
 		WHERE 1=1
 			AND replyno = #{replyno }
 	</delete>
+	
+	<select id="selectLikeNo" resultType="int" parameterType="artboard.dto.Board">
+		SELECT likeno FROM blike 
+		WHERE userno = #{userno}
+		AND boardno = #{boardno}
+	</select>
+	
+	<insert id="insertLikeAlram"
+	 	parameterType="prboard.dto.Alram">
+		<selectKey order="BEFORE" resultType="int" keyProperty="alramno">
+			SELECT alram_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO alram (alramno, alramcontents, alramtime, alramcheck, alramtype, alramsender, userno, boardno, boardtype, replyno, likeno, donno)
+  		VALUES (#{alramno }, #{alramcontents }, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), 0, 2, #{alramsender }, #{userno }, #{boardno }, 1, null, ${likeno}, null)
+	</insert>
+	
+	<delete id="deleteLikeAlram"
+	 	parameterType="int">
+		DELETE alram
+		WHERE 1=1
+			AND likeno = #{likeno }
+	</delete>
 </mapper>

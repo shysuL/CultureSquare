@@ -418,6 +418,37 @@ public interface PFBoardDao {
 	 * @param reply - 삭제할 알림 정보가 담긴 객체
 	 */
 	public void deleteAlramReply(Reply reply);
+
+	/**
+	 * 2020-01-14
+	 * 조홍철
+	 * 
+	 * 좋아요 번호 구하기
+	 * 
+	 * @param board - 예술정보 게시판 정보가 담긴 객체
+	 * @return int - 좋아요 번호
+	 */
+	public int selectLikeNo(Board board);
+
+	/**
+	 * 2020-01-14
+	 * 조홍철
+	 * 
+	 * 좋아요 알람 데이터 삽입
+	 * 
+	 * @param alram - 삽입할 알람 객체
+	 */
+	public void insertLikeAlram(Alram alram);
+
+	/**
+	 * 2020-01-14
+	 * 조홍철
+	 * 
+	 * 좋아요 알람 데이터 삭제
+	 * 
+	 * @param likeno - 삭제할 좋아요 번호
+	 */
+	public void deleteLikeAlram(int likeno);
 	
 	
 }

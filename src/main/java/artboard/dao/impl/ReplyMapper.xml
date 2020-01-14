@@ -54,5 +54,4 @@
 		AND R.replyorder = 0
 		ORDER BY replyno DESC		
 	</select>
-	
 </mapper>
