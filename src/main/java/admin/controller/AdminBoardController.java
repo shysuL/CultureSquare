@@ -110,9 +110,6 @@ public class AdminBoardController {
 			model.addAttribute("pflist", list);
 			
 //--------------------------------------------------------------------------------------------
-			//FAQ
-			
-//--------------------------------------------------------------------------------------------
 			//공지사항
 			FreeBoard noticeboard = new FreeBoard();
 			
@@ -219,11 +216,6 @@ public class AdminBoardController {
 			model.addAttribute("pflist", list);
 			
 			return "/admin/board/calendar";
-			
-		} else if (category == 4) {
-			//FAQ
-			
-			return "/admin/board/faq";
 			
 		} else if (category == 5) {
 			//공지사항

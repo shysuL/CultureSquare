@@ -10,7 +10,9 @@ import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import artboard.dto.PFUpFile;
 import board.dao.face.NoticeBoardDao;
 import board.dto.FreeBoard;
 import board.dto.Reply;
@@ -126,15 +128,15 @@ public class NoticeBoardServiceImpl implements NoticeBoardService{
 	@Override
 	public UpFile getFile(int boardno) {
 		
-//		return noticeboardDao.selectFile(boardno);
-		return null;
+		return noticeboardDao.selectFile(boardno);
+		
 	}
 
 	@Override
 	public UpFile getFileNo(int fileno) {
 		
-//		return noticeboardDao.selectFileNo(fileno);
-		return null;
+		return noticeboardDao.selectFileNo(fileno);
+		
 	}
 
 	@Override
@@ -206,6 +208,55 @@ public class NoticeBoardServiceImpl implements NoticeBoardService{
 		return null;
 //		return noticeboardDao.selectReply(boardno);
 		
+	}
+
+	@Override
+	public void fileSave(MultipartFile mFile, int boardno) {
+		
+		String storedPath = context.getRealPath("upload");
+		String uuid = UUID.randomUUID().toString().split("-")[4];
+		String filename = mFile.getOriginalFilename() + "_" + uuid;
+		File dest = new File(storedPath, filename);
+		
+		try {	
+			mFile.transferTo(dest);			//실제 파일 저장
+			//					mFile.transferTo(imgDest);		//이미지 파일 저장
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+
+		// DB에 저장 (업로드된 파일의 정보를 기록)
+		UpFile upfile = new UpFile();
+		upfile.setOriginname(mFile.getOriginalFilename());
+		upfile.setStoredname(filename);
+		upfile.setFilesize((int)mFile.getSize());
+		upfile.setBoardno(boardno);
+
+		noticeboardDao.insertFile(upfile);
+		
+	}
+	
+	@Override
+	public void firstImageSave(MultipartFile mFile, int boardno) {
+		
+		String storedPath = context.getRealPath("pfImage");
+		String uuid = UUID.randomUUID().toString().split("-")[4];
+		String filename = boardno +"";
+		File dest = new File(storedPath, filename);
+		
+		try {	
+			mFile.transferTo(dest);			//실제 파일 저장
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 
 }
