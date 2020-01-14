@@ -241,7 +241,7 @@ public class MyPageServiceImpl implements MyPageService{
 	}
 	
 	@Override
-	public MyPaging getFollowPaing(MyPaging paging) {
+	public MyPaging getFollowPaging(MyPaging paging) {
 		
 		int totalCount = mypageDao.selectFollowCntAll(paging);
 		

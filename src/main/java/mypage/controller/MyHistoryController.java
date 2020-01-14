@@ -39,8 +39,6 @@ public class MyHistoryController {
 		
 		List<HashMap<String, Object>> likelist = new ArrayList<HashMap<String, Object>>();
 		
-		System.out.println("좋아요한 글" + result);
-
 		likelist = mypageService.getLikeList(result);
 		
 		model.addAttribute("url", req.getRequestURI());
@@ -53,17 +51,22 @@ public class MyHistoryController {
 	public void getLikeArtists(HttpServletRequest req, MyPaging paging, HttpSession session, Model model) {
 		
 		paging.setUserno((Integer)session.getAttribute("userno"));
-		
-		MyPaging result = mypageService.getFollowPaing(paging);
+		paging.setUsernick((String)session.getAttribute("usernick"));
+
+		logger.info("PAGING" + paging.toString());
+		MyPaging result = mypageService.getFollowPaging(paging);
+		result.setUsernick(paging.getUsernick());
 		
 		List<HashMap<String, Object>> followlist = new ArrayList<HashMap<String, Object>>();
 		
 		followlist = mypageService.getFollowList(result);
 		
+		System.out.println("팔로우" + result);
+		logger.info("팔로우 뜨라고" + followlist);
+		
 		model.addAttribute("url", req.getRequestURI());
 		model.addAttribute("paging", result);
 		model.addAttribute("followlist", followlist);
-		
 		
 	}
 

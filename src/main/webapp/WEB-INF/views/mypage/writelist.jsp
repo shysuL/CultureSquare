@@ -19,7 +19,7 @@
 
 <div class="container">
 	<div class="container text-center">
-		<h4 id="writelistsheader">"${usernick }"님이 쓴 글 </h4>
+		<h4 id="writelistsheader">${usernick } 님이 쓴 글 </h4>
 	</div>
 </div>
 

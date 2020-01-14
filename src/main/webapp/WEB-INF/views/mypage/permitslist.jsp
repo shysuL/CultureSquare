@@ -19,7 +19,7 @@
 
 <div class="container">
 	<div class="container text-center">
-		<h4 id="permitslistheader">${usernick }이 후원한 내역 </h4>
+		<h4 id="permitslistheader">${usernick } 님이 후원한 내역 </h4>
 	</div>
 </div>
 
@@ -43,10 +43,7 @@
 						<tr style="text-align: center;">
 							<td>${permitlist.RNUM }</td>
 							<td>${permitlist.TITLE }</td>
-							<td>
-<%-- 								${permitlist.TITLE } --%>
-								으갸갹
-							</td>
+							<td>${permitlist.RECIVE }</td>
 							<td>${permitlist.DONPRICE }원</td>
 							<td>${permitlist.USERNAME }</td>
 						</tr>

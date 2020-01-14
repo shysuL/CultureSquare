@@ -153,50 +153,50 @@ $(document).ready(function(){
 			<small>&emsp;'-'없이 번호만 입력해주세요.</small>
 			<div class="check_font" id="phone_check"></div><br>
 			
-			<div class="form-group">
-           		<label>관심분야</label>
-	           		<c:forEach items="${list}" var="check">
-		           			<c:if test="${check.interest == '버스킹'}">
-		           				<div class="custom-control custom-check">
-				           			<c:if test="${check.check}">
-					                	<input type="checkbox" class="custom-control-input" id="busking" name="interest" value="버스킹" checked="checked">
-					                </c:if>
-				           			<c:if test="${empty check.check}">
-					                	<input type="checkbox" class="custom-control-input" id="busking" name="interest" value="버스킹">
-					                </c:if>
-									<label class="custom-control-label" for="busking">버스킹</label>
-			            		</div>
-			                </c:if>
+<!-- 			<div class="form-group"> -->
+<!--            		<label>관심분야</label> -->
+<%-- 	           		<c:forEach items="${list}" var="check"> --%>
+<%-- 		           			<c:if test="${check.interest == '버스킹'}"> --%>
+<!-- 		           				<div class="custom-control custom-check"> -->
+<%-- 				           			<c:if test="${check.check}"> --%>
+<!-- 					                	<input type="checkbox" class="custom-control-input" id="busking" name="interest" value="버스킹" checked="checked"> -->
+<%-- 					                </c:if> --%>
+<%-- 				           			<c:if test="${empty check.check}"> --%>
+<!-- 					                	<input type="checkbox" class="custom-control-input" id="busking" name="interest" value="버스킹"> -->
+<%-- 					                </c:if> --%>
+<!-- 									<label class="custom-control-label" for="busking">버스킹</label> -->
+<!-- 			            		</div> -->
+<%-- 			                </c:if> --%>
 			                
-	        				<c:if test="${check.interest == '공연/예술'}">
-			            		<div class="custom-control custom-check">
-				           			<c:if test="${check.check}">
-										<input type="checkbox" class="custom-control-input" id="perform" name="interest" value="공연/예술" checked="checked">
-				                	</c:if>	
-				           			<c:if test="${empty check.check}">
-										<input type="checkbox" class="custom-control-input" id="perform" name="interest" value="공연/예술">
-				                	</c:if>
-				                		<label class="custom-control-label" for="perform">공연/예술</label>
-			            		</div>
-		                	</c:if>
+<%-- 	        				<c:if test="${check.interest == '공연/예술'}"> --%>
+<!-- 			            		<div class="custom-control custom-check"> -->
+<%-- 				           			<c:if test="${check.check}"> --%>
+<!-- 										<input type="checkbox" class="custom-control-input" id="perform" name="interest" value="공연/예술" checked="checked"> -->
+<%-- 				                	</c:if>	 --%>
+<%-- 				           			<c:if test="${empty check.check}"> --%>
+<!-- 										<input type="checkbox" class="custom-control-input" id="perform" name="interest" value="공연/예술"> -->
+<%-- 				                	</c:if> --%>
+<!-- 				                		<label class="custom-control-label" for="perform">공연/예술</label> -->
+<!-- 			            		</div> -->
+<%-- 		                	</c:if> --%>
 		                
-	           				<c:if test="${check.interest == '기타'}">
-			            		<div class="custom-control custom-check">
-				           			<c:if test="${check.check}">
-						                <input type="checkbox" class="custom-control-input" id="etc" name="interest" value="기타" checked="checked">
-						            </c:if>
-				           			<c:if test="${empty check.check}">
-						                <input type="checkbox" class="custom-control-input" id="etc" name="interest" value="기타">
-						            </c:if>
-						                <label class="custom-control-label" for="etc">기타</label>
-			            		</div>   
-			                </c:if>
-				</c:forEach>       		
+<%-- 	           				<c:if test="${check.interest == '기타'}"> --%>
+<!-- 			            		<div class="custom-control custom-check"> -->
+<%-- 				           			<c:if test="${check.check}"> --%>
+<!-- 						                <input type="checkbox" class="custom-control-input" id="etc" name="interest" value="기타" checked="checked"> -->
+<%-- 						            </c:if> --%>
+<%-- 				           			<c:if test="${empty check.check}"> --%>
+<!-- 						                <input type="checkbox" class="custom-control-input" id="etc" name="interest" value="기타"> -->
+<%-- 						            </c:if> --%>
+<!-- 						                <label class="custom-control-label" for="etc">기타</label> -->
+<!-- 			            		</div>    -->
+<%-- 			                </c:if> --%>
+<%-- 				</c:forEach>       		 --%>
+<!-- 			</div> -->
+			<div style="text-align: center;">
+				<button type="button" id="updatesuccess" class="btn btn-dark">수정 완료</button>
+				<button type="button" id="updatecancel" class="btn btn-danger" >수정 취소</button>
 			</div>
-			
-			<button type="button" id="updatesuccess" class="btn btn-dark">수정 완료</button>
-			<button type="button" id="updatecancel" class="btn btn-danger" >수정 취소</button>
-		
 		</div>
 	</form>
 	

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import admin.dao.face.AdminDao;
 import admin.dto.Admin;
 import admin.service.face.AdminService;
+import artboard.dto.Board;
 import user.dto.User_table;
 import util.Paging;
 
@@ -63,5 +64,10 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void downpermit(User_table user) {
 		adminDao.downPermit(user);
+	}
+
+	@Override
+	public Board getView(Board board) {
+		return adminDao.selectNotice(board);
 	}
 }

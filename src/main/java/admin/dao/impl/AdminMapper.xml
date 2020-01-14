@@ -54,5 +54,11 @@
 		SET permit = 0, usertype = 0
 		WHERE userno = #{userno }
 	</update>
+	
+	<select id="selectNotice" resultType="artboard.dto.Board" parameterType="artboard.dto.Board">
+		SELECT * 
+		FROM board
+		WHERE postno = 4
+	</select>
 
 </mapper>
