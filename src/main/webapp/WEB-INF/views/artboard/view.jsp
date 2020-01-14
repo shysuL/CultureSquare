@@ -1163,37 +1163,56 @@ function zoomOut() {
 // 주소-좌표 변환 객체를 생성합니다
 var geocoder = new kakao.maps.services.Geocoder();
 
-var marker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
-    infowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+
+var markerPosition = new kakao.maps.LatLng(lat,lon)
+
+var marker = new kakao.maps.Marker({
+	map:map,
+	position : markerPosition
+}) // 클릭한 위치를 표시할 마커입니다
 
 // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
 searchAddrFromCoords(map.getCenter(), displayCenterInfo);
     
 // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
-kakao.maps.event.addListener(map, 'load', function(mouseEvent) {
-    searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
-        if (status === kakao.maps.services.Status.OK) {
-            var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-            detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+// kakao.maps.event.addListener(marker, 'load', function(mouseEvent) {
+//     searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+//         if (status === kakao.maps.services.Status.OK) {
+//             var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+//             detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
             
-            var content = '<div class="bAddr">' +
-                            '<span class="title">법정동 주소정보</span>' + 
-                            detailAddr + 
-                        '</div>';
+//             var content = '<div class="bAddr">' +
+//                             '<span class="title">법정동 주소정보</span>' + 
+//                             detailAddr + 
+//                         '</div>';
 			
-            // 마커를 클릭한 위치에 표시합니다 
-            marker.setPosition(mouseEvent.latLng);
-            marker.setMap(map);
+//                 iwRemoveable = true;
+//             // 마커를 클릭한 위치에 표시합니다 
+//             marker.setPosition(mouseEvent.latLng);
+//             marker.setMap(map);
 
-            // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-            infowindow.setContent(content);
-            infowindow.open(map, marker);
-            detailaddress = detailAddr;
-            console.log(detailaddress);
-        	console.log(result[0].road_address);
-        }   
-    });
-});
+//             // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+//             infowindow.setContent(content);
+//             infowindow.open(map, marker);
+//             detailaddress = detailAddr;
+//             console.log(detailaddress);
+//         	console.log(result[0].road_address);
+//         }   
+//     });
+// });
+var iwcontent = '<div class="bAddr">' +
+'<span class="title">법정동 주소정보</span>' + 
+geocoder + 
+'</div>',
+iwPosition = new kakao.maps.LatLng(lat,lon)
+var infowindow = new kakao.maps.InfoWindow({
+	    	zindex:1,
+	    	map:map,
+	    	position: iwPosition,
+	    	content: iwcontent
+// 	    	,
+// 	    	removeable : iwRemoveable
+    }); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
 
 // 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
 kakao.maps.event.addListener(map, 'idle', function() {
