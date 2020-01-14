@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import board.dto.FreeBoard;
+import board.dto.UpFile;
 import util.Paging;
 
 public interface NoticeBoardDao {
@@ -23,5 +24,7 @@ public interface NoticeBoardDao {
 	public FreeBoard selectByUserNick(Object attribute);
 
 	public List<FreeBoard> selectViewsAll();
+
+	public void insertFile(UpFile upfile);
 
 }

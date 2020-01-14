@@ -52,7 +52,7 @@
 		</selectKey>
 	
 		INSERT INTO board ( boardno, title, writtendate, contents, views, userno, postno )
-		VALUES ( board_seq.nextval, #{title }, TO_CHAR(sysdate, 'yyyy-mm-dd' ), #{contents }, 0, 0, 4 )
+		VALUES ( #{boardno}, #{title }, TO_CHAR(sysdate, 'yyyy-mm-dd' ), #{contents }, 0, 0, 4 )
 	</insert>
 	
 	<update id="updateViews" parameterType="int">
@@ -76,5 +76,13 @@
 		) BOARD
 		WHERE rnum BETWEEN 1 AND 5
 	</select>
+	
+	<insert id="insertFile" parameterType="board.dto.UpFile">
+		<selectKey order="BEFORE" resultType="int" keyProperty="fileno">
+			SELECT upfile_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO upfile
+		VALUES ( upfile_seq.nextval, #{originname}, #{storedname}, #{filesize}, #{boardno})
+	</insert>
   
   </mapper>

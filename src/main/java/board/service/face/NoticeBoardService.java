@@ -3,6 +3,8 @@ package board.service.face;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import board.dto.FreeBoard;
 import board.dto.Reply;
 import board.dto.UpFile;
@@ -222,4 +224,26 @@ public interface NoticeBoardService {
 	 * @return - 조회된 게시글 댓글 리스트
 	 */
 	public List<Reply> getReplyList(int boardno);
+	
+	/**
+	 * 2020-01-14
+	 * 채해원
+	 * 
+	 * 첨부파일 삽입
+	 * 
+	 * @param mFile
+	 * @param boardno
+	 */
+	public void fileSave(MultipartFile mFile, int boardno);
+
+	/**
+	 * 2020-01-14
+	 * 채해원
+	 * 
+	 * 처음 올리는 이미지인 경우 이미지 업로드
+	 * 
+	 * @param mFile
+	 * @param boardno
+	 */
+	public void firstImageSave(MultipartFile mFile, int boardno);
 }
