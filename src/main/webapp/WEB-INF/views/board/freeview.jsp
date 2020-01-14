@@ -1256,7 +1256,7 @@ span[class=close] {
 
 <div class="container list-container">
 
-<div class="h2"><h2> 자유게시판 </h2></div>
+<div class="h2"><h2 style="margin-top: 40px; margin-bottom: 20px;"> 자유게시판 </h2></div>
 <hr>
 <div class="container">
 	<table class="table table-bordered">

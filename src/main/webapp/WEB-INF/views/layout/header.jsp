@@ -625,7 +625,7 @@ function getInfiniteAlram(usernick){
     width: 220px;
 }
 .alram {
-    margin-left: -145px;
+    margin-left: -212px;
     width: 356px;
     overflow: auto;
     height: 215px;

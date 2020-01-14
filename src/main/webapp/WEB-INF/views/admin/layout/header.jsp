@@ -62,16 +62,19 @@ a {
 
 #top {
     position: fixed;
-    right: 5%;
-    bottom: 50px;
+    right: 7%;
+    bottom: 100px;
     z-index: 999;
     font-size: 20px;
     text-decoration: none;
-    width: 100px;
+    width: 108px;
+    height: 70px;
     text-align: center;
-    padding-top: 10px;
     padding-bottom: 10px;
-    border: 1px solid #ccc;
+    background-color: #5b5f63;
+    color: #fff;
+    padding-top: 21px;
+    border-radius: 33px;
 }
 
 </style>

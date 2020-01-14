@@ -208,7 +208,8 @@ span[class=close] {
 <br>
 
 	<div style="text-align: center;">
-		<button id="btnUpdate" class="btn btn-dark" >수정</button>
+		<button onclick="location.href='/admin/main';" class="btn btn-secondary">메인</button>
+		<button id="btnUpdate" class="btn btn-secondary" >수정</button>
 		<button id="btnDelete" class="btn btn-secondary" >삭제</button>
 	</div>	
 </div>

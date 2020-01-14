@@ -1023,8 +1023,8 @@ $(document).ready(function() {
 %>
 <div class="container list-container">
 
-<div class="h2"><h2> CALENDAR </h2></div>
-<br>
+<div class="h2"><h2 style="margin-top: 40px; margin-bottom:20px;"> CALENDAR </h2></div>
+<hr>
 <div class="row">
 	<div class="col-9">
 		<div class="container container-fluid" style="margin-bottom: 50px">
