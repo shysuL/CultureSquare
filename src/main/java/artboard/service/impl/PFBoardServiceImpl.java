@@ -528,12 +528,10 @@ public class PFBoardServiceImpl implements PFBoardService{
 		pfboardDao.insertDonAlram(alram);
 	}
 
-
 	@Override
 	public int getFollowNo(Board board) {
 		return pfboardDao.selectFollowNo(board);
 	}
-
 
 	@Override
 	public void insertfollowAlram(Alram alram) {
@@ -548,4 +546,8 @@ public class PFBoardServiceImpl implements PFBoardService{
 		pfboardDao.deleteFollowAlram(followNo);
 	}
 
+	@Override
+	public void deleteLoc(Board board) {
+		pfboardDao.deleteLoc(board);
+	}
 }

@@ -437,11 +437,6 @@ public interface PFBoardService {
 	 * @param groupNo - 삭제될 답글의 그룹 번호
 	 */
 	public void deleteRereplyByGroupNo(int groupNo);
-
-	
-	
-	
-	
 	
 	/**
 	 * 2020-01-13
@@ -449,23 +444,40 @@ public interface PFBoardService {
 	 * 
 	 * 팔로우
 	 *  
-	 * @param board - 추천테이블에 들어갈 객체
+	 * @param board - 팔로우테이블에 들어갈 객체
 	 */
 	public void follow(Board board);
-
-
-
-
+	
+	/**
+	 * 2020-01-13
+	 * 이수현
+	 * 
+	 * 팔로우 취소
+	 *  
+	 * @param board - 팔로우테이블에 들어갈 객체
+	 */
 	public void followCancel(Board board);
 
-
-
-
+	/**
+	 * 2020-01-13
+	 * 이수현
+	 * 
+	 * 게시글의 추천 갯수를 센다
+	 * 
+	 * @param Board - 게시글 정보가 담긴 객체
+	 * @return int - 팔로우 수
+	 */
 	public int followView(Board board);
 
-
-
-
+	/**
+	 * 2020-01-13
+	 * 이수현
+	 * 
+	 * 팔로우 여부 조회
+	 * 
+	 * @param Board - 팔로우 여부 조회할 정보가 담긴 객체
+	 * @return int - 팔로우 여부
+	 */
 	public int followCheck(Board board);
 
 
@@ -581,8 +593,6 @@ public interface PFBoardService {
 	 */
 	public void insertReReplyAlram(Alram alram);
 
-
-
 	/**
 	 * 2020-01-14
 	 * 조홍철
@@ -592,9 +602,7 @@ public interface PFBoardService {
 	 * @param alram - 삽입할 알림 정보가 담긴 객체
 	 */
 	public void insertDonAlram(Alram alram);
-
-
-
+	
 	/**
 	 * 2020-01-14
 	 * 조홍철
@@ -606,8 +614,6 @@ public interface PFBoardService {
 	 */
 	public int getFollowNo(Board board);
 
-
-
 	/**
 	 * 2020-01-14
 	 * 조홍철
@@ -618,8 +624,6 @@ public interface PFBoardService {
 	 */
 	public void insertfollowAlram(Alram alram);
 
-
-
 	/**
 	 * 2020-01-14
 	 * 조홍철
@@ -628,6 +632,15 @@ public interface PFBoardService {
 	 * 
 	 * @param followNo - 삭제할 팔로우 번호
 	 */
-	
 	public void deleteFollowAlram(int followNo);
+
+	/**
+	 * 2020 - 01 - 14
+	 * 이수현
+	 * 
+	 * 게시글 삭제 시 위치 정보 삭제
+	 * 
+	 * @param board - 게시글 정보가 담긴 객체
+	 */
+	public void deleteLoc(Board board);
 }

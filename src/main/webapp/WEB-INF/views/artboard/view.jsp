@@ -418,8 +418,10 @@ function getReReply(replyno){
 						  if(res.reReplyList[i].usernick == "${usernick}") {
 		    	              html += "<div><a style = 'color: red; cursor: pointer;'class='reReplyDelete' onClick=deleteReReply(" + res.reReplyList[i].replyno + ")>삭제</a>";
 		    	          	//.replace 메서드로 빈칸 에러 해결 => 정규식 / /gi 이 모든 빈칸을 뜻함
-		    	              html+= "<a style = 'color: #007bff; cursor: pointer;' class='reReplyModify' onClick=modifyReReply(" + res.reReplyList[i].replyno + ",\'"+res.reReplyList[i].recontents.replace(/ /gi, "&nbsp;") +"\')>수정</a>";
+		    	              html += "<a style = 'color: #007bff; cursor: pointer;' class='reReplyModify' onClick=modifyReReply(" + res.reReplyList[i].replyno + ",\'"+res.reReplyList[i].recontents.replace(/ /gi, "&nbsp;") +"\')>수정</a>";
 		    	              html +="</div>";
+						  }else{
+							  html +="<div>&nbsp;</div>";
 						  }
 		    	              
 	    	              html +="</div>";
@@ -487,9 +489,11 @@ function getCommentList(){
 	            var cCnt = res.reList.length;
 	            var html = "";
 	            if(res.reList.length > 0){
-	            	 
+
 	            	for(i=0; i<res.reList.length; i++){
 // 	                    html += "<div class='container' style='mawrgin-bottom: 40px'>";
+	                    html += "<c:if test = '${writer.userno != 0 }'>";
+
 	                    html += "<div class='row commentBox' id = 'commentBox"+res.reList[i].replyno+"'>";
 	                    html += "<div id = 'reply_head' class = 'col-12' >";
 	                    html += "<span>" + res.reList[i].usernick + "</span>"
@@ -518,6 +522,13 @@ function getCommentList(){
 	                    	html += "<div id = 'deleteReplyBtn'>";
 	                    	html += "<button class='btn bbc' onclick='deleteReply(" + res.reList[i].replyno + ");'>삭제</button>";
 	                    	html += "</div></div>";
+	                    }else{
+	                    	html += "<div class='col-1.5'>";
+	                    	html += "<div id = 'updateReplyBtn'>";
+	                    	html += "</div></div>";
+	                    	html += "<div class='col-1.5'>";
+	                    	html += "<div id = 'deleteReplyBtn'>";
+	                    	html += "</div></div>";
 	                    }
                     	html += "</div><br>";
                     	
@@ -527,12 +538,13 @@ function getCommentList(){
 	        	html += "<div>";
                 html += "<h6><strong>등록된 댓글이 없습니다.</strong></h6>";
                 html += "</div>";
+                html += "</c:if >";
 	        }
 	            $("#cCnt").html(cCnt);
 	            $("#commentList").html(html);
 	            
 	            
-	       }  , 
+	       }, 
 	       error:function(request,status,error){
 	       }
 	});
@@ -542,16 +554,32 @@ function getCommentList(){
 $(document).ready(function() {
 	
 	var money;
-	
+	var writerno = ${writer.userno}
 	//로그인 안했을 경우 후원하기 버튼 누르면 모달
 	$("#noLoginDonationbtn").click(function() {
-		$("#artNotLoginModal .content").text('로그인 후 후원이 가능합니다.');
-		$("#artNotLoginModal").modal({backdrop: 'static', keyboard: false});
-		return false;
+		if(writerno == 0 ){
+			console.log(1);
+			$("#artNotLoginModal .content").text('후원할 수 없는 게시글입니다.');
+			$("#artNotLoginModal").modal({backdrop: 'static', keyboard: false});
+			return false;
+		}else{
+			console.log(2);
+			$("#artNotLoginModal .content").text('로그인 후 후원이 가능합니다.');
+			$("#artNotLoginModal").modal({backdrop: 'static', keyboard: false});
+			return false;
+		}
 	});
 	
 	//로그인 후 후원하기버튼 클릭 시 모달
 	$("#donationbtn").click(function() {
+		if(writerno == 0 ){
+			console.log(3);
+			$("#artNotLoginModal .content").text('후원할 수 없는 게시글입니다.');
+			$("#artNotLoginModal").modal({backdrop: 'static', keyboard: false});
+			return false;
+		}else{
+			
+		
 		var msg = '후원하실 금액을 선택하세요.';
 		msg += '<div class="custom-control custom-radio">'
   		msg +=    '<input type="radio" class="custom-control-input" id="1000won" name="donprice" value="1000">';
@@ -573,6 +601,7 @@ $(document).ready(function() {
   		
   		$("#donationModal .content").html(msg);
 		$("#donationModal").modal({backdrop: 'static', keyboard: false});
+		}
 	});
 	
 	//후원 모달에서 후원하기 눌렀을때
@@ -995,8 +1024,6 @@ $(document).ready(function() {
 <div class="container list-container">
 
 <div class="h2"><h2> CALENDAR </h2></div>
-<hr>
-<h3>VIEWVIEW</h3>
 <br>
 <div class="row">
 	<div class="col-9">
@@ -1164,7 +1191,6 @@ if (status === kakao.maps.services.Status.OK) {
 					<button type = "button" class="btn  bbc" id = "donationbtn">후원하기</button>
 			</c:when>
 		</c:choose>
-			<button type = "button" class="btn  bbc" >추천</button>
 			<a href="/artboard/list?bo_table=calendar&cal_year=<%= cal.get(Calendar.YEAR)%>&cal_month=<%=(cal.get(Calendar.MONTH)+1< 10) ?"0"+(cal.get(Calendar.MONTH)+1) :cal.get(Calendar.MONTH)+1%>">
 			<button type = "button" class="btn  bbc" >목록</button>
 			</a>
@@ -1180,12 +1206,19 @@ if (status === kakao.maps.services.Status.OK) {
 	
 		<%-- 댓글입력 시 이동 위치 --%>
 <!-- 비로그인상태 -->
-<c:if test="${not login }">
+<c:if test="${not login && writer.userno ==0}">
+<strong>댓글을 작성할 수 없는 게시글입니다.</strong><br>
+</c:if>
+<c:if test="${not login && writer.userno !=0}">
 <strong>로그인이 필요합니다</strong><br>
 </c:if>
 
+<c:if test="${login && writer.userno == 0 }">
+<strong>댓글을 작성할 수 없는 게시글입니다.</strong><br>
+</c:if>
+
 <!-- 로그인상태 -->
-<c:if test="${login }">
+<c:if test="${login && writer.userno != 0 }">
 <!-- 댓글 입력 -->
 <div>
 	<div style="text-align: right; margin-right: 35px; margin-bottom: 5px;">
@@ -1300,7 +1333,7 @@ if (status === kakao.maps.services.Status.OK) {
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">로그아웃 상태</h4>
+        <h4 class="modal-title">후원 불가</h4>
         <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 

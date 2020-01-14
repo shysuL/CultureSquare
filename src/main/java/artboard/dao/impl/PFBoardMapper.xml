@@ -432,6 +432,13 @@
   		VALUES (#{alramno }, #{alramcontents }, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), 0, 4, #{alramsender }, #{userno }, #{boardno }, 1, null, null, null)
 	</insert>
 	
+	<delete id="deleteLoc"
+		parameterType="artboard.dto.Board">
+		DELETE pfloc
+		WHERE 1=1
+		AND boardno = #{boardno}
+	</delete>
+
 	<select id="selectFollowNo" resultType="int" parameterType="artboard.dto.Board">
 		SELECT followno FROM follow 
 		WHERE usernick = #{usernick}

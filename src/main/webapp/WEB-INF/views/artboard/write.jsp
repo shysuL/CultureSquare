@@ -86,8 +86,6 @@ $(document).ready(function() {
 			$("#locWriteModalBtn").click(function(){			
 				$('#addMap').focus();
 			}) 
-
-			
 		}
 		else if($('#lon').val() == '' ){
 			$("#locWtriteModal").modal({backdrop: 'static', keyboard: false});
@@ -190,7 +188,7 @@ function fn_fileAdd(){
 		<br>
 			<div>
 				<label for="title"><b> 제목 </b></label><br>
-				<input id="title" name="title" type="text" style="width: 100%;" placeholder=" 제목을 입력하세요."/ >
+				<input id="title" name="title" type="text" style="width: 100%;" placeholder=" 제목을 입력하세요." />
 			</div>
 			<br>
 			<div>
@@ -304,6 +302,31 @@ function fn_fileAdd(){
       <!-- Modal body -->
       <div class="modal-body content">
      	 제목을 입력하세요
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="pfWriteErrorModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 날짜 입력 여부 확인 모달-->
+<div class="modal fade" id="writeDateModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">게시글 작성</h4>
+        <button id="inputPwX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+     	 일정 날짜를 입력하세요
       </div>
 
       <!-- Modal footer -->
