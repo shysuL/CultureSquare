@@ -40,9 +40,8 @@
 </style>
 
 
-<div class="container">
-
-<h2>공지 게시판</h2>
+<div class="container list-container">
+<div class="h2"><h2> 공지사항 </h2></div>
 <hr>
 <div class="container">
 	<table class="table table-bordered">
@@ -62,16 +61,14 @@
 
 	
 		<tr>
-			<td colspan="4">${ntboard.contents }</td>
+			<td colspan="4" style="height: 500px;">${ntboard.contents }</td>
 		</tr>
 
 
 	</table>
 
-	<br>
-
-	<div class="text-center" >
-		<a href="/noticeboard/noticelist"><button id="btnList" class="btn btn-default" style="float: left; background-color: #343a40; color: white; ">목록</button></a>
+	<div  style="text-align: right;">
+		<a href="/noticeboard/noticelist"><button id="btnList" class="btn btn-default" style="background-color: #343a40; color: white; ">목록</button></a>
 	</div>	
 </div>
 </div>
@@ -79,3 +76,4 @@
 
 
 <jsp:include page="/WEB-INF/views/layout/footer.jsp"/> 
+

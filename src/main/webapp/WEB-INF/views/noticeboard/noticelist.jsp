@@ -67,10 +67,9 @@ color: #343a40;
 </style>
 
 
-<div class="container" >
+<div class="container list-container">
+<div class="h2"><h2> 공지사항 </h2></div>
 <hr>
-<h2>공지사항</h2>
-
 <div class="row">
 <!-- 게시판 리스트 -->
 <div class="col-8">
@@ -86,22 +85,22 @@ color: #343a40;
 <table class="table table-border table-hover table-condesed table-stripe" style="color: #343a40;">
 
 
-<c:forEach items = "${boardlist }" var = "list">
+<c:forEach items = "${boardlist }" var = "noticelist">
 	<tr>
 <%-- 	<td><input type="checkbox" name="checkRow" value="${list.boardno }"/></td> --%>
-		<td style="color: #1a3a5a; width: 5%;">${list.boardno }</td>
+		<td style="color: #1a3a5a; width: 5%;">${noticelist.boardno }</td>
 		<c:choose>
-			<c:when test="${list.blike == 0}">
+			<c:when test="${noticelist.blike == 0}">
 				<td style="color: #1a3a5a; width: 5%;"></td>
 			</c:when>
 			<c:otherwise>
-				<td style="color: #1a3a5a; width: 5%;">${list.blike }</td>
+				<td style="color: #1a3a5a; width: 5%;">${noticelist.blike }</td>
 			</c:otherwise>
 		</c:choose>
-		<td style="color: #1a3a5a; width: 40%;"><a class="tit" href="/noticeboard/noticeview?boardno=${list.boardno }">${list.title }</a></td>
+		<td style="color: #1a3a5a; width: 40%;"><a class="tit" href="/noticeboard/noticeview?boardno=${noticelist.boardno }">${noticelist.title }</a></td>
 		<td style="color: #1a3a5a; width: 20%;">관리자</td>
-		<td style="color: #1a3a5a; width: 10%;">${list.views }</td>
-		<td style="color: #1a3a5a; width: 20%;">${list.writtendate }</td>
+		<td style="color: #1a3a5a; width: 10%;">${noticelist.views }</td>
+		<td style="color: #1a3a5a; width: 20%;">${noticelist.writtendate }</td>
 	</tr>
 </c:forEach>
 

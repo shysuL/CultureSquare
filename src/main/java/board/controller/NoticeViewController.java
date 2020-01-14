@@ -13,6 +13,7 @@ import org.springframework.social.google.connect.GoogleConnectionFactory;
 import org.springframework.social.oauth2.GrantType;
 import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Parameters;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +25,7 @@ import user.bo.NaverLoginBO;
 import user.service.face.KakaoService;
 import util.Paging;
 
+@Controller
 public class NoticeViewController {
 
 	/* NaverLoginBO */
@@ -50,6 +52,7 @@ public class NoticeViewController {
 	
 	@RequestMapping(value = "/noticeboard/noticeview", method = RequestMethod.GET)
 	public void noticeboardList(Model model, @RequestParam("boardno") int boardno, HttpSession session) {
+	
 		
 		
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
@@ -83,6 +86,16 @@ public class NoticeViewController {
 		noticeboardService.increaseViews(boardno);
 		
 		FreeBoard ntboardDetail = noticeboardService.noticeDetail(boardno);
+		
+		if(session.getAttribute("usernick") != null) {
+			// 세션에 저장된 usernick를 모델로 전달
+			FreeBoard user = new FreeBoard();
+			Object usernick = session.getAttribute("usernick");
+			user = noticeboardService.getUserNoByNick(usernick);		
+			
+			// 조회된 회원정보를 모델로 전달
+			model.addAttribute("LoginUser", user);
+		}
 		
 		model.addAttribute("ntboard", ntboardDetail);
 		
