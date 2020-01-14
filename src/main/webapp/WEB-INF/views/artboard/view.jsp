@@ -418,8 +418,10 @@ function getReReply(replyno){
 						  if(res.reReplyList[i].usernick == "${usernick}") {
 		    	              html += "<div><a style = 'color: red; cursor: pointer;'class='reReplyDelete' onClick=deleteReReply(" + res.reReplyList[i].replyno + ")>삭제</a>";
 		    	          	//.replace 메서드로 빈칸 에러 해결 => 정규식 / /gi 이 모든 빈칸을 뜻함
-		    	              html+= "<a style = 'color: #007bff; cursor: pointer;' class='reReplyModify' onClick=modifyReReply(" + res.reReplyList[i].replyno + ",\'"+res.reReplyList[i].recontents.replace(/ /gi, "&nbsp;") +"\')>수정</a>";
+		    	              html += "<a style = 'color: #007bff; cursor: pointer;' class='reReplyModify' onClick=modifyReReply(" + res.reReplyList[i].replyno + ",\'"+res.reReplyList[i].recontents.replace(/ /gi, "&nbsp;") +"\')>수정</a>";
 		    	              html +="</div>";
+						  }else{
+							  html +="<div>&nbsp;</div>";
 						  }
 		    	              
 	    	              html +="</div>";
@@ -519,6 +521,13 @@ function getCommentList(){
 	                    	html += "<div class='col-1.5'>";
 	                    	html += "<div id = 'deleteReplyBtn'>";
 	                    	html += "<button class='btn bbc' onclick='deleteReply(" + res.reList[i].replyno + ");'>삭제</button>";
+	                    	html += "</div></div>";
+	                    }else{
+	                    	html += "<div class='col-1.5'>";
+	                    	html += "<div id = 'updateReplyBtn'>";
+	                    	html += "</div></div>";
+	                    	html += "<div class='col-1.5'>";
+	                    	html += "<div id = 'deleteReplyBtn'>";
 	                    	html += "</div></div>";
 	                    }
                     	html += "</div><br>";
@@ -1196,11 +1205,14 @@ if (status === kakao.maps.services.Status.OK) {
 	
 		<%-- 댓글입력 시 이동 위치 --%>
 <!-- 비로그인상태 -->
-<c:if test="${not login }">
+<c:if test="${not login && writer.userno ==0}">
+<strong>댓글을 작성할 수 없는 게시글입니다.</strong><br>
+</c:if>
+<c:if test="${not login && writer.userno !=0}">
 <strong>로그인이 필요합니다</strong><br>
 </c:if>
 
-<c:if test="${writer.userno == 0 }">
+<c:if test="${login && writer.userno == 0 }">
 <strong>댓글을 작성할 수 없는 게시글입니다.</strong><br>
 </c:if>
 
