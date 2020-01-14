@@ -367,12 +367,23 @@ $(document).ready(function(){
 	height: 20px;
 	width: 20px;
 }
-
+#joinName{
+    height: 70px;
+    text-align: center;
+    padding: 1.5%;
+    margin-bottom: 5%;
+    color: rgba(255,255,255,.75);
+    margin-top: 40px;
+}
 </style>
 
+
+		
+		
+
 <div class="container myPageContainer" id="myPageContainer">
-	<div class="container text-center">
-		<h4 id="mypageheader">${getUser.usernick } 님의 마이페이지</h4>
+	<div class="container text-center" style="background-color: #343a40!important;">
+		<h2 id="joinName">${getUser.usernick } 님의 마이페이지</h2>
 	</div>
 	<div class="container box" style="margin-bottom: 1%;">
 		<!-- 나의 정보 -->

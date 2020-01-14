@@ -2,6 +2,8 @@ package admin.controller;
 
 import java.util.Iterator;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,16 +11,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import admin.service.face.AdminService;
+import artboard.dto.Board;
 import board.dto.FreeBoard;
+import board.dto.UpFile;
 import board.service.face.NoticeBoardService;
 
 @Controller
 public class AdminWriteController {
 
 	@Autowired private NoticeBoardService noticeboardService;
+	@Autowired private AdminService adminService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdminWriteController.class);
 	
@@ -63,6 +70,41 @@ public class AdminWriteController {
 				logger.info(i + " . 실제파일이름" + originName);
 				i++;
 			}
+		}
+		
+		return "redirect:/admin/main";
+	}
+	
+	@RequestMapping(value="/admin/board/view/noticeupdate", method=RequestMethod.GET)
+	public void modifyNotice(Model model, @RequestParam("boardno") int boardno, Board board, HttpSession session) {
+		
+		Board notice = adminService.getView(board);
+		UpFile fileinfo = noticeboardService.getFile(boardno);
+		
+		model.addAttribute("notice", notice);
+		model.addAttribute("fileinfo", fileinfo);
+		
+	}
+	
+	@RequestMapping(value="/admin/board/view/noticeupdate", method=RequestMethod.POST)
+	public String modifyNotice(Model model, FreeBoard noticeboard, UpFile file) {
+		 
+		UpFile fileinfo = noticeboardService.getFile(noticeboard.getBoardno());
+		
+		if (fileinfo == null) {
+			if(file.getFile().isEmpty()) {
+				noticeboardService.updateNoticeBoard(noticeboard);
+			
+			} else {
+				noticeboardService.updateNoticeBoard(noticeboard);
+				noticeboardService.filesave(file, noticeboard.getBoardno());
+			}
+		} else {
+			if(!file.getFile().isEmpty()) {
+				noticeboardService.fileDelete(fileinfo);
+				noticeboardService.filesave(file, noticeboard.getBoardno());
+			}
+			noticeboardService.updateNoticeBoard(noticeboard);
 		}
 		
 		return "redirect:/admin/main";

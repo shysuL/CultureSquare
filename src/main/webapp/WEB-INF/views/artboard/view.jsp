@@ -949,7 +949,8 @@ $(document).ready(function() {
 				type : "get",
 				url : "/artboard/follow",
 				data : {
-					userno : '${writer.userno }'
+					userno : '${writer.userno }',
+					boardno : '${view.boardno }'
 				},
 				dataType : "html",
 				success : function(data) {

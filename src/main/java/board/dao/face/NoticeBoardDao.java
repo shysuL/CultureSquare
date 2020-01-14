@@ -31,4 +31,10 @@ public interface NoticeBoardDao {
 
 	public void insertFile(UpFile upfile);
 
+	public void deletenoticeBoard(int boardno);
+
+	public void deleteFile(UpFile fileinfo);
+
+	public void updatenoticeBoard(FreeBoard noticeboard);
+
 }

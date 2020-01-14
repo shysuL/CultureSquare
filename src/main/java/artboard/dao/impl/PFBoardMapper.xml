@@ -369,7 +369,7 @@
 	</select>
 	
 	<insert id="insertReplyAlram"
-	 	parameterType="prboard.dto.Alram">
+	 	parameterType="artboard.dto.Alram">
 		<selectKey order="BEFORE" resultType="int" keyProperty="alramno">
 			SELECT alram_seq.nextval FROM dual
 		</selectKey>
@@ -379,7 +379,7 @@
 	</insert>
 	
 	<delete id="deleteAlramReply"
-	 	parameterType="prboard.dto.Reply">
+	 	parameterType="artboard.dto.Reply">
 		DELETE alram
 		WHERE 1=1
 			AND replyno = #{replyno }
@@ -392,7 +392,7 @@
 	</select>
 	
 	<insert id="insertLikeAlram"
-	 	parameterType="prboard.dto.Alram">
+	 	parameterType="artboard.dto.Alram">
 		<selectKey order="BEFORE" resultType="int" keyProperty="alramno">
 			SELECT alram_seq.nextval FROM dual
 		</selectKey>
@@ -429,7 +429,7 @@
 		</selectKey>
 	
 		INSERT INTO alram (alramno, alramcontents, alramtime, alramcheck, alramtype, alramsender, userno, boardno, boardtype, replyno, likeno, donno)
-  		VALUES (#{alramno }, #{alramcontents }, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), 0, 4, #{alramsender }, #{userno }, #{boardno }, 1, null, null, #{donno})
+  		VALUES (#{alramno }, #{alramcontents }, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), 0, 4, #{alramsender }, #{userno }, #{boardno }, 1, null, null, null)
 	</insert>
 	
 	<delete id="deleteLoc"
@@ -438,4 +438,28 @@
 		WHERE 1=1
 		AND boardno = #{boardno}
 	</delete>
+
+	<select id="selectFollowNo" resultType="int" parameterType="artboard.dto.Board">
+		SELECT followno FROM follow 
+		WHERE usernick = #{usernick}
+		AND userno = #{userno}
+	</select>
+	
+	<insert id="insertfollowAlram"
+	 	parameterType="artboard.dto.Alram">
+		<selectKey order="BEFORE" resultType="int" keyProperty="alramno">
+			SELECT alram_seq.nextval FROM dual
+		</selectKey>
+	
+		INSERT INTO alram (alramno, alramcontents, alramtime, alramcheck, alramtype, alramsender, userno, boardno, boardtype, replyno, likeno, donno)
+  		VALUES (#{alramno }, #{alramcontents }, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), 0, 5, #{alramsender }, #{userno }, #{boardno }, 1, null, null, #{donno})
+	</insert>
+	
+	<delete id="deleteFollowAlram"
+	 	parameterType="int">
+		DELETE alram
+		WHERE 1=1
+			AND donno = #{followNo }
+	</delete>
+	
 </mapper>

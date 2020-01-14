@@ -88,7 +88,7 @@ color: #343a40;
 <c:forEach items = "${boardlist }" var = "noticelist">
 	<tr>
 <%-- 	<td><input type="checkbox" name="checkRow" value="${list.boardno }"/></td> --%>
-		<td style="color: #1a3a5a; width: 5%;">${noticelist.boardno }</td>
+		<td style="color: #1a3a5a; width: 5%;">${noticelist.rnum }</td>
 		<c:choose>
 			<c:when test="${noticelist.blike == 0}">
 				<td style="color: #1a3a5a; width: 5%;"></td>
