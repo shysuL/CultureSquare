@@ -466,8 +466,11 @@ public class PFBoardServiceImpl implements PFBoardService{
 		}
 	}
 
-
 	@Override
+	public void modifyLoc(Board board) {
+		 pfboardDao.updateLoc(board);
+	}
+
 	public int getUserno(int boardno) {
 		return pfboardDao.selectUserNoByBoardNo(boardno);
 	}
@@ -517,6 +520,12 @@ public class PFBoardServiceImpl implements PFBoardService{
 	public void insertReReplyAlram(Alram alram) {
 
 		pfboardDao.insertReReplyAlram(alram);
+	}
+
+
+	@Override
+	public void insertDonAlram(Alram alram) {
+		pfboardDao.insertDonAlram(alram);
 	}
 
 }
