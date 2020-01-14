@@ -530,7 +530,8 @@ public class ArtboardViewController {
 			pfboardService.deleteFile(list);
 		}
 		
-		
+		// 3. 지도 삭제
+		pfboardService.deleteLoc(board);
 		// 게시글 삭제( 삭제된 게시글로 UPDATE ) 
 		pfboardService.deletePF(board);
 		

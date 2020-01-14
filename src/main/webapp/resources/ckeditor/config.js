@@ -41,7 +41,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 	
 	// 구글맵
-	config.extraPlugins = 'locationmap';
+//	config.extraPlugins = 'locationmap';
 	
 	// wenzgmap
 //	config.extraPlugins = 'wenzgmap';

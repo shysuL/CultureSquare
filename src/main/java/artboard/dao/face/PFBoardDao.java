@@ -514,7 +514,6 @@ public interface PFBoardDao {
 	 * @param alram - 삽입할 알람 정보 객체
 	 */
 	public void insertfollowAlram(Alram alram);
-
 	
 	/**
 	 * 2020-01-14
@@ -527,4 +526,13 @@ public interface PFBoardDao {
 	
 	public void deleteFollowAlram(int followNo);
 	
+	/**
+	 * 2020 - 01 - 14
+	 * 이수현
+	 * 
+	 * 게시글 삭제 시 위치 정보 삭제
+	 * 
+	 * @param board - 게시글 정보가 담긴 객체
+	 */
+	public void deleteLoc(Board board);
 }
