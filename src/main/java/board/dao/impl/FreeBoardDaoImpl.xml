@@ -138,8 +138,11 @@
 	</delete>
 	
 	<insert id="insertReply" parameterType="board.dto.Reply">
+		<selectKey order="BEFORE" resultType="int" keyProperty="replyno">
+		SELECT reply_seq.nextval FROM dual
+		</selectKey>
 		INSERT INTO reply (replyno, groupno,replyorder,replydepth,recontents,replydate,userno,boardno)
-		VALUES(reply_seq.nextval, groupno_seq.nextval,0,1,#{recontents} ,TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), #{userno}, #{boardno})
+		VALUES(#{replyno }, groupno_seq.nextval,0,1,#{recontents} ,TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), #{userno}, #{boardno})
 	</insert>
 	
 	<select id="selectReply" parameterType="int"
@@ -279,9 +282,16 @@
 		SELECT alram_seq.nextval FROM dual
 		</selectKey>
 	
-		INSERT INTO alram (alramno, alramcontents, alramtime, alramcheck, alramtype, alramsender, userno, boardno, boardtype)
-  		VALUES (#{alramno }, #{alramcontents }, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), 0, 1, #{alramsender }, #{userno }, #{boardno }, 3)
+		INSERT INTO alram (alramno, alramcontents, alramtime, alramcheck, alramtype, alramsender, userno, boardno, boardtype, replyno, likeno, donno)
+  		VALUES (#{alramno }, #{alramcontents }, TO_CHAR(SYSDATE, 'YYYY.MM.DD HH24:MI:SS'), 0, 1, #{alramsender }, #{userno }, #{boardno }, 3, #{replyno }, null, null)
 	</insert>
+	
+	<delete id="deleteAlramReply"
+	 	parameterType="board.dto.Reply">
+		DELETE alram
+		WHERE 1=1
+			AND replyno = #{replyno }
+	</delete>
 		
 	<insert id="insertRecommendAlram" parameterType="board.dto.Alram">
 	

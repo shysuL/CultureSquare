@@ -347,6 +347,13 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		
 	}
 
+	@Override
+	public void deleteAlramReply(Reply reply) {
+		
+		freeboardDao.deleteAlramReply(reply);
+		
+	}
+
 	
 
 
