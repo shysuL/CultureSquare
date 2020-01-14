@@ -375,5 +375,16 @@ public interface PFBoardDao {
 	 */
 	public void insertLocation(Board board);
 	
+	/**
+	 * 2020-01-13
+	 * 이빈
+	 * 
+	 * 공연 위치 가져오기
+	 * 
+	 * @param bno - 게시판 번호
+	 * @return - Board - 위도, 경도
+	 */
+	public Board selectLoc(Board bno);
+	
 	
 }

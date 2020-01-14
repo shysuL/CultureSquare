@@ -239,4 +239,21 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		return result;
 	}
+	
+	@Override
+	public MyPaging getFollowPaing(MyPaging paging) {
+		
+		int totalCount = mypageDao.selectFollowCntAll(paging);
+		
+		MyPaging result = new MyPaging(totalCount, paging.getCurPage());
+		result.setUserno(paging.getUserno());
+		
+		return result;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getFollowList(MyPaging paging) {
+		return mypageDao.selectFollowList(paging);
+	}
+	
 }

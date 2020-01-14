@@ -249,6 +249,7 @@ public class FreeViewController {
 				alram.setAlramsender(freeboardService.getUserNoByNick((String)session.getAttribute("usernick")).getUsernick());
 				alram.setUserno(freeboardService.getUserno(freeBoard.getBoardno()).getUserno());
 				alram.setBoardno(freeBoard.getBoardno());
+				alram.setLikeno(freeboardService.getLikeNo(freeBoard));
 				
 				logger.info(alram.toString());
 				freeboardService.insertRecommendAlram(alram);
@@ -256,6 +257,13 @@ public class FreeViewController {
 				
 			}
 			else {
+				
+				int likeno = freeboardService.getLikeNo(freeBoard);
+				
+				System.out.println(likeno);
+				//알람 데이터 삭제
+				freeboardService.deleteLikeAlram(likeno);
+				
 				freeboardService.recommendCancal(freeBoard);
 			}
 
@@ -389,9 +397,10 @@ public class FreeViewController {
 		
 		logger.info("답글 삭제 테스트  : " + reply);
 		
+		// 1. 답글 알람 삭제
+		freeboardService.deleteAlramReply(reply);
 		
-		
-		// 2. 댓글 삭제
+		// 2. 답글 삭제
 		freeboardService.deleteReply(reply);
 		
 
@@ -413,10 +422,10 @@ public class FreeViewController {
 		int groupNo = freeboardService.getGroupNoByReplyNo(reply);
 		
 		// 3. 삭제할 댓글의 답글 삭제
-//		freeboardService.deleteReReplyByGroupNo(groupNo);
+		freeboardService.deleteReReplyByGroupNo(groupNo);
 		
 		// 4. 알림 테이블 데이터 삭제
-		System.out.println("알람 지워라 " + reply);
+//		System.out.println("알람 지워라 " + reply);
 		freeboardService.deleteAlramReply(reply);
 		
 		// 5.댓글 삭제
@@ -490,6 +499,10 @@ public class FreeViewController {
 		if((String)session.getAttribute("usernick")!=null) {
 			// 1. 유저 번호 저장
 			reply.setUserno(freeboardService.getUserNoByNick((String)session.getAttribute("usernick")).getUserno());
+			
+			Alram alram = new Alram();
+			alram.setUserno(freeboardService.getUsernoByReplyNo(reply.getReplyno()));
+			//댓글번호 있을때 담기
 
 			// 2. 댓글번호를 이용해 그룹 번호 담기
 			reply.setGroupno(freeboardService.getGroupNoByReplyNo(reply));
@@ -502,6 +515,18 @@ public class FreeViewController {
 			
 			//답글 삽입
 			freeboardService.addReReply(reply);
+			
+			//알람테이블 삽입
+			
+			alram.setAlramcontents(reply.getRecontents());
+			alram.setAlramsender((String)session.getAttribute("usernick"));
+			
+			alram.setBoardno(reply.getBoardno());
+			alram.setReplyno(reply.getReplyno());
+			
+			logger.info("알람 테스트 !" + alram.toString());
+			
+			freeboardService.insertReReplyAlram(alram);
 			
 			mav.addObject("insert", true);
 			//viewName지정하기

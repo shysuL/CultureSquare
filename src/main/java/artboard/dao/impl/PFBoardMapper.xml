@@ -326,10 +326,21 @@
 		WHERE 1=1
 			AND groupno = #{groupNo }
 	</delete>	
-	<select id="insertLocation" parameterType="artboard.dto.Board">
+	
+	<!-- 게시글 작성 공연 위치 정보 추가 -->
+	<insert id="insertLocation" parameterType="artboard.dto.Board">
 		INSERT INTO pfloc
 		(location, lat, lon, boardno)
 		VALUES
 		(pfloc_seq.nextval,#{lat}, #{lon}, #{boardno})
+	</insert>
+	
+	<!-- 게시글 상세보기 공연 위치 정보 가져오기 -->
+	<select id="selectLoc" 
+	 parameterType="artboard.dto.Reply" resultType="artboard.dto.Board">
+		SELECT lat, lon FROM pfloc
+		WHERE 1=1
+		AND boardno =
+		#{boardno}	
 	</select>
 </mapper>
