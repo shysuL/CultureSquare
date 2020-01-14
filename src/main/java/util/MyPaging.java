@@ -16,6 +16,7 @@ public class MyPaging {
 	private int endNo; // 화면에 보이는 페이지의 게시글 끝 번호
 
 	private int userno;
+	private String usernick;
 	private String search;
 	
 	private String searchcategory; // 검색 조건
@@ -99,8 +100,9 @@ public class MyPaging {
 	public String toString() {
 		return "MyPaging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount
 				+ ", totalPage=" + totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage="
-				+ endPage + ", startNo=" + startNo + ", endNo=" + endNo + ", userno=" + userno + ", search=" + search
-				+ ", searchcategory=" + searchcategory + ", searchtarget=" + searchtarget + "]";
+				+ endPage + ", startNo=" + startNo + ", endNo=" + endNo + ", userno=" + userno + ", usernick="
+				+ usernick + ", search=" + search + ", searchcategory=" + searchcategory + ", searchtarget="
+				+ searchtarget + "]";
 	}
 
 	public int getCurPage() {
@@ -181,6 +183,14 @@ public class MyPaging {
 
 	public void setUserno(int userno) {
 		this.userno = userno;
+	}
+
+	public String getUsernick() {
+		return usernick;
+	}
+
+	public void setUsernick(String usernick) {
+		this.usernick = usernick;
 	}
 
 	public String getSearch() {

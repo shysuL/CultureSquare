@@ -354,6 +354,40 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		
 	}
 
+	@Override
+	public void deleteReReplyByGroupNo(int groupNo) {
+		
+		freeboardDao.deleteReReplyByGroupNo(groupNo);
+		
+	}
+
+	@Override
+	public int getLikeNo(FreeBoard freeBoard) {
+		
+		return freeboardDao.selectLikeNo(freeBoard);
+	}
+
+	@Override
+	public void deleteLikeAlram(int likeno) {
+		
+		freeboardDao.deleteLikeAlram(likeno);
+		
+	}
+
+	@Override
+	public int getUsernoByReplyNo(int replyno) {
+		
+		return freeboardDao.selectUserNoByReplyNo(replyno);
+	}
+
+	@Override
+	public void insertReReplyAlram(Alram alram) {
+		
+		freeboardDao.insertReReplyAlram(alram);
+		
+	}
+	
+
 	
 
 

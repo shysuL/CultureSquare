@@ -49,7 +49,7 @@
 	
 	<delete id="deleteUserId" parameterType="user.dto.User_table">
 		DELETE FROM User_table
-		WHERE userid = #{userid }
+		WHERE userno = #{userno }
 	</delete>
 	
 	<select id="selectCntAll" resultType="int" parameterType="util.MyPaging">
@@ -141,11 +141,12 @@
 	<select id="selectPermitList" resultType="hashmap" parameterType="util.MyPaging">
 		SELECT * FROM (
         	SELECT rownum rnum, Q.* FROM (
-	            SELECT B.boardno, B.title, U.usernick, U.username, D.donprice
+	            SELECT B.boardno, B.title, U.usernick, U.username, D.donprice,
+                (SELECT usernick FROM board, user_table WHERE board.userno = user_table.userno AND board.boardno = B.boardno) AS recive
 	            FROM board B, user_table U, donation D
 	            WHERE D.userno = U.userno
 	                AND B.boardno = D.boardno
-	                AND U.userno = #{userno }
+                    AND U.userno = #{userno}
         	) Q 
         	ORDER BY rnum
 		) WHERE rnum BETWEEN #{startNo} AND #{endNo}
@@ -162,16 +163,18 @@
 		SELECT count(*) 
 		FROM user_table U, follow F
 		WHERE U.userno = F.userno
-		    AND U.userno = #{userno}
+		    AND F.usernick = #{usernick}
 	</select>
 	
 	<select id="selectFollowList" resultType="hashmap" parameterType="util.MyPaging">
 		SELECT * FROM (
         	SELECT rownum rnum, Q.* FROM (
-	            SELECT U.userno, U.userid, F.usernick sender
-	            FROM user_table U, follow F
-	            WHERE U.userno = F.userno
-                    AND U.userno = #{userno }
+	            SELECT userno, userid , usernick 
+				FROM user_table
+				WHERE userno IN (
+					SELECT userno 
+					FROM follow
+					WHERE usernick = #{usernick})
         	) Q 
         	ORDER BY rnum
 		) WHERE rnum BETWEEN #{startNo} AND #{endNo}

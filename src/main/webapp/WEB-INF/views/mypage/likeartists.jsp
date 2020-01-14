@@ -19,7 +19,7 @@
 
 <div class="container">
 	<div class="container text-center">
-		<h4 id="likeartistsheader">${usernick }이 팔로우한 예술인</h4>
+		<h4 id="likeartistsheader">${usernick } 님이 팔로우한 예술인</h4>
 	</div>
 </div>
 
@@ -39,7 +39,7 @@
 					<c:forEach items="${followlist }" var="followlist">
 						<tr style="text-align: center;">
 							<td>${followlist.RNUM }</td>
-							<td>${followlist.sender }</td>
+							<td>${followlist.USERNICK }</td>
 						</tr>
 					</c:forEach>
 				</tbody>

@@ -445,4 +445,55 @@ public interface FreeBoardService {
 	 */
 	public void deleteAlramReply(Reply reply);
 
+	/**
+	 * 2020-01-14
+	 * 고인호
+	 * 
+	 * 답글 삭제(댓글 삭제할때)
+	 *  
+	 * @param groupNo - 삭제될 답글의 그룹 번호
+	 */
+	public void deleteReReplyByGroupNo(int groupNo);
+
+	/**
+	 * 2020-01-14
+	 * 고인호
+	 * 
+	 * 좋아요 번호 구하기
+	 * 
+	 * @param prBoard - PR게시판 정보가 담긴 객체
+	 * @return int - 좋아요 번호
+	 */
+	public int getLikeNo(FreeBoard freeBoard);
+
+	/**
+	 * 2020-01-14
+	 * 고인호
+	 * 
+	 * 좋아요 알람 삭제
+	 * 
+	 * @param reply - 삭제할 알람 정보가 담긴 객체
+	 */
+	public void deleteLikeAlram(int likeno);
+
+	/**
+	 * 2020-01-14
+	 * 고인호
+	 * 
+	 * 
+	 * @param replyno
+	 * @return
+	 */
+	public int getUsernoByReplyNo(int replyno);
+
+	/**
+	 * 2020-01-14
+	 * 고인호
+	 * 
+	 * 답글 알람 삽입
+	 * 
+	 * @param alram - 알람에 등록될 정보가 담긴 객체
+	 */
+	public void insertReReplyAlram(Alram alram);
+
 }

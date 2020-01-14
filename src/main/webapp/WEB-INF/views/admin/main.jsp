@@ -64,25 +64,6 @@ $(document).ready(function() {
 		});
 	});
 
-	//pf게시판
-	$("#faqboard-tab").on("click", function() {
-		$.ajax({
-			type:"post",
-			url:"/admin/main",
-			data: {
-				"category" : 4,
-			},
-			datatype: "html",
-			success : function(res){
-				console.log(res);
-				$("#faqboard").html(res);
-			},
-			error: function(e){
-			console.log(e);
-			}
-		});
-	});
-
 	//공지사항
 	$("#noticeboard-tab").on("click", function() {
 		$.ajax({
@@ -150,11 +131,6 @@ $(document).ready(function() {
 	<!-- 자유게시판 -->
 	<div class="tab-pane fade" id="freeboard" role="tabpanel" aria-labelledby="freeboard-tab" style="margin-bottom: 100px;">
 	
-	</div>
-	
-	<!-- FAQ 게시판 -->
-	<div class="tab-pane fade" id="faqboard" role="tabpanel" aria-labelledby="faqboard-tab" style="margin-bottom: 100px;">
-		
 	</div>
 	
 	<!-- 공지사항 -->

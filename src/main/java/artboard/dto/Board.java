@@ -55,11 +55,10 @@ public class Board {
 	
 	// follow
 	private int followno;
+	private String sender;
 
 	private String searchMonth;
-
 	
-
 	@Override
 	public String toString() {
 		return "Board [rnum=" + rnum + ", boardno=" + boardno + ", title=" + title + ", writtendate=" + writtendate
@@ -71,11 +70,12 @@ public class Board {
 				+ usergender + ", userbirth=" + userbirth + ", interest=" + interest + ", usertype=" + usertype
 				+ ", permit=" + permit + ", emailcheck=" + emailcheck + ", originname=" + originname + ", storedname="
 				+ storedname + ", follow=" + follow + ", prcnt=" + prcnt + ", sociallogin=" + sociallogin + ", blike="
-				+ blike + ", replyCnt=" + replyCnt + ", followno=" + followno + ", searchMonth=" + searchMonth + "]";
+				+ blike + ", replyCnt=" + replyCnt + ", followno=" + followno + ", sender=" + sender + ", searchMonth="
+				+ searchMonth + "]";
 	}
 
-	
-	
+
+
 	public int getFollowno() {
 		return followno;
 	}
@@ -375,6 +375,14 @@ public class Board {
 	public void setSearchMonth(String searchMonth) {
 		this.searchMonth = searchMonth;
 	}
-	
 
+	public String getSender() {
+		return sender;
+	}
+
+	public void setSender(String sender) {
+		this.sender = sender;
+	}
+	
+	
 }

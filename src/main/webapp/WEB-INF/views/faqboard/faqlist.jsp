@@ -3,16 +3,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <jsp:include page="/WEB-INF/views/layout/header.jsp"/>   
-
+<style type="text/css">
+.fqa{
+    mix-blend-mode: luminosity;
+}
+</style>
 <div class="container">
+<div class="row">
+<div class="col-2"></div>
+<div class="col-8">
 
-<div class="h2"><h2> FQA </h2></div>
+<div class="h2"><h2> FAQ </h2></div>
 <hr>
 
 <div class="accordion" id="accordionExample">
   <div class="card">
     <div class="card-header" id="headingOne">
-      <h2 class="mb-0">
+      <h2 class="mb-0 fqa">
         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 		CALENDAL 페이지에서 글쓰기가 되지 않아요.
         </button>
@@ -30,7 +37,7 @@
   
   <div class="card">
     <div class="card-header" id="headingTwo">
-      <h2 class="mb-0">
+      <h2 class="mb-0 fqa">
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 		CALENDAL 페이지에서 대표 이미지 사진은 어떻게 올리나요? 
         </button>
@@ -48,7 +55,7 @@
   
   <div class="card">
     <div class="card-header" id="headingThree">
-      <h2 class="mb-0">
+      <h2 class="mb-0 fqa">
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
 		CALENDAL 공연 자료가 많아 원하는 공연을 찾기가 힘들어요.
         </button>
@@ -64,7 +71,7 @@
 
   <div class="card">
     <div class="card-header" id="headingFour">
-      <h2 class="mb-0">
+      <h2 class="mb-0 fqa">
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
 		PR 게시판은 어떻게 사용하나요?
         </button>
@@ -81,7 +88,7 @@
 
   <div class="card">
     <div class="card-header" id="headingFive">
-      <h2 class="mb-0">
+      <h2 class="mb-0 fqa">
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
 		예술인 신청을 하고 싶은데 어디에서 해야하나요?
         </button>
@@ -98,6 +105,9 @@
 </div>
 
 
+</div>
+<div class="col-2"></div>
+</div>
 </div><!-- .container -->
  
 <jsp:include page="/WEB-INF/views/layout/footer.jsp"/>  
