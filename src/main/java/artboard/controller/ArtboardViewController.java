@@ -579,8 +579,8 @@ public class ArtboardViewController {
 		if((String)session.getAttribute("usernick")!=null) {
 			board.setUsernick((String)session.getAttribute("usernick"));
 			board.setUserno(userno);
-		}
 		
+		}
 		board.setBoardno(boardno);
 		
 		logger.info("followchk +++ : " + board.toString());      
@@ -595,6 +595,7 @@ public class ArtboardViewController {
 		model.addAttribute("result", result);	
 		
 		model.addAttribute("followCnt", followCnt);
+
 		return "artboard/followchk";
 	}
 }

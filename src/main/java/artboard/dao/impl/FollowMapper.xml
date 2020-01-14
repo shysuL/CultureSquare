@@ -27,9 +27,9 @@
 		parameterType="artboard.dto.Board">
 		SELECT count(*) FROM follow
 		WHERE 1=1
-		AND userno = #{userno }
-		<if test="usernick != null and usernick !=''">
-			AND	usernick = #{usernick}
+		AND userno = #{userno}
+		<if test="usernick != null and usernick != ''">
+			AND usernick = #{usernick}
 		</if>
 	</select>
   </mapper>
