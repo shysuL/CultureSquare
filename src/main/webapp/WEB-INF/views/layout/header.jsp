@@ -428,7 +428,7 @@ function alramread(){
 						html += "<div style ='cursor: pointer;' id = 'alram"+res.alramList[i].boardno+"' class='alram"+res.alramList[i].alramno+"' data-role='alram"+res.alramList[i].boardtype+"'>"
 						
 						if(res.alramList[i].alramcheck == 0){
-							html += "<li id = 'alramshow' class='list-group-item' style ='background-color: #ECF2FE;'>"
+							html += "<li id = 'alramshow' class='list-group-item' style ='background-color: #bef7ef;'>"
 						}
 						else{
 							html += "<li id = 'alramshow' class='list-group-item'>"
