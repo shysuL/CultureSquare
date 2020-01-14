@@ -56,9 +56,10 @@
 	</update>
 	
 	<select id="selectNotice" resultType="artboard.dto.Board" parameterType="artboard.dto.Board">
-		SELECT * 
+		SELECT boardno, title, writtendate, contents, views
 		FROM board
 		WHERE postno = 4
+			AND boardno = #{boardno}
 	</select>
 
 </mapper>

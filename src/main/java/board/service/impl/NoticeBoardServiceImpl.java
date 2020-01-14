@@ -78,50 +78,49 @@ public class NoticeBoardServiceImpl implements NoticeBoardService{
 	@Override
 	public void noticeDelete(int boardno) {
 		
-//		noticeboardDao.deletenoticeBoard(boardno);
+		noticeboardDao.deletenoticeBoard(boardno);
 		
 	}
 
 	@Override
 	public void updateNoticeBoard(FreeBoard noticeboard) {
 
-//		noticeboardDao.updatenoticeBoard(noticeboard);
+		noticeboardDao.updatenoticeBoard(noticeboard);
 		
 	}
 
 	@Override
 	public void filesave(UpFile upfile, int boardno) {
-//		
-//		//파일이 저장될 경로
-//		String storedPath = context.getRealPath("upload");
-//
-//		//UUID
-//		String uid = UUID.randomUUID().toString().split("-")[4];
-//
-//		//저장될 파일의 이름 (원본명 + UUID)
-//		String filename = upfile.getFile().getOriginalFilename()+"_"+uid;
-//		
-//
-//		//저장될 파일 객체
-//		File dest = new File(storedPath, filename);
-//
-//		try {
-//			upfile.getFile().transferTo(dest); //실제 파일 저장
-//		} catch (IllegalStateException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//
-//
-//		// DB에 저장 (업로드된 파일의 정보를 기록)
-//		upfile.setOriginname(upfile.getFile().getOriginalFilename());
-//		upfile.setStoredname(filename);
-//		upfile.setFilesize(upfile.getFile().getSize());
-//		upfile.setBoardno(boardno);
-//		logger.info(upfile.toString());
-//		
-//		noticeboardDao.insertFile(upfile);
+		
+		//파일이 저장될 경로
+		String storedPath = context.getRealPath("upload");
+
+		//UUID
+		String uid = UUID.randomUUID().toString().split("-")[4];
+
+		//저장될 파일의 이름 (원본명 + UUID)
+		String filename = upfile.getFile().getOriginalFilename()+"_"+uid;
+		
+
+		//저장될 파일 객체
+		File dest = new File(storedPath, filename);
+
+		try {
+			upfile.getFile().transferTo(dest); //실제 파일 저장
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+
+		// DB에 저장 (업로드된 파일의 정보를 기록)
+		upfile.setOriginname(upfile.getFile().getOriginalFilename());
+		upfile.setStoredname(filename);
+		upfile.setFilesize(upfile.getFile().getSize());
+		upfile.setBoardno(boardno);
+		
+		noticeboardDao.insertFile(upfile);
 
 	}
 
@@ -141,17 +140,15 @@ public class NoticeBoardServiceImpl implements NoticeBoardService{
 
 	@Override
 	public void fileDelete(UpFile fileinfo) {
-//		
-//		logger.info(fileinfo.toString());
-//		
-//		File file = new File(context.getRealPath("upload\\"+fileinfo.getStoredname()));
-//		
-//		// 삭제할 파일의 경로
-//		if(file.exists() == true){
-//		file.delete();
-//		}	
-//		noticeboardDao.deleteFile(fileinfo);
-//		
+		
+		File file = new File(context.getRealPath("upload\\"+fileinfo.getStoredname()));
+		
+		// 삭제할 파일의 경로
+		if(file.exists() == true){
+			file.delete();
+		}	
+		noticeboardDao.deleteFile(fileinfo);
+		
 	}
 
 	@Override
