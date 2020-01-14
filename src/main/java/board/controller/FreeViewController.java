@@ -249,6 +249,7 @@ public class FreeViewController {
 				alram.setAlramsender(freeboardService.getUserNoByNick((String)session.getAttribute("usernick")).getUsernick());
 				alram.setUserno(freeboardService.getUserno(freeBoard.getBoardno()).getUserno());
 				alram.setBoardno(freeBoard.getBoardno());
+				
 				logger.info(alram.toString());
 				freeboardService.insertRecommendAlram(alram);
 				
@@ -325,6 +326,7 @@ public class FreeViewController {
 			alram.setAlramsender(freeboardService.getUserNoByNick((String)session.getAttribute("usernick")).getUsernick());
 			alram.setUserno(freeboardService.getUserno(reply.getBoardno()).getUserno());
 			alram.setBoardno(reply.getBoardno());
+			alram.setReplyno(reply.getReplyno());
 			logger.info(alram.toString());
 			freeboardService.insertReplyAlram(alram);
 			
@@ -386,9 +388,12 @@ public class FreeViewController {
 	public ModelAndView deleteReReplyFree(Model model, Reply reply, HttpSession session, ModelAndView mav) {
 		
 		logger.info("답글 삭제 테스트  : " + reply);
-
-		// 1. 댓글 삭제
+		
+		
+		
+		// 2. 댓글 삭제
 		freeboardService.deleteReply(reply);
+		
 
 		//viewName지정하기
 		mav.setViewName("jsonView");
@@ -410,8 +415,11 @@ public class FreeViewController {
 		// 3. 삭제할 댓글의 답글 삭제
 //		freeboardService.deleteReReplyByGroupNo(groupNo);
 		
+		// 4. 알림 테이블 데이터 삭제
+		System.out.println("알람 지워라 " + reply);
+		freeboardService.deleteAlramReply(reply);
 		
-		// 4.댓글 삭제
+		// 5.댓글 삭제
 		freeboardService.deleteReply(reply);
 
 		//viewName지정하기

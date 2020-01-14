@@ -428,25 +428,35 @@ function alramread(){
 						html += "<div style ='cursor: pointer;' id = 'alram"+res.alramList[i].boardno+"' class='alram"+res.alramList[i].alramno+"' data-role='alram"+res.alramList[i].boardtype+"'>"
 						
 						if(res.alramList[i].alramcheck == 0){
-							html += "<li id = 'alramshow' class='list-group-item' style ='background-color: #ECF2FE;'>"
+							html += "<li id = 'alramshow' class='list-group-item' style ='background-color: #bef7ef;'>"
 						}
 						else{
 							html += "<li id = 'alramshow' class='list-group-item'>"
 						}
 						
 						html += "<strong>"+res.alramList[i].alramsender+"</strong>님이 "
-						html += "<br>회원님의  <strong>" + res.alramList[i].title +"</strong> 게시글에<br> "
 						// alramtype == 1 -> 댓글
 						if(res.alramList[i].alramtype == 1){
-							html += "댓글을 남겼습니다."
+							html += "<br>회원님의  <strong>" + res.alramList[i].title +"</strong> 게시글에<br> ";
+							html += "댓글을 남겼습니다.";
 						}
+						// alramtype == 2 -> 좋아요
 						else if(res.alramList[i].alramtype == 2){
-							html += "좋아요를 눌렀습니다."
+							html += "<br>회원님의  <strong>" + res.alramList[i].title +"</strong> 게시글에<br> ";
+							html += "좋아요를 눌렀습니다.";
 						}
+						// alramtype == 3 -> 답글
+						else if(res.alramList[i].alramtype == 3){
+							html += "<br><strong>" + res.alramList[i].title +"</strong> 게시글에 있는<br>";
+							html += "회원님의 댓글에  답글을 남겼습니다.";
+						}
+						
+						// alramtype == 4 -> 후원
 						else{
-							html +=  res.alramList[i].alramcontents + "원을 후원하였습니다."
+							html += "<br>회원님의  <strong>" + res.alramList[i].title +"</strong> 게시글에<br> ";
+							html +=  res.alramList[i].alramcontents + "원을 후원하였습니다.";
 						}
-						html += "<br><small>"+res.alramList[i].alramtime+"</small>"
+						html += "<br><small>"+res.alramList[i].alramtime+"</small>";
 						html += "</li>";
 						html += "</div>";
 					}
@@ -641,7 +651,7 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 
 <!-- header --> 
 <div class="wrap">
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="margin-top: 10px;">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" >
   <a class="navbar-brand" href="/main/main">CultureSquare</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

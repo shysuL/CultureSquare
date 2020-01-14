@@ -83,12 +83,12 @@ public class MainController {
 		model.addAttribute("google_url", googleUrl);
 		
 
-		Weather weather = weatherService.setTime();
-		
-		//날씨
-		model.addAttribute("weather", weather);
-		
-		System.out.println(weather);
+//		Weather weather = weatherService.setTime();
+//		
+//		//날씨
+//		model.addAttribute("weather", weather);
+//		
+//		System.out.println(weather);
 
 		//PR게시판 자료 가져오기
 		Map<String, String> map = new HashMap<String, String>();
@@ -129,7 +129,7 @@ public class MainController {
 		
 		//공자사항 최신글 불러오기
 		List<FreeBoard> viewsList1 = noticeboardService.getViewsList();
-		logger.info(viewsList.toString());
+		logger.info(viewsList1.toString());
 		
 		model.addAttribute("viewslist1", viewsList1);
 		
