@@ -644,9 +644,22 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 .event3:hover .hoverBox{left: 400px; opacity: 1;}
 
 #alarmCnt {
-	top: -20px;
-	right: -43px;
 	height: 20px;
+	min-width: 8px;
+	line-height: 20px;
+	padding: 1px 6px;
+	margin-top: -7px;
+	margin-left: -19px;
+	z-index: 1;
+	margin-right: 4px;
+}
+#top {
+    position: fixed;
+    right: 5%;
+    bottom: 50px;
+    z-index: 999;
+    font-size: 20px;
+    text-decoration: none;
 }
 </style>
 
@@ -655,6 +668,7 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 
 <!-- header --> 
 <div class="wrap">
+	<a id="top" href="#" style="width: 60px;"><img src="/resources/img/TOPbutton1.png" class="d-block w-100" alt="..."></a>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" >
   <a class="navbar-brand" href="/main/main">CultureSquare</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -718,10 +732,10 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 <!-- 		   	<span  class="badge badge-pill badge-info" id = "alarmCnt"></span> -->
 	<div class="btn-group" >
 
-		<button class="btn btn-secondary dropdown-toggle" type="button" onclick="alramread();">
+		<button class="btn btn-secondary dropdown-toggle" style="margin-right: 8px;" type="button" onclick="alramread();">
 	        <span class="fas fa-bell" ></span>
-			<span  class="badge badge-pill badge-info" id = "alarmCnt"></span>
 	    </button>
+			<span  class="badge badge-pill badge-info" id = "alarmCnt"></span>
 
 		 <div class="dropdown-menu alram" aria-labelledby="dropdownMenuButton">
 			<ul id = "alramList" class="list-group">
@@ -732,7 +746,7 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 	    
 	
 		<!-- 상단 로그인 아이콘 -->  
-	<div class="btn-group rpadding loginwidth" >
+	<div class="btn-group rpadding loginwidth" style="margin-left: -12px;" >
 	
 		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		   <span class="fas fa-user"></span>
@@ -741,20 +755,24 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
 		<!-- 로그인 상태 -->
 	    <c:if test="${login}">
 	       <div class="dropdown-menu center" style="margin-left: -115px;">
-	         <h5>${usernick}님 할라븅~!</h5>
+	         <h5>${usernick}님 반갑습니다 :)</h5>
 	    	 <div class="dropdown-divider"></div>
 	    	 <c:choose>
 		    	 	<c:when test="${socialType eq 'Google'}">
+		    	 		<button id="logout" class="btn btn-danger  logt" style="margin-right: 20px; margin-left:20px;">로그아웃</button>
 		    	 	</c:when>
 		    	 	<c:when test="${socialType eq 'Kakao'}">
+		    	 		<button id="logout" class="btn btn-danger  logt" style="margin-right: 20px; margin-left:20px;">로그아웃</button>
 		    	 	</c:when>
 		    	 	<c:when test="${socialType eq 'Naver'}">
+		    	 		<button id="logout" class="btn btn-danger  logt" style="margin-right: 20px; margin-left:20px;">로그아웃</button>
 		    	 	</c:when>
 		    	 	<c:otherwise>
-		    	 		<input id="mypage" class="btn btn" onclick="location.href='/mypage/main'" value="마이페이지">
+		    	 		<input id="mypage" class="btn btn-light" onclick="location.href='/mypage/main'" value="마이페이지">
+		    	 		<button id="logout" class="btn btn-danger  logt" >로그아웃</button>
 		    	 	</c:otherwise>
 	    	 	 </c:choose>
-				<input id="logout" class="btn btn-danger  logt" value="로그아웃">
+<!-- 				<button id="logout" class="btn btn-danger  logt" >로그아웃</button> -->
 	       </div>
 	    </c:if>
 	    
