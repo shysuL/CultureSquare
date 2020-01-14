@@ -167,27 +167,27 @@ span[class=close] {
 	<table class="table table-bordered">
 		<tr>
 			<td class="info">제목</td>
-			<td colspan="4" style="width: 45%; padding-top: 16px;">${viewfree.title }</td>
+			<td colspan="4" style="width: 45%; padding-top: 16px;">${notice.title }</td>
 			<td class="info">작성자</td>
 			<td colspan="4" style="width: 45%; padding-top: 16px;">
-				${viewfree.usernick }
+				[ 관리자 ]
 			</td>
 		</tr>
 		<tr>
 			<td class="info">작성일</td>
 			<td colspan="4" style="width: 25%; padding-top: 16px;">
-				${viewfree.writtendate }
+				${notice.writtendate }
 			</td>
 			<td class="info">조회수</td>
 			<td colspan="4" style="width: 15%; padding-top: 16px;">
-			${viewfree.views }</td>
+			${notice.views }</td>
 		</tr>
 		
 		<tr>
 			<td class="info" colspan="12">본문</td>
 		</tr>
 		<tr>
-			<td colspan="12" style="height: 500px;">${viewfree.contents }</td>
+			<td colspan="12" style="height: 500px;">${notice.contents }</td>
 		</tr>
 
 		<tr>
@@ -233,10 +233,10 @@ span[class=close] {
       <div class="modal-footer">
       <c:choose>
       	<c:when test="${fileList.fileno eq null }">
-      	<a href="/admin/board/view/freeview/delete?boardno=${viewfree.boardno }" class="btn btn-default" style="float: right; background-color: #343a40; color: white;" role="button">확인</a>
+      	<a href="/admin/board/view/freeview/delete?boardno=${notice.boardno }" class="btn btn-default" style="float: right; background-color: #343a40; color: white;" role="button">확인</a>
       	</c:when>
       	<c:otherwise>
-        <a href="/admin/board/view/freeview/delete?boardno=${viewfree.boardno }&fileno=${fileList.fileno }" class="btn btn-default" style="float: right; background-color: #343a40; color: white;" role="button">확인</a>
+        <a href="/admin/board/view/freeview/delete?boardno=${notice.boardno }&fileno=${fileList.fileno }" class="btn btn-default" style="float: right; background-color: #343a40; color: white;" role="button">확인</a>
       	</c:otherwise>
       </c:choose>
         <button type="submit" id="freeCancelBtn"class="btn btn-default" style="float: right; background-color: #343a40; color: white;" data-dismiss="modal" >취소</button>

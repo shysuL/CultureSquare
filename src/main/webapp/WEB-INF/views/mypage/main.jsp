@@ -151,7 +151,10 @@ $(document).ready(function(){
        $("#defaultModal2").modal('show');
        console.log("나는 경고모달창2");
     }		
-			
+	
+// 	var pwdCheck1 = true;
+// 	var pwdCheck2 = true;
+	
 	//회원 탈퇴 모달
 	$("#deleteuser").click(function(){
 		$("#deleteUserIdModal").modal({backdrop: 'static', keyboard: false});
@@ -159,7 +162,7 @@ $(document).ready(function(){
 	
 	$("#deleteUserCheckBtn1").click(function(){
 		$("#checkUserPwModal").modal({backdrop: 'static', keyboard: false});
-		
+// 	})
 		$("#deleteUserCheckBtn2").click(function(){
 			
 			var userpw = $('#pw1').val();
@@ -185,6 +188,26 @@ $(document).ready(function(){
 						$("#pw1").focus();
 						return false;
 					}
+					
+// 					$("#pw1").blur(function(){
+						
+// 						if(userpw != res){
+// 							$('#pwdcheck1').text('현재 비밀번호가 올바르지 않습니다.');
+// 							$('#pwdcheck1').css('color', 'red');
+// 							pwdCheck1 = false;
+							
+// 						} else if (userpw != userpw2){
+// 							$('#pwdcheck2').text('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
+// 							$('#pwdcheck2').css('color', 'red');
+// 							pwdCheck1 = false;
+							
+// 						} else {
+// 							$('#pwdcheck2').text('비밀번호가 일치합니다.');
+// 							$('#pwdcheck2').css('color', 'green');
+// 							pwdCheck1 = true;
+// 						}
+// 					});
+					
 					
 				}
 			})
@@ -349,7 +372,7 @@ $(document).ready(function(){
 
 <div class="container myPageContainer" id="myPageContainer">
 	<div class="container text-center">
-		<h4 id="mypageheader">${getUser.usernick }님의 마이페이지</h4>
+		<h4 id="mypageheader">${getUser.usernick } 님의 마이페이지</h4>
 	</div>
 	<div class="container box" style="margin-bottom: 1%;">
 		<!-- 나의 정보 -->
@@ -690,7 +713,9 @@ $(document).ready(function(){
       <!-- Modal body -->
       <div class="modal-body content">
 		비밀번호 : <input type="password" id="pw1" placeholder="현재 비밀번호 입력"/><br>
+				<div class="check_font" id="pwdcheck1"></div><br>
 		비밀번호 확인 : <input type="password" id="pw2" placeholder="한번 더 입력"/>
+				<div class="check_font" id="pwdcheck2"></div><br>
       </div>
 
       <!-- Modal footer -->

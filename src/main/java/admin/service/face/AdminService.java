@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import admin.dto.Admin;
+import artboard.dto.Board;
 import user.dto.User_table;
 import util.Paging;
 
@@ -84,5 +85,16 @@ public interface AdminService {
 	 * @param user
 	 */
 	public void downpermit(User_table user);
+
+	/**
+	 * 2020-01-14 
+	 * 채해원
+	 * 
+	 * 공지사항 상세보기
+	 * 
+	 * @param board
+	 * @return
+	 */
+	public Board getView(Board board);
 
 }

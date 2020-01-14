@@ -195,7 +195,17 @@ public class AdminBoardViewController {
 	}
 	
 	@RequestMapping(value="/admin/board/view/noticeview", method=RequestMethod.GET)
-	public void noticeview() {
+	public void noticeview(Model model, Board board) {
+		
+		Board notice = adminService.getView(board);
+		
+		model.addAttribute("notice", notice);
+		
+		
+	}
+	
+	@RequestMapping(value="/admin/board/view/noticeupdate", method=RequestMethod.GET)
+	public void updateNotice() {
 		
 	}
 	
