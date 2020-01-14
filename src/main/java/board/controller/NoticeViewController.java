@@ -69,9 +69,9 @@ public class NoticeViewController {
 		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
 		String googleUrl = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
 		
-		logger.info("네이버 URL : " + naverAuthUrl);
-		logger.info("카카오 URL: " + kakaoUrl);
-		logger.info("구글 URL: " + googleUrl);
+//		logger.info("네이버 URL : " + naverAuthUrl);
+//		logger.info("카카오 URL: " + kakaoUrl);
+//		logger.info("구글 URL: " + googleUrl);
 		
 		//네이버 
 		model.addAttribute("naver_url", naverAuthUrl);
@@ -86,13 +86,10 @@ public class NoticeViewController {
 		//------------------------------------------------
 		
 		noticeboardService.increaseViews(boardno);
-		System.out.println("ar8asras8888888888343441423423423423423423/" + boardno);
 		
 		FreeBoard ntboardDetail = noticeboardService.noticeDetail(boardno);
 		UpFile fileinfo1 = noticeboardService.getFile(boardno);
 		
-		System.out.println("ar8asras8888888888343441423423423423423423//" + boardno);
-		System.out.println("testtestsetsetsetset" + fileinfo1);
 		if(session.getAttribute("usernick") != null) {
 			// 세션에 저장된 usernick를 모델로 전달
 			FreeBoard user = new FreeBoard();
@@ -105,7 +102,6 @@ public class NoticeViewController {
 		
 		model.addAttribute("ntboard", ntboardDetail);
 		model.addAttribute("file1", fileinfo1);
-		System.out.println("testtestsetsetsetset" + fileinfo1);
 		
 	}
 	@RequestMapping(value = "/noticeboard/download")
@@ -114,8 +110,6 @@ public class NoticeViewController {
 		//파일번호에 해당하는 파일 정보 가져오기
 		UpFile file = noticeboardService.getFileNo(fileno);
 		
-		logger.info(file.toString());
-
 		//파일정보를 MODEL 값으로 지정하기
 		mav.addObject("downFile", file);
 

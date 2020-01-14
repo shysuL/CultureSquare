@@ -592,4 +592,42 @@ public interface PFBoardService {
 	 * @param alram - 삽입할 알림 정보가 담긴 객체
 	 */
 	public void insertDonAlram(Alram alram);
+
+
+
+	/**
+	 * 2020-01-14
+	 * 조홍철
+	 * 
+	 * 팔로우 번호 가져오기
+	 * 
+	 * @param board - 보드번호 객체
+	 * @return int - 팔로우 번호
+	 */
+	public int getFollowNo(Board board);
+
+
+
+	/**
+	 * 2020-01-14
+	 * 조홍철
+	 * 
+	 * 팔로우 알림 삽입
+	 * 
+	 * @param alram - 삽입할 알림 정보가 담긴 객체
+	 */
+	public void insertfollowAlram(Alram alram);
+
+
+
+	/**
+	 * 2020-01-14
+	 * 조홍철
+	 * 
+	 * 팔로우 알람 데이터 삭제
+	 * 
+	 * @param followNo - 삭제할 팔로우 번호
+	 */
+	
+	public void deleteFollowAlram(int followNo);
 }
