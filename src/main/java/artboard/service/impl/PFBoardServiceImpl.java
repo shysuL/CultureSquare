@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import artboard.dao.face.FollowDao;
 import artboard.dao.face.PFBoardDao;
 import artboard.dao.face.ReplyDao;
+import artboard.dto.Alram;
 import artboard.dto.Board;
 import artboard.dto.Donation;
 import artboard.dto.PFUpFile;
@@ -465,5 +466,44 @@ public class PFBoardServiceImpl implements PFBoardService{
 		}
 	}
 
+
+	@Override
+	public int getUserno(int boardno) {
+		return pfboardDao.selectUserNoByBoardNo(boardno);
+	}
+
+
+	@Override
+	public void insertReplyAlram(Alram alram) {
+
+		pfboardDao.insertReplyAlram(alram);
+	}
+
+
+	@Override
+	public void deleteAlramReply(Reply reply) {
+
+		pfboardDao.deleteAlramReply(reply);
+	}
+
+
+	@Override
+	public int getLikeNo(Board board) {
+		return pfboardDao.selectLikeNo(board);
+	}
+
+
+	@Override
+	public void insertLikeAlram(Alram alram) {
+
+		pfboardDao.insertLikeAlram(alram);
+	}
+
+
+	@Override
+	public void deleteLikeAlram(int likeno) {
+		
+		pfboardDao.deleteLikeAlram(likeno);
+	}
 
 }

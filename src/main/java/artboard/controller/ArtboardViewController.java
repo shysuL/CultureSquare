@@ -31,6 +31,7 @@ import artboard.dto.Donation;
 import artboard.dto.PFUpFile;
 import artboard.dto.Reply;
 import artboard.service.face.PFBoardService;
+import artboard.dto.Alram;
 import prboard.dto.UpFile;
 import user.bo.NaverLoginBO;
 import user.service.face.KakaoService;
@@ -292,7 +293,23 @@ public class ArtboardViewController {
 			//전에 추천한적이 없다면
 			if(result == 0) {
 				pfboardService.recommend(board);
+				
+				//알람테이블 삽입
+				Alram alram = new Alram();
+				alram.setAlramsender((String)session.getAttribute("usernick"));
+				alram.setAlramcontents("예술 좋아요!");
+				alram.setUserno(pfboardService.getUserno(boardno));
+				alram.setBoardno(boardno);
+				alram.setLikeno(pfboardService.getLikeNo(board));
+				
+				pfboardService.insertLikeAlram(alram);
+				
 			}else {
+				
+				int likeno = pfboardService.getLikeNo(board);
+				//알람 데이터 삭제
+				pfboardService.deleteLikeAlram(likeno);
+				
 				pfboardService.recommendCancel(board);
 			}
 
