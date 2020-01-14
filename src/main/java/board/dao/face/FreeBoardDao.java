@@ -441,10 +441,20 @@ public interface FreeBoardDao {
 	 * 2020-01-13
 	 * 고인호
 	 * 
-	 * 알람 삽입
+	 * 댓글 알람 삽입
 	 * 
 	 * @param alram - 알람에 등록될 정보가 담긴 객체
 	 */
 	public void insertRecommendAlram(Alram alram);
+
+	/**
+	 * 2020-01-14
+	 * 고인호
+	 * 
+	 * 댓글 알람 삭제
+	 * 
+	 * @param reply - 삭제할 알람 정보가 담긴 객체
+	 */
+	public void deleteAlramReply(Reply reply);
 
 }
