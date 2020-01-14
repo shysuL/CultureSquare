@@ -153,7 +153,7 @@ $(document).ready(function(){
 <hr>
 <div class="row">
 
-	<a id="top" href="#">승리싫어하는 사람 눌러</a>
+	<a id="top" href="#" style="width: 60px;"><img src="/resources/img/TOPbutton1.png" class="d-block w-100" alt="..."></a>
 	
 	<!-- 공연 게시판 -->
 	<!-- 캐러셀영역 -->
