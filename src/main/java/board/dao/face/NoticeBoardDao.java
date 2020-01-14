@@ -24,6 +24,10 @@ public interface NoticeBoardDao {
 	public FreeBoard selectByUserNick(Object attribute);
 
 	public List<FreeBoard> selectViewsAll();
+	
+	public UpFile selectFile(int boardno);
+	
+	public UpFile selectFileNo(int fileno);
 
 	public void insertFile(UpFile upfile);
 

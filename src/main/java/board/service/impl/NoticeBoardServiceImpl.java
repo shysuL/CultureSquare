@@ -128,15 +128,15 @@ public class NoticeBoardServiceImpl implements NoticeBoardService{
 	@Override
 	public UpFile getFile(int boardno) {
 		
-//		return noticeboardDao.selectFile(boardno);
-		return null;
+		return noticeboardDao.selectFile(boardno);
+		
 	}
 
 	@Override
 	public UpFile getFileNo(int fileno) {
 		
-//		return noticeboardDao.selectFileNo(fileno);
-		return null;
+		return noticeboardDao.selectFileNo(fileno);
+		
 	}
 
 	@Override
