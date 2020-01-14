@@ -349,7 +349,7 @@ $(document).ready(function(){
 
 <div class="container myPageContainer" id="myPageContainer">
 	<div class="container text-center">
-		<h4 id="mypageheader">${getUser.usernick }의 마이페이지</h4>
+		<h4 id="mypageheader">${getUser.usernick }님의 마이페이지</h4>
 	</div>
 	<div class="container box" style="margin-bottom: 1%;">
 		<!-- 나의 정보 -->

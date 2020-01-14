@@ -48,10 +48,24 @@ public class MyHistoryController {
 		model.addAttribute("likelist", likelist);
 	}
 
-//	@RequestMapping(value="/mypage/likeartists", method=RequestMethod.GET)
-//	public void getLikeArtists(Paging paging, User_table user) {
-//		
-//	}
+	//사용자가 팔로우한 예술인
+	@RequestMapping(value="/mypage/likeartists", method=RequestMethod.GET)
+	public void getLikeArtists(HttpServletRequest req, MyPaging paging, HttpSession session, Model model) {
+		
+		paging.setUserno((Integer)session.getAttribute("userno"));
+		
+		MyPaging result = mypageService.getFollowPaing(paging);
+		
+		List<HashMap<String, Object>> followlist = new ArrayList<HashMap<String, Object>>();
+		
+		followlist = mypageService.getFollowList(result);
+		
+		model.addAttribute("url", req.getRequestURI());
+		model.addAttribute("paging", result);
+		model.addAttribute("followlist", followlist);
+		
+		
+	}
 
 	//사용자가 작성한 글
 	@RequestMapping(value="/mypage/writelist", method=RequestMethod.GET)
@@ -62,9 +76,7 @@ public class MyHistoryController {
 		MyPaging result = mypageService.getPaging(paging);
 		
 		List<HashMap<String, Object>> writelist = new ArrayList<HashMap<String, Object>>();
-		
-		System.out.println("작성한 글" + result);
-		
+//		System.out.println("작성한 글" + result);
 		writelist = mypageService.getWriteList(result);
 		
 		model.addAttribute("url", req.getRequestURI());
@@ -91,6 +103,7 @@ public class MyHistoryController {
 		
 	}
 	
+	//사용자가 후원한 내역
 	@RequestMapping(value="/mypage/permitslist", method=RequestMethod.GET)
 	public void getUserPermit(User_table user, HttpSession session, Model model, HttpServletRequest req, MyPaging paging) {
 		
