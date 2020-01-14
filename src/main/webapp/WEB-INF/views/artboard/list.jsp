@@ -282,33 +282,7 @@ $(document).ready(function(){
 	</div>
 	</c:forEach>
 
-	<!-- 하단 글작성 버튼 -->
-	<div class="b">
-	<c:choose>
-		<c:when test="${not login}">
-		<div>
-			<button id="notLoginWrite" class="btn bbc">글작성</button>
-		</div>
-		</c:when>
-		<%--  예술인일 때 작성 가능한 조건 추가 필요 --%>
-	 <c:otherwise> 
-     <c:choose> 
-			<c:when test = "${LoginUser.usertype ne 1}">
-			<div>
-			<button id="notArtistWrite" class="btn bbc">글작성</button>
-			</div>
-			</c:when>
-			<c:otherwise>
-			<div>
-			<a href="/artboard/write">
-			<button id="LoginWrite"class="btn bbc">글작성</button>
-			</a>
-			</div>
-			</c:otherwise>
-		</c:choose>
-		</c:otherwise>
-	</c:choose>
-	</div> 
+
 
 
 	
