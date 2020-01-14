@@ -493,6 +493,38 @@ public interface PFBoardDao {
 	 * @return
 	 */
 	public void updateLoc(Board board);
+
+	/**
+	 * 2020-01-14
+	 * 조홍철
+	 * 
+	 * 팔로우 번호 가져오기
+	 * 
+	 * @param board - 보드번호 객체
+	 * @return int - 팔로우 번호
+	 */
+	public int selectFollowNo(Board board);
+
+	/**
+	 * 2020-01-14
+	 * 조홍철
+	 * 
+	 * 팔로우 알람 삽입
+	 * 
+	 * @param alram - 삽입할 알람 정보 객체
+	 */
+	public void insertfollowAlram(Alram alram);
+
 	
+	/**
+	 * 2020-01-14
+	 * 조홍철
+	 * 
+	 * 팔로우 알람 데이터 삭제
+	 * 
+	 * @param followNo - 삭제할 팔로우 번호
+	 */
+	
+	public void deleteFollowAlram(int followNo);
 	
 }

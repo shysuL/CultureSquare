@@ -452,9 +452,13 @@ function alramread(){
 						}
 						
 						// alramtype == 4 -> 후원
-						else{
+						else if (res.alramList[i].alramtype == 4){
 							html += "<br>회원님의  <strong>" + res.alramList[i].title +"</strong> 게시글에<br> ";
 							html +=  res.alramList[i].alramcontents + "원을 후원하였습니다.";
+						}
+						// 팔로우
+						else{
+							html += "<br>회원님을 팔로우하였습니다.";
 						}
 						html += "<br><small>"+res.alramList[i].alramtime+"</small>";
 						html += "</li>";
