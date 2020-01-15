@@ -26,16 +26,17 @@ public class AlramController {
 	@RequestMapping(value="/alram/alarmcnt")
 	public ModelAndView alarmcnt(ModelAndView mav, User_table user) {
 
+		
 		//1. 사용자 번호 구하기
 		user.setUserno(alramService.getUserNoByUserNick(user.getUsernick()));
 
 		//2. 알람 갯수 구하기
 		int alramCnt = alramService.getAlramCnt(user.getUserno());
-
+		
 		mav.addObject("alramCnt", alramCnt);
 		//viewName지정하기
 		mav.setViewName("jsonView");
-
+		
 		return mav;
 
 	}
