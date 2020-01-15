@@ -32,10 +32,22 @@ $(document).ready(function() {
 	
 	//작성버튼 동작
 	$("#btnWrite").click(function() {
-		// 스마트에디터 내용 <textarea>에 적용
 		submitContents( $("#btnWrite"));
+		
+		if($("#title").val() == ""){
+			$(".content").text("제목을 입력해주세요");
+			$("#freeWriteErrorModal").modal({backdrop: 'static', keyboard: false});
+		}
+		else if($("#content").val() == "<p><br></p>") {
+			$(".content").text("내용을 입력해주세요");
+			$("#freeWriteErrorModal").modal({backdrop: 'static', keyboard: false});
+		}
+		else{
+			
+		// 스마트에디터 내용 <textarea>에 적용
 		// form submit
 		$("form").submit();
+		}
 	});
 	
 	//취소버튼 동작
@@ -70,7 +82,7 @@ color: #343a40;
 enctype="multipart/form-data">
 <table class="table table-bordered">
 <tr><td class="info" colspan="2">제목</td></tr>
-<tr><td colspan="2"><input type="text" name="title" style="width:100%"/></td></tr>
+<tr><td colspan="2"><input type="text" id="title" name="title" style="width:100%"/></td></tr>
 <tr><td class="info" colspan="2">내용</td></tr>
 <tr><td colspan="2"><textarea id="content" name="contents"></textarea></td></tr>
 <tr><td><input type="file" name="file" id="file"></td></tr>
@@ -92,6 +104,31 @@ enctype="multipart/form-data">
 	<button type="button" id="btnWrite" class="btn btn-default" style="float: center; background-color: #494b4d; color: white;">작성</button>
 	<button type="button" id="btnCancel" class="btn btn-default" style="float: center; background-color: #494b4d; color: white; margin-right: 380px;">취소</button>
 </div>
+
+<!-- 게시글 작성 오류 모달-->
+<div class="modal fade" id="freeWriteErrorModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">글작성 오류</h4>
+        <button id="freeLikeLoginX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="freeWriteErrorModalBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 </div>
 <br>
 
