@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<h1>이메일 체크</h1>
+<h1>Culture Square 이메일 인증 결과</h1>
 
 이메일 인증을 성공하셨습니다.
 <a href="/main/main">로그인</a> 후 서비스를 이용해주세요

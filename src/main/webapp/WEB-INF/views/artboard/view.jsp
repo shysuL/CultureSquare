@@ -1066,7 +1066,7 @@ $(document).ready(function() {
 		<c:if test="${location.lat ne null}">
 			<hr>
 		<div class="map_wrap">
-			<div id="map" style="width:500px;height:400px; margin-left: 107px;"></div>
+			<div id="map" style="width:100%;height:400px;"></div>
 			<div class="hAddr">
 		        <span class="title">지도중심기준 행정동 주소정보</span>
 		        <span id="centerAddr"></span>

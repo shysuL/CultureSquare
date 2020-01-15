@@ -221,37 +221,37 @@ function fn_fileAdd(){
 			<div id = "performradio"> 
 				<span class="radio">
 			  		<label>
-			   			<input type="radio" name="performname"  value="버스킹" checked>버스킹
+			   			<input type="radio" name="performname"  value="버스킹"  <c:if test='${view.performname eq "버스킹"}'>checked</c:if>>버스킹
 			 		</label>
 				</span>&nbsp;
 				<span class="radio">
 					<label>
-						<input type="radio" name="performname"  value="전시회">전시회
+						<input type="radio" name="performname"  value="전시회" <c:if test='${view.performname eq "전시회"}'>checked</c:if>>전시회
 					</label>
 				</span>&nbsp;
 				<span class="radio">
 					<label>
-						<input type="radio" name="performname"  value="연극">연극
+						<input type="radio" name="performname"  value="연극" <c:if test='${view.performname eq "연극"}'>checked</c:if>>연극
 					</label>
 				</span>&nbsp;
 				<span class="radio">
 					<label>
-						<input type="radio" name="performname"  value="뮤지컬">뮤지컬
+						<input type="radio" name="performname"  value="뮤지컬" <c:if test='${view.performname eq "뮤지컬"}'>checked</c:if>>뮤지컬
 					</label>
 				</span>&nbsp;
 				<span class="radio">
 					<label>
-						<input type="radio" name="performname"  value="콘서트">콘서트
+						<input type="radio" name="performname"  value="콘서트" <c:if test='${view.performname eq "콘서트"}'>checked</c:if>>콘서트
 					</label>
 				</span>&nbsp;
 				<span class="radio">
 					<label>
-						<input type="radio" name="performname"  value="행사">행사
+						<input type="radio" name="performname"  value="행사" <c:if test='${view.performname eq "행사"}'>checked</c:if>>행사
 					</label>
 				</span>&nbsp;
 				<span class="radio">
 					<label>
-						<input type="radio" name="performname"  value="축제">축제
+						<input type="radio" name="performname"  value="축제" <c:if test='${view.performname eq "축제"}'>checked</c:if>>축제
 					</label>
 				</span>
 		
@@ -335,19 +335,19 @@ function fn_fileAdd(){
 	        <span id="centerAddr"></span>
 	    </div>
 	    <div class="custom_typecontrol radius_border">
-	        <span id="btnRoadmap" class="selected_btn" onclick="setMapType('roadmap')" style="width: 104px;">지도</span>
-	        <span id="btnSkyview" class="btn" onclick="setMapType('skyview')" style="width: 104px;">스카이뷰</span>
+	        <span id="btnRoadmap" class="selected_btn" onclick="setMapType('roadmap')" style="width: 104px; padding-top: 0px;">지도</span>
+	        <span id="btnSkyview" class="btn" onclick="setMapType('skyview')" style="width: 104px; padding-top: 0px;">스카이뷰</span>
 	    </div>
 	    <!-- 지도 확대, 축소 컨트롤 div 입니다 -->
 	    <div class="custom_zoomcontrol radius_border"> 
-	        <span onclick="zoomIn()">+</span>  
-	        <span onclick="zoomOut()">-</span>
+	        <span onclick="zoomIn()" style="padding-top: 8px;padding-right: 2px;">+</span>  
+	        <span onclick="zoomOut()" style="padding-top: 8px;padding-right: 2px;">-</span>
 	    </div>
 	    
 	  </div>
       		
 	 </div>
-		<p id="result"></p>
+		<p id="result" style="display:none;"></p>
 				
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=955e62645517faafe40085ecec08d0c1&libraries=services,clusterer,drawing"></script>
 <script>
