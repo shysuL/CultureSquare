@@ -161,7 +161,16 @@ $(document).ready(function(){
 				})
 		}
 		
-// 		9. 관심분야 검사
+// 		9. 회원구분
+		else if($("input:radio[name='usertype']").is(":checked") == false){
+				$(".content").text('회원구분을  선택 해주세요');
+				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
+				$("#inputjoinCheckBtn").click(function(){
+					$("#usertype").focus();	
+				})
+		}
+	
+// 		10. 관심분야 검사
 		else if($("input:checkbox[name='interest']").is(":checked") == false){
 				$(".content").text('관심분야를 한개 이상 선택 해주세요');
 				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
@@ -170,14 +179,6 @@ $(document).ready(function(){
 				})
 		}
 		
-// 		10. 회원구분
-		else if($("input:radio[name='usertype']").is(":checked") == false){
-				$(".content").text('회원구분을  선택 해주세요');
-				$("#joinAuthenticationModal").modal({backdrop: 'static', keyboard: false});
-				$("#inputjoinCheckBtn").click(function(){
-					$("#usertype").focus();	
-				})
-		}
 //		11. 이용약관
 		else if($("input:checkbox[name='agree']").is(":checked") == false){			
 				$(".content").text('이용약관에 동의 해주세요');
