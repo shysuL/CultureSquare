@@ -500,28 +500,31 @@ function alramread(){
 	}
 }
 function getAlramCnt(usernick){
-	$.ajax({
-		type : "POST",
-		url : "/alram/alarmcnt",
-		data : {
-			//사용자 닉네임 넘겨줌
-			usernick : usernick,
-		},
-		dataType : "json",
-		success : function(res) {
-			if(res.alramCnt != 0){
-				console.log("알람 갯수 : " + res.alramCnt);
-				$("#alarmCnt").html(res.alramCnt);
+	
+	if('${login}'){
+		$.ajax({
+			type : "POST",
+			url : "/alram/alarmcnt",
+			data : {
+				//사용자 닉네임 넘겨줌
+				usernick : usernick,
+			},
+			dataType : "json",
+			success : function(res) {
+				if(res.alramCnt != 0){
+					console.log("알람 갯수 : " + res.alramCnt);
+					$("#alarmCnt").html(res.alramCnt);
+				}
+				else{
+					console.log("알람 0개(다읽음): " + res.alramCnt);
+					$("#alarmCnt").html("");
+				}
+			},
+			error : function() {
+				console.log("실패");
 			}
-			else{
-				console.log("알람 0개(다읽음): " + res.alramCnt);
-				$("#alarmCnt").html("");
-			}
-		},
-		error : function() {
-			console.log("실패");
-		}
-	});
+		});
+	}
 }
 function getInfiniteAlram(usernick){
 	setInterval(function() {
