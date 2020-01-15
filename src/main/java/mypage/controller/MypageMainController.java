@@ -86,6 +86,26 @@ public class MypageMainController {
 		}		
 	}
 	
+	@RequestMapping(value="/mypage/changePw", method=RequestMethod.POST)
+	public ModelAndView changePw(ModelAndView mav, HttpSession session, String changepw) {
+		
+		User_table user = new User_table();
+		
+		//세션에서 로그인한 사용자의 userno와 userid, usernick 가져와서 user객체에 담기
+		user.setUserid(session.getAttribute("userid").toString());
+		user.setUserno((Integer)session.getAttribute("userno"));
+		user.setUsernick(session.getAttribute("usernick").toString());
+		
+		user.setUserpw(PwSha256.userPwEncSHA256(changepw)); // 현재비밀번호를 암호화 한거
+
+		mypageService.modifyUserPassword(user);
+		
+		//viewName지정하기
+		mav.setViewName("jsonView");
+		 
+		return mav;
+	}
+	
 	@RequestMapping(value="/mypage/curpwCheck", method=RequestMethod.POST)
 	public ModelAndView currentPwCheck(ModelAndView mav, HttpSession session, User_table user) {
 		

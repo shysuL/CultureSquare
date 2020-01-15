@@ -97,7 +97,7 @@
 	<select id="selectReplyPost" resultType="hashmap" parameterType="util.MyPaging">
 		SELECT * FROM (
 		    SELECT rownum rnum, B.* FROM (
-		        SELECT P.boardname, B.title, R.recontents, R.replydate, U.userno
+		        SELECT P.boardname, B.title, B.boardno, R.recontents, R.replydate, U.userno
 		        FROM reply R, board B, user_table U, posttype P
 		        WHERE R.userno = U.userno
 		            AND P.postno = B.postno
