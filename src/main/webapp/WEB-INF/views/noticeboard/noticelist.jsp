@@ -132,7 +132,7 @@ color: #343a40;
 <%-- 	</c:choose> --%>
 <!-- </span> -->
 
-<jsp:include page = "/WEB-INF/views/layout/freepaging.jsp" />
+<jsp:include page = "/WEB-INF/views/layout/noticepaging.jsp" />
 
 </div>
 
@@ -188,6 +188,3 @@ color: #343a40;
  
 <jsp:include page="/WEB-INF/views/layout/footer.jsp"/>  
 
-
-</body>
-</html>
