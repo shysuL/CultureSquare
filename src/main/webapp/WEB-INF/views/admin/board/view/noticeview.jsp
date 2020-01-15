@@ -199,7 +199,7 @@ span[class=close] {
 	 					<strong style="padding: 5px;">첨부파일이 없습니다.</strong>
 	 				</c:if>	
 
-					<a href="/noticeboard/download?fileno=${fileinfo.fileno}">${fileinfo.originname}</a>
+					<a href="/admin/noticeboard/download?fileno=${fileinfo.fileno}">${fileinfo.originname}</a>
 			</td>
 		</tr>
 </table>
