@@ -93,6 +93,7 @@
 }
 .cate {
     width: 90px;
+    margin-top: 1px;
 }
 .fottercol {
 	color: white;
@@ -168,7 +169,7 @@
 }
 
 #view_buttonarea{
-	max-width: 95%;
+	max-width: 97%;
 	text-align: right;
 }
 #writer_title{

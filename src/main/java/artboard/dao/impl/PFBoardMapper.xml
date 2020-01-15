@@ -20,7 +20,6 @@
 		FROM board B, perform_add P
 		WHERE B.boardno = P.boardno
 		AND B.postno = 1
-		AND p.writepermit = 1
 		AND substr(p.performdate, 1, 7) =
 		#{searchMonth }
 		AND performname = #{performname}
