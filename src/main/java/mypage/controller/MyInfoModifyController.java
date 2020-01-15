@@ -74,7 +74,7 @@ public class MyInfoModifyController {
 	
 	//사용자 개인정보 수정
 	@RequestMapping(value="/mypage/updateform", method=RequestMethod.POST)
-	public String modifyUserInfo(User_table user) {
+	public String modifyUserInfo(User_table user, HttpSession session) {
 		
 		logger.info(session.getAttribute("userno").toString());
 		
@@ -94,6 +94,8 @@ public class MyInfoModifyController {
 		logger.info("핸드폰 : " + phone);
 
 		mypageService.modifyUserInfo(user);
+		
+		session.setAttribute("usernick", nick);
 		
 		return "redirect:/main/main";
 	}

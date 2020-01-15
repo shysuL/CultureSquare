@@ -1,7 +1,5 @@
 package admin.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import admin.service.face.AdminService;
 import artboard.dto.Board;
@@ -222,6 +221,20 @@ public class AdminBoardViewController {
 		noticeboardService.noticeDelete(boardno);
 		
 		return "redirect:/admin/main";
+	}
+	
+	@RequestMapping(value="/admin/noticeboard/download")
+	public ModelAndView noticeDownload(int fileno, ModelAndView mav) {
+		
+		board.dto.UpFile file = noticeboardService.getFileNo(fileno);
+		
+		logger.info("공지사항 파일번호" + fileno);
+		logger.info("공지사항 다운로드 되라" + file);
+		
+		mav.addObject("downFile", file);
+		mav.setViewName("noticedown");
+		
+		return mav;
 	}
 	
 	@RequestMapping(value="/admin/board/view/userview", method=RequestMethod.GET)
