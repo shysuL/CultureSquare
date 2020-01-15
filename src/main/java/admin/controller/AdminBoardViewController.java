@@ -259,7 +259,8 @@ public class AdminBoardViewController {
 		
 		logger.info("되냐!?");
 		
-		user.setUserno((Integer)session.getAttribute("userno"));
+//		user.setUserno((Integer)session.getAttribute("userno"));
+		user.setUserno(user.getUserno());
 		
 		adminService.updatepermit(user);
 		
