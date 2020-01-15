@@ -26,7 +26,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	
+		
 	// 로그아웃 버튼 눌렀을 때
 	$("#logout").click(function(){
 		$(".content").text("로그아웃 하시겠습니까?");
