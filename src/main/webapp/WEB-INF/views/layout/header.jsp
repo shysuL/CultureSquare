@@ -26,7 +26,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	
+		
 	// 로그아웃 버튼 눌렀을 때
 	$("#logout").click(function(){
 		$(".content").text("로그아웃 하시겠습니까?");
@@ -677,6 +677,11 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
     font-size: 20px;
     text-decoration: none;
 }
+#mypage{
+	width: 195px;
+    margin-bottom: 10px;
+}
+
 </style>
 
 </head>
