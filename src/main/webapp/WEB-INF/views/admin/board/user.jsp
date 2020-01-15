@@ -48,12 +48,12 @@ $(document).ready(function() {
 <div class="container" style="margin-top: 50px;">
 	<div class="innercon2">
 		<h3 style="text-align: center;">USER</h3>
-		<div class="src" style="text-align: right;">
-			<form action="" method="get">
-				<input type="text" name="search" id="search"/>
-				<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
-			</form>
-		</div>
+<!-- 		<div class="src" style="text-align: right;"> -->
+<!-- 			<form action="" method="get"> -->
+<!-- 				<input type="text" name="search" id="search"/> -->
+<!-- 				<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button> -->
+<!-- 			</form> -->
+<!-- 		</div> -->
 		<br>
 		<form action="" method="get">
 			<table class="table table-hover">

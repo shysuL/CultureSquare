@@ -51,7 +51,6 @@ tr td:not(:first-child), tr th:not(:first-child) {
 }
 
 .src{
-	text-align: center;
 	width: 670px;
 }
 
@@ -68,12 +67,25 @@ color: #343a40;
 
 
 <div class="container list-container">
-<div class="h2"><h2> 공지사항 </h2></div>
+<div class="h2"><h2 style="margin-top: 40px; margin-bottom: 20px;"> 공지사항 </h2></div>
 <hr>
 <div class="row">
 <!-- 게시판 리스트 -->
 <div class="col-8">
 
+	<div class="src" >
+		<form action="/noticeboard/noticelist" method="get">
+		<select name="searchcategory" style="height: 30px;">
+		<option value="title">제목</option>
+	<!-- 	<option value="usernick">닉네임</option> -->
+	<!-- 	<option value="prname">게시판 유형</option> -->
+	</select>
+		<input id=search name="searchtarget" type="text" placeholder = "검색어 입력">
+		<button>검색</button>
+		</form>
+	</div>
+	<br>
+	
 <div style="background-color: #343a40; height: 50px;">
 	<i class="fas fa-list" style= "color: #ffff;margin-left: 18px;" title="게시글 번호"></i>
 	<i class="fas fa-heart" style= "color: #ffff;margin-left: 29px;" title="좋아요"></i>
@@ -120,27 +132,12 @@ color: #343a40;
 <%-- 	</c:choose> --%>
 <!-- </span> -->
 
-<jsp:include page = "/WEB-INF/views/layout/freepaging.jsp" />
-
-<div class="src" >
-	<form action="/noticeboard/noticelist" method="get">
-	<select name="searchcategory" style="
-    height: 30px;">
-	<option value="title">제목</option>
-<!-- 	<option value="usernick">닉네임</option> -->
-<!-- 	<option value="prname">게시판 유형</option> -->
-</select>
-	<input id=search name="searchtarget" type="text" placeholder = "검색어 입력">
-	<button>검색</button>
-	</form>
-</div>
-
-
+<jsp:include page = "/WEB-INF/views/layout/noticepaging.jsp" />
 
 </div>
 
 <!-- 사이드 리스트 -->
-<div class="col-4">
+<div class="col-4" style="margin-top: 54px;">
 
 	<div class="list-group" id="freeIntroduceTitle">
 	  <a class="list-group-item" id="freeIntroduceContent">공지사항</a>
@@ -191,6 +188,3 @@ color: #343a40;
  
 <jsp:include page="/WEB-INF/views/layout/footer.jsp"/>  
 
-
-</body>
-</html>

@@ -122,10 +122,11 @@ $(document).ready(function() {
 <!-- Page Heading -->
   <h1 class="my-4"><a href="/prboard/prlist" style="color: black; text-decoration: none;">PR</a>
   </h1>
+  <hr>
 
 <form action="/prboard/prlist" method="get">
 <div style="margin: 1%">
-<select name="searchType">
+<select name="searchType" style="padding: 6px;">
 	<option value="title">제목</option>
 	<option value="usernick">닉네임</option>
 	<option value="prname">게시판 유형</option>

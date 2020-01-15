@@ -216,9 +216,9 @@ span[class=close] {
 				</tr>
 			</table>
 			<div class="list-group" id="fileTitle">
-				  <a class="list-group-item" id="fileContent" style="background-color: #4b5055;">
+				  <p class="list-group-item" id="fileContent" style="background-color: #4b5055;">
 				   첨부파일
-				  </a>
+				  </p>
 				  <c:choose>
 					<c:when test="${!empty fileList}">
 						<c:forEach items="${fileList }" var="fileList">
@@ -233,19 +233,9 @@ span[class=close] {
 	</div>	
 </div> <!-- 컨테이너 -->
 
-<div class="container">
-	<div id ="replyComment">
-	    <span><strong>Comments</strong></span> <span id="cCnt"></span>
-	</div>
-	<br>
-	
-	
-	
-</div>
-
-
 <div class="container" style ="margin-top: 15px; margin-bottom: 50px;">
 	<div class="text-center">	
+		<button onclick="location.href='/admin/main';" class="btn btn-secondary">메인</button>
 		<button id="btnDelete" class="btn btn-secondary">삭제</button>
 	</div>
 </div>

@@ -21,6 +21,9 @@ http://www.springframework.org/schema/task/spring-task.xsd">
 	
 	<!-- PR보드 전용 DownloadView클래스를 down이라는 이름의 스프링 빈으로 등록하기 -->
 	<beans:bean id="prdown" class="prboard.view.DownloadView" />
+
+	<!-- 관리자 공지사항 보드 전용 DownloadView클래스를 down이라는 이름의 스프링 빈으로 등록하기 -->
+	<beans:bean id="noticedown" class="admin.view.DownloadView" />
 	
 	<!-- art보드 전용 DownloadView클래스를 down이라는 이름의 스프링 빈으로 등록하기 -->
 	<beans:bean id="pfdown" class="artboard.view.DownloadView" />

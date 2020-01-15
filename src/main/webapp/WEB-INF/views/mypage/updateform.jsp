@@ -188,13 +188,13 @@ $(document).ready(function(){
 			
 			<tr>
 				<td class="ftd"><label><strong>닉네임</strong></label></td>
-				<td class="btd"><input type="text" id="usernick" name="usernick" value=" ${getUser.usernick }"/>
+				<td class="btd"><input type="text" id="usernick" name="usernick" value="${getUser.usernick }"/>
 					<div class="check-font" id="nick_check"></div></td>
 			</tr>
 			
 			<tr>
 				<td class="ftd"><label><strong>전화번호</strong></label></td>
-				<td class="btd"><input type="text" id="userphone" name = "userphone" value=" ${getUser.userphone }"/>
+				<td class="btd"><input type="text" id="userphone" name = "userphone" value="${getUser.userphone }"/>
 				<small>'-'없이 번호만 입력해주세요.</small>
 				<div class="check_font" id="phone_check"></div></td>
 			</tr>

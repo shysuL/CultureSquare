@@ -26,7 +26,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	
+		
 	// 로그아웃 버튼 눌렀을 때
 	$("#logout").click(function(){
 		$(".content").text("로그아웃 하시겠습니까?");
@@ -500,28 +500,31 @@ function alramread(){
 	}
 }
 function getAlramCnt(usernick){
-	$.ajax({
-		type : "POST",
-		url : "/alram/alarmcnt",
-		data : {
-			//사용자 닉네임 넘겨줌
-			usernick : usernick,
-		},
-		dataType : "json",
-		success : function(res) {
-			if(res.alramCnt != 0){
-				console.log("알람 갯수 : " + res.alramCnt);
-				$("#alarmCnt").html(res.alramCnt);
+	
+	if('${login}'){
+		$.ajax({
+			type : "POST",
+			url : "/alram/alarmcnt",
+			data : {
+				//사용자 닉네임 넘겨줌
+				usernick : usernick,
+			},
+			dataType : "json",
+			success : function(res) {
+				if(res.alramCnt != 0){
+					console.log("알람 갯수 : " + res.alramCnt);
+					$("#alarmCnt").html(res.alramCnt);
+				}
+				else{
+					console.log("알람 0개(다읽음): " + res.alramCnt);
+					$("#alarmCnt").html("");
+				}
+			},
+			error : function() {
+				console.log("실패");
 			}
-			else{
-				console.log("알람 0개(다읽음): " + res.alramCnt);
-				$("#alarmCnt").html("");
-			}
-		},
-		error : function() {
-			console.log("실패");
-		}
-	});
+		});
+	}
 }
 function getInfiniteAlram(usernick){
 	setInterval(function() {
@@ -625,7 +628,7 @@ function getInfiniteAlram(usernick){
     width: 220px;
 }
 .alram {
-    margin-left: -145px;
+    margin-left: -212px;
     width: 356px;
     overflow: auto;
     height: 215px;
@@ -677,6 +680,11 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
     font-size: 20px;
     text-decoration: none;
 }
+#mypage{
+	width: 195px;
+    margin-bottom: 10px;
+}
+
 </style>
 
 </head>

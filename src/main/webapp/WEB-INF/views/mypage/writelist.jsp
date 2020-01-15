@@ -62,6 +62,10 @@
 		</form>
 	</div>
 	
+	<div style="text-align: center; margin-bottom:40px; margin-top:40px;">
+		<button type="button" class="btn btn-secondary" onclick="location.href='/mypage/main';">돌아가기</button>
+	</div>
+	
 	<jsp:include page="/WEB-INF/views/layout/mypaging.jsp"/>
 </div> <!-- container -->
 

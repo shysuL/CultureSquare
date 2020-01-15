@@ -1023,8 +1023,8 @@ $(document).ready(function() {
 %>
 <div class="container list-container">
 
-<div class="h2"><h2> CALENDAR </h2></div>
-<br>
+<div class="h2"><h2 style="margin-top: 40px; margin-bottom:20px;"> CALENDAR </h2></div>
+<hr>
 <div class="row">
 	<div class="col-9">
 		<div class="container container-fluid" style="margin-bottom: 50px">
@@ -1221,15 +1221,15 @@ if (status === kakao.maps.services.Status.OK) {
 <c:if test="${login && writer.userno != 0 }">
 <!-- 댓글 입력 -->
 <div>
-	<div style="text-align: right; margin-right: 35px; margin-bottom: 5px;">
+	<div style="text-align: right; margin-right: 43px; margin-bottom: 5px;">
 			<a><button id="writereply" class="btn  bbc" type="button">댓글작성</button></a>
-			<c:if test="${userno eq writer.userno  }">
+			<%-- <c:if test="${userno eq writer.userno  }">
 				<a style="float: right"
 					href=""><button style="margin-left:2px;" class="btn bbc" type="button">수정하기</button></a>
 				<a style="float: right"
 					href=""
 					onclick="warning();"><button style="margin-left:2px;"class="btn bbc" type="button">삭제하기</button></a>
-			</c:if>
+			</c:if> --%>
 	</div>
 	
 	<div id = "replyinputheader">코멘트 남기기</div>

@@ -149,7 +149,7 @@ $(document).ready(function(){
 </style>
 
 <div class="container list-container">
-<div class="h2"><h2> CALENDAR </h2></div>
+<div class="h2"><h2 style="margin-top: 40px; margin-bottom:20px;"> CALENDAR </h2></div>
 <hr>
 <div class="row">
 
@@ -265,11 +265,11 @@ $(document).ready(function(){
 				<c:choose>
 					<c:when test="${i.userno == 0 }">
 						<span class="media-heading"><a href="/artboard/view?boardno=${i.boardno}"
-						style = "font-size: 23px; color: #343A40;">[삭제된 게시물 ] ${i.title }</a></span>
+						style = "font-size: 20px; color: #343A40; text-decoration: none;">[ 삭제된 게시물 ] ${i.title }</a></span>
 					</c:when>
 					<c:otherwise>
 						<span class="media-heading"><a href="/artboard/view?boardno=${i.boardno}"
-						style = "font-size: 23px; color: #343A40;">${i.title }</a></span>
+						style = "font-size: 20px; color: #343A40; text-decoration: none;">${i.title }</a></span>
 					</c:otherwise>
 				</c:choose>
 				<br><br>

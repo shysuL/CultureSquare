@@ -199,14 +199,11 @@ span[class=close] {
 		</tr>
 </table>
 	
-	<div id ="replyComment">
-	    <span><strong>Comments</strong></span> <span id="cCnt"></span>
-	</div>
-            
 </div>
 <br>
 
 	<div style="text-align: center;">
+		<button onclick="location.href='/admin/main';" class="btn btn-secondary">메인</button>
 		<button id="btnDelete" class="btn btn-secondary" >삭제</button>
 	</div>	
 </div>

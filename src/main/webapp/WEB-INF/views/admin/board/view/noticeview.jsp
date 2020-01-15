@@ -199,7 +199,7 @@ span[class=close] {
 	 					<strong style="padding: 5px;">첨부파일이 없습니다.</strong>
 	 				</c:if>	
 
-					<a href="/noticeboard/download?fileno=${fileinfo.fileno}">${fileinfo.originname}</a>
+					<a href="/admin/noticeboard/download?fileno=${fileinfo.fileno}">${fileinfo.originname}</a>
 			</td>
 		</tr>
 </table>
@@ -208,7 +208,8 @@ span[class=close] {
 <br>
 
 	<div style="text-align: center;">
-		<button id="btnUpdate" class="btn btn-dark" >수정</button>
+		<button onclick="location.href='/admin/main';" class="btn btn-secondary">메인</button>
+		<button id="btnUpdate" class="btn btn-secondary" >수정</button>
 		<button id="btnDelete" class="btn btn-secondary" >삭제</button>
 	</div>	
 </div>
