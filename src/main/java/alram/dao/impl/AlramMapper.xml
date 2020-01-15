@@ -6,11 +6,10 @@
 
 <mapper namespace="alram.dao.face.AlramDao">
 	<!-- 유저번호 가져오기 -->
-	<select id="selectUserNo"
-    	parameterType="String" resultType="int">
-	    SELECT userno FROM user_table
-	    WHERE 1=1
-	   	AND usernick = #{usernick}
+	 <select id="selectUserNo" parameterType="String" resultType="int">
+	 	SELECT userno FROM user_table
+	 	WHERE 1=1
+	 		AND usernick = #{usernick }
 	 </select>
 
 	 <!-- 알람 갯수 얻기 -->
