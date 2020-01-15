@@ -37,8 +37,6 @@ public class AdminLoginController {
 		if(adminIsLogin) {
 			session.setAttribute("adminLogin", adminIsLogin);
 			session.setAttribute("adminid", admin.getAdminid());
-			session.setAttribute("usernick", "cs");
-			session.setAttribute("login", true);
 			
 		}
 		
