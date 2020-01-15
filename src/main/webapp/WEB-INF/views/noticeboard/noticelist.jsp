@@ -150,12 +150,17 @@ color: #343a40;
 	</div>
 	<br><br><br><br><br><br>
 	
-	<div class="list-group" id="freeRankTitle">
+<%-- 	<div class="list-group" id="freeRankTitle">
 	  <a class="list-group-item" id="freeRankContent">공지사항 최다 조회글</a>
-<%-- 	<c:forEach items = "${viewslist }" var = "views" varStatus="status"> --%>
-<%-- 	  <a href="/board/freeview?boardno=${views.boardno }" class="list-group-item tit"> ${views.title }</a> --%>
-<%-- 	  </c:forEach> --%>
-	 </div>
+	<c:forEach items = "${viewslist }" var = "views" varStatus="status">
+	  <a href="/board/freeview?boardno=${views.boardno }" class="list-group-item tit"> ${views.title }</a>
+	  </c:forEach>
+		<c:forEach items = "${noticelist }" var = "vie" varStatus="status"> 
+			<a href="/noticeboard/noticeview?boardno=${vie.boardno }" class="list-group-item tit"> ${vie.title }</a> 
+		</c:forEach> 
+			
+
+	 </div> --%>
 
 </div>
 </div>
