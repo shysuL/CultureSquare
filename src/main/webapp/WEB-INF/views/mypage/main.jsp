@@ -23,7 +23,7 @@ $(document).ready(function() {
 	
 	//비밀번호 정규식 - 암호길이 8자 이상 16 이하, 영문숫자특수문자조합
 	var pwJ = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;
-	var cur_Check = true;
+	var cur_Check = false;
 	var pw_Check = true;
 	var pw_Check2 = true;
 	
@@ -35,21 +35,109 @@ $(document).ready(function() {
     }
 	
 	$("#updateUserPw").click(function(){
+		$("#userpw").val("");
+		$("#changepw").val("");
+		$("#changepw2").val("");
+		$('#showmsg').text('')
+		$('#pw_check').text('')
+		$('#pw_check2').text('')
 		$("#updateUserPwModal").modal({backdrop: 'static', keyboard: false});
 	})
 	
+	
+	
+	$("#userpw").blur(function(){
+		
+		var userpw = $('#userpw').val();
+		var changepw = $('#changepw').val();
+		var changepw2 = $('#changepw2').val();
+		
+		// 비밀번호 입력 안한경우
+		if(userpw == ""){
+			$('#showmsg').text('현재 비밀번호를 다시 입력해주세요.')
+			$('#showmsg').css('color', 'red')
+			$("#updatePw").attr("disabled", true);
+			$("#userpw").focus();
+			return false;
+		}
+		
+		
+		//비밀번호 입력한경우 Ajax로 비밀번호 검사
+		else{
+			$.ajax({
+				type: "post",
+				url: "/mypage/curpwCheck",
+				data: {"userpw" : userpw},
+				datatype: "json",
+				success: function(res){
+						
+					//비밀번호 틀린경우
+						if(!res.lock){
+							$('#showmsg').text('현재 비밀번호를 확인해 주세요')
+							$('#showmsg').css('color', 'red')
+							$("#updatePw").attr("disabled", true);
+							$("#userpw").focus();
+							return false;
+						}
+					
+					//맞은 경우
+						else{
+							$('#showmsg').text('현재 비밀번호가 일치합니다.')
+							$('#showmsg').css('color', 'green')
+							
+							cur_Check = true;
+							
+							// 비번 확인 입력 안한 경우
+							if(changepw == ""){
+								$('#pw_check').text('변경할 비밀번호를 입력해 주세요')
+								$('#pw_check').css('color', 'red')
+								$("#changepw").focus();
+								$("#updatePw").attr("disabled", true);
+							}
+							else if(changepw2 == ""){
+								$('#pw_check2').text('비밀번호 확인을 입력해 주세요')
+								$('#pw_check2').css('color', 'red')
+								$("#changepw2").focus();
+								$("#updatePw").attr("disabled", true);
+							}
+							else{
+								$("#updatePw").attr("disabled", false);
+							}
+						}
+					}
+			})
+		}
+
+
+		
+	});
+	
 	$("#changepw").blur(function(){
-		if(pwJ.test($('#changepw').val())){
-			console.log("특수문쟈");
-			$('#pw_check').text('사용가능한 비밀번호입니다.');
-			$('#pw_check').css('color', 'green');
-			pw_Check = true;
-			
-		} else {
-			console.log("다시입력");
-			$('#pw_check').text('숫자, 문자, 특수문자를 이용해 8~16자리를 입력해주세요. ');
+		
+		var userpw = $('#userpw').val();
+		var changepw = $('#changepw').val();
+		
+		if(userpw == changepw){
+			$('#pw_check').text('현재 비밀번호와 일치합니다. 다시 입력해 주세요 ');
 			$('#pw_check').css('color', 'red');
+			$("#updatePw").attr("disabled", true);
 			pw_Check = false;
+		}
+		else{
+			if(pwJ.test($('#changepw').val())){
+				console.log("특수문쟈");
+				$('#pw_check').text('사용가능한 비밀번호입니다.');
+				$('#pw_check').css('color', 'green');
+				pw_Check = true;
+				
+			} 
+			else {
+				console.log("다시입력");
+				$('#pw_check').text('숫자, 문자, 특수문자를 이용해 8~16자리를 입력해주세요. ');
+				$('#pw_check').css('color', 'red');
+				$("#updatePw").attr("disabled", true);
+				pw_Check = false;
+			} 
 		}
 	});
 		
@@ -58,90 +146,48 @@ $(document).ready(function() {
 		if(!pwJ.test($('#changepw2').val())){
 			$('#pw_check2').text('숫자, 문자, 특수문자를 이용해 8~16자리를 입력해주세요.');
 			$('#pw_check2').css('color', 'red');
+			$("#updatePw").attr("disabled", true);
 			pw_Check2 = false;
 			
 		} else if ($('#changepw').val() != $(this).val()){
-			$('#pw_check2').text('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
+			$('#pw_check2').text('변경할 비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
 			$('#pw_check2').css('color', 'red');
+			$("#updatePw").attr("disabled", true);
 			pw_Check2 = false;
 			
 		} else {
-			$('#pw_check2').text('비밀번호가 일치합니다.');
+			$('#pw_check2').text('변경할 비밀번호가 일치합니다.');
 			$('#pw_check2').css('color', 'green');
 			pw_Check2 = true;
+			
+			if(cur_Check){
+				$("#updatePw").attr("disabled", false);
+			}
 		}
 	});
 	
-	
 	$("#updatePw").click(function(){
-
-		var userpw = $('#userpw').val();
 		var changepw = $('#changepw').val();
-		var changepw2 = $('#changepw2').val();
 		
 		$.ajax({
 			type: "post",
-			url: "/mypage/curpwCheck",
-			data: {"userpw" : userpw},
+			url: "/mypage/changePw",
+			data: {"changepw" : changepw},
 			datatype: "json",
 			success: function(res){
 				
-				if(!res.lock){ 
-					warningModal('현재 비밀번호를 다시 입력해주세요.')
-					$("#userpw").focus();
-					return false;
-				}
+				console.log(changepw);
+				$("#pwAuthenticationModal3").modal({backdrop: 'static', keyboard: false});
+				
 			}
 		})
-		
-		//현재 비밀번호 입력
-		if(userpw == ""){
-			warningModal('현재 비밀번호를 입력해주세요.')
-			$("#userpw").focus();
-			return false;
-		}
-		
-		//변경할 비밀번호
-		if(changepw == ""){
-			warningModal('변경할 비밀번호를 입력해주세요.')
-			$("#changepw").focus();
-			return false;
-		}
-		
-		//변경할 비밀번호 다시 입력
-		if(changepw2 == ""){
-			warningModal('변경할 비밀번호를 한 번 더 입력해주세요.')
-			$("#changepw2").focus();
-			return false;
-		}
-		
-		// 변경할 비밀번호와 재확인이 같지 않을 때
-		if(userpw == changepw){
-	    	warningModal('현재 비밀번호와 다르게 입력하세요');
-	    	return false;
-		}
-       	
-		if(changepw != changepw2){
-	    	warningModal('변경하실 비밀번호가 일치하지 않습니다');
-	    	return false;
-		}
-		
-			$.ajax({
-				type: "post",
-				url: "/mypage/main",
-				data: {"userpw" : userpw, "changepw" : changepw, "changepw2" :changepw2},
-				datatype: "json",
-				success: function(res){
-					
-					console.log(res.userInfo)
-					
-				}
-			})
 
-			$("#pwAuthenticationModal3").modal({backdrop: 'static', keyboard: false});
-		})
+		
+	});
+	
 			
 });
+
 
 $(document).ready(function(){
 	
@@ -502,7 +548,7 @@ $(document).ready(function(){
 								
 								현재 비밀번호
 								<input type="password" name="userpw" id="userpw" placeholder="현재 비밀번호 입력"/><br>
-									<div class="check_font" id="cur_check"></div><br>
+									<div id="showmsg"></div><br>
 								변경할 비밀번호
 								<input type="password" name="changepw" id="changepw" placeholder="변경할 비밀번호 입력"/><br>
 									<div class="check_font" id="pw_check"></div><br>
@@ -513,7 +559,7 @@ $(document).ready(function(){
 	
 							<!-- Modal footer -->
 							<div class="modal-footer">
-								<button type="button" id="updatePw" class="btn btn-dark" data-dismiss="modal">변경하기</button>
+								<button type="button" id="updatePw" class="btn btn-dark" data-dismiss="modal" disabled>변경하기</button>
 								<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
 							</div>
 	

@@ -35,8 +35,16 @@
 			// 스마트에디터의 내용을 <textarea>에 적용
 			submitContents($("#btnWrite"));
 			
-			// form submit
-			$("form").submit();
+		      if($("#title").val() == ""){
+		          $("#freeWriteErrorModal").modal({backdrop: 'static', keyboard: false});
+		       }
+		       else if($("#content").val() == "<p><br></p>") {
+		          $("#freeWriteErrorModalC").modal({backdrop: 'static', keyboard: false});
+		       }
+		       else{
+				// form submit
+				$("form").submit();
+		       }
 		});
 
 		//취소버튼 동작
@@ -114,7 +122,7 @@
 				</tr>
 				<tr>
 					<td class="info" id="titleTitle">제목</td>
-					<td><input type="text" name="title" style="width: 100%" /></td>
+					<td><input id = "title" type="text" name="title" style="width: 100%" /></td>
 				</tr>
 				<tr>
 					<td class="info" colspan="2" id="contentTitle">내용</td>
@@ -138,6 +146,56 @@
 		<button type="button" id="btnWrite" class="btn btn-info">작성</button>
 		<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
 	</div>
+	
+	
+<div class="modal fade" id="freeWriteErrorModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+     <div class="modal-header">
+        <h4 class="modal-title">PR 게시글 작성 불가!</h4>
+        <button id="freeWriteErrorModalX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	제목을 입력해 주세요!
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="freeWriteErrorBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="freeWriteErrorModalC">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+     <div class="modal-header">
+        <h4 class="modal-title">PR 게시글 작성 불가!</h4>
+        <button id="freeWriteErrorModalCX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	내용을 입력해 주세요!
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="freeWriteErrorCBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+	
 </div>
 <!-- 컨테이너 -->
 
