@@ -385,22 +385,22 @@ function fn_fileAdd(){
 	        <span id="centerAddr"></span>
 	    </div>
 	    <div class="custom_typecontrol radius_border">
-	        <span id="btnRoadmap" class="selected_btn" onclick="setMapType('roadmap')" style="width: 104px;">지도</span>
-	        <span id="btnSkyview" class="btn" onclick="setMapType('skyview')" style="width: 104px;">스카이뷰</span>
+	        <span id="btnRoadmap" class="selected_btn" onclick="setMapType('roadmap')" style="width: 104px; padding-top: 0px;">지도</span>
+	        <span id="btnSkyview" class="btn" onclick="setMapType('skyview')" style="width: 104px; padding-top: 0px;">스카이뷰</span>
 	    </div>
 	    <!-- 지도 확대, 축소 컨트롤 div 입니다 -->
 	    <div class="custom_zoomcontrol radius_border"> 
-	        <span onclick="zoomIn()">+</span>  
-	        <span onclick="zoomOut()">-</span>
+	        <span onclick="zoomIn()" style="padding-top: 8px;padding-right: 2px;">+</span>  
+	        <span onclick="zoomOut()" style="padding-top: 8px;padding-right: 2px;">-</span>
 	    </div>
 	    
 	  </div>
       		
 	 </div>
-		<p id="result"></p>
+		<p id="result" style="display:none;"></p>
 				
-		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=955e62645517faafe40085ecec08d0c1&libraries=services,clusterer,drawing"></script>
-		<script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=955e62645517faafe40085ecec08d0c1&libraries=services,clusterer,drawing"></script>
+<script>
 		
 			var detailaddress
 			var latitude
