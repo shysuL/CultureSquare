@@ -51,7 +51,6 @@ tr td:not(:first-child), tr th:not(:first-child) {
 }
 
 .src{
-	text-align: center;
 	width: 670px;
 }
 
@@ -68,12 +67,25 @@ color: #343a40;
 
 
 <div class="container list-container">
-<div class="h2"><h2> 공지사항 </h2></div>
+<div class="h2"><h2 style="margin-top: 40px; margin-bottom: 20px;"> 공지사항 </h2></div>
 <hr>
 <div class="row">
 <!-- 게시판 리스트 -->
 <div class="col-8">
 
+	<div class="src" >
+		<form action="/noticeboard/noticelist" method="get">
+		<select name="searchcategory" style="height: 30px;">
+		<option value="title">제목</option>
+	<!-- 	<option value="usernick">닉네임</option> -->
+	<!-- 	<option value="prname">게시판 유형</option> -->
+	</select>
+		<input id=search name="searchtarget" type="text" placeholder = "검색어 입력">
+		<button>검색</button>
+		</form>
+	</div>
+	<br>
+	
 <div style="background-color: #343a40; height: 50px;">
 	<i class="fas fa-list" style= "color: #ffff;margin-left: 18px;" title="게시글 번호"></i>
 	<i class="fas fa-heart" style= "color: #ffff;margin-left: 29px;" title="좋아요"></i>
@@ -86,9 +98,9 @@ color: #343a40;
 
 
 <c:forEach items = "${boardlist }" var = "noticelist">
-	<tr>
+	<tr onclick="location.href='/noticeboard/noticeview?boardno=${noticelist.boardno }';">
 <%-- 	<td><input type="checkbox" name="checkRow" value="${list.boardno }"/></td> --%>
-		<td style="color: #1a3a5a; width: 5%;">${noticelist.boardno }</td>
+		<td style="color: #1a3a5a; width: 5%;">${noticelist.rnum }</td>
 		<c:choose>
 			<c:when test="${noticelist.blike == 0}">
 				<td style="color: #1a3a5a; width: 5%;"></td>
@@ -97,7 +109,7 @@ color: #343a40;
 				<td style="color: #1a3a5a; width: 5%;">${noticelist.blike }</td>
 			</c:otherwise>
 		</c:choose>
-		<td style="color: #1a3a5a; width: 40%;"><a class="tit" href="/noticeboard/noticeview?boardno=${noticelist.boardno }">${noticelist.title }</a></td>
+		<td style="color: #1a3a5a; width: 40%;">${noticelist.title }</td>
 		<td style="color: #1a3a5a; width: 20%;">관리자</td>
 		<td style="color: #1a3a5a; width: 10%;">${noticelist.views }</td>
 		<td style="color: #1a3a5a; width: 20%;">${noticelist.writtendate }</td>
@@ -122,31 +134,21 @@ color: #343a40;
 
 <jsp:include page = "/WEB-INF/views/layout/freepaging.jsp" />
 
-<div class="src" >
-	<form action="/noticeboard/noticelist" method="get">
-	<select name="searchcategory" style="
-    height: 30px;">
-	<option value="title">제목</option>
-<!-- 	<option value="usernick">닉네임</option> -->
-<!-- 	<option value="prname">게시판 유형</option> -->
-</select>
-	<input id=search name="searchtarget" type="text" placeholder = "검색어 입력">
-	<button>검색</button>
-	</form>
-</div>
-
-
-
 </div>
 
 <!-- 사이드 리스트 -->
-<div class="col-4">
+<div class="col-4" style="margin-top: 54px;">
 
 	<div class="list-group" id="freeIntroduceTitle">
 	  <a class="list-group-item" id="freeIntroduceContent">공지사항</a>
-	  <a class="list-group-item tit">공지사항공지사항</a>
+	  <a class="list-group-item tit">
+	  	본 사이트 관리자가 방문해주신 여러분께 알려드립니다.<br>
+	  	저희 사이트를 이용하시기 전에 공지사항을 충분히 숙지하신 후 이용해주시길 바랍니다.
+	  	궁금하신 점이나 문의사항은 FAQ 또는 본 사이트의 관리자와 상담채팅을 통해 친절히 답변해드리겠습니다.
+	  	감사합니다.
+	  </a>
 	</div>
-	<br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br>
 	
 	<div class="list-group" id="freeRankTitle">
 	  <a class="list-group-item" id="freeRankContent">공지사항 최다 조회글</a>

@@ -530,7 +530,8 @@ public class ArtboardViewController {
 			pfboardService.deleteFile(list);
 		}
 		
-		
+		// 3. 지도 삭제
+		pfboardService.deleteLoc(board);
 		// 게시글 삭제( 삭제된 게시글로 UPDATE ) 
 		pfboardService.deletePF(board);
 		
@@ -558,6 +559,7 @@ public class ArtboardViewController {
 		//보드 번호 저장
 		int boardno = board.getBoardno();
 		
+		
 		//로그인 상태인 경우만 처리
 		if((String)session.getAttribute("usernick")!= null) {
 			
@@ -569,7 +571,22 @@ public class ArtboardViewController {
 			//전에 추천한적이 없다면
 			if(result == 0) {
 				pfboardService.follow(board);
+				
+				//알람테이블 삽입
+				Alram alram = new Alram();
+				alram.setAlramsender((String)session.getAttribute("usernick"));
+				alram.setAlramcontents("예술 팔로우!");
+				alram.setUserno(board.getUserno());
+				alram.setBoardno(boardno);
+				alram.setDonno(pfboardService.getFollowNo(board));
+				
+				pfboardService.insertfollowAlram(alram);
+				
 			}else {
+				
+				//알람 데이터 삭제
+				pfboardService.deleteFollowAlram(pfboardService.getFollowNo(board));
+				
 				pfboardService.followCancel(board);
 			}
 

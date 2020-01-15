@@ -1269,11 +1269,16 @@ span[class=close] {
 	display:none;
 }
 
+#Title {
+	background-color: #4b5055;
+	color: #fff;
+}
+
 </style>
 
 <div class="container">
 
-	<h3 id ="h3title">게시글 보기</h3>
+	<h3 id ="h3title" style="margin-top:40px; margin-bottom:20px;">PR 게시판</h3>
 
 	<div>
 			<table class="table table-bordered">

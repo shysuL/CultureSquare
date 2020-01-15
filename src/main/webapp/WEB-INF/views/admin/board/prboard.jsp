@@ -31,17 +31,17 @@
 	<div class="container" style="margin-top: 50px;">
 		<div class="innercon2">
 		<h3 style="text-align: center;">PR BOARD</h3>
-			<div class="src" style="text-align: right;">
-				<form action="/admin/main" method="get">
-					<select name="searchType"  style="padding-top: 4px; padding-bottom: 5px;">
-						<option value="title">제목</option>
-						<option value="usernick">닉네임</option>
-						<option value="prname">게시판 유형</option>
-					</select>
-					<input type="text" name="search" id="search"/>
-					<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button>
-				</form>
-			</div>
+<!-- 			<div class="src" style="text-align: right;"> -->
+<!-- 				<form action="/admin/main" method="get"> -->
+<!-- 					<select name="searchType"  style="padding-top: 4px; padding-bottom: 5px;"> -->
+<!-- 						<option value="title">제목</option> -->
+<!-- 						<option value="usernick">닉네임</option> -->
+<!-- 						<option value="prname">게시판 유형</option> -->
+<!-- 					</select> -->
+<!-- 					<input type="text" name="search" id="search"/> -->
+<!-- 					<button id="btnSearch" class="btn btn-secondary" style="text-align: right;">검색</button> -->
+<!-- 				</form> -->
+<!-- 			</div> -->
 			<br>
 			<form action="" method="get">
 				<table class="table table-hover">

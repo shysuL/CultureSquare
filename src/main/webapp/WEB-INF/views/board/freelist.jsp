@@ -52,7 +52,6 @@ tr td:not(:first-child), tr th:not(:first-child) {
 }
 
 .src{
-	text-align: center;
 	width: 670px;
 }
 
@@ -89,11 +88,25 @@ color: #343a40;
 
 <div class="container list-container">
 
-<div class="h2"><h2> 자유게시판 </h2></div>
+<div class="h2"><h2 style="margin-top: 40px; margin-bottom: 20px;"> 자유게시판 </h2></div>
 <hr>
 <div class="row">
 <!-- 게시판 리스트 -->
 <div class="col-8">
+
+	<div class="src" >
+		<form action="/board/freelist" method="get">
+		<select name="searchcategory" style="
+	    height: 30px;">
+		<option value="title">제목</option>
+		<option value="usernick">닉네임</option>
+	<!-- 	<option value="prname">게시판 유형</option> -->
+	</select>
+		<input id=search name="searchtarget" type="text" placeholder = "검색어 입력">
+		<button>검색</button>
+		</form>
+	</div>
+	<br>
 
 <div style="background-color: #343a40; height: 50px;">
 	<i class="fas fa-list" style= "color: #ffff;margin-left: 18px;" title="게시글 번호"></i>
@@ -105,25 +118,24 @@ color: #343a40;
 
 <table class="table table-border table-hover table-condesed table-stripe" style="color: #343a40;">
 
-
-<c:forEach items = "${boardlist }" var = "list">
-	<tr>
-<%-- 	<td><input type="checkbox" name="checkRow" value="${list.boardno }"/></td> --%>
-		<td style="color: #1a3a5a; width: 5%;">${list.boardno }</td>
-		<c:choose>
-			<c:when test="${list.blike == 0}">
-				<td style="color: #1a3a5a; width: 5%;"></td>
-			</c:when>
-			<c:otherwise>
-				<td style="color: #1a3a5a; width: 5%;">${list.blike }</td>
-			</c:otherwise>
-		</c:choose>
-		<td style="color: #1a3a5a; width: 40%;"><a class="tit" href="/board/freeview?boardno=${list.boardno }">${list.title }</a></td>
-		<td style="color: #1a3a5a; width: 20%;">${list.usernick }</td>
-		<td style="color: #1a3a5a; width: 10%;">${list.views }</td>
-		<td style="color: #1a3a5a; width: 20%;">${list.writtendate }</td>
-	</tr>
-</c:forEach>
+	<c:forEach items = "${boardlist }" var = "list">
+		<tr onclick="location.href='/board/freeview?boardno=${list.boardno }';">
+	<%-- 	<td><input type="checkbox" name="checkRow" value="${list.boardno }"/></td> --%>
+			<td style="color: #1a3a5a; width: 5%;">${list.rnum }</td>
+			<c:choose>
+				<c:when test="${list.blike == 0}">
+					<td style="color: #1a3a5a; width: 5%;"></td>
+				</c:when>
+				<c:otherwise>
+					<td style="color: #1a3a5a; width: 5%;">${list.blike }</td>
+				</c:otherwise>
+			</c:choose>
+			<td style="color: #1a3a5a; width: 40%;">${list.title }</td>
+			<td style="color: #1a3a5a; width: 20%;">${list.usernick }</td>
+			<td style="color: #1a3a5a; width: 10%;">${list.views }</td>
+			<td style="color: #1a3a5a; width: 20%;">${list.writtendate }</td>
+		</tr>
+	</c:forEach>
 
 </table>
 
@@ -143,31 +155,16 @@ color: #343a40;
 
 <jsp:include page = "/WEB-INF/views/layout/freepaging.jsp" />
 
-<div class="src" >
-	<form action="/board/freelist" method="get">
-	<select name="searchcategory" style="
-    height: 30px;">
-	<option value="title">제목</option>
-	<option value="usernick">닉네임</option>
-<!-- 	<option value="prname">게시판 유형</option> -->
-</select>
-	<input id=search name="searchtarget" type="text" placeholder = "검색어 입력">
-	<button>검색</button>
-	</form>
-</div>
-
-
-
 </div>
 
 <!-- 사이드 리스트 -->
-<div class="col-4">
+<div class="col-4" style="margin-top: 54px;">
 
 	<div class="list-group" id="freeIntroduceTitle">
 	  <a class="list-group-item" id="freeIntroduceContent">자유게시판 소개</a>
 	  <a class="list-group-item tit">모든 주제에 대해 여러사람들과 자유롭게 이용하는 게시판</a>
 	</div>
-	<br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br>
 	
 	<div class="list-group" id="freeRankTitle">
 	  <a class="list-group-item" id="freeRankContent">자유게시판 최다 조회글</a>

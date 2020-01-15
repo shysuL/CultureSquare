@@ -8,7 +8,7 @@
     mix-blend-mode: luminosity;
 }
 </style>
-<div class="container">
+<div class="container" style="margin-top: 40px; margin-bottom: 40px;">
 <div class="row">
 <div class="col-2"></div>
 <div class="col-8">
@@ -16,11 +16,15 @@
 <div class="h2"><h2> FAQ </h2></div>
 <hr>
 
+<p>본 사이트 이용 중 궁금하신 점들을 간략히 알려드립니다. <br>
+	더 자세한 문의사항이 필요하실 땐 고객상담을 이용해주세요.</p>
+
 <div class="accordion" id="accordionExample">
   <div class="card">
     <div class="card-header" id="headingOne">
       <h2 class="mb-0 fqa">
-        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" 
+        	aria-expanded="true" aria-controls="collapseOne" style="text-decoration: none;">
 		CALENDAL 페이지에서 글쓰기가 되지 않아요.
         </button>
       </h2>
@@ -38,7 +42,8 @@
   <div class="card">
     <div class="card-header" id="headingTwo">
       <h2 class="mb-0 fqa">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" 
+        	aria-expanded="false" aria-controls="collapseTwo" style="text-decoration: none;">
 		CALENDAL 페이지에서 대표 이미지 사진은 어떻게 올리나요? 
         </button>
       </h2>
@@ -56,7 +61,8 @@
   <div class="card">
     <div class="card-header" id="headingThree">
       <h2 class="mb-0 fqa">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" 
+        	aria-expanded="false" aria-controls="collapseThree" style="text-decoration: none;">
 		CALENDAL 공연 자료가 많아 원하는 공연을 찾기가 힘들어요.
         </button>
       </h2>
@@ -72,7 +78,8 @@
   <div class="card">
     <div class="card-header" id="headingFour">
       <h2 class="mb-0 fqa">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" 
+        	aria-expanded="false" aria-controls="collapseFour" style="text-decoration: none;">
 		PR 게시판은 어떻게 사용하나요?
         </button>
       </h2>
@@ -89,7 +96,8 @@
   <div class="card">
     <div class="card-header" id="headingFive">
       <h2 class="mb-0 fqa">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" 
+        	aria-expanded="false" aria-controls="collapseFive" style="text-decoration: none;">
 		예술인 신청을 하고 싶은데 어디에서 해야하나요?
         </button>
       </h2>

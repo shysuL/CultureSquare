@@ -60,11 +60,29 @@ a {
 	font-family:'KHNPHU';
 }
 
+#top {
+    position: fixed;
+    right: 7%;
+    bottom: 100px;
+    z-index: 999;
+    font-size: 20px;
+    text-decoration: none;
+    width: 108px;
+    height: 70px;
+    text-align: center;
+    padding-bottom: 10px;
+    background-color: #5b5f63;
+    color: #fff;
+    padding-top: 21px;
+    border-radius: 33px;
+}
+
 </style>
 
 </head>
 <body class="adminbody">
-
+	
+	<a id="top" href="https://desk.channel.io/#/channels/18967/user_chats" target="_blank">고객상담</a>
 <!-- 메인이미지 -->
 <nav class="navbar navbar-dark bg-dark center">
 	<div class="cropping">

@@ -36,29 +36,26 @@
 	bottom: 5px;
 }
 
-
 </style>
 
-
 <div class="container list-container">
-<div class="h2"><h2> 공지사항 </h2></div>
-<hr>
+
+<div class="h2">
+	<h2 style="text-align: center; margin-top:50px; margin-bottom: 50px;"> 공지사항 </h2>
+</div>
+
 <div class="container">
 	<table class="table table-bordered">
 		<tr>
 
-			<td style="background-color: #343a40; color: #fff;" colspan="4">${ntboard.title }</td>
+			<td style="background-color: #343a40; color: #fff; text-align: center;" colspan="4" >${ntboard.title }</td>
 		</tr>
 	
 		<tr>
-			
-			<td colspan="1" style="width: 45%; padding-top: 16px;"><i class="far fa-user" style="padding-right: 10px"></i>${ntboard.usernick }</td>
-			<td colspan="1" style="width: 25%; padding-top: 16px;"><i class="far fa-clock" style="padding-right: 10px"></i>${ntboard.writtendate }</td>
-
+			<td colspan="1" style="width: 45%; padding-top: 16px;"><i class="far fa-user" style="padding-right: 10px"></i>관리자</td>
 			<td colspan="1" style="width: 15%; padding-top: 16px;"><i class="fas fa-eye" style="padding-right: 5px; width: 3.125em;"></i>${ntboard.views }</td>
-			<td colspan="1" style="width: 15%; padding-top: 14px; padding-left: 28px;" id="recommendtd"  ></td>
+			<td colspan="1" style="width: 25%; padding-top: 16px;"><i class="far fa-clock" style="padding-right: 10px"></i>${ntboard.writtendate }</td>
 		</tr>
-
 	
 		<tr>
 			<td colspan="4" style="height: 500px;">${ntboard.contents }</td>

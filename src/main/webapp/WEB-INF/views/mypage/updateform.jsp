@@ -112,47 +112,93 @@ $(document).ready(function(){
 </script>  
     
 <style type="text/css">
-#updateform {
-	margin-bottom: 3%; 
-	margin-top: 3%; 
-	margin-left: 30%;
-	margin-right: 30%;
-	border: 1px solid #ccc;
-	padding-top: 2%;
-	padding-bottom: 2%;
+.form-group{
+
+	margin-bottom:5%;
+
 }
 
-#updateform2 {
-	width: 500px;
-/* 	margin-left: 300px; */
-/* 	margin-right: 300px; */
+.form-group2{
+
+	margin-bottom:10%;
+
+}
+
+#joinName{
+
+    text-align: center;
+    padding: 1.5%;
+   
+    color:  #343a40;
+}
+
+.container{
+	margin-top: 2%;
+}
+
+.ftd{
+
+}
+.btd{
+
 }
 </style>
 
-<div class="container container-center">
-	<div class="container text-center">
-		<h4 id="updateform">개인정보 수정</h4>
-	</div>
+<div class="container" style=" width: 900px;">
 	
 	<form action="/mypage/updateform" method="post" id="updateinfoform">
-		<div class="container container-center" id="updateform2">
+		<br>
+		<div style="border: 1px solid #ddd;" >
+         	<h2  id="joinName">개인정보 수정</h2>
+        </div>
+		<br><br>
+		
+	<div class="row">
+
+	
+	
+	
+	
+      <div class="col-8" >	
+	
+		<div class="container container-center" id="updateform2" style="font-size: 20px;">
 			<input type="hidden" name = "userno" value="${getUser.userno }"/>
 			
-			<label>이름 &nbsp;:&nbsp;</label>${getUser.username }<br>
+			<table style="height: 400px;width: 600px;">
 			
-			<label>성별 &nbsp;:&nbsp;</label>${getUser.usergender }<br>
+			<tr>
+				<td class="ftd"><label><strong>이름</strong></label></td>
+				<td class="btd">${getUser.username }</td>
+			</tr>
 			
-			<label>생년월일 &nbsp;:&nbsp;</label>${getUser.userbirth }<br>
+			<tr>
+				<td class="ftd"><label><strong>성별</strong></label></td>
+				<td class="btd">${getUser.usergender }</td>
+			</tr>
 			
-			<label>아이디 &nbsp;:&nbsp;</label>${getUser.userid }<br>
+			<tr>
+				<td class="ftd"><label><strong>생년월일</strong></label></td>
+				<td class="btd">${getUser.userbirth }</td>
+			</tr>
 			
-			<label>닉네임 &nbsp;:&nbsp;</label><input type="text" id="usernick" name="usernick" value="${getUser.usernick }"/>
-			<div class="check-font" id="nick_check"></div><br>
+			<tr>
+				<td class="ftd"><label><strong>아이디</strong></label></td>
+				<td class="btd">${getUser.userid }</td>
+			</tr>
 			
-			<label>전화번호 &nbsp;:&nbsp;</label><input type="text" id="userphone" name = "userphone" value="${getUser.userphone }"/>
-			<small>&emsp;'-'없이 번호만 입력해주세요.</small>
-			<div class="check_font" id="phone_check"></div><br>
+			<tr>
+				<td class="ftd"><label><strong>닉네임</strong></label></td>
+				<td class="btd"><input type="text" id="usernick" name="usernick" value=" ${getUser.usernick }"/>
+					<div class="check-font" id="nick_check"></div></td>
+			</tr>
 			
+			<tr>
+				<td class="ftd"><label><strong>전화번호</strong></label></td>
+				<td class="btd"><input type="text" id="userphone" name = "userphone" value=" ${getUser.userphone }"/>
+				<small>'-'없이 번호만 입력해주세요.</small>
+				<div class="check_font" id="phone_check"></div></td>
+			</tr>
+			</table>
 <!-- 			<div class="form-group"> -->
 <!--            		<label>관심분야</label> -->
 <%-- 	           		<c:forEach items="${list}" var="check"> --%>
@@ -193,12 +239,31 @@ $(document).ready(function(){
 <%-- 			                </c:if> --%>
 <%-- 				</c:forEach>       		 --%>
 <!-- 			</div> -->
+			
+		</div>
+		</div>
+		
+		<div class="col-4">
+			<div>
+				<div class="list-group" >
+		  		<a class="list-group-item" id="pfIntroduceContent">개인정보 수정 안내</a>
+		  		<a class="list-group-item tit" style="font-size: 14px">
+		  			Culture Square의 대표 닉네임과<br>
+		 		  	전화번호를 수정하실 수 있습니다.</a>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		</div>
+	</form>
+		<br><br>
 			<div style="text-align: center;">
 				<button type="button" id="updatesuccess" class="btn btn-dark">수정 완료</button>
 				<button type="button" id="updatecancel" class="btn btn-danger" >수정 취소</button>
 			</div>
-		</div>
-	</form>
+	<br>
 	
 	
 	

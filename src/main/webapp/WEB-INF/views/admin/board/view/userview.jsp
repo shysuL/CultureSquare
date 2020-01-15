@@ -318,6 +318,13 @@ span[class=close] {
 	</table>
                    
 </div>
+
+	<div class="container" style ="margin-top: 15px; margin-bottom: 50px;">
+		<div class="text-center">	
+			<button onclick="location.href='/admin/main';" class="btn btn-secondary">메인</button>
+		</div>
+	</div>
+
 <br>
 </div>
 
