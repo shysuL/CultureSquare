@@ -221,37 +221,37 @@ function fn_fileAdd(){
 			<div id = "performradio"> 
 				<span class="radio">
 			  		<label>
-			   			<input type="radio" name="performname"  value="버스킹" checked>버스킹
+			   			<input type="radio" name="performname"  value="버스킹"  <c:if test='${view.performname eq "버스킹"}'>checked</c:if>>버스킹
 			 		</label>
 				</span>&nbsp;
 				<span class="radio">
 					<label>
-						<input type="radio" name="performname"  value="전시회">전시회
+						<input type="radio" name="performname"  value="전시회" <c:if test='${view.performname eq "전시회"}'>checked</c:if>>전시회
 					</label>
 				</span>&nbsp;
 				<span class="radio">
 					<label>
-						<input type="radio" name="performname"  value="연극">연극
+						<input type="radio" name="performname"  value="연극" <c:if test='${view.performname eq "연극"}'>checked</c:if>>연극
 					</label>
 				</span>&nbsp;
 				<span class="radio">
 					<label>
-						<input type="radio" name="performname"  value="뮤지컬">뮤지컬
+						<input type="radio" name="performname"  value="뮤지컬" <c:if test='${view.performname eq "뮤지컬"}'>checked</c:if>>뮤지컬
 					</label>
 				</span>&nbsp;
 				<span class="radio">
 					<label>
-						<input type="radio" name="performname"  value="콘서트">콘서트
+						<input type="radio" name="performname"  value="콘서트" <c:if test='${view.performname eq "콘서트"}'>checked</c:if>>콘서트
 					</label>
 				</span>&nbsp;
 				<span class="radio">
 					<label>
-						<input type="radio" name="performname"  value="행사">행사
+						<input type="radio" name="performname"  value="행사" <c:if test='${view.performname eq "행사"}'>checked</c:if>>행사
 					</label>
 				</span>&nbsp;
 				<span class="radio">
 					<label>
-						<input type="radio" name="performname"  value="축제">축제
+						<input type="radio" name="performname"  value="축제" <c:if test='${view.performname eq "축제"}'>checked</c:if>>축제
 					</label>
 				</span>
 		
