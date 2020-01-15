@@ -30,8 +30,25 @@ $(document).ready(function() {
 	$("#btnWrite").click(function() {
 		// 스마트에디터 내용 <textarea>에 적용
 		submitContents( $("#btnWrite"));
-		// form submit
-		$("form").submit();
+		
+		if($("#title").val() == ""){
+			 $(".content").text("제목을 입력해주세요");
+	         $("#freeWriteErrorModal").modal({backdrop: 'static', keyboard: false});
+	         
+		} else if($("#content").val() == "<p><br></p>") {
+	         $(".content").text("내용을 입력해주세요");
+	         $("#freeWriteErrorModal").modal({backdrop: 'static', keyboard: false});
+	    } else{
+	         $(".content").text("작성이 완료되었습니다.");
+	         $("#freeWriteErrorModal").modal({backdrop: 'static', keyboard: false});
+	         
+	         $("#freeWriteErrorModalBtn").click(function(){
+				// form submit
+				$("form").submit();
+	         })
+	    	
+		
+	    }
 	});
 	
 	//취소버튼 동작
@@ -66,7 +83,7 @@ color: #343a40;
 						<td class="info" colspan="2">공지사항 제목</td>
 					</tr>
 					<tr>
-						<td colspan="2" style="text-align: center;"><input type="text" name="title" style="width: 95%" /></td>
+						<td colspan="2" style="text-align: center;"><input type="text" name="title" id="title" style="width: 95%" /></td>
 					</tr>
 					<tr>
 						<td class="info" colspan="2">공지사항 내용</td>
@@ -101,6 +118,29 @@ color: #343a40;
 	</div>
 </div>
 
+<!-- 게시글 작성 오류 모달-->
+<div class="modal fade" id="freeWriteErrorModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">공지사항 작성</h4>
+        <button id="freeLikeLoginX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="freeWriteErrorModalBtn"class="btn btn-secondary" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 
 <!-- 스마트 에디터 적용 코드 ( textarea 아래 작성 )-->

@@ -40,7 +40,7 @@
 				
 				<tbody>
 					<c:forEach items="${permitlist }" var="permitlist">
-						<tr style="text-align: center;">
+						<tr style="text-align: center;" onclick="location.href='/artboard/view?boardno=${permitlist.BOARDNO }';" >
 							<td>${permitlist.RNUM }</td>
 							<td>${permitlist.TITLE }</td>
 							<td>${permitlist.RECIVE }</td>
