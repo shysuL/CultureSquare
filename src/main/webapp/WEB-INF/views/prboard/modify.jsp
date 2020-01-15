@@ -28,14 +28,23 @@
 	var g_count =1;
 	$(document).ready(function() {
 		
+		
 		//작성버튼 동작
 		$("#btnModify").click(function() {
 
 			// 스마트에디터의 내용을 <textarea>에 적용
 			submitContents($("#btnModify"));
 			
-			// form submit
-			$("form").submit();
+		    if($("#title").val() == ""){
+		          $("#prupdateErrorModal").modal({backdrop: 'static', keyboard: false});
+		       }
+		       else if($("#content").val() == "<p><br></p>") {
+		          $("#prupdateErrorModalC").modal({backdrop: 'static', keyboard: false});
+		       }
+		       else{
+				// form submit
+				$("form").submit();
+		       }
 		});
 
 		//취소버튼 동작
@@ -118,7 +127,7 @@
 				</tr>
 				<tr>
 					<td class="info" id="titleTitle">제목</td>
-					<td><input type="text" name="title" style="width: 100%" value="${viewBoard.title }"/></td>
+					<td><input type="text" id = "title" name="title" style="width: 100%" value="${viewBoard.title }"/></td>
 				</tr>
 				<tr>
 					<td class="info" colspan="2" id="contentTitle">내용</td>
@@ -152,6 +161,55 @@
 		<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
 	</div>
 </div>
+
+<div class="modal fade" id="prupdateErrorModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+     <div class="modal-header">
+        <h4 class="modal-title">PR 게시글 수정 불가!</h4>
+        <button id="freeWriteErrorModalX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	제목을 입력해 주세요!
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="prupdateErrorBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="prupdateErrorModalC">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+     <div class="modal-header">
+        <h4 class="modal-title">PR 게시글 수정 불가!</h4>
+        <button id="freeWriteErrorModalCX" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body content">
+      	내용을 입력해 주세요!
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" id="freeWriteErrorCBtn"class="btn btn-danger" data-dismiss="modal">확인</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- 컨테이너 -->
 
 <jsp:include page="../layout/footer.jsp" />
