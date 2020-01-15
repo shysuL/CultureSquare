@@ -677,6 +677,11 @@ img[class=culture]{min-height: 100%; max-width: 100%; }
     font-size: 20px;
     text-decoration: none;
 }
+#mypage{
+	width: 195px;
+    margin-bottom: 10px;
+}
+
 </style>
 
 </head>
