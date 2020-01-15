@@ -73,7 +73,7 @@ $(document).ready(function() {
 						
 					//비밀번호 틀린경우
 						if(!res.lock){
-							$('#showmsg').text('비밀번호를 확인해 주세요')
+							$('#showmsg').text('현재 비밀번호를 확인해 주세요')
 							$('#showmsg').css('color', 'red')
 							$("#updatePw").attr("disabled", true);
 							$("#userpw").focus();
@@ -82,7 +82,7 @@ $(document).ready(function() {
 					
 					//맞은 경우
 						else{
-							$('#showmsg').text('비밀번호가 일치합니다.')
+							$('#showmsg').text('현재 비밀번호가 일치합니다.')
 							$('#showmsg').css('color', 'green')
 							
 							cur_Check = true;
@@ -150,13 +150,13 @@ $(document).ready(function() {
 			pw_Check2 = false;
 			
 		} else if ($('#changepw').val() != $(this).val()){
-			$('#pw_check2').text('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
+			$('#pw_check2').text('변경할 비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
 			$('#pw_check2').css('color', 'red');
 			$("#updatePw").attr("disabled", true);
 			pw_Check2 = false;
 			
 		} else {
-			$('#pw_check2').text('비밀번호가 일치합니다.');
+			$('#pw_check2').text('변경할 비밀번호가 일치합니다.');
 			$('#pw_check2').css('color', 'green');
 			pw_Check2 = true;
 			
