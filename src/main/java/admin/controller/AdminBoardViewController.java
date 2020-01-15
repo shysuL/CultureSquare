@@ -259,7 +259,8 @@ public class AdminBoardViewController {
 		
 		logger.info("되냐!?");
 		
-		user.setUserno((Integer)session.getAttribute("userno"));
+//		user.setUserno((Integer)session.getAttribute("userno"));
+		user.setUserno(user.getUserno());
 		
 		adminService.updatepermit(user);
 		
@@ -271,11 +272,11 @@ public class AdminBoardViewController {
 	public String downpermit(HttpSession session, User_table user) {
 		logger.info("다운되냐1");
 		
-		user.setUserno((Integer)session.getAttribute("userno"));
+		user.setUserno(user.getUserno());
 		
 		adminService.downpermit(user);
 		
-		logger.info("다운되냐2");
+		logger.info("다운되냐2" + user);
 		
 		return "redirect:/admin/main";
 	}

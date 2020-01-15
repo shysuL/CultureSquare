@@ -400,6 +400,7 @@ span[class=close] {
       <div class="modal-footer">
       	<form action="/admin/user/mgrpermit" method="post">
         	<button type="submit" class="btn btn-secondary" style="float: right;">확인</button>
+        	<input name = "userno" type="hidden" value="${userinfo.userno }">
       	</form>
       </div>
 
@@ -453,6 +454,7 @@ span[class=close] {
       <div class="modal-footer">
       	<form action="/admin/user/downPermit" method="post">
         	<button type="submit" id="userPermitDownBtn" class="btn btn-dark" style="float: right;">확인</button>
+        	<input name = "userno" type="hidden" value="${userinfo.userno }">
         </form>
       </div>
 
