@@ -8,8 +8,9 @@
  - Server : Apache Tomcat 9.0.27
  - 프레임워크 : Spring Framework, MyBatis Framework
  - Spring-Version : Spring Tools 3 (Standalone Edition) 3.9.10 RELEASE
- - Language : Java, HTML5, CSS, Javascript, jQuery, Servlet
+ - Language : Java, HTML5, CSS, Javascript, jQuery, Servlet, AJAX
  - 디자인 툴 : Bootstrap
+ - 형상/버전관리 : Github, Eclipse-git
 
 ## 기획
  - [정의서 & 명세서](https://docs.google.com/spreadsheets/d/167e-6j4eUluj4cIkcDfRDHG3Jqw5w-OQQ9IDYHTfay8/edit?usp=sharing)
