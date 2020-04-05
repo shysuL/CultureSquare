@@ -8,6 +8,7 @@
 <style type="text/css">
 .float-container {
 	width: 270px;
+	height: 480px;
 	border: 1px solid #ccc;
 	float: left;
 	text-aligin: center;
