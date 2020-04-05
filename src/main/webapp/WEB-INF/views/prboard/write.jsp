@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+  <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -17,7 +17,6 @@
 	function submitContents(elClickedObj) {
 		// 에디터의 내용이 textarea에 적용된다.
 		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
-
 		try {
 			elClickedObj.form.submit(); // <form> submit 수행
 		} catch (e) {
@@ -31,7 +30,6 @@
 		
 		//작성버튼 동작
 		$("#btnWrite").click(function() {
-
 			// 스마트에디터의 내용을 <textarea>에 적용
 			submitContents($("#btnWrite"));
 			
@@ -46,7 +44,6 @@
 				$("form").submit();
 		       }
 		});
-
 		//취소버튼 동작
 		$("#btnCancel").click(function() {
 			history.go(-1);
@@ -82,20 +79,15 @@
 #content {
 	width: 95%;
 }
-
-
 #h3title {
 	text-align: center;
 	padding: 20px;
 }
-
 #contentTitle {
 }
-
 #prType{
 	height: 35px;
 }
-
 }
 </style>
 
