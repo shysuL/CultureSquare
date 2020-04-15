@@ -22,3 +22,4 @@
  - [클래스 다이어그램](https://drive.google.com/file/d/1UjhxlexjYKG27VQoSMCH1Zv0-1Si7s58/view?usp=sharing)
  - [시퀀스 다이어그램](https://drive.google.com/file/d/13o5Hlct6fBiOClBDSkQv2AVEdnlB9bjU/view?usp=sharing)
  - [프레젠테이션](https://docs.google.com/presentation/d/14epewdQK--uipvAOKSmaIV7I4HzRtXffyAeOtkIrKiY/edit#slide=id.p1)
+ - [Trello](https://trello.com/b/y3QVvoQX/final)
